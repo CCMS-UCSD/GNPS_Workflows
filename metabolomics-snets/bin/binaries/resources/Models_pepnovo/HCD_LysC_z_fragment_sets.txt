@@ -1,0 +1,316 @@
+#FRAGMENT SETS
+4 0 2 8 0.0036317
+y         0.6555  
+y-H2O     0.2558  
+y-NH3     0.1605  
+b         0.1305  
+b-H2O     0.0358  
+b-NH3     0.02723  
+y2        0.02512  
+a         0.01959  
+strong 2 y y-H2O
+combos 3
+y y-NH3 |
+y-H2O y |
+y b |
+
+4 0 1 8 0.0036317
+y         0.5054  
+b         0.2695  
+y-H2O     0.09841  
+b-H2O     0.08677  
+y2        0.08076  
+a         0.06343  
+y-NH3     0.04539  
+b-NH3     0.03713  
+strong 2 y b
+combos 3
+y y2 |
+b b-H2O |
+y y-H2O |
+
+4 0 0 8 0.0036317
+y         0.5792  
+b         0.5788  
+a         0.2723  
+y-H2O     0.2371  
+b-H2O     0.1575  
+y-NH3     0.08939  
+b-NH3     0.08203  
+y2        0.05845  
+strong 2 y b
+combos 3
+b a |
+b b-H2O |
+b b-NH3 |
+
+3 1 2 8 0.0044988
+y         0.7837  
+b         0.3529  
+y-H2O     0.3254  
+y-NH3     0.2155  
+b-H2O     0.08066  
+a         0.04911  
+b-NH3     0.03833  
+y2        0.01235  
+strong 2 y b
+combos 3
+y y-H2O |
+y y-NH3 |
+y b-NH3 |
+
+3 1 1 8 0.0044988
+y         0.556  
+b         0.3735  
+b-H2O     0.09005  
+a         0.07235  
+y2        0.06888  
+y-H2O     0.06124  
+y-NH3     0.04465  
+b-NH3     0.03738  
+strong 2 y b
+combos 3
+b b-H2O |
+b y2 |
+y y2 |
+
+3 1 0 8 0.0044988
+b         0.6695  
+y         0.5698  
+a         0.3322  
+y-H2O     0.2337  
+b-H2O     0.2183  
+b-NH3     0.1095  
+y-NH3     0.07729  
+y2        0.04152  
+strong 2 b y
+combos 3
+b a |
+b b-NH3 |
+b y2 |
+
+3 0 2 8 0.0044988
+y         0.8991  
+y-H2O     0.5676  
+y-NH3     0.4512  
+b         0.1394  
+b-H2O     0.05691  
+a         0.04458  
+b-NH3     0.03687  
+y2        0.016  
+strong 2 y y-H2O
+combos 3
+y y-NH3 |
+y-H2O y |
+y b |
+
+3 0 1 8 0.0044988
+y         0.8056  
+b         0.3655  
+y-H2O     0.2403  
+y-NH3     0.1646  
+b-H2O     0.1552  
+a         0.1321  
+b-NH3     0.08974  
+y2        0.07207  
+strong 2 y b
+combos 3
+b y |
+b b-H2O |
+y y-H2O |
+
+3 0 0 8 0.0044988
+y         0.721  
+b         0.6932  
+a         0.495  
+y-H2O     0.4149  
+b-H2O     0.2146  
+b-NH3     0.1186  
+y-NH3     0.1156  
+y2        0.04538  
+strong 2 y b
+combos 3
+b a |
+b b-NH3 |
+b b-H2O |
+
+2 1 2 8 0.0055694
+y         0.879  
+y-H2O     0.5307  
+b         0.5203  
+y-NH3     0.3827  
+b-H2O     0.1711  
+a         0.1178  
+b-NH3     0.08856  
+y2        0.01642  
+strong 3 y y-H2O b
+combos 3
+y y-NH3 |
+y-H2O y |
+y-H2O y-NH3 |
+
+2 1 1 8 0.0055694
+y         0.7726  
+b         0.5586  
+b-H2O     0.1953  
+y-H2O     0.181  
+a         0.1633  
+y-NH3     0.1581  
+b-NH3     0.1103  
+y2        0.0385  
+strong 2 y b
+combos 3
+b y |
+b b-H2O |
+y y-NH3 |
+
+2 1 0 8 0.0055694
+b         0.7142  
+y         0.5412  
+a         0.4562  
+y-H2O     0.3191  
+b-H2O     0.2779  
+b-NH3     0.1653  
+y-NH3     0.1323  
+y2        0.05756  
+strong 2 b y
+combos 3
+b a |
+b b-H2O |
+b b-NH3 |
+
+2 0 2 8 0.0055694
+y         0.9353  
+y-H2O     0.7281  
+y-NH3     0.5913  
+b         0.436  
+b-H2O     0.14  
+a         0.1263  
+b-NH3     0.1068  
+y2        0.02153  
+strong 4 y y-H2O y-NH3 b
+combos 3
+b y |
+y-H2O y |
+y a |
+
+2 0 1 8 0.0055694
+y         0.9076  
+b         0.5476  
+y-H2O     0.3425  
+y-NH3     0.2348  
+b-H2O     0.2129  
+a         0.1605  
+b-NH3     0.1306  
+y2        0.0457  
+strong 2 y b
+combos 3
+b y |
+y y-H2O |
+y b-H2O |
+
+2 0 0 8 0.0055694
+y         0.8319  
+a         0.7749  
+b         0.7374  
+y-H2O     0.4382  
+y-NH3     0.298  
+b-H2O     0.2081  
+b-NH3     0.1558  
+y2        0.07994  
+strong 3 y a b
+combos 3
+b b-H2O |
+a b |
+b y |
+
+1 1 2 8 0.0055694
+y         0.879  
+y-H2O     0.5307  
+b         0.5203  
+y-NH3     0.3827  
+b-H2O     0.1711  
+a         0.1178  
+b-NH3     0.08856  
+y2        0.01642  
+strong 3 y y-H2O b
+combos 3
+y y-NH3 |
+y-H2O y |
+y-H2O y-NH3 |
+
+1 1 1 8 0.0055694
+y         0.7726  
+b         0.5586  
+b-H2O     0.1953  
+y-H2O     0.181  
+a         0.1633  
+y-NH3     0.1581  
+b-NH3     0.1103  
+y2        0.0385  
+strong 2 y b
+combos 3
+b y |
+b b-H2O |
+y y-NH3 |
+
+1 1 0 8 0.0055694
+b         0.7142  
+y         0.5412  
+a         0.4562  
+y-H2O     0.3191  
+b-H2O     0.2779  
+b-NH3     0.1653  
+y-NH3     0.1323  
+y2        0.05756  
+strong 2 b y
+combos 3
+b a |
+b b-H2O |
+b b-NH3 |
+
+1 0 2 8 0.0055694
+y         0.9353  
+y-H2O     0.7281  
+y-NH3     0.5913  
+b         0.436  
+b-H2O     0.14  
+a         0.1263  
+b-NH3     0.1068  
+y2        0.02153  
+strong 4 y y-H2O y-NH3 b
+combos 3
+b y |
+y-H2O y |
+y a |
+
+1 0 1 8 0.0055694
+y         0.9076  
+b         0.5476  
+y-H2O     0.3425  
+y-NH3     0.2348  
+b-H2O     0.2129  
+a         0.1605  
+b-NH3     0.1306  
+y2        0.0457  
+strong 2 y b
+combos 3
+b y |
+y y-H2O |
+y b-H2O |
+
+1 0 0 8 0.0055694
+y         0.8319  
+a         0.7749  
+b         0.7374  
+y-H2O     0.4382  
+y-NH3     0.298  
+b-H2O     0.2081  
+b-NH3     0.1558  
+y2        0.07994  
+strong 3 y a b
+combos 3
+b b-H2O |
+a b |
+b y |
+

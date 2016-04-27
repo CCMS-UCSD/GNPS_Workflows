@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+	 	<url value="{livesearch.download}"/>
+	 	<query name="task" valueRef="@task" />
+        <query name="user" valueRef="@user"/>
+	 	<compression type="zip" />
+		<download port="spec" type="folder">
+			<query name="resource" value="spec"/>
+		</download>
+		<download port="params" type="file">
+			<query name="resource" value="params"/>
+		</download>
+		<download port="lib" type="folder">
+			<query name="resource" value="lib"/>
+		</download>
+                <downloadParams>
+                        <query name="resource" value="params"/>
+                </downloadParams>
+
+	</bind>
+
+	<bind action="convertpklbin" tool="convertpklbin_molecular">
+		<inputAsRequirement port="spectra"             requirement="spectra"/>
+		<productionToOutput port="convertedspectra"    production="convertedspectra"/>
+	</bind>
+
+	<bind action="searchlibraryparamgeneration" tool="LibrarySearchParamGeneration_Molecular">
+            <inputAsRequirement port="spec"       requirement="spec"/>
+            <inputAsRequirement port="params" requirement="flowParams"/>
+            <inputAsRequirement port="lib" 	  	  requirement="library"/>
+            <productionToOutput port="paramsgen"     production="paramsgen"/>
+	</bind>
+
+
+	<bind action="searchlibrarysearch_molecular" tool="LibrarySearchParallel_Molecular">
+            <inputAsRequirement port="spec"       requirement="spec"/>
+            <inputAsRequirement port="paramsgen" requirement="flowParams"/>
+            <inputAsRequirement port="lib"                requirement="library"/>
+            <productionToOutput port="intermediateresults"     production="result"/>
+        </bind>
+
+
+        <bind action="searchlibrarymerge" tool="LibrarySearchMerge_Molecular">
+            <inputAsRequirement port="params"       requirement="flowParams"/>
+            <inputAsRequirement port="intermediateresults" requirement="intermediateresults"/>
+            <productionToOutput port="result"     production="result"/>
+            <productionToOutput port="pairsbin"     production="pairsbin"/>
+        </bind>
+
+        <bind action="get_dbannotations" tool="GetDBAnnotations_Molecular">
+                <inputAsRequirement port="result"             requirement="result"/>
+                <productionToOutput port="DB_result"           production="DB_result"/>
+        </bind>
+
+
+
+	<bind action="end" type="upload">
+	 	<url value="{livesearch.upload}"/>
+	 	<query name="task" valueRef="@task"/>
+	 	<contentQuery name="content"/>
+	 	<compression type="zip"/>
+		<upload port="result" type="file">
+			<query name="resource" value="result"/>
+		</upload>
+		<upload port="pairsbin" type="file">
+                        <query name="resource" value="pairsbin"/>
+                </upload>
+                <upload port="DB_result" type="file">
+                        <query name="resource" value="DB_result"/>
+                </upload>
+	</bind>
+</binding>

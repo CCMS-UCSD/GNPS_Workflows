@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="metabolomics-snets" version="1.2.5">
+	<workflow-id>METABOLOMICS-SNETS</workflow-id>
+	<workflow-label>Molecular Networking</workflow-label>
+	<parameters>
+		<parameter name="desc" label="Description">
+			<validator type="length" maximum="1024"/>
+		</parameter>
+		<parameter name="email" label="Email">
+			<validator type="email"/>
+		</parameter>
+		<!-- Search file parameters -->
+		<parameter name="spec_on_server" label="Spectrum Files (Required)">
+			<validator type="required"/>
+			<fileGenerator type="upload" purpose="spectrum" target="spec"/>
+		</parameter>
+
+		<parameter name="spec_on_server_group2" label="Spectrum Files G2">
+			<fileGenerator type="upload" purpose="parameters" target="spectwo"/>
+		</parameter>
+
+		<parameter name="spec_on_server_group3" label="Spectrum Files G3">
+			<fileGenerator type="upload" purpose="parameters" target="specthree"/>
+		</parameter>
+
+		<parameter name="spec_on_server_group4" label="Spectrum Files G4">
+			<fileGenerator type="upload" purpose="parameters" target="specfour"/>
+		</parameter>
+
+		<parameter name="spec_on_server_group5" label="Spectrum Files G5">
+			<fileGenerator type="upload" purpose="parameters" target="specfive"/>
+		</parameter>
+
+		<parameter name="spec_on_server_group6" label="Spectrum Files G6">
+			<fileGenerator type="upload" purpose="parameters" target="specsix"/>
+		</parameter>
+
+
+		<parameter name="groupmapping" label="Group Mapping">
+			<fileGenerator type="upload" purpose="parameters" target="groupmapping"/>
+		</parameter>
+
+		<parameter name="attributemapping" label="Attribute Mapping">
+			<fileGenerator type="upload" purpose="parameters" target="attributemapping"/>
+		</parameter>
+
+
+		<parameter name="library_on_server" label="Spectral Library">
+			<fileGenerator type="upload" purpose="library" target="lib"/>
+			<default value="d.speclibs;d.staticlibs/Massbank;d.staticlibs/ReSpect;"/>
+		</parameter>
+
+
+		<!-- Basic MS parameters -->
+		<parameter name="tolerance.PM_tolerance" label="Parent Mass Tolerance">
+			<default value="2.0"/>
+			<validator type="float" minimum="0" maximum="2.5"/>
+		</parameter>
+		<parameter name="tolerance.Ion_tolerance" label="Ion Tolerance">
+			<default value="0.5"/>
+			<validator type="float" minimumExclusive="0" maximumExclusive="1"/>
+		</parameter>
+
+		<parameter name="PAIRS_MIN_COSINE" label="Min Pairs Cos">
+			<default value="0.7"/>
+			<validator type="float" minimumExclusive="0" maximum="1"/>
+		</parameter>
+
+		<parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
+			<default value="6"/>
+			<validator type="integer" minimumExclusive="0" maximum="500"/>
+		</parameter>
+
+
+		<parameter name="TOPK" label="Network TopK">
+			<default value="10"/>
+		</parameter>
+
+		<parameter name="CLUSTER_MIN_SIZE" label="Minimum Cluster Size">
+			<validator type="required"/>
+			<default value="2"/>
+		</parameter>
+
+		<parameter name="MAXIMUM_COMPONENT_SIZE" label="Maximum Connected Component Size (Beta)">
+			<default value="100"/>
+			<validator type="integer" minimumExclusive="-1" maximum="100000"/>
+		</parameter>
+
+		<parameter name="MIN_PEAK_INT" label="Minimum Peak Intensity">
+			<default value="0.0"/>
+		</parameter>
+
+		<parameter name="FILTER_STDDEV_PEAK_INT" label="Filter below Std Dev">
+			<default value="0.0"/>
+		</parameter>
+
+		<parameter name="RUN_MSCLUSTER" label="Run MSCluster">
+			<default value="on"/>
+		</parameter>
+
+		<parameter name="FILTER_PRECURSOR_WINDOW" label="Filter Precursor Window">
+			<options>
+				<option value="1" label="Filter"/>
+				<option value="0" label="Don't Filter"/>
+			</options>
+			<validator type="set"/>
+			<default value="1"/>
+		</parameter>
+
+		<parameter name="FILTER_LIBRARY" label="Filter Library">
+			<options>
+				<option value="0" label="Don't Filter Library"/>
+				<option value="1" label="Filter Library"/>
+			</options>
+			<validator type="set"/>
+			<default value="1"/>
+		</parameter>
+
+		<parameter name="WINDOW_FILTER" label="Filter peaks in 50Da Window">
+			<options>
+				<option value="0" label="Don't Filter"/>
+				<option value="1" label="Filter"/>
+			</options>
+			<validator type="set"/>
+			<default value="1"/>
+		</parameter>
+
+		<parameter name="SCORE_THRESHOLD" label="Score Threshold">
+			<default value="0.7"/>
+			<validator type="float" minimumExclusive="0" maximum="1"/>
+		</parameter>
+
+		<parameter name="MIN_MATCHED_PEAKS_SEARCH" label="Library Search Min Matched Peaks">
+			<default value="6"/>
+			<validator type="integer" minimumExclusive="0" maximum="500"/>
+		</parameter>
+
+		<parameter name="ANALOG_SEARCH" label="Search Analogs">
+			<options>
+				<option value="0" label="Don't Search"/>
+				<option value="1" label="Do Search"/>
+			</options>
+			<validator type="set"/>
+		</parameter>
+
+		<parameter name="MAX_SHIFT_MASS" label="Maximum Analog Search Mass Difference">
+			<default value="100.0"/>
+		</parameter>
+
+		<parameter name="CREATE_CLUSTER_BUCKETS" label="Create Cluster Buckets">
+			<options>
+				<option value="0" label="Don't Create"/>
+				<option value="1" label="Create"/>
+			</options>
+			<validator type="set"/>
+			<default value="0"/>
+		</parameter>
+
+        <parameter name="CREATE_TOPOLOGY_SIGNATURES" label="Create Network Topology Signatures">
+			<options>
+				<option value="0" label="Don't Create"/>
+				<option value="1" label="Create"/>
+			</options>
+			<default value="0"/>
+		</parameter>
+
+		<parameter name="FIND_MATCHES_IN_PUBLIC_DATA" label="Find Related Datasets">
+			<options>
+				<option value="0" label="Don't"/>
+				<option value="1" label="Do it"/>
+			</options>
+			<default value="0"/>
+		</parameter>
+
+	</parameters>
+
+
+	<!-- Input form layout -->
+	<block label="Networking Parameter Presets">
+		<row>
+			<cell>
+				<label prefix="false">
+					<content><![CDATA[<span style="background-color:#D1EEEE; padding:1px; border:2px inset black">
+						<a style="color:black; font-weight:bold; font-size:105%;
+							background-color:#D1EEEE" target="_blank"
+							href='/ProteoSAFe/index.jsp?params=%7B"workflow":"METABOLOMICS-SNETS","library_on_server":"d.speclibs;",%20"CLUSTER_MIN_SIZE":"1"%7D'>
+							Small Data Preset
+						</a></span>]]>
+					</content>
+				</label>
+			</cell>
+			<cell>
+				<label prefix="false">
+					<content><![CDATA[<span style="background-color:#D1EEEE; padding:1px; border:2px inset black">
+						<a style="color:black; font-weight:bold; font-size:105%;
+							background-color:#D1EEEE" target="_blank"
+							href='/ProteoSAFe/index.jsp?params=%7B"workflow":"METABOLOMICS-SNETS","library_on_server":"d.speclibs;",%20"CLUSTER_MIN_SIZE":"2"%7D'>
+							Medium Data Preset
+						</a></span>]]>
+					</content>
+				</label>
+			</cell>
+			<cell>
+				<label prefix="false">
+					<content><![CDATA[<span style="background-color:#D1EEEE; padding:1px; border:2px inset black">
+						<a style="color:black; font-weight:bold; font-size:105%;
+							background-color:#D1EEEE" target="_blank"
+							href='/ProteoSAFe/index.jsp?params=%7B"workflow":"METABOLOMICS-SNETS","library_on_server":"d.speclibs;",%20"CLUSTER_MIN_SIZE":"5"%7D'>
+							Big Data Preset
+						</a></span>]]>
+					</content>
+				</label>
+			</cell>
+			<cell></cell>
+			<cell></cell>
+			<cell></cell>
+			<cell></cell>
+			<cell></cell>
+		</row>
+	</block>
+
+	<block label="Basic Options">
+		<row>
+			<cell>
+				<label>
+					<content parameter="library_on_server"/>
+					<tooltip id="library_gnps"/>
+				</label>
+			</cell>
+			<cell colspan="3">
+				<module id="library_on_server" type="fileSelector">
+					<property name="label">Library Files</property>
+				</module>
+			</cell>
+
+			<cell colspan="4" align="right">
+			<label prefix="false">
+				<content><![CDATA[<span style="background-color:#D1EEEE;
+					padding:1px; border:2px inset blue"> To import libraries for search click
+					<a style="color:blue; font-weight:bold; font-size:105%;
+						background-color:#D1EEEE" target="_blank"
+						href="https://bix-lab.ucsd.edu/display/Public/GNPS+FAQ">
+						here
+					</a></span>]]></content>
+				</label>
+			</cell>
+		</row>
+
+		<row>
+			<cell>
+			</cell>
+		</row>
+
+		<row>
+			<cell colspan="8" align="right">
+				<label prefix="false">
+					<content><![CDATA[<div style="background-color:#D1EEEE;padding:1px; border:2px inset blue;width:570px;margin-left:auto;margin-right:auto">Spectrum files must be centroided and be in an open spectrum format (mzXML, mzML, or mgf)</div>]]></content>
+				</label>
+			</cell>
+		</row>
+
+		<row>
+			<cell>
+				<label>
+					<content parameter="spec_on_server"/>
+					<tooltip id="spectrum_gnps"/>
+				</label>
+			</cell>
+			<cell colspan="3">
+				<module id="spec_on_server" type="fileSelector">
+					<property name="label">Spectrum Files G1</property>
+				</module>
+			</cell>
+			<cell colspan="4" align="right">
+			<label prefix="false">
+				<content><![CDATA[<span style="background-color:#D1EEEE;
+					padding:1px; border:2px inset blue">See
+					<a style="color:blue; font-weight:bold; font-size:105%;
+						background-color:#D1EEEE" target="_blank"
+						href="https://bix-lab.ucsd.edu/display/Public/Molecular+Networking+Documentation">
+						here
+					</a> for further documentation about molecular networking.</span>]]></content>
+				</label>
+			</cell>
+		</row>
+
+				<row>
+					<cell>
+						<label>
+							<content parameter="spec_on_server_group2"/>
+							<tooltip id="spectrum_gnps"/>
+						</label>
+					</cell>
+					<cell colspan="3">
+						<module id="spec_on_server_group2" type="fileSelector">
+							<property name="label">Spectrum Files G2</property>
+						</module>
+					</cell>
+
+					<cell colspan="4" align="right">
+						<label prefix="false">
+							<content><![CDATA[<span style="background-color:#D1EEEE;
+								padding:1px; border:2px inset blue">Click Here
+								<a style="color:blue; font-weight:bold; font-size:105%;
+									background-color:#D1EEEE" target="_blank"
+									href="http://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=c95481f0c53d42e78a61bf899e9f9adb">
+									here
+								</a> to run a demo molecular network.</span>]]></content>
+							</label>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label>
+								<content parameter="spec_on_server_group3"/>
+								<tooltip id="spectrum_gnps"/>
+							</label>
+						</cell>
+						<cell colspan="3">
+							<module id="spec_on_server_group3" type="fileSelector">
+								<property name="label">Spectrum Files G3</property>
+							</module>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label>
+								<content parameter="spec_on_server_group4"/>
+								<tooltip id="spectrum_gnps"/>
+							</label>
+						</cell>
+						<cell colspan="3">
+							<module id="spec_on_server_group4" type="fileSelector">
+								<property name="label">Spectrum Files G4</property>
+							</module>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label>
+								<content parameter="spec_on_server_group5"/>
+								<tooltip id="spectrum_gnps"/>
+							</label>
+						</cell>
+						<cell colspan="3">
+							<module id="spec_on_server_group5" type="fileSelector">
+								<property name="label">Spectrum Files G5</property>
+							</module>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label>
+								<content parameter="spec_on_server_group6"/>
+								<tooltip id="spectrum_gnps"/>
+							</label>
+						</cell>
+						<cell colspan="3">
+							<module id="spec_on_server_group6" type="fileSelector">
+								<property name="label">Spectrum Files G6</property>
+							</module>
+						</cell>
+
+						<cell colspan="1" align="right">
+							<label prefix="false">
+								<content><![CDATA[<span style="background-color:#D1EEEE;
+									padding:1px; border:2px inset blue">For custom group/attribute documentation click
+									<a style="color:blue; font-weight:bold; font-size:105%;
+										background-color:#D1EEEE" target="_blank"
+										href="https://bix-lab.ucsd.edu/display/Public/Molecular+Networking+Documentation#MolecularNetworkingDocumentation-GroupMapping">
+										here
+									</a></span>]]></content>
+								</label>
+							</cell>
+						</row>
+
+						<row>
+							<cell>
+							</cell>
+						</row>
+
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="tolerance.PM_tolerance"/>
+									<tooltip id="hParentMass"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="tolerance.PM_tolerance">
+									<attribute name="size" value="3"/>
+								</input>
+								<label><content>Da</content></label>
+							</cell>
+							<cell>
+								<label>
+									<content parameter="tolerance.Ion_tolerance"/>
+									<tooltip id="hIonTolerance"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="tolerance.Ion_tolerance">
+									<attribute name="size" value="3"/>
+								</input>
+								<label><content>Da</content></label>
+							</cell>
+						</row>
+					</block>
+					<block label="Advanced Network Options">
+						<row>
+							<cell>
+								<label>
+									<content parameter="PAIRS_MIN_COSINE"/>
+									<tooltip id="min_pair_cosine_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="PAIRS_MIN_COSINE">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+
+							<cell>
+								<label>
+									<content parameter="MIN_MATCHED_PEAKS"/>
+									<tooltip id="min_matched_peaks_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="MIN_MATCHED_PEAKS">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+						</row>
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="TOPK"/>
+									<tooltip id="network_topk_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="TOPK">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+
+
+							<cell>
+								<label>
+									<content parameter="CLUSTER_MIN_SIZE"/>
+									<tooltip id="min_cluster_size_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="CLUSTER_MIN_SIZE">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+
+							<cell>
+								<input type="checkbox" parameter="RUN_MSCLUSTER"/>
+								<label>
+									<content parameter="RUN_MSCLUSTER"/>
+									<tooltip id="RUN_MSCLUSTER"/>
+								</label>
+							</cell>
+
+						</row>
+
+						<row>
+
+							<cell>
+								<label>
+									<content parameter="MAXIMUM_COMPONENT_SIZE"/>
+									<tooltip id="max_component_size_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+
+						</row>
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="groupmapping"/>
+									<tooltip id="group_mapping_gnps"/>
+								</label>
+							</cell>
+							<cell colspan="3">
+								<module id="groupmapping" type="fileSelector">
+									<property name="label">Group Mapping</property>
+								</module>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label>
+									<content parameter="attributemapping"/>
+									<tooltip id="attribute_mapping_gnps"/>
+								</label>
+							</cell>
+							<cell colspan="3">
+								<module id="attributemapping" type="fileSelector">
+									<property name="label">Attribute Mapping</property>
+								</module>
+							</cell>
+						</row>
+					</block>
+
+					<block label="Advanced Library Search Options">
+						<row>
+							<cell>
+								<label>
+									<content parameter="MIN_MATCHED_PEAKS_SEARCH"/>
+									<tooltip id="min_matched_peaks_library_gnps"/>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="MIN_MATCHED_PEAKS_SEARCH">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+							<cell>
+								<label>
+									<content parameter="SCORE_THRESHOLD"/>
+									<tooltip id="min_cosine_library_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="SCORE_THRESHOLD">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label>
+									<content parameter="ANALOG_SEARCH"/>
+									<tooltip id="analog_search_tooltip">
+										Enable analog search. Matches query spectra against
+										library spectrum with a modification tolerant search.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="ANALOG_SEARCH">
+								</input>
+							</cell>
+
+							<cell>
+								<label>
+									<content parameter="MAX_SHIFT_MASS"/>
+									<tooltip id="max_shift_mass_tooltip">
+										The maximum delta between a query spectrum's m/z
+										that is allowed to match a library spectrum.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="MAX_SHIFT_MASS">
+								</input>
+							</cell>
+						</row>
+					</block>
+
+					<block label="Advanced Filtering Options">
+						<row>
+							<cell>
+								<label>
+									<content parameter="FILTER_STDDEV_PEAK_INT"/>
+									<tooltip id="filterstd_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="FILTER_STDDEV_PEAK_INT">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+
+							<cell>
+								<label>
+									<content parameter="MIN_PEAK_INT"/>
+									<tooltip id="filterint_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="MIN_PEAK_INT">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label>
+									<content parameter="FILTER_PRECURSOR_WINDOW"/>
+									<tooltip id="filterprecursor_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="FILTER_PRECURSOR_WINDOW">
+								</input>
+							</cell>
+
+							<cell>
+								<label>
+									<content parameter="FILTER_LIBRARY"/>
+									<tooltip id="filterlibrary_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="FILTER_LIBRARY">
+								</input>
+							</cell>
+						</row>
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="WINDOW_FILTER"/>
+									<tooltip id="filterpeakwindow_gnps"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="WINDOW_FILTER">
+								</input>
+							</cell>
+						</row>
+
+					</block>
+
+
+					<block label="Advanced Output Options">
+						<row>
+							<cell>
+								<label>
+									<content parameter="CREATE_CLUSTER_BUCKETS"/>
+									<tooltip id="CREATE_CLUSTER_BUCKETS_tooltip">
+										Create output table that does quantification on MS/MS clusters
+										across all files input.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="CREATE_CLUSTER_BUCKETS">
+								</input>
+							</cell>
+						</row>
+                        <row>
+							<cell>
+								<label>
+									<content parameter="CREATE_TOPOLOGY_SIGNATURES"/>
+									<tooltip id="CREATE_TOPOLOGY_SIGNATURES_tooltip">
+										Calculate all topology signatures in the network. Specifically,
+										this follows all paths in the molecular network of length 4
+										and highlights where they occur and the frequency of each. These
+										topology signatures gives us insight into possible substructures
+										of each compound in the network.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="CREATE_TOPOLOGY_SIGNATURES">
+								</input>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label>
+									<content parameter="FIND_MATCHES_IN_PUBLIC_DATA"/>
+									<tooltip id="FIND_MATCHES_IN_PUBLIC_DATA_tooltip">
+										Finds all datasets that are related to your data.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="FIND_MATCHES_IN_PUBLIC_DATA">
+								</input>
+							</cell>
+						</row>
+					</block>
+				</interface>

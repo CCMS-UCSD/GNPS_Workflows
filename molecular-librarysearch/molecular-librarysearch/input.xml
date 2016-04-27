@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="molecular-librarysearch" version="1.2.5">
+	<workflow-id>MOLECULAR-LIBRARYSEARCH</workflow-id>
+	<workflow-label>Dereplication</workflow-label>
+	<parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="100"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Spectrum Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+        </parameter>
+	
+        <parameter name="library_on_server" label="Spectral Library">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="library" target="lib"/>
+            <default value="d.speclibs/gnps_library;"/>
+        </parameter>
+	
+	<!--<parameter label="Spectral Library" name="db.DB">
+	    <options resource="searchable_spectral_library"/>
+	    <fileGenerator type="resource" resource="searchable_spectral_library" target="lib"/>
+	</parameter>
+	-->
+        <!-- Basic MS parameters -->
+        <parameter name="tolerance.PM_tolerance" label="Parent Mass Tolerance">
+            <default value="2.0"/>
+            <validator type="float" minimum="0" maximum="2.5"/>
+        </parameter>
+        <parameter name="tolerance.Ion_tolerance" label="Ion Tolerance">
+            <default value="0.5"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+	
+	<parameter name="SCORE_THRESHOLD" label="Score Threshold">
+            <default value="0.5"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+	
+	<parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
+            <default value="6"/>
+            <validator type="integer" minimumExclusive="0" maximum="500"/>
+        </parameter>
+	
+	<parameter name="MIN_PEAK_INT" label="Min Peak Int">
+            <default value="50.0"/>
+        </parameter>
+	
+	<parameter name="FILTER_STDDEV_PEAK_INT" label="Filter StdDev Intensity">
+            <default value="2.0"/>
+        </parameter>
+        
+        <parameter name="FILTER_SNR_PEAK_INT" label="Filter SNR Intensity">
+            <default value="0.0"/>
+        </parameter>
+        
+	
+        <parameter name="FILTER_PRECURSOR_WINDOW" label="Filter Precursor Window">
+            <options>
+                    <option value="0" label="Don't Filter"/>
+                    <option value="1" label="Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+        
+        <parameter name="WINDOW_FILTER" label="Filter peaks in 50Da Window">
+            <options>
+                    <option value="0" label="Don't Filter"/>
+                    <option value="1" label="Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+        <parameter name="FILTER_LIBRARY" label="Filter Library">
+            <options>
+                    <option value="0" label="Don't Filter Library"/>
+                    <option value="1" label="Filter Library"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+        
+        
+        <parameter name="ANALOG_SEARCH" label="Search Analogs">
+            <options>
+                    <option value="0" label="Don't Search"/>
+                    <option value="1" label="Do Search"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+        
+        <parameter name="MAX_SHIFT_MASS" label="Maximum Analog Search Mass Difference">
+            <default value="100.0"/>
+        </parameter>
+        
+        <parameter name="TOP_K_RESULTS" label="Top Hits Per Spectrum">
+            <default value="1"/>
+            <validator type="integer" minimumExclusive="0" maximum="100000000"/>
+        </parameter>
+        
+        <parameter name="SEARCH_LIBQUALITY" label="Library Class">
+            <options>
+                    <option value="1" label="Gold"/>
+                    <option value="2" label="Silver"/>
+                    <option value="3" label="Bronze"/>
+            </options>
+            <validator type="set"/>
+            <default value="3"/>
+        </parameter>
+		
+      </parameters>
+	
+	<!-- Input form layout -->
+    <block label="Search Options">
+      
+      
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+        <!--<row>
+            <cell>
+                <label><content parameter="library_on_server"/></label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_on_server" type="fileSelector">
+                    <property name="label">Spectral Library</property>
+                </module>
+            </cell>
+        </row>-->
+        <row>
+            <cell>
+                <label>
+                    <content parameter="tolerance.PM_tolerance"/>
+                    <tooltip id="hParentMass"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.PM_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label><content>Da</content></label>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="tolerance.Ion_tolerance"/>
+                    <tooltip id="hIonTolerance"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.Ion_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label><content>Da</content></label>
+            </cell>
+        </row>
+	<row>
+	    <cell>
+                <label>
+                    <content parameter="MIN_MATCHED_PEAKS"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MIN_MATCHED_PEAKS">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+	    <cell>
+                <label>
+                    <content parameter="SCORE_THRESHOLD"/>
+                </label>
+            </cell>
+	    
+	    <cell>
+		<input type="text" parameter="SCORE_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+	    
+	</row>
+      </block>
+      
+      <block label="Advanced Search Options">
+        <row>
+          <cell>
+                <label>
+                    <content parameter="SEARCH_LIBQUALITY"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="select" parameter="SEARCH_LIBQUALITY">
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="ANALOG_SEARCH"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="select" parameter="ANALOG_SEARCH">
+                </input>
+            </cell>
+            
+            
+        </row>
+        
+        
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOP_K_RESULTS"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="text" parameter="TOP_K_RESULTS">
+                </input>
+            </cell>
+            
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT_MASS"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="text" parameter="MAX_SHIFT_MASS">
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="library_on_server"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_on_server" type="fileSelector">
+                    <property name="label">Library Files</property>
+                </module>
+            </cell>
+          </row>
+    </block>
+      
+      <block label="Advanced Filtering Options">
+        
+	<row>
+	  
+	    <cell>
+                <label>
+                    <content parameter="FILTER_STDDEV_PEAK_INT"/>
+                </label>
+            </cell>
+	    
+	    <cell>
+		<input type="text" parameter="FILTER_STDDEV_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            
+            <cell>
+                <label>
+                    <content parameter="FILTER_SNR_PEAK_INT"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="text" parameter="FILTER_SNR_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            
+	    
+	    <cell>
+                <label>
+                    <content parameter="MIN_PEAK_INT"/>
+                </label>
+            </cell>
+	    
+	    <cell>
+		<input type="text" parameter="MIN_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+	    
+	    
+	</row>
+	<row>
+            <cell>
+                <label>
+                    <content parameter="FILTER_PRECURSOR_WINDOW"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="select" parameter="FILTER_PRECURSOR_WINDOW">
+                </input>
+            </cell>
+          
+	    <cell>
+                <label>
+                    <content parameter="FILTER_LIBRARY"/>
+                </label>
+            </cell>
+	    
+	    <cell>
+		<input type="select" parameter="FILTER_LIBRARY">
+                </input>
+            </cell>
+	</row>
+        
+        <row>
+            <cell>
+                <label>
+                    <content parameter="WINDOW_FILTER"/>
+                </label>
+            </cell>
+            
+            <cell>
+                <input type="select" parameter="WINDOW_FILTER">
+                </input>
+            </cell>
+        </row>
+      </block>
+      
+</interface>

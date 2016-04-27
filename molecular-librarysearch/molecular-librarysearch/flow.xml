@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="ming_test">
+	<collection name="spectra"/>
+	<collection name="spectrapklbin"/>
+	<collection name="paramsgen"/>
+	<collection name="toolParameters"/>
+	<collection name="intermediateresults"/>
+	<collection name="intermediateresults_topk"/>
+	<object     name="workflowParameters"/>
+	<collection     name="library"/>
+	<object     name="result"/>
+	<object     name="result_topk"/>
+	<object     name="log"/>
+        <object     name="DB_result"/>
+        
+        <object     name="pairsbin"/>
+	
+	<action name="begin">
+		<output port="spec"       collection="spectra"/>
+		<output port="lib" 		  collection="library"/>
+		<output port="toolParams" collection="toolParameters"/>
+		<output port="params" object="workflowParameters"/>
+	</action>
+	
+	<action name="convertpklbin">
+		<input  port="spectra"             collection="spectra"/>
+		<output port="convertedspectra"       collection="spectrapklbin"/>
+	</action>
+	
+	<action name="searchlibraryparamgeneration">
+		<input  port="spec"       collection="spectrapklbin"/>
+		<input  port="params" object="workflowParameters"/>
+		<input  port="lib" 	      collection="library"/>
+		<output port="paramsgen"     collection="paramsgen"/>
+	</action>
+	
+	<action name="searchlibrarysearch_molecular" multiplicity="multiple" type="parallel">
+                <input port="paramsgen"     collection="paramsgen" transformation="unfolding"/>
+                <input  port="spec"       collection="spectrapklbin"/>
+                <input  port="lib"            collection="library"/>
+                <output port="intermediateresults"     collection="intermediateresults"/>
+        </action>
+        
+
+        <action name="searchlibrarymerge">
+                <input port="intermediateresults"     collection="intermediateresults"/>
+                <input  port="params" object="workflowParameters"/>
+                <output port="result"     object="result"/>
+                <output port="pairsbin"     object="pairsbin"/>
+        </action>
+        
+        <action name="get_dbannotations">
+                <input  port="result"             collection="result"/>
+                <output port="DB_result"           object="DB_result"/>
+        </action>
+        
+
+	<action name="end"> 
+              <input port="DB_result" object="DB_result"/> 
+		<input port="result" object="result"/> 
+                <input port="pairsbin" object="pairsbin"/> 
+	</action>
+</flow>
