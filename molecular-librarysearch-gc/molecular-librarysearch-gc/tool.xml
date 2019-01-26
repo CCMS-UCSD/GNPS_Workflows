@@ -1,0 +1,243 @@
+<toolset>
+
+
+    <pathSet base="molecularsearch-gc">
+        <pathVar name="molecularlibrarysearchgc.file" path="search_against_reference_gc_library.py"/>
+        <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
+    </pathSet>
+
+    <pathSet base="metabolomicsnets/anaconda2">
+        <toolPath tool="search_gc_spectra" path="bin/python2.7"/>
+    </pathSet>
+
+    <tool name="search_gc_spectra">
+        <require name="spectra"       type="file"/>
+        <require name="workflowParameters"       type="file"/>
+        <require name="library"       type="folder"/>
+        <produce name="gc_search_results_folder"        type="file" naming="explicit"  extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="molecularlibrarysearchgc.file"/>
+                <arg valueRef="workflowParameters"/>
+                <arg valueRef="spectra"/>
+                <arg valueRef="library"/>
+                <arg valueRef="gc_search_results_folder"/>
+        </execution>
+    </tool>
+
+
+
+    <!-- <pathSet base="spectralib/2013.0117"> -->
+    <pathSet base="molecularsearch/2013.0902">
+        <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
+
+        <toolPath tool="LibrarySearchParallelTopK_Molecular" path="main_execmodule"/>
+
+        <toolPath tool="convertpklbin_molecular" path="convert_wrapper.py"/>
+        <pathVar name="convertexe_molecular.file" path="convert"/>
+
+        <toolPath tool="LibrarySearchMerge_Molecular" path="tsv_merger.py"/>
+        <!-- <toolPath tool="GetDBAnnotations_Molecular" path="DBTools.jar"/> -->
+        <toolPath tool="GetDBAnnotations_Molecular" path="getGNPS_library_annotations.py"/>
+    </pathSet>
+
+    <tool name="convertpklbin_molecular">
+        <require name="spectra" type="folder"/>
+        <produce name="convertedspectra" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="spectra"/>
+            <arg valueRef="convertedspectra"/>
+            <arg pathRef="convertexe_molecular.file"/>
+        </execution>
+    </tool>
+
+    <tool name="LibrarySearchParamGeneration_Molecular">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <require name="library" type="folder"/>
+        <produce name="paramsgen" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_spectradir" valueRef="spec"/>
+            <arg option="ccms_input_library" valueRef="library"/>
+            <arg option="ccms" value="1"/>
+            <arg option="ccms_param_dir" valueRef="paramsgen"/>
+            <arg option="g"/>
+            <arg option="ccms_num_nodes" value="100"/>
+        </execution>
+    </tool>
+
+    <tool name="LibrarySearchParallel_Molecular">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <require name="library" type="folder"/>
+        <produce name="result" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_spectradir" valueRef="spec"/>
+            <arg option="ccms_results_prefix" valueRef="result"/>
+            <arg option="ll" value="9"/>
+        </execution>
+    </tool>
+
+    <tool name="LibrarySearchMerge_Molecular">
+        <require name="flowParams" type="file"/>
+        <require name="intermediateresults" type="folder"/>
+        <produce name="result" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="intermediateresults"/>
+            <arg valueRef="result"/>
+        </execution>
+    </tool>
+
+    <tool name="GetDBAnnotations_Molecular">
+        <require name="result" type="file"/>
+        <produce name="DB_result" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="result"/>
+            <arg valueRef="DB_result"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="metabolomicsnets/anaconda2">
+        <toolPath tool="filter_gc_identifications" path="bin/python2.7"/>
+    </pathSet>
+    <pathSet base="molecularsearch-gc">
+        <pathVar name="filter_gc_identifications.script" path="filter_gc_identifications.py"/>
+    </pathSet>
+
+    <tool name="filter_gc_identifications">
+        <require name="DB_result" type="file"/>
+        <produce name="DB_result_filtered" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="filter_gc_identifications.script"/>
+            <arg valueRef="DB_result"/>
+            <arg valueRef="DB_result_filtered"/>
+        </execution>
+    </tool>
+
+
+
+    <!-- Molecular Networking -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="prep_molecular_networking_parameters" path="python3.5"/>
+        <toolPath tool="merge_tsv_efficient" path="python3.5"/>
+        <toolPath tool="filter_networking_edges" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="metabolomicssnets-mzmine/scripts">
+        <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
+        <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
+        <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
+    </pathSet>
+
+    <pathSet base="metabolomicssnets-mzmine/binaries">
+        <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
+    </pathSet>
+
+    <tool name="prep_molecular_networking_parameters">
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_parameters" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="prep_molecular_networking_parameters.script"/>
+            <arg valueRef="mgf_file"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="-parallelism" value="1"/>
+        </execution>
+    </tool>
+
+    <tool name="molecular_networking_parallel_step">
+        <require name="networking_parameters" type="file"/>
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_pairs_results_folder" type="file" naming="explicit" extension="aligns"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecMolecularParallelPairs"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="ccms_output_aligns" valueRef="networking_pairs_results_folder"/>
+            <arg option="ccms_INPUT_SPECTRA_MS2" valueRef="mgf_file"/>
+        </execution>
+    </tool>
+
+    <tool name="merge_tsv_efficient">
+        <require name="tsv_folder" type="folder"/>
+        <produce name="tsv_file" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="merge_tsv_efficient.script"/>
+            <arg valueRef="tsv_folder"/>
+            <arg valueRef="tsv_file"/>
+        </execution>
+    </tool>
+
+    <tool name="filter_networking_edges">
+        <require name="workflowParameters" type="file"/>
+        <require name="networking_pairs_results_file" type="file"/>
+        <produce name="networking_pairs_results_file_filtered" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="filter_networking_edges.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="networking_pairs_results_file"/>
+            <arg valueRef="networking_pairs_results_file_filtered"/>
+            <arg value="/dev/null"/>
+        </execution>
+    </tool>
+
+    <pathSet base="metabolomicsnets/anaconda2">
+        <toolPath tool="metabolomics_convert_graphml" path="bin/python2.7"/>
+    </pathSet>
+    <pathSet base="molecularsearch-gc">
+        <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
+    </pathSet>
+
+    <tool name="metabolomics_convert_graphml">
+        <require name="networkedges_selfloop" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="result_specnets_DB" type="file"/>
+        <produce name="gnps_molecular_network_graphml" type="file" naming="explicit" extension="graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomics_convert_graphml.script"/>
+            <arg valueRef="networkedges_selfloop"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="result_specnets_DB"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+        </execution>
+    </tool>
+
+    <!-- Creating temporary query mgf file -->
+    <pathSet base="metabolomicsnets/anaconda2">
+        <toolPath tool="create_clusterinfo_summary" path="bin/python2.7"/>
+    </pathSet>
+    <pathSet base="molecularsearch-gc">
+        <pathVar name="create_clusterinfo_summary.script" path="create_clusterinfo_summary_from_mgf.py"/>
+    </pathSet>
+
+    <tool name="create_clusterinfo_summary">
+        <require name="workflowParameters" type="file"/>
+        <require name="spectra" type="file"/>
+        <produce name="clusterinfosummary" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_clusterinfo_summary.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="clusterinfosummary"/>
+        </execution>
+    </tool>
+
+</toolset>
