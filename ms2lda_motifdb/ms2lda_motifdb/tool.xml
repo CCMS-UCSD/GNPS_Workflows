@@ -1,0 +1,39 @@
+<toolset>
+
+    <pathSet base="metabolomicsnets/anaconda2/bin">
+        <toolPath tool="ms2lda_deconv" path="python"/>
+    </pathSet>
+
+    <pathSet base="ms2lda_deconv">
+        <pathVar name="ms2lda_deconv.script" path="ms2lda_runfull.py"/>
+    </pathSet>
+
+
+    <tool name="ms2lda_deconv">
+        <require name="workflowParameters" type="file"/>
+        <require name="inputSpectra" type="file"/>
+        <require name="network_pairs" type="file"/>
+        <require name="mzmine_csv" type="folder"/>
+        <produce name="output_results" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="ms2lda_deconv.script"/>
+            <arg valueRef="@MGF_SOURCE"/>
+            <arg valueRef="@LDA_ITERATIONS"/>
+            <arg valueRef="@LDA_MINIMUM_MS2_INTENSITY"/>
+            <arg valueRef="@LDA_FREE_MOTIFS"/>
+            <arg valueRef="@LDA_BIN_WIDTH"/>
+            <arg valueRef="@LDA_NETWORK_OVERLAP_THRESHOLD"/>
+            <arg valueRef="@LDA_NETWORK_P_THRESHOLD"/>
+            <arg valueRef="@LDA_NETWORK_TOPX"/>
+            <arg valueRef="@GNPS_MOTIF_INCLUDE"/>
+            <arg valueRef="@MASSBANK_MOTIF_INCLUDE"/>
+            <arg valueRef="@URINE_MOTIF_INCLUDE"/>
+            <arg valueRef="@EUPHORBIA_MOTIF_INCLUDE"/>
+            <arg valueRef="inputSpectra"/>
+            <arg valueRef="network_pairs"/>
+            <arg valueRef="mzmine_csv"/>
+            <arg valueRef="output_results"/>
+        </execution>
+    </tool>
+</toolset>

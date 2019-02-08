@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="ms2lda_motifdb">
+	<object 	name="workflowParameters"/>
+	<collection     name="inputSpectra"/>
+    <collection     name="network_pairs"/>
+    <collection     name="mzmine_csv"/>
+
+
+	<action name="begin">
+        <output port="spec"       collection="inputSpectra"/>
+        <output port="network_pairs"       collection="network_pairs"/>
+        <output port="mzmine_csv"       collection="mzmine_csv"/>
+		<output port="flowParams"	object="workflowParameters"/>
+	</action>
+
+    <!-- Intermediate Shim -->
+    <collection name="output_results"/>
+	<action name="ms2lda_deconv">
+		<input port="workflowParameters"	collection="workflowParameters"/>
+        <input port="inputSpectra"	collection="inputSpectra"/>
+        <input port="network_pairs"	collection="network_pairs"/>
+        <input port="mzmine_csv"	collection="mzmine_csv"/>
+        <output port="output_results"		collection="output_results"/>
+	</action>
+
+	<action name="end">
+        <input port="output_results" collection="output_results"/>
+	</action>
+</flow>
