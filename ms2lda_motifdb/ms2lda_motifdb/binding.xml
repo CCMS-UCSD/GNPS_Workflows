@@ -24,7 +24,7 @@
         </download>
     </bind>
 
-    <bind action="ms2lda_deconv" tool="ms2lda_deconv">
+    <bind action="ms2lda_motifdb" tool="ms2lda_motifdb">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
         <inputAsRequirement port="network_pairs" requirement="network_pairs"/>

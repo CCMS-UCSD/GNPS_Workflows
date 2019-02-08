@@ -4,12 +4,12 @@
         <toolPath tool="ms2lda_deconv" path="python"/>
     </pathSet>
 
-    <pathSet base="ms2lda_deconv">
-        <pathVar name="ms2lda_deconv.script" path="ms2lda_runfull.py"/>
+    <pathSet base="ms2lda_motifdb">
+        <pathVar name="ms2lda_motifdb.script" path="ms2lda_runfull.py"/>
     </pathSet>
 
 
-    <tool name="ms2lda_deconv">
+    <tool name="ms2lda_motifdb">
         <require name="workflowParameters" type="file"/>
         <require name="inputSpectra" type="file"/>
         <require name="network_pairs" type="file"/>
@@ -17,7 +17,7 @@
         <produce name="output_results" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
-            <arg pathRef="ms2lda_deconv.script"/>
+            <arg pathRef="ms2lda_motifdb.script"/>
             <arg valueRef="@MGF_SOURCE"/>
             <arg valueRef="@LDA_ITERATIONS"/>
             <arg valueRef="@LDA_MINIMUM_MS2_INTENSITY"/>

@@ -15,7 +15,7 @@
 
     <!-- Intermediate Shim -->
     <collection name="output_results"/>
-	<action name="ms2lda_deconv">
+	<action name="ms2lda_motifdb">
 		<input port="workflowParameters"	collection="workflowParameters"/>
         <input port="inputSpectra"	collection="inputSpectra"/>
         <input port="network_pairs"	collection="network_pairs"/>
