@@ -1,7 +1,7 @@
 <toolset>
 
     <pathSet base="metabolomicsnets/anaconda2/bin">
-        <toolPath tool="ms2lda_deconv" path="python"/>
+        <toolPath tool="ms2lda_motifdb" path="python"/>
     </pathSet>
 
     <pathSet base="ms2lda_motifdb">
