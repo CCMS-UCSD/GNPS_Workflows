@@ -116,11 +116,6 @@ def get_motifs_in_scans(lda_dictionary,metadata,overlap_thresh=0.3,p_thresh=0.1,
     return motifs_in_scans
 
 
-
-"""Loading Motifs"""
-motifdbcodepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'code/utilities')
-sys.path.append(motifdbcodepath)
-
 """Parsing Args"""
 
 parser = argparse.ArgumentParser(description='Creates MS2LDA')
@@ -143,8 +138,8 @@ parser.add_argument('output_prefix', help='output_prefix')
 
 args = parser.parse_args()
 
-# NEW MOTIFDB CODE
 
+"""Grabbing the latest Motifs from MS2LDA"""
 import requests
 server_url = 'http://ms2lda.org/motifdb/'
 motifset_dict = requests.get(server_url+'list_motifsets/').json()
@@ -181,6 +176,9 @@ for m,spec in motifdb_spectra.items():
     for f in spec:
         motifdb_features.add(f)
 
+
+"""Parsing the input files"""
+
 # following should be mscluster or mzmine
 input_format = args.input_format
 input_iterations = args.input_iterations
@@ -202,7 +200,6 @@ if os.path.isdir(output_prefix):
 
 print(input_format, input_mgf_file)
 
-
 ldacodepath = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), 'lda/code')
 
@@ -223,11 +220,11 @@ elif input_format == 'mzmine':
 
     mzmine_path = args.input_mzmine2_folder
     if os.path.isdir(mzmine_path):
-        all_files = [f for f in os.path.listdir(mzmine_path) if os.path.isfile(os.path.join(mzmine_path, f))]
+        all_files = [f for f in os.listdir(mzmine_path) if os.path.isfile(os.path.join(mzmine_path, f))]
         if len(all_files) != 1:
             print("Requires exactly one quantification file")
             exit(1)
-        input_csv_file = all_files[0]
+        input_csv_file = os.path.join(mzmine_path, all_files[0])
     else:
         input_csv_file = mzmine_path
 
