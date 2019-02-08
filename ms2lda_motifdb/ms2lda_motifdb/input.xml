@@ -30,7 +30,7 @@
 
         <parameter name="MGF_SOURCE" label="MGF Source">
             <options>
-                <option value="mscluster" label="MSCluster (Classic Molecular Networking)"/>
+                <option value="mscluster" label="MSCluster (Classic Molecular Networking) / MZMine2 without Quantification"/>
                 <option value="mzmine" label="MZMine2 (Feature Based Molecular Networking)"/>
             </options>
             <validator type="set"/>
