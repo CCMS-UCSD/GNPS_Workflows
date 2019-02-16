@@ -214,10 +214,9 @@ if input_format == 'mscluster':
     csv_id_field = None
     mgf_id_field = None
     input_csv_file = None
-elif input_format == 'mzmine':
-    csv_id_col = 'row ID'
-    mgf_id_field = 'scans'
 
+    l = LoadMGF(name_field=name_field,min_ms2_intensity=input_minimum_ms2_intensity)
+elif input_format == 'mzmine':
     mzmine_path = args.input_mzmine2_folder
     if os.path.isdir(mzmine_path):
         all_files = [f for f in os.listdir(mzmine_path) if os.path.isfile(os.path.join(mzmine_path, f))]
@@ -228,13 +227,16 @@ elif input_format == 'mzmine':
     else:
         input_csv_file = mzmine_path
 
-name_field = 'scans'
 
-if input_format == 'mscluster':
-    l = LoadMGF(name_field=name_field,min_ms2_intensity=input_minimum_ms2_intensity)
-else:  # mzmine pipeline, can do clever ID matching
-    l = LoadMGF(name_field=name_field, peaklist=input_csv_file,
-                csv_id_col=csv_id_col, id_field=mgf_id_field, min_ms2_intensity=input_minimum_ms2_intensity)
+    csv_id_col = 'row ID'
+    mgf_id_field = 'scans'
+    l = LoadMGF(name_field=name_field, \
+                peaklist=input_csv_file, \
+                csv_id_col=csv_id_col, \
+                id_field=mgf_id_field, \
+                min_ms2_intensity=input_minimum_ms2_intensity, \
+                mz_col_name='row m/z', \
+                rt_col_name='row retention time')
 
 ms1, ms2, metadata = l.load_spectra([input_mgf_file])
 print "Loaded {} spectra".format(len(ms1))
