@@ -1,0 +1,354 @@
+body {
+	margin: 0px; padding: 0px;
+	font-family: "Trebuchet MS","Lucida Grande","Tahoma", "Verdana","Arial","Helvetica",sans-serif; font-size: 10pt; font-weight: normal;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+
+#bodyWrapper {
+	width: 90%; text-align: center; padding: 0px; margin-top: 0px; margin-left: auto; margin-right: auto;
+	min-height: 100%;
+}
+
+#textWrapper {
+  text-align: left; margin-left: 15px; margin-right: 15px;
+  overflow: visible;
+	padding-bottom: 30px;
+}
+
+.footer {
+  position: relative;
+  text-align: center; margin-left: 15px; margin-right: 15px;
+  margin-top: -30px;
+  height: 30px;
+  clear: both;
+}
+select, option, textarea {
+  font-family: "Trebuchet MS","Lucida Grande","Tahoma", "Verdana","Arial","Helvetica",sans-serif; font-size: 10pt;  font-weight: normal;
+}
+
+input {
+  font-family: "Trebuchet MS","Lucida Grande","Tahoma", "Verdana","Arial","Helvetica",sans-serif; font-size: 10pt;  font-weight: normal;
+  margin: 0px; padding: 0px;
+}
+
+h1 {  text-align: center; font-size: 18pt;  font-weight: bold; }
+h2 {  font-size: 16pt;  font-weight: bold; }
+h3 {  font-size: 14pt;  font-weight: bold; }
+
+/* main form */
+table.mainform {
+	width: 100%; border: none; border-collapse: collapse;
+}
+
+table.mainform th {
+	font: bold 10pt; color: white;
+	height: 25px; border: none; padding: 2px 2px 2px 8px;
+        background: url('../images/top.png') no-repeat left;
+}
+
+table.mainform td {
+	font-size: 10pt; color: black; background-color: white; padding: 2px;
+}
+
+table.mainform a { font-size: 10pt; text-decoration: none; background-color: white; color: black; }
+table.mainform a:hover { font-size: 10pt; text-decoration: none; background-color: white; color: black; }
+
+table.mainform td.bottomline {
+	background-color: transparent;
+}
+
+/* tab */
+table.tabform {border-width: 0; width: 100%; border-spacing: 1px}
+table.tabform th {
+	font-size: 10pt; font-weight: bold; color: white;  background-color:#b0f0f0;
+	background-image: url('../images/top.png');
+	background-position: left; background-repeat: no-repeat;
+	padding-left: 8px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;
+}
+table.tabform th a { font-size: 10pt; text-decoration: none; background: none;	color: white; }
+table.tabform th a:hover { font-size: 10pt; text-decoration: none; background: none; color: white; }
+
+table.tabform td.noncell {
+	padding: 2px; font-size: 10pt; background-color:#ffffff;	color: black;
+}
+table.tabform td a { font-size: 10pt; text-decoration: none; background-color:#ffffff; color: black; }
+table.tabform td a:hover { font-size: 10pt; text-decoration: none; background-color:#ffffff; color: black; }
+
+table.tabform td.tabcell {
+	border-width: 1px; padding: 2px 5px 2px 5px;  border-style: solid; border-color: #003399;
+}
+
+/* bottom line */
+td.bottomline {
+	background-image: url('../images/bottom-full.png');
+	background-position: right; background-repeat: no-repeat;
+	padding-right: 10px; padding-bottom: 10px; height: 30px; font-size: 10pt;
+}
+
+td.folderBottom {
+	background-color: transparent;
+	background-image: url('../images/bottom-full.png');
+	background-color: transparent;
+	background-position: bottom right; background-repeat: no-repeat;
+	padding-right: 10px; padding-bottom: 10px; height: 40px; font-size: 10pt;
+}
+
+/* sched tables */
+table.sched { font-size: 10pt; border-width: 0px; border-spacing: 1px; border-style: solid; border-color: #003399; border-collapse: separate; background-color: #5570b2; }
+table.sched th { border-width: 0px; padding: 2px 5px 2px 5px; border-style: solid; border-color: #003399; background-color: #003399; background-image: none; color: white;}
+table.sched td { border-width: 0px; padding: 2px 5px 2px 5px;  border-style: solid; border-color: #003399; }
+table.sched a {text-decoration: underline; border-color: #003399; background-color: lightgreen;  }
+table.sched  a:hover {text-decoration: underline; border-color: #003399; background-color: #b0ffb0;  }
+
+/* PTM tables */
+table.ptm{ font-size: 10pt; border-width: 0px; border-spacing: 1px; border-style: solid; border-color: white; border-collapse: separate; background-color: #5570b2; }
+table.ptm th { border-width: 0px; padding: 2px 5px 2px 5px; border-style: solid; border-color: white; background-color: #003399; background-image: none; color: white;}
+table.ptm td { border-width: 0px; padding: 2px 5px 2px 5px;  border-style: solid; border-color: white; }
+table.ptm a {text-decoration: underline; border-color: white; background-color: lightgreen;  }
+table.ptm a:hover {text-decoration: underline; border-color: white; background-color: #b0ffb0;  }
+
+/* result tables */
+table.result { font-size: 10pt; border-width: 0px; border-spacing: 1px; border-style: solid; border-color: #003399; border-collapse: separate; background-color: #5570b2; }
+table.result th { border-width: 0px; padding: 2px 5px 2px 5px; border-style: solid; border-color: #003399; background-color: #003399; background-image: none; color: white;}
+table.result th span.resize {cursor:e-resize; background-color:#eeeeee; color:#eeeeee; width:1px; margin-right:0; }
+table.result td { border-width: 0px; padding: 2px 5px 2px 5px;  border-style: solid; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; }
+
+table.result2 { font-size: 10pt; border-width: 0px; border-spacing: 1px; border-style: solid; border-color: #003399; border-collapse: separate; background-color: #5570b2; word-wrap: break-all; }
+table.result2 th { border-width: 0px; padding: 2px 5px 2px 5px; border-style: solid; border-color: #003399; background-color: #003399; background-image: none; color: white;}
+table.result2 th span.resize {cursor:e-resize; background-color:#eeeeee; color:#eeeeee; width:1px; margin-right:0; }
+
+.rc1 { border-width: 0px; padding: 2px 5px 2px 5px;  border-style: solid; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; }
+.rc2 { border-width: 0px; padding: 0px 0px 0px 0px;  border-style: solid; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; }
+.rc3 { border-width: 0px; padding: 0px 0px 0px 0px;  border-style: solid; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; width: 100px; }
+.rc4 { border-width: 0px; padding: 0px 0px 0px 0px;  border-style: solid; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; width: 100px; text-align: right; }
+/* result header */
+.rh1  { text-align: center; border-width: 0px; padding: 2px 5px 2px 5px; border-style: solid; border-color: #003399; background-color: #003399; background-image: none; color: white;}
+.rh2  { text-align: center; border-width: 0px; padding: 0px 0px 0px 0px; border-style: solid; border-color: #003399; background-color: white; background-image: none; color: white;}
+
+.rca0 { border-width: 0px; padding: 2px 5px 2px 5px; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; background-color: transparent; border: solid 0 #060; border-left-width:1px; border-right-width:1px; border-top-width:1px; border-bottom-width:1px;  text-align:center; }
+.rca1 { border-width: 0px; padding: 2px 5px 2px 5px; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; background-color: transparent; border: solid 0 #060; border-right-width:1px; border-top-width:1px; border-bottom-width:1px;  text-align:center; }
+.rca2 { border-width: 0px; padding: 2px 5px 2px 5px; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; background-color: transparent; border: solid 0 #060; border-left-width:1px; border-top-width:1px; border-bottom-width:1px;  text-align:center; }
+.rca3 { border-width: 0px; padding: 2px 5px 2px 5px; border-color: #003399; background-color: white; word-wrap: break-all; overflow:hidden; background-color: transparent; border: solid; border-top-width:1px; border-bottom-width:1px;  text-align:center; }
+
+.iuc {width:20px; height:16px; size: '1'; font-size: 10pt; border-width: 0px; border-spacing: 1px; text-transform: uppercase;}
+.iud {width: 150px; text-transform: uppercase;}
+
+/* help */
+.help { cursor: help; position: relative; display: inline;}
+.helpbox {
+	cursor: help; position:absolute; top:0;left:0; z-index:200;	width:292px;
+	text-align: left; color: black; font-weight: normal;
+}
+
+
+.helpbox a { background: transparent !important; color: blue;	text-decoration: underline; }
+.helpbox p { padding: 0px; }
+.helpbox h3 { padding-top:3px; color:#c0c0ff; border-bottom:solid 1px #c0c0ff; }
+.helpbox .helpbox-main {
+	background: transparent url(../images/helptop.png) top left no-repeat;
+	padding-left:15px; padding-right:5px;
+}
+.helpbox .helpbox-bottom { background:url(../images/helpbottom.png) top left no-repeat; }
+
+/* logo */
+#logo {
+	height: 100px; margin: 0px; padding: 0px; text-align: left; color: #f0f0f0; width: 100%;
+	background-image: url('../images/pagelogo_ccms_left.jpg');
+	background-position: left; background-repeat: no-repeat; color: white;
+}
+
+.loginbox { position: relative; top: 25px; float:right; font-size: 8pt; padding-right: 3px; text-align: center;}
+.loginbox button { font-size: 8pt; height: 16pt; }
+.loginbox a { color: white; }
+
+/* pull down menu */
+div.pdmenu {
+	padding: 0px; height: 20px;
+	position: absolute; bottom: 0px; right: 0px;
+	text-align: left;
+}
+
+div.banner{
+	padding: 0px; height: 20px;
+	position: relative; top: 80px;
+	text-align: right;
+}
+
+.banner a { color: white; text-decoration: none; }
+
+.pdmenu ul {
+	margin: 0;
+	padding: 0 0 25px 0;
+	list-style-type: none;
+}
+
+.pdmenu li  {
+	width: 125px;
+	margin: 0 -1px 0 0;
+	padding: 0;
+/*	border:1px solid black;
+	color:black;
+	text-decoration:none;
+	background-color:white;*/
+	float:left;
+}
+
+.pdmenu a {
+	text-decoration: none;
+	display: block;
+/*	color: #000000;
+	background-color: #ffffff;
+	padding: 5px;*/
+}
+
+.pdmenu a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: #000033;
+}
+
+.pdmenu li ul {
+	display: none;
+}
+
+.pdmenu li:hover ul {
+	visibility: visible;
+	display: block;
+	position:absolute;
+	z-index:202;
+	width:125px;
+	padding: 0;
+	margin: 0;
+	border:1px solid black;
+}
+
+.pdmenu li li {
+	color:black;
+	z-index:202;
+	text-decoration:none;
+	background-color:white;
+	border: none;
+}
+
+.pdmenu li li a {
+	padding: 2px 2px 2px 10px;
+	color: black;
+	text-decoration: none;
+}
+
+/* popup */
+#popup_mask{
+	position: fixed; width: 100%; height:100%; top:0px; left:0px; z-index: 100;
+	opacity:.7; filter: alpha(opacity=70); -moz-opacity: 0.7; background-color: black;
+}
+
+#popup_img{
+	display: none; border:2px solid #525252; margin: 1em auto;
+	background:#FFFFFF; color:#000000;
+	text-align:left; z-index: 104;
+}
+
+.popup{
+	display: none; z-index: 104;
+}
+
+.folder{
+	display: none; padding: 10px; overflow: auto; text-align:left; height: 350px;
+}
+
+.folder span.title{
+	padding-left: 2px; padding-right: 2px; margin-left: 2px; cursor: pointer;
+}
+
+.folderControl{
+	cursor:pointer; color:blue; font-weight: bold; position: relative
+}
+
+.error { color:#ff0000; }
+#togglebar { padding: 3px; background-color:#b0f0f0; background-image: url('../images/top.png'); background-position: left; background-repeat: no-repeat; color: white; }
+#uploadprogress { background-image: url('../images/blue_progressbar.gif'); background-repeat: repeat-x; color:white;}
+
+.header_link{ color: white; }
+.selectable{cursor: hand; cursor: pointer; border: 0;}
+.desc_block{ font-size: 14pt; }
+
+
+/* if mozilla */
+html>body div.scrollable tbody {
+  overflow: auto;
+}
+
+table.resizable th{
+  text-align:center;
+  overflow: hidden;
+}
+
+/* if mozilla, add 10 for the scrollbar */
+html>body th.scrollbarCol {
+  width:10px;
+}
+
+table.resizable td{
+  overflow: hidden;
+}
+
+table.resizable{
+  table-layout:fixed;
+}
+
+table.resizable input{
+  width:100%;
+}
+
+table.resizable textarea{
+  width:100%;
+}
+
+.nowrap {
+  white-space:nowrap;
+}
+
+.wrap{
+  white-space:normal;
+}
+
+/* needed for IE */
+table.tabular th.scrollbarCol {
+  background-color:transparent;
+}
+
+table.tabular {
+  FONT-SIZE: 13px;
+  FONT-FAMILY: 'Verdana, Arial, Helvetica, sans-serif';
+  COLOR: #336699;
+}
+
+table.tabular thead {
+  COLOR: #ffffff;
+  FONT-WEIGHT: bold;
+}
+
+table.tabular th{
+  background-color:#c0c0c0;
+  padding: 4px;
+}
+
+table.tabular td {
+  background-color:#EAF4F3;
+  padding: 2px;
+}
+
