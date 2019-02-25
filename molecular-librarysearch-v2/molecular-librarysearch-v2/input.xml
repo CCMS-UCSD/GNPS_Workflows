@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="molecular-librarysearch" version="1.2.5">
+	<workflow-id>MOLECULAR-LIBRARYSEARCH-V2</workflow-id>
+	<workflow-label>Dereplication-V2</workflow-label>
+	<parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Spectrum Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+        </parameter>
+
+        <parameter name="library_on_server" label="Spectral Library">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="library" target="lib"/>
+            <default value="d.speclibs;"/>
+        </parameter>
+
+	<!--<parameter label="Spectral Library" name="db.DB">
+	    <options resource="searchable_spectral_library"/>
+	    <fileGenerator type="resource" resource="searchable_spectral_library" target="lib"/>
+	</parameter>
+	-->
+        <!-- Basic MS parameters -->
+        <parameter name="tolerance.PM_tolerance" label="Precursor Ion Mass Tolerance">
+            <default value="2.0"/>
+            <validator type="float" minimum="0" maximum="2.5"/>
+        </parameter>
+        <parameter name="tolerance.Ion_tolerance" label="Fragment Ion Mass Tolerance">
+            <default value="0.5"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+
+	<parameter name="SCORE_THRESHOLD" label="Score Threshold">
+            <default value="0.7"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+
+	<parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
+            <default value="6"/>
+            <validator type="integer" minimumExclusive="0" maximum="500"/>
+        </parameter>
+
+	<parameter name="MIN_PEAK_INT" label="Min Peak Int">
+            <default value="0.0"/>
+        </parameter>
+
+	<parameter name="FILTER_STDDEV_PEAK_INT" label="Filter StdDev Intensity">
+            <default value="0.0"/>
+        </parameter>
+
+        <parameter name="FILTER_SNR_PEAK_INT" label="Filter SNR Intensity">
+            <default value="0.0"/>
+        </parameter>
+
+
+        <parameter name="FILTER_PRECURSOR_WINDOW" label="Filter Precursor Window">
+            <options>
+                    <option value="0" label="Don't Filter"/>
+                    <option value="1" label="Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+        <parameter name="WINDOW_FILTER" label="Filter peaks in 50Da Window">
+            <options>
+                    <option value="0" label="Don't Filter"/>
+                    <option value="1" label="Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+        <parameter name="FILTER_LIBRARY" label="Filter Library">
+            <options>
+                    <option value="0" label="Don't Filter Library"/>
+                    <option value="1" label="Filter Library"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+
+        <parameter name="ANALOG_SEARCH" label="Search Analogs">
+            <options>
+                    <option value="0" label="Don't Search"/>
+                    <option value="1" label="Do Search"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
+        <parameter name="MAX_SHIFT_MASS" label="Maximum Analog Search Mass Difference">
+            <default value="100.0"/>
+        </parameter>
+
+        <parameter name="TOP_K_RESULTS" label="Top Hits Per Spectrum">
+            <default value="1"/>
+            <validator type="integer" minimumExclusive="0" maximum="100000000"/>
+        </parameter>
+
+        <parameter name="SEARCH_LIBQUALITY" label="Library Class">
+            <options>
+                    <option value="1" label="Gold"/>
+                    <option value="2" label="Silver"/>
+                    <option value="3" label="Bronze"/>
+            </options>
+            <validator type="set"/>
+            <default value="3"/>
+        </parameter>
+
+      </parameters>
+
+	<!-- Input form layout -->
+    <block label="Search Options">
+
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="spec_on_server_tooltip">
+                        Accepted formats: mzXML, mzML (preferred), and mgf.
+					</tooltip>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+        <!--<row>
+            <cell>
+                <label><content parameter="library_on_server"/></label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_on_server" type="fileSelector">
+                    <property name="label">Spectral Library</property>
+                </module>
+            </cell>
+        </row>-->
+        <row>
+            <cell>
+                <label>
+                    <content parameter="tolerance.PM_tolerance"/>
+                    <tooltip id="parent_mass_tolerance_tooltip">
+						Specify the precursor ions mass tolerance (in Daltons) for spectral library search. Default value is ± 0.025 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap). Default value is 6, but note that this parameters should be tuned depending on the collision-induced fragmentation behavior of the molecules of interest, and the experimental conditions (such the mode of ionisation, the fragmentation conditions, and the mobile phase,  ...). High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
+						For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the documentation table).  **Please note: The default parameters recommended above for high resolution mass spectrometers will not result in proper searches of the spectral libraries created using lower accuracy instruments, such as Respect and a large portions of NIST. Therefore, if you want to perform spectral matching with these low-resolution mass spectra, we recommend using the 2.0 Da PIMT regardless of the type of mass spectrometer used. Moreover, downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used.
+					</tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.PM_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label><content>Da</content></label>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="tolerance.Ion_tolerance"/>
+                    <tooltip id="ion_tolerance_tooltip">
+						Parameters used for spectral library search. This value specifies how much fragment ions can be shifted from their expected m/z values. Default value is ± 0.02 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap) and 2.0 Da for low-resolution mass spectrometers (ion traps, QqQ). See documentation for more details (Link to the documentation table).
+					</tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.Ion_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label><content>Da</content></label>
+            </cell>
+        </row>
+	<row>
+	    <cell>
+                <label>
+                    <content parameter="MIN_MATCHED_PEAKS"/>
+					<tooltip id="minmatched_peaks_tooltip">
+						Minimum number of commun fragment ions that should share a MS/MS spectra to be considered as a spectral library annotation. Default value is 6, but note that this parameters should be tuned depending of the molecule of interest, and the experimental conditions (such as the ionisation mode, and the fragmentation conditions, ...). For example, collision-induced fragmentation of some lipids produce only few fragment ions. A low value will allow to match MS/MS spectra of molecules producing few fragment ions, but will tend to increase the number of inaccurate annotation.
+					</tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MIN_MATCHED_PEAKS">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+	    <cell>
+                <label>
+                    <content parameter="SCORE_THRESHOLD"/>
+					<tooltip id="score_threshold_tooltip">
+						Minimum cosine score to be considered as an annotation in spectral library search.
+					</tooltip>
+                </label>
+            </cell>
+
+	    <cell>
+		<input type="text" parameter="SCORE_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+	</row>
+      </block>
+
+      <block label="Advanced Search Options">
+        <row>
+          <cell>
+                <label>
+                    <content parameter="SEARCH_LIBQUALITY"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="SEARCH_LIBQUALITY">
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="ANALOG_SEARCH"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="ANALOG_SEARCH">
+                </input>
+            </cell>
+
+
+        </row>
+
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOP_K_RESULTS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="TOP_K_RESULTS">
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT_MASS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="MAX_SHIFT_MASS">
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="library_on_server"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_on_server" type="fileSelector">
+                    <property name="label">Library Files</property>
+                </module>
+            </cell>
+          </row>
+    </block>
+
+      <block label="Advanced Filtering Options">
+
+	<row>
+
+	    <cell>
+                <label>
+                    <content parameter="FILTER_STDDEV_PEAK_INT"/>
+					<tooltip id="std_dev_filter_tooltip">
+						For each MS/MS spectrum the 25% least intense fragment ions are collected and the std-dev is calculated as well as the mean. A minimum peak intensity is calculated as mean + k * std-dev where k is user selectable. All peaks below this threshold are deleted. By default filter is inactive (value is set to 0). This option is not encouraged. By default, no filter.
+					</tooltip>
+                </label>
+            </cell>
+
+	    <cell>
+		<input type="text" parameter="FILTER_STDDEV_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="FILTER_SNR_PEAK_INT"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="FILTER_SNR_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+
+	    <cell>
+                <label>
+                    <content parameter="MIN_PEAK_INT"/>
+                </label>
+            </cell>
+
+	    <cell>
+		<input type="text" parameter="MIN_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+
+	</row>
+	<row>
+            <cell>
+                <label>
+                    <content parameter="FILTER_PRECURSOR_WINDOW"/>
+					<tooltip id="precursor_window_filter_tooltip">
+						All peaks in a +/- 17 Da window around precursor ion mass are deleted. By default, yes filter. This removes the residual precursor ion, which is frequently observed in MS/MS spectra acquired on qTOFs. By default, yes filter.
+					</tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="FILTER_PRECURSOR_WINDOW">
+                </input>
+            </cell>
+
+	    <cell>
+                <label>
+                    <content parameter="FILTER_LIBRARY"/>
+                </label>
+            </cell>
+
+	    <cell>
+		<input type="select" parameter="FILTER_LIBRARY">
+                </input>
+            </cell>
+	</row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="WINDOW_FILTER"/>
+					<tooltip id="window_filter_tooltip">
+						For each peak in spectrum to be kept, it must be at least 6th most intense peak in a window +/- 50Th around its m/z.
+					</tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="WINDOW_FILTER">
+                </input>
+            </cell>
+        </row>
+      </block>
+
+</interface>
