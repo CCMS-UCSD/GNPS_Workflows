@@ -275,8 +275,8 @@
     <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="MetabolomicClusterinfoGroup.script" path="calculate_group_abundances.py"/>
     </pathSet>
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="MetabolomicClusterinfoGroup" path="bin/python2.7"/>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicClusterinfoGroup" path="python3.5"/>
     </pathSet>
     <tool name="MetabolomicClusterinfoGroup">
         <require name="workflowParameters" type="file"/>
@@ -304,8 +304,8 @@
     <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="metabolomic_create_components.script" path="create_components_table.py"/>
     </pathSet>
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="metabolomic_create_components" path="bin/python2.7"/>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_create_components" path="python3.5"/>
     </pathSet>
     <tool name="metabolomic_create_components">
         <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
