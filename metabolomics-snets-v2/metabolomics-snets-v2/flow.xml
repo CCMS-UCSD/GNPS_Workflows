@@ -105,7 +105,7 @@
         <output port="specnetsparam"     object="specnetsparam"/>
     </action>
 
-    <action name="metabolomicspecnets">
+    <action name="msclustering">
         <input  port="spec"       collection="inputspectra"/>
         <input  port="specnetsparam" object="specnetsparam"/>
         <output port="spectra"     collection="spectra"/>

@@ -1,6 +1,25 @@
 <toolset>
 
 
+    <!-- MSClustering -->
+
+    <pathSet base="metabolomicsnetsv2/binaries">
+        <toolPath tool="MetabolomicSpecnets_ClusteringOnly" path="main_specnets"/>
+    </pathSet>
+
+    <tool name="MetabolomicSpecnets_ClusteringOnly">
+        <require name="spec"       type="folder"/>
+        <require name="specnetparams" type="file"/>
+        <produce name="spectra"        type="folder"/>
+        <produce name="aligns"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg valueRef="specnetparams"/>
+                <arg option="ll" value="9"/>
+                <arg option="f" value="mscluster"/>
+        </execution>
+    </tool>
+
     <!-- Molecular Networking -->
     <pathSet base="anaconda3/bin">
         <toolPath tool="copy_spectra_mgf" path="python3.5"/>
@@ -79,8 +98,6 @@
 
         <toolPath tool="SpecnetsParamGen" path="main_execmodule"/>
         <toolPath tool="MetabolomicSpecnets" path="main_specnets"/>
-        <toolPath tool="MetabolomicSpecnets_ClusteringOnly" path="main_specnets"/>
-
         <toolPath tool="MetabolomicClusterinfo" path="clusterinfo"/>
 
         <pathVar name="pairsinfo.file" path="pairsinfo"/>
@@ -92,12 +109,8 @@
     <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="MetabolomicPairsinfo.script" path="pairsinfo.py"/>
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
-
         <toolPath tool="MetabolomicMakeSelfloop" path="add_self_loop.py"/>
-
         <toolPath tool="GetDBAnnotations_specnets" path="getGNPS_library_annotations.py"/>
-
-
         <toolPath tool="MetabolomicClusterInfoGroupAddAttribute" path="AddAttributes.py"/>
         <toolPath tool="MetabolomicClusterInfoGroupAddID" path="add_IDs_to_groupsummary.py"/>
         <toolPath tool="MetabolomicAddArbitraryAttribute" path="Add_Arbitrary_Attributes.py"/>
@@ -106,9 +119,7 @@
         <toolPath tool="MetabolomicWriteOriginalFileNameClusterInfo" path="add_full_filepath_clusterdetails.py"/>
 
         <toolPath tool="InputFileValidator_specnets" path="spectra_validator.py"/>
-
         <toolPath tool="MetabolomicNetworkStatistics" path="Generate_Network_Identification_Stats.py"/>
-
         <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
     </pathSet>
 
@@ -217,18 +228,7 @@
         </execution>
     </tool>
 
-    <tool name="MetabolomicSpecnets_ClusteringOnly">
-        <require name="spec"       type="folder"/>
-        <require name="specnetparams" type="file"/>
-        <produce name="spectra"        type="folder"/>
-        <produce name="aligns"        type="folder"/>
 
-        <execution env="binary" argConvention="adhoc">
-                <arg valueRef="specnetparams"/>
-                <arg option="ll" value="9"/>
-                <arg option="f" value="mscluster"/>
-        </execution>
-    </tool>
 
     <!-- Merging Grouping Information -->
     <pathSet base="anaconda3/bin">
