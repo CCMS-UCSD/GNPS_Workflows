@@ -8,8 +8,6 @@ def usage():
     print("<input spectra> <parameters filename> <output spectra> <output aligns> <main specnets filepath>")
 
 def main():
-    usage()
-
     input_spectra_folder = sys.argv[1]
     parameters_filename = sys.argv[2]
     output_spectra_folder = sys.argv[3]
@@ -23,9 +21,11 @@ def main():
         exit(1)
 
     #Do clean up out output spectra folder
-    all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "*.pklbin")
-    print(all_pklbin_files)
+    all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "*.pklbin"))
 
+    for filetoremove in all_pklbin_files:
+        print("Removing ", filetoremove)
+        #os.remove(filetoremove)
 
 if __name__ == "__main__":
     main()
