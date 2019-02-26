@@ -363,7 +363,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="metabolomic_create_compound_filename_occurences" path="python3.5"/>
     </pathSet>
-    <pathSet base="metabolomicsnets/scripts">
+    <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="metabolomic_create_compound_filename_occurences.script" path="create_IDCompound_presence_abscence.py"/>
     </pathSet>
     <tool name="metabolomic_create_compound_filename_occurences">
