@@ -112,10 +112,10 @@
         <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
     </pathSet>
 
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="NetworkTopologyCreator" path="bin/python2.7"/>
-        <toolPath tool="MetabolomicPairsinfo" path="bin/python2.7"/>
-        <toolPath tool="metabolomics_convert_graphml" path="bin/python2.7"/>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="NetworkTopologyCreator" path="python3.5"/>
+        <toolPath tool="MetabolomicPairsinfo" path="python3.5"/>
+        <toolPath tool="metabolomics_convert_graphml" path="python3.5"/>
     </pathSet>
 
     <tool name="LibrarySearchParamGeneration_specnets">
