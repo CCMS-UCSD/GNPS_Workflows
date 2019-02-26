@@ -71,7 +71,7 @@ def get_all_topology_paths(molecular_network, max_length):
     node_count = 0
     for node1 in molecular_network.nodes:
         node_count += 1
-        print "NODE INDEX: " + str(node1.index) + "\t" + str(node_count) + " out of " + str(len(molecular_network.nodes))
+        #print "NODE INDEX: " + str(node1.index) + "\t" + str(node_count) + " out of " + str(len(molecular_network.nodes))
         for node2 in molecular_network.nodes:
             #print node1.component
             if node1.index == node2.index:
@@ -203,7 +203,7 @@ def get_mzdelta_topology_aware_clusters(molecular_network, characteristic_mz_lis
 
     components_candidates = component_lists.keys()
     components_candidates.sort()
-    print components_candidates
-    print component_lists
+    #print components_candidates
+    #print component_lists
 
     return None
