@@ -21,11 +21,11 @@ def main():
         exit(1)
 
     #Do clean up out output spectra folder
-    all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "*.pklbin"))
+    all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "specs_ms_*.pklbin"))
 
     for filetoremove in all_pklbin_files:
         print("Removing ", filetoremove)
-        #os.remove(filetoremove)
+        os.remove(filetoremove)
 
 if __name__ == "__main__":
     main()
