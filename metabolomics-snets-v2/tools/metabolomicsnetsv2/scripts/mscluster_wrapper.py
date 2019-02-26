@@ -2,6 +2,7 @@
 
 import sys
 import os
+import glob
 
 def usage():
     print("<input spectra> <parameters filename> <output spectra> <output aligns> <main specnets filepath>")
@@ -22,8 +23,8 @@ def main():
         exit(1)
 
     #Do clean up out output spectra folder
-    
-
+    all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "*.pklbin")
+    print(all_pklbin_files)
 
 
 if __name__ == "__main__":
