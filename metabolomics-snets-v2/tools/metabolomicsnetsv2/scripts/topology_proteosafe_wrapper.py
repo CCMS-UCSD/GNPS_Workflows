@@ -14,7 +14,7 @@ import topology_library
 
 
 def usage():
-    print "<param.xml> <input pairs info> <clusterinfo file> <output path list> <output path histogram>"
+    print("<param.xml> <input pairs info> <clusterinfo file> <output path list> <output path histogram>")
 
 def find_features_in_network(clusterinfo_filename, pairs_info_filename, output_path_list_filename, output_path_histogram_filename):
     #Creating molecular network

@@ -88,7 +88,7 @@
 		<productionToOutput port="specnetsparam"     production="paramsgen"/>
 	</bind>
 
-	<bind action="metabolomicspecnets" tool="MetabolomicSpecnets_ClusteringOnly">
+	<bind action="msclustering" tool="MetabolomicSpecnets_ClusteringOnly">
 		<inputAsRequirement port="spec" requirement="spec"/>
 		<inputAsRequirement port="specnetsparam"       requirement="specnetparams"/>
 		<productionToOutput port="spectra"     production="spectra"/>

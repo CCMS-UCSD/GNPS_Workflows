@@ -73,8 +73,8 @@ def find_matches_in_dataset_wrapper(parameters_dict):
 
 def find_matches_in_dataset(dataset_id, input_spectrum_collection):
     dataset_match_list = []
-    path_to_clustered_mgf = os.path.join(PATH_TO_DATASET_UPLOADS, dataset_id, "clustered", dataset_id + "_specs_ms.mgf")
-    relative_user_path_to_clustered = os.path.join(dataset_id, "clustered", dataset_id + "_specs_ms.mgf")
+    path_to_clustered_mgf = os.path.join(PATH_TO_DATASET_UPLOADS, "continuous", "clustered_data", dataset_id + "_specs_ms.mgf")
+    relative_user_path_to_clustered = os.path.join("continuous", "clustered_data", dataset_id + "_specs_ms.mgf")
 
     if not ming_fileio_library.is_path_present(path_to_clustered_mgf):
         return dataset_match_list
