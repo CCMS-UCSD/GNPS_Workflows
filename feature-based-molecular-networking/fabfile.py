@@ -6,4 +6,4 @@ env.user='miw023'
 
 def update_workflow():
     put(os.path.join(os.getcwd(), 'feature-based-molecular-networking'), "/ccms/workflows/")
-    put(os.path.join(os.getcwd(), 'tools/feature-based-molecular-networking'), "/data/cluster/tools/")
+    put(os.path.join(os.getcwd(), 'tools/feature-based-molecular-networking'), "/data/cluster/tools/", mirror_local_mode=True)
