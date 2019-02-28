@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="feature-based-molecular-networking" version="1.2.5">
+    <workflow-id>FEATURE-BASED-MOLECULAR-NETWORKING</workflow-id>
+    <workflow-label>Feature-based Molecular Networking</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="MS2 MGF File">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+        </parameter>
+
+        <parameter name="quantification_table" label="Peak Area Quantification Table">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
+        </parameter>
+
+        <parameter name="metadata_table" label="Sample Metadata Table">
+            <fileGenerator type="upload" purpose="metadata_table" target="metadata_table"/>
+        </parameter>
+
+        <!-- Extra Pairs -->
+        <parameter name="additional_pairs" label="Supplementary Pairs">
+            <fileGenerator type="upload" purpose="additional_pairs" target="additional_pairs"/>
+        </parameter>
+
+        <parameter name="tolerance.PM_tolerance" label="Precursor Ion Mass Tolerance">
+            <default value="2.0"/>
+            <validator type="float" minimum="0" maximum="2.5"/>
+        </parameter>
+        <parameter name="tolerance.Ion_tolerance" label="Fragment Ion Mass Tolerance">
+            <default value="0.5"/>
+            <validator type="float" minimumExclusive="0" maximumExclusive="1"/>
+        </parameter>
+
+        <!-- Networking Parameters -->
+        <parameter name="PAIRS_MIN_COSINE" label="Min Pairs Cos">
+            <default value="0.7"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+
+        <parameter name="MIN_MATCHED_PEAKS" label="Minimum Matched Fragment Ions">
+            <default value="6"/>
+            <validator type="integer" minimumExclusive="0" maximum="500"/>
+        </parameter>
+
+        <parameter name="MAX_SHIFT" label="Maximum shift between precursors">
+            <default value="500"/>
+            <validator type="integer" minimumExclusive="0" maximum="1500"/>
+        </parameter>
+
+        <parameter name="TOPK" label="Network TopK">
+            <default value="10"/>
+        </parameter>
+
+        <parameter name="MAXIMUM_COMPONENT_SIZE" label="Maximum Connected Component Size (Beta)">
+            <default value="100"/>
+            <validator type="integer" minimumExclusive="-1" maximum="100000"/>
+        </parameter>
+
+        <!-- Library Search Parameters -->
+        <parameter name="library_on_server" label="Spectral Library">
+            <fileGenerator type="upload" purpose="library" target="lib"/>
+            <default value="d.speclibs;"/>
+        </parameter>
+
+        <parameter name="SCORE_THRESHOLD" label="Score Threshold">
+            <default value="0.7"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
+
+        <parameter name="MIN_MATCHED_PEAKS_SEARCH" label="Library Search Min Matched Peaks">
+            <default value="6"/>
+            <validator type="integer" minimumExclusive="0" maximum="500"/>
+        </parameter>
+
+        <parameter name="TOP_K_RESULTS" label="Top results to report per query">
+            <default value="1"/>
+            <validator type="integer" minimumExclusive="0" maximum="500"/>
+        </parameter>
+
+        <parameter name="ANALOG_SEARCH" label="Search Analogs">
+            <options>
+                <option value="0" label="Don't Search"/>
+                <option value="1" label="Do Search"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
+        <parameter name="MAX_SHIFT_MASS" label="Maximum Analog Search Mass Difference">
+            <default value="100.0"/>
+        </parameter>
+
+        <!-- Filtering Options -->
+        <parameter name="MIN_PEAK_INT" label="Minimum Peak Intensity">
+            <default value="0.0"/>
+        </parameter>
+
+        <parameter name="FILTER_PRECURSOR_WINDOW" label="Filter Precursor Window">
+            <options>
+                <option value="1" label="Filter"/>
+                <option value="0" label="Don't Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+        <parameter name="FILTER_LIBRARY" label="Filter Library">
+            <options>
+                <option value="0" label="Don't Filter Library"/>
+                <option value="1" label="Filter Library"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+        <parameter name="WINDOW_FILTER" label="Filter peaks in 50Da Window">
+            <options>
+                <option value="0" label="Don't Filter"/>
+                <option value="1" label="Filter"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+
+        <!-- Quantification Options -->
+        <parameter name="QUANT_FILE_NORM" label="Normalization Per File">
+            <options>
+                <option value="None" label="No Norm"/>
+                <option value="RowSum" label="Row Sum Normalization"/>
+            </options>
+            <validator type="set"/>
+            <default value="None"/>
+        </parameter>
+
+        <parameter name="GROUP_COUNT_AGGREGATE_METHOD" label="Aggregation Method For peak abundances per group">
+            <options>
+                <option value="Sum" label="Sum"/>
+                <option value="Mean" label="Mean"/>
+            </options>
+            <validator type="set"/>
+            <default value="Mean"/>
+        </parameter>
+
+        <!-- Input Feature Type -->
+        <parameter name="QUANT_TABLE_SOURCE" label="Quantification Table Source">
+            <options>
+                <option value="MZMINE2" label="MZmine2"/>
+                <option value="OPENMS" label="OpenMS"/>
+                <option value="OPTIMUS" label="Optimus"/>
+                <option value="MSDIAL" label="MS-DIAL"/>
+                <option value="METABOSCAPE" label="Metaboscape"/>
+                <option value="XCMS3" label="XCMS 3"/>
+            </options>
+            <validator type="set"/>
+            <default value="MZMINE2"/>
+        </parameter>
+
+
+        <!-- Additional External Tools -->
+        <parameter name="RUN_DEREPLICATOR" label="Run Dereplicator">
+            <options>
+                <option value="0" label="Don't Run"/>
+                <option value="1" label="Run"/>
+            </options>
+            <validator type="set"/>
+            <default value="1"/>
+        </parameter>
+
+
+
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="File Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">MS2 MGF File</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="quantification_table"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="quantification_table" type="fileSelector">
+                    <property name="label">Peak Area Quantification Table</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="metadata_table"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="metadata_table" type="fileSelector">
+                    <property name="label">Sample Metadata Table</property>
+                </module>
+            </cell>
+        </row>
+
+    </block>
+
+    <block label="Basic Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="QUANT_TABLE_SOURCE"/>
+                    <tooltip id="QUANT_TABLE_SOURCE_gnps_tooltip">
+                        Quantification table format.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="QUANT_TABLE_SOURCE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="tolerance.PM_tolerance"/>
+                    <tooltip id="precursor_mass_tolerance">
+                        Parameter used for spectral library search. Specify the precursor ions mass tolerance, in Daltons. This value influences the aforementioned clustering of nearly-identical MS/MS spectra via MS-Cluster. Note that the value of this
+                        parameters should be consistent with the capabilities of the mass spectrometer and the specific instrument method used to generated the MS/MS data. The default value is ± 0.02 Da for high resolution mass spectrometers (e.g. q-TOFs, q-Orbitrap). The
+                        0.02 Da value translates into a maximum error of 40 ppm at m/z 500, 20 ppm at m/z 1000 for the precursor ion, and 13 ppm at m/z 1500, which is consistent for typical m/z range acquisition of small molecules. Regarding peptidic small molecules, their
+                        m/z range can be up to 2000 Da, thus a of 0.03 Da should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the
+                        documentation table). **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a
+                        significant portion of NIST. Therefore, if you want to perform spectral matching with these spectral libraries, we recommend using a ± 2.0 Da PIMT regardless of the type of mass spectrometer used. Furthermore, downstream filtering of the MS/MS
+                        spectral library hits can be done based the mass spectrometers used.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.PM_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label>
+                    <content>Da</content>
+                </label>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="tolerance.Ion_tolerance"/>
+                    <tooltip id="fragment_ion_mass_tolerance">
+                        Parameters used for MS-Cluster, molecular networking, and MS/MS spectral library searches. For every group of MS/MS spectra being considered for clustering (consensus spectrum creation), this value specifies how much fragment ions can be shifted from
+                        their expected m/z values. Default value is ± 0.02 Da for high-resolution instruments (q-TOF, q-Orbitrap) and ± 2.0 Da for low-resolution instruments (ion traps, QqQ).
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.Ion_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label>
+                    <content>Da</content>
+                </label>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Network Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PAIRS_MIN_COSINE"/>
+                    <tooltip id="min_pair_cosine_tooltip">
+                        Minimum cosine score that must occur between a pair of consensus MS/MS spectra in order for an edge to be formed in the molecular network. Default value is 0.7. Lower value will increase the size of the clusters by inducing the clustering of less
+                        related MS/MS spectra, higher value will limit do the opposite.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PAIRS_MIN_COSINE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="MIN_MATCHED_PEAKS"/>
+                    <tooltip id="min_matched_peaks_tooltip">
+                        Parameters used for molecular networking. Is the minimum number of common fragment ions that are shared by two separate consensus MS/MS spectra in order to be connected by an edge in the molecular network. A low value will permit linkages between
+                        spectra of molecules with few similar fragment ions, but it will result in many more less-related spectra being connected to the network. An higher value will do the opposite. Default value is 6, but note that this parameters should be adjusted
+                        depending on the experimental conditions for mass spectra acquisition (such as mode of ionisation, fragmentation conditions, and the mobile phase, ...), and the collision-induced fragmentation behavior of the molecules of interest within the samples.
+                        High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MIN_MATCHED_PEAKS">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT"/>
+                    <tooltip id="MAX_SHIFT_tooltip">
+                        The maximum structure modification mass between two spectra to be considered direct neighbors in a molecular network.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAX_SHIFT">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label>
+                    <content>Da</content>
+                </label>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOPK"/>
+                    <tooltip id="network_topk_gnps_tooltip">
+                        Maximum number of neighbor nodes for one single node. The edge between two nodes are kept only if both nodes are within each other's TopK most similar nodes. For example, if this value is set at 20, then a single node may be connected to up to 20
+                        other nodes. Keeping this value low makes very large networks (many nodes) much easier to visualize.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="TOPK">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="MAXIMUM_COMPONENT_SIZE"/>
+                    <tooltip id="max_component_size_gnps_tooltip">
+                        Maximum size of nodes allowed in a single connected network. Nodes within a single connected molecular network will be separated by increasing cosine threshold for that specific connected molecular network. Default value is 100. Use 0 to allow an
+                        unlimited number of nodes in a single network. Note that with large datasets, or when a great number of related molecules are in the dataset, this value should be higher (or turn to 0) to retain as much information as possible. Downstream, these
+                        larger networks can be visualized using Cytoscape layout algorithms that can increase the intra-network clustering, allowing to visualize spectral groups in the network despite the number of nodes in the network.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Library Search Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="library_on_server"/>
+                    <tooltip id="library_gnps"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_on_server" type="fileSelector">
+                    <property name="label">Library Files</property>
+                </module>
+            </cell>
+        </row>
+        <row>
+            <cell colspan="4" align="right">
+                <label prefix="false">
+                    <content>
+                        <![CDATA[<span style="background-color:#D1EEEE;
+					padding:1px; border:2px inset blue"> To import libraries for search click
+					<a style="color:blue; font-weight:bold; font-size:105%;
+						background-color:#D1EEEE" target="_blank"
+						href="https://bix-lab.ucsd.edu/display/Public/GNPS+FAQ">
+						here
+					</a></span>]]>
+                    </content>
+                </label>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MIN_MATCHED_PEAKS_SEARCH"/>
+                    <tooltip id="min_matched_peaks_library_gnps_tooltip">
+                        Minimum number of common fragment ions that MS/MS spectra should contain in order to be considered for spectral library annotation. Default value is 6, but note that this parameters should be tuned depending of the molecule of interest, and the
+                        experimental conditions (such as the ionisation mode, and the fragmentation conditions, ...). For example, collision-induced fragmentation of some lipids produce only few fragment ions. A lower value will allow clustering of MS/MS spectra containing
+                        less fragment ions, however it will also induce clustering of MS/MS spectra from different molecular-type to be connected in one network. An higher value will do the opposite.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MIN_MATCHED_PEAKS_SEARCH">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="SCORE_THRESHOLD"/>
+                    <tooltip id="min_cosine_library_gnps_tooltip">
+                        Minimum cosine score that MS/MS spectra should get in spectral matching with MS/MS spectral libraries in order to be considered an annotation.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="SCORE_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="ANALOG_SEARCH"/>
+                    <tooltip id="analog_search_tooltip">
+                        Enable analog search. Matches query spectra against library spectrum with a modification tolerant search.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="ANALOG_SEARCH"></input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT_MASS"/>
+                    <tooltip id="max_shift_mass_tooltip">
+                        The maximum delta between a query spectrum's m/z that is allowed to match a library spectrum.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="MAX_SHIFT_MASS"></input>
+                <label>
+                    <content>Da</content>
+                </label>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOP_K_RESULTS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="TOP_K_RESULTS"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Filtering Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MIN_PEAK_INT"/>
+                    <tooltip id="filterint_gnps_tooltip">
+                        All fragment ions in the MS/MS spectrum below this raw intensity will be deleted. By default, no filter.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="MIN_PEAK_INT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="FILTER_PRECURSOR_WINDOW"/>
+                    <tooltip id="filterprecursor_gnps_tooltip">
+                        All peaks in a +/- 17 Da around precursor ion mass are deleted. By default, yes filter. This removes the residual precursor ion, which is frequently observed in MS/MS spectra acquired on qTOFs. By default, yes filter.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="FILTER_PRECURSOR_WINDOW"></input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="FILTER_LIBRARY"/>
+                    <tooltip id="filterlibrary_gnps"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="FILTER_LIBRARY"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="WINDOW_FILTER"/>
+                    <tooltip id="filterpeakwindow_gnps_tooltip">
+                        For each peak in spectrum to be kept, it must be at least 6th most intense peak in a window +/- 50Th around its m/z.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="WINDOW_FILTER"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Quantification Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="QUANT_FILE_NORM"/>
+                    <tooltip id="QUANT_FILE_NORM_gnps_tooltip">
+                        Quantification Normalization Options. Row Sum normalization will make sure L1 norm per file is equal to 1.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="QUANT_FILE_NORM"></input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="GROUP_COUNT_AGGREGATE_METHOD"/>
+                    <tooltip id="GROUP_COUNT_AGGREGATE_METHOD_gnps_tooltip">
+                        Quantification Normalization Group Aggregation method. Default is sum all files within a group, alternative is the mean.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="GROUP_COUNT_AGGREGATE_METHOD"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced External Tools">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="RUN_DEREPLICATOR"/>
+                    <tooltip id="RUN_DERPLICATOR_gnps_tooltip">
+                        Run insilco Dereplicator Tool on MGF input.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="RUN_DEREPLICATOR"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Extras">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="additional_pairs"/>
+                    <tooltip id="additional_pairs_gnps_tooltip">
+                        Additional Edges From External Tools
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <module id="additional_pairs" type="fileSelector">
+                    <property name="label">Additional Edges From External Tools</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+
+
+
+</interface>
