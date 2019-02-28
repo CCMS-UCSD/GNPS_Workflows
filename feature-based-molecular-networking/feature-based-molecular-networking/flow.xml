@@ -161,7 +161,6 @@
         <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
     </action>
 
-
     <!-- External Analysis -->
     <object name="dereplicator_html"/>
     <action name="run_dereplicator">
@@ -169,6 +168,15 @@
         <output port="dereplicator_html"     object="dereplicator_html"/>
     </action>
 
+    <!-- Qiime2 -->
+    <object name="qiime2_feature_qza"/>
+    <object name="qiime2_feature_pcoa_qzv"/>
+    <action name="run_qiime2">
+        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
+        <input  port="metadata_table"       object="metadata_table"/>
+        <output port="qiime2_feature_qza"     object="qiime2_feature_qza"/>
+        <output port="qiime2_feature_pcoa_qzv"     object="qiime2_feature_pcoa_qzv"/>
+    </action>
 
     <action name="end">
         <input port="spectra" object="spectra"/>
