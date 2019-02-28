@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="ms2lda_motifdb" version="1.1.0">
+    <workflow-id>MS2LDA_MOTIFDB</workflow-id>
+    <workflow-label>MS2LDA Motif Database</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <!-- Raw Data Inputs -->
+        <parameter name="spec_on_server" label="Spectrum Files (Required) - MGF">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="parameters" target="spec"/>
+        </parameter>
+
+        <parameter name="network_pairs" label="Molecular Network Pairs (Required)">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="parameters" target="network_pairs"/>
+        </parameter>
+
+        <parameter name="mzmine_csv" label="MZMine2 Quantification CSV (Optional)">
+            <fileGenerator type="upload" purpose="parameters" target="mzmine_csv"/>
+        </parameter>
+
+        <parameter name="MGF_SOURCE" label="MGF Source">
+            <options>
+                <option value="mscluster" label="MSCluster (Classic Molecular Networking) / MZMine2 without Quantification"/>
+                <option value="mzmine" label="MZMine2 (Feature Based Molecular Networking)"/>
+            </options>
+            <validator type="set"/>
+            <default value="mscluster"/>
+        </parameter>
+
+        <parameter name="LDA_BIN_WIDTH" label="Bin Width">
+            <options>
+                <option value="0.005" label="0.005 (Q-Exactive Data)"/>
+                <option value="0.01" label="0.01 (ToF Data)"/>
+                <option value="0.05" label="0.05"/>
+                <option value="0.1" label="0.1"/>
+                <option value="0.5" label="0.5"/>
+            </options>
+            <default value="0.005"/>
+            <validator type="float"/>
+        </parameter>
+
+        <parameter name="LDA_ITERATIONS" label="Number of LDA Iterations">
+            <default value="1000"/>
+            <validator type="integer" minimumExclusive="9" maximum="50000"/>
+        </parameter>
+
+        <parameter name="LDA_MINIMUM_MS2_INTENSITY" label="Minimum MS2 Intensity">
+            <default value="100"/>
+            <validator type="integer" minimumExclusive="9" maximum="500000"/>
+        </parameter>
+
+        <parameter name="LDA_FREE_MOTIFS" label="LDA Free Motifs">
+            <default value="300"/>
+            <validator type="integer" minimumExclusive="9" maximum="500000"/>
+        </parameter>
+
+        <!-- LDA Network Parameters -->
+        <parameter name="LDA_NETWORK_OVERLAP_THRESHOLD" label="Overlap score threshold">
+            <default value="0.3"/>
+            <validator type="float"/>
+        </parameter>
+
+        <parameter name="LDA_NETWORK_P_THRESHOLD" label="Probability value threshold">
+            <default value="0.1"/>
+            <validator type="float"/>
+        </parameter>
+
+        <parameter name="LDA_NETWORK_TOPX" label="TopX in node">
+            <default value="5"/>
+            <validator type="integer" minimumExclusive="0" maximum="500000"/>
+        </parameter>
+
+        <!-- Motifs to Include -->
+
+        <parameter name="GNPS_MOTIF_INCLUDE" label="GNPS Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+        <parameter name="MASSBANK_MOTIF_INCLUDE" label="MassBank Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+        <parameter name="URINE_MOTIF_INCLUDE" label="Urine Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+        <parameter name="EUPHORBIA_MOTIF_INCLUDE" label="Euphorbia Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+    </parameters>
+
+    <block label="Select Data Files">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="spectrum_gnps"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum File (MGF)</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="network_pairs"/>
+                    <tooltip id="network_pairs"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="network_pairs" type="fileSelector">
+                    <property name="label">Network Pairs</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="mzmine_csv"/>
+                    <tooltip id="mzmine_csv">
+                        Upload here the MzMine2 quantification .csv file. It is important that the MS1 features unique identifier is the row_ID as this is used to match to MS1-MS2 features in the .MGF file. Please select the “MzMine2” workflow below to ensure proper matching.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="mzmine_csv" type="fileSelector">
+                    <property name="label">MZMine Quantification CSV (Optional)</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MGF_SOURCE"/>
+                    <tooltip id="MGF_SOURCE_gnps_tooltip">
+                        Source of MGF file, either from classic molecular networking or feature based molecular networking.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="MGF_SOURCE"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced MS2LDA parameters">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_BIN_WIDTH"/>
+                    <tooltip id="LDA_BIN_WIDTH">
+                        The binning size in Dalton used to bin MS2 peaks prior to running MS2LDA. Default values are indicated for Q-Exactive and ToF data but it is recommended to check your .MGF file to find the best suitable bin size. If lesser accurate data is used, 0.1 Da binning can be used.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="LDA_BIN_WIDTH"></input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_ITERATIONS"/>
+                    <tooltip id="LDA_ITERATIONS_gnps_tooltip">
+                         The number of iterations (integer) to discover Mass2Motifs. Default value is 1000 iterations which is for typical MS2LDA experiments sufficient to converge the LDA model (not many changes in Mass2Motif compositions can be expected anymore).
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_ITERATIONS">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_MINIMUM_MS2_INTENSITY"/>
+                    <tooltip id="LDA_MINIMUM_MS2_INTENSITY_gnps_tooltip">
+                        Please take note of the following! The minimum intensity (a.u.) of MS2 peaks to include into the MS2LDA analysis. Default value for Q-Exactive data is 5000 and for ToF  data this is 100. For clustered data and data from other sources, please carefully check the .MGF file and choose an appropriate value to remove as much noise as possible. This will make the MS2LDA run faster and also use up less memory. Also, ensure not too remove all MS2 peaks from your .MGF file.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_MINIMUM_MS2_INTENSITY">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_FREE_MOTIFS"/>
+                    <tooltip id="LDA_FREE_MOTIFS_gnps_tooltip">
+                        The number (integer) of unsupervised Mass2Motifs MS2LDA will discover in your data. This is dependent on how many substructures you think can be found in your data. Typical values are 200 for smaller data sets and 300 or 400 for larger data sets. Generally, it is okay to be on the safe side and take a slightly higher value than you would expect.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_FREE_MOTIFS">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="MotifDB Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="GNPS_MOTIF_INCLUDE"/>
+                    <tooltip id="GNPS_MOTIF_INCLUDE">
+                        This MotifDB set includes 78 annotated Mass2Motifs from the GNPS data available here: http://ms2lda.org/basicviz/summary/191/. Recommended to include with most data types. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="GNPS_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MASSBANK_MOTIF_INCLUDE"/>
+                    <tooltip id="MASSBANK_MOTIF_INCLUDE">
+                        This MotifDB set includes 46 annnotated Mass2Motifs from the MassBank data available here: http://ms2lda.org/basicviz/summary/190/. Recommended to include with most data types. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="MASSBANK_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="URINE_MOTIF_INCLUDE"/>
+                    <tooltip id="URINE_MOTIF_INCLUDE">
+                        This MotifDB set includes 134 annotated Mass2Motifs discovered in urine files. Recommended to include when running urine or plasma samples. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="URINE_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="EUPHORBIA_MOTIF_INCLUDE"/>
+                    <tooltip id="EUPHORBIA_MOTIF_INCLUDE">
+                        This MotifDB set includes 66 partly annotated Mass2Motifs discovered in Euphorbia plant extracts. Recommended to include when you have plant data or expect terpenes to be present in your data. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="EUPHORBIA_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced MS2LDA Parameters for Networking File Output">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_NETWORK_OVERLAP_THRESHOLD"/>
+                    <tooltip id="LDA_NETWORK_OVERLAP_THRESHOLD_gnps_tooltip">
+                         Threshold (number between 0 and 1) on overlap scores on Mass2Motif-spectra links. Default value is 0.3 and other typically used values are 0.2 and 0.1 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_NETWORK_OVERLAP_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_NETWORK_P_THRESHOLD"/>
+                    <tooltip id="LDA_NETWORK_P_THRESHOLD_gnps_tooltip">
+                         Threshold (number between 0 and 1) on probability values on Mass2Motif-spectra links. Default value is 0.1 and other typically used values are 0.01 and 0.2 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_NETWORK_P_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LDA_NETWORK_TOPX"/>
+                    <tooltip id="LDA_NETWORK_TOPX_gnps_tooltip">
+                        The top X (integer) Mass2Motifs with the highest overlap scores that are listed in the new edge file. Default value is 5.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="LDA_NETWORK_TOPX">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+</interface>

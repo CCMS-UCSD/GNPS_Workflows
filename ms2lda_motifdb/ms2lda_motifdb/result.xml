@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="speclib_add" version="1.2.3">
+    <download></download>
+
+    <view id="view_motifs" label="View Motif Labels for Spectra">
+        <blockRef id="main" type="view_motifs"/>
+    </view>
+
+    <block id="view_motifs" type="table">
+        <data>
+            <source type="file" name="output_results/output_ms2lda_nodes.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="scans" operator="ascending"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="filename"/>
+            </processors>
+        </data>
+        <row>
+            <column type="integer" field="scans" label="scans" width="3"/>
+            <column type="text" field="motif" label="motif" width="10"/>
+            <column type="text" field="probability" label="probability" width="10"/>
+            <column type="float" field="precursor.mass" label="precursor.mass" precision="2"/>
+            <column type="float" field="retention.time" label="retention.time" precision="2"/>
+            <column type="text" field="document.annotation" label="document.annotation" width="10"/>
+            <column type="text" field="overlap" label="Overlap Score" width="10"/>
+
+            <column label="View Details" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="view_all_motifs"/>
+                <parameter name="HASHPARAMTER=main.scan_lowerinput" value="[scans]"/>
+                <parameter name="HASHPARAMTER=main.scan_upperinput" value="[scans]"/>
+                <parameter name="LABEL" value="View Details"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+
+        <!-- <row expander="image"> <column type="jscolumnspectrumviewer" colspan="5"> <parameter name="file" file="spec/[internalFilename]"/> <parameter name="scan" value="[scan]"/> <parameter name="peptide" value="*..*"/> </column> </row> -->
+    </block>
+
+    <view id="view_all_motifs" label="Individual Motif Details">
+        <blockRef id="main" type="view_all_motifs"/>
+    </view>
+
+    <block id="view_all_motifs" type="table">
+        <data>
+            <source type="file" name="output_results/output_motifs_in_scans.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="scan" operator="ascending"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="filename"/>
+            </processors>
+        </data>
+        <row>
+            <column type="integer" field="scan" label="scan" width="3"/>
+            <column type="text" field="motif" label="motif" width="10"/>
+            <column type="float" field="precursor.mass" label="precursor.mass" precision="3"/>
+            <column type="float" field="retention.time" label="retention.time" precision="3"/>
+            <column type="float" field="probability" label="probability" precision="3"/>
+            <column type="float" field="overlap" label="overlap" precision="3"/>
+            <column type="text" field="motifdb_url" label="motifdb_url" width="10"/>
+            <column label="View MotifDB" type="genericurlgenerator" width="12">
+                <parameter name="URLBASE" value="[motifdb_url]"/>
+                <parameter name="LABEL" value="View MotifDB"/>
+            </column>
+            <column type="text" field="motifdb_annotation" label="motifdb_annotation" width="10"/>
+        </row>
+        <!-- <row expander="image"> <column type="jscolumnspectrumviewer" colspan="5"> <parameter name="file" file="spec/[internalFilename]"/> <parameter name="scan" value="[scan]"/> <parameter name="peptide" value="*..*"/> </column> </row> -->
+    </block>
+
+    <view id="view_network_augmented" label="View Pairs with Motif Edges">
+        <blockRef id="main" type="view_network_augmented"/>
+    </view>
+
+    <block id="view_network_augmented" type="table">
+        <data>
+            <source type="file" name="output_results/output_ms2lda_edges.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="CLUSTERID1" label="CLUSTERID1" width="10"/>
+            <column type="text" field="CLUSTERID2" label="CLUSTERID2" width="10"/>
+            <column type="text" field="interact" label="interact" width="10"/>
+            <column type="float" field="DeltaMZ" label="DeltaMZ" precision="2"/>
+            <column type="text" field="SharedMotifs" label="SharedMotifs" width="10"/>
+        </row>
+    </block>
+
+    <view id="pdf_view" label="View Motif PDF">
+        <blockRef id="main" type="pdf_view"/>
+    </view>
+    <block id="pdf_view" type="stream">
+        <data>
+            <source type="file" name="output_results/output_topic_report.pdf"/>
+            <parsers>
+                <parser type="stream" contentType="application/pdf"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="pdf_download" label="Download Motif PDF" group="Download Files">
+        <blockRef id="main" type="pdf_download"/>
+    </view>
+    <block id="pdf_download" type="dummydownload">
+        <data>
+            <source type="file" name="output_results/output_topic_report.pdf"/>
+            <parsers>
+                <parser type="stream" contentType="application/pdf"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="pairs_download" label="Download Pairs" group="Download Files">
+        <blockRef id="main" type="pairs_download"/>
+    </view>
+    <block id="pairs_download" type="dummydownload">
+        <data>
+            <source type="file" name="output_results/output_ms2lda_edges.tsv"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="download_ms2lda_dict" label="Download MS2LDA Dict" group="Download Files">
+        <blockRef id="main" type="download_ms2lda_dict"/>
+    </view>
+    <block id="download_ms2lda_dict" type="dummydownload">
+        <data>
+            <source type="file" name="output_results/output.dict"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+</interface>

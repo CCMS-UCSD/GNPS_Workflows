@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="molecular-library-search">
+    <collection name="spectra"/>
+    <collection name="spectrapklbin"/>
+    <collection name="paramsgen"/>
+    <collection name="toolParameters"/>
+    <collection name="intermediateresults"/>
+    <collection name="intermediateresults_topk"/>
+    <object name="workflowParameters"/>
+    <collection name="library"/>
+    <object name="result"/>
+    <object name="result_topk"/>
+    <object name="log"/>
+    <object name="DB_result"/>
+    <object name="pairsbin"/>
+
+    <object name="pairsbin"/>
+
+    <action name="begin">
+        <output port="spec" collection="spectra"/>
+        <output port="lib" collection="library"/>
+        <output port="params" object="workflowParameters"/>
+    </action>
+
+    <!-- parallel_params -->
+    <collection name="parallel_params"/>
+    <action name="create_parallel_params">
+        <input port="workflowParameters" collection="workflowParameters"/>
+        <output port="parallel_params" collection="parallel_params"/>
+    </action>
+
+    <!-- Parallel Library Search -->
+    <action name="searchlibrarysearch_molecularv2_parallelstep" multiplicity="multiple" type="parallel">
+        <input port="spec" collection="spectra"/>
+        <input port="parameter" collection="parallel_params" transformation="unfolding"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="library" collection="library"/>
+        <output port="intermediateresults" collection="intermediateresults"/>
+    </action>
+
+    <action name="searchlibrarymerge">
+        <input port="intermediateresults" collection="intermediateresults"/>
+        <input port="params" object="workflowParameters"/>
+        <output port="result" object="result"/>
+    </action>
+
+    <action name="get_dbannotations">
+        <input port="result" collection="result"/>
+        <output port="DB_result" object="DB_result"/>
+    </action>
+
+    <object name="DB_result_groupbyannotation"/>
+    <action name="group_results_by_annotation">
+        <input port="DB_result" object="DB_result"/>
+        <output port="DB_result_groupbyannotation" object="DB_result_groupbyannotation"/>
+    </action>
+
+    <!-- Parallel File Stats -->
+    <object name="filestatsresults"/>
+    <action name="filesummary">
+        <input port="spec" collection="spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="filestatsresults" object="filestatsresults"/>
+    </action>
+
+    <object name="filestatsresults_withID"/>
+    <action name="mergeresults_filesummary">
+        <input port="filestatsresults" object="filestatsresults"/>
+        <input port="DB_result" object="DB_result"/>
+        <output port="filestatsresults_withID" object="filestatsresults_withID"/>
+    </action>
+
+
+    <!-- Compound Occurrence Table -->
+    <object name="compound_filename_occurences"/>
+    <action name="create_compound_filename_occurences">
+        <input port="DB_result" object="DB_result"/>
+        <output port="compound_filename_occurences" object="compound_filename_occurences"/>
+    </action>
+
+    <action name="end">
+        <input port="DB_result_groupbyannotation" object="DB_result_groupbyannotation"/>
+        <input port="DB_result" object="DB_result"/>
+        <input port="compound_filename_occurences" object="compound_filename_occurences"/>
+        <input port="result" object="result"/>
+        <input port="filestatsresults_withID" object="filestatsresults_withID"/>
+    </action>
+</flow>

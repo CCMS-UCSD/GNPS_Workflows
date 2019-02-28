@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+		<url value="{livesearch.download}"/>
+		<query name="task" valueRef="@task" />
+		<query name="user" valueRef="@user"/>
+		<compression type="zip" />
+		<download port="spec" type="folder">
+			<query name="resource" value="spec"/>
+		</download>
+		<download port="flowParams" type="file">
+			<query name="resource" value="params"/>
+		</download>
+        <download port="metadatafile" type="file">
+			<query name="resource" value="metadatafile"/>
+		</download>
+        <download port="ili_stl_model" type="file">
+			<query name="resource" value="ili_stl_model"/>
+		</download>
+		<download port="groupmapping" type="file">
+			<query name="resource" value="groupmapping"/>
+		</download>
+		<download port="attributemapping" type="file">
+			<query name="resource" value="attributemapping"/>
+		</download>
+		<download port="lib" type="folder">
+			<query name="resource" value="lib"/>
+		</download>
+		<download port="spectwo" type="folder">
+			<query name="resource" value="spectwo"/>
+		</download>
+		<download port="specthree" type="folder">
+			<query name="resource" value="specthree"/>
+		</download>
+		<download port="specfour" type="folder">
+			<query name="resource" value="specfour"/>
+		</download>
+		<download port="specfive" type="folder">
+			<query name="resource" value="specfive"/>
+		</download>
+		<download port="specsix" type="folder">
+			<query name="resource" value="specsix"/>
+		</download>
+		<downloadParams>
+			<query name="resource" value="params"/>
+		</downloadParams>
+	</bind>
+
+
+
+
+	<bind action="searchlibraryparamgeneration_specnets" tool="LibrarySearchParamGeneration_specnets">
+		<inputAsRequirement port="spectra"       requirement="spec"/>
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="lib"                requirement="library"/>
+		<productionToOutput port="paramsgen_specnets"     production="paramsgen"/>
+	</bind>
+
+
+	<bind action="searchlibrarysearch_specnets" tool="LibrarySearchParallel_specnets">
+		<inputAsRequirement port="spectra"       requirement="spec"/>
+		<inputAsRequirement port="paramsgen_specnets" requirement="flowParams"/>
+		<inputAsRequirement port="lib"                requirement="library"/>
+		<productionToOutput port="intermediateresults_specnets"     production="result"/>
+	</bind>
+
+	<bind action="searchlibrarymerge_specnets" tool="LibrarySearchMerge_specnets">
+		<inputAsRequirement port="flowParams"       requirement="flowParams"/>
+		<inputAsRequirement port="intermediateresults_specnets" requirement="intermediateresults"/>
+		<productionToOutput port="result_specnets"     production="result"/>
+	</bind>
+
+
+	<bind action="get_dbannotations_specnets" tool="GetDBAnnotations_specnets">
+		<inputAsRequirement port="result_specnets"             requirement="result"/>
+		<productionToOutput port="result_specnets_DB"           production="DB_result"/>
+	</bind>
+
+	<bind action="input_file_validation_specnets" tool="InputFileValidator_specnets">
+		<inputAsRequirement port="inputspectra"       requirement="inputspectra"/>
+		<inputAsRequirement port="flowParams"       requirement="flowParams"/>
+	</bind>
+
+
+	<bind action="specnetsparamsgen" tool="SpecnetsParamGen">
+		<inputAsRequirement port="flowParams"       requirement="flowParams"/>
+		<inputAsRequirement port="spec" requirement="spec"/>
+		<productionToOutput port="specnetsparam"     production="paramsgen"/>
+	</bind>
+
+	<bind action="msclustering" tool="MetabolomicSpecnets_ClusteringOnly">
+		<inputAsRequirement port="spec" requirement="spec"/>
+		<inputAsRequirement port="specnetsparam"       requirement="specnetparams"/>
+		<productionToOutput port="spectra"     production="spectra"/>
+		<productionToOutput port="aligns"     production="aligns"/>
+	</bind>
+
+
+    <!-- Parallel Networking -->
+
+    <bind action="copy_spectra_mgf" tool="copy_spectra_mgf">
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="specs_ms" production="specs_ms"/>
+    </bind>
+
+    <bind action="prep_molecular_networking_parameters" tool="prep_molecular_networking_parameters">
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="networking_parameters" production="networking_parameters"/>
+    </bind>
+
+    <bind action="molecular_networking_parallel_step" tool="molecular_networking_parallel_step">
+        <inputAsRequirement port="networking_parameters" requirement="networking_parameters"/>
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="networking_pairs_results_folder" production="networking_pairs_results_folder"/>
+    </bind>
+
+    <bind action="merge_networking_tsv_files" tool="merge_tsv_efficient">
+        <inputAsRequirement port="networking_pairs_results_folder"       requirement="tsv_folder"/>
+        <productionToOutput port="networking_pairs_results_file"           production="tsv_file"/>
+    </bind>
+
+    <bind action="metabolomicpairsinfov2" tool="MetabolomicPairsinfov2">
+        <inputAsRequirement port="networking_pairs_results_file"       requirement="networking_pairs_results_file"/>
+        <inputAsRequirement port="flowParams"       requirement="flowParams"/>
+        <productionToOutput port="networkedges"           production="networkedges"/>
+    </bind>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<bind action="metabolomicclusterinfo" tool="MetabolomicClusterinfo">
+		<inputAsRequirement port="spec" requirement="spec"/>
+		<inputAsRequirement port="spectra"       requirement="spectra"/>
+		<productionToOutput port="clusterinfo"     production="clusterinfo"/>
+		<productionToOutput port="clusterinfosummary"     production="clusterinfosummary"/>
+	</bind>
+
+    <!-- Merging Grouping Information -->
+	<bind action="metabolomicgroupmappingconvert" tool="MetabolomicGroupConvert">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="groupmapping"       requirement="groupmapping"/>
+        <inputAsRequirement port="attributemapping"       requirement="attributemapping"/>
+        <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
+        <inputAsRequirement port="inputspectra"       requirement="inputspectra"/>
+		<productionToOutput port="groupmapping_converted"     production="groupmapping_converted"/>
+        <productionToOutput port="attributemapping_converted"     production="attributemapping_converted"/>
+	</bind>
+
+	<bind action="metabolomicclusterinfogroup" tool="MetabolomicClusterinfoGroup">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="clusterinfo" requirement="clusterinfo"/>
+		<inputAsRequirement port="clusterinfosummary"       requirement="clusterinfosummary"/>
+		<inputAsRequirement port="groupmapping"       requirement="groupmapping"/>
+        <inputAsRequirement port="attributemapping_converted" requirement="attributemapping_converted"/>
+        <inputAsRequirement port="networkedges" requirement="networkedges"/>
+		<inputAsRequirement port="result_specnets_DB" requirement="result_specnets_DB"/>
+		<productionToOutput port="clusterinfosummarygroup"     production="clusterinfosummarygroup"/>
+	</bind>
+
+	<bind action="metabolomicclusterinfogroupaddattribute" tool="MetabolomicClusterInfoGroupAddAttribute">
+		<inputAsRequirement port="flowParams"        requirement="flowParams"/>
+		<inputAsRequirement port="clusterinfosummarygroup"  requirement="clusterinfosummarygroup"/>
+		<inputAsRequirement port="clusterinfo"  requirement="clusterinfo"/>
+		<productionToOutput port="clusterinfosummarygroup_attributes"     production="clusterinfosummarygroup_attributes"/>
+	</bind>
+
+	<bind action="metabolomic_add_ID_to_summary" tool="MetabolomicClusterInfoGroupAddID">
+		<inputAsRequirement port="flowParams"        requirement="flowParams"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes"  requirement="clusterinfosummarygroup_attributes"/>
+		<inputAsRequirement port="result_specnets"  requirement="result_specnets"/>
+		<productionToOutput port="clusterinfosummarygroup_attributes_withIDs"     production="clusterinfosummarygroup_attributes_withIDs"/>
+	</bind>
+
+    <bind action="metabolomic_create_components" tool="metabolomic_create_components">
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs"        requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<inputAsRequirement port="networkedges"  requirement="networkedges"/>
+		<productionToOutput port="networkcomponents"     production="networkcomponents"/>
+	</bind>
+
+    <!-- Compound Occurrence in Files -->
+    <bind action="metabolomic_create_compound_filename_occurences" tool="metabolomic_create_compound_filename_occurences">
+        <inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs"  requirement="clusterinfosummarygroup_attributes_withIDs"/>
+        <productionToOutput port="compound_filename_occurences"     production="compound_filename_occurences"/>
+    </bind>
+
+
+	<bind action="metabolomic_create_all_cluster_info" tool="MetabolomicViewAllClusters">
+		<inputAsRequirement port="flowParams"        requirement="flowParams"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes"  requirement="clusterinfosummarygroup_attributes"/>
+		<inputAsRequirement port="clusterinfo"  requirement="clusterinfo"/>
+		<productionToOutput port="allclustered_spectra_info_withpath"     production="allclustered_spectra_info_withpath"/>
+	</bind>
+
+
+	<bind action="metabolomicpairsinfo" tool="MetabolomicPairsinfo">
+		<inputAsRequirement port="aligns" requirement="aligns"/>
+		<inputAsRequirement port="flowParams"       requirement="flowParams"/>
+		<productionToOutput port="networkedges"     production="networkedges"/>
+	</bind>
+
+    <bind action="metabolomic_network_edges_display" tool="metabolomic_network_edges_display">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="clusterinfosummary" requirement="clusterinfosummary"/>
+		<inputAsRequirement port="networkedges" requirement="networkedges"/>
+        <productionToOutput port="networkedges_selfloop"     production="networkedges_selfloop"/>
+		<productionToOutput port="networkedges_display"     production="networkedges_display"/>
+		<productionToOutput port="networkedges_display_pairs"     production="networkedges_display_pairs"/>
+	</bind>
+
+	<bind action="metabolomic_add_componentindex_to_summary" tool="MetabolomicAddComponentIndexToSummary">
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<inputAsRequirement port="networkedges"       requirement="networkedges"/>
+		<productionToOutput port="clusterinfosummarygroup_attributes_withIDs_withcomponentID"     production="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
+		<productionToOutput port="networkcomponents"     production="networkcomponents"/>
+	</bind>
+
+
+	<bind action="metabolomic_add_arbitrary_attribute" tool="MetabolomicAddArbitraryAttribute">
+		<inputAsRequirement port="attributemapping" requirement="attributemapping"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs"       requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<productionToOutput port="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute"     production="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute"/>
+	</bind>
+
+	<bind action="metabolomic_network_statistics" tool="MetabolomicNetworkStatistics">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="networkedges" requirement="networkedges"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs"       requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<productionToOutput port="network_statistics"     production="network_statistics"/>
+	</bind>
+
+	<bind action="metabolomics_convert_graphml" tool="metabolomics_convert_graphml">
+		<inputAsRequirement port="networkedges_selfloop" requirement="networkedges_selfloop"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<inputAsRequirement port="result_specnets_DB"       requirement="result_specnets_DB"/>
+		<productionToOutput port="gnps_molecular_network_graphml"     production="gnps_molecular_network_graphml"/>
+	</bind>
+
+
+
+	<!-- Extra Optional Features -->
+	<bind action="create_cluster_buckets" tool="ClusterBucketCreator">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<inputAsRequirement port="clusterinfo"       requirement="clusterinfo"/>
+		<inputAsRequirement port="metadata_for_qiime"       requirement="metadata_for_qiime"/>
+		<productionToOutput port="cluster_buckets"     production="cluster_buckets"/>
+		<productionToOutput port="biom_output"     production="biom_output"/>
+	</bind>
+
+    <bind action="create_metadata_for_qiime" tool="create_metadata_for_qiime">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="metadatafile" requirement="metadatafile"/>
+		<productionToOutput port="metadata_for_qiime"     production="metadata_for_qiime"/>
+        <productionToOutput port="view_emporer"     production="view_emporer"/>
+	</bind>
+
+    <bind action="create_topology_signatures" tool="NetworkTopologyCreator">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs_withcomponentID" requirement="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
+        <inputAsRequirement port="networkedges_selfloop" requirement="networkedges_selfloop"/>
+		<productionToOutput port="all_network_paths"       production="all_network_paths"/>
+		<productionToOutput port="all_network_paths_histogram"     production="all_network_paths_histogram"/>
+	</bind>
+
+    <bind action="create_ili_output" tool="create_ili_output">
+        <inputAsRequirement port="flowParams" requirement="flowParams"/>
+        <inputAsRequirement port="metadatafile" requirement="metadatafile"/>
+        <inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+        <inputAsRequirement port="clusterinfo"       requirement="clusterinfo"/>
+        <inputAsRequirement port="ili_stl_model"       requirement="ili_stl_model"/>
+        <productionToOutput port="ili_output"     production="ili_output"/>
+        <productionToOutput port="view_ili"     production="view_ili"/>
+    </bind>
+
+	<!-- Dataset Matches -->
+	<bind action="find_dataset_matches_parallelprep" tool="FindDatasetMatchesParallelPrep">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<productionToOutput port="all_dataset_matches_parallel_params"       production="all_dataset_matches_parallel_params"/>
+	</bind>
+
+	<bind action="find_dataset_matches_parallel_step" tool="FindDatasetMatchesParallelStep">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="spectra" requirement="spectra"/>
+		<inputAsRequirement port="result_specnets_DB" requirement="result_specnets_DB"/>
+		<inputAsRequirement port="all_dataset_matches_parallel_params" requirement="all_dataset_matches_parallel_params"/>
+		<productionToOutput port="all_dataset_matches_parallel_matches_output"       production="all_dataset_matches_parallel_matches_output"/>
+	</bind>
+
+	<bind action="find_dataset_matches_parallel_merge" tool="FindDatasetMatchesParallelMerge">
+		<inputAsRequirement port="all_dataset_matches_parallel_matches_output" requirement="all_dataset_matches_parallel_matches_output"/>
+		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
+	</bind>
+
+
+
+	<bind action="end" type="upload">
+		<url value="{livesearch.upload}"/>
+		<query name="task" valueRef="@task"/>
+		<contentQuery name="content"/>
+		<compression type="zip"/>
+		<upload port="clusterinfo" type="file">
+			<query name="resource" value="clusterinfo"/>
+		</upload>
+		<upload port="networkedges" type="file">
+			<query name="resource" value="networkedges"/>
+		</upload>
+		<upload port="networkedges_selfloop" type="file">
+			<query name="resource" value="networkedges_selfloop"/>
+		</upload>
+		<upload port="result_specnets" type="file">
+			<query name="resource" value="result_specnets"/>
+		</upload>
+		<upload port="result_specnets_DB" type="file">
+			<query name="resource" value="result_specnets_DB"/>
+		</upload>
+		<upload port="networkedges_display" type="file">
+			<query name="resource" value="networkedges_display"/>
+		</upload>
+		<upload port="networkedges_display_pairs" type="file">
+			<query name="resource" value="networkedges_display_pairs"/>
+		</upload>
+		<upload port="allclustered_spectra_info_withpath" type="file">
+			<query name="resource" value="allclustered_spectra_info_withpath"/>
+		</upload>
+		<upload port="clusterinfosummarygroup_attributes_withIDs_withcomponentID" type="file">
+			<query name="resource" value="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
+		</upload>
+		<upload port="spectra" type="folder">
+			<query name="resource" value="spectra"/>
+		</upload>
+		<upload port="networkcomponents" type="folder">
+			<query name="resource" value="networkcomponents"/>
+		</upload>
+		<upload port="network_statistics" type="folder">
+			<query name="resource" value="network_statistics"/>
+		</upload>
+		<upload port="cluster_buckets" type="file">
+			<query name="resource" value="cluster_buckets"/>
+		</upload>
+        <upload port="ili_output" type="file">
+			<query name="resource" value="ili_output"/>
+		</upload>
+        <upload port="view_ili" type="file">
+			<query name="resource" value="view_ili"/>
+		</upload>
+		<upload port="biom_output" type="file">
+			<query name="resource" value="biom_output"/>
+		</upload>
+        <upload port="metadata_for_qiime" type="file">
+			<query name="resource" value="metadata_for_qiime"/>
+		</upload>
+        <upload port="view_emporer" type="file">
+			<query name="resource" value="view_emporer"/>
+		</upload>
+        <upload port="all_network_paths" type="file">
+			<query name="resource" value="all_network_paths"/>
+		</upload>
+        <upload port="all_network_paths_histogram" type="file">
+			<query name="resource" value="all_network_paths_histogram"/>
+		</upload>
+		<upload port="groupmapping_converted" type="file">
+			<query name="resource" value="groupmapping_converted"/>
+		</upload>
+
+		<upload port="all_dataset_matches" type="file">
+			<query name="resource" value="all_dataset_matches"/>
+		</upload>
+		<upload port="gnps_molecular_network_graphml" type="file">
+			<query name="resource" value="gnps_molecular_network_graphml"/>
+		</upload>
+
+        <upload port="compound_filename_occurences" type="file">
+			<query name="resource" value="compound_filename_occurences"/>
+		</upload>
+
+	</bind>
+</binding>

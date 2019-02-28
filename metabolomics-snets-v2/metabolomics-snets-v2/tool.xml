@@ -1,0 +1,687 @@
+<toolset>
+
+
+    <!-- MSClustering -->
+
+    <pathSet base="metabolomicsnetsv2">
+        <!-- <toolPath tool="MetabolomicSpecnets_ClusteringOnly" path="main_specnets"/> -->
+        <pathVar name="MetabolomicSpecnets_ClusteringOnly.script" path="scripts/mscluster_wrapper.py"/>
+        <pathVar name="MetabolomicSpecnets_ClusteringOnly.binary" path="binaries/main_specnets"/>
+    </pathSet>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicSpecnets_ClusteringOnly" path="python3.5"/>
+    </pathSet>
+
+    <tool name="MetabolomicSpecnets_ClusteringOnly">
+        <require name="spec"       type="folder"/>
+        <require name="specnetparams" type="file"/>
+        <produce name="spectra"        type="folder"/>
+        <produce name="aligns"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicSpecnets_ClusteringOnly.script"/>
+            <arg valueRef="spec"/>
+            <arg valueRef="specnetparams"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="aligns"/>
+            <arg pathRef="MetabolomicSpecnets_ClusteringOnly.binary"/>
+        </execution>
+    </tool>
+
+    <!-- Molecular Networking -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="copy_spectra_mgf" path="python3.5"/>
+        <toolPath tool="prep_molecular_networking_parameters" path="python3.5"/>
+        <toolPath tool="merge_tsv_efficient" path="python3.5"/>
+        <toolPath tool="filter_networking_edges" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="copy_spectra_mgf.script" path="copy_spectra.py"/>
+        <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
+        <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
+        <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
+    </pathSet>
+
+    <pathSet base="metabolomicsnetsv2/binaries">
+        <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
+    </pathSet>
+
+    <tool name="copy_spectra_mgf">
+        <require name="spectra" type="folder"/>
+        <produce name="specs_ms" type="file" naming="fixed" value="specs_ms.mgf"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="copy_spectra_mgf.script"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="specs_ms"/>
+        </execution>
+    </tool>
+
+    <tool name="prep_molecular_networking_parameters">
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_parameters" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="prep_molecular_networking_parameters.script"/>
+            <arg valueRef="mgf_file"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="-parallelism" value="100"/>
+        </execution>
+    </tool>
+
+    <tool name="molecular_networking_parallel_step">
+        <require name="networking_parameters" type="file"/>
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_pairs_results_folder" type="file" naming="explicit" extension="aligns"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecMolecularParallelPairs"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="ccms_output_aligns" valueRef="networking_pairs_results_folder"/>
+            <arg option="ccms_INPUT_SPECTRA_MS2" valueRef="mgf_file"/>
+        </execution>
+    </tool>
+
+    <tool name="merge_tsv_efficient">
+        <require name="tsv_folder" type="folder"/>
+        <produce name="tsv_file" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="merge_tsv_efficient.script"/>
+            <arg valueRef="tsv_folder"/>
+            <arg valueRef="tsv_file"/>
+        </execution>
+    </tool>
+
+    <!-- Other utilities -->
+
+    <pathSet base="metabolomicsnetsv2/binaries">
+        <toolPath tool="LibrarySearchParallel_specnets" path="main_execmodule"/>
+        <toolPath tool="LibrarySearchMerge_specnets" path="main_execmodule"/>
+        <toolPath tool="LibrarySearchParamGeneration_specnets" path="main_execmodule"/>
+
+        <toolPath tool="SpecnetsParamGen" path="main_execmodule"/>
+        <toolPath tool="MetabolomicSpecnets" path="main_specnets"/>
+        <toolPath tool="MetabolomicClusterinfo" path="clusterinfo"/>
+
+        <pathVar name="pairsinfo.file" path="pairsinfo"/>
+        <pathVar name="pepnovo.file" path="PepNovo_bin"/>
+        <pathVar name="mscluster.file" path="MsCluster_bin"/>
+        <pathVar name="convertexe_specnets.file" path="convert"/>
+    </pathSet>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="MetabolomicPairsinfo.script" path="pairsinfo.py"/>
+        <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
+        <toolPath tool="MetabolomicMakeSelfloop" path="add_self_loop.py"/>
+        <toolPath tool="GetDBAnnotations_specnets" path="getGNPS_library_annotations.py"/>
+        <toolPath tool="MetabolomicClusterInfoGroupAddAttribute" path="AddAttributes.py"/>
+        <toolPath tool="MetabolomicClusterInfoGroupAddID" path="add_IDs_to_groupsummary.py"/>
+        <toolPath tool="MetabolomicAddArbitraryAttribute" path="Add_Arbitrary_Attributes.py"/>
+        <toolPath tool="MetabolomicAddComponentIndexToSummary" path="Add_Component_Index.py"/>
+        <toolPath tool="MetabolomicCreateNetworkView" path="create_network_result_view.py"/>
+        <toolPath tool="MetabolomicWriteOriginalFileNameClusterInfo" path="add_full_filepath_clusterdetails.py"/>
+
+        <toolPath tool="InputFileValidator_specnets" path="spectra_validator.py"/>
+        <toolPath tool="MetabolomicNetworkStatistics" path="Generate_Network_Identification_Stats.py"/>
+        <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
+    </pathSet>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="NetworkTopologyCreator" path="python3.5"/>
+        <toolPath tool="MetabolomicPairsinfo" path="python3.5"/>
+        <toolPath tool="metabolomics_convert_graphml" path="python3.5"/>
+    </pathSet>
+
+    <tool name="LibrarySearchParamGeneration_specnets">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <require name="library" type="folder"/>
+        <produce name="paramsgen" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_library" valueRef="library"/>
+            <arg option="ccms" value="1"/>
+            <arg option="ccms_param_dir" valueRef="paramsgen"/>
+            <arg option="ccms_searchspectra_name" value="spectra/specs_ms.pklbin"/>
+            <arg option="g"/>
+            <arg option="ccms_num_nodes" value="1"/>
+            <arg option="ccms_proteosafe_specnets_search" value="1"/>
+        </execution>
+    </tool>
+
+    <tool name="LibrarySearchParallel_specnets">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <require name="library" type="folder"/>
+        <produce name="result" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_spectradir" valueRef="spec"/>
+            <arg option="ccms_results_prefix" valueRef="result"/>
+            <arg option="ll" value="9"/>
+        </execution>
+    </tool>
+
+    <tool name="LibrarySearchMerge_specnets">
+        <require name="flowParams" type="file"/>
+        <require name="intermediateresults" type="folder"/>
+        <produce name="result" type="file" naming="explicit" extension="out"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_intermediate_results_dir" valueRef="intermediateresults"/>
+            <arg option="ccms_results_dir" valueRef="result"/>
+            <arg option="ccms" value="1"/>
+            <arg option="z"/>
+            <arg option="ccms_num_nodes" value="1"/>
+        </execution>
+    </tool>
+
+    <tool name="GetDBAnnotations_specnets">
+        <require name="result" type="file"/>
+        <produce name="DB_result" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="result"/>
+            <arg valueRef="DB_result"/>
+        </execution>
+    </tool>
+
+    <tool name="InputFileValidator_specnets">
+        <require name="inputspectra" type="folder"/>
+        <require name="flowParams" type="file"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="inputspectra"/>
+            <arg pathRef="convertexe_specnets.file"/>
+            <arg valueRef="flowParams"/>
+        </execution>
+    </tool>
+
+    <tool name="SpecnetsParamGen">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <produce name="paramsgen" type="file" naming="explicit" extension="params"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecCCMSMetabolomicsSpecnetsParams"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_spectradir" valueRef="spec"/>
+            <arg option="ccms_results_dir" valueRef="paramsgen"/>
+            <arg option="ccms_pepnovo_dir" pathRef="pepnovo.file"/>
+            <arg option="ccms_mscluster_dir" pathRef="mscluster.file"/>
+            <arg option="ccms_threadedparallelism" value="10"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicSpecnets">
+        <require name="spec" type="folder"/>
+        <require name="specnetparams" type="file"/>
+        <produce name="spectra" type="folder"/>
+        <produce name="aligns" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="specnetparams"/>
+            <arg option="ll" value="9"/>
+        </execution>
+    </tool>
+
+
+
+    <!-- Merging Grouping Information -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicGroupConvert" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="MetabolomicGroupConvert.script" path="groupmetadataconvert.py"/>
+    </pathSet>
+    <tool name="MetabolomicGroupConvert">
+        <require name="flowParams" type="file"/>
+        <require name="groupmapping" type="folder"/>
+        <require name="attributemapping" type="folder"/>
+        <require name="metadatafile" type="folder"/>
+        <require name="inputspectra" type="folder"/>
+        <produce name="groupmapping_converted" type="file" naming="explicit" extension="group"/>
+        <produce name="attributemapping_converted" type="file" naming="explicit" extension="attribute"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicGroupConvert.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="groupmapping"/>
+            <arg valueRef="attributemapping"/>
+            <arg valueRef="metadatafile"/>
+            <arg valueRef="groupmapping_converted"/>
+            <arg valueRef="attributemapping_converted"/>
+            <arg valueRef="inputspectra"/>
+        </execution>
+    </tool>
+
+
+
+    <tool name="MetabolomicClusterinfo">
+        <require name="spec" type="folder"/>
+        <require name="spectra" type="folder"/>
+        <produce name="clusterinfo" type="file" naming="explicit" extension="clusterinfo"/>
+        <produce name="clusterinfosummary" type="file" naming="explicit" extension="clustersummary"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg option="-outfile" valueRef="clusterinfo"/>
+            <arg option="-out-summary-file" valueRef="clusterinfosummary"/>
+        </execution>
+    </tool>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="MetabolomicClusterinfoGroup.script" path="calculate_group_abundances.py"/>
+    </pathSet>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicClusterinfoGroup" path="python3.5"/>
+    </pathSet>
+    <tool name="MetabolomicClusterinfoGroup">
+        <require name="workflowParameters" type="file"/>
+        <require name="clusterinfo" type="file"/>
+        <require name="clusterinfosummary" type="file"/>
+        <require name="groupmapping" type="file"/>
+        <require name="attributemapping_converted" type="file"/>
+        <require name="networkedges" type="file"/>
+        <require name="result_specnets_DB" type="file"/>
+        <produce name="clusterinfosummarygroup" type="file" naming="explicit" extension="clustersummary"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicClusterinfoGroup.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="clusterinfo"/>
+            <arg valueRef="clusterinfosummary"/>
+            <arg valueRef="groupmapping"/>
+            <arg valueRef="attributemapping_converted"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="result_specnets_DB"/>
+            <arg valueRef="clusterinfosummarygroup"/>
+        </execution>
+    </tool>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="metabolomic_create_components.script" path="create_components_table.py"/>
+    </pathSet>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_create_components" path="python3.5"/>
+    </pathSet>
+    <tool name="metabolomic_create_components">
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="networkedges" type="file"/>
+        <produce name="networkcomponents" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_create_components.script"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="networkcomponents"/>
+        </execution>
+    </tool>
+
+
+    <tool name="MetabolomicClusterInfoGroupAddAttribute">
+        <require name="flowParams" type="file"/>
+        <require name="clusterinfosummarygroup" type="file"/>
+        <require name="clusterinfo" type="file"/>
+        <produce name="clusterinfosummarygroup_attributes" type="file" naming="explicit" extension=".out"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="flowParams"/>
+            <arg valueRef="clusterinfosummarygroup"/>
+            <arg valueRef="clusterinfo"/>
+            <arg valueRef="clusterinfosummarygroup_attributes"/>
+            <arg value="http://gnps.ucsd.edu/"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicClusterInfoGroupAddID">
+        <require name="flowParams" type="file"/>
+        <require name="clusterinfosummarygroup_attributes" type="file"/>
+        <require name="result_specnets" type="file"/>
+        <produce name="clusterinfosummarygroup_attributes_withIDs" type="file" naming="explicit" extension=".out"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="flowParams"/>
+            <arg valueRef="clusterinfosummarygroup_attributes"/>
+            <arg valueRef="result_specnets"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+        </execution>
+    </tool>
+
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_create_compound_filename_occurences" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="metabolomic_create_compound_filename_occurences.script" path="create_IDCompound_presence_abscence.py"/>
+    </pathSet>
+    <tool name="metabolomic_create_compound_filename_occurences">
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <produce name="compound_filename_occurences" type="file" naming="explicit" extension=".tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_create_compound_filename_occurences.script"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="compound_filename_occurences"/>
+        </execution>
+    </tool>
+
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicViewAllClusters" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="MetabolomicViewAllClusters.script" path="create_enriched_clusterinfo.py"/>
+    </pathSet>
+    <tool name="MetabolomicViewAllClusters">
+        <require name="flowParams" type="file"/>
+        <require name="clusterinfosummarygroup_attributes" type="file"/>
+        <require name="clusterinfo" type="file"/>
+        <produce name="allclustered_spectra_info_withpath" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicViewAllClusters.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="clusterinfosummarygroup_attributes"/>
+            <arg valueRef="clusterinfo"/>
+            <arg valueRef="allclustered_spectra_info_withpath"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicPairsinfo">
+        <require name="aligns" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <produce name="networkedges" type="file" naming="explicit" extension="pairsinfo"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicPairsinfo.script"/>
+            <arg option="-outfile" valueRef="networkedges"/>
+            <arg option="-input-file" value="aligns/pairs_cosine.bin"/>
+            <arg valueRef="flowParams"/>
+            <arg pathRef="pairsinfo.file"/>
+            <!-- 	    <arg option="-edge-topk-both" valueRef="@TOPK"/> -->
+        </execution>
+    </tool>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="MetabolomicPairsinfov2.script" path="pairsinfov2.py"/>
+    </pathSet>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="MetabolomicPairsinfov2" path="python3.5"/>
+    </pathSet>
+
+    <tool name="MetabolomicPairsinfov2">
+        <require name="networking_pairs_results_file" type="file"/>
+        <require name="flowParams" type="file"/>
+        <produce name="networkedges" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="MetabolomicPairsinfov2.script"/>
+            <arg option="-outfile" valueRef="networkedges"/>
+            <arg option="-input-file" valueRef="networking_pairs_results_file"/>
+            <arg valueRef="flowParams"/>
+        </execution>
+    </tool>
+
+    <tool name="metabolomics_convert_graphml">
+        <require name="networkedges_selfloop" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="result_specnets_DB" type="file"/>
+        <produce name="gnps_molecular_network_graphml" type="file" naming="explicit" extension="graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomics_convert_graphml.script"/>
+            <arg valueRef="networkedges_selfloop"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="result_specnets_DB"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_network_edges_display" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
+    </pathSet>
+    <tool name="metabolomic_network_edges_display">
+        <require name="workflowParameters" type="file"/>
+        <require name="clusterinfosummary" type="file"/>
+        <require name="networkedges" type="file"/>
+        <produce name="networkedges_selfloop" type="file" naming="explicit" extension=".selfloop"/>
+        <produce name="networkedges_display" type="file" naming="explicit" extension="display"/>
+        <produce name="networkedges_display_pairs" type="file" naming="explicit" extension="displaypairs"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_network_edges_display.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg value="spectra/specs_ms.pklbin"/>
+            <arg valueRef="clusterinfosummary"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="networkedges_selfloop"/>
+            <arg valueRef="networkedges_display_pairs"/>
+            <arg valueRef="networkedges_display"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicWriteOriginalFileNameClusterInfo">
+        <require name="flowParams" type="file"/>
+        <require name="allclustered_spectra_info" type="file"/>
+        <produce name="allclustered_spectra_info_withpath" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="flowParams"/>
+            <arg valueRef="allclustered_spectra_info"/>
+            <arg valueRef="allclustered_spectra_info_withpath"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicAddArbitraryAttribute">
+        <require name="attributemapping" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <produce name="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="attributemapping"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicAddComponentIndexToSummary">
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="networkedges" type="file"/>
+        <produce name="clusterinfosummarygroup_attributes_withIDs_withcomponentID" type="file" naming="explicit" extension="tsv"/>
+        <produce name="networkcomponents" type="file" naming="explicit" extension="networkcomponent"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
+            <arg valueRef="networkcomponents"/>
+        </execution>
+    </tool>
+
+    <tool name="MetabolomicNetworkStatistics">
+        <require name="flowParams" type="file"/>
+        <require name="networkedges" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <produce name="network_statistics" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="network_statistics"/>
+            <arg valueRef="flowParams"/>
+        </execution>
+    </tool>
+
+    <!-- Extra Optional Features -->
+    <pathSet base="anaconda3/bin">
+        <pathVar name="python_runtime.bin" path="python3.5"/>
+        <pathVar name="biom.script" path="biom"/>
+        <toolPath tool="ClusterBucketCreator" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="ClusterBucketCreator.script" path="clustering_create_bucket.py"/>
+    </pathSet>
+
+    <tool name="ClusterBucketCreator">
+        <require name="flowParams" type="file"/>
+        <require name="clusterinfo" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="metadata_for_qiime" type="folder"/>
+        <produce name="cluster_buckets" type="file" naming="explicit" extension="tsv"/>
+        <produce name="biom_output" type="file" naming="fixed" value="networking_quant.biom"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="ClusterBucketCreator.script"/>
+            <arg valueRef="clusterinfo"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="cluster_buckets"/>
+            <arg valueRef="biom_output"/>
+            <arg pathRef="python_runtime.bin"/>
+            <arg pathRef="biom.script"/>
+            <arg option="-metadata_folder" value="metadata_for_qiime"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="create_metadata_for_qiime" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="create_metadata_for_qiime.script" path="metadata_for_qiime.py"/>
+    </pathSet>
+
+    <tool name="create_metadata_for_qiime">
+        <require name="workflowParameters" type="file"/>
+        <require name="metadatafile" type="folder"/>
+        <produce name="metadata_for_qiime" type="file" naming="fixed" value="metadata_for_qiime.txt"/>
+        <produce name="view_emporer" type="file" naming="fixed" value="view_emporer.html"/>
+
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_metadata_for_qiime.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="metadatafile"/>
+            <arg valueRef="metadata_for_qiime"/>
+            <arg valueRef="view_emporer"/>
+        </execution>
+    </tool>
+
+    <tool name="NetworkTopologyCreator">
+        <require name="flowParams" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs_withcomponentID" type="file"/>
+        <require name="networkedges_selfloop" type="file"/>
+        <produce name="all_network_paths" type="file" naming="explicit" extension="tsv"/>
+        <produce name="all_network_paths_histogram" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="NetworkTopologyCreatorScript"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="networkedges_selfloop"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
+            <arg valueRef="all_network_paths"/>
+            <arg valueRef="all_network_paths_histogram"/>
+        </execution>
+    </tool>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="create_ili_output" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="create_ili_output.script" path="create_ili_compatible_output.py"/>
+    </pathSet>
+    <tool name="create_ili_output">
+        <require name="flowParams" type="file"/>
+        <require name="metadatafile" type="folder"/>
+        <require name="clusterinfo" type="file"/>
+        <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
+        <require name="ili_stl_model" type="folder"/>
+        <produce name="ili_output" type="file" naming="fixed" value="ili_quant.csv"/>
+        <produce name="view_ili" type="file" naming="fixed" value="view_ili.html"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_ili_output.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="metadatafile"/>
+            <arg valueRef="clusterinfo"/>
+            <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
+            <arg valueRef="ili_stl_model"/>
+            <arg valueRef="ili_output"/>
+            <arg valueRef="view_ili"/>
+        </execution>
+    </tool>
+
+
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="FindDatasetMatchesParallelPrep" path="python3.5"/>
+        <toolPath tool="FindDatasetMatchesParallelStep" path="python3.5"/>
+        <toolPath tool="FindDatasetMatchesParallelMerge" path="python3.5"/>
+    </pathSet>
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="FindDatasetMatchesParallelPrep.script" path="find_related_public_data_prep.py"/>
+        <pathVar name="FindDatasetMatchesParallelStep.script" path="find_related_public_data_wrapper.py"/>
+        <pathVar name="FindDatasetMatchesParallelMerge.script" path="find_related_public_data_merge.py"/>
+    </pathSet>
+
+    <!-- Dataset Matches -->
+    <tool name="FindDatasetMatchesParallelPrep">
+        <require name="flowParams" type="file"/>
+        <produce name="all_dataset_matches_parallel_params" type="folder" naming="explicit" extension="json"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="FindDatasetMatchesParallelPrep.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="all_dataset_matches_parallel_params"/>
+            <arg value="20"/>
+        </execution>
+    </tool>
+
+    <tool name="FindDatasetMatchesParallelStep">
+        <require name="flowParams" type="file"/>
+        <require name="spectra" type="folder"/>
+        <require name="result_specnets_DB" type="file"/>
+        <require name="all_dataset_matches_parallel_params" type="file"/>
+        <produce name="all_dataset_matches_parallel_matches_output" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="FindDatasetMatchesParallelStep.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="all_dataset_matches_parallel_params"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="result_specnets_DB"/>
+            <arg valueRef="all_dataset_matches_parallel_matches_output"/>
+        </execution>
+    </tool>
+
+    <tool name="FindDatasetMatchesParallelMerge">
+        <require name="all_dataset_matches_parallel_matches_output" type="folder"/>
+        <produce name="all_dataset_matches" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="FindDatasetMatchesParallelMerge.script"/>
+            <arg valueRef="all_dataset_matches_parallel_matches_output"/>
+            <arg valueRef="all_dataset_matches"/>
+        </execution>
+    </tool>
+
+</toolset>

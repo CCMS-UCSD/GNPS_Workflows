@@ -1,0 +1,300 @@
+<toolset>
+
+    <!-- Renumbering the MGF File -->
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <toolPath tool="renumber_mgf" path="renumber_mgf.py"/>
+    </pathSet>
+    <tool name="renumber_mgf">
+        <require name="inputSpectra" type="file"/>
+        <produce name="spectra" type="file" naming="fixed" value="specs_ms.mgf"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="inputSpectra"/>
+            <arg valueRef="spectra"/>
+        </execution>
+    </tool>
+
+    <!-- Formatting Quantification -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="reformat_quantification" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="reformat_quantification.script" path="reformat_quantification.py"/>
+    </pathSet>
+
+    <tool name="reformat_quantification">
+        <require name="workflowParameters" type="file"/>
+        <require name="quantification_table" type="file"/>
+        <produce name="quantification_table_reformatted" type="file" naming="explicit" extension="csv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="reformat_quantification.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="quantification_table"/>
+            <arg valueRef="quantification_table_reformatted"/>
+        </execution>
+    </tool>
+
+    <!-- Molecular Networking -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="prep_molecular_networking_parameters" path="python3.5"/>
+        <toolPath tool="merge_tsv_efficient" path="python3.5"/>
+        <toolPath tool="filter_networking_edges" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
+        <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
+        <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/binaries">
+        <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
+    </pathSet>
+
+    <tool name="prep_molecular_networking_parameters">
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_parameters" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="prep_molecular_networking_parameters.script"/>
+            <arg valueRef="mgf_file"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="-parallelism" value="1"/>
+        </execution>
+    </tool>
+
+    <tool name="molecular_networking_parallel_step">
+        <require name="networking_parameters" type="file"/>
+        <require name="mgf_file" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="networking_pairs_results_folder" type="file" naming="explicit" extension="aligns"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecMolecularParallelPairs"/>
+            <arg valueRef="networking_parameters"/>
+            <arg option="ccms_output_aligns" valueRef="networking_pairs_results_folder"/>
+            <arg option="ccms_INPUT_SPECTRA_MS2" valueRef="mgf_file"/>
+        </execution>
+    </tool>
+
+    <tool name="merge_tsv_efficient">
+        <require name="tsv_folder" type="folder"/>
+        <produce name="tsv_file" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="merge_tsv_efficient.script"/>
+            <arg valueRef="tsv_folder"/>
+            <arg valueRef="tsv_file"/>
+        </execution>
+    </tool>
+
+    <tool name="filter_networking_edges">
+        <require name="workflowParameters" type="file"/>
+        <require name="networking_pairs_results_file" type="file"/>
+        <produce name="networking_pairs_results_file_filtered" type="file" naming="explicit" extension="tsv"/>
+        <produce name="networkedges_legacy_output" type="file" naming="explicit" extension="tsv"/>
+
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="filter_networking_edges.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="networking_pairs_results_file"/>
+            <arg valueRef="networking_pairs_results_file_filtered"/>
+            <arg valueRef="networkedges_legacy_output"/>
+        </execution>
+    </tool>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_network_edges_display" path="python3.5"/>
+    </pathSet>
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
+    </pathSet>
+    <tool name="metabolomic_network_edges_display">
+        <require name="workflowParameters" type="file"/>
+        <require name="clusterinfosummary" type="file"/>
+        <require name="networkedges" type="file"/>
+        <produce name="networkedges_selfloop" type="file" naming="explicit" extension=".selfloop"/>
+        <produce name="networkedges_display" type="file" naming="explicit" extension="display"/>
+        <produce name="networkedges_display_pairs" type="file" naming="explicit" extension="displaypairs"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_network_edges_display.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg value="spectra/specs_ms.pklbin"/>
+            <arg valueRef="clusterinfosummary"/>
+            <arg valueRef="networkedges"/>
+            <arg valueRef="networkedges_selfloop"/>
+            <arg valueRef="networkedges_display_pairs"/>
+            <arg valueRef="networkedges_display"/>
+        </execution>
+    </tool>
+
+    <!-- Library Search -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="prep_molecular_librarysearch_parameters" path="python3.5"/>
+        <toolPath tool="molecular_librarysearch_get_dbannotations" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="prep_molecular_librarysearch_parameters.script" path="prep_molecular_librarysearch_parameters.py"/>
+        <pathVar name="molecular_librarysearch_get_dbannotations.script" path="getGNPS_library_annotations.py"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/binaries">
+        <toolPath tool="molecular_librarysearch_parallel_step" path="main_execmodule"/>
+    </pathSet>
+
+    <tool name="prep_molecular_librarysearch_parameters">
+        <require name="workflowParameters" type="file"/>
+        <require name="library" type="folder"/>
+        <produce name="librarysearch_parameters" type="folder"/>
+        <produce name="libraryanalogsearch_parameters" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="prep_molecular_librarysearch_parameters.script"/>
+            <arg valueRef="library"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="librarysearch_parameters"/>
+            <arg valueRef="libraryanalogsearch_parameters"/>
+            <arg option="-parallelism" value="1"/>
+        </execution>
+    </tool>
+
+    <tool name="molecular_librarysearch_parallel_step">
+        <require name="librarysearch_parameters" type="file"/>
+        <require name="mgf_file" type="file"/>
+        <require name="library" type="folder"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="librarysearch_results_folder" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectralLibrarySearchMolecular"/>
+            <arg valueRef="librarysearch_parameters"/>
+            <arg option="ccms_results_dir" valueRef="librarysearch_results_folder"/>
+            <arg option="ccms_searchspectra_name" valueRef="mgf_file"/>
+            <arg option="ll" value="9"/>
+        </execution>
+    </tool>
+
+    <tool name="molecular_librarysearch_get_dbannotations">
+        <require name="librarysearch_results_file" type="file"/>
+        <produce name="librarysearch_results_file_DB" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="molecular_librarysearch_get_dbannotations.script"/>
+            <arg valueRef="librarysearch_results_file"/>
+            <arg valueRef="librarysearch_results_file_DB"/>
+        </execution>
+    </tool>
+
+    <!-- Cluster Info -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="clusterinfosummary_creation" path="python3.5"/>
+        <toolPath tool="enrich_clusterinfo_summary" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="clusterinfosummary_creation.script" path="clusterinfosummary_for_featurenetworks.py"/>
+        <pathVar name="enrich_clusterinfo_summary.script" path="enrich_clusterinfosummary.py"/>
+    </pathSet>
+
+    <tool name="clusterinfosummary_creation">
+        <require name="workflowParameters" type="file"/>
+        <require name="quantification_table" type="file"/>
+        <require name="metadata_table" type="file"/>
+        <produce name="clusterinfo_summary" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="clusterinfosummary_creation.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="quantification_table"/>
+            <arg valueRef="clusterinfo_summary"/>
+            <arg option="metadata_file" valueRef="metadata_table"/>
+        </execution>
+    </tool>
+
+    <tool name="enrich_clusterinfo_summary">
+        <require name="workflowParameters" type="file"/>
+        <require name="clusterinfo_summary" type="file"/>
+        <require name="librarysearch_results_file_DB" type="file"/>
+        <require name="networking_pairs_results_file_filtered" type="file"/>
+        <produce name="clusterinfo_summary_enriched" type="file" naming="explicit" extension="tsv"/>
+        <produce name="components_table" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="enrich_clusterinfo_summary.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="clusterinfo_summary"/>
+            <arg valueRef="networking_pairs_results_file_filtered"/>
+            <arg valueRef="librarysearch_results_file_DB"/>
+            <arg valueRef="clusterinfo_summary_enriched"/>
+            <arg valueRef="components_table"/>
+        </execution>
+    </tool>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomics_convert_graphml" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
+    </pathSet>
+
+    <tool name="metabolomics_convert_graphml">
+        <require name="networking_pairs_results_file_filtered" type="file"/>
+        <require name="clusterinfo_summary_enriched" type="file"/>
+        <require name="librarysearch_results_file_DB" type="file"/>
+        <require name="additional_pairs" type="folder"/>
+        <produce name="gnps_molecular_network_graphml" type="file" naming="explicit" extension="graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomics_convert_graphml.script"/>
+            <arg valueRef="networking_pairs_results_file_filtered"/>
+            <arg valueRef="clusterinfo_summary_enriched"/>
+            <arg valueRef="librarysearch_results_file_DB"/>
+            <arg valueRef="additional_pairs"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+        </execution>
+    </tool>
+
+    <!-- Running Dereplicator -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="run_dereplicator" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="invokesubworkflow.script" path="invokesubworkflow.py"/>
+        <pathVar name="credentials.json" path="credentials.json"/>
+    </pathSet>
+
+    <tool name="run_dereplicator">
+        <require name="workflowParameters" type="file"/>
+        <produce name="output_html" type="file" naming="explicit" extension="html"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="invokesubworkflow.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg pathRef="credentials.json"/>
+            <arg valueRef="output_html"/>
+            <arg option="-serverurl" value="gnps.ucsd.edu"/>
+            <arg option="-newparameters" value="workflow:DEREPLICATOR"/>
+            <arg option="-newparameters" value="email:mwang87@gmail.com"/>
+            <arg option="-newparameters" value="isotope:0"/>
+            <arg option="-newparameters" value="max_charge:2"/>
+            <arg option="-newparameters" value="max_mod:150"/>
+            <arg option="-newparameters" value="min_num_comp:5"/>
+            <arg option="-newparameters" value="min_shared_peaks:5"/>
+            <arg option="-newparameters" value="database:pnpdatabase"/>
+            <arg option="-parametermapping" value="spec_on_server:spec_on_server"/>
+            <arg option="-parametermapping" value="tolerance.PM_tolerance:pm_thresh"/>
+            <arg option="-parametermapping" value="tolerance.Ion_tolerance:product_ion_thresh"/>
+            <arg option="-runparameter" value="RUN_DEREPLICATOR"/>
+        </execution>
+    </tool>
+
+</toolset>
