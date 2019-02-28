@@ -21,7 +21,7 @@ def main():
 
     credentials = json.loads(open(args.credentials).read())
 
-    workflow_parameters_map = ming_proteosafe_library.parse_xml_file(args.workflowparamters)
+    workflow_parameters_map = ming_proteosafe_library.parse_xml_file(open(args.workflowparamters))
 
     if args.runparameter != "NONE":
         if workflow_parameters_map[args.runparameter][0] == "0":
