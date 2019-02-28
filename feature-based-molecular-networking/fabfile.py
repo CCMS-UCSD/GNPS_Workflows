@@ -14,10 +14,10 @@ env.user='miw023'
 
 def update_workflow():
     myfiles = [
-        ('./feature-based-molecular-networking/flow.xml','/ccms/workflows/feature-based-molecular-networking/flow.xml'),
-        ('./feature-based-molecular-networking/binding.xml','/ccms/workflows/feature-based-molecular-networking/binding.xml'),
-        ('./feature-based-molecular-networking/result.xml','/ccms/workflows/feature-based-molecular-networking/result.xml'),
-        ('./feature-based-molecular-networking/tool.xml','/ccms/workflows/feature-based-molecular-networking/tool.xml')
+        (os.path.join(os.path.dirname('feature-based-molecular-networking/flow.xml')),'/ccms/workflows/feature-based-molecular-networking/flow.xml'),
+        (os.path.join(os.path.dirname('feature-based-molecular-networking/binding.xml')),'/ccms/workflows/feature-based-molecular-networking/binding.xml'),
+        (os.path.join(os.path.dirname('feature-based-molecular-networking/result.xml')),'/ccms/workflows/feature-based-molecular-networking/result.xml'),
+        (os.path.join(os.path.dirname('feature-based-molecular-networking/tool.xml')),'/ccms/workflows/feature-based-molecular-networking/tool.xml')
     ]
 
     for (local,remote) in myfiles:
