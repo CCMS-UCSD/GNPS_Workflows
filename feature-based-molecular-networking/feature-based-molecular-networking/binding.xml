@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task"/>
+        <query name="user" valueRef="@user"/>
+        <compression type="zip"/>
+        <download port="spec" type="folder">
+            <query name="resource" value="spec"/>
+        </download>
+        <download port="quantification_table" type="folder">
+            <query name="resource" value="quantification_table"/>
+        </download>
+        <download port="metadata_table" type="folder">
+            <query name="resource" value="metadata_table"/>
+        </download>
+        <download port="additional_pairs" type="folder">
+            <query name="resource" value="additional_pairs"/>
+        </download>
+
+        <download port="lib" type="folder">
+            <query name="resource" value="lib"/>
+        </download>
+
+        <download port="flowParams" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
+    </bind>
+
+    <bind action="reformat_quantification" tool="reformat_quantification">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
+        <productionToOutput port="quantification_table_reformatted" production="quantification_table_reformatted"/>
+    </bind>
+
+    <bind action="renumber_mgf" tool="renumber_mgf">
+        <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
+        <productionToOutput port="spectra" production="spectra"/>
+    </bind>
+
+    <!-- Molecular Networking -->
+    <bind action="prep_molecular_networking_parameters" tool="prep_molecular_networking_parameters">
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="networking_parameters" production="networking_parameters"/>
+    </bind>
+
+    <bind action="molecular_networking_parallel_step" tool="molecular_networking_parallel_step">
+        <inputAsRequirement port="networking_parameters" requirement="networking_parameters"/>
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="networking_pairs_results_folder" production="networking_pairs_results_folder"/>
+    </bind>
+
+    <bind action="merge_networking_tsv_files" tool="merge_tsv_efficient">
+        <inputAsRequirement port="networking_pairs_results_folder" requirement="tsv_folder"/>
+        <productionToOutput port="networking_pairs_results_file" production="tsv_file"/>
+    </bind>
+
+    <bind action="filter_networking_edges" tool="filter_networking_edges">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="networking_pairs_results_file" requirement="networking_pairs_results_file"/>
+        <productionToOutput port="networking_pairs_results_file_filtered" production="networking_pairs_results_file_filtered"/>
+        <productionToOutput port="networkedges_legacy_output" production="networkedges_legacy_output"/>
+    </bind>
+
+    <bind action="metabolomic_network_edges_display" tool="metabolomic_network_edges_display">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="clusterinfosummary" requirement="clusterinfosummary"/>
+        <inputAsRequirement port="networkedges" requirement="networkedges"/>
+        <productionToOutput port="networkedges_selfloop" production="networkedges_selfloop"/>
+        <productionToOutput port="networkedges_display" production="networkedges_display"/>
+        <productionToOutput port="networkedges_display_pairs" production="networkedges_display_pairs"/>
+    </bind>
+
+    <!-- Library Search -->
+    <bind action="prep_molecular_librarysearch_parameters" tool="prep_molecular_librarysearch_parameters">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="library" requirement="library"/>
+        <productionToOutput port="librarysearch_parameters" production="librarysearch_parameters"/>
+        <productionToOutput port="libraryanalogsearch_parameters" production="libraryanalogsearch_parameters"/>
+    </bind>
+
+    <bind action="molecular_librarysearch_parallel_step" tool="molecular_librarysearch_parallel_step">
+        <inputAsRequirement port="librarysearch_parameters" requirement="librarysearch_parameters"/>
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="library" requirement="library"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="librarysearch_results_folder" production="librarysearch_results_folder"/>
+    </bind>
+
+    <bind action="molecular_libraryanalogsearch_parallel_step" tool="molecular_librarysearch_parallel_step">
+        <inputAsRequirement port="librarysearch_parameters" requirement="librarysearch_parameters"/>
+        <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
+        <inputAsRequirement port="library" requirement="library"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="librarysearch_results_folder" production="librarysearch_results_folder"/>
+    </bind>
+
+    <bind action="merge_librarysearch_tsv_files" tool="merge_tsv_efficient">
+        <inputAsRequirement port="librarysearch_results_folder" requirement="tsv_folder"/>
+        <productionToOutput port="librarysearch_results_file" production="tsv_file"/>
+    </bind>
+
+    <bind action="merge_libraryanalogsearch_tsv_files" tool="merge_tsv_efficient">
+        <inputAsRequirement port="librarysearch_results_folder" requirement="tsv_folder"/>
+        <productionToOutput port="librarysearch_results_file" production="tsv_file"/>
+    </bind>
+
+    <bind action="molecular_librarysearch_get_dbannotations" tool="molecular_librarysearch_get_dbannotations">
+        <inputAsRequirement port="librarysearch_results_file" requirement="librarysearch_results_file"/>
+        <productionToOutput port="librarysearch_results_file_DB" production="librarysearch_results_file_DB"/>
+    </bind>
+
+    <bind action="molecular_libraryanalogsearch_get_dbannotations" tool="molecular_librarysearch_get_dbannotations">
+        <inputAsRequirement port="librarysearch_results_file" requirement="librarysearch_results_file"/>
+        <productionToOutput port="librarysearch_results_file_DB" production="librarysearch_results_file_DB"/>
+    </bind>
+
+    <!-- Cluster Info -->
+    <bind action="clusterinfosummary_creation" tool="clusterinfosummary_creation">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <productionToOutput port="clusterinfo_summary" production="clusterinfo_summary"/>
+    </bind>
+
+    <bind action="enrich_clusterinfo_summary" tool="enrich_clusterinfo_summary">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="clusterinfo_summary" requirement="clusterinfo_summary"/>
+        <inputAsRequirement port="librarysearch_results_file_DB" requirement="librarysearch_results_file_DB"/>
+        <inputAsRequirement port="networking_pairs_results_file_filtered" requirement="networking_pairs_results_file_filtered"/>
+        <productionToOutput port="clusterinfo_summary_enriched" production="clusterinfo_summary_enriched"/>
+        <productionToOutput port="components_table" production="components_table"/>
+    </bind>
+
+    <bind action="metabolomics_convert_graphml" tool="metabolomics_convert_graphml">
+        <inputAsRequirement port="networking_pairs_results_file_filtered" requirement="networking_pairs_results_file_filtered"/>
+        <inputAsRequirement port="clusterinfo_summary_enriched" requirement="clusterinfo_summary_enriched"/>
+        <inputAsRequirement port="librarysearch_results_file_DB" requirement="librarysearch_results_file_DB"/>
+        <inputAsRequirement port="additional_pairs" requirement="additional_pairs"/>
+        <productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
+    </bind>
+
+    <!-- External Analysis -->
+    <bind action="run_dereplicator" tool="run_dereplicator">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="dereplicator_html" production="output_html"/>
+    </bind>
+
+    <bind action="end" type="upload">
+        <url value="{livesearch.upload}"/>
+        <query name="task" valueRef="@task"/>
+        <contentQuery name="content"/>
+        <compression type="zip"/>
+
+        <upload port="spectra" type="folder">
+            <query name="resource" value="spectra"/>
+        </upload>
+        <upload port="librarysearch_results_file_DB" type="folder">
+            <query name="resource" value="DB_result"/>
+        </upload>
+
+        <upload port="libraryanalogsearch_results_file_DB" type="folder">
+            <query name="resource" value="DB_analogresult"/>
+        </upload>
+
+        <upload port="dereplicator_html" type="folder">
+            <query name="resource" value="dereplicator_html"/>
+        </upload>
+
+        <upload port="networking_pairs_results_file_filtered" type="folder">
+            <query name="resource" value="networking_pairs_results_file_filtered"/>
+        </upload>
+        <upload port="networkedges_selfloop" type="folder">
+            <query name="resource" value="networkedges_selfloop"/>
+        </upload>
+        <upload port="clusterinfo_summary_enriched" type="folder">
+            <query name="resource" value="clusterinfo_summary"/>
+        </upload>
+        <upload port="components_table" type="folder">
+            <query name="resource" value="components_table"/>
+        </upload>
+        <upload port="gnps_molecular_network_graphml" type="folder">
+            <query name="resource" value="gnps_molecular_network_graphml"/>
+        </upload>
+
+    </bind>
+</binding>

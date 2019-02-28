@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="feature-based-molecular-networking">
+    <object name="workflowParameters"/>
+    <object name="inputSpectra"/>
+    <object name="quantification_table"/>
+    <object name="metadata_table"/>
+    <collection name="additional_pairs"/>
+
+
+    <action name="begin">
+        <output port="flowParams" object="workflowParameters"/>
+        <output port="spec" object="inputSpectra"/>
+        <output port="lib" collection="library"/>
+        <output port="quantification_table" object="quantification_table"/>
+        <output port="metadata_table" object="metadata_table"/>
+        <output port="additional_pairs" collection="additional_pairs"/>
+    </action>
+
+    <object name="quantification_table_reformatted"/>
+    <action name="reformat_quantification">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table"/>
+        <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
+    </action>
+
+    <object name="spectra"/>
+    <action name="renumber_mgf">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="inputSpectra" object="inputSpectra"/>
+        <output port="spectra" object="spectra"/>
+    </action>
+
+    <!-- Molecular Networking -->
+    <collection name="networking_parameters"/>
+    <collection name="networking_pairs_results_folder"/>
+    <object name="networking_pairs_results_file"/>
+    <object name="networking_pairs_results_file_filtered"/>
+
+    <action name="prep_molecular_networking_parameters">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="mgf_file" object="spectra"/>
+        <output port="networking_parameters" collection="networking_parameters"/>
+    </action>
+
+    <action name="molecular_networking_parallel_step" multiplicity="multiple" type="parallel">
+        <input port="networking_parameters" collection="networking_parameters" transformation="unfolding"/>
+        <input port="mgf_file" object="spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="networking_pairs_results_folder" collection="networking_pairs_results_folder"/>
+    </action>
+
+    <action name="merge_networking_tsv_files">
+        <input port="networking_pairs_results_folder" collection="networking_pairs_results_folder"/>
+        <output port="networking_pairs_results_file" object="networking_pairs_results_file"/>
+    </action>
+
+    <!-- This is a Legacy Format -->
+    <object name="networkedges_legacy_output"/>
+    <action name="filter_networking_edges">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="networking_pairs_results_file" object="networking_pairs_results_file"/>
+        <output port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
+        <output port="networkedges_legacy_output" object="networkedges_legacy_output"/>
+    </action>
+
+    <object name="networkedges_selfloop"/>
+    <object name="networkedges_display"/>
+    <object name="networkedges_display_pairs"/>
+    <action name="metabolomic_network_edges_display">
+        <input  port="workflowParameters" object="workflowParameters"/>
+        <input  port="clusterinfosummary"       object="clusterinfo_summary"/>
+        <input  port="networkedges"       object="networkedges_legacy_output"/>
+        <output  port="networkedges_selfloop" object="networkedges_selfloop"/>
+        <output  port="networkedges_display" object="networkedges_display"/>
+        <output  port="networkedges_display_pairs" object="networkedges_display_pairs"/>
+    </action>
+
+    <!-- Library Search -->
+    <collection name="library"/>
+    <collection name="librarysearch_parameters"/>
+    <collection name="librarysearch_results_folder"/>
+    <object name="librarysearch_results_file"/>
+    <object name="librarysearch_results_file_DB"/>
+
+    <collection name="libraryanalogsearch_parameters"/>
+    <collection name="libraryanalogsearch_results_folder"/>
+    <object name="libraryanalogsearch_results_file"/>
+    <object name="libraryanalogsearch_results_file_DB"/>
+
+    <action name="prep_molecular_librarysearch_parameters">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="library" collection="library"/>
+        <output port="librarysearch_parameters" collection="librarysearch_parameters"/>
+        <output port="libraryanalogsearch_parameters" collection="libraryanalogsearch_parameters"/>
+    </action>
+
+    <action name="molecular_librarysearch_parallel_step" multiplicity="multiple" type="parallel">
+        <input port="librarysearch_parameters" collection="librarysearch_parameters" transformation="unfolding"/>
+        <input port="mgf_file" object="spectra"/>
+        <input port="library" collection="library"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="librarysearch_results_folder" collection="librarysearch_results_folder"/>
+    </action>
+
+    <action name="molecular_libraryanalogsearch_parallel_step" multiplicity="multiple" type="parallel">
+        <input port="librarysearch_parameters" collection="libraryanalogsearch_parameters" transformation="unfolding"/>
+        <input port="mgf_file" object="spectra"/>
+        <input port="library" collection="library"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="librarysearch_results_folder" collection="libraryanalogsearch_results_folder"/>
+    </action>
+
+    <action name="merge_librarysearch_tsv_files">
+        <input port="librarysearch_results_folder" collection="librarysearch_results_folder"/>
+        <output port="librarysearch_results_file" object="librarysearch_results_file"/>
+    </action>
+
+    <action name="merge_libraryanalogsearch_tsv_files">
+        <input port="librarysearch_results_folder" collection="libraryanalogsearch_results_folder"/>
+        <output port="librarysearch_results_file" object="libraryanalogsearch_results_file"/>
+    </action>
+
+    <action name="molecular_librarysearch_get_dbannotations">
+        <input port="librarysearch_results_file" object="librarysearch_results_file"/>
+        <output port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+    </action>
+
+    <action name="molecular_libraryanalogsearch_get_dbannotations">
+        <input port="librarysearch_results_file" object="libraryanalogsearch_results_file"/>
+        <output port="librarysearch_results_file_DB" object="libraryanalogsearch_results_file_DB"/>
+    </action>
+
+    <!-- Cluster Info -->
+    <object name="clusterinfo_summary"/>
+    <object name="clusterinfo_summary_enriched"/>
+    <object name="components_table"/>
+
+    <action name="clusterinfosummary_creation">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table_reformatted"/>
+        <input port="metadata_table" object="metadata_table"/>
+        <output port="clusterinfo_summary" object="clusterinfo_summary"/>
+    </action>
+
+    <action name="enrich_clusterinfo_summary">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="clusterinfo_summary" object="clusterinfo_summary"/>
+        <input port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+        <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
+        <output port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
+        <output port="components_table" object="components_table"/>
+    </action>
+
+    <!-- Creating Cytoscape Compatible graphML -->
+    <object name="gnps_molecular_network_graphml"/>
+    <action name="metabolomics_convert_graphml">
+        <input  port="networking_pairs_results_file_filtered"       object="networkedges_selfloop"/>
+        <input  port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
+        <input  port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+        <input  port="additional_pairs" collection="additional_pairs"/>
+        <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
+    </action>
+
+
+    <!-- External Analysis -->
+    <object name="dereplicator_html"/>
+    <action name="run_dereplicator">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="dereplicator_html"     object="dereplicator_html"/>
+    </action>
+
+
+    <action name="end">
+        <input port="spectra" object="spectra"/>
+        <input port="networking_parameters" collection="networking_parameters"/>
+        <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
+        <input port="networkedges_selfloop" object="networkedges_selfloop"/>
+        <input port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+        <input port="libraryanalogsearch_results_file_DB" object="libraryanalogsearch_results_file_DB"/>
+        <input port="dereplicator_html" object="dereplicator_html"/>
+        <input port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
+        <input port="components_table" object="components_table"/>
+        <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+    </action>
+</flow>
