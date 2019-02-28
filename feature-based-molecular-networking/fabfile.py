@@ -21,6 +21,6 @@ def update_workflow():
         (os.path.join(os.getcwd(), 'feature-based-molecular-networking/tool.xml'),'/ccms/workflows/feature-based-molecular-networking/tool.xml')
     ]
 
-    with Connection() as c:
-        for (local,remote) in myfiles:
-            c.put(local,remote)
+
+    for (local,remote) in myfiles:
+        put(local,remote)
