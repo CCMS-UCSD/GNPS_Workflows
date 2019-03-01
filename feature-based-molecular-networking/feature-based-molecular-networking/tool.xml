@@ -2,7 +2,7 @@
 
     <!-- Renumbering the MGF File -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="renumber_mgf" path="python3.5"/>
+        <toolPath tool="renumber_mgf" path="python"/>
     </pathSet>
     <pathSet base="feature-based-molecular-networking/scripts">
         <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
@@ -20,7 +20,7 @@
 
     <!-- Formatting Quantification -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="reformat_quantification" path="python3.5"/>
+        <toolPath tool="reformat_quantification" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -42,9 +42,9 @@
 
     <!-- Molecular Networking -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="prep_molecular_networking_parameters" path="python3.5"/>
-        <toolPath tool="merge_tsv_efficient" path="python3.5"/>
-        <toolPath tool="filter_networking_edges" path="python3.5"/>
+        <toolPath tool="prep_molecular_networking_parameters" path="python"/>
+        <toolPath tool="merge_tsv_efficient" path="python"/>
+        <toolPath tool="filter_networking_edges" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -113,7 +113,7 @@
     </tool>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="metabolomic_network_edges_display" path="python3.5"/>
+        <toolPath tool="metabolomic_network_edges_display" path="python"/>
     </pathSet>
     <pathSet base="feature-based-molecular-networking/scripts">
         <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
@@ -140,8 +140,8 @@
 
     <!-- Library Search -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="prep_molecular_librarysearch_parameters" path="python3.5"/>
-        <toolPath tool="molecular_librarysearch_get_dbannotations" path="python3.5"/>
+        <toolPath tool="prep_molecular_librarysearch_parameters" path="python"/>
+        <toolPath tool="molecular_librarysearch_get_dbannotations" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -198,8 +198,8 @@
 
     <!-- Cluster Info -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="clusterinfosummary_creation" path="python3.5"/>
-        <toolPath tool="enrich_clusterinfo_summary" path="python3.5"/>
+        <toolPath tool="clusterinfosummary_creation" path="python"/>
+        <toolPath tool="enrich_clusterinfo_summary" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -242,7 +242,7 @@
     </tool>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="metabolomics_convert_graphml" path="python3.5"/>
+        <toolPath tool="metabolomics_convert_graphml" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -268,7 +268,7 @@
 
     <!-- Running Dereplicator -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="run_dereplicator" path="python3.5"/>
+        <toolPath tool="run_dereplicator" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
