@@ -106,6 +106,7 @@
     <object name="Kovats_Result_Nonfiltered"/>
     <action name="Kovats_Calculation">
         <input  port="DB_result"       object="DB_result"/>
+        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
         <input  port="Carbon_Marker_File"   object="Carbon_Marker_File"/>
         <input  port="params"    object="workflowParameters"/>
         <output port="Kovats_Result_Nonfiltered"     object="Kovats_Result_Nonfiltered"/>

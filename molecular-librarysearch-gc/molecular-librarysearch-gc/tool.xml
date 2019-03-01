@@ -210,6 +210,7 @@
 
     <tool name="Kovats_Calculation">
         <require name="DB_result"       type="file"/>
+        <require name="DB_result_filtered"       type="file"/>
         <require name="workflowParameters"       type="file"/>
         <require name="Carbon_Marker_File"       type="file"/>
         <produce name="Kovats_Result_Nonfiltered"        type="file" naming="explicit"  extension="tsv"/>
@@ -219,6 +220,7 @@
                 <arg pathRef="Kovats_Calculation.script"/>
                 <arg pathRef="Kovats_Lib"/>
                 <arg valueRef="DB_result"/>
+                <arg valueRef="DB_result_filtered"/>
                 <arg valueRef="workflowParameters"/>
                 <arg valueRef="Carbon_Marker_File"/>
                 <arg valueRef="Kovats_Result_Nonfiltered"/>
