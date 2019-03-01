@@ -9,6 +9,7 @@ def main():
     parser = argparse.ArgumentParser(description='Running sirius wrapper')
     parser.add_argument('libFiles', help='input')
     parser.add_argument('input', help='input')
+    parser.add_argument('input_filtered', help='input_filtered')
     parser.add_argument('workflow_parameters', help='workflow_parameters')
     parser.add_argument('carbonMarker', help='Carbon_Marker_File')
     parser.add_argument('result_nonfiltered', help='Kovats_Result_Nonfiltered')
@@ -18,6 +19,7 @@ def main():
     lib = args.libFiles
     param = args.workflow_parameters
     input = args.input
+    input_filtered = args.input_filtered
     carbonMarker = args.carbonMarker
     result_nonfiltered = args.result_nonfiltered
     result_filtered = args.result_filtered
@@ -49,7 +51,7 @@ def main():
         return
     #if there is no csv file
     if carbonMarker == '':
-        supporting_file = polyFitting.getParams(input,cosineScore,1.5,lib,minimunFeature)
+        supporting_file = polyFitting.getParams(input_filtered,cosineScore,1.5,lib,minimunFeature)
         if supporting_file is None:
             empty_tsv = open(result,'w')
             empty_tsv.write('Not enough data for polynomial fitting')

@@ -93,6 +93,7 @@
 
     <bind action="Kovats_Calculation" tool="Kovats_Calculation">
         <inputAsRequirement port="DB_result" requirement="DB_result"/>
+        <inputAsRequirement port="DB_result_filtered" requirement="DB_result_filtered"/>
         <inputAsRequirement port="Carbon_Marker_File" requirement="Carbon_Marker_File"/>
         <inputAsRequirement port="params" requirement="workflowParameters"/>
         <productionToOutput port="Kovats_Result_Filtered" production="Kovats_Result_Filtered"/>
