@@ -22,18 +22,13 @@ import argparse
 
 
 # load df from input data file
-def loadDf(csv,cosine,prediction,mode,lib,error):
+def loadDf(csv,cosine,prediction,mode,lib):
     df = pd.read_csv(csv,sep = '\t')
 
     new_df = df
-    new_df['Kovats_Annotation_KI_calculated'] = np.nan
-    new_df['Kovats_Annotation_Lib_Record'] = np.nan
-    new_df['Kovats_Annotation_Error'] = np.nan
-    new_df['Original_Annotation_KI_calculated'] = np.nan
-    new_df['Original_Annotation_Lib_Record'] = np.nan
-    new_df['Original_Annotation_Error'] = np.nan
-    new_df['Kovats_Annotation_names'] = np.nan
-    new_df['Kovats_Annotation_inchi'] = np.nan
+    new_df['Kovats_Index_calculated'] = np.nan
+    new_df['Kovats_Index_Lib_Record'] = np.nan
+    new_df['Kovats_Index_Error'] = np.nan
     # filter out by cosine score first
     new_df = new_df[new_df.MQScore > cosine]
     new_df = new_df.reset_index(drop=True)
@@ -43,46 +38,18 @@ def loadDf(csv,cosine,prediction,mode,lib,error):
     lib_df = pd.read_csv(lib)
     lib_df = lib_df[lib_df.polarity.str.contains('non-polar')]
     lib = pd.Series(lib_df.ki_nonpolar_average.values,index=lib_df.INCHI.values).to_dict()
-    new_df.sort_values(['INCHI','MQScore'], ascending=[True,False])
-
     #fill in the kovat index from the library search
     for i in range(len(new_df)):
         if mode == 'm':
-            new_df['Original_Annotation_KI_calculated'][i] =kovatIndex(float(new_df['RT_Query'][i]), prediction)
+            new_df['Kovats_Index_calculated'][i] =kovatIndex(float(new_df['RT_Query'][i]), prediction)
         else:
-            new_df['Original_Annotation_KI_calculated'][i]= np.polyval(prediction,float(new_df['RT_Query'][i]))
+            new_df['Kovats_Index_calculated'][i]= np.polyval(prediction,float(new_df['RT_Query'][i]))
 
         try:
-            new_df['Original_Annotation_Lib_Record'][i] = lib[new_df['INCHI'][i]]
-            new_df['Original_Annotation_Error'][i] = abs(new_df['Original_Annotation_KI_calculated'][i] - new_df['Original_Annotation_Lib_Record'][i])/new_df['Original_Annotation_Lib_Record'][i]
+            new_df['Kovats_Index_Lib_Record'][i] = lib[new_df['INCHI'][i]]
+            new_df['Kovats_Index_Error'][i] = abs(new_df['Kovats_Index_calculated'][i] - new_df['Kovats_Index_Lib_Record'][i])/new_df['Kovats_Index_Lib_Record'][i]
         except:
             continue
-
-    new_df_filtered = new_df[new_df.Original_Annotation_Error < error]
-    new_df_filtered = new_df_filtered.sort_values(['#Scan#','MQScore'], ascending=[True,False])
-    new_df_filtered.reset_index(drop=True, inplace=True)
-    Kovats_Annotation_name = {}
-    Kovats_Annotation_inchi = {}
-    Kovats_Annotation_error = {}
-    Kovats_Annotation_lib_Record = {}
-    Kovats_Annotation_ki_calculated = {}
-    for i in range(len(new_df_filtered)):
-        if new_df_filtered['INCHI'][i] != '':
-            scan =new_df_filtered['#Scan#'][i]
-            if scan in Kovats_Annotation_name:
-                continue
-            Kovats_Annotation_name[scan] =new_df_filtered['Compound_Name'][i]
-            Kovats_Annotation_inchi[scan] =new_df_filtered['INCHI'][i]
-            Kovats_Annotation_error[scan] =new_df_filtered['Original_Annotation_Error'][i]
-            Kovats_Annotation_lib_Record[scan]=new_df_filtered['Original_Annotation_Lib_Record'][i]
-            Kovats_Annotation_ki_calculated[scan]=new_df_filtered['Original_Annotation_KI_calculated'][i]
-
-    new_df.Kovats_Annotation_names = new_df['#Scan#'].map(Kovats_Annotation_name)
-    new_df.Kovats_Annotation_inchi = new_df['#Scan#'].map(Kovats_Annotation_inchi)
-    new_df.Kovats_Annotation_Error = new_df['#Scan#'].map(Kovats_Annotation_error)
-    new_df.Kovats_Annotation_KI_calculated = new_df['#Scan#'].map(Kovats_Annotation_ki_calculated)
-    new_df.Kovats_Annotation_Lib_Record = new_df['#Scan#'].map(Kovats_Annotation_lib_Record)
-
     return new_df
 
 def loadMarkers(marker):
@@ -123,36 +90,9 @@ def csv_builder(inputF,mode,additionalFile,cosineScore,errorTolerance,result_non
             empty_tsv_filtered.write('Bad Carbon Marker File Format')
             return
     #LoadDataframe and trim it to be the one we need
-    df = loadDf(inputF,cosineScore,prediction,mode,lib,errorTolerance)
-    df_sorted = df.sort_values(['#Scan#','MQScore'], ascending=[True,False])
-    # restructure the dataframe by deleting repeated elements
-    scan = set()
-    toDrop =[]
-    df_sorted = df_sorted.reset_index(drop=True)
-    for i in range(len(df_sorted)):
-        if  df_sorted['#Scan#'][i] in scan:
-            toDrop.append(i)
-            continue
-        scan.add(df_sorted['#Scan#'][i])
-    df_sorted = df_sorted.drop(i for i in toDrop)
-    df_sorted.to_csv(result_nonfiltered, sep='\t',index=False,na_rep="None")
+    df = loadDf(inputF,cosineScore,prediction,mode,lib)
+    df.to_csv(result_nonfiltered, sep='\t',index=False,na_rep="None")
     # filtering by RI error threshold
 
-    df_filtered = df[df.Original_Annotation_Error < errorTolerance]
-    df_filtered = df_filtered.sort_values(['#Scan#','MQScore'], ascending=[True,False])
-
-    # restructure the dataframe by deleting repeated elements
-    preScan = 'N/A'
-    toDrop =[]
-    Kovats_Annotation = {}
-    df_filtered = df_filtered.reset_index(drop=True)
-
-    for i in range(len(df_filtered)):
-        if  df_filtered['#Scan#'][i] == preScan:
-            toDrop.append(i)
-            continue
-        preScan = df_filtered['#Scan#'][i]
-
-    df_filtered = df_filtered.drop(i for i in toDrop)
-    df_filtered = df_filtered.reset_index(drop=True)
-    df_filtered.to_csv(result_filtered, sep='\t',index=False)
+    df_filtered = df[df.Kovats_Index_Error < errorTolerance]
+    df_filtered.to_csv(result_filtered, sep='\t',index=False,na_rep="None")
