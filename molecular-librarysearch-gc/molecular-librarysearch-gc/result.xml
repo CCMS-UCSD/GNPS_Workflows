@@ -490,14 +490,9 @@
                         <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
                         <!--column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/-->
                         <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
-                        <column type="text"     field="Kovats_Annotation_inchi"         label="Kovats_Annotation_inchi"   width="30"/>
-                        <column type="text"     field="Kovats_Annotation_names"         label="Kovats_Annotation_names"   width="30"/>
-                        <column type="float"     field="Kovats_Annotation_Error"         label="Kovats_Annotation_Error"            precision="2"/>
-                        <column type="float"     field="Kovats_Annotation_KI_calculated"         label="Kovats_Annotation_KI_calculated"            precision="2"/>
-                        <column type="float"     field="Kovats_Annotation_Lib_Record"         label="Kovats_Annotation_Lib_Record"            precision="2"/>
-                        <column type="float"     field="Original_Annotation_Error"         label="Original_Annotation_Error"            precision="2"/>
-                        <column type="float"     field="Original_Annotation_KI_calculated"         label="Original_Annotation_KI_calculated"            precision="2"/>
-                        <column type="float"     field="Original_Annotation_Lib_Record"         label="Original_Annotation_Lib_Record"            precision="2"/>
+                        <column type="float"     field="Kovats_Index_Lib_Record"         label="Kovats_Index_Lib_Record"            precision="2"/>
+                        <column type="float"     field="Kovats_Index_calculated"         label="Kovats_Index_calculated"            precision="2"/>
+                        <column type="float"     field="Kovats_Index_Error"         label="Kovats_Index_Error"            precision="2"/>
 
                         <!--column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            /-->
                         <!--<column type="text"     field="Organism"         label="Organism"            width="3"/>-->
