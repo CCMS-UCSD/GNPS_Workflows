@@ -7,6 +7,18 @@
         <source type="folder" name="gnps_molecular_network_graphml/"/>
     </download>
 
+    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
+            <blockRef id="main" type="written_description"/>
+    </view>
+    <block id="written_description" type="stream">
+        <data>
+            <source type="file" name="written_description/"/>
+            <parsers>
+                    <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
     <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_annotations_DB"/>
     </view>
@@ -248,7 +260,14 @@
             <!-- <column type="integer" field="number of spectra" label="NumSpectra" width="3"/> -->
             <!-- <column type="integer" field="UniqueFileSourcesCount" label="NumFiles" width="3"/> -->
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
-            <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
+            <column type="float" field="sum(<block id="summary_report_new_plaintext" type="stream">
+                <data>
+                        <source type="file" name="summaryReport_new/"/>
+                        <parsers>
+                                <parser type="stream" contentType="text/html"/>
+                        </parsers>
+                </data>
+        </block>precursor intensity)" label="PrecursorInt" precision="5"/>
             <column type="float" field="RTConsensus" label="RTConsensus" precision="2"/>
             <column type="text" field="AllGroups" label="AllGroups" width="3"/>
             <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
