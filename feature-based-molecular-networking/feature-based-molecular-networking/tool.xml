@@ -334,7 +334,7 @@
 
     <tool name="write_description">
         <require name="workflowParameters" type="file"/>
-        <produce name="written_description" type="file" naming="explicit" extension="txt"/>
+        <produce name="written_description" type="file" naming="explicit" extension="html"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="write_description.script"/>

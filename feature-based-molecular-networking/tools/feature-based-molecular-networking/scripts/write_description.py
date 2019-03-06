@@ -7,7 +7,7 @@ param_obj = ming_proteosafe_library.parse_xml_file(open(sys.argv[1]))
 output_filename = sys.argv[2]
 
 output_sentences = []
-output_sentences.append("Network Description\n\n")
+output_sentences.append("<strong>Network Description</strong><br><br>\n\n")
 output_sentences.append("A molecular network was created with the feature based molecular networking workflow (https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/) on the GNPS website (http://gnps.ucsd.edu).")
 if param_obj["FILTER_PRECURSOR_WINDOW"][0] == "1":
     output_sentences.append("The data was filtered by removing all MS/MS fragment ions within +/- 17 Da of the precursor m/z.")
@@ -21,7 +21,7 @@ output_sentences.append("The spectra in the network were then searched against G
 if param_obj["FILTER_LIBRARY"][0] == "1":
     output_sentences.append("The library spectra were filtered in the same manner as the input data.")
 output_sentences.append("All matches kept between network spectra and library spectra were required to have a score above %s and at least %s matched peaks." % (param_obj["SCORE_THRESHOLD"][0], param_obj["MIN_MATCHED_PEAKS_SEARCH"][0]))
-output_sentences.append("\n\n\nCitation\n\n")
+output_sentences.append("<br><br>\n<strong>Citation</strong><br><br>\n")
 output_sentences.append('Wang, Mingxun, et al. "Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking." Nature Biotechnology 34.8 (2016): 828-837. PMID: 27504778, https://www.nature.com/articles/nbt.3597')
 
 open(output_filename, "w").write(" ".join(output_sentences))
