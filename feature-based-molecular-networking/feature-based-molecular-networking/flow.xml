@@ -169,13 +169,11 @@
     </action>
 
     <!-- Qiime2 -->
-    <object name="qiime2_feature_qza"/>
-    <object name="qiime2_feature_pcoa_qzv"/>
+    <collection name="qiime2_output"/>
     <action name="run_qiime2">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
         <input  port="metadata_table"       object="metadata_table"/>
-        <output port="qiime2_feature_qza"     object="qiime2_feature_qza"/>
-        <output port="qiime2_feature_pcoa_qzv"     object="qiime2_feature_pcoa_qzv"/>
+        <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
 
     <action name="end">
@@ -189,5 +187,6 @@
         <input port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
         <input port="components_table" object="components_table"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+        <input port="qiime2_output" collection="qiime2_output"/>
     </action>
 </flow>
