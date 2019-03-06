@@ -13,15 +13,19 @@ output_folder = sys.argv[3]
 output_metadata_filename = os.path.join(output_folder, "qiime2_metadata.tsv")
 output_manifest_filename = os.path.join(output_folder, "qiime2_manifest.tsv")
 
-df_metadata = pd.read_csv(input_metadata_filename, sep="\t")
 df_quantification = pd.read_csv(input_quantification_table, sep=",")
 
-if "sample_name" in df_metadata:
-    manifest_df = df_metadata["sample_name", "filename"]
+if len(input_metadata_filename) > 2:
+    df_metadata = pd.read_csv(input_metadata_filename, sep="\t")
+    if "sample_name" in df_metadata:
+        manifest_df = df_metadata["sample_name", "filename"]
+    else:
+        manifest_df = pd.DataFrame()
+        manifest_df["sample_name"] = df_metadata["filename"]
+        manifest_df["filepath"] = df_metadata["filename"]
 else:
-    manifest_df = pd.DataFrame()
-    manifest_df["sample_name"] = df_metadata["filename"]
-    manifest_df["filepath"] = df_metadata["filename"]
+    df_metadata = pd.DataFrame([{"filename": "placeholder"}])
+
 
 """Checking if the set of filenames are fully covered, if not then we'll provide a place holder"""
 all_quantification_filenames = [key.split(" ")[0] for key in df_quantification.keys() if "Peak area" in key]
