@@ -25,6 +25,9 @@ if len(input_metadata_filename) > 2:
         manifest_df["filepath"] = df_metadata["filename"]
 else:
     df_metadata = pd.DataFrame([{"filename": "placeholder"}])
+    manifest_df = pd.DataFrame()
+    manifest_df["sample_name"] = df_metadata["filename"]
+    manifest_df["filepath"] = df_metadata["filename"]
 
 
 """Checking if the set of filenames are fully covered, if not then we'll provide a place holder"""
