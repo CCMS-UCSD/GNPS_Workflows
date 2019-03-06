@@ -88,7 +88,7 @@
 
     <block id="group_by_compound" type="table">
             <data>
-                    <source type="file" name="result_specnets_DB/"/>
+                    <source type="file" name="DB_result/"/>
                     <parsers>
                             <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
                             <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
