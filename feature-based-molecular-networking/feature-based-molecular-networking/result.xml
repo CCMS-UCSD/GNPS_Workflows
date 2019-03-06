@@ -388,7 +388,7 @@
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-        <parameter name="URLBASE" value="https://cors-anywhere.herokuapp.com/https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=qiime2_output%2Fqiime2_emperor.qzv&block=main"/>
+        <parameter name="URLBASE" value="https://cors-anywhere.herokuapp.com/https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=qiime2_output%2Fqiime2_emperor.qzv&amp;block=main"/>
     </block>
 
 
