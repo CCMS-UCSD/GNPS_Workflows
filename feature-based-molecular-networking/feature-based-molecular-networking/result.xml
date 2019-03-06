@@ -7,17 +7,7 @@
         <source type="folder" name="gnps_molecular_network_graphml/"/>
     </download>
 
-    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
-            <blockRef id="main" type="written_description"/>
-    </view>
-    <block id="written_description" type="stream">
-        <data>
-            <source type="file" name="written_description/"/>
-            <parsers>
-                    <parser type="stream" contentType="text/html"/>
-            </parsers>
-        </data>
-    </block>
+
 
     <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_annotations_DB"/>
@@ -355,6 +345,18 @@
             <column type="expandable" field="DefaultGroups" label="DefaultGroups" width="10"/>
             <column type="expandable" field="UserGroups" label="UserGroups" width="10"/>
         </row>
+    </block>
+
+    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
+            <blockRef id="main" type="written_description"/>
+    </view>
+    <block id="written_description" type="stream">
+        <data>
+            <source type="file" name="written_description/"/>
+            <parsers>
+                    <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
     </block>
 
     <view id="network_displayer" label="Network Display (Alpha)" display="hidden">
