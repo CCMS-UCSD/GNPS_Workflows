@@ -457,7 +457,7 @@
 
     <block id="download_emperor_data" type="dummydownload">
         <data>
-            <source type="file" name="qiime2_output/"/>
+            <source type="file" name="qiime2_output/qiime2_emperor.qzv"/>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
