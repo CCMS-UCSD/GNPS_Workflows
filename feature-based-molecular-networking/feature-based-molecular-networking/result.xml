@@ -486,7 +486,7 @@
         <data>
             <source type="file" name="qiime2_output/qiime2_table.qza"/>
             <parsers>
-                <parser type="stream" contentType="text/xml"/>
+                <parser type="stream" contentType="text/html"/>
             </parsers>
         </data>
     </block>
