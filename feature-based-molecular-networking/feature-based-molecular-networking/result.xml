@@ -379,6 +379,18 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
     </block>
 
+    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="view_qiime2_emperor"/>
+    </view>
+    <block id="view_qiime2_emperor" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value="https://cors-anywhere.herokuapp.com/https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=[task]&file=qiime2_output%2Fqiime2_emperor.qzv&block=main"/>
+    </block>
+
 
 
 </interface>
