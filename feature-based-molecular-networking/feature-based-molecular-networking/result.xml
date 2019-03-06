@@ -82,6 +82,62 @@
         </row>
     </block>
 
+    <view id="group_by_compound" label="View Unique Library Compounds" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="group_by_compound"/>
+    </view>
+
+    <block id="group_by_compound" type="table">
+            <data>
+                    <source type="file" name="result_specnets_DB/"/>
+                    <parsers>
+                            <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
+                            <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
+                    </parsers>
+                    <processors>
+                            <processor type="uploadFilename" field="SpectrumFile"/>
+                    </processors>
+            </data>
+            <row>
+                <column label="ViewLib" type="genericurlgenerator" width="5"> \
+                    <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>\
+                    <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>\
+                    <parameter name="LABEL" value="ViewLib"/>\
+                </column>\
+
+                    <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
+                    <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
+                    <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
+                    <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
+                    <column type="float"     field="MassDiff"         label="MassDiff"            precision="3"/>
+                    <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
+                    <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
+                    <column type="text"     field="IonMode"         label="IonMode"            width="5"/>
+                    <column type="text"     field="PI"         label="PI"            width="5"/>
+                    <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
+                    <column type="text"     field="tags"         label="Tags"            width="5"/>
+                    <column label="Add Library Tag" type="addspectrumtag" width="12">
+                        <parameter name="spectrumID" value="[SpectrumID]"/>
+                    </column>
+                    <column type="structuredisplayer"     label="Structure">
+                        <parameter name="smilesstructure" value="[Smiles]"/>
+                    </column>
+            </row>
+            <row expander="image">
+                    <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                            <parameter name="file"    file="spectra/[internalFilename]"/>
+                            <parameter name="scan"    value="[#Scan#]"/>
+                            <parameter name="compoundname" value="*..*"/>
+                            <parameter name="trim" value="true"/>
+                    </column>
+                    <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                            <parameter name="file"    file="lib/[LibraryName]"/>
+                            <parameter name="spectrumid"    value="[SpectrumID]"/>
+                            <parameter name="compoundname" value="*..*"/>
+                            <parameter name="trim" value="true"/>
+                    </column>
+            </row>
+    </block>
+
     <view id="view_all_analog_annotations_DB" label="View All Analog Library Hits" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_analog_annotations_DB"/>
     </view>
