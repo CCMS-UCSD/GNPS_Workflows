@@ -389,7 +389,7 @@
         </parsers>
       </data>
 
-        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
     </block>
 
 
