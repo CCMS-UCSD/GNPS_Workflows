@@ -27,19 +27,13 @@ def loading_network(filename, hasHeaders=False):
         node2_list = table_data["CLUSTERID2"]
 
         mass_difference = table_data["DeltaMZ"]
-        try:
-            property1 = table_data["MEH"]
-        except:
-            property1 = node1_list
+        property1 = table_data["MEH"]
         cosine_score = None
         if "Cosine" in table_data:
             cosine_score = table_data["Cosine"]
         if "COSINE" in table_data:
             cosine_score = table_data["COSINE"]
-        try:
-            explained_intensity = table_data["OtherScore"]
-        except:
-            explained_intensity = node1_list
+        explained_intensity = table_data["OtherScore"]
 
         if len(property1)  != len(node1_list):
             property1 = node1_list
@@ -228,10 +222,7 @@ def add_library_search_results_to_graph(G, library_search_filename):
     row_count, table_data = ming_fileio_library.parse_table_with_headers(library_search_filename)
 
     for i in range(row_count):
-        try:
-            cluster_index = table_data["#Scan#"][i]
-        except:
-            break
+        cluster_index = table_data["#Scan#"][i]
 
         if cluster_index in G.node:
             G.node[cluster_index]["Adduct"] = str(table_data["Adduct"][i].encode('ascii', 'ignore'))

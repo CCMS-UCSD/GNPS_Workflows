@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="molecular-librarysearch" version="1.2.5">
+<interface id="molecular-librarysearch-GC" version="1.2.5">
 	<workflow-id>MOLECULAR-LIBRARYSEARCH-GC</workflow-id>
-	<workflow-label>Dereplication-GC</workflow-label>
+	<workflow-label>Lib-GC</workflow-label>
 	<parameters>
         <parameter name="desc" label="Description">
             <validator type="length" maximum="1000"/>
@@ -140,7 +140,28 @@
             <validator type="integer" minimumExclusive="-1" maximum="100000"/>
         </parameter>
 
-      </parameters>
+			<!-- Kovats Filter Parameters -->
+			<parameter name="Kovats_Filter_Cosine_Threshold" label="Cosine Threshold for Kovats Filter">
+				<validator type="required"/>
+					<default value="0.9"/>
+					<validator type="float" minimumExclusive="0" maximum="1"/>
+			</parameter>
+
+			<parameter name="Error_Filter_Threshold" label="Kovats Retention Index Filtering Window (+/- %)">
+				<validator type="required"/>
+					<default value="10"/>
+					<validator type="integer" minimumExclusive="-1" maximum="300"/>
+			</parameter>
+
+			<parameter name="Carbon_Marker_File" label = "Input Carbon Marker File (Optional)">
+					<fileGenerator type="upload" purpose="Carbon_Marker_File" target="Carbon_Marker_File"/>
+			</parameter>
+
+			<parameter name="runKovats" label="Perform Kovats Calculation">
+					<default value="off"/>
+			</parameter>
+
+		</parameters>
 
 	<!-- Input form layout -->
     <block label="Search Options">
@@ -384,8 +405,7 @@
                 </input>
             </cell>
 	</row>
-
-        <row>
+	<row>
             <cell>
                 <label>
                     <content parameter="WINDOW_FILTER"/>
@@ -466,5 +486,64 @@
               </cell>
           </row>
       </block>
+
+			<block label ="Advanced Kovats Index Calculation Options">
+				<row>
+					<cell colspan="3">
+						<input type="checkbox" parameter="runKovats"/>
+						<label><content parameter="runKovats"/></label>
+					</cell>
+				</row>
+				<row>
+				<cell>
+						<label>
+							<content parameter="Carbon_Marker_File"/>
+							<tooltip id="Carbon_Marker_File">
+								Carbon Marker retention time file that will be used for Kovats Index
+								prediction.
+							</tooltip>
+					  </label>
+				</cell>
+
+				<cell>
+					<module id="Carbon_Marker_File" type="fileSelector">
+						<property name="label">Carbon Marker Files</property>
+          </module>
+				</cell>
+			</row>
+		<row>
+				<cell>
+					<label>
+						<content parameter = "Kovats_Filter_Cosine_Threshold"/>
+						<tooltip id="Kovats_Filter_Cosine_Threshold">
+							Feature below the cosine threshold wont be included in the kovats index filter,
+							and kovats index calculation.
+						</tooltip>
+					</label>
+				</cell>
+
+				<cell>
+					<input type = "text"    parameter = "Kovats_Filter_Cosine_Threshold">
+				  	<attribute name = "size" value = "10"/>
+				  </input>
+				</cell>
+
+				<cell>
+					<label>
+						<content parameter = "Error_Filter_Threshold"/>
+						<tooltip id="Error_Filter_Threshold">
+							Percentage error (in decimal) that will be used as a standard
+							to filter out invalid output.
+						</tooltip>
+					</label>
+				</cell>
+
+				<cell>
+					<input type = "text"    parameter = "Error_Filter_Threshold">
+				  	<attribute name = "size" value = "10"/>
+				  </input>
+				</cell>
+			</row>
+			</block>
 
 </interface>

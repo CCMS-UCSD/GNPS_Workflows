@@ -1,56 +1,15 @@
 <toolset>
 
+    <pathSet base="molecularsearch-gc">
+        <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
+	       <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
+    </pathSet>
+
 
     <pathSet base="molecularsearch-gc">
-        <pathVar name="molecularlibrarysearchgc.file" path="search_against_reference_gc_library.py"/>
-        <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
-    </pathSet>
-
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="search_gc_spectra" path="bin/python2.7"/>
-    </pathSet>
-
-    <tool name="search_gc_spectra">
-        <require name="spectra"       type="file"/>
-        <require name="workflowParameters"       type="file"/>
-        <require name="library"       type="folder"/>
-        <produce name="gc_search_results_folder"        type="file" naming="explicit"  extension="tsv"/>
-
-        <execution env="binary" argConvention="adhoc">
-                <arg pathRef="molecularlibrarysearchgc.file"/>
-                <arg valueRef="workflowParameters"/>
-                <arg valueRef="spectra"/>
-                <arg valueRef="library"/>
-                <arg valueRef="gc_search_results_folder"/>
-        </execution>
-    </tool>
-
-
-
-    <!-- <pathSet base="spectralib/2013.0117"> -->
-    <pathSet base="molecularsearch/2013.0902">
-        <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
-
-        <toolPath tool="LibrarySearchParallelTopK_Molecular" path="main_execmodule"/>
-
-        <toolPath tool="convertpklbin_molecular" path="convert_wrapper.py"/>
-        <pathVar name="convertexe_molecular.file" path="convert"/>
-
         <toolPath tool="LibrarySearchMerge_Molecular" path="tsv_merger.py"/>
-        <!-- <toolPath tool="GetDBAnnotations_Molecular" path="DBTools.jar"/> -->
         <toolPath tool="GetDBAnnotations_Molecular" path="getGNPS_library_annotations.py"/>
     </pathSet>
-
-    <tool name="convertpklbin_molecular">
-        <require name="spectra" type="folder"/>
-        <produce name="convertedspectra" type="folder"/>
-
-        <execution env="binary" argConvention="adhoc">
-            <arg valueRef="spectra"/>
-            <arg valueRef="convertedspectra"/>
-            <arg pathRef="convertexe_molecular.file"/>
-        </execution>
-    </tool>
 
     <tool name="LibrarySearchParamGeneration_Molecular">
         <require name="spec" type="folder"/>
@@ -107,8 +66,8 @@
     </tool>
 
 
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="filter_gc_identifications" path="bin/python2.7"/>
+    <pathSet base="anaconda2/bin">
+        <toolPath tool="filter_gc_identifications" path="python2.7"/>
     </pathSet>
     <pathSet base="molecularsearch-gc">
         <pathVar name="filter_gc_identifications.script" path="filter_gc_identifications.py"/>
@@ -134,13 +93,13 @@
         <toolPath tool="filter_networking_edges" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="metabolomicssnets-mzmine/scripts">
+    <pathSet base="molecularsearch-gc">
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
     </pathSet>
 
-    <pathSet base="metabolomicssnets-mzmine/binaries">
+    <pathSet base="molecularsearch-gc">
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
@@ -197,8 +156,8 @@
         </execution>
     </tool>
 
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="metabolomics_convert_graphml" path="bin/python2.7"/>
+    <pathSet base="anaconda2/bin">
+        <toolPath tool="metabolomics_convert_graphml" path="python2.7"/>
     </pathSet>
     <pathSet base="molecularsearch-gc">
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
@@ -220,8 +179,8 @@
     </tool>
 
     <!-- Creating temporary query mgf file -->
-    <pathSet base="metabolomicsnets/anaconda2">
-        <toolPath tool="create_clusterinfo_summary" path="bin/python2.7"/>
+    <pathSet base="anaconda2/bin">
+        <toolPath tool="create_clusterinfo_summary" path="python2.7"/>
     </pathSet>
     <pathSet base="molecularsearch-gc">
         <pathVar name="create_clusterinfo_summary.script" path="create_clusterinfo_summary_from_mgf.py"/>
@@ -239,5 +198,35 @@
             <arg valueRef="clusterinfosummary"/>
         </execution>
     </tool>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="Kovats_Calculation" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="molecularsearch-gc/Kovats_Calculation">
+        <pathVar name="Kovats_Calculation.script" path="Kovats_Calculation.py"/>
+        <pathVar name="Kovats_Lib" path="nonpolar.csv"/>
+    </pathSet>
+
+    <tool name="Kovats_Calculation">
+        <require name="DB_result"       type="file"/>
+        <require name="DB_result_filtered"       type="file"/>
+        <require name="workflowParameters"       type="file"/>
+        <require name="Carbon_Marker_File"       type="file"/>
+        <produce name="Kovats_Result_Nonfiltered"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="Kovats_Result_Filtered"        type="file" naming="explicit"  extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="Kovats_Calculation.script"/>
+                <arg pathRef="Kovats_Lib"/>
+                <arg valueRef="DB_result"/>
+                <arg valueRef="DB_result_filtered"/>
+                <arg valueRef="workflowParameters"/>
+                <arg valueRef="Carbon_Marker_File"/>
+                <arg valueRef="Kovats_Result_Nonfiltered"/>
+                <arg valueRef="Kovats_Result_Filtered"/>
+        </execution>
+    </tool>
+
 
 </toolset>

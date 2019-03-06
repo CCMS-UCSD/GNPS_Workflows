@@ -1,14 +1,18 @@
 <toolset>
 
     <!-- Renumbering the MGF File -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="renumber_mgf" path="python"/>
+    </pathSet>
     <pathSet base="feature-based-molecular-networking/scripts">
-        <toolPath tool="renumber_mgf" path="renumber_mgf.py"/>
+        <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
     </pathSet>
     <tool name="renumber_mgf">
         <require name="inputSpectra" type="file"/>
         <produce name="spectra" type="file" naming="fixed" value="specs_ms.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
+            <arg pathRef="renumber_mgf.script"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra"/>
         </execution>

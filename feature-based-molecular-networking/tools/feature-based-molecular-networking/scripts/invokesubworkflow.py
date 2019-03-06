@@ -5,7 +5,8 @@ import getopt
 import os
 import json
 import argparse
-from ccmsproteosafepythonapi import proteosafe
+#from ccmsproteosafepythonapi import proteosafe
+import ming_proteosafe_library
 
 def main():
     parser = argparse.ArgumentParser(description='Invoking new workflow with parameters of given workflow')
@@ -20,7 +21,7 @@ def main():
 
     credentials = json.loads(open(args.credentials).read())
 
-    workflow_parameters_map = proteosafe.parse_xml_file(args.workflowparamters)
+    workflow_parameters_map = ming_proteosafe_library.parse_xml_file(open(args.workflowparamters))
 
     if args.runparameter != "NONE":
         if workflow_parameters_map[args.runparameter][0] == "0":
@@ -47,10 +48,10 @@ def main():
 
             new_parameters[parameter_new_key] = workflow_parameters_map[parameter_old_key][0]
 
-    task_id = proteosafe.invoke_workflow(args.serverurl, new_parameters, credentials["username"], credentials["password"])
+    task_id = ming_proteosafe_library.invoke_workflow(args.serverurl, new_parameters, credentials["username"], credentials["password"])
     if task_id == None:
         exit(1)
-    proteosafe.wait_for_workflow_finish(args.serverurl, task_id)
+    ming_proteosafe_library.wait_for_workflow_finish(args.serverurl, task_id)
 
     """Writing HTML output"""
     output_html_file = open(args.outputhtml, "w")
