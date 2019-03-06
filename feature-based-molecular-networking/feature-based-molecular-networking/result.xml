@@ -435,7 +435,10 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
     </block>
 
-    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - Experimental Views">
+
+
+
+    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
             <blockRef id="main"   type="view_qiime2_emperor"/>
     </view>
     <block id="view_qiime2_emperor" type="dummylinkout">
@@ -446,6 +449,19 @@
       </data>
 
         <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
+    </block>
+
+    <view id="download_emperor_data" label="Download qiime2 Emperor qzz" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_emperor_data"/>
+    </view>
+
+    <block id="download_emperor_data" type="dummydownload">
+        <data>
+            <source type="file" name="qiime2_output/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
 
