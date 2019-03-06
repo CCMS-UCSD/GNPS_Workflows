@@ -301,7 +301,7 @@
         </execution>
     </tool>
 
-    <!-- Running Dereplicator -->
+    <!-- Running qiime2 -->
     <pathSet base="anaconda3/bin">
         <toolPath tool="run_qiime2" path="python"/>
     </pathSet>
@@ -322,5 +322,26 @@
             <arg valueRef="qiime2_output"/>
         </execution>
     </tool>
+
+    <!-- Running written description -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="write_description" path="python"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="write_description.script" path="write_description.py"/>
+    </pathSet>
+
+    <tool name="write_description">
+        <require name="workflowParameters" type="file"/>
+        <produce name="written_description" type="file" naming="explicit" extension="txt"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="write_description.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="written_description"/>
+        </execution>
+    </tool>
+
 
 </toolset>
