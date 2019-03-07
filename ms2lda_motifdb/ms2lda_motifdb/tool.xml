@@ -37,7 +37,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="create_graphml" path="python"/>
     </pathSet>
-    <pathSet base="create_graphml">
+    <pathSet base="ms2lda_motifdb">
         <pathVar name="create_graphml.script" path="create_graphml.py"/>
     </pathSet>
     <tool name="create_graphml">
