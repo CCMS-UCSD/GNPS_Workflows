@@ -1,14 +1,11 @@
 <toolset>
 
-    <pathSet base="metabolomicsnets/anaconda2/bin">
+    <pathSet base="anaconda2/bin">
         <toolPath tool="ms2lda_motifdb" path="python"/>
     </pathSet>
-
     <pathSet base="ms2lda_motifdb">
         <pathVar name="ms2lda_motifdb.script" path="ms2lda_runfull.py"/>
     </pathSet>
-
-
     <tool name="ms2lda_motifdb">
         <require name="workflowParameters" type="file"/>
         <require name="inputSpectra" type="file"/>
@@ -34,6 +31,23 @@
             <arg valueRef="network_pairs"/>
             <arg valueRef="mzmine_csv"/>
             <arg valueRef="output_results"/>
+        </execution>
+    </tool>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="create_graphml" path="python"/>
+    </pathSet>
+    <pathSet base="create_graphml">
+        <pathVar name="create_graphml.script" path="create_graphml.py"/>
+    </pathSet>
+    <tool name="create_graphml">
+        <require name="output_results" type="folder"/>
+        <produce name="output_graphml" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_graphml.script"/>
+            <arg valueRef="output_results"/>
+            <arg valueRef="output_graphml"/>
         </execution>
     </tool>
 </toolset>

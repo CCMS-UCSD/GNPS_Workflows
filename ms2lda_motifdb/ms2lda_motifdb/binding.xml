@@ -32,8 +32,10 @@
         <productionToOutput port="output_results" production="output_results"/>
     </bind>
 
-
-
+    <bind action="create_graphml" tool="create_graphml">
+        <inputAsRequirement port="output_results" requirement="output_results"/>
+        <productionToOutput port="output_graphml" production="output_graphml"/>
+    </bind>
 
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
