@@ -33,11 +33,11 @@
         </parameter>
 
         <parameter name="tolerance.PM_tolerance" label="Precursor Ion Mass Tolerance">
-            <default value="2.0"/>
+            <default value="0.02"/>
             <validator type="float" minimum="0" maximum="2.5"/>
         </parameter>
         <parameter name="tolerance.Ion_tolerance" label="Fragment Ion Mass Tolerance">
-            <default value="0.5"/>
+            <default value="0.02"/>
             <validator type="float" minimumExclusive="0" maximumExclusive="1"/>
         </parameter>
 

@@ -7,6 +7,8 @@
         <source type="folder" name="gnps_molecular_network_graphml/"/>
     </download>
 
+
+
     <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_annotations_DB"/>
     </view>
@@ -80,6 +82,62 @@
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
             </column>
         </row>
+    </block>
+
+    <view id="group_by_compound" label="View Unique Library Compounds" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="group_by_compound"/>
+    </view>
+
+    <block id="group_by_compound" type="table">
+            <data>
+                    <source type="file" name="DB_result/"/>
+                    <parsers>
+                            <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
+                            <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
+                    </parsers>
+                    <processors>
+                            <processor type="uploadFilename" field="SpectrumFile"/>
+                    </processors>
+            </data>
+            <row>
+                <column label="ViewLib" type="genericurlgenerator" width="5"> \
+                    <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>\
+                    <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>\
+                    <parameter name="LABEL" value="ViewLib"/>\
+                </column>\
+
+                    <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
+                    <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
+                    <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
+                    <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
+                    <column type="float"     field="MassDiff"         label="MassDiff"            precision="3"/>
+                    <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
+                    <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
+                    <column type="text"     field="IonMode"         label="IonMode"            width="5"/>
+                    <column type="text"     field="PI"         label="PI"            width="5"/>
+                    <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
+                    <column type="text"     field="tags"         label="Tags"            width="5"/>
+                    <column label="Add Library Tag" type="addspectrumtag" width="12">
+                        <parameter name="spectrumID" value="[SpectrumID]"/>
+                    </column>
+                    <column type="structuredisplayer"     label="Structure">
+                        <parameter name="smilesstructure" value="[Smiles]"/>
+                    </column>
+            </row>
+            <row expander="image">
+                    <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                            <parameter name="file"    file="spectra/[internalFilename]"/>
+                            <parameter name="scan"    value="[#Scan#]"/>
+                            <parameter name="compoundname" value="*..*"/>
+                            <parameter name="trim" value="true"/>
+                    </column>
+                    <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                            <parameter name="file"    file="lib/[LibraryName]"/>
+                            <parameter name="spectrumid"    value="[SpectrumID]"/>
+                            <parameter name="compoundname" value="*..*"/>
+                            <parameter name="trim" value="true"/>
+                    </column>
+            </row>
     </block>
 
     <view id="view_all_analog_annotations_DB" label="View All Analog Library Hits" group="Default Molecular Networking Results Views">
@@ -282,6 +340,18 @@
         </row>
     </block>
 
+    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
+        <blockRef id="main" type="written_description"/>
+    </view>
+    <block id="written_description" type="stream">
+        <data>
+            <source type="file" name="written_description/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
     <view id="network_displayer" label="Network Display (Alpha)" display="hidden">
         <blockRef id="main" type="network_displayer"/>
     </view>
@@ -378,6 +448,50 @@
         <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mzmine"}'/> -->
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
     </block>
+
+
+
+
+    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
+            <blockRef id="main"   type="view_qiime2_emperor"/>
+    </view>
+    <block id="view_qiime2_emperor" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
+    </block>
+
+    <view id="download_emperor_data" label="Download qiime2 Emperor qzv" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_emperor_data"/>
+    </view>
+
+    <block id="download_emperor_data" type="dummydownload">
+        <data>
+            <source type="file" name="qiime2_output/qiime2_emperor.qzv"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="download_qza_table_data" label="Download qiime2 features biom qza" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_qza_table_data"/>
+    </view>
+
+    <block id="download_qza_table_data" type="dummydownload">
+        <data>
+            <source type="file" name="qiime2_output/qiime2_table.qza"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+
 
 
 

@@ -14,23 +14,12 @@
         <download port="lib" type="folder">
             <query name="resource" value="lib"/>
         </download>
+        <download port="Carbon_Marker_File" type="file">
+            <query name="resource" value="Carbon_Marker_File"/>
+        </download>
         <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
-
-    </bind>
-
-
-    <bind action="search_gc_spectra" tool="search_gc_spectra">
-        <inputAsRequirement port="spectra" requirement="spectra"/>
-        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
-        <inputAsRequirement port="library" requirement="library"/>
-        <productionToOutput port="gc_search_results_folder" production="gc_search_results_folder"/>
-    </bind>
-
-    <bind action="convertpklbin" tool="convertpklbin_molecular">
-        <inputAsRequirement port="spectra" requirement="spectra"/>
-        <productionToOutput port="convertedspectra" production="convertedspectra"/>
     </bind>
 
     <bind action="searchlibraryparamgeneration" tool="LibrarySearchParamGeneration_Molecular">
@@ -102,6 +91,15 @@
         <productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
     </bind>
 
+    <bind action="Kovats_Calculation" tool="Kovats_Calculation">
+        <inputAsRequirement port="DB_result" requirement="DB_result"/>
+        <inputAsRequirement port="DB_result_filtered" requirement="DB_result_filtered"/>
+        <inputAsRequirement port="Carbon_Marker_File" requirement="Carbon_Marker_File"/>
+        <inputAsRequirement port="params" requirement="workflowParameters"/>
+        <productionToOutput port="Kovats_Result_Filtered" production="Kovats_Result_Filtered"/>
+        <productionToOutput port="Kovats_Result_Nonfiltered" production="Kovats_Result_Nonfiltered"/>
+    </bind>
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -121,6 +119,12 @@
         </upload>
         <upload port="gnps_molecular_network_graphml" type="file">
             <query name="resource" value="gnps_molecular_network_graphml"/>
+        </upload>
+        <upload port="Kovats_Result_Filtered" type="file">
+            <query name="resource" value="Kovats_Result_Filtered"/>
+        </upload>
+        <upload port="Kovats_Result_Nonfiltered" type="file">
+            <query name="resource" value="Kovats_Result_Nonfiltered"/>
         </upload>
     </bind>
 </binding>

@@ -1,14 +1,18 @@
 <toolset>
 
     <!-- Renumbering the MGF File -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="renumber_mgf" path="python"/>
+    </pathSet>
     <pathSet base="feature-based-molecular-networking/scripts">
-        <toolPath tool="renumber_mgf" path="renumber_mgf.py"/>
+        <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
     </pathSet>
     <tool name="renumber_mgf">
         <require name="inputSpectra" type="file"/>
         <produce name="spectra" type="file" naming="fixed" value="specs_ms.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
+            <arg pathRef="renumber_mgf.script"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra"/>
         </execution>
@@ -16,7 +20,7 @@
 
     <!-- Formatting Quantification -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="reformat_quantification" path="python3.5"/>
+        <toolPath tool="reformat_quantification" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -38,9 +42,9 @@
 
     <!-- Molecular Networking -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="prep_molecular_networking_parameters" path="python3.5"/>
-        <toolPath tool="merge_tsv_efficient" path="python3.5"/>
-        <toolPath tool="filter_networking_edges" path="python3.5"/>
+        <toolPath tool="prep_molecular_networking_parameters" path="python"/>
+        <toolPath tool="merge_tsv_efficient" path="python"/>
+        <toolPath tool="filter_networking_edges" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -109,7 +113,7 @@
     </tool>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="metabolomic_network_edges_display" path="python3.5"/>
+        <toolPath tool="metabolomic_network_edges_display" path="python"/>
     </pathSet>
     <pathSet base="feature-based-molecular-networking/scripts">
         <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
@@ -136,8 +140,8 @@
 
     <!-- Library Search -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="prep_molecular_librarysearch_parameters" path="python3.5"/>
-        <toolPath tool="molecular_librarysearch_get_dbannotations" path="python3.5"/>
+        <toolPath tool="prep_molecular_librarysearch_parameters" path="python"/>
+        <toolPath tool="molecular_librarysearch_get_dbannotations" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -194,8 +198,8 @@
 
     <!-- Cluster Info -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="clusterinfosummary_creation" path="python3.5"/>
-        <toolPath tool="enrich_clusterinfo_summary" path="python3.5"/>
+        <toolPath tool="clusterinfosummary_creation" path="python"/>
+        <toolPath tool="enrich_clusterinfo_summary" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -238,7 +242,7 @@
     </tool>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="metabolomics_convert_graphml" path="python3.5"/>
+        <toolPath tool="metabolomics_convert_graphml" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -264,7 +268,7 @@
 
     <!-- Running Dereplicator -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="run_dereplicator" path="python3.5"/>
+        <toolPath tool="run_dereplicator" path="python"/>
     </pathSet>
 
     <pathSet base="feature-based-molecular-networking/scripts">
@@ -296,5 +300,48 @@
             <arg option="-runparameter" value="RUN_DEREPLICATOR"/>
         </execution>
     </tool>
+
+    <!-- Running qiime2 -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="run_qiime2" path="python"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
+    </pathSet>
+
+    <tool name="run_qiime2">
+        <require name="quantification_table_reformatted" type="file"/>
+        <require name="metadata_table" type="file"/>
+        <produce name="qiime2_output" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="run_qiime2.script"/>
+            <arg valueRef="metadata_table"/>
+            <arg valueRef="quantification_table_reformatted"/>
+            <arg valueRef="qiime2_output"/>
+        </execution>
+    </tool>
+
+    <!-- Running written description -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="write_description" path="python"/>
+    </pathSet>
+
+    <pathSet base="feature-based-molecular-networking/scripts">
+        <pathVar name="write_description.script" path="write_description.py"/>
+    </pathSet>
+
+    <tool name="write_description">
+        <require name="workflowParameters" type="file"/>
+        <produce name="written_description" type="file" naming="explicit" extension="html"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="write_description.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="written_description"/>
+        </execution>
+    </tool>
+
 
 </toolset>

@@ -146,9 +146,22 @@
     </bind>
 
     <!-- External Analysis -->
+    <bind action="write_description" tool="write_description">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="written_description" production="written_description"/>
+    </bind>
+
+    <!-- External Analysis -->
     <bind action="run_dereplicator" tool="run_dereplicator">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <productionToOutput port="dereplicator_html" production="output_html"/>
+    </bind>
+
+    <!-- External Analysis -->
+    <bind action="run_qiime2" tool="run_qiime2">
+        <inputAsRequirement port="quantification_table_reformatted" requirement="quantification_table_reformatted"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <productionToOutput port="qiime2_output" production="qiime2_output"/>
     </bind>
 
     <bind action="end" type="upload">
@@ -187,6 +200,11 @@
         <upload port="gnps_molecular_network_graphml" type="folder">
             <query name="resource" value="gnps_molecular_network_graphml"/>
         </upload>
-
+        <upload port="qiime2_output" type="folder">
+            <query name="resource" value="qiime2_output"/>
+        </upload>
+        <upload port="written_description" type="folder">
+            <query name="resource" value="written_description"/>
+        </upload>
     </bind>
 </binding>
