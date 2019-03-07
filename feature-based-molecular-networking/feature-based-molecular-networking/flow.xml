@@ -161,6 +161,12 @@
         <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
     </action>
 
+    <!-- Written Description -->
+    <object name="written_description"/>
+    <action name="write_description">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="written_description"     object="written_description"/>
+    </action>
 
     <!-- External Analysis -->
     <object name="dereplicator_html"/>
@@ -169,6 +175,13 @@
         <output port="dereplicator_html"     object="dereplicator_html"/>
     </action>
 
+    <!-- Qiime2 -->
+    <collection name="qiime2_output"/>
+    <action name="run_qiime2">
+        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
+        <input  port="metadata_table"       object="metadata_table"/>
+        <output port="qiime2_output"     collection="qiime2_output"/>
+    </action>
 
     <action name="end">
         <input port="spectra" object="spectra"/>
@@ -181,5 +194,7 @@
         <input port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
         <input port="components_table" object="components_table"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+        <input port="qiime2_output" collection="qiime2_output"/>
+        <input port="written_description" object="written_description"/>
     </action>
 </flow>
