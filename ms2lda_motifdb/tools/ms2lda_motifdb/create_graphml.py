@@ -15,6 +15,9 @@ nodes = pd.read_csv(os.path.join(input_folder, "output_ms2lda_nodes.tsv"), sep =
 nodes["precursormass"] = nodes["precursor.mass"]
 nodes["parentrt"] = nodes["retention.time"]
 
+"""Dropping other Columns"""
+whitelisted_headers = ["precursormass", "parentrt", "scans", "document", "motif", "overlap", "probability", "document_annotation"]
+nodes = nodes[whitelisted_headers]
 
 motif_graph = make_motif_graphml(nodes, edges)
 

@@ -137,18 +137,6 @@
         </data>
     </block>
 
-    <view id="download_ms2lda_dict" label="Download MS2LDA Dict" group="Download Files">
-        <blockRef id="main" type="download_ms2lda_dict"/>
-    </view>
-    <block id="download_ms2lda_dict" type="dummydownload">
-        <data>
-            <source type="file" name="output_results/output.dict"/>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-    </block>
-
     <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
         <blockRef id="main" type="download_cytoscape_data"/>
     </view>
