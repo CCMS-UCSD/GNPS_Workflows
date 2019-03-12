@@ -137,4 +137,16 @@
         </data>
     </block>
 
+    <view id="download_cytoscape_data" label="Download GraphML for Cytoscape" group="Download Files">
+            <blockRef id="main"   type="download_cytoscape_data"/>
+    </view>
+    <block id="download_cytoscape_data" type="dummydownload">
+      <data>
+         <source type="file" name="output_graphml/"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
 </interface>

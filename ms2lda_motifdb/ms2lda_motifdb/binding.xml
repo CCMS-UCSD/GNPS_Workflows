@@ -45,5 +45,8 @@
         <upload port="output_results" type="folder">
             <query name="resource" value="output_results"/>
         </upload>
+        <upload port="output_graphml" type="folder">
+            <query name="resource" value="output_graphml"/>
+        </upload>
     </bind>
 </binding>
