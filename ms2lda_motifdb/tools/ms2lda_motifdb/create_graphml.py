@@ -2,12 +2,19 @@ import os
 import sys
 from pyMolNetEnhancer import *
 import pandas as pd
+import networkx as nx
 
 input_folder = sys.argv[1]
 output_folder = sys.argv[2]
 
 edges = pd.read_csv(os.path.join(input_folder, "output_ms2lda_edges.tsv"), sep = '\t')
+edges["shared_motifs"] = edges["SharedMotifs"]
+edges["TopSharedMotifs"] = edges["topX"]
+
 nodes = pd.read_csv(os.path.join(input_folder, "output_ms2lda_nodes.tsv"), sep = '\t')
+nodes["precursormass"] = nodes["precursor.mass"]
+nodes["parentrt"] = nodes["retention.time"]
+
 
 motif_graph = make_motif_graphml(nodes, edges)
 
