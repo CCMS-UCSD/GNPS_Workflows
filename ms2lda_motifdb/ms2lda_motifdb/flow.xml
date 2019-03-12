@@ -5,7 +5,6 @@
     <collection     name="network_pairs"/>
     <collection     name="mzmine_csv"/>
 
-
 	<action name="begin">
         <output port="spec"       collection="inputSpectra"/>
         <output port="network_pairs"       collection="network_pairs"/>
@@ -23,7 +22,15 @@
         <output port="output_results"		collection="output_results"/>
 	</action>
 
+	<!-- Intermediate Shim -->
+    <collection name="output_graphml"/>
+	<action name="create_graphml">
+		<input port="output_results"	collection="output_results"/>
+        <output port="output_graphml"		collection="output_graphml"/>
+	</action>
+
 	<action name="end">
         <input port="output_results" collection="output_results"/>
+		<input port="output_graphml" collection="output_graphml"/>
 	</action>
 </flow>

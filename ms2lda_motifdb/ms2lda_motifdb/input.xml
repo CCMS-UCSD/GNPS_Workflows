@@ -154,7 +154,7 @@
                 <label>
                     <content parameter="mzmine_csv"/>
                     <tooltip id="mzmine_csv">
-                        Upload here the MzMine2 quantification .csv file. It is important that the MS1 features unique identifier is the row_ID as this is used to match to MS1-MS2 features in the .MGF file. Please select the “MzMine2” workflow below to ensure proper matching.
+                        Upload here the MzMine2 quantification .csv file. It is important that the MS1 features unique identifier is the row_ID as this is used to match to MS1-MS2 features in the .MGF file. Please select the MzMine2 workflow below to ensure proper matching.
                     </tooltip>
                 </label>
             </cell>
