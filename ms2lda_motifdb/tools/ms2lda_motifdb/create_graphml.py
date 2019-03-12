@@ -11,13 +11,17 @@ edges = pd.read_csv(os.path.join(input_folder, "output_ms2lda_edges.tsv"), sep =
 edges["shared_motifs"] = edges["SharedMotifs"]
 edges["TopSharedMotifs"] = edges["topX"]
 
+edges = edges.drop(columns=['topX', 'SharedMotifs'])
+
 nodes = pd.read_csv(os.path.join(input_folder, "output_ms2lda_nodes.tsv"), sep = '\t')
 nodes["precursormass"] = nodes["precursor.mass"]
 nodes["parentrt"] = nodes["retention.time"]
 
+nodes = nodes.drop(columns=['precursor.mass', 'retention.time'])
+
 """Dropping other Columns"""
 whitelisted_headers = ["precursormass", "parentrt", "scans", "document", "motif", "overlap", "probability", "document.annotation"]
-nodes = nodes[whitelisted_headers]
+#nodes = nodes[whitelisted_headers]
 
 motif_graph = make_motif_graphml(nodes, edges)
 
