@@ -41,13 +41,18 @@
         <pathVar name="create_graphml.script" path="create_graphml.py"/>
     </pathSet>
     <tool name="create_graphml">
+        <require name="network_pairs" type="file"/>
         <require name="output_results" type="folder"/>
         <produce name="output_graphml" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="create_graphml.script"/>
             <arg valueRef="output_results"/>
+            <arg valueRef="network_pairs"/>
             <arg valueRef="output_graphml"/>
+            <arg valueRef="@LDA_NETWORK_OVERLAP_THRESHOLD"/>
+            <arg valueRef="@LDA_NETWORK_P_THRESHOLD"/>
+            <arg valueRef="@LDA_NETWORK_TOPX"/>
         </execution>
     </tool>
 </toolset>

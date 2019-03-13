@@ -25,6 +25,7 @@
 	<!-- Intermediate Shim -->
     <collection name="output_graphml"/>
 	<action name="create_graphml">
+        <input port="network_pairs"	object="network_pairs"/>
 		<input port="output_results"	collection="output_results"/>
         <output port="output_graphml"		collection="output_graphml"/>
 	</action>
