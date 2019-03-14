@@ -150,4 +150,16 @@
         </data>
     </block>
 
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+    </block>
+
 </interface>
