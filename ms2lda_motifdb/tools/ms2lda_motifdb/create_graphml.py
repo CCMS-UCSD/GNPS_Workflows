@@ -32,6 +32,8 @@ edges = edges[["CLUSTERID1", "CLUSTERID2", "DeltaMZ", "MEH", "Cosine", "OtherSco
 # run pyMolNetEnhancer
 
 motif_network = Mass2Motif_2_Network(edges, motifs, prob = 0.01, overlap = 0.3, top = 5)
+motif_network['nodes']['motifdb_url'] = motif_network['nodes']['motifdb_url'].agg(lambda x: ','.join(map(str, x)))
+motif_network['nodes']['motifdb_annotation'] = motif_network['nodes']['motifdb_annotation'].agg(lambda x: ','.join(map(str, x)))
 
 # create graphml file
 
