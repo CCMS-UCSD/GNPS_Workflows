@@ -15,15 +15,29 @@ parser.add_argument('input_network_topx', type=int, help='input_network_topx')
 
 args = parser.parse_args()
 
-edges = pd.read_csv(args.input_network_edges, sep="\t")
-motifs = pd.read_csv(os.path.join(args.ms2lda_results, "output_ms2lda_nodes.tsv"), sep = '\t')
-#motifs["scans"] = motifs["scan"]
+# prepare data
 
-print(edges.keys())
-print(motifs.keys())
+motifs = pd.read_csv(os.path.join(args.ms2lda_results, "output_motifs_in_scans.tsv"), sep = '\t')
+motifs = motifs.rename(columns={'scan': 'scans'})
+motifs = motifs.rename(columns={'precursor.mass': 'precursormass'})
+motifs = motifs.rename(columns={'retention.time': 'parentrt'})
+motifs['document'] = motifs['scans']
+#motifs = motifs[['scans','precursormass','parentrt','document','motif','probability','overlap']]
+motifs = motifs[['scans','precursormass','parentrt','document','motif','probability','overlap','motifdb_url', 'motifdb_annotation']]
+
+
+edges = pd.read_csv(args.input_network_edges, sep="\t")
+edges = edges[["CLUSTERID1", "CLUSTERID2", "DeltaMZ", "MEH", "Cosine", "OtherScore", "ComponentIndex"]]
+
+# run pyMolNetEnhancer
 
 motif_network = Mass2Motif_2_Network(edges, motifs, prob = 0.01, overlap = 0.3, top = 5)
+
+# create graphml file
+
 MG = make_motif_graphml(motif_network['nodes'],motif_network['edges'])
+output_graphml_filename = os.path.join(args.output_folder, "ms2lda_network.graphml")
+nx.write_graphml(MG, output_graphml_filename, infer_numeric_types = True)
 
 # edges = pd.read_csv(os.path.join(input_folder, "output_ms2lda_edges.tsv"), sep = '\t')
 # edges["shared_motifs"] = edges["SharedMotifs"]
@@ -42,6 +56,3 @@ MG = make_motif_graphml(motif_network['nodes'],motif_network['edges'])
 # #nodes = nodes[whitelisted_headers]
 #
 # motif_graph = make_motif_graphml(nodes, edges)
-
-output_graphml_filename = os.path.join(args.output_folder, "ms2lda_network.graphml")
-nx.write_graphml(MG, output_graphml_filename, infer_numeric_types = True)
