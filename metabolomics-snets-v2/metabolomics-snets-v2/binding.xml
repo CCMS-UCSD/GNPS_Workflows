@@ -252,19 +252,17 @@
 
 	<!-- Extra Optional Features -->
 	<bind action="create_cluster_buckets" tool="ClusterBucketCreator">
-		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
 		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
 		<inputAsRequirement port="clusterinfo"       requirement="clusterinfo"/>
-		<inputAsRequirement port="metadata_for_qiime"       requirement="metadata_for_qiime"/>
 		<productionToOutput port="cluster_buckets"     production="cluster_buckets"/>
-		<productionToOutput port="biom_output"     production="biom_output"/>
 	</bind>
 
-    <bind action="create_metadata_for_qiime" tool="create_metadata_for_qiime">
+    <bind action="run_qiime2" tool="run_qiime2">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="cluster_buckets" requirement="cluster_buckets"/>
 		<inputAsRequirement port="metadatafile" requirement="metadatafile"/>
-		<productionToOutput port="metadata_for_qiime"     production="metadata_for_qiime"/>
-        <productionToOutput port="view_emporer"     production="view_emporer"/>
+		<productionToOutput port="qiime2_output"     production="qiime2_output"/>
 	</bind>
 
     <bind action="create_topology_signatures" tool="NetworkTopologyCreator">
@@ -356,15 +354,6 @@
         <upload port="view_ili" type="file">
 			<query name="resource" value="view_ili"/>
 		</upload>
-		<upload port="biom_output" type="file">
-			<query name="resource" value="biom_output"/>
-		</upload>
-        <upload port="metadata_for_qiime" type="file">
-			<query name="resource" value="metadata_for_qiime"/>
-		</upload>
-        <upload port="view_emporer" type="file">
-			<query name="resource" value="view_emporer"/>
-		</upload>
         <upload port="all_network_paths" type="file">
 			<query name="resource" value="all_network_paths"/>
 		</upload>
@@ -374,14 +363,12 @@
 		<upload port="groupmapping_converted" type="file">
 			<query name="resource" value="groupmapping_converted"/>
 		</upload>
-
 		<upload port="all_dataset_matches" type="file">
 			<query name="resource" value="all_dataset_matches"/>
 		</upload>
 		<upload port="gnps_molecular_network_graphml" type="file">
 			<query name="resource" value="gnps_molecular_network_graphml"/>
 		</upload>
-
         <upload port="compound_filename_occurences" type="file">
 			<query name="resource" value="compound_filename_occurences"/>
 		</upload>

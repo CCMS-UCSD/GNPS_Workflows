@@ -10,38 +10,26 @@ import ming_fileio_library
 import ming_proteosafe_library
 import re
 from collections import defaultdict
+import pandas as pd
 
 def main():
-    parser = argparse.ArgumentParser(description='Modifying script')
+    parser = argparse.ArgumentParser(description='')
     parser.add_argument('param_xml', help='metadata_folder')
+    parser.add_argument('cluster_buckets', help='cluster_buckets')
     parser.add_argument('metadata_folder', help='metadata_folder')
-    parser.add_argument('output_metadata_table', help='output_metadata_table')
-    parser.add_argument('output_view_emporer', help='output_metadata_table')
+    parser.add_argument('output_folder', help='output_folder')
     args = parser.parse_args()
 
     param_object = ming_proteosafe_library.parse_xml_file(open(args.param_xml, "r"))
 
-
-
     if param_object["CREATE_CLUSTER_BUCKETS"][0] == "0":
-        output_html_file = open(args.output_view_emporer, "w")
-        output_html_file.write("Please Enable Bucket Table/Biom output on the input menu")
-        output_html_file.close()
-    else:
-        """Outputting html"""
-        from urllib.parse import urlencode, quote_plus
-        parameters_for_qiime = { 'biom' : 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=biom_output/networking_quant.biom' % (param_object["task"][0]), 'metadata' : 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=metadata_for_qiime/metadata_for_qiime.txt' % (param_object["task"][0])}
-
-        output_html_file = open(args.output_view_emporer, "w")
-        output_html_file.write("<script>\n")
-        output_html_file.write('window.location.replace("https://mingwangbeta.ucsd.edu/emperor?%s")\n' % urlencode(parameters_for_qiime))
-        output_html_file.write("</script>\n")
-        output_html_file.close()
+        print("Do not do things")
+        exit(0)
 
     reverse_file_mangling = ming_proteosafe_library.get_reverse_mangled_file_mapping(param_object)
 
+    """Reading Metadata File"""
     metadata_files_in_folder = ming_fileio_library.list_files_in_dir(args.metadata_folder)
-
     object_list = []
 
     if len(metadata_files_in_folder) != 1:
@@ -50,7 +38,6 @@ def main():
             if mangled_name.find("spec") == -1:
                 continue
             object_list.append({"filename" : real_name})
-
     else:
         print(metadata_files_in_folder[0])
         object_list = ming_fileio_library.parse_table_with_headers_object_list(metadata_files_in_folder[0])
@@ -101,8 +88,9 @@ def main():
             print(metadata_object["filename"], "Not Mapped")
             metadata_object["ATTRIBUTE_GNPSDefaultGroup"] = "Not Mapped"
 
-
-    ming_fileio_library.write_list_dict_table_data(object_list, args.output_metadata_table, header_list)
+    output_metadata_filename = os.path.join(args.output_folder, "metadata.tsv")
+    pd.DataFrame(object_list).to_csv(output_metadata_filename, index=False, columns=header_list)
+    #ming_fileio_library.write_list_dict_table_data(object_list, args.output_metadata_table, header_list)
 
 
 

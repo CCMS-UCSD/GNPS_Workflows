@@ -531,59 +531,51 @@
 
     <!-- Extra Optional Features -->
     <pathSet base="anaconda3/bin">
-        <pathVar name="python_runtime.bin" path="python"/>
-        <pathVar name="biom.script" path="biom"/>
         <toolPath tool="ClusterBucketCreator" path="python"/>
     </pathSet>
-
     <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="ClusterBucketCreator.script" path="clustering_create_bucket.py"/>
     </pathSet>
 
     <tool name="ClusterBucketCreator">
-        <require name="flowParams" type="file"/>
+        <require name="workflowParameters" type="file"/>
         <require name="clusterinfo" type="file"/>
         <require name="clusterinfosummarygroup_attributes_withIDs" type="file"/>
-        <require name="metadata_for_qiime" type="folder"/>
         <produce name="cluster_buckets" type="file" naming="explicit" extension="tsv"/>
-        <produce name="biom_output" type="file" naming="fixed" value="networking_quant.biom"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="ClusterBucketCreator.script"/>
             <arg valueRef="clusterinfo"/>
-            <arg valueRef="flowParams"/>
+            <arg valueRef="@CREATE_CLUSTER_BUCKETS"/>
+            <arg valueRef="workflowParameters"/>
             <arg valueRef="clusterinfosummarygroup_attributes_withIDs"/>
             <arg valueRef="cluster_buckets"/>
-            <arg valueRef="biom_output"/>
-            <arg pathRef="python_runtime.bin"/>
-            <arg pathRef="biom.script"/>
-            <arg option="-metadata_folder" value="metadata_for_qiime"/>
         </execution>
     </tool>
 
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="create_metadata_for_qiime" path="python"/>
+        <toolPath tool="run_qiime2" path="python"/>
     </pathSet>
     <pathSet base="metabolomicsnetsv2/scripts">
-        <pathVar name="create_metadata_for_qiime.script" path="metadata_for_qiime.py"/>
+        <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
     </pathSet>
 
-    <tool name="create_metadata_for_qiime">
+    <tool name="run_qiime2">
         <require name="workflowParameters" type="file"/>
+        <require name="cluster_buckets" type="file"/>
         <require name="metadatafile" type="folder"/>
-        <produce name="metadata_for_qiime" type="file" naming="fixed" value="metadata_for_qiime.txt"/>
-        <produce name="view_emporer" type="file" naming="fixed" value="view_emporer.html"/>
-
+        <produce name="qiime2_output" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
-            <arg pathRef="create_metadata_for_qiime.script"/>
+            <arg pathRef="run_qiime2.script"/>
             <arg valueRef="workflowParameters"/>
+            <arg valueRef="cluster_buckets"/>
             <arg valueRef="metadatafile"/>
-            <arg valueRef="metadata_for_qiime"/>
-            <arg valueRef="view_emporer"/>
+            <arg valueRef="qiime2_output"/>
         </execution>
     </tool>
+
 
     <tool name="NetworkTopologyCreator">
         <require name="flowParams" type="file"/>
