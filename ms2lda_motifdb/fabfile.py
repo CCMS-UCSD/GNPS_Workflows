@@ -1,10 +1,10 @@
 from fabric.api import *
 import os
 
-#env.hosts=['proteomics2.ucsd.edu']
-env.hosts=['gnps.ucsd.edu']
+env.hosts=['proteomics2.ucsd.edu']
+#env.hosts=['gnps.ucsd.edu']
 env.user='miw023'
-env.gateway="mingxun@mingwangbeta.ucsd.edu"
+#env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
 def update_workflow():
     put(os.path.join(os.getcwd(), 'tools/ms2lda_motifdb'), "/data/cluster/tools/", mirror_local_mode=True)
