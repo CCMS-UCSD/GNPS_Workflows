@@ -23,7 +23,7 @@ if not "sample_name" in df_metadata:
     df_metadata["sample_name"] = df_metadata["filename"]
 
 """Checking if the set of filenames are fully covered, if not then we'll provide a place holder"""
-all_quantification_filenames = [key.split(" ")[0] for key in df_quantification.keys() if "Peak area" in key]
+all_quantification_filenames = [key.replace("Peak area", "").rstrip() for key in df_quantification.keys() if "Peak area" in key]
 metadata_filenames = list(df_metadata["filename"])
 
 metadata_object_list = df_metadata.to_dict(orient="records")
