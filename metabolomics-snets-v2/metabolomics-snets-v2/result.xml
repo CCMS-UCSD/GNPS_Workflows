@@ -407,23 +407,6 @@
     </block>
 
 
-
-
-
-
-
-    <view id="view_emporer" label="View Emporer PCoA Plot in GNPS" group="Advanced Views - Third Party Visualization">
-        <blockRef id="main" type="view_emporer"/>
-    </view>
-    <block id="view_emporer" type="streamhtmlframe">
-        <data>
-            <source type="file" name="view_emporer/"/>
-            <parsers>
-                <parser type="stream" contentType="text/html"/>
-            </parsers>
-        </data>
-    </block>
-
     <view id="view_ili" label="View ili in GNPS" group="Advanced Views - Third Party Visualization">
         <blockRef id="main" type="view_ili"/>
     </view>
@@ -1494,6 +1477,58 @@
                 <parameter name="spectraid" value="[cluster index]"/>
               </column>
             </row>
+    </block>
+
+    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
+            <blockRef id="main"   type="view_qiime2_emperor"/>
+    </view>
+    <block id="view_qiime2_emperor" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
+    </block>
+
+    <view id="download_emperor_data" label="Download qiime2 Emperor qzv" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_emperor_data"/>
+    </view>
+
+    <block id="download_emperor_data" type="dummydownload">
+        <data>
+            <source type="file" name="qiime2_output/qiime2_emperor.qzv"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="download_qza_table_data" label="Download qiime2 features biom qza" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_qza_table_data"/>
+    </view>
+
+    <block id="download_qza_table_data" type="dummydownload">
+        <data>
+            <source type="file" name="qiime2_output/qiime2_table.qza"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+
+    <view id="view_emporer" label="View Emporer PCoA Plot in GNPS" group="Deprecated Views">
+        <blockRef id="main" type="view_emporer"/>
+    </view>
+    <block id="view_emporer" type="streamhtmlframe">
+        <data>
+            <source type="file" name="view_emporer/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
     </block>
 
 

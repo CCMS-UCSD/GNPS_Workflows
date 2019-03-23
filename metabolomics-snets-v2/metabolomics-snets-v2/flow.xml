@@ -318,6 +318,7 @@
 
         <!-- Quantification output -->
         <input port="cluster_buckets" object="cluster_buckets"/>
+        <input port="qiime2_output" collection="qiime2_output"/>
 
         <!-- ili Output -->
         <input port="ili_output" object="ili_output"/>

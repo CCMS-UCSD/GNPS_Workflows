@@ -372,6 +372,8 @@
         <upload port="compound_filename_occurences" type="file">
 			<query name="resource" value="compound_filename_occurences"/>
 		</upload>
-
+        <upload port="qiime2_output" type="folder">
+            <query name="resource" value="qiime2_output"/>
+        </upload>
 	</bind>
 </binding>
