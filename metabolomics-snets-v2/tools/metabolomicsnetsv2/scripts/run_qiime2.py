@@ -11,6 +11,8 @@ import ming_proteosafe_library
 import re
 from collections import defaultdict
 import pandas as pd
+import requests
+import shutil
 
 def main():
     parser = argparse.ArgumentParser(description='')
@@ -88,10 +90,43 @@ def main():
             print(metadata_object["filename"], "Not Mapped")
             metadata_object["ATTRIBUTE_GNPSDefaultGroup"] = "Not Mapped"
 
-    output_metadata_filename = os.path.join(args.output_folder, "metadata.tsv")
-    pd.DataFrame(object_list).to_csv(output_metadata_filename, index=False, columns=header_list)
-    #ming_fileio_library.write_list_dict_table_data(object_list, args.output_metadata_table, header_list)
+    output_metadata_filename = os.path.join(args.output_folder, "qiime2_metadata.tsv")
+    output_manifest_filename = os.path.join(args.output_folder, "qiime2_manifest.tsv")
 
+    for metadatum in object_list:
+        if "sample_name" in metadatum:
+            if len(metadatum["sample_name"]) > 1:
+                metadatum["#SampleID"] = metadatum["sample_name"]
+
+    metadata_df = pd.DataFrame(object_list)
+    metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
+
+    """Outputting Manifest Filename"""
+    manifest_df = pd.DataFrame()
+    manifest_df["sample_name"] = metadata_df["#SampleID"]
+    manifest_df["filepath"] = metadata_df["filename"]
+    manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
+
+    """Calling remote server to do the calculation"""
+    SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
+    #SERVER_BASE = "http://mingwangbeta.ucsd.edu:5024"
+    files = {'manifest': open(output_manifest_filename, 'r'), \
+    'metadata': open(output_metadata_filename, 'r'), \
+    'bucket': open(args.cluster_buckets, 'r')}
+
+
+    r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
+    response_dict = r_post.json()
+
+    with open(os.path.join(args.output_folder, "qiime2_table.qza"), 'wb') as f:
+        r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
+        r.raw.decode_content = True
+        shutil.copyfileobj(r.raw, f)
+
+    with open(os.path.join(args.output_folder, "qiime2_emperor.qzv"), 'wb') as f:
+        r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
+        r.raw.decode_content = True
+        shutil.copyfileobj(r.raw, f)
 
 
 

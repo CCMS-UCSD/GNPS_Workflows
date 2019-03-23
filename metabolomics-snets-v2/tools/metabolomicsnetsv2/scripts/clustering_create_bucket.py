@@ -53,7 +53,7 @@ def create_bucket_from_clusterinfo(cluster_info_filename, param_filename, cluste
         if os.path.basename(mangled_mapping[header]) in metadata_mapping:
             output_header_list.append(metadata_mapping[os.path.basename(mangled_mapping[header])])
         else:
-            output_header_list.append(os.path.basename(mangled_mapping[header]))
+            output_header_list.append(ming_fileio_library.get_filename_without_extension(os.path.basename(mangled_mapping[header])))
 
     output_file.write("\t".join(output_header_list) + "\n")
 
