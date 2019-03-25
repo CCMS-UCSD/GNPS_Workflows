@@ -137,6 +137,8 @@
         <toolPath tool="metabolomics_convert_graphml" path="python"/>
     </pathSet>
 
+
+
     <tool name="LibrarySearchParamGeneration_specnets">
         <require name="spec" type="folder"/>
         <require name="flowParams" type="file"/>
@@ -576,6 +578,12 @@
         </execution>
     </tool>
 
+    <pathSet base="metabolomicsnetsv2/scripts">
+        <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
+    </pathSet>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="NetworkTopologyCreator" path="python"/>
+    </pathSet>
 
     <tool name="NetworkTopologyCreator">
         <require name="flowParams" type="file"/>

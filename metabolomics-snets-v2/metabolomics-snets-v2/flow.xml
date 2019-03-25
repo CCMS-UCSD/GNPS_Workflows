@@ -17,8 +17,8 @@
     <object     name="allclustered_spectra_info_withpath"/>
 
     <object name="network_statistics"/>
-    <object name="all_network_paths"/>
-    <object name="all_network_paths_histogram"/>
+    <!-- <object name="all_network_paths"/>
+    <object name="all_network_paths_histogram"/> -->
     <object name="compound_filename_occurences"/>
     <collection name="inputspectra"/>
     <collection     name="library"/>
@@ -245,13 +245,13 @@
     </action>
 
     <!-- Topology Signature, but will be deprecated -->
-    <action name="create_topology_signatures">
+    <!-- <action name="create_topology_signatures">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="clusterinfosummarygroup_attributes_withIDs_withcomponentID" object="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
         <input  port="networkedges_selfloop"       object="networkedges_selfloop"/>
         <output  port="all_network_paths" object="all_network_paths"/>
         <output  port="all_network_paths_histogram" object="all_network_paths_histogram"/>
-    </action>
+    </action> -->
 
 
     <!-- ili -->
@@ -325,8 +325,8 @@
         <input port="view_ili" object="view_ili"/>
 
         <!-- Network Topology -->
-        <input port="all_network_paths" object="all_network_paths"/>
-        <input port="all_network_paths_histogram" object="all_network_paths_histogram"/>
+        <!-- <input port="all_network_paths" object="all_network_paths"/>
+        <input port="all_network_paths_histogram" object="all_network_paths_histogram"/> -->
 
         <!-- Dataset Search -->
         <input port="all_dataset_matches" object="all_dataset_matches"/>

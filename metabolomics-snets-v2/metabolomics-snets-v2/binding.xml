@@ -265,13 +265,13 @@
 		<productionToOutput port="qiime2_output"     production="qiime2_output"/>
 	</bind>
 
-    <bind action="create_topology_signatures" tool="NetworkTopologyCreator">
+    <!-- <bind action="create_topology_signatures" tool="NetworkTopologyCreator">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
 		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs_withcomponentID" requirement="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
         <inputAsRequirement port="networkedges_selfloop" requirement="networkedges_selfloop"/>
 		<productionToOutput port="all_network_paths"       production="all_network_paths"/>
 		<productionToOutput port="all_network_paths_histogram"     production="all_network_paths_histogram"/>
-	</bind>
+	</bind> -->
 
     <bind action="create_ili_output" tool="create_ili_output">
         <inputAsRequirement port="flowParams" requirement="flowParams"/>
@@ -354,12 +354,12 @@
         <upload port="view_ili" type="file">
 			<query name="resource" value="view_ili"/>
 		</upload>
-        <upload port="all_network_paths" type="file">
+        <!-- <upload port="all_network_paths" type="file">
 			<query name="resource" value="all_network_paths"/>
 		</upload>
         <upload port="all_network_paths_histogram" type="file">
 			<query name="resource" value="all_network_paths_histogram"/>
-		</upload>
+		</upload> -->
 		<upload port="groupmapping_converted" type="file">
 			<query name="resource" value="groupmapping_converted"/>
 		</upload>

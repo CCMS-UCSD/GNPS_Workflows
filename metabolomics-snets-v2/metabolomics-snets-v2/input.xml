@@ -165,14 +165,14 @@
 		</parameter>
 
 
-
-        <parameter name="CREATE_TOPOLOGY_SIGNATURES" label="Create Network Topology Signatures">
+		<!-- Deprecated Option -->
+        <!-- <parameter name="CREATE_TOPOLOGY_SIGNATURES" label="Create Network Topology Signatures">
 			<options>
 				<option value="0" label="Don't Create"/>
 				<option value="1" label="Create"/>
 			</options>
 			<default value="0"/>
-		</parameter>
+		</parameter> -->
 
 		<parameter name="FIND_MATCHES_IN_PUBLIC_DATA" label="Find Related Datasets">
 			<options>
@@ -576,7 +576,7 @@
                 				</label>
                 			</cell>
                 		</row>
-                        
+
 						<row>
 							<cell>
 								<label>
