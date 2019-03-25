@@ -33,6 +33,7 @@
     </bind>
 
     <bind action="create_graphml" tool="create_graphml">
+        <inputAsRequirement port="network_pairs" requirement="network_pairs"/>
         <inputAsRequirement port="output_results" requirement="output_results"/>
         <productionToOutput port="output_graphml" production="output_graphml"/>
     </bind>

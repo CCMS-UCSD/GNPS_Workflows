@@ -137,16 +137,29 @@
         </data>
     </block>
 
-    <view id="download_cytoscape_data" label="Download GraphML for Cytoscape" group="Download Files">
-            <blockRef id="main"   type="download_cytoscape_data"/>
+    <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
+        <blockRef id="main" type="download_cytoscape_data"/>
     </view>
+
     <block id="download_cytoscape_data" type="dummydownload">
+        <data>
+            <source type="file" name="output_graphml/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
       <data>
-         <source type="file" name="output_graphml/"/>
          <parsers>
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
+        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
     </block>
 
 </interface>
