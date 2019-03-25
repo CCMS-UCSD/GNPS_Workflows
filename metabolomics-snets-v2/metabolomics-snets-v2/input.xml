@@ -155,7 +155,7 @@
 			<default value="100.0"/>
 		</parameter>
 
-		<parameter name="CREATE_CLUSTER_BUCKETS" label="Create Cluster Buckets and BioM/PCoA Plots output">
+		<parameter name="CREATE_CLUSTER_BUCKETS" label="Create Cluster Buckets and qiime2/Biom/PCoA Plots output">
 			<options>
 				<option value="0" label="Don't Create"/>
 				<option value="1" label="Create"/>
@@ -735,7 +735,7 @@
 						</row>
                     </block>
 
-                    <block label="Advanced Annotation Options">
+                    <!-- <block label="Advanced Annotation Options">
                         <row>
 							<cell>
 								<label>
@@ -755,7 +755,7 @@
 								</input>
 							</cell>
 						</row>
-                    </block>
+                    </block> -->
 
 					<block label="Advanced Output Options">
                         <row>
