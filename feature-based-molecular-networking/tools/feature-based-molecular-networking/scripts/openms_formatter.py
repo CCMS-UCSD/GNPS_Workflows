@@ -56,6 +56,7 @@ def convert_to_feature_csv(input_filename, output_filename):
     result = pd.read_csv(input_filename,sep='\t',index_col=None,
                          skiprows=range(0,start_row_consensus),
                          names = header_consensus)
+    result.fillna(value=0, inplace=True)
     result.insert(0, 'row ID', result.index+1)
     to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
     result.to_csv(output_filename,index = False,
