@@ -23,12 +23,17 @@ def convert_to_feature_csv(input_filename, output_filename):
         if line.startswith('CONSENSUS') :
             break
         if line.startswith('MAP'):
-            spectrum_files.append(line.split('\t')[2].split('/')[-1])
+            filename = line.split('\t')[2].split('/')[-1]
+            spectrum_files.append(filename)
         elif line.startswith('#CONSENSUS'):
             header_consensus = line.strip('\n').split('\t')
         start_row_consensus += 1
     f.close()
 
+    #check duplicates
+    if len(spectrum_files) != len(set(spectrum_files)):
+        print ('The feature table contains duplicated filename(s). Update the filename(s) in the feature table and the metadata table')
+        return
 
     # Transform the header to be final result format
     # rt_cf -> row retention time
@@ -41,7 +46,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         elif header_consensus[i] == 'mz_cf':
             header_consensus[i] = 'row m/z'
         # modify the intensity columns to be file peak area
-        while header_consensus[i].startswith('intensity') and innerLoop_iterator < len(spectrum_files):
+        while header_consensus[i].startswith('intensity') and not header_consensus[i].startswith('intensity_cf') and innerLoop_iterator < len(spectrum_files):
             spectrum_files[innerLoop_iterator] = spectrum_files[innerLoop_iterator]+' Peak area'
             header_consensus[i] = spectrum_files[innerLoop_iterator]
             i += 1
@@ -51,12 +56,11 @@ def convert_to_feature_csv(input_filename, output_filename):
     result = pd.read_csv(input_filename,sep='\t',index_col=None,
                          skiprows=range(0,start_row_consensus),
                          names = header_consensus)
-
     result.insert(0, 'row ID', result.index+1)
     to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
     result.to_csv(output_filename,index = False,
                   columns = to_write_list)
 
-
 if __name__=="__main__":
-    convert_from_openms(sys.argv[1], sys.argv[2])
+    # there should be obly one input file
+   convert_to_feature_csv(sys.argv[1], sys.argv[2])
