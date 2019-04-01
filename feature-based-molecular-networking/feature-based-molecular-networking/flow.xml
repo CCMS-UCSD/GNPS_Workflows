@@ -208,7 +208,6 @@
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="written_description" object="written_description"/>
-
         <input port="validation_summary" collection="validation_summary"/>
     </action>
 </flow>

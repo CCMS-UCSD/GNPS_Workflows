@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="speclib_add" version="1.2.3">
     <download>
-        <source type="folder" name="DB_result/"/>
         <source type="folder" name="networking_pairs_results_file_filtered/"/>
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
+        <source type="folder" name="spectra/"/>
+        <source type="folder" name="quantification_table_reformatted/"/>
+        <source type="folder" name="metadata_table/"/>
+        <source type="folder" name="DB_result/"/>
     </download>
 
 
@@ -490,6 +493,7 @@
             </parsers>
         </data>
     </block>
+
 
 
 
