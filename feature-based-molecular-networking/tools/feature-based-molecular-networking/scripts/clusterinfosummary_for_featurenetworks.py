@@ -7,9 +7,11 @@ import os
 import json
 import argparse
 import statistics
+import glob
 import ming_fileio_library
 import ming_proteosafe_library
 from collections import defaultdict
+import glob
 
 def determine_input_files(header_list):
     filenames = []
@@ -101,7 +103,7 @@ def main():
     parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
     parser.add_argument('params_xml', help='params_xml')
     parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
-    parser.add_argument('-metadata_file', help='metadata file')
+    parser.add_argument('metadata_folder', help='metadata metadata_folder')
     parser.add_argument('output_clusterinfo_summary', help='output file')
     args = parser.parse_args()
 
@@ -111,8 +113,10 @@ def main():
 
     group_to_files_mapping = defaultdict(list)
     attributes_to_groups_mapping = defaultdict(set)
-    if args.metadata_file and len(args.metadata_file) > 1:
-        group_to_files_mapping, attributes_to_groups_mapping = load_group_attribute_mappings(args.metadata_file)
+
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
+    if len(metadata_files) == 1:
+        group_to_files_mapping, attributes_to_groups_mapping = load_group_attribute_mappings(metadata_files[0])
 
     ROW_NORMALIZATION = "None"
     try:
@@ -191,7 +195,7 @@ def main():
             cluster_obj["RTMean"] = statistics.mean(all_retention_times)
             cluster_obj["RTStdErr"] = statistics.stdev(all_retention_times)
         except:
-            cluster_obj["RTMean"] = 0
+            cluster_obj["RTMean"] = cluster_obj["RTConsensus"]
             cluster_obj["RTStdErr"] = 0
 
         cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
