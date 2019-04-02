@@ -413,6 +413,18 @@
         </row>
     </block>
 
+    <view id="view_edges_delta_histogram" label="Edges, MZ Delta Histogram" group="Advanced Views - Networking Graphs/Histograms">
+            <blockRef id="main"   type="view_edges_delta_histogram"/>
+    </view>
+
+    <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="network_pairs_specnets_allcomponents" columnname="MzDiff">
+            <data>
+                <source type="file" name="all_network_paths_histogram/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
     <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
             <blockRef id="main"   type="cytoscape_preview"/>
