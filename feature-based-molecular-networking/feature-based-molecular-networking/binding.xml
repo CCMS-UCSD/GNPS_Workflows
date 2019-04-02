@@ -30,6 +30,13 @@
         </downloadParams>
     </bind>
 
+    <bind action="input_validation" tool="input_validation">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
+        <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+    </bind>
+
     <bind action="reformat_quantification" tool="reformat_quantification">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quantification_table" requirement="quantification_table"/>

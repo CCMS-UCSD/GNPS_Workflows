@@ -16,8 +16,18 @@
         <output port="additional_pairs" collection="additional_pairs"/>
     </action>
 
+    <collection name="validation_summary"/>
+    <action name="input_validation">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table"/>
+        <input port="inputSpectra" object="inputSpectra"/>
+        <input port="metadata_table" object="metadata_table"/>
+        <output port="validation_summary" collection="validation_summary"/>
+    </action>
+
     <object name="quantification_table_reformatted"/>
     <action name="reformat_quantification">
+        <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
         <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
@@ -25,6 +35,7 @@
 
     <object name="spectra"/>
     <action name="renumber_mgf">
+        <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="inputSpectra" object="inputSpectra"/>
         <output port="spectra" object="spectra"/>
@@ -88,6 +99,7 @@
     <object name="libraryanalogsearch_results_file_DB"/>
 
     <action name="prep_molecular_librarysearch_parameters">
+        <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="library" collection="library"/>
         <output port="librarysearch_parameters" collection="librarysearch_parameters"/>
@@ -196,5 +208,6 @@
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="written_description" object="written_description"/>
+        <input port="validation_summary" collection="validation_summary"/>
     </action>
 </flow>
