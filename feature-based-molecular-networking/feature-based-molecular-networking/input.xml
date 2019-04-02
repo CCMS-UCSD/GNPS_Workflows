@@ -245,11 +245,11 @@
                 <label>
                     <content parameter="tolerance.PM_tolerance"/>
                     <tooltip id="precursor_mass_tolerance">
-                        Parameter used for spectral library search. Specify the precursor ions mass tolerance, in Daltons. This value influences the aforementioned clustering of nearly-identical MS/MS spectra via MS-Cluster. Note that the value of this
+                        Parameter used for spectral library search. Specify the precursor ions mass tolerance (PIMT), in Daltons. This value influences the aforementioned clustering of nearly-identical MS/MS spectra via MS-Cluster. Note that the value of this
                         parameters should be consistent with the capabilities of the mass spectrometer and the specific instrument method used to generated the MS/MS data. The default value is ± 0.02 Da for high resolution mass spectrometers (e.g. q-TOFs, q-Orbitrap). The
                         0.02 Da value translates into a maximum error of 40 ppm at m/z 500, 20 ppm at m/z 1000 for the precursor ion, and 13 ppm at m/z 1500, which is consistent for typical m/z range acquisition of small molecules. Regarding peptidic small molecules, their
-                        m/z range can be up to 2000 Da, thus a of 0.03 Da should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the
-                        documentation table). **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a
+                        m/z range can be up to 2000 Da, thus a 0.03 Da value should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT of ± 2.0 Da is recommended. See documentation for more details [Link to the
+                        documentation table](featurebasedmolecularnetworking). **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a
                         significant portion of NIST. Therefore, if you want to perform spectral matching with these spectral libraries, we recommend using a ± 2.0 Da PIMT regardless of the type of mass spectrometer used. Furthermore, downstream filtering of the MS/MS
                         spectral library hits can be done based the mass spectrometers used.
                     </tooltip>
