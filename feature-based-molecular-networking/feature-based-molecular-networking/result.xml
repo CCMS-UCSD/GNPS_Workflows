@@ -417,7 +417,7 @@
             <blockRef id="main"   type="view_edges_delta_histogram"/>
     </view>
 
-    <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="network_pairs_specnets_allcomponents" columnname="MzDiff">
+    <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="network_pairs_specnets_allcomponents" columnname="DeltaMZ">
             <data>
                 <source type="file" name="all_network_paths_histogram/"/>
             <parsers>
