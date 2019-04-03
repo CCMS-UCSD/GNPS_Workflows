@@ -17,7 +17,8 @@ def determine_input_files(header_list):
     filenames = []
     filename_headers = []
     for header in header_list:
-        if header.find("mzXML") != -1 or header.find("mzML") != -1:
+        #if header.find("mzXML") != -1 or header.find("mzML") != -1:
+        if "Peak area" in header:
             filenames.append(header.replace("Peak area", "").replace("filtered", "").rstrip())
             filename_headers.append(header.rstrip("\n"))
 
