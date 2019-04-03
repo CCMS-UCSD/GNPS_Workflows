@@ -202,6 +202,7 @@ def main():
         #cluster_obj["AllFiles"] = "###".join(all_files)
 
         cluster_obj["sum(precursor intensity)"] = sum(all_abundances)
+        cluster_obj["SumPeakIntensity"] = sum(all_abundances)
         cluster_obj["number of spectra"] = len(all_files)
         cluster_obj["UniqueFileSourcesCount"] = len(all_files)
 
