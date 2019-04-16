@@ -151,6 +151,7 @@
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table_reformatted"/>
         <input port="metadata_table" object="metadata_table"/>
+        <input port="spectra" object="spectra"/>
         <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
 

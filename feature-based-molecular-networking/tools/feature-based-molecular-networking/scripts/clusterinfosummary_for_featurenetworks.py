@@ -9,6 +9,7 @@ import argparse
 import statistics
 import glob
 import ming_fileio_library
+import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
 import glob
@@ -105,6 +106,7 @@ def main():
     parser.add_argument('params_xml', help='params_xml')
     parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
     parser.add_argument('metadata_folder', help='metadata metadata_folder')
+    parser.add_argument('mgf_filename', help='mgf_filename')
     parser.add_argument('output_clusterinfo_summary', help='output file')
     args = parser.parse_args()
 
@@ -156,6 +158,10 @@ def main():
             for quantification_object in quantification_list:
                 quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants)
 
+    """Loading MS2 Spectra"""
+    mgf_collection = ming_spectrum_library.SpectrumCollection(args.mgf_filename)
+    mgf_collection.load_from_file()
+
     clusters_list = []
     for quantification_object in quantification_list:
 
@@ -166,26 +172,24 @@ def main():
 
         all_charges = []
 
-        #all_retention_times = [float(table_data["%s Peak RT" % (filename)][i]) for filename in input_filenames if float(table_data["%s Peak RT" % (filename)][i]) > 0]
-        #all_mz = [float(table_data["%s Peak m/z" % (filename)][i]) for filename in input_filenames if table_data["%s Peak status" % (filename)][i] == "DETECTED"]
-        #all_charges = [int(table_data["%s Peak charge" % (filename)][i]) for filename in input_filenames if table_data["%s Peak status" % (filename)][i] == "DETECTED"]
+        """Checking about the charge of this cluster"""
+        try:
+            spectrum_object = mgf_collection.scandict[int(cluster_obj["cluster index"])]
+            charge = int(spectrum_object.charge)
+        except:
+            charge = 0
 
+        """Checking if this spectrum has no peaks"""
+        # try:
+        #     spectrum_object = mgf_collection.scandict[int(cluster_obj["cluster index"])]
+        #
+        # except:
+        #     continue
 
         all_files = [os.path.basename(filename) for filename in input_filename_headers if float(quantification_object[filename]) > 0]
         abundance_per_file = [(os.path.basename(filename), float(quantification_object[filename])) for filename in input_filename_headers]
         all_abundances = [float(quantification_object[filename]) for filename in input_filename_headers]
 
-        all_charges = set(all_charges)
-        if len(all_charges) > 1:
-            try:
-                all_charges.remove(0)
-            except:
-                all_charges = all_charges
-                print("BAD THINGS ARE HAPPENDING", all_charges)
-
-        charge = 0
-        if len(all_charges) > 0:
-            charge = all_charges.pop()
         if charge != 0:
             cluster_obj["parent mass"] = "{0:.4f}".format(float(quantification_object["row m/z"]) * charge - charge + 1)
         else:
