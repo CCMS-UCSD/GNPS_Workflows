@@ -4,6 +4,7 @@ import os
 env.hosts=['gnps.ucsd.edu']
 #env.hosts=['proteomics2.ucsd.edu']
 env.user='miw023'
+env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
 def update_workflow():
     put(os.path.join(os.getcwd(), 'metabolomics-snets-v2'), "/ccms/workflows/")
