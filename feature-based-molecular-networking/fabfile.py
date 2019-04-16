@@ -1,8 +1,8 @@
 from fabric.api import *
 import os
 
-env.hosts=['proteomics2.ucsd.edu']
-#env.hosts=['gnps.ucsd.edu']
+#env.hosts=['proteomics2.ucsd.edu']
+env.hosts=['gnps.ucsd.edu']
 env.user='miw023'
 
 def update_workflow():
