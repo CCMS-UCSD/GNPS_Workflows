@@ -1,15 +1,12 @@
 #!/usr/bin/python
 
-
 import sys
 import os
 import ming_fileio_library
+import pandas as pd
 import ming_gnps_library
+import requests
 from collections import defaultdict
-
-def usage():
-    print("<input clusterinfosummary file> <input edges file> <outptu file> ")
-
 
 def main():
     input_result_filename = sys.argv[1]
@@ -35,6 +32,7 @@ def main():
     for i in range(input_rows):
         number_hits_per_query[input_table["FileScanUniqueID"][i]] += 1
 
+    molecule_explorer_df = pd.DataFrame(ming_gnps_library.get_molecule_explorer_dataset_data())
 
     for i in range(input_rows):
         spectrum_id = input_table["LibrarySpectrumID"][i]
@@ -127,6 +125,17 @@ def main():
         tag_string = "||".join(tag_list).replace("\t", "")
 
         output_table["tags"].append(tag_string)
+
+        #Getting molecule explorer information
+        compound_name = gnps_library_spectrum["annotations"][0]["Compound_Name"].replace("\t", "")
+        compound_filtered_df = molecule_explorer_df[molecule_explorer_df["compound_name"] == compound_name]
+        print(compound_name, compound_filtered_df)
+        if len(compound_filtered_df) == 1:
+            output_table["MoleculeExplorerDatasets"] = compound_filtered_df.to_dict(orient="records")[0]["number_datasets"]
+            output_table["MoleculeExplorerFiles"] = compound_filtered_df.to_dict(orient="records")[0]["number_files"]
+        else:
+            output_table["MoleculeExplorerDatasets"] = 0
+            output_table["MoleculeExplorerFiles"] = 0
 
     ming_fileio_library.write_dictionary_table_data(output_table, output_result_filename)
 

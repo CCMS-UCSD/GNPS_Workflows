@@ -993,7 +993,7 @@
                           <parameter name="spec_on_server" value="[Original_Path]"/>
                         </column>
                         <column label="View Metadata" type="genericurlgenerator" width="10" >
-                            <parameter name="URLBASE" value="http://mingwangbeta.ucsd.edu:5000/datalookup"/>
+                            <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
                             <parameter name="REQUESTPARAMETER=filename" value="[Original_Path]"/>
                             <parameter name="LABEL" value="View Global Metadata"/>
                         </column>
