@@ -23,6 +23,7 @@ def main():
     output_headers += ["Precursor_MZ", "ExactMass", "Charge", "CAS_Number", "Pubmed_ID", "Smiles", "INCHI", "INCHI_AUX", "Library_Class"]
     output_headers += ["IonMode", "UpdateWorkflowName", "LibraryQualityString", "#Scan#", "SpectrumFile", "MQScore", "Organism"]
     output_headers += ["TIC_Query", "RT_Query", "MZErrorPPM", "SharedPeaks", "MassDiff", "LibMZ", "SpecMZ", "SpecCharge"]
+    output_headers += ["MoleculeExplorerDatasets", "MoleculeExplorerFiles"]
 
     for header in output_headers:
         output_table[header] = []
@@ -129,13 +130,13 @@ def main():
         #Getting molecule explorer information
         compound_name = gnps_library_spectrum["annotations"][0]["Compound_Name"].replace("\t", "")
         compound_filtered_df = molecule_explorer_df[molecule_explorer_df["compound_name"] == compound_name]
-        print(compound_name, compound_filtered_df)
         if len(compound_filtered_df) == 1:
-            output_table["MoleculeExplorerDatasets"] = compound_filtered_df.to_dict(orient="records")[0]["number_datasets"]
-            output_table["MoleculeExplorerFiles"] = compound_filtered_df.to_dict(orient="records")[0]["number_files"]
+            output_table["MoleculeExplorerDatasets"].append(compound_filtered_df.to_dict(orient="records")[0]["number_datasets"])
+            output_table["MoleculeExplorerFiles"].append(compound_filtered_df.to_dict(orient="records")[0]["number_files"])
         else:
-            output_table["MoleculeExplorerDatasets"] = 0
-            output_table["MoleculeExplorerFiles"] = 0
+            output_table["MoleculeExplorerDatasets"].append(0)
+            output_table["MoleculeExplorerFiles"].append(0)
+
 
     ming_fileio_library.write_dictionary_table_data(output_table, output_result_filename)
 
