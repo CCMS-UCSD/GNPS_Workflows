@@ -117,7 +117,7 @@
     <pathSet base="metabolomicsnetsv2/scripts">
         <pathVar name="MetabolomicPairsinfo.script" path="pairsinfo.py"/>
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
-        <pathVar name="GetDBAnnotations_specnets" path="getGNPS_library_annotations.py"/>
+        <pathVar name="GetDBAnnotations_specnets.script" path="getGNPS_library_annotations.py"/>
 
         <toolPath tool="MetabolomicMakeSelfloop" path="add_self_loop.py"/>
         <toolPath tool="MetabolomicClusterInfoGroupAddAttribute" path="AddAttributes.py"/>
@@ -196,6 +196,7 @@
         <produce name="DB_result" type="file" naming="explicit" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
+            <arg pathRef="GetDBAnnotations_specnets.script"/>
             <arg valueRef="result"/>
             <arg valueRef="DB_result"/>
         </execution>
