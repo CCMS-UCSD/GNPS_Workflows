@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 import sys
 import getopt
 import os
@@ -14,6 +13,7 @@ import optimus_formatter
 import msdial_formatter
 import metaboscape_formatter
 import xcms_formatter
+import mzmine2_formatter
 
 def main():
     parser = argparse.ArgumentParser(description='Create parallel parameters')
@@ -25,7 +25,8 @@ def main():
     params_object = ming_proteosafe_library.parse_xml_file(open(args.workflowParameters))
 
     if params_object["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
-        shutil.copyfile(args.quantification_table, args.quantification_table_reformatted)
+        #shutil.copyfile(args.quantification_table, args.quantification_table_reformatted)
+        mzmine2_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
     elif params_object["QUANT_TABLE_SOURCE"][0] == "OPENMS":
         print("OPENMS")
         print(args.quantification_table)
