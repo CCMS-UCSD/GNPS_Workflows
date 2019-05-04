@@ -41,8 +41,15 @@ def main():
                 continue
             object_list.append({"filename" : real_name})
     else:
-        print(metadata_files_in_folder[0])
-        object_list = ming_fileio_library.parse_table_with_headers_object_list(metadata_files_in_folder[0])
+        object_list_temp = ming_fileio_library.parse_table_with_headers_object_list(metadata_files_in_folder[0])
+
+        object_list = []
+        for metadata_object in object_list_temp:
+            if len(metadata_object["filename"]) > 1:
+                object_list.append(metadata_object)
+        
+
+
         if len(object_list) == 0:
             for real_name in reverse_file_mangling:
                 mangled_name = reverse_file_mangling[real_name]
@@ -109,11 +116,9 @@ def main():
 
     """Calling remote server to do the calculation"""
     SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    #SERVER_BASE = "http://mingwangbeta.ucsd.edu:5024"
     files = {'manifest': open(output_manifest_filename, 'r'), \
     'metadata': open(output_metadata_filename, 'r'), \
     'bucket': open(args.cluster_buckets, 'r')}
-
 
     r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
     response_dict = r_post.json()
