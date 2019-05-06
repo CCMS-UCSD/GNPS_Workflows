@@ -180,10 +180,10 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
             for header in table_data:
                 if header.find("GNPSGROUP") != -1:
                     try:
-                        G.node[cluster_index][header] = int(table_data[header][i])
+                        G.node[cluster_index][header] = float(table_data[header][i])
                     except:
                         try:
-                            G.node[cluster_index][header] = float(table_data[header][i])
+                            G.node[cluster_index][header] = int(table_data[header][i])
                         except:
                             G.node[cluster_index][header] = -1
 
