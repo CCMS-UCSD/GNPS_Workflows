@@ -19,6 +19,10 @@ def main():
     metadata_files = glob.glob(os.path.join(args.metadata_table, "*"))
     if len(metadata_files) == 1:
         metadata_df = pd.read_csv(metadata_files[0], sep="\t")
+        print("Read length of metadata", len(metadata_df))
+        metadata_df = metadata_df.dropna(how="all")
+        print("Empty line filtered length of metadata", len(metadata_df))
+
         if not "filename" in metadata_df:
             print("filename header not in metadata file, please refer to documentation - https://ccms-ucsd.github.io/GNPSDocumentation/networking/#metadata ")
             exit(1)
