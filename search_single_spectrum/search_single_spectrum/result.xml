@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="ming_test" version="1.2.3">
+
+    <view id="view_all_datasets_matched" label="Dataset Matches" group="Community Matches">
+        <blockRef id="main" type="view_all_datasets_matched"/>
+    </view>
+    <block id="view_all_datasets_matched" type="table">
+        <data>
+            <source type="file" name="all_dataset_matches/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="score" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Dataset" type="genericurlgenerator" width="10" field="dataset_id">
+                <parameter name="URLBASE" value="/ProteoSAFe/dataset_id_redirect.jsp"/>
+                <parameter name="REQUESTPARAMETER=massiveid" value="[dataset_id]"/>
+                <parameter name="LABEL" value="View [dataset_id]"/>
+            </column>
+            <column type="text" field="dataset_title" label="Title" width="40"/>
+            <column type="expandable" field="dataset_description" label="Description" width="40"/>
+            <column type="text" field="dataset_organisms" label="Organisms" width="40"/>
+            <column type="float" field="score" label="Cosine Score" precision="2"/>
+            <column type="integer" field="matchedpeaks" label="Matched Peaks" width="4"/>
+            <column type="float" field="mzerror" label="MZ Delta" precision="2"/>
+            <column type="integer" field="files_count" label="NumFiles" width="4"/>
+            <column label="View File Matches in GNPS" type="genericurlgenerator" width="10" field="dataset_id">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="view_all_file_datasets_matched"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="HASHPARAMTER=main.dataset_id_input" value="[dataset_id]"/>
+                <parameter name="LABEL" value="View File Matches"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column label="View Spectra Matches in GNPS" type="genericurlgenerator" width="10" field="dataset_id">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="view_all_spectra_datasets_matched"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="HASHPARAMTER=main.dataset_id_input" value="[dataset_id]"/>
+                <parameter name="LABEL" value="View Spectra Matches"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+        <row expander="View Mirror Match" expandericontype="text">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="spectra/"/>>
+                <parameter name="spectrum1_scan" value="[specs_scan]"/>
+                <parameter name="spectrum2_type" value="flatfile"/>
+                <parameter name="spectrum2_file" value="FILE->f.[dataset_filename]"/>
+                <parameter name="spectrum2_scan" value="[dataset_scan]"/>
+            </column>
+        </row>
+    </block>
+
+    <view id="view_all_file_datasets_matched" label="GNPS Files Matched"  display="hidden">
+        <blockRef id="main" type="view_all_file_datasets_matched"/>
+    </view>
+    <block id="view_all_file_datasets_matched" type="table">
+        <data>
+            <source type="file" name="all_dataset_file_matches/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="dataset_id" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="dataset_id" label="dataset_id" width="30"/>
+            <column type="text" field="dataset_scan" label="dataset_scan" width="10"/>
+            <column type="text" field="filename" label="filename" width="40"/>
+            <column label="View Metadata" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
+                <parameter name="LABEL" value="View Metadata"/>
+            </column>
+            <column type="text" field="metadata" label="File Metadata" width="40"/>
+        </row>
+    </block>
+
+    <view id="view_all_spectra_datasets_matched" label="view_all_spectra_datasets_matched"  display="hidden">
+        <blockRef id="main" type="view_all_spectra_datasets_matched"/>
+    </view>
+    <block id="view_all_spectra_datasets_matched" type="table">
+        <data>
+            <source type="file" name="all_dataset_spectra_matches/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="dataset_id" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="dataset_id" label="dataset_id" width="30"/>
+            <!-- <column type="text" field="dataset_scan" label="dataset_scan" width="10"/> -->
+            <column type="text" field="filename" label="GNPS Filepath" width="40"/>
+            <column type="text" field="filescan" label="Scan Number" width="40"/>
+            <column label="View Metadata" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
+                <parameter name="LABEL" value="View Metadata"/>
+            </column>
+            <column type="text" field="metadata" label="File Metadata" width="40"/>
+        </row>
+        <row expander="View Mirror Match" expandericontype="text">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="spectra/"/>>
+                <parameter name="spectrum1_scan" value="[cluster_scan]"/>
+                <parameter name="spectrum2_type" value="flatfile"/>
+                <parameter name="spectrum2_file" value="FILE->[filename]"/>
+                <parameter name="spectrum2_scan" value="[filescan]"/>
+            </column>
+        </row>
+    </block>
+
+
+
+    <view id="view_all_annotations_DB" label="View All Library Hits">
+        <blockRef id="main" type="view_all_annotations_DB"/>
+    </view>
+    <block id="view_all_annotations_DB" type="table">
+        <data>
+            <source type="file" name="all_library_matches_db/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
+        </data>
+        <row>
+            <column label="ViewLib" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
+                <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
+                <parameter name="LABEL" value="ViewLib"/>
+            </column>
+
+            <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
+            <column type="integer" field="#Scan#" label="ClusterIdx" width="3"/>
+            <column label="View All Spectra" type="genericurlgenerator" width="10" field="View Raw">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+                <parameter name="REQUESTPARAMETER=protein" value="[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="View Raw Spectra"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
+
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="SharedPeaks" label="SharedPeaks" width="3"/>
+            <column type="float" field="TIC_Query" label="TIC Query" precision="2"/>
+            <column type="float" field="RT_Query" label="RT Query" precision="2"/>
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM"/>
+
+            <column type="float" field="MassDiff" label="MassDiff" precision="2"/>
+            <column type="float" field="SpecMZ" label="SpecMZ" precision="2"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
+
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <columbiomn type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            <column type="text" field="tags" label="Tags" width="5"/>
+            <column label="Add Library Tag" type="addspectrumtag" width="12">
+                <parameter name="spectrumID" value="[SpectrumID]"/>
+            </column>
+            <column type="structuredisplayer" label="Structure">
+                <parameter name="smilesstructure" value="[Smiles]"/>
+            </column>
+        </row>
+        <row expander="View Mirror Match" expandericontype="text">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file"    file="spectra/[internalFilename]"/>
+                <parameter name="spectrum1_scan" value="[#Scan#]"/>
+                <parameter name="spectrum2_type" value="lib"/>
+                <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                <parameter name="file"    file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+
+        </row>
+    </block>
+
+</interface>
