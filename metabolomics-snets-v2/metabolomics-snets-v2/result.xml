@@ -2,13 +2,14 @@
 <interface id="ming_test" version="1.2.3">
     <!-- View definitions -->
     <download>
-                <source type="folder" name="clusterinfo/"/>
-                <source type="folder" name="clusterinfogroup/"/>
-                <source type="folder" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
-                <source type="folder" name="networkedges_selfloop/"/>
-                <source type="folder" name="result_specnets_DB/"/>
-                <source type="folder" name="groupmapping_converted/"/>
-        </download>
+        <source type="folder" name="clusterinfo/"/>
+        <source type="folder" name="clusterinfogroup/"/>
+        <source type="folder" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
+        <source type="folder" name="networkedges_selfloop/"/>
+        <source type="folder" name="result_specnets_DB/"/>
+        <source type="folder" name="groupmapping_converted/"/>
+        <source type="folder" name="qiime2_output/"/>
+    </download>
 
 
         <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
