@@ -178,3 +178,9 @@ def subscribe_dataset(dataset_task, username, password):
     r = s.post('https://' + "gnps.ucsd.edu" + '/ProteoSAFe/user/login.jsp', data=payload, verify=False)
     url = "https://gnps.ucsd.edu/ProteoSAFe/MassiveServlet?task=%s&function=subscription" % (dataset_task)
     s.post(url)
+
+def get_molecule_explorer_dataset_data():
+    url = "https://gnps.ucsd.edu/ProteoSAFe/result_json.jsp?task=698fc5a09db74c7492983b3673ff5bf6&view=molecule_explorer_v2_summary&show=true"
+    r = requests.get(url)
+
+    return r.json()["blockData"]

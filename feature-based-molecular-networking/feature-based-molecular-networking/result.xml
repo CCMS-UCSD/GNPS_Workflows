@@ -2,6 +2,7 @@
 <interface id="speclib_add" version="1.2.3">
     <download>
         <source type="folder" name="networking_pairs_results_file_filtered/"/>
+        <source type="folder" name="networkedges_selfloop/"/>
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
         <source type="folder" name="spectra/"/>

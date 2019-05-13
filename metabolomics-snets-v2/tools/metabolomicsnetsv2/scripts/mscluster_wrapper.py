@@ -23,9 +23,11 @@ def main():
     #Do clean up out output spectra folder
     all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "specs_ms_*.pklbin"))
 
-    for filetoremove in all_pklbin_files:
-        print("Removing ", filetoremove)
-        os.remove(filetoremove)
+    """Disabling Removing Files because they are needed in a later step"""
+    #TODO: Move clusterinfo into this step so we can get rid of these files. 
+    #for filetoremove in all_pklbin_files:
+    #    print("Removing ", filetoremove)
+    #    os.remove(filetoremove)
 
 if __name__ == "__main__":
     main()

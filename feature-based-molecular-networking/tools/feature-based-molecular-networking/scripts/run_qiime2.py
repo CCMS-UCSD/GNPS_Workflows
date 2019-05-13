@@ -45,7 +45,8 @@ new_output_metadata = pd.DataFrame(metadata_object_list)
 output_columns = list(new_output_metadata.keys())
 output_columns.remove("sample_name")
 output_columns.insert(0, "sample_name")
-new_output_metadata.to_csv(output_metadata_filename, index=False, sep="\t", columns=output_columns)
+
+new_output_metadata.to_csv(output_metadata_filename, index=False, sep="\t", columns=output_columns, na_rep="NaN")
 
 """Outputting Manifest Filename"""
 manifest_df = pd.DataFrame()

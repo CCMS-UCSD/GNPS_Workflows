@@ -41,14 +41,32 @@ def main():
                 continue
             object_list.append({"filename" : real_name})
     else:
-        print(metadata_files_in_folder[0])
-        object_list = ming_fileio_library.parse_table_with_headers_object_list(metadata_files_in_folder[0])
-        if len(object_list) == 0:
-            for real_name in reverse_file_mangling:
-                mangled_name = reverse_file_mangling[real_name]
-                if mangled_name.find("spec") == -1:
-                    continue
+        object_list_temp = ming_fileio_library.parse_table_with_headers_object_list(metadata_files_in_folder[0])
+        #object_list_temp = pd.read_csv(metadata_files_in_folder[0], sep="\t")
+
+        object_list = []
+        for metadata_object in object_list_temp:
+            if len(metadata_object["filename"]) > 1:
+                object_list.append(metadata_object)
+        
+        #Adding all files, if analyzed file is not in list
+        for real_name in reverse_file_mangling:
+            mangled_name = reverse_file_mangling[real_name]
+            if mangled_name.find("spec") == -1:
+                continue
+
+            found = False
+            for metadata_object in object_list:
+                if os.path.basename(real_name) == metadata_object["filename"]:
+                    found = True
+                    break
+            
+            if found is False:
                 object_list.append({"filename" : real_name})
+
+                
+
+
 
     #Writing headers
     header_list = ["#SampleID", "BarcodeSequence", "LinkerPrimerSequence"]
@@ -72,6 +90,7 @@ def main():
         if not "LinkerPrimerSequence" in metadata_object:
             metadata_object["LinkerPrimerSequence"] = "GATACA"
 
+        #Adding default grouping information
         try:
             mangled_name = reverse_file_mangling[metadata_object["filename"]]
             if mangled_name.find("spec-") != -1:
@@ -98,6 +117,10 @@ def main():
             if len(metadatum["sample_name"]) > 1:
                 metadatum["#SampleID"] = metadatum["sample_name"]
 
+
+    #Removing metadata filenames that are not in the actual data
+    #analysis_files = 
+
     metadata_df = pd.DataFrame(object_list)
     metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
 
@@ -109,11 +132,9 @@ def main():
 
     """Calling remote server to do the calculation"""
     SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    #SERVER_BASE = "http://mingwangbeta.ucsd.edu:5024"
     files = {'manifest': open(output_manifest_filename, 'r'), \
     'metadata': open(output_metadata_filename, 'r'), \
     'bucket': open(args.cluster_buckets, 'r')}
-
 
     r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
     response_dict = r_post.json()

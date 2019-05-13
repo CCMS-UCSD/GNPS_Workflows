@@ -233,6 +233,7 @@
         <require name="workflowParameters" type="file"/>
         <require name="quantification_table" type="file"/>
         <require name="metadata_table" type="folder"/>
+        <require name="spectra" type="file"/>
         <produce name="clusterinfo_summary" type="file" naming="explicit" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
@@ -240,6 +241,7 @@
             <arg valueRef="workflowParameters"/>
             <arg valueRef="quantification_table"/>
             <arg valueRef="metadata_table"/>
+            <arg valueRef="spectra"/>
             <arg valueRef="clusterinfo_summary"/>
         </execution>
     </tool>
@@ -316,6 +318,7 @@
             <arg option="-newparameters" value="min_num_comp:5"/>
             <arg option="-newparameters" value="min_shared_peaks:5"/>
             <arg option="-newparameters" value="database:pnpdatabase"/>
+            <arg option="-newparameters" value="varquest:on"/>
             <arg option="-parametermapping" value="spec_on_server:spec_on_server"/>
             <arg option="-parametermapping" value="tolerance.PM_tolerance:pm_thresh"/>
             <arg option="-parametermapping" value="tolerance.Ion_tolerance:product_ion_thresh"/>

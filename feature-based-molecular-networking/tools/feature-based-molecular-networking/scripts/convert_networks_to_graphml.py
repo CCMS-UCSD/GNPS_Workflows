@@ -23,7 +23,7 @@ def main():
         molecular_network_filtering_library.add_additional_edges(G, additional_pairs_file)
 
 
-    nx.write_graphml(G, sys.argv[5])
+    nx.write_graphml(G, sys.argv[5], infer_numeric_types=True)
 
 
 
