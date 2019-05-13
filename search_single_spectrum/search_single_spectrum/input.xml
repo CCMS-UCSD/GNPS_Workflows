@@ -17,7 +17,7 @@
         </parameter>
 
 		<parameter name="spectrum_string" label="Spectrum Input">
-            <validator type="length" maximum="25000"/>
+            <validator type="length" maximum="2500000"/>
         </parameter>
 
 		<parameter name="precursor_mz" label="Precursor M/Z">
