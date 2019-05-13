@@ -12,14 +12,14 @@ import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
     input_format = pd.read_csv(input_filename,index_col=None,sep='\t')
-    #Prepare left table with ID mz rt 
+    #Prepare left table with ID mz rt
     input_format.columns.values[0]="row ID"
     input_format.columns.values[1]="row m/z"
     input_format.columns.values[4]= "row retention time"
     table_part_left = input_format[['row ID', 'row m/z','row retention time']]
 
     #Prepare right table with ms filename
-    list_data_filename = list(input_format.filter(regex='.mzML|.mzXML|.mzml|.mzXML|.raw|.cdf|.CDF'))
+    list_data_filename = list(input_format.filter(regex='.mzML|.mzXML|.mzml|.mzxml|.raw|.cdf|.CDF|.mzData|.netCDF|.netcdf|.mzdata'))
     table_part_right = input_format[list_data_filename]
 
     ## Add Peak area
