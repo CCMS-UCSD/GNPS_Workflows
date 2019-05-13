@@ -11,21 +11,26 @@ import pandas as pd
 import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
-    # Transform the header to be final result format
-    # mzmed - > row m/z
-    # rtmed -> row retention time
-    # filename - > filename + Peak area
     input_format = pd.read_csv(input_filename,index_col=None,sep='\t')
-    output_format = input_format.drop(['mzmin','mzmax','rtmin',
-                                        'rtmax', 'npeaks','sample'],axis = 1)
-    output_format.columns.values[0]="row ID"
-    output_format.columns.values[1]="row m/z"
-    output_format.columns.values[2] = "row retention time"
-    for i in range(3,len(output_format.columns.values)):
-        output_format.columns.values[i] += " Peak area"
-    output_format.fillna(value=0, inplace=True)
-    output_format['row ID'] = output_format['row ID'].str.slice(start=2)
-    output_format[['row ID']] = output_format[['row ID']].apply(pd.to_numeric)
+    #Prepare left table with ID mz rt 
+    input_format.columns.values[0]="row ID"
+    input_format.columns.values[1]="row m/z"
+    input_format.columns.values[4]= "row retention time"
+    table_part_left = input_format[['row ID', 'row m/z','row retention time']]
+
+    #Prepare right table with ms filename
+    list_data_filename = list(input_format.filter(regex='.mzML|.mzXML|.mzml|.mzXML|.raw|.cdf|.CDF'))
+    table_part_right = input_format[list_data_filename]
+
+    ## Add Peak area
+    for i in range(0,len(table_part_right.columns.values)):
+        table_part_right.columns.values[i] += " Peak area"
+    ## Do some table processing
+    table_part_right.fillna(value=0, inplace=True)
+    table_part_left['row ID'] = table_part_left['row ID'].str.slice(start=2)
+    table_part_left[['row ID']] = table_part_left[['row ID']].apply(pd.to_numeric)
+    ## Join back the tables
+    output_format = pd.concat([table_part_left, table_part_right], axis=1, join='inner')
     output_format.to_csv(output_filename,index = False)
 
 if __name__=="__main__":
