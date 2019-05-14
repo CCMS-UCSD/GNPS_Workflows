@@ -35,7 +35,7 @@ def convert_to_feature_csv(input_filename, output_filename):
                     rename_mapping[key] = filename + " Peak area"
                     continue
     
-    input_quantification = input_quantification.rename(mapper=rename_mapping)
+    input_quantification.rename(columns=rename_mapping, inplace=True)
     input_quantification.to_csv(output_filename,index = False)
 
 if __name__=="__main__":
