@@ -152,13 +152,17 @@ urine_motif_include = args.urine_motif_include
 euphorbia_motif_include = args.euphorbia_motif_include
 
 if gnps_motif_include == "yes":
-    db_list.append(motifset_dict['gnps_binned_005'])
+    #db_list.append(motifset_dict['gnps_binned_005'])
+    db_list.append(2)
 if massbank_motif_include == "yes":
-    db_list.append(motifset_dict['massbank_binned_005'])
+    #db_list.append(motifset_dict['massbank_binned_005'])
+    db_list.append(4)
 if urine_motif_include == "yes":
-    db_list.append(motifset_dict['urine_converted_to_005'])
+    #db_list.append(motifset_dict['urine_converted_to_005'])
+    db_list.append(1)
 if euphorbia_motif_include == "yes":
-    db_list.append(motifset_dict['euphorbia'])
+    #db_list.append(motifset_dict['euphorbia'])
+    db_list.append(3)
 
 # Obtain a token
 client = requests.session()
