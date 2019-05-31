@@ -132,6 +132,7 @@
 				<option value="GNPS" label="GNPS"/>
 				<option value="METABOLOMICSWORKBENCH" label="Metabolomics Workbench"/>
 				<option value="METABOLIGHTS" label="Metabolights"/>
+                <option value="FOODOMICS" label="Foodomics"/>
 			</options>
 			<default value="ALL"/>
 		</parameter>

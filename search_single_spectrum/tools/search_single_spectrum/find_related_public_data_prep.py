@@ -26,6 +26,9 @@ def filter_datasets(filter_name, dataset_list):
     if filter_name == "METABOLIGHTS":
         return [dataset for dataset in dataset_list if dataset["title"].find("Metabolights") != -1 ]
 
+    if filter_name == "FOODOMICS":
+        return [dataset for dataset in dataset_list if dataset["dataset"] == "MSV000083010" ]
+    
     return []
 
 def main():
