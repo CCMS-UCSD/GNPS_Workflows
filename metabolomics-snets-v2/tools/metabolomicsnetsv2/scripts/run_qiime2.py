@@ -60,7 +60,14 @@ def main():
                 if os.path.basename(real_name) == metadata_object["filename"]:
                     found = True
                     break
-            
+
+                included_sample_name = ''.join(ch for ch in metadata_object["filename"] if ch.isalnum())
+                my_sample_name = ''.join(ch for ch in os.path.basename(real_name) if ch.isalnum())
+
+                if included_sample_name == my_sample_name:
+                    found = True
+                    break
+
             if found is False:
                 object_list.append({"filename" : real_name})
 
