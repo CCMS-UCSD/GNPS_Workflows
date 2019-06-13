@@ -29,6 +29,10 @@ def filter_datasets(filter_name, dataset_list):
     if filter_name == "FOODOMICS":
         return [dataset for dataset in dataset_list if dataset["dataset"] == "MSV000083010" ]
     
+    if filter_name == "SKINTRACEEVIDENCE":
+        dataset_list = ["MSV000078832", "MSV000078993", "MSV000080030", "MSV000080030"]
+        return [dataset for dataset in dataset_list if dataset["dataset"] in dataset_list ]
+    
     return []
 
 def main():

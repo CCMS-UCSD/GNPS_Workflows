@@ -133,6 +133,7 @@
 				<option value="METABOLOMICSWORKBENCH" label="Metabolomics Workbench"/>
 				<option value="METABOLIGHTS" label="Metabolights"/>
                 <option value="FOODOMICS" label="Foodomics"/>
+                <option value="SKINTRACEEVIDENCE" label="Skin Trace Evidence"/>
 			</options>
 			<default value="ALL"/>
 		</parameter>
