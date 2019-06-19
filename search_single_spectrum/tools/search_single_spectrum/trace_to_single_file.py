@@ -15,7 +15,7 @@ def get_metadata_information_per_filename(filename):
     filename = filename.replace("/spectrum/", "/ccms_peak/")
 
     url = "http://dorresteinappshub.ucsd.edu:5005/filename?query=%s" % (filename)
-    r = requests.get(url)
+    r = requests.get(url, timeout=30)
 
     return r.json()
 
@@ -23,7 +23,7 @@ def get_metadata_information_per_filename(filename):
 def test_metadata_server():
     try:
         url = "http://dorresteinappshub.ucsd.edu:5005/heartbeat"
-        requests.get(url, timeout=5)
+        requests.get(url, timeout=30)
     except:
         return False
 
