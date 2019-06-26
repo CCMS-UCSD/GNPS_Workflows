@@ -127,10 +127,15 @@ parser.add_argument('input_bin_width', type=float, help='input_bin_width')
 parser.add_argument('input_network_overlap', type=float, help='input_network_overlap')
 parser.add_argument('input_network_pvalue', type=float, help='input_network_pvalue')
 parser.add_argument('input_network_topx', type=int, help='input_network_topx')
+
 parser.add_argument('gnps_motif_include', help='gnps_motif_include')
 parser.add_argument('massbank_motif_include', help='massbank_motif_include')
 parser.add_argument('urine_motif_include', help='urine_motif_include')
 parser.add_argument('euphorbia_motif_include', help='euphorbia_motif_include')
+parser.add_argument('rhamnaceae_motif_include', help='rhamnaceae_motif_include')
+parser.add_argument('strep_salin_motif_include', help='strep_salin_motif_include')
+parser.add_argument('photorhabdus_motif_include', help='photorhabdus_motif_include')
+
 parser.add_argument('input_mgf_file', help='input_mgf_file')
 parser.add_argument('input_pairs_file', help='input_pairs_file')
 parser.add_argument('input_mzmine2_folder', help='input_mzmine2_folder')
@@ -146,23 +151,21 @@ motifset_dict = requests.get(server_url+'list_motifsets/').json()
 # db_list = ['gnps_binned_005']  # Can update this later with multiple motif sets
 db_list = []
 
-gnps_motif_include = args.gnps_motif_include
-massbank_motif_include = args.massbank_motif_include
-urine_motif_include = args.urine_motif_include
-euphorbia_motif_include = args.euphorbia_motif_include
-
-if gnps_motif_include == "yes":
-    #db_list.append(motifset_dict['gnps_binned_005'])
+if args.gnps_motif_include == "yes":
     db_list.append(2)
-if massbank_motif_include == "yes":
-    #db_list.append(motifset_dict['massbank_binned_005'])
+if args.massbank_motif_include == "yes":
     db_list.append(4)
-if urine_motif_include == "yes":
-    #db_list.append(motifset_dict['urine_converted_to_005'])
+if args.urine_motif_include == "yes":
     db_list.append(1)
-if euphorbia_motif_include == "yes":
-    #db_list.append(motifset_dict['euphorbia'])
+if args.euphorbia_motif_include == "yes":
     db_list.append(3)
+if args.rhamnaceae_motif_include == "yes":
+    db_list.append(5)
+if args.strep_salin_motif_include == "yes":
+    db_list.append(6)
+if args.photorhabdus_motif_include == "yes":
+    db_list.append(16)
+
 
 # Obtain a token
 client = requests.session()

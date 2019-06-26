@@ -118,6 +118,33 @@
             <default value="yes"/>
         </parameter>
 
+        <parameter name="RHAMNACEAE_MOTIF_INCLUDE" label="Rhamnaceae Plant Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+        <parameter name="STREP_SALIN_MOTIF_INCLUDE" label="Streptomyces and Salinisporus Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
+        <parameter name="PHOTORHABDUS_MOTIF_INCLUDE" label="Photorhabdus and Xenorhabdus Motif Inclusion">
+            <options>
+                <option value="yes" label="Include"/>
+                <option value="no" label="Exclude"/>
+            </options>
+            <validator type="set"/>
+            <default value="yes"/>
+        </parameter>
+
     </parameters>
 
     <block label="Select Data Files">
@@ -295,6 +322,48 @@
             </cell>
             <cell>
                 <input type="select" parameter="EUPHORBIA_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="RHAMNACEAE_MOTIF_INCLUDE"/>
+                    <tooltip id="RHAMNACEAE_MOTIF_INCLUDE">
+                        Annotated Mass2Motifs from data set comprising 71 Rhamnaceae plant extracts. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="RHAMNACEAE_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="STREP_SALIN_MOTIF_INCLUDE"/>
+                    <tooltip id="STREP_SALIN_MOTIF_INCLUDE">
+                        Annotated Mass2Motif set from Streptomyces and Salinispora extracts with 0.1 Da binned features. Recommended to include when you have plant data or expect terpenes to be present in your data. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="STREP_SALIN_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PHOTORHABDUS_MOTIF_INCLUDE"/>
+                    <tooltip id="PHOTORHABDUS_MOTIF_INCLUDE">
+                        Mass2Motifs discovered in Molecular Networking clustered positive ionisation mode mass spectra generated from bacterial extracts of nematode symbionts of the Photorhabdus and Xenorhabdus genera. Recommended to include when you have plant data or expect terpenes to be present in your data. Please note that if multiple MotifDB sets are selected, very similar Mass2Motifs will be merged.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="PHOTORHABDUS_MOTIF_INCLUDE"></input>
             </cell>
         </row>
     </block>
