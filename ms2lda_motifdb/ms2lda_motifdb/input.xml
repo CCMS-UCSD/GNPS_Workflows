@@ -61,7 +61,7 @@
 
         <parameter name="LDA_FREE_MOTIFS" label="LDA Free Motifs">
             <default value="300"/>
-            <validator type="integer" minimumExclusive="9" maximum="500000"/>
+            <validator type="integer" minimumExclusive="0" maximum="500000"/>
         </parameter>
 
         <!-- LDA Network Parameters -->
