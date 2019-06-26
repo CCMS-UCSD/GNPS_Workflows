@@ -135,6 +135,7 @@ parser.add_argument('euphorbia_motif_include', help='euphorbia_motif_include')
 parser.add_argument('rhamnaceae_motif_include', help='rhamnaceae_motif_include')
 parser.add_argument('strep_salin_motif_include', help='strep_salin_motif_include')
 parser.add_argument('photorhabdus_motif_include', help='photorhabdus_motif_include')
+parser.add_argument('user_motif_sets', help='user_motif_sets')
 
 parser.add_argument('input_mgf_file', help='input_mgf_file')
 parser.add_argument('input_pairs_file', help='input_pairs_file')
@@ -166,6 +167,14 @@ if args.strep_salin_motif_include == "yes":
 if args.photorhabdus_motif_include == "yes":
     db_list.append(16)
 
+if not ("None" in args.user_motif_sets):
+    try:
+        db_list += [int(motif_db_id) for motif_db_id in args.user_motif_sets.split(",")]
+    else:
+        print("User motif set improperly formatted. Please have numbers separated by commas or enter None")
+        exit(1)
+
+db_list = list(set(db_list))
 
 # Obtain a token
 client = requests.session()

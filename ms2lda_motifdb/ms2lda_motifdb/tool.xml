@@ -30,6 +30,7 @@
             <arg valueRef="@RHAMNACEAE_MOTIF_INCLUDE"/>
             <arg valueRef="@STREP_SALIN_MOTIF_INCLUDE"/>
             <arg valueRef="@PHOTORHABDUS_MOTIF_INCLUDE"/>
+            <arg valueRef="@USER_MOTIF_SET"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="network_pairs"/>
             <arg valueRef="mzmine_csv"/>

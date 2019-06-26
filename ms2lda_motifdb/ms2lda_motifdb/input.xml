@@ -145,6 +145,10 @@
             <default value="yes"/>
         </parameter>
 
+        <parameter name="USER_MOTIF_SET" label="User Motif Set List">
+            <default value="None"/>
+        </parameter>
+
     </parameters>
 
     <block label="Select Data Files">
@@ -364,6 +368,22 @@
             </cell>
             <cell>
                 <input type="select" parameter="PHOTORHABDUS_MOTIF_INCLUDE"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="USER_MOTIF_SET"/>
+                    <tooltip id="USER_MOTIF_SET">
+                        Enter a user motif set name. The id for the motif set can be found on ms2lda.org. Multiple user motif sets can be included by separating by commas. 
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="USER_MOTIF_SET">
+                    <attribute name="size" value="20"/>
+                </input>
             </cell>
         </row>
     </block>
