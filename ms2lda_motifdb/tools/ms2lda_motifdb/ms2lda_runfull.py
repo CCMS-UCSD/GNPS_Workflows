@@ -170,7 +170,7 @@ if args.photorhabdus_motif_include == "yes":
 if not ("None" in args.user_motif_sets):
     try:
         db_list += [int(motif_db_id) for motif_db_id in args.user_motif_sets.split(",")]
-    else:
+    except:
         print("User motif set improperly formatted. Please have numbers separated by commas or enter None")
         exit(1)
 
