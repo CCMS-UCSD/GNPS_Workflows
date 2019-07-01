@@ -1,13 +1,22 @@
 import csv
+import pandas as pd
 
 def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
-	# load the pairs file
+	#Writing out the graphml
 
+	# Sanity Checking the input pairs file, making sure component is in there, if not, write it
+	temp_pairs_filename = "temp_pairs.tsv"
+	pairs_df = pd.read_csv(pairs_file)
+	if not "ComponentIndex" in pairs_df:
+		pairs_df["ComponentIndex"] = "-1"
+	pairs_df.to_csv(sep="\t", index=False)
+	
+	# load the pairs file
 	components_to_ignore = set()
 	components_to_ignore.add('-1')
 
 	rows = []
-	with open(pairs_file,'rU') as f:
+	with open(temp_pairs_filename,'rU') as f:
 	    reader = csv.reader(f,dialect='excel',delimiter='\t')
 	    heads = reader.next()
 	    for line in reader:
@@ -98,6 +107,8 @@ def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,ove
 	                    if dp in component_to_doc[c]:
 	                        new_row = [d,m,dp,'','','','',c,'','']
 	                        writer.writerow(new_row)
+
+
 
 	# write a nodes file
 	all_motifs = lda_dictionary['beta'].keys()
