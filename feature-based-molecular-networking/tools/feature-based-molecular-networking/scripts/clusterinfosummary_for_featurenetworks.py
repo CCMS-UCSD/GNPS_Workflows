@@ -217,7 +217,7 @@ def main():
             cluster_obj["RTMean"] = cluster_obj["RTConsensus"]
             cluster_obj["RTStdErr"] = 0
 
-        cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
+        cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID&show=true#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
         #cluster_obj["AllFiles"] = "###".join(all_files)
 
         cluster_obj["sum(precursor intensity)"] = sum(all_abundances)
