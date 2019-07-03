@@ -188,4 +188,28 @@
         </row>
     </block>
 
+
+    <view id="linkout" label="Analyze Files Found With Molecular Networking" group="Reanalyze Files Found">
+        <blockRef id="main" type="linkout"/>
+    </view>
+
+    <block id="linkout" type="table">
+        <data>
+            <source type="file" name="linkout_file/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="filenames" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+
+            <column label="Reananlyze" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARAMTER=library_on_server" value="d.speclibs;"/>
+                <parameter name="HASHPARAMTER=workflow" value="METABOLOMICS-SNETS-V2"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="[filenames]"/>
+                <parameter name="LABEL" value="Reanalyze with Molecular Networking"/>
+            </column>
+        </row>
+    </block>
+
 </interface>

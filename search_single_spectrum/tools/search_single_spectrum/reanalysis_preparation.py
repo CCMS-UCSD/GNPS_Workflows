@@ -20,13 +20,13 @@ def main():
     params_dict["library_on_server"] = "d.speclibs;"
     params_dict["spec_on_server"] = ";".join(all_filenames)
 
-    reanalysis_url = "https://gnps.ucsd.edu/ProteoSAFe/index.jsp?#" + json.dumps(params_dict)
+    print(params_dict)
 
-    output_df = pd.DataFrame()
-    output_df["url"] = reanalysis_url
+    #reanalysis_url = "https://gnps.ucsd.edu/ProteoSAFe/index.jsp?#" + json.dumps(params_dict)
 
-    output_df.to_csv(output_filename, sep="\t", index=False)
-
+    output_file = open(output_filename, "w")
+    output_file.write("filenames\n")
+    output_file.write(";".join(all_filenames))
 
 if __name__ == "__main__":
     main()

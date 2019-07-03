@@ -96,5 +96,8 @@
         <upload port="all_library_matches_db" type="file">
             <query name="resource" value="all_library_matches_db"/>
         </upload>
+		<upload port="linkout_file" type="file">
+            <query name="resource" value="linkout_file"/>
+        </upload>
 	</bind>
 </binding>
