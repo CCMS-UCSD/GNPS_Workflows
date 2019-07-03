@@ -677,6 +677,29 @@
             <parameter name="URLBASE" value="https://ccms-ucsd.github.io/GNPSDocumentation/datasets/"/>
         </block>
 
+        <view id="linkout" label="Make Dataset Public Direct Link" group="Advanced Views - Make Dataset Public">
+            <blockRef id="main" type="linkout"/>
+        </view>
+
+        <block id="linkout" type="table">
+            <data>
+                <source type="file" name="linkout_file/"/>
+                <parsers>
+                    <parser type="sortedTabular" sortBy="filenames" operator="ascending"/>
+                </parsers>
+            </data>
+            <row>
+                <column type="text"     field="filenames"        label="filenames"          width="10"/>
+                <column label="Reananlyze" type="genericurlgenerator" width="5">
+                    <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
+                    <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
+                    <parameter name="HASHPARAMTER=peak_list_files" value="[filenames]"/>
+                    <parameter name="HASHPARAMTER=other_files" value="[metadatanames]"/>
+                    <parameter name="LABEL" value="MassIVE Dataset Deposition Workflow (Prepopulated)"/>
+                </column>
+            </row>
+        </block>
+
         <!-- <view id="makedatasetlink" label="Make this data into Dataset at MassIVE" group="Advanced Views - Make Dataset Public">
                 <blockRef id="main"   type="makedatasetlink"/>
         </view>
