@@ -4,8 +4,6 @@
 	<object     name="spectra"/>
 	<collection     name="library"/>
 
-
-
 	<action name="begin">
 		<output port="lib" 		  collection="library"/>
 		<output port="params" object="workflowParameters"/>
@@ -51,6 +49,12 @@
         <input  port="all_dataset_matches_parallel_matches_output"       collection="all_dataset_matches_parallel_all_file_matches_output"/>
         <output  port="all_dataset_matches" object="all_dataset_spectra_matches"/>
     </action>
+
+    <object name="linkout_file"/>
+    <action name="create_linkout_file">
+        <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
+        <output  port="linkout_file" object="linkout_file"/>
+    </action>
 <!--
     <object name="all_dataset_file_matches"/>
     <object name="all_dataset_spectra_matches"/>
@@ -81,5 +85,6 @@
         <input port="all_dataset_spectra_matches" object="all_dataset_spectra_matches"/>
         <input port="all_library_matches_db" object="all_library_matches_db"/>
 		<input port="spectra" object="spectra"/>
+        <input port="linkout_file" object="linkout_file"/>
 	</action>
 </flow>
