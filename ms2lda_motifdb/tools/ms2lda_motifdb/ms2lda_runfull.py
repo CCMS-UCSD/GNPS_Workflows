@@ -5,9 +5,6 @@ import csv
 import argparse
 
 import requests
-import requests_cache
-
-requests_cache.install_cache('/gscratch/demo_cache')
 
 # Put this here as its now the only thing you need from the motifdb codebase
 class FeatureMatcher(object):
