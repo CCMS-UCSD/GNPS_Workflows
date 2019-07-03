@@ -693,6 +693,7 @@
                 <column label="Reananlyze" type="genericurlgenerator" width="5">
                     <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
                     <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
+                    <parameter name="HASHPARAMTER=desc" value="GNPS - Dataset Creation from GNPS Molcular Networking - [task]"/>
                     <parameter name="HASHPARAMTER=peak_list_files" value="[filenames]"/>
                     <parameter name="HASHPARAMTER=other_files" value="[metadatanames]"/>
                     <parameter name="LABEL" value="MassIVE Dataset Deposition Workflow (Prepopulated)"/>

@@ -43,10 +43,12 @@ def main():
     params_dict["other_files"] = ";".join(metadata_list)
 
     output_file = open(output_filename, "w")
-    output_file.write("filenames\tmetadatanames\n")
+    output_file.write("filenames\tmetadatanames\ttask\n")
     output_file.write(";".join(peak_list_list))
     output_file.write("\t")
     output_file.write(";".join(metadata_list))
+    output_file.write("\t")
+    output_file.write(param_obj["task"][0])
     output_file.write("\n")
 
 if __name__ == "__main__":
