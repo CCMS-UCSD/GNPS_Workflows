@@ -3,13 +3,22 @@ import pandas as pd
 
 def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
 	#Writing out the graphml
+	try:
+		write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X,motif_metadata=motif_metadata)
+	except:
+		print("error writing output for network")
 
+	#Writing out the node information
+	write_node_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X,motif_metadata=motif_metadata)
+
+		            
+def write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
 	# Sanity Checking the input pairs file, making sure component is in there, if not, write it
 	temp_pairs_filename = "temp_pairs.tsv"
 	pairs_df = pd.read_csv(pairs_file)
 	if not "ComponentIndex" in pairs_df:
 		pairs_df["ComponentIndex"] = "-1"
-	pairs_df.to_csv(sep="\t", index=False)
+	pairs_df.to_csv(temp_pairs_filename, sep="\t", index=False)
 	
 	# load the pairs file
 	components_to_ignore = set()
@@ -59,8 +68,6 @@ def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,ove
 	            else:
 	                component_to_motif[c][m] += 1
 
-
-	
 	# find the top X motifs for each component
 	topX = {c:[] for c in component_to_motif}
 	for c,motifs in component_to_motif.items():
@@ -109,7 +116,7 @@ def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,ove
 	                        writer.writerow(new_row)
 
 
-
+def write_node_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
 	# write a nodes file
 	all_motifs = lda_dictionary['beta'].keys()
 	all_docs = lda_dictionary['theta'].keys()
@@ -162,6 +169,3 @@ def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,ove
 	            motif_list[pos] = o
 	        new_row += motif_list
 	        writer.writerow(new_row)
-
-		            
-		                    
