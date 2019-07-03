@@ -689,7 +689,6 @@
                 </parsers>
             </data>
             <row>
-                <column type="text"     field="filenames"        label="filenames"          width="10"/>
                 <column label="Reananlyze" type="genericurlgenerator" width="5">
                     <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
                     <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
