@@ -104,8 +104,11 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                 output_object["metadata"] = ""
 
                 if enrichmetadata:
-                    metadata_list = get_metadata_information_per_filename(source_file)
-                    output_object["metadata"] = "|".join(metadata_list)
+                    try:
+                        metadata_list = get_metadata_information_per_filename(source_file)
+                        output_object["metadata"] = "|".join(metadata_list)
+                    except:
+                        print("ReDU is down")
 
                 output_file_list.append(output_object)
 
