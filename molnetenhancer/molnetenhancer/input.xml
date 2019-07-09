@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="Molecular Network Enhancer" version="1.2.5">
+        <workflow-id>MOLNETENHANCER</workflow-id>
+        <workflow-label>MOLNETENHANCER</workflow-label>
+
+        <!-- Parameter declarations -->
+        <parameters>
+                <!-- Universal parameters -->
+                <parameter name="desc" label="Description">
+                        <validator type="length" maximum="1000"/>
+                </parameter>
+                <parameter name="email" label="Email">
+                        <validator type="email"/>
+                </parameter>
+
+                <parameter name="GNPS_TASK" label="Enter GNPS Task ID (Required)">
+                        <default value="GNPS_TASK"/>
+                </parameter>
+
+                <parameter name="NAP_TASK" label="Enter NAP ID (Optional)">
+                        <default value="None"/>
+                </parameter>
+
+                <parameter name="DEREPLICATOR_TASK" label="Enter DEREPLICATOR ID (Optional)">
+                        <default value="None"/>
+                </parameter>
+
+                <parameter name="VARQUEST_TASK" label="Enter VARQUEST ID (Optional)">
+                        <default value="None"/>
+                </parameter>
+        </parameters>
+
+        <block label="Molecular Network Enhancer">
+                <row>
+                        <cell>
+                                <label>
+                                        <content parameter="GNPS_TASK"/>
+                                </label>
+                        </cell>
+                        <cell>
+                                <input type="text" parameter="GNPS_TASK">
+                                        <attribute name="size" value="30"/>
+                                </input>
+                        </cell>
+                </row>
+                <row>
+                        <cell>
+                                <label>
+                                        <content parameter="NAP_TASK"/>
+                                </label>
+                        </cell>
+                        <cell>
+                                <input type="text" parameter="NAP_TASK">
+                                        <attribute name="size" value="30"/>
+                                </input>
+                        </cell>
+                </row>
+                <row>
+                        <cell>
+                                <label>
+                                        <content parameter="DEREPLICATOR_TASK"/>
+                                </label>
+                        </cell>
+                        <cell>
+                                <input type="text" parameter="DEREPLICATOR_TASK">
+                                        <attribute name="size" value="30"/>
+                                </input>
+                        </cell>
+                </row>
+                <row>
+                        <cell>
+                                <label>
+                                        <content parameter="VARQUEST_TASK"/>
+                                </label>
+                        </cell>
+                        <cell>
+                                <input type="text" parameter="VARQUEST_TASK">
+                                        <attribute name="size" value="30"/>
+                                </input>
+                        </cell>
+                </row>
+
+        </block>
+</interface>

@@ -1,0 +1,24 @@
+<toolset>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="molnetenhancer" path="python3.5"/>
+    </pathSet>
+    <pathSet base="molnetenhancer">
+        <pathVar name="molnetenhancer.script" path="molnetenhancer.py"/>
+    </pathSet>
+
+    <tool name="molnetenhancer">
+        <require name="workflowParameters"       type="file"/>
+        <produce name="output_network"        type="folder"/>
+        
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="molnetenhancer.script"/>
+            <arg valueRef="@GNPS_TASK"/>
+            <arg option="-nap" valueRef="@NAP_TASK"/>
+            <arg option="-dereplicator" valueRef="@DEREPLICATOR_TASK"/>
+            <arg option="-varquest" valueRef="@VARQUEST_TASK"/>
+            <arg valueRef="output_network"/>
+        </execution>
+    </tool>
+
+
+</toolset>

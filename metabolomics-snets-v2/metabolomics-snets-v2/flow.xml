@@ -290,6 +290,13 @@
         <output  port="all_dataset_matches" object="all_dataset_matches"/>
     </action>
 
+    <!-- Dataset Submission -->
+    <object name="linkout_file"/>
+    <action name="create_linkout_file">
+        <input  port="workflowParameters" object="workflowParameters"/>
+        <output  port="linkout_file" object="linkout_file"/>
+    </action>
+
 
     <action name="end">
         <!-- Library Search -->
@@ -331,5 +338,8 @@
         <!-- Dataset Search -->
         <input port="all_dataset_matches" object="all_dataset_matches"/>
         <input port="compound_filename_occurences" object="compound_filename_occurences"/>
+
+        <!-- Dataset Linkout -->
+        <input port="linkout_file" object="linkout_file"/>
     </action>
 </flow>

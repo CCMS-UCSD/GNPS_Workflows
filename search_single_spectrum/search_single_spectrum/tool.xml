@@ -17,8 +17,6 @@
     </tool>
 
 
-
-
     <pathSet base="anaconda3/bin">
         <toolPath tool="FindDatasetMatchesParallelPrep" path="python3.5"/>
         <toolPath tool="FindDatasetMatchesParallelStep" path="python3.5"/>
@@ -92,14 +90,18 @@
         </execution>
     </tool>
 
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="get_dbannotations" path="python3.5"/>
+    </pathSet>
     <pathSet base="search_single_spectrum">
-        <toolPath tool="get_dbannotations" path="getGNPS_library_annotations.py"/>
+        <pathVar name="get_dbannotations.script" path="getGNPS_library_annotations.py"/>
     </pathSet>
     <tool name="get_dbannotations">
         <require name="result" type="file"/>
         <produce name="DB_result" type="file" naming="explicit" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
+            <arg pathRef="get_dbannotations.script"/>
             <arg valueRef="result"/>
             <arg valueRef="DB_result"/>
         </execution>
@@ -122,6 +124,24 @@
             <arg valueRef="all_dataset_matches"/>
             <arg valueRef="all_dataset_file_matches"/>
             <arg valueRef="all_dataset_spectra_matches"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="create_linkout_file" path="python3.5"/>
+    </pathSet>
+    <pathSet base="search_single_spectrum">
+        <pathVar name="create_linkout_file.script" path="reanalysis_preparation.py" />
+    </pathSet>
+    <tool name="create_linkout_file">
+        <require name="all_dataset_file_matches" type="file"/>
+        <produce name="linkout_file" type="file" naming="explicit"  extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_linkout_file.script"/>
+            <arg valueRef="all_dataset_file_matches"/>
+            <arg valueRef="linkout_file"/>
         </execution>
     </tool>
 

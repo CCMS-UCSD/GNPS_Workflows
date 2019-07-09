@@ -15,7 +15,7 @@ def get_metadata_information_per_filename(filename):
     filename = filename.replace("/spectrum/", "/ccms_peak/")
 
     url = "http://dorresteinappshub.ucsd.edu:5005/filename?query=%s" % (filename)
-    r = requests.get(url)
+    r = requests.get(url, timeout=30)
 
     return r.json()
 
@@ -23,7 +23,7 @@ def get_metadata_information_per_filename(filename):
 def test_metadata_server():
     try:
         url = "http://dorresteinappshub.ucsd.edu:5005/heartbeat"
-        requests.get(url, timeout=5)
+        requests.get(url, timeout=30)
     except:
         return False
 
@@ -85,8 +85,11 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                 output_object["metadata"] = ""
 
                 if enrichmetadata:
-                    metadata_list = get_metadata_information_per_filename(raw_spectrum["Original_Path"])
-                    output_object["metadata"] = "|".join(metadata_list)
+                    try:
+                        metadata_list = get_metadata_information_per_filename(raw_spectrum["Original_Path"])
+                        output_object["metadata"] = "|".join(metadata_list)
+                    except:
+                        print("ReDU is down")
 
                 output_match_list.append(output_object)
 
@@ -101,8 +104,11 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                 output_object["metadata"] = ""
 
                 if enrichmetadata:
-                    metadata_list = get_metadata_information_per_filename(source_file)
-                    output_object["metadata"] = "|".join(metadata_list)
+                    try:
+                        metadata_list = get_metadata_information_per_filename(source_file)
+                        output_object["metadata"] = "|".join(metadata_list)
+                    except:
+                        print("ReDU is down")
 
                 output_file_list.append(output_object)
 

@@ -677,6 +677,29 @@
             <parameter name="URLBASE" value="https://ccms-ucsd.github.io/GNPSDocumentation/datasets/"/>
         </block>
 
+        <view id="linkout" label="Make Dataset Public Direct Link" group="Advanced Views - Make Dataset Public">
+            <blockRef id="main" type="linkout"/>
+        </view>
+
+        <block id="linkout" type="table">
+            <data>
+                <source type="file" name="linkout_file/"/>
+                <parsers>
+                    <parser type="sortedTabular" sortBy="filenames" operator="ascending"/>
+                </parsers>
+            </data>
+            <row>
+                <column label="Reananlyze" type="genericurlgenerator" width="5">
+                    <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
+                    <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
+                    <parameter name="HASHPARAMTER=desc" value="GNPS - Dataset Creation from GNPS Molcular Networking - [task]"/>
+                    <parameter name="HASHPARAMTER=peak_list_files" value="[filenames]"/>
+                    <parameter name="HASHPARAMTER=other_files" value="[metadatanames]"/>
+                    <parameter name="LABEL" value="MassIVE Dataset Deposition Workflow (Prepopulated)"/>
+                </column>
+            </row>
+        </block>
+
         <!-- <view id="makedatasetlink" label="Make this data into Dataset at MassIVE" group="Advanced Views - Make Dataset Public">
                 <blockRef id="main"   type="makedatasetlink"/>
         </view>
@@ -1349,6 +1372,18 @@
         </parsers>
       </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Classic Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "MGF_SOURCE":"mscluster"}'/>
+    </block>
+
+    <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="molnetenhancer"/>
+    </view>
+    <block id="molnetenhancer" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
 

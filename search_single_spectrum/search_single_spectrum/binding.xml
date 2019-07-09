@@ -52,6 +52,11 @@
 		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
 	</bind>
 
+	<bind action="create_linkout_file" tool="create_linkout_file">
+		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
+		<productionToOutput port="linkout_file"       production="linkout_file"/>
+	</bind>
+
     <!-- <bind action="trace_matches_to_file" tool="trace_matches_to_file">
 		<inputAsRequirement port="all_dataset_matches" requirement="all_dataset_matches"/>
 		<productionToOutput port="all_dataset_file_matches"       production="all_dataset_file_matches"/>
@@ -90,6 +95,9 @@
 		</upload>
         <upload port="all_library_matches_db" type="file">
             <query name="resource" value="all_library_matches_db"/>
+        </upload>
+		<upload port="linkout_file" type="file">
+            <query name="resource" value="linkout_file"/>
         </upload>
 	</bind>
 </binding>

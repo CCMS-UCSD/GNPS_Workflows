@@ -60,13 +60,9 @@ def main():
                 if os.path.basename(real_name) == metadata_object["filename"]:
                     found = True
                     break
-            
+
             if found is False:
                 object_list.append({"filename" : real_name})
-
-                
-
-
 
     #Writing headers
     header_list = ["#SampleID", "BarcodeSequence", "LinkerPrimerSequence"]
@@ -82,7 +78,8 @@ def main():
                 metadata_object["#SampleID"] = metadata_object["#SampleID"]
             else:
                 #Stripping off all non-alphanumeric characters
-                metadata_object["#SampleID"] = ''.join(ch for ch in metadata_object["filename"] if ch.isalnum())
+                #metadata_object["#SampleID"] = ''.join(ch for ch in metadata_object["filename"] if ch.isalnum())
+                metadata_object["#SampleID"] = metadata_object["filename"]
         if not "Description" in metadata_object:
             metadata_object["Description"] = "LoremIpsum"
         if not "BarcodeSequence" in metadata_object:
