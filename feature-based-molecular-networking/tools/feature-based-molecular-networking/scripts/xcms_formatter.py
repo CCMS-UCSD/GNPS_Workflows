@@ -35,4 +35,4 @@ def convert_to_feature_csv(input_filename, output_filename):
 
 if __name__=="__main__":
     # there should be obly one input file
-    convert_to_feature_csv(sys.argv[1])
+    convert_to_feature_csv(sys.argv[1],sys.argv[2])
