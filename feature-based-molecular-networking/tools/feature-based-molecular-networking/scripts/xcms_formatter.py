@@ -11,16 +11,18 @@ import pandas as pd
 import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
-    input_format = pd.read_csv(input_filename,index_col=None,sep='\t')
+    input_format_df = pd.read_csv(input_filename,index_col=None,sep='\t')
+    
     #Prepare left table with ID mz rt
-    input_format.columns.values[0]="row ID"
-    input_format.columns.values[1]="row m/z"
-    input_format.columns.values[4]= "row retention time"
-    table_part_left = input_format[['row ID', 'row m/z','row retention time']]
+    input_format_df = input_format_df.rename(columns={ "Row.names":"row ID", \
+        "mzmed":"row m/z", \
+        "rtmed":"row retention time"})
+
+    table_part_left = input_format_df[['row ID', 'row m/z','row retention time']]
 
     #Prepare right table with ms filename
-    list_data_filename = list(input_format.filter(regex='.mzML|.mzXML|.mzml|.mzxml|.raw|.cdf|.CDF|.mzData|.netCDF|.netcdf|.mzdata'))
-    table_part_right = input_format[list_data_filename]
+    list_data_filename = list(input_format_df.filter(regex='.mzML|.mzXML|.mzml|.mzxml|.raw|.cdf|.CDF|.mzData|.netCDF|.netcdf|.mzdata'))
+    table_part_right = input_format_df[list_data_filename]
 
     ## Add Peak area
     for i in range(0,len(table_part_right.columns.values)):
