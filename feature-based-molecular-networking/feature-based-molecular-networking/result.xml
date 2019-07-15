@@ -9,6 +9,7 @@
         <source type="folder" name="quantification_table_reformatted/"/>
         <source type="folder" name="metadata_table/"/>
         <source type="folder" name="DB_result/"/>
+        <source type="folder" name="qiime2_output/"/>
     </download>
 
 
@@ -255,6 +256,14 @@
                 <parameter name="LABEL" value="View Raw Spectra"/>
                 <parameter name="USETASK" value="True"/>
             </column> -->
+
+            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARMTER=spec_on_server" value="[task]/"/>
+                <parameter name="LABEL" value="AnnotatetoGNPS"/>
+            </column>
+
+
 
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
             <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
