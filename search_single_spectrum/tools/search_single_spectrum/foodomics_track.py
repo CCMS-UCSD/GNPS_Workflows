@@ -97,13 +97,17 @@ def merge_markers():
     
 metadata = sys.argv[1]
 query = sys.argv[2]
+output_filename = sys.argv[3]
 
-#run main
-print('loading hit names')
-known_hit = {}
-print('done\nsearching for results')
-all_depth(1,metadata,query,known_hit)
-df = merge_markers()
-df.to_csv('merged_markers.tsv',sep='\t')
-print('done,please see file ')
-#spectrum identifier: 
+try:
+    #run main
+    print('loading hit names')
+    known_hit = {}
+    print('done\nsearching for results')
+    all_depth(1,metadata,query,known_hit)
+    df = merge_markers()
+    df.to_csv(output_filename,sep='\t')
+    print('done,please see file ')
+    #spectrum identifier: 
+except:
+    open(output_filename, "w")

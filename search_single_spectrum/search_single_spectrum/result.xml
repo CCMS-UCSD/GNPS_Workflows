@@ -212,4 +212,23 @@
         </row>
     </block>
 
+    <view id="foodomics" label="View Foodomics Specific Molecules" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="foodomics"/>
+    </view>
+
+    <block id="foodomics" type="table">
+        <data>
+            <source type="file" name="foodomics_tracking_file/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="depth" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="depth" label="depth"/>
+            <column type="text" field="marker_type" label="marker_type" width="5"/>
+            <column type="integer" field="number_of_hits" label="number_of_hits" width="3"/>
+            <column type="float" field="product_score" label="product_score" precision="2"/>
+        </row>
+    </block>
+
 </interface>

@@ -99,5 +99,8 @@
 		<upload port="linkout_file" type="file">
             <query name="resource" value="linkout_file"/>
         </upload>
+		<upload port="foodomics_tracking_file" type="file">
+            <query name="resource" value="foodomics_tracking_file"/>
+        </upload>
 	</bind>
 </binding>
