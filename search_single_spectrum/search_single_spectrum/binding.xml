@@ -57,11 +57,11 @@
 		<productionToOutput port="linkout_file"       production="linkout_file"/>
 	</bind>
 
-    <!-- <bind action="trace_matches_to_file" tool="trace_matches_to_file">
-		<inputAsRequirement port="all_dataset_matches" requirement="all_dataset_matches"/>
-		<productionToOutput port="all_dataset_file_matches"       production="all_dataset_file_matches"/>
-        <productionToOutput port="all_dataset_spectra_matches"       production="all_dataset_spectra_matches"/>
-	</bind> -->
+	<!-- Foodomics -->
+	<bind action="foodomics_track" tool="foodomics_track">
+		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
+		<productionToOutput port="foodomics_tracking_file"       production="foodomics_tracking_file"/>
+	</bind>
 
     <!-- Library Search -->
     <bind action="library_search_single" tool="library_search_single">

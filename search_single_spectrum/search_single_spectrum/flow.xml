@@ -55,14 +55,15 @@
         <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
         <output  port="linkout_file" object="linkout_file"/>
     </action>
-<!--
-    <object name="all_dataset_file_matches"/>
-    <object name="all_dataset_spectra_matches"/>
-    <action name="trace_matches_to_file">
-        <input  port="all_dataset_matches"       object="all_dataset_matches"/>
-        <output  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
-        <output  port="all_dataset_spectra_matches" object="all_dataset_spectra_matches"/>
-    </action> -->
+
+    <!-- Foodomics Specific -->
+    <object name="foodomics_tracking_file"/>
+    <action name="foodomics_track">
+        <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
+        <output  port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+    </action>
+
+
 
     <!-- Library Search -->
     <object name="all_library_matches"/>
@@ -86,5 +87,6 @@
         <input port="all_library_matches_db" object="all_library_matches_db"/>
 		<input port="spectra" object="spectra"/>
         <input port="linkout_file" object="linkout_file"/>
+        <input port="foodomics_tracking_file" object="foodomics_tracking_file"/>
 	</action>
 </flow>
