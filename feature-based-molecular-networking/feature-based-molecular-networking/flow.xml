@@ -26,18 +26,22 @@
     </action>
 
     <object name="quantification_table_reformatted"/>
+    <object name="spectra_reformatted"/>
     <action name="reformat_quantification">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
         <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
+
+        <input port="inputSpectra" object="inputSpectra"/>
+        <output port="spectra_reformatted" object="spectra_reformatted"/>
     </action>
 
     <object name="spectra"/>
     <action name="renumber_mgf">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="inputSpectra" object="inputSpectra"/>
+        <input port="inputSpectra" object="spectra_reformatted"/>
         <output port="spectra" object="spectra"/>
     </action>
 

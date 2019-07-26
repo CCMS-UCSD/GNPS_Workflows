@@ -41,6 +41,9 @@
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
         <productionToOutput port="quantification_table_reformatted" production="quantification_table_reformatted"/>
+
+        <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
+        <productionToOutput port="spectra_reformatted" production="spectra_reformatted"/>
     </bind>
 
     <bind action="renumber_mgf" tool="renumber_mgf">
