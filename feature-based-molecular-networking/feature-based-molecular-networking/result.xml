@@ -6,6 +6,7 @@
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
         <source type="folder" name="spectra/"/>
+        <source type="folder" name="quantification_table/"/>
         <source type="folder" name="quantification_table_reformatted/"/>
         <source type="folder" name="metadata_table/"/>
         <source type="folder" name="DB_result/"/>
