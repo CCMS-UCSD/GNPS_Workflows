@@ -19,6 +19,15 @@ class TestLoaders(unittest.TestCase):
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/metaboscape/quantification_table-00000.csv", \
             "./metaboscape_output.csv")
 
+    def test_mzmine2(self):
+        return True
+
+    def test_openms(self):
+        return True
+    
+    def test_xcms3(self):
+        return True
+
 
 if __name__ == '__main__':
     unittest.main()
