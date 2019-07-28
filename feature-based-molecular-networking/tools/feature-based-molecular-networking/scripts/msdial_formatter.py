@@ -3,7 +3,7 @@
 """
 Created on Thu Oct  4 17:20:37 2018, and updated April 2 2019
 
-@author: zheng zhang and louis felix nothias
+@author: zheng zhang, louis felix nothias, and mingxun wang
 @purpose: to convert the MS-DIAL file into a diserable format
 """
 import pandas as pd
