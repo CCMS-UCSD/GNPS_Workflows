@@ -14,7 +14,7 @@ MGF output should include...
 
 ### MS-DIAL
 
-The feature output should include the following columns:
+The feature output should include 3 rows that can be ignored and headers starting in row 4 with the following column headers:
 
 1. Alignment ID
 2. Average Mz
@@ -28,9 +28,17 @@ The feature table should include...
 
 ### Progenesis
 
-The feature table shoudl include...
+The feature table should include 2 rows that can be ignored and headers starting in row 3 with the following the following columns:
+
+1. Compound
+2. m/z
+3. Retention time (min)
 
 ### OpenMS
 
+The feature table should include...
+
 ### XCMS3
+
+The feature table should include...
 
