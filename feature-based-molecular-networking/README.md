@@ -14,7 +14,13 @@ MGF output should include...
 
 ### MS-DIAL
 
-The feature output should include...
+The feature output should include the following columns:
+
+1. Alignment ID
+2. Average Mz
+3. Average Rt(min)
+
+Additionally, it is assumed there are additional columns where the per sample quant starts at column 22. 
 
 ### Metaboscape
 
