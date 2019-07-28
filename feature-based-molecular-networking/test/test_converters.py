@@ -14,7 +14,6 @@ class TestLoaders(unittest.TestCase):
 
         self.assertTrue(filecmp.cmp("./msdial_output.csv", "./reference_input_file_for_formatter/MS-DIAL/reference_output_file.csv", shallow=False))
 
-
     def test_progenesis(self):
         progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_Peaks.csv", \
             "./progenesis_output.csv")
