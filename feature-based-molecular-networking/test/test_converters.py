@@ -6,6 +6,7 @@ import msdial_formatter
 import progenesis_formatter
 import metaboscape_formatter
 import xcms_formatter
+import mzmine2_formatter
 
 class TestLoaders(unittest.TestCase):
 
@@ -24,14 +25,15 @@ class TestLoaders(unittest.TestCase):
             "./metaboscape_output.csv")
 
     def test_mzmine2(self):
-        return True
-
+        mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
+            "./mzmine2_output.csv")
+        
     def test_openms(self):
-        xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/quantification_table-00000.txt", \
-            "./xcms3_output.csv")
+        return True
     
     def test_xcms3(self):
-        return True
+        xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/XCMS3-GNPS_AG_test_featuretable.txt", \
+            "./xcms3_output.csv")
 
 
 if __name__ == '__main__':
