@@ -5,6 +5,7 @@ sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
 import msdial_formatter
 import progenesis_formatter
 import metaboscape_formatter
+import xcms_formatter
 
 class TestLoaders(unittest.TestCase):
 
@@ -26,7 +27,8 @@ class TestLoaders(unittest.TestCase):
         return True
 
     def test_openms(self):
-        return True
+        xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/quantification_table-00000.txt", \
+            "./xcms3_output.csv")
     
     def test_xcms3(self):
         return True
