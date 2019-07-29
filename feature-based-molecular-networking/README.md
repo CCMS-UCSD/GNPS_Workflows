@@ -42,7 +42,8 @@ The feature table should include 2 rows that can be ignored and headers starting
 
 ### OpenMS
 
-The feature table should include...
+TODO: include updated format description, see example as format is complicated. 
+
 
 ### XCMS3
 
