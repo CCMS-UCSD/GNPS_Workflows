@@ -24,7 +24,13 @@ Additionally, it is assumed there are additional columns where the per sample qu
 
 ### Metaboscape
 
-The feature table should include...
+The feature table should include a header row with the following columns:
+
+1. FEATURE_ID
+2. RT
+3. PEPMASS
+
+All sample headers are suffixed with a ".d". 
 
 ### Progenesis
 
@@ -40,5 +46,10 @@ The feature table should include...
 
 ### XCMS3
 
-The feature table should include...
+The feature table should include a header row with the following headers:
 
+1. Row.names - where the feature identifier is prefixed with "FT"
+2. mzmed
+3. rtmed
+
+Following these headers are the samples. 
