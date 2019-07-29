@@ -7,6 +7,7 @@ import progenesis_formatter
 import metaboscape_formatter
 import xcms_formatter
 import mzmine2_formatter
+import openms_formatter
 
 class TestLoaders(unittest.TestCase):
 
@@ -26,10 +27,11 @@ class TestLoaders(unittest.TestCase):
 
     def test_mzmine2(self):
         mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
-            "./mzmine2_output.csv")
+            "./mzmine_output.csv")
         
     def test_openms(self):
-        return True
+        openms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/openms/textexporter-00000.csv", \
+            "./openms_output.csv")
     
     def test_xcms3(self):
         xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/XCMS3-GNPS_AG_test_featuretable.txt", \
