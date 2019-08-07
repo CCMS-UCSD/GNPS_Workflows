@@ -68,7 +68,7 @@
             <column type="text" field="dataset_scan" label="dataset_scan" width="10"/>
             <column type="text" field="filename" label="filename" width="40"/>
             <column label="View Metadata" type="genericurlgenerator" width="10" >
-                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="URLBASE" value="https://redu.ucsd.edu:5005/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>
@@ -92,7 +92,7 @@
             <column type="text" field="filename" label="GNPS Filepath" width="40"/>
             <column type="text" field="filescan" label="Scan Number" width="40"/>
             <column label="View Metadata" type="genericurlgenerator" width="10" >
-                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="URLBASE" value="https://redu.ucsd.edu:5005/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>
