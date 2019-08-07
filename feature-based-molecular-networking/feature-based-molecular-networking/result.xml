@@ -260,7 +260,9 @@
 
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
-                <parameter name="HASHPARMTER=spec_on_server" value="[task]/"/>
+                <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="{task}/spectra/specs_ms.mgf"/>
+                <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[cluster index]"/>
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
 
