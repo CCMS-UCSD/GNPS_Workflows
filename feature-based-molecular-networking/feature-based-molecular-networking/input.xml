@@ -160,7 +160,7 @@
                 <option value="MSDIAL" label="MS-DIAL"/>
                 <option value="METABOSCAPE" label="Metaboscape"/>
                 <option value="XCMS3" label="XCMS 3"/>
-                <option value="PROGENESIS" label="Progensis"/>
+                <option value="PROGENESIS" label="Progenesis"/>
             </options>
             <validator type="set"/>
             <default value="MZMINE2"/>
