@@ -1024,7 +1024,7 @@
                           <parameter name="spec_on_server" value="[Original_Path]"/>
                         </column>
                         <column label="View Metadata" type="genericurlgenerator" width="10" >
-                            <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                            <parameter name="URLBASE" value="https://redu.ucsd.edu/datalookup"/>
                             <parameter name="REQUESTPARAMETER=filename" value="[Original_Path]"/>
                             <parameter name="LABEL" value="View Global Metadata"/>
                         </column>
@@ -1358,7 +1358,7 @@
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+        <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
 
