@@ -72,24 +72,6 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             except:
                 continue
 
-# Name: Unknown (7.60_918.8447m/z)
-# Charge: 1+
-# PrecursorMZ: 918.8447
-# Comment: 7.60_918.8447m/z
-# Num Peaks: 50
-
-# BEGIN IONS
-# SCANS=1
-# PEPMASS=84.96001
-# MSLEVEL=2
-# CHARGE=1+
-# RTINMINUTES=12.85457
-# ION=[M+H]+
-# 84.07899 41
-# 84.96154 168
-# END IONS
-
-
     return
 
 if __name__=="__main__":
