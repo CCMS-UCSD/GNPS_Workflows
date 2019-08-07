@@ -136,7 +136,7 @@
         <parameter name="QUANT_FILE_NORM" label="Normalization Per File">
             <options>
                 <option value="None" label="No Norm"/>
-                <option value="RowSum" label="Row Sum Normalization"/>
+                <option value="RowSum" label="Row Sum Normalization (Per File Sum to 1,000,000)"/>
             </options>
             <validator type="set"/>
             <default value="None"/>
