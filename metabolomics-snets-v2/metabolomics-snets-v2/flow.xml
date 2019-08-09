@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <flow name="metabolomics-snet-v2">
-    <collection name="input_file_validation_flag"/>
-    <collection name="spectrapklbin"/>
-    <collection name="spectra"/>
-    <collection name="aligns"/>
-    <collection name="paramsgen"/>
-    <collection name="intermediateresults"/>
-    <object     name="result"/>
-    <object     name="specnetsparam"/>
-    <collection name="paramsgen_specnets"/>
-    <collection name="intermediateresults_specnets"/>
-    <object     name="workflowParameters_specnets"/>
-    <object     name="result_specnets"/>
-    <object     name="result_specnets_DB"/>
-    <object     name="groupmapping_converted"/>
-    <object     name="allclustered_spectra_info_withpath"/>
-
-    <object name="network_statistics"/>
-    <!-- <object name="all_network_paths"/>
-    <object name="all_network_paths_histogram"/> -->
-    <object name="compound_filename_occurences"/>
+    
     <collection name="inputspectra"/>
     <collection     name="library"/>
     <object name="metadatafile"/>
@@ -46,6 +27,8 @@
     </action>
 
 
+    <collection name="input_file_validation_flag"/>
+
     <action name="input_file_validation_specnets">
         <input  port="inputspectra"             collection="inputspectra"/>
         <input  port="flowParams" object="workflowParameters"/>
@@ -54,12 +37,16 @@
 
 
     <!-- Library Search -->
+    <collection name="paramsgen_specnets"/>
+
     <action name="searchlibraryparamgeneration_specnets">
         <input  port="spectra"       collection="spectra"/>
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="lib"            collection="library"/>
         <output port="paramsgen_specnets"     collection="paramsgen_specnets"/>
     </action>
+
+    <collection name="intermediateresults_specnets"/>
 
     <action name="searchlibrarysearch_specnets" multiplicity="multiple" type="parallel">
         <input port="paramsgen_specnets"     collection="paramsgen_specnets" transformation="unfolding"/>
@@ -68,12 +55,14 @@
         <output port="intermediateresults_specnets"     collection="intermediateresults_specnets"/>
     </action>
 
+    <object     name="result_specnets"/>
     <action name="searchlibrarymerge_specnets">
         <input port="intermediateresults_specnets"     collection="intermediateresults_specnets"/>
         <input  port="flowParams" object="workflowParameters"/>
         <output port="result_specnets"     object="result_specnets"/>
     </action>
 
+    <object     name="result_specnets_DB"/>
     <action name="get_dbannotations_specnets">
         <input  port="result_specnets"             object="result_specnets"/>
         <output port="result_specnets_DB"           object="result_specnets_DB"/>
@@ -81,12 +70,17 @@
 
 
     <!-- Clustering -->
+    <object     name="specnetsparam"/>
+
     <action name="specnetsparamsgen">
         <input  port="spec"       collection="inputspectra"/>
         <input  port="input_file_validation_flag"       collection="input_file_validation_flag"/>
         <input  port="flowParams" object="workflowParameters"/>
         <output port="specnetsparam"     object="specnetsparam"/>
     </action>
+
+    <collection name="spectra"/>
+    <collection name="aligns"/>
 
     <action name="msclustering">
         <input  port="spec"       collection="inputspectra"/>
@@ -137,7 +131,9 @@
 
 
     <!-- Merging Grouping Information -->
+    <object     name="groupmapping_converted"/>
     <object name="attributemapping_converted"/>
+
     <action name="metabolomicgroupmappingconvert">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="groupmapping" object="groupmapping"/>
@@ -170,12 +166,16 @@
     </action>
 
     <!-- Compound Occurrence in Files -->
+    <object name="compound_filename_occurences"/>
+
     <action name="metabolomic_create_compound_filename_occurences">
         <input port="clusterinfosummarygroup_attributes_withIDs"     object="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
         <output port="compound_filename_occurences"     object="compound_filename_occurences"/>
     </action>
 
     <!-- Enriching clusterinfo with files and scans -->
+    <object     name="allclustered_spectra_info_withpath"/>
+
     <action name="metabolomic_create_all_cluster_info">
         <input  port="flowParams" object="workflowParameters"/>
         <input port="clusterinfosummarygroup_attributes"     object="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
@@ -206,6 +206,8 @@
 
 
     <!-- Summarizing Statistics for Networks -->
+    <object name="network_statistics"/>
+
     <action name="metabolomic_network_statistics">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="networkedges" object="networkedges"/>
