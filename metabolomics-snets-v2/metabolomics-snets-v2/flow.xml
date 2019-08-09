@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<flow name="metabolomics-snet">
+<flow name="metabolomics-snet-v2">
     <collection name="input_file_validation_flag"/>
     <collection name="spectrapklbin"/>
     <collection name="spectra"/>
