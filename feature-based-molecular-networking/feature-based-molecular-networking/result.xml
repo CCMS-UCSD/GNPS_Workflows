@@ -480,6 +480,18 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
     </block>
 
+     <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="molnetenhancer"/>
+    </view>
+    <block id="molnetenhancer" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
+    </block>
+
 
 
 
