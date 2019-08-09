@@ -11,6 +11,18 @@
         <source type="folder" name="qiime2_output/"/>
     </download>
 
+    <view id="clone_updated_networking" label="Clone Job to Latest Molecular Networking V2 Workflow" group="Clone to Latest Networking Workflow">
+        <blockRef id="main"   type="clone_updated_networking"/>
+    </view>
+    <block id="clone_updated_networking" type="dummylinkout">
+        <data>
+            <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B"workflow":"METABOLOMICS-SNETS-V2"%7D'/>
+    </block>
+
 
         <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
                 <blockRef id="main"   type="view_all_annotations_DB"/>
