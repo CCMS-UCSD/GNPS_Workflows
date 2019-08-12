@@ -90,7 +90,7 @@
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
                 <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
-                <parameter name="HASHPARAMTER=spec_on_server" value="f.[filename]"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="[filename]"/>
                 <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[filescan]"/>
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
