@@ -25,23 +25,31 @@ def update_workflow():
     final_path = '/data/cluster/tools/metabolomicsnetsv2/%s/' % (VERSION)
     update_folder(local_path, temp_path_copy, temp_path, final_path, user=env.user)
 
-    #put(os.path.join(os.getcwd(), 'tools/metabolomicsnetsv2'), "/data/cluster/tools/", mirror_local_mode=True)
-
 def update_workflow_gnps():
     #TODO: Update actual deployment to GNPS to be correct
-    print("REDO")
+    print("TEST THIS WORKS")
 
-    # local_path = os.path.join(os.getcwd(), 'tools/metabolomicsnetsv2')
-    # temp_path_copy = '/Users/{}/temp_tools'.format(env.user)
-    # temp_path = '/Users/{}/temp_tools/metabolomicsnetsv2'.format(env.user)
-    # final_path = '/data/cluster/tools/'
-    # update_folder(local_path, temp_path_copy, temp_path, final_path, user="gamma")
+    # Deploying the workflow
+    sudo("mkdir /ccms/workflows/metabolomics-snets-v2/versions", warn_only=True, user="ccms")
+    sudo("mkdir /ccms/workflows/metabolomics-snets-v2/versions/%s" % (VERSION) , warn_only=True, user="ccms")
 
-    # local_path = os.path.join(os.getcwd(), 'metabolomics-snets-v2')
-    # temp_path_copy = '/Users/{}/temp'.format(env.user)
-    # temp_path = '/Users/{}/temp/metabolomics-snets-v2'.format(env.user)
-    # final_path = '/ccms/workflows/'
-    # update_folder(local_path, temp_path_copy, temp_path, final_path, user="ccms")
+    local_path = os.path.join(os.getcwd(), 'metabolomics-snets-v2')
+    temp_path_copy = '/Users/{}/temp'.format(env.user)
+    temp_path = '/Users/{}/temp/metabolomics-snets-v2'.format(env.user)
+    final_path = '/ccms/workflows/metabolomics-snets-v2'
+    update_folder(local_path, temp_path_copy, temp_path, final_path, user="ccms")
+
+    #Copying to correct version
+    sudo("cp /ccms/workflows/metabolomics-snets-v2/*.xml /ccms/workflows/metabolomics-snets-v2/versions/%s/" % (VERSION), user="ccms")
+    
+    # Deploying the tool
+    sudo("mkdir /data/cluster/tools/metabolomicsnetsv2/%s" % (VERSION) , warn_only=True, user="gamma")
+    local_path = os.path.join(os.getcwd(), 'tools/metabolomicsnetsv2')
+    temp_path_copy = '/Users/{}/temp_tools'.format(env.user)
+    temp_path = '/Users/{}/temp_tools/metabolomicsnetsv2'.format(env.user)
+    final_path = '/data/cluster/tools/metabolomicsnetsv2/%s/' % (VERSION)
+    update_folder(local_path, temp_path_copy, temp_path, final_path, user="gamma")
+    
 
 #The final path is not the parent, it will be equivalent to the local path
 def update_folder(local_path, temp_path_copy, temp_path, final_path, user="ccms"):
