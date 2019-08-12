@@ -22,7 +22,7 @@ def update_workflow():
     local_path = os.path.join(os.getcwd(), 'tools/metabolomicsnetsv2')
     temp_path_copy = '/Users/{}/temp_tools'.format(env.user)
     temp_path = '/Users/{}/temp_tools/metabolomicsnetsv2'.format(env.user)
-    final_path = '/data/cluster/tools/metabolomicsnetsv2/%s/' % ()
+    final_path = '/data/cluster/tools/metabolomicsnetsv2/%s/' % (VERSION)
     update_folder(local_path, temp_path_copy, temp_path, final_path, user=env.user)
 
     #put(os.path.join(os.getcwd(), 'tools/metabolomicsnetsv2'), "/data/cluster/tools/", mirror_local_mode=True)
