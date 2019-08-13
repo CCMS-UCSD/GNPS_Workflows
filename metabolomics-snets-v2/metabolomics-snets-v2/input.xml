@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="metabolomics-snets-v2" version="1.2.5">
+<interface id="metabolomics-snets-v2" version="release_8">
 	<workflow-id>METABOLOMICS-SNETS-V2</workflow-id>
-	<workflow-label>Molecular Networking [Latest]</workflow-label>
+	<workflow-label>Molecular Networking</workflow-label>
 	<parameters>
 		<parameter name="desc" label="Description">
 			<validator type="length" maximum="1024"/>
