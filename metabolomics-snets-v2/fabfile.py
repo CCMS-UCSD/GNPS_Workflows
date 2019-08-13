@@ -6,7 +6,7 @@ env.hosts=['proteomics2.ucsd.edu']
 env.user='miw023'
 #env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
-VERSION="1.2.5"
+VERSION="release_1.2.5"
 
 def update_workflow():
     #Making workflow the default version
@@ -53,5 +53,5 @@ def update_workflow_gnps():
 
 #The final path is not the parent, it will be equivalent to the local path
 def update_folder(local_path, temp_path_copy, temp_path, final_path, user="ccms"):
-    put(local_path,temp_path_copy)
-    sudo('cp -r {} {}'.format(os.path.join(temp_path, "*"), final_path), user=user)
+    put(local_path,temp_path_copy, mirror_local_mode=True)
+    sudo('cp -pr {} {}'.format(os.path.join(temp_path, "*"), final_path), user=user)
