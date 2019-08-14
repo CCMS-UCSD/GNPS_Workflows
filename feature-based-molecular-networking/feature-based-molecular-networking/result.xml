@@ -321,7 +321,7 @@
         </row>
     </block>
 
-    <view id="network_components" label="View Molecular Networks (In Browser Network Visualizer)" group="Network Visualizations">
+    <view id="network_components" label="View Spectral Families (In Browser Network Visualizer)" group="Network Visualizations">
         <blockRef id="main" type="network_components"/>
     </view>
 
