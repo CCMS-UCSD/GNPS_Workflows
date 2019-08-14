@@ -22,7 +22,7 @@ class TestLoaders(unittest.TestCase):
             "./progenesis_output.csv")
 
     def test_metaboscape(self):
-        metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/metaboscape/quantification_table-00000.csv", \
+        metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/metaboscape/Lipids.msmsonly.csv", \
             "./metaboscape_output.csv")
 
     def test_mzmine2(self):
