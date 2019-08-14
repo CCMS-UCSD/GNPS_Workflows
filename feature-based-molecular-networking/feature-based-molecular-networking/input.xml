@@ -18,7 +18,7 @@
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
 
-        <parameter name="quantification_table" label="Peak Area Quantification Table">
+        <parameter name="quantification_table" label="Feature Quantification Table">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
         </parameter>
@@ -154,13 +154,13 @@
         <!-- Input Feature Type -->
         <parameter name="QUANT_TABLE_SOURCE" label="Quantification Table Source">
             <options>
-                <option value="MZMINE2" label="MZmine2"/>
+                <option value="MZMINE2" label="MZmine"/>
                 <option value="OPENMS" label="OpenMS"/>
                 <option value="OPTIMUS" label="Optimus"/>
                 <option value="MSDIAL" label="MS-DIAL"/>
-                <option value="METABOSCAPE" label="Metaboscape"/>
-                <option value="XCMS3" label="XCMS 3"/>
-                <option value="PROGENESIS" label="Progenesis"/>
+                <option value="METABOSCAPE" label="MetaboScape"/>
+                <option value="XCMS3" label="XCMS"/>
+                <option value="PROGENESIS" label="Progenesis QI"/>
             </options>
             <validator type="set"/>
             <default value="MZMINE2"/>
