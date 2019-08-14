@@ -192,7 +192,7 @@
             </cell>
             <cell>
                 <module id="spec_on_server" type="fileSelector">
-                    <property name="label">MS2 MGF File</property>
+                    <property name="label">MS2 spectral summary file (MGF format)</property>
                 </module>
             </cell>
         </row>
@@ -205,7 +205,7 @@
             </cell>
             <cell>
                 <module id="quantification_table" type="fileSelector">
-                    <property name="label">Peak Area Quantification Table</property>
+                    <property name="label">Feature Quantification Table</property>
                 </module>
             </cell>
         </row>
@@ -231,7 +231,8 @@
                 <label>
                     <content parameter="QUANT_TABLE_SOURCE"/>
                     <tooltip id="QUANT_TABLE_SOURCE_gnps_tooltip">
-                        Quantification table format.
+                        The feature quantification table contains the intensity values of the features detected by LC-MS feature detection (such as MZmine) across all the samples. It can either be the area or the heigh of the feature detected. 
+                        Normalization method can be applied on that table prior, but the format has to be identical.
                     </tooltip>
                 </label>
             </cell>
@@ -246,13 +247,16 @@
                 <label>
                     <content parameter="tolerance.PM_tolerance"/>
                     <tooltip id="precursor_mass_tolerance">
-                        Parameter used for spectral library search. Specify the precursor ions mass tolerance (PIMT), in Daltons. This value influences the aforementioned clustering of nearly-identical MS/MS spectra via MS-Cluster. Note that the value of this
-                        parameters should be consistent with the capabilities of the mass spectrometer and the specific instrument method used to generated the MS/MS data. The default value is ± 0.02 Da for high resolution mass spectrometers (e.g. q-TOFs, q-Orbitrap). The
-                        0.02 Da value translates into a maximum error of 40 ppm at m/z 500, 20 ppm at m/z 1000 for the precursor ion, and 13 ppm at m/z 1500, which is consistent for typical m/z range acquisition of small molecules. Regarding peptidic small molecules, their
-                        m/z range can be up to 2000 Da, thus a 0.03 Da value should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT of ± 2.0 Da is recommended. See documentation for more details [Link to the
-                        documentation table](featurebasedmolecularnetworking). **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a
-                        significant portion of NIST. Therefore, if you want to perform spectral matching with these spectral libraries, we recommend using a ± 2.0 Da PIMT regardless of the type of mass spectrometer used. Furthermore, downstream filtering of the MS/MS
-                        spectral library hits can be done based the mass spectrometers used.
+                        Parameter used for MS/MS spectral library search. Specify the precursor ions mass tolerance (PIMT), in Daltons. Note that the value of this
+                        parameters should be consistent with the capabilities of the mass spectrometer and the specific instrument method used to generated the MS/MS data. 
+                        The default value is ± 0.02 Da for high resolution mass spectrometers (e.g. q-TOFs, q-Orbitrap). The 0.02 Da value translates into a maximum error of
+                        40 ppm at m/z 500, 20 ppm at m/z 1000 for the precursor ion, and 13 ppm at m/z 1500, which is consistent for typical m/z range acquisition of small molecules.
+                        Regarding peptidic small molecules, their m/z range can be up to 2000 Da, thus a 0.03 Da value should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), 
+                        a PIMT of ± 2.0 Da is recommended. See documentation for more details [Link to the documentation table](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/). 
+                        **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result 
+                        in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a significant portion of NIST and MassBank. 
+                        Therefore, if you want to perform spectral matching against these low resolution spectral libraries, a value of 2.0 Da PIMT can be used, but will also lead to more false positives. 
+                        Nevertheless downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used, and ppm accuracy.
                     </tooltip>
                 </label>
             </cell>
@@ -268,8 +272,8 @@
                 <label>
                     <content parameter="tolerance.Ion_tolerance"/>
                     <tooltip id="fragment_ion_mass_tolerance">
-                        Parameters used for MS-Cluster, molecular networking, and MS/MS spectral library searches. For every group of MS/MS spectra being considered for clustering (consensus spectrum creation), this value specifies how much fragment ions can be shifted from
-                        their expected m/z values. Default value is ± 0.02 Da for high-resolution instruments (q-TOF, q-Orbitrap) and ± 2.0 Da for low-resolution instruments (ion traps, QqQ).
+                        Parameters used MS/MS spectral library search and for molecular networking generation. This value specifies how much fragment ions can be shifted from their expected m/z values between the queried and matched MS/MS spectra. 
+                        Default value is ± 0.02 Da for high-resolution instruments (q-TOF, q-Orbitrap) and ± 2.0 Da for low-resolution instruments (ion traps, QqQ) and MS/MS spectra.
                     </tooltip>
                 </label>
             </cell>
@@ -290,8 +294,8 @@
                 <label>
                     <content parameter="PAIRS_MIN_COSINE"/>
                     <tooltip id="min_pair_cosine_tooltip">
-                        Minimum cosine score that must occur between a pair of consensus MS/MS spectra in order for an edge to be formed in the molecular network. Default value is 0.7. Lower value will increase the size of the clusters by inducing the clustering of less
-                        related MS/MS spectra, higher value will limit do the opposite.
+                        Minimum cosine score that must occur between a pair of MS/MS spectra in order to form an edge in the molecular network. Default value is 0.7. Lower value will increase the size of the molecular networks by inducing the clustering of less
+                        related MS/MS spectra, higher value will reduce the size of the network.
                     </tooltip>
                 </label>
             </cell>
@@ -305,8 +309,8 @@
                 <label>
                     <content parameter="MIN_MATCHED_PEAKS"/>
                     <tooltip id="min_matched_peaks_tooltip">
-                        Parameters used for molecular networking. Is the minimum number of common fragment ions that are shared by two separate consensus MS/MS spectra in order to be connected by an edge in the molecular network. A low value will permit linkages between
-                        spectra of molecules with few similar fragment ions, but it will result in many more less-related spectra being connected to the network. An higher value will do the opposite. Default value is 6, but note that this parameters should be adjusted
+                        Parameters used for molecular networking. Is the minimum number of fragment ions that are shared between pairs of related MS/MS spectra, in order to be connected by an edge in the molecular network. A low value will permit linkages between pairs of
+                        MS/MS spectra with few similar fragment ions, such as fatty acid. However this could also result in less-related spectra being connected to the network. An higher value will do the opposite. Default value is 6, but note that this parameters should be adjusted
                         depending on the experimental conditions for mass spectra acquisition (such as mode of ionisation, fragmentation conditions, and the mobile phase, ...), and the collision-induced fragmentation behavior of the molecules of interest within the samples.
                         High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
                     </tooltip>
@@ -322,7 +326,7 @@
                 <label>
                     <content parameter="MAX_SHIFT"/>
                     <tooltip id="MAX_SHIFT_tooltip">
-                        The maximum structure modification mass between two spectra to be considered direct neighbors in a molecular network.
+                        The maximum precursor ion mass difference allowed between two MS/MS spectra to be considered as direct neighbors in a molecular network.
                     </tooltip>
                 </label>
             </cell>
@@ -434,7 +438,7 @@
                 <label>
                     <content parameter="ANALOG_SEARCH"/>
                     <tooltip id="analog_search_tooltip">
-                        Enable analog search. Matches query spectra against library spectrum with a modification tolerant search.
+                        Enable analog search. Matches query spectra against library MS/MS spectra with a modification tolerant search (different precursor ion mass value). The results have to be carefully curated, since this will introduce more false positives.
                     </tooltip>
                 </label>
             </cell>
@@ -447,7 +451,7 @@
                 <label>
                     <content parameter="MAX_SHIFT_MASS"/>
                     <tooltip id="max_shift_mass_tooltip">
-                        The maximum delta between a query spectrum's m/z that is allowed to match a library spectrum.
+                    	The maximum difference between the precursor ion mass of the searched MS/MS spectrum and the library MS/MS spectra. In Daltons.
                     </tooltip>
                 </label>
             </cell>
@@ -478,7 +482,7 @@
                 <label>
                     <content parameter="MIN_PEAK_INT"/>
                     <tooltip id="filterint_gnps_tooltip">
-                        All fragment ions in the MS/MS spectrum below this raw intensity will be deleted. By default, no filter.
+                        All fragment ions in the MS/MS spectrum below this raw intensity will be deleted. By default, no filter (0).
                     </tooltip>
                 </label>
             </cell>
@@ -537,7 +541,7 @@
                 <label>
                     <content parameter="QUANT_FILE_NORM"/>
                     <tooltip id="QUANT_FILE_NORM_gnps_tooltip">
-                        Quantification Normalization Options. Row Sum normalization will make sure L1 norm per file is equal to 1.
+                        Quantification Normalization Options for the Feature Quantification Table. Row Sum normalization will make sure L1 norm per file is equal to 1.
                     </tooltip>
                 </label>
             </cell>
@@ -551,7 +555,7 @@
                 <label>
                     <content parameter="GROUP_COUNT_AGGREGATE_METHOD"/>
                     <tooltip id="GROUP_COUNT_AGGREGATE_METHOD_gnps_tooltip">
-                        Quantification Normalization Group Aggregation method. Default is sum all files within a group, alternative is the mean.
+                        Quantification Normalization Group Aggregation method for the Feature Quantification Table. Default is sum all files within a group, alternative is the mean.
                     </tooltip>
                 </label>
             </cell>
@@ -568,7 +572,7 @@
                 <label>
                     <content parameter="RUN_DEREPLICATOR"/>
                     <tooltip id="RUN_DERPLICATOR_gnps_tooltip">
-                        Run insilco Dereplicator Tool on MGF input.
+                        Run in silico DEREPLICATOR Tool on the MGF input.
                     </tooltip>
                 </label>
             </cell>
