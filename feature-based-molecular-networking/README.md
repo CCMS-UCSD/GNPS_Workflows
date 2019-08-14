@@ -26,10 +26,10 @@ Additionally, it is assumed there are additional columns where the per sample qu
 
 The feature table should include columns with the following header:
 
-1. FEATURE_ID
-2. RT
-3. PEPMASS
-4. MaxIntensity
+FEATURE_ID
+RT
+PEPMASS
+MaxIntensity
 
 All sample headers are suffixed with a ".d". 
 
