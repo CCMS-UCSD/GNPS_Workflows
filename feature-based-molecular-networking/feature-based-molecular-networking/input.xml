@@ -136,7 +136,7 @@
         <parameter name="QUANT_FILE_NORM" label="Normalization Per File">
             <options>
                 <option value="None" label="No Norm"/>
-                <option value="RowSum" label="Row Sum Normalization"/>
+                <option value="RowSum" label="Row Sum Normalization (Per File Sum to 1,000,000)"/>
             </options>
             <validator type="set"/>
             <default value="None"/>
@@ -160,6 +160,7 @@
                 <option value="MSDIAL" label="MS-DIAL"/>
                 <option value="METABOSCAPE" label="Metaboscape"/>
                 <option value="XCMS3" label="XCMS 3"/>
+                <option value="PROGENESIS" label="Progenesis"/>
             </options>
             <validator type="set"/>
             <default value="MZMINE2"/>

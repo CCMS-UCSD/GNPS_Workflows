@@ -145,4 +145,25 @@
         </execution>
     </tool>
 
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="foodomics_track" path="python3.5"/>
+    </pathSet>
+    <pathSet base="search_single_spectrum">
+        <pathVar name="foodomics_track.script" path="foodomics_track.py" />
+        <pathVar name="foodomics_metadata.file" path="foodomics_metadata.txt" />
+    </pathSet>
+    <tool name="foodomics_track">
+        <require name="all_dataset_file_matches" type="file"/>
+        <produce name="foodomics_tracking_file" type="file" naming="explicit"  extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="foodomics_track.script"/>
+            <arg pathRef="foodomics_metadata.file"/>
+            <arg valueRef="all_dataset_file_matches"/>
+            <arg valueRef="foodomics_tracking_file"/>
+        </execution>
+    </tool>
+
 </toolset>

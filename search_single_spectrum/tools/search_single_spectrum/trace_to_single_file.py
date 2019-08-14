@@ -14,7 +14,7 @@ def get_metadata_information_per_filename(filename):
     """replacing spectrum with ccms_peak"""
     filename = filename.replace("/spectrum/", "/ccms_peak/")
 
-    url = "http://dorresteinappshub.ucsd.edu:5005/filename?query=%s" % (filename)
+    url = "https://redu.ucsd.edu/filename?query=%s" % (filename)
     r = requests.get(url, timeout=30)
 
     return r.json()
@@ -22,7 +22,7 @@ def get_metadata_information_per_filename(filename):
 #Returns True if up, False if Down
 def test_metadata_server():
     try:
-        url = "http://dorresteinappshub.ucsd.edu:5005/heartbeat"
+        url = "https://redu.ucsd.edu/heartbeat"
         requests.get(url, timeout=30)
     except:
         return False
@@ -111,6 +111,17 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                         print("ReDU is down")
 
                 output_file_list.append(output_object)
+
+    #Performing a fix to make sure the spectrum is present because of a renaming from <dataset>/spectrum to <dataset>/ccms_peak
+    for file_dict in output_file_list:
+        splits = file_dict["filename"].split("/")
+        splits[1] = splits[1].replace("spectrum", "ccms_peak")
+        file_dict["filename"] = "/".join(splits)
+
+    for file_dict in output_match_list:
+        splits = file_dict["filename"].split("/")
+        splits[1] = splits[1].replace("spectrum", "ccms_peak")
+        file_dict["filename"] = "/".join(splits)
 
     return output_file_list, output_match_list
 

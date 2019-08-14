@@ -35,6 +35,10 @@
 			<fileGenerator type="upload" purpose="parameters" target="specsix"/>
 		</parameter>
 
+        <!-- Metadata file -->
+        <parameter name="metadatafile" label="Metadata File">
+			<fileGenerator type="upload" purpose="parameters" target="metadatafile"/>
+		</parameter>
 
 		<parameter name="groupmapping" label="Group Mapping">
 			<fileGenerator type="upload" purpose="parameters" target="groupmapping"/>
@@ -47,16 +51,16 @@
 
 		<parameter name="library_on_server" label="Spectral Library">
 			<fileGenerator type="upload" purpose="library" target="lib"/>
-			<default value="d.speclibs;d.staticlibs/Massbank;d.staticlibs/ReSpect;"/>
+			<default value="d.speclibs;"/>
 		</parameter>
 
 
 		<!-- Basic MS parameters -->
-		<parameter name="tolerance.PM_tolerance" label="Parent Mass Tolerance">
+		<parameter name="tolerance.PM_tolerance" label="Precursor Ion Mass Tolerance">
 			<default value="2.0"/>
-			<validator type="float" minimum="0" maximum="2.5"/>
+			<validator type="float" minimum="0" maximum="500"/>
 		</parameter>
-		<parameter name="tolerance.Ion_tolerance" label="Ion Tolerance">
+		<parameter name="tolerance.Ion_tolerance" label="Fragment Ion Mass Tolerance">
 			<default value="0.5"/>
 			<validator type="float" minimumExclusive="0" maximumExclusive="1"/>
 		</parameter>
@@ -66,7 +70,7 @@
 			<validator type="float" minimumExclusive="0" maximum="1"/>
 		</parameter>
 
-		<parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
+		<parameter name="MIN_MATCHED_PEAKS" label="Minimum Matched Fragment Ions">
 			<default value="6"/>
 			<validator type="integer" minimumExclusive="0" maximum="500"/>
 		</parameter>
@@ -95,6 +99,10 @@
 		</parameter>
 
 		<parameter name="RUN_MSCLUSTER" label="Run MSCluster">
+			<options>
+				<option value="on" label="yes"/>
+				<option value="off" label="no"/>
+			</options>
 			<default value="on"/>
 		</parameter>
 
@@ -147,14 +155,16 @@
 			<default value="100.0"/>
 		</parameter>
 
-		<parameter name="CREATE_CLUSTER_BUCKETS" label="Create Cluster Buckets">
+		<parameter name="CREATE_CLUSTER_BUCKETS" label="Create Cluster Buckets and BioM/PCoA Plots output">
 			<options>
 				<option value="0" label="Don't Create"/>
 				<option value="1" label="Create"/>
 			</options>
 			<validator type="set"/>
-			<default value="0"/>
+			<default value="1"/>
 		</parameter>
+
+
 
         <parameter name="CREATE_TOPOLOGY_SIGNATURES" label="Create Network Topology Signatures">
 			<options>
@@ -172,7 +182,37 @@
 			<default value="0"/>
 		</parameter>
 
+        <parameter name="ili_stl_model" label="Ili STL Model">
+			<fileGenerator type="upload" purpose="parameters" target="ili_stl_model"/>
+		</parameter>
+
+        <parameter name="CREATE_ILI_OUTPUT" label="Create Ili Mapping Output">
+			<options>
+				<option value="0" label="Don't Create"/>
+				<option value="1" label="Create"/>
+			</options>
+			<validator type="set"/>
+			<default value="0"/>
+		</parameter>
+
 	</parameters>
+
+	<block label="Workflow Deprecated">
+		<row>
+			<cell>
+				<label prefix="false">
+					<content><![CDATA[<span style="background-color:#D1EEEE; padding:1px; border:2px inset black">
+						This molecular networking workflow has been deprecated. Please use the newer V2 version
+						<a style="color:black; font-weight:bold; font-size:105%;
+							background-color:#D1EEEE" target="_blank"
+							href='/ProteoSAFe/index.jsp?params=%7B"workflow":"METABOLOMICS-SNETS-V2"%7D'>
+							here.
+						</a></span>]]>
+					</content>
+				</label>
+			</cell>
+		</row>
+	</block>
 
 
 	<!-- Input form layout -->
@@ -384,7 +424,9 @@
 							<cell>
 								<label>
 									<content parameter="tolerance.PM_tolerance"/>
-									<tooltip id="hParentMass"/>
+									<tooltip id="precursor_mass_tolerance">
+										Parameter used for MS-Cluster and spectral library search. Specify the precursor ions mass tolerance, in Daltons. This value influences the aforementioned clustering of nearly-identical MS/MS spectra via MS-Cluster. Note that the value of this parameters should be consistent with the capabilities of the mass spectrometer and the specific instrument method used to generated the MS/MS data. The default value is ± 0.02 Da for high resolution mass spectrometers (e.g. q-TOFs, q-Orbitrap). The 0.02 Da value translates into a maximum error of 40 ppm at m/z 500, 20 ppm at m/z 1000 for the precursor ion, and 13 ppm at m/z 1500, which is consistent for typical m/z range acquisition of small molecules. Regarding peptidic small molecules, their m/z range can be up to 2000 Da, thus a of 0.03 Da should be used. For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the documentation table).  **Please note: The default parameters recommended above for high-resolution mass spectrometers will not result in proper searches of the spectral libraries generated on low-resolution mass spectrometer, such as Respect and a significant portion of NIST. Therefore, if you want to perform spectral matching with these spectral libraries, we recommend using a ± 2.0 Da PIMT regardless of the type of mass spectrometer used. Furthermore, downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -396,7 +438,9 @@
 							<cell>
 								<label>
 									<content parameter="tolerance.Ion_tolerance"/>
-									<tooltip id="hIonTolerance"/>
+									<tooltip id="fragment_ion_mass_tolerance">
+										Parameters used for MS-Cluster, molecular networking, and MS/MS spectral library searches. For every group of MS/MS spectra being considered for clustering (consensus spectrum creation), this value specifies how much fragment ions can be shifted from their expected m/z values. Default value is ± 0.02 Da for high-resolution instruments (q-TOF, q-Orbitrap) and ± 2.0 Da for low-resolution instruments (ion traps, QqQ).
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -412,7 +456,9 @@
 							<cell>
 								<label>
 									<content parameter="PAIRS_MIN_COSINE"/>
-									<tooltip id="min_pair_cosine_gnps"/>
+									<tooltip id="min_pair_cosine_tooltip">
+										Minimum cosine score that must occur between a pair of consensus MS/MS spectra in order for an edge to be formed in the molecular network. Default value is 0.7. Lower value will increase the size of the clusters by inducing the clustering of less related MS/MS spectra, higher value will limit do the opposite.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -424,7 +470,9 @@
 							<cell>
 								<label>
 									<content parameter="MIN_MATCHED_PEAKS"/>
-									<tooltip id="min_matched_peaks_gnps"/>
+									<tooltip id="min_matched_peaks_tooltip">
+										Parameters used for molecular networking. Is the minimum number of common fragment ions that are shared by two separate consensus MS/MS spectra in order to be connected by an edge in the molecular network. A low value will permit linkages between spectra of molecules with few similar fragment ions, but it will result in many more less-related spectra being connected to the network. An higher value will do the opposite. Default value is 6, but note that this parameters should be adjusted depending on the experimental conditions for mass spectra acquisition (such as mode of ionisation, fragmentation conditions, and the mobile phase,  ...), and the collision-induced fragmentation behavior of the molecules of interest within the samples. High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -438,7 +486,9 @@
 							<cell>
 								<label>
 									<content parameter="TOPK"/>
-									<tooltip id="network_topk_gnps"/>
+									<tooltip id="network_topk_gnps_tooltip">
+										Maximum number of neighbor nodes for one single node. The edge between two nodes are kept only if both nodes are within each other's TopK most similar nodes.  For example, if this value is set at 20, then a single node may be connected to up to 20 other nodes.  Keeping this value low makes very large networks (many nodes) much easier to visualize.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -451,7 +501,9 @@
 							<cell>
 								<label>
 									<content parameter="CLUSTER_MIN_SIZE"/>
-									<tooltip id="min_cluster_size_gnps"/>
+									<tooltip id="min_cluster_size_gnps_tooltip">
+										Requires MS-Cluster to be on. Minimum number of MS/MS spectra in a consensus MS/MS spectra to be considered for molecular networking.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -460,22 +512,26 @@
 								</input>
 							</cell>
 
+
 							<cell>
-								<input type="checkbox" parameter="RUN_MSCLUSTER"/>
 								<label>
 									<content parameter="RUN_MSCLUSTER"/>
-									<tooltip id="RUN_MSCLUSTER"/>
+									<tooltip id="mscluster_tooltip">
+										MSCluster will analyze every MS/MS spectra resulting from ions that fall within the defined precursor ion mass tolerance (PIMT), and will merge the nearly-identical MS/MS spectra (above the cosine score) into a single consensus MS/MS spectrum. Each consensus MS/MS spectrum usually consist of multiple MS/MS spectra from across multiple LC-MS runs (or data files).  See for more details: Frank, A. M. et al. Spectral Archives: Extending Spectral Libraries to Analyze Both Identified and Unidentified Spectra. Nat Meth 2011, 8 (7), 587-591.
+									</tooltip>
 								</label>
+								<input type="select" parameter="RUN_MSCLUSTER">
+								</input>
 							</cell>
-
 						</row>
 
 						<row>
-
 							<cell>
 								<label>
 									<content parameter="MAXIMUM_COMPONENT_SIZE"/>
-									<tooltip id="max_component_size_gnps"/>
+									<tooltip id="max_component_size_gnps_tooltip">
+										Maximum size of nodes allowed in a single connected network. Nodes within a single connected molecular network will be separated by increasing cosine threshold for that specific connected molecular network. Default value is 100. Use 0 to allow an unlimited number of nodes in a single network. Note that with large datasets, or when a great number of related molecules are in the dataset, this value should be higher (or turn to 0) to retain as much information as possible. Downstream, these larger networks can be visualized using Cytoscape layout algorithms that can increase the intra-network clustering, allowing to visualize spectral groups in the network despite the number of nodes in the network.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -483,14 +539,15 @@
 									<attribute name="size" value="3"/>
 								</input>
 							</cell>
-
 						</row>
 
 						<row>
 							<cell>
 								<label>
 									<content parameter="groupmapping"/>
-									<tooltip id="group_mapping_gnps"/>
+									<tooltip id="group_mapping_gnps_tooltip">
+										Input text file organizing input files into groups. See documentation for more details.
+									</tooltip>
 								</label>
 							</cell>
 							<cell colspan="3">
@@ -503,7 +560,9 @@
 							<cell>
 								<label>
 									<content parameter="attributemapping"/>
-									<tooltip id="attribute_mapping_gnps"/>
+									<tooltip id="attribute_mapping_gnps_tooltip">
+										Input text file organizing groups into attributes. These attributes are columns in the output. See documentation for more details.
+									</tooltip>
 								</label>
 							</cell>
 							<cell colspan="3">
@@ -512,6 +571,24 @@
 								</module>
 							</cell>
 						</row>
+
+                        <row>
+                            <cell>
+                                <label>
+                                    <content parameter="metadatafile"/>
+                                    <tooltip id="metadatafile_gnps_tooltip">
+                                        Input text file describing metadata of input files. The presence of this file overrides group and attribute mapping files
+                                    </tooltip>
+                                </label>
+                            </cell>
+                            <cell colspan="3">
+                                <module id="metadatafile" type="fileSelector">
+                                    <property name="label">Metadata File</property>
+                                </module>
+                            </cell>
+                        </row>
+
+
 					</block>
 
 					<block label="Advanced Library Search Options">
@@ -519,7 +596,9 @@
 							<cell>
 								<label>
 									<content parameter="MIN_MATCHED_PEAKS_SEARCH"/>
-									<tooltip id="min_matched_peaks_library_gnps"/>
+									<tooltip id="min_matched_peaks_library_gnps_tooltip">
+										Minimum number of common fragment ions that MS/MS spectra should contain in order to be considered for spectral library annotation. Default value is 6, but note that this parameters should be tuned depending of the molecule of interest, and the experimental conditions (such as the ionisation mode, and the fragmentation conditions, ...). For example, collision-induced fragmentation of some lipids produce only few fragment ions. A lower value will allow clustering of MS/MS spectra containing less  fragment ions, however it will also induce clustering of  MS/MS spectra from different molecular-type to be connected in one network. An higher value will do the opposite.
+									</tooltip>
 								</label>
 							</cell>
 							<cell>
@@ -530,7 +609,9 @@
 							<cell>
 								<label>
 									<content parameter="SCORE_THRESHOLD"/>
-									<tooltip id="min_cosine_library_gnps"/>
+									<tooltip id="min_cosine_library_gnps_tooltip">
+										Minimum cosine score that MS/MS spectra should get in spectral matching with MS/MS spectral libraries in order to be considered an annotation.
+									</tooltip>
 								</label>
 							</cell>
 
@@ -578,7 +659,9 @@
 							<cell>
 								<label>
 									<content parameter="FILTER_STDDEV_PEAK_INT"/>
-									<tooltip id="filterstd_gnps"/>
+									<tooltip id="filterstd_gnps_tooltip">
+										Applied before MS-Cluster. For each MS/MS spectrum the 25% least intense fragment ions are collected and the std-dev is calculated as well as the mean. A minimum peak intensity is calculated as mean + k * std-dev where k is user selectable. All peaks below this threshold are deleted. By default filter is inactive (value is set to 0). This option is not encouraged. By default, no filter.
+									</tooltip>
 								</label>
 							</cell>
 
@@ -591,7 +674,9 @@
 							<cell>
 								<label>
 									<content parameter="MIN_PEAK_INT"/>
-									<tooltip id="filterint_gnps"/>
+									<tooltip id="filterint_gnps_tooltip">
+										All fragment ions in the MS/MS spectrum below this raw intensity will be deleted.  By default, no filter.
+									</tooltip>
 								</label>
 							</cell>
 
@@ -605,7 +690,9 @@
 							<cell>
 								<label>
 									<content parameter="FILTER_PRECURSOR_WINDOW"/>
-									<tooltip id="filterprecursor_gnps"/>
+									<tooltip id="filterprecursor_gnps_tooltip">
+										All peaks in a +/- 17 Da around precursor ion mass are deleted. By default, yes filter. This removes the residual precursor ion, which is frequently observed in MS/MS spectra acquired on qTOFs. By default, yes filter.
+									</tooltip>
 								</label>
 							</cell>
 
@@ -631,7 +718,9 @@
 							<cell>
 								<label>
 									<content parameter="WINDOW_FILTER"/>
-									<tooltip id="filterpeakwindow_gnps"/>
+									<tooltip id="filterpeakwindow_gnps_tooltip">
+										For each peak in spectrum to be kept, it must be at least 6th most intense peak in a window +/- 50Th around its m/z.
+									</tooltip>
 								</label>
 							</cell>
 
@@ -643,24 +732,25 @@
 
 					</block>
 
-
-					<block label="Advanced Output Options">
-						<row>
+                    <block label="Advanced GNPS Repository Search Options">
+                        <row>
 							<cell>
 								<label>
-									<content parameter="CREATE_CLUSTER_BUCKETS"/>
-									<tooltip id="CREATE_CLUSTER_BUCKETS_tooltip">
-										Create output table that does quantification on MS/MS clusters
-										across all files input.
+									<content parameter="FIND_MATCHES_IN_PUBLIC_DATA"/>
+									<tooltip id="FIND_MATCHES_IN_PUBLIC_DATA_tooltip">
+										Finds all datasets that are related to your data.
 									</tooltip>
 								</label>
 							</cell>
 
 							<cell>
-								<input type="select" parameter="CREATE_CLUSTER_BUCKETS">
+								<input type="select" parameter="FIND_MATCHES_IN_PUBLIC_DATA">
 								</input>
 							</cell>
 						</row>
+                    </block>
+
+                    <block label="Advanced Annotation Options">
                         <row>
 							<cell>
 								<label>
@@ -680,20 +770,53 @@
 								</input>
 							</cell>
 						</row>
-						<row>
+                    </block>
+
+					<block label="Advanced Output Options">
+                        <row>
 							<cell>
 								<label>
-									<content parameter="FIND_MATCHES_IN_PUBLIC_DATA"/>
-									<tooltip id="FIND_MATCHES_IN_PUBLIC_DATA_tooltip">
-										Finds all datasets that are related to your data.
+									<content parameter="CREATE_CLUSTER_BUCKETS"/>
+									<tooltip id="CREATE_CLUSTER_BUCKETS_tooltip">
+										Create output table that does quantification on MS/MS clusters
+										across all files input.
 									</tooltip>
 								</label>
 							</cell>
 
 							<cell>
-								<input type="select" parameter="FIND_MATCHES_IN_PUBLIC_DATA">
+								<input type="select" parameter="CREATE_CLUSTER_BUCKETS">
 								</input>
 							</cell>
+						</row>
+
+                        <row>
+							<cell>
+								<label>
+									<content parameter="CREATE_ILI_OUTPUT"/>
+									<tooltip id="CREATE_ILI_OUTPUT_tooltip">
+										Create output table that does quantification on MS/MS clusters
+										across all files input and maps coordinates for ili.
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="CREATE_ILI_OUTPUT">
+								</input>
+							</cell>
+
+
+                            <cell>
+                                <label>
+                                    <content parameter="ili_stl_model"/>
+                                </label>
+                            </cell>
+                            <cell colspan="3">
+                                <module id="ili_stl_model" type="fileSelector">
+                                    <property name="label">STL Model for ili</property>
+                                </module>
+                            </cell>
 						</row>
 					</block>
 				</interface>

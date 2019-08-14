@@ -6,9 +6,11 @@
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
         <source type="folder" name="spectra/"/>
+        <source type="folder" name="quantification_table/"/>
         <source type="folder" name="quantification_table_reformatted/"/>
         <source type="folder" name="metadata_table/"/>
         <source type="folder" name="DB_result/"/>
+        <source type="folder" name="qiime2_output/"/>
     </download>
 
 
@@ -256,6 +258,16 @@
                 <parameter name="USETASK" value="True"/>
             </column> -->
 
+            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="t.{task}/spectra/specs_ms.mgf"/>
+                <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[cluster index]"/>
+                <parameter name="LABEL" value="AnnotatetoGNPS"/>
+            </column>
+
+
+
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
             <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
             <column type="float" field="RTConsensus" label="RTConsensus" precision="2"/>
@@ -439,7 +451,7 @@
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+        <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
     <view id="view_dereplicator" label="View Dereplicator Results" group="Advanced Views - External Tools">
@@ -466,6 +478,18 @@
       </data>
         <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mzmine"}'/> -->
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
+    </block>
+
+     <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="molnetenhancer"/>
+    </view>
+    <block id="molnetenhancer" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
 
