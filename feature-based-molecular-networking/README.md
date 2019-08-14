@@ -24,13 +24,14 @@ Additionally, it is assumed there are additional columns where the per sample qu
 
 ### Metaboscape
 
-The feature table should include a header row with the following columns:
+The feature table should include columns with the following header:
 
 1. FEATURE_ID
 2. RT
 3. PEPMASS
+4. MaxIntensity
 
-All sample headers are suffixed with a ".d". 
+All sample headers are not including the file format extension ".d" (DDA) or ".tdf" (PASEF) 
 
 ### Progenesis
 
