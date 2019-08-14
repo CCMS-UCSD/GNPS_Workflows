@@ -220,7 +220,7 @@
         </row>
     </block>
 
-    <view id="view_all_clusters_withID" label="View All Clusters With IDs" group="Default Molecular Networking Results Views">
+    <view id="view_all_clusters_withID" label="View All Spectra With Annotations" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_clusters_withID"/>
     </view>
 
@@ -321,7 +321,7 @@
         </row>
     </block>
 
-    <view id="network_components" label="View Spectral Families (In Browser Network Visualizer)" group="Network Visualizations">
+    <view id="network_components" label="View Molecular Networks (In Browser Network Visualizer)" group="Network Visualizations">
         <blockRef id="main" type="network_components"/>
     </view>
 
@@ -359,7 +359,7 @@
         </row>
     </block>
 
-    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
+    <view id="written_description" label="Networking Parameters and Written Description" group="Methods and Citation for Manuscripts">
         <blockRef id="main" type="written_description"/>
     </view>
     <block id="written_description" type="stream">
