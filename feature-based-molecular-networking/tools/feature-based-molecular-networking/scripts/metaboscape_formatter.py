@@ -25,7 +25,7 @@ def convert_to_feature_csv(input_filename, output_filename):
     results.rename(columns={'FEATURE_ID': 'row ID','PEPMASS': 'row m/z','RT':'row retention time'}, inplace=True)
 
     for i in range(3,len(results.columns.values)):
-        results.columns.values[i] += " Peak area"
+        results.columns.values[i] += "d. Peak area"
     cols = list(results)
     cols[1], cols[2] = cols[2], cols[1]
     output_format = results.reindex (columns=cols)
