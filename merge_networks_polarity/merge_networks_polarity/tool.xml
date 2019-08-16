@@ -1,0 +1,20 @@
+<toolset>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="merge_polarity" path="python3.5"/>
+    </pathSet>
+    <pathSet base="MergePolarity/">
+        <pathVar name="merge_polarity.script" path="merge_polarity.py" />
+    </pathSet>
+
+    <tool name="merge_polarity">
+        <require name="flowParams"       type="file"/>
+        <produce name="merged_network"        type="file" naming="explicit"  extension="graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="merge_polarity.script"/>
+                <arg option="-positive-network-task" valueRef="@GNPS_POSITIVE_TASK"/>
+                <arg option="-negative-network-task" valueRef="@GNPS_NEGATIVE_TASK"/>
+                <arg option="-output-graphml" valueRef="merged_network"/>
+        </execution>
+    </tool>
+</toolset>
