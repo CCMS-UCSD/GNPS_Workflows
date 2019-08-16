@@ -1,14 +1,14 @@
 from fabric.api import *
 import os
 
-#env.hosts=['gnps.ucsd.edu']
-env.hosts=['proteomics2.ucsd.edu']
+env.hosts=['gnps.ucsd.edu']
+#env.hosts=['proteomics2.ucsd.edu']
 env.user='miw023'
 #env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
-#VERSION="1.2.3"
+VERSION="1.2.3"
 #VERSION="1.2.5"
-VERSION="release_8"
+#VERSION="release_8"
 
 def update_workflow():
     #Making workflow the default version
@@ -28,9 +28,6 @@ def update_workflow():
     update_folder(local_path, temp_path_copy, temp_path, final_path, user=env.user)
 
 def update_workflow_gnps():
-    #TODO: Update actual deployment to GNPS to be correct
-    print("TEST THIS WORKS")
-
     # Deploying the workflow
     sudo("mkdir /ccms/workflows/metabolomics-snets-v2/versions", warn_only=True, user="ccms")
     sudo("mkdir /ccms/workflows/metabolomics-snets-v2/versions/%s" % (VERSION) , warn_only=True, user="ccms")
