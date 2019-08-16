@@ -6,8 +6,7 @@ env.hosts=['gnps.ucsd.edu']
 env.user='miw023'
 #env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
-VERSION="1.2.3"
-#VERSION="1.2.5"
+VERSION="1.2.5"
 #VERSION="release_8"
 
 def update_workflow():
