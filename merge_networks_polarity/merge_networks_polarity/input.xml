@@ -25,11 +25,23 @@
         <row>
             <cell>
                 <label>
-                    <content parameter="GNPS_TASK"/>
+                    <content parameter="GNPS_POSITIVE_TASK"/>
                 </label>
             </cell>
             <cell>
-                <input type="text" parameter="GNPS_TASK">
+                <input type="text" parameter="GNPS_POSITIVE_TASK">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="GNPS_NEGATIVE_TASK"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="GNPS_NEGATIVE_TASK">
                     <attribute name="size" value="30"/>
                 </input>
             </cell>
