@@ -3,9 +3,10 @@ import argparse
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('nap', help='enter your nap ID')
+
 parser.add_argument('GNPS', help='enter your GNPS job ID')
 parser.add_argument('directory', help='enter your directory for generated output files')
+parser.add_argument('--nap', help='enter your nap ID')
 parser.add_argument('--varquest', help='enter your Varquest job ID', action='store')
 parser.add_argument('--derep', help='enter your Dereplicator job ID', action='store')
 parser.add_argument('--ms2lda', help='enter your MS2LDA job ID', action='store', type=str)
