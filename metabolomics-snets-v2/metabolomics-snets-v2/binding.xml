@@ -98,7 +98,7 @@
 
     <!-- Parallel Networking -->
 
-    <bind action="copy_spectra_mgf" tool="copy_spectra_mgf">
+    <bind action="copy_filter_spectra_mgf" tool="copy_filter_spectra_mgf">
         <inputAsRequirement port="spectra" requirement="spectra"/>
         <productionToOutput port="specs_ms" production="specs_ms"/>
     </bind>

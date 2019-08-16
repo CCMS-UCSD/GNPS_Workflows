@@ -95,7 +95,7 @@
     <collection name="networking_pairs_results_folder"/>
     <object name="networking_pairs_results_file"/>
 
-    <action name="copy_spectra_mgf">
+    <action name="copy_filter_spectra_mgf">
         <input port="spectra" collection="spectra"/>
         <output port="specs_ms" object="specs_ms"/>
     </action>
