@@ -5,12 +5,12 @@
 	 	<query name="task" valueRef="@task" />
         <query name="user" valueRef="@user"/>
 	 	<compression type="zip" />
-		<download port="params" type="file">
-			<query name="resource" value="params"/>
+		<download port="flowParams" type="file">
+				<query name="resource" value="params"/>
 		</download>
-                <downloadParams>
-                        <query name="resource" value="params"/>
-                </downloadParams>
+		<downloadParams>
+				<query name="resource" value="params"/>
+		</downloadParams>
 
 	</bind>
 

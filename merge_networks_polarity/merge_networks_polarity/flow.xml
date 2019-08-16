@@ -3,7 +3,7 @@
 	<object     name="workflowParameters"/>
 
 	<action name="begin">
-		<output port="params" object="workflowParameters"/>
+		<output port="flowParams" object="workflowParameters"/>
 	</action>
 
     <object name="merged_network"/>
@@ -13,6 +13,6 @@
     </action>
 
 	<action name="end">
-		<input port="merge_networks" object="merge_networks"/>
+		<input port="merged_network" object="merged_network"/>
 	</action>
 </flow>

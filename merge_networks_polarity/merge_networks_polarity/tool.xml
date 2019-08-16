@@ -7,7 +7,7 @@
     </pathSet>
 
     <tool name="merge_polarity">
-        <require name="flowParams"       type="file"/>
+        <require name="workflowParameters"       type="file"/>
         <produce name="merged_network"        type="file" naming="explicit"  extension="graphml"/>
 
         <execution env="binary" argConvention="adhoc">
