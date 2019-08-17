@@ -97,6 +97,8 @@
 
     <action name="copy_filter_spectra_mgf">
         <input port="spectra" collection="spectra"/>
+        <input port="groupmapping_converted" object="groupmapping_converted"/>
+        <input port="clusterinfo" object="clusterinfo"/>
         <output port="specs_ms" object="specs_ms"/>
     </action>
 

@@ -47,12 +47,17 @@
 
     <tool name="copy_filter_spectra_mgf">
         <require name="spectra" type="folder"/>
+        <require name="groupmapping_converted" type="file"/>
+        <require name="clusterinfo" type="file"/>
         <produce name="specs_ms" type="file" naming="fixed" value="specs_ms.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="copy_filter_spectra_mgf.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="specs_ms"/>
+            <arg valueRef="groupmapping_converted"/>
+            <arg valueRef="clusterinfo"/>
+            <arg option="-filterg6" valueRef="@FILTER_G6_BLANKS"/>
         </execution>
     </tool>
 
