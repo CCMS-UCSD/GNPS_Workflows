@@ -28,14 +28,14 @@
 
     <!-- Molecular Networking -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="copy_spectra_mgf" path="python"/>
+        <toolPath tool="copy_filter_spectra_mgf" path="python"/>
         <toolPath tool="prep_molecular_networking_parameters" path="python"/>
         <toolPath tool="merge_tsv_efficient" path="python"/>
         <toolPath tool="filter_networking_edges" path="python"/>
     </pathSet>
 
     <pathSet base="metabolomicsnetsv2/release_9/scripts">
-        <pathVar name="copy_spectra_mgf.script" path="copy_spectra.py"/>
+        <pathVar name="copy_filter_spectra_mgf.script" path="copy_filter_spectra.py"/>
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
@@ -45,14 +45,19 @@
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
-    <tool name="copy_spectra_mgf">
+    <tool name="copy_filter_spectra_mgf">
         <require name="spectra" type="folder"/>
+        <require name="groupmapping_converted" type="file"/>
+        <require name="clusterinfo" type="file"/>
         <produce name="specs_ms" type="file" naming="fixed" value="specs_ms.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
-            <arg pathRef="copy_spectra_mgf.script"/>
+            <arg pathRef="copy_filter_spectra_mgf.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="specs_ms"/>
+            <arg valueRef="groupmapping_converted"/>
+            <arg valueRef="clusterinfo"/>
+            <arg option="-filterg6" valueRef="@FILTER_G6_BLANKS"/>
         </execution>
     </tool>
 

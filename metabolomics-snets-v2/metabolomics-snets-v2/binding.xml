@@ -98,8 +98,10 @@
 
     <!-- Parallel Networking -->
 
-    <bind action="copy_spectra_mgf" tool="copy_spectra_mgf">
+    <bind action="copy_filter_spectra_mgf" tool="copy_filter_spectra_mgf">
         <inputAsRequirement port="spectra" requirement="spectra"/>
+		<inputAsRequirement port="groupmapping_converted" requirement="groupmapping_converted"/>
+		<inputAsRequirement port="clusterinfo" requirement="clusterinfo"/>
         <productionToOutput port="specs_ms" production="specs_ms"/>
     </bind>
 
