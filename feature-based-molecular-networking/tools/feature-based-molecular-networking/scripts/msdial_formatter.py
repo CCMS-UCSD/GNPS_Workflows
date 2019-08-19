@@ -11,7 +11,12 @@ import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
     input_format = pd.read_csv(input_filename, sep='\t', skiprows=3)
-    
+
+    #for loop to scrap off the potential presence of IMS data columns
+    for col in input_format.columns:
+        if 'Average drift time' in col:
+            input_format = input_format.drop(['Average drift time','Average CCS'], axis=1)
+
     headers = list(input_format.keys())
     sample_names = headers[22:]
 
