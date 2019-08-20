@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="MERGE_NETWORKS_POLARITY" version="release_9">
+    <view id="download_data" label="Download Network">
+        <blockRef id="main"   type="download_data"/>
+    </view>
+    <block id="download_data" type="dummydownload">
+      <data>
+        <source type="file" name="merged_network/"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+</interface>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="metabolomics-snets-v2" version="release_8">
+<interface id="metabolomics-snets-v2" version="release_9">
 	<workflow-id>METABOLOMICS-SNETS-V2</workflow-id>
 	<workflow-label>Molecular Networking</workflow-label>
 	<parameters>
@@ -131,6 +131,15 @@
 			</options>
 			<validator type="set"/>
 			<default value="1"/>
+		</parameter>
+
+		<parameter name="FILTER_G6_BLANKS" label="Filter Spectra from G6 as Blanks Before Networking">
+			<options>
+				<option value="0" label="Don't Filter"/>
+				<option value="1" label="Filter"/>
+			</options>
+			<validator type="set"/>
+			<default value="0"/>
 		</parameter>
 
 		<parameter name="SCORE_THRESHOLD" label="Score Threshold">
@@ -715,6 +724,21 @@
 							</cell>
 						</row>
 
+						<row>
+							<cell>
+								<label>
+									<content parameter="FILTER_G6_BLANKS"/>
+									<tooltip id="FILTER_G6_BLANKS_gnps_tooltip">
+										Filter out spectra occuring in G6 prior to networking
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="select" parameter="FILTER_G6_BLANKS">
+								</input>
+							</cell>
+						</row>
 					</block>
 
                     <block label="Advanced GNPS Repository Search Options">
