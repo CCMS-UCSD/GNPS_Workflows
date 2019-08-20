@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="speclib_add" version="1.2.3">
+<interface id="speclib_add" version="release_9">
     <download>
         <source type="folder" name="networking_pairs_results_file_filtered/"/>
         <source type="folder" name="networkedges_selfloop/"/>
