@@ -4,7 +4,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="input_validation" path="python"/>
     </pathSet>
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="input_validation.script" path="input_validation.py"/>
     </pathSet>
     <tool name="input_validation">
@@ -26,7 +26,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="renumber_mgf" path="python"/>
     </pathSet>
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
     </pathSet>
     <tool name="renumber_mgf">
@@ -45,7 +45,7 @@
         <toolPath tool="reformat_quantification" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="reformat_quantification.script" path="reformat_quantification.py"/>
     </pathSet>
 
@@ -74,13 +74,13 @@
         <toolPath tool="filter_networking_edges" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/binaries">
+    <pathSet base="feature-based-molecular-networking/release_9/binaries">
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
@@ -142,7 +142,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="metabolomic_network_edges_display" path="python"/>
     </pathSet>
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
     </pathSet>
     <tool name="metabolomic_network_edges_display">
@@ -171,12 +171,12 @@
         <toolPath tool="molecular_librarysearch_get_dbannotations" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="prep_molecular_librarysearch_parameters.script" path="prep_molecular_librarysearch_parameters.py"/>
         <pathVar name="molecular_librarysearch_get_dbannotations.script" path="getGNPS_library_annotations.py"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/binaries">
+    <pathSet base="feature-based-molecular-networking/release_9/binaries">
         <toolPath tool="molecular_librarysearch_parallel_step" path="main_execmodule"/>
     </pathSet>
 
@@ -229,7 +229,7 @@
         <toolPath tool="enrich_clusterinfo_summary" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="clusterinfosummary_creation.script" path="clusterinfosummary_for_featurenetworks.py"/>
         <pathVar name="enrich_clusterinfo_summary.script" path="enrich_clusterinfosummary.py"/>
     </pathSet>
@@ -274,7 +274,7 @@
         <toolPath tool="metabolomics_convert_graphml" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
     </pathSet>
 
@@ -300,7 +300,7 @@
         <toolPath tool="run_dereplicator" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="invokesubworkflow.script" path="invokesubworkflow.py"/>
         <pathVar name="credentials.json" path="credentials.json"/>
     </pathSet>
@@ -336,7 +336,7 @@
         <toolPath tool="run_qiime2" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
     </pathSet>
 
@@ -358,7 +358,7 @@
         <toolPath tool="write_description" path="python"/>
     </pathSet>
 
-    <pathSet base="feature-based-molecular-networking/scripts">
+    <pathSet base="feature-based-molecular-networking/release_9/scripts">
         <pathVar name="write_description.script" path="write_description.py"/>
     </pathSet>
 

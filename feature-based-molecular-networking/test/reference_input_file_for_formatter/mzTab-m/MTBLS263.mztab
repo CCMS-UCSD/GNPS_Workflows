@@ -1,0 +1,123 @@
+MTD	mzTab-version	2.2.0-M																						
+MTD	mzTab-ID	JetBike Test																						
+MTD	software[1]	[MS,MS:1002879,Progenesis QI,2.4.6505.48857]																						
+MTD	ms_run[1]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3injections_inj1_POS.mzML																						
+MTD	ms_run[1]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	ms_run[2]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3injections_inj2_POS.mzML																						
+MTD	ms_run[2]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	ms_run[3]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3injections_inj3_POS.mzML																						
+MTD	ms_run[3]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	ms_run[4]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3samples_sampl1_POS.mzML																						
+MTD	ms_run[4]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	ms_run[5]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3samples_sampl2_POS.mzML																						
+MTD	ms_run[5]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	ms_run[6]-location	file:///D:/Data%20Sets/Metabolomics/MTBLS263/3samples_sampl3_POS.mzML																						
+MTD	ms_run[6]-scan_polarity[1]	[MS,MS:1000130,positive scan,]																						
+MTD	sample[1]	3injections_POS																						
+MTD	sample[2]	3samples_sampl1_POS																						
+MTD	sample[3]	3samples_sampl2_POS																						
+MTD	sample[4]	3samples_sampl3_POS																						
+MTD	assay[1]	3injections_inj1_POS																						
+MTD	assay[1]-sample_ref	sample[1]																						
+MTD	assay[1]-ms_run_ref	ms_run[1]																						
+MTD	assay[2]	3injections_inj2_POS																						
+MTD	assay[2]-sample_ref	sample[1]																						
+MTD	assay[2]-ms_run_ref	ms_run[2]																						
+MTD	assay[3]	3injections_inj3_POS																						
+MTD	assay[3]-sample_ref	sample[1]																						
+MTD	assay[3]-ms_run_ref	ms_run[3]																						
+MTD	assay[4]	3samples_sampl1_POS																						
+MTD	assay[4]-sample_ref	sample[2]																						
+MTD	assay[4]-ms_run_ref	ms_run[4]																						
+MTD	assay[5]	3samples_sampl2_POS																						
+MTD	assay[5]-sample_ref	sample[3]																						
+MTD	assay[5]-ms_run_ref	ms_run[5]																						
+MTD	assay[6]	3samples_sampl3_POS																						
+MTD	assay[6]-sample_ref	sample[4]																						
+MTD	assay[6]-ms_run_ref	ms_run[6]																						
+MTD	study_variable[1]	Replicates																						
+MTD	study_variable[1]-description	Replicates																						
+MTD	study_variable[1]-assay_refs	assay[1] | assay[2] | assay[3]																						
+MTD	study_variable[2]	Samples																						
+MTD	study_variable[2]-description	Samples																						
+MTD	study_variable[2]-assay_refs	assay[4] | assay[5] | assay[6]																						
+MTD	cv[1]-label	MS																						
+MTD	cv[1]-full_name	PSI-MS controlled vocabulary																						
+MTD	cv[1]-version	4.0.9																						
+MTD	cv[1]-uri	https://raw.githubusercontent.com/HUPO-PSI/psi-ms-CV/master/psi-ms.obo																						
+MTD	database[1]	[, , no database, null]																						
+MTD	database[1]-prefix	null																						
+MTD	database[1]-version	Unknown																						
+MTD	database[1]-uri	null																						
+MTD	database[2]	[, , Local CHEBI copy, ]																						
+MTD	database[2]-prefix	CHEBI																						
+MTD	database[2]-version	Unknown																						
+MTD	database[2]-uri	file:///E:/Projects/MTBLS263/MTLBS263.sdf																						
+MTD	small_molecule-quantification_unit	[,,Progenesis QI Normalised Abundance,]																						
+MTD	small_molecule_feature-quantification_unit	[,,Progenesis QI Normalised Abundance,]																						
+MTD	id_confidence_measure[1]	[MS,MS:1002889,Progenesis MetaScope score,]																						
+MTD	id_confidence_measure[2]	[MS,MS:1002890,fragmentation score,]																						
+MTD	id_confidence_measure[3]	[MS,MS:1002891,isotopic fit score,]																						
+MTD	small_molecule-identification_reliability	[MS, MS:1002896, compound identification confidence level, ]																						
+MTD	quantification_method	[MS, MS:1001834, LC-MS label-free quantitation analysis, ]																						
+																								
+SMH	SML_ID	SMF_ID_REFS	database_identifier	chemical_formula	smiles	inchi	chemical_name	uri	theoretical_neutral_mass	adduct_ions	reliability	best_id_confidence_measure	best_id_confidence_value	abundance_assay[1]	abundance_assay[2]	abundance_assay[3]	abundance_assay[4]	abundance_assay[5]	abundance_assay[6]	abundance_study_variable[1]	abundance_variation_study_variable[1]	abundance_study_variable[2]	abundance_variation_study_variable[2]	opt_global_Progenesis_identifier
+SML	469	6 | 937	CHEBI:16737	C4H7N3O	null	null	Creatinine	null	113.0589	[M+H]+ | [M+Na]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	56.4424	59809754.62	63773291.22	61630638.37	59131129.43	63874747.95	66320708.84	185213684.2	3.2135	189326586.2	5.7923	6.90_113.0582n
+SML	495	782	CHEBI:17368	C5H4N4O	null	null	Hypoxanthine	null	136.0385	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	44.0249	1164487.316	1376477.974	1531498.698	1398304.361	1633581.631	2129396.512	4072463.988	13.5722	5161282.504	21.6925	7.34_137.0452m/z
+SML	528	13	CHEBI:25017	C6H13NO2	null	null	Leucine	null	131.0946	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	48.2759	65543883.46	65475290.35	67694647.59	59237651.35	56077561.47	54207405.41	198713821.4	1.9053	169522618.2	4.4995	8.06_132.1014m/z
+SML	546	117	CHEBI:16811	C5H11NO2S	null	null	Methionine	null	149.051	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	47.6054	8419806.046	7954686.919	8318226.561	8007517.592	7319791.067	7367477.802	24692719.53	2.9711	22694786.46	5.0765	8.56_150.0578m/z
+SML	598	18	CHEBI:27266	C5H11NO2	null	null	Valine	null	117.079	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	48.7105	21775405.56	23532222.57	24850183.03	18841152.12	22892660.2	21760739.43	70157811.17	6.5963	63494551.76	9.877	9.74_118.0857m/z
+SML	615	7	CHEBI:26271	C5H9NO2	null	null	Proline	null	115.0633	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	45.8868	59134552.3	57461952.47	60069535.6	55657781.22	56998852.39	60837200.27	176666040.4	2.2433	173493833.9	4.6483	10.13_116.0699m/z
+SML	643	153	CHEBI:17775	C5H4N4O3	null	null	Urate	null	168.0283	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	44.5238	6594546.767	6679574.386	6147241.614	6238970.002	6287508.483	7032912.143	19421362.77	4.4174	19559390.63	6.8259	10.90_169.0349m/z
+SML	723	49	CHEBI:26986	C4H9NO3	null	null	Threonine	null	119.0582	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	49.3092	8652081.298	8068845.038	8480535.291	7567115.792	9299021.427	8807513.566	25201461.63	3.5682	25673650.79	10.4293	11.74_120.0649m/z
+SML	735	774	CHEBI:15891	C2H7NO3S	null	null	Taurine	null	125.0147	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	52.8515	5928286.936	5417515.329	5820192.77	6318313.442	7358851.543	6698599.786	17165995.03	4.7042	20375764.77	7.752	11.92_126.0217m/z
+SML	738	102	CHEBI:39033	C8H18N2O6S2	null	null	PIPES [M-H]-	null	302.0606	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	47.6212	8552283.828	7430405.095	8442646.234	10530094.76	10328394.76	12041933.18	24425335.16	7.5966	32900422.69	8.5397	11.95_303.0674m/z
+SML	767	780	CHEBI:22653	C4H8N2O3	null	null	Asparagine	null	132.0535	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	50.7965	2465240.29	2312034.279	2478860.339	1261327.834	1504831.482	1670066.495	7256134.907	3.83	4436225.812	13.9047	12.23_133.0602m/z
+SML	768	17	CHEBI:28300	C5H10N2O3	null	null	Glutamine	null	146.0691	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	47.4401	27880437.27	28389759.04	27913260.3	39816663.53	44101276.59	43411662.29	84183456.61	1.0158	127329602.4	5.4205	12.26_147.0758m/z
+SML	793	956	CHEBI:17270	C3H9O6P	null	null	Glycerol-2-phosphate	null	172.0137	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	46.7956	202854.8011	194138.2384	164949.5227	160047.3574	25984.5007	54558.2681	561942.5623	10.5986	240590.1263	88.0499	12.57_173.0206m/z
+SML	806	513	CHEBI:16695	C9H13N2O9P	null	null	UMP	null	324.0359	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	53.3957	1321073.961	1417953.149	1424344.249	0	0	0	4163371.36	4.1697	0	NaN	12.82_325.0424m/z
+SML	905	1067	CHEBI:17268	C6H12O6	null	null	myo-Inositol	null	180.0634	[M+Na]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	52.483	16328.8018	48297.9894	23143.935	148990.3794	143027.0298	170512.9603	87770.7262	57.5538	462530.3694	9.3778	14.42_203.0520m/z
+SML	949	566	CHEBI:17552	C10H15N5O11P2	null	null	GDP	null	443.0243	[M+H]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	53.0289	776953.5136	826544.0499	809552.8948	555138.3365	726945.9204	682375.6149	2413050.458	3.1331	1964459.872	13.6155	15.32_444.0304m/z
+SML	1022	79 | 523	CHEBI:25094	C6H14N2O2	null	null	Lysine	null	146.1055	[M+H]+ | [M+Na]+	2	[MS,MS:1002889,Progenesis MetaScope score,]	53.8925	19440344.69	19514108.63	17696364.21	11477221.32	13726671.61	15013706.84	56650817.52	5.4483	40217599.77	13.3519	21.37_146.1049n
+																								
+SFH	SMF_ID	SME_ID_REFS	SME_ID_REF_ambiguity_code	adduct_ion	isotopomer	exp_mass_to_charge	charge	retention_time_in_seconds	retention_time_in_seconds_start	retention_time_in_seconds_end	abundance_assay[1]	abundance_assay[2]	abundance_assay[3]	abundance_assay[4]	abundance_assay[5]	abundance_assay[6]								
+SMF	6	1	null	[M+H]+	null	114.0654	1	413.81	393.55	447.87	59579140.67	63545698.19	61393680.89	59131129.43	63693769.3	66308065.78								
+SMF	7	7	null	null	null	116.0699	1	607.75	587.39	648.11	59134552.3	57461952.47	60069535.6	55657781.22	56998852.39	60837200.27								
+SMF	13	4	null	null	null	132.1014	1	483.77	455.72	541.07	65543883.46	65475290.35	67694647.59	59237651.35	56077561.47	54207405.41								
+SMF	17	13	null	null	null	147.0758	1	735.86	719.74	768.94	27880437.27	28389759.04	27913260.3	39816663.53	44101276.59	43411662.29								
+SMF	18	6	null	null	null	118.0857	1	584.32	558.3	621.66	21775405.56	23532222.57	24850183.03	18841152.12	22892660.2	21760739.43								
+SMF	49	9	null	null	null	120.0649	1	704.42	691.29	719.74	8652081.298	8068845.038	8480535.291	7567115.792	9299021.427	8807513.566								
+SMF	79	18	null	[M+H]+	null	147.1122	1	1282.28	1240.7	1327.7	18300216.71	18386757.3	16584466.96	10664352.8	12724569.73	13994405.78								
+SMF	102	11	null	null	null	303.0674	1	717.05	702.2	727.4	8552283.828	7430405.095	8442646.234	10530094.76	10328394.76	12041933.18								
+SMF	117	5	null	null	null	150.0578	1	513.76	496.87	555.22	8419806.046	7954686.919	8318226.561	8007517.592	7319791.067	7367477.802								
+SMF	153	8	null	null	null	169.0349	1	653.98	630.69	667.64	6594546.767	6679574.386	6147241.614	6238970.002	6287508.483	7032912.143								
+SMF	513	15	null	null	null	325.0424	1	768.94	757.1	777.81	1321073.961	1417953.149	1424344.249	0	0	0								
+SMF	523	19	null	[M+Na]+	null	169.0943	1	1279.2	1261.83	1314.56	1140127.98	1127351.323	1111897.25	812868.519	1002101.884	1019301.062								
+SMF	566	17	null	null	null	444.0304	1	919.02	910.32	930.76	776953.5136	826544.0499	809552.8948	555138.3365	726945.9204	682375.6149								
+SMF	774	10	null	null	null	126.0217	1	714.99	704.42	727.4	5928286.936	5417515.329	5820192.77	6318313.442	7358851.543	6698599.786								
+SMF	780	12	null	null	null	133.0602	1	733.64	722.81	757.1	2465240.29	2312034.279	2478860.339	1261327.834	1504831.482	1670066.495								
+SMF	782	3	null	null	null	137.0452	1	440.1	429.32	455.72	1164487.316	1376477.974	1531498.698	1398304.361	1633581.631	2129396.512								
+SMF	937	2	null	[M+Na]+	null	136.0475	1	413.81	402.83	419.78	230613.9561	227593.0281	236957.4883	0	180978.6531	12643.0648								
+SMF	956	14	null	null	null	173.0206	1	754.37	751.31	760.07	202854.8011	194138.2384	164949.5227	160047.3574	25984.5007	54558.2681								
+SMF	1067	16	null	null	null	203.052	1	865.23	859.25	871.52	16328.8018	48297.9894	23143.935	148990.3794	143027.0298	170512.9603								
+																								
+SEH	SME_ID	evidence_input_id	database_identifier	chemical_formula	smiles	inchi	chemical_name	uri	derivatized_form	adduct_ion	exp_mass_to_charge	charge	theoretical_mass_to_charge	spectra_ref	identification_method	ms_level	id_confidence_measure[1]	id_confidence_measure[2]	id_confidence_measure[3]	rank	opt_global_retention_time_in_seconds	opt_global_retention_time_in_seconds_database		
+SME	1	413.81_114.0654m/z	CHEBI:16737	C4H7N3O	null	null	Creatinine	null	null	[M+H]+	114.0654	1	114.0662	ms_run[1]:index=274 | ms_run[1]:index=290 | ms_run[2]:index=274 | ms_run[2]:index=290 | ms_run[3]:index=270 | ms_run[3]:index=288 | ms_run[4]:index=268 | ms_run[4]:index=284 | ms_run[5]:index=266 | ms_run[5]:index=282 | ms_run[6]:index=266 | ms_run[6]:index=282	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	56.4424	0	99.6059	1	413.81	414		
+SME	2	413.81_136.0475m/z	CHEBI:16737	C4H7N3O	null	null	Creatinine	null	null	[M+Na]+	136.0475	1	136.0481	ms_run[1]:index=281 | ms_run[2]:index=277 | ms_run[3]:index=279 | ms_run[4]:index=273 | ms_run[5]:index=271 | ms_run[6]:index=271	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	56.4424	0	99.6059	1	413.81	414		
+SME	3	440.10_137.0452m/z	CHEBI:17368	C5H4N4O	null	null	Hypoxanthine	null	null	[M+H]+	137.0452	1	137.0458	ms_run[1]:index=301 | ms_run[2]:index=297 | ms_run[3]:index=299 | ms_run[4]:index=291 | ms_run[5]:index=289 | ms_run[6]:index=289	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	44.0249	0	93.1371	1	440.1	444		
+SME	4	483.77_132.1014m/z	CHEBI:25017	C6H13NO2	null	null	Leucine	null	null	[M+H]+	132.1014	1	132.1019	ms_run[1]:index=326 | ms_run[1]:index=342 | ms_run[1]:index=362 | ms_run[2]:index=324 | ms_run[2]:index=342 | ms_run[2]:index=360 | ms_run[3]:index=324 | ms_run[3]:index=340 | ms_run[3]:index=360 | ms_run[4]:index=320 | ms_run[4]:index=342 | ms_run[5]:index=312 | ms_run[5]:index=328 | ms_run[5]:index=344 | ms_run[6]:index=314 | ms_run[6]:index=330 | ms_run[6]:index=346	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	48.2759	0	98.8384	1	483.77	486		
+SME	5	513.76_150.0578m/z	CHEBI:16811	C5H11NO2S	null	null	Methionine	null	null	[M+H]+	150.0578	1	150.0583	ms_run[1]:index=354 | ms_run[2]:index=352 | ms_run[3]:index=352 | ms_run[4]:index=346 | ms_run[5]:index=340 | ms_run[6]:index=344	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	47.6054	0	93.7529	1	513.76	516		
+SME	6	584.32_118.0857m/z	CHEBI:27266	C5H11NO2	null	null	Valine	null	null	[M+H]+	118.0857	1	118.0863	ms_run[1]:index=400 | ms_run[2]:index=400 | ms_run[3]:index=400 | ms_run[4]:index=394 | ms_run[5]:index=386 | ms_run[6]:index=386	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	48.7105	0	98.9488	1	584.32	582		
+SME	7	607.75_116.0699m/z	CHEBI:26271	C5H9NO2	null	null	Proline	null	null	[M+H]+	116.0699	1	116.0706	ms_run[1]:index=416 | ms_run[1]:index=432 | ms_run[1]:index=448 | ms_run[2]:index=416 | ms_run[2]:index=432 | ms_run[3]:index=416 | ms_run[3]:index=432 | ms_run[4]:index=406 | ms_run[4]:index=422 | ms_run[5]:index=402 | ms_run[5]:index=418 | ms_run[6]:index=402 | ms_run[6]:index=418	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	45.8868	0	99.7575	1	607.75	612		
+SME	8	653.98_169.0349m/z	CHEBI:17775	C5H4N4O3	null	null	Urate	null	null	[M+H]+	169.0349	1	169.0356	ms_run[1]:index=456 | ms_run[2]:index=456 | ms_run[3]:index=458 | ms_run[4]:index=436 | ms_run[5]:index=430 | ms_run[6]:index=432	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	44.5238	0	97.0874	1	653.98	648		
+SME	9	704.42_120.0649m/z	CHEBI:26986	C4H9NO3	null	null	Threonine	null	null	[M+H]+	120.0649	1	120.0655	ms_run[1]:index=491 | ms_run[2]:index=489 | ms_run[3]:index=489 | ms_run[4]:index=477 | ms_run[5]:index=475 | ms_run[6]:index=473	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	49.3092	0	98.2503	1	704.42	702		
+SME	10	714.99_126.0217m/z	CHEBI:15891	C2H7NO3S	null	null	Taurine	null	null	[M+H]+	126.0217	1	126.0219	ms_run[2]:index=502	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	52.8515	0	91.8689	1	714.99	714		
+SME	11	717.05_303.0674m/z	CHEBI:39033	C8H18N2O6S2	null	null	PIPES [M-H]-	null	null	[M+H]+	303.0674	1	303.0679	ms_run[1]:index=498 | ms_run[2]:index=504 | ms_run[3]:index=502 | ms_run[5]:index=482 | ms_run[6]:index=480	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	47.6212	0	91.4395	1	717.05	714		
+SME	12	733.64_133.0602m/z	CHEBI:22653	C4H8N2O3	null	null	Asparagine	null	null	[M+H]+	133.0602	1	133.0608	ms_run[1]:index=515 | ms_run[2]:index=513 | ms_run[3]:index=513 | ms_run[4]:index=501 | ms_run[5]:index=497 | ms_run[6]:index=497	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	50.7965	0	94.3454	1	733.64	732		
+SME	13	735.86_147.0758m/z	CHEBI:28300	C5H10N2O3	null	null	Glutamine	null	null	[M+H]+	147.0758	1	147.0764	ms_run[1]:index=512 | ms_run[2]:index=514 | ms_run[3]:index=514 | ms_run[4]:index=498 | ms_run[4]:index=514 | ms_run[5]:index=494 | ms_run[6]:index=510 | ms_run[6]:index=492	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	47.4401	0	98.2785	1	735.86	732		
+SME	14	754.37_173.0206m/z	CHEBI:17270	C3H9O6P	null	null	Glycerol-2-phosphate	null	null	[M+H]+	173.0206	1	173.021	ms_run[1]:index=531 | ms_run[2]:index=529 | ms_run[3]:index=529 | ms_run[4]:index=515 | ms_run[5]:index=511 | ms_run[6]:index=511	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	46.7956	0	95.3687	1	754.37	750		
+SME	15	768.94_325.0424m/z	CHEBI:16695	C9H13N2O9P	null	null	UMP	null	null	[M+H]+	325.0424	1	325.0431	ms_run[1]:index=540 | ms_run[2]:index=538 | ms_run[3]:index=542	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	53.3957	0	92.7484	1	768.94	768		
+SME	16	865.23_203.0520m/z	CHEBI:17268	C6H12O6	null	null	myo-Inositol	null	null	[M+Na]+	203.052	1	203.0526	ms_run[1]:index=607 | ms_run[2]:index=605 | ms_run[3]:index=607 | ms_run[4]:index=589 | ms_run[5]:index=585 | ms_run[6]:index=585	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,1]	52.483	0	92.3456	1	865.23	864		
+SME	17	919.02_444.0304m/z	CHEBI:17552	C10H15N5O11P2	null	null	GDP	null	null	[M+H]+	444.0304	1	444.0316	ms_run[3]:index=644	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	53.0289	0	89.9483	1	919.02	918		
+SME	18	1282.28_147.1122m/z	CHEBI:25094	C6H14N2O2	null	null	Lysine	null	null	[M+H]+	147.1122	1	147.1128	ms_run[1]:index=856 | ms_run[1]:index=872 | ms_run[1]:index=886 | ms_run[2]:index=856 | ms_run[2]:index=872 | ms_run[2]:index=888 | ms_run[3]:index=862 | ms_run[3]:index=876 | ms_run[3]:index=890 | ms_run[4]:index=836 | ms_run[4]:index=850 | ms_run[4]:index=864 | ms_run[5]:index=836 | ms_run[5]:index=850 | ms_run[5]:index=864 | ms_run[6]:index=834 | ms_run[6]:index=848 | ms_run[6]:index=862	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	53.8925	0	98.898	1	1282.28	1284		
+SME	19	1279.20_169.0943m/z	CHEBI:25094	C6H14N2O2	null	null	Lysine	null	null	[M+Na]+	169.0943	1	169.0947	ms_run[1]:index=882 | ms_run[2]:index=870 | ms_run[3]:index=872 | ms_run[4]:index=846 | ms_run[5]:index=846 | ms_run[6]:index=854	[,,Progenesis MetaScope,]	[MS,MS:1000511,ms level,2]	53.8925	0	98.898	1	1279.2	1284		

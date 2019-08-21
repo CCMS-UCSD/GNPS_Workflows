@@ -11,7 +11,7 @@
         <source type="folder" name="qiime2_output/"/>
     </download>
 
-    <view id="clone_updated_networking" label="Clone Job to Current Molecular Networking V2 Workflow Version" group="Clone to Current Networking Workflow">
+    <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
         <blockRef id="main" type="clone_updated_networking"/>
     </view>
     <block id="clone_updated_networking" type="dummylinkout">
