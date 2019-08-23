@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="massive" version="1.2.5">
+	<!-- View definitions -->
+	
+<!--	<view id="view_dataset" label="View Submitted Dataset">
+		<blockRef id="main" type="dataset_display"/>
+	</view>-->
+	
+<!-- View definitions -->
+        <view id="advanced_view" label="Subscription and Comments">
+                <blockRef id="main" type="massivepage"/>
+        </view>
+
+        <!-- Block definitions -->
+        <block id="massivepage" type="massivepage">
+            <data>
+            	<source type="file" name="result/"/> 
+             	<parsers>
+                	<parser type="stream" contentType="text/xml"/>
+	            </parsers>
+	        </data>
+        </block>
+
+        <view id="group_all_annotations" label="Subscription and Comments">
+                <blockRef id="main" type="massivepage"/>
+        </view>
+
+        <!-- Block definitions -->
+        <block id="massivepage" type="massivepage">
+            <data>
+            	<source type="file" name="result/"/> 
+             	<parsers>
+                	<parser type="stream" contentType="text/xml"/>
+	            </parsers>
+	        </data>
+        </block>
+
+	
+	<!-- Block definitions -->
+	<block id="dataset_display" type="stream">
+		<data>
+			<source type="file" name="result/"/>
+			<parsers>
+				<parser type="stream" contentType="text/html"/>
+			</parsers>
+		</data>
+	</block>
+</interface>

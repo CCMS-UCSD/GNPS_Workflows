@@ -16,6 +16,7 @@
             <arg option="-nap" valueRef="@NAP_TASK"/>
             <arg option="-dereplicator" valueRef="@DEREPLICATOR_TASK"/>
             <arg option="-varquest" valueRef="@VARQUEST_TASK"/>
+            <arg option="-ms2lda" valueRef="@MS2LDA_TASK"/>
             <arg valueRef="output_network"/>
         </execution>
     </tool>

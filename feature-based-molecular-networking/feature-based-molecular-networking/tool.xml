@@ -54,11 +54,16 @@
         <require name="quantification_table" type="file"/>
         <produce name="quantification_table_reformatted" type="file" naming="explicit" extension="csv"/>
 
+        <require name="inputSpectra" type="file"/>
+        <produce name="spectra_reformatted" type="file" naming="fixed" value="spectra_reformatted.mgf"/>
+
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="reformat_quantification.script"/>
-            <arg valueRef="workflowParameters"/>
+            <arg valueRef="@QUANT_TABLE_SOURCE"/>
             <arg valueRef="quantification_table"/>
             <arg valueRef="quantification_table_reformatted"/>
+            <arg valueRef="inputSpectra"/>
+            <arg valueRef="spectra_reformatted"/>
         </execution>
     </tool>
 

@@ -68,7 +68,7 @@
             <column type="text" field="dataset_scan" label="dataset_scan" width="10"/>
             <column type="text" field="filename" label="filename" width="40"/>
             <column label="View Metadata" type="genericurlgenerator" width="10" >
-                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="URLBASE" value="https://redu.ucsd.edu:5005/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>
@@ -87,12 +87,20 @@
             </parsers>
         </data>
         <row>
+            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="[filename]"/>
+                <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[filescan]"/>
+                <parameter name="LABEL" value="AnnotatetoGNPS"/>
+            </column>
+
             <column type="text" field="dataset_id" label="dataset_id" width="30"/>
             <!-- <column type="text" field="dataset_scan" label="dataset_scan" width="10"/> -->
             <column type="text" field="filename" label="GNPS Filepath" width="40"/>
             <column type="text" field="filescan" label="Scan Number" width="40"/>
             <column label="View Metadata" type="genericurlgenerator" width="10" >
-                <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5005/datalookup"/>
+                <parameter name="URLBASE" value="https://redu.ucsd.edu:5005/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>
@@ -209,6 +217,25 @@
                 <parameter name="HASHPARAMTER=spec_on_server" value="[filenames]"/>
                 <parameter name="LABEL" value="Reanalyze with Molecular Networking"/>
             </column>
+        </row>
+    </block>
+
+    <view id="foodomics" label="View Foodomics Specific Molecules" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="foodomics"/>
+    </view>
+
+    <block id="foodomics" type="table">
+        <data>
+            <source type="file" name="foodomics_tracking_file/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="depth" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="depth" label="depth"/>
+            <column type="text" field="marker_type" label="marker_type" width="5"/>
+            <column type="integer" field="number_of_hits" label="number_of_hits" width="3"/>
+            <column type="float" field="product_score" label="product_score" precision="2"/>
         </row>
     </block>
 

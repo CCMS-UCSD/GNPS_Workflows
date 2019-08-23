@@ -169,8 +169,11 @@ def main():
         print("ROW SUM NORM")
         for filename_header in input_filename_headers:
             file_quants = [float(quantification_object[filename_header]) for quantification_object in quantification_list]
-            for quantification_object in quantification_list:
-                quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants)
+            summed_file_quants = sum(file_quants)
+            #Handling zero column
+            if summed_file_quants > 0:
+                for quantification_object in quantification_list:
+                    quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants) * 1000000
 
     """Loading MS2 Spectra"""
     mgf_collection = ming_spectrum_library.SpectrumCollection(args.mgf_filename)
