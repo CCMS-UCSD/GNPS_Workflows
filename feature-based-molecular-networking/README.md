@@ -22,6 +22,7 @@ The feature output should include 3 rows that can be ignored and headers startin
 
 Additionally, it is assumed there are additional columns where the per sample quant starts at column 22. 
 
+
 ### Metaboscape
 
 The feature table should include columns with the following header:
