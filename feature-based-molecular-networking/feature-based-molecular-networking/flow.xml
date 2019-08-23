@@ -202,6 +202,7 @@
 
     <action name="end">
         <input port="spectra" object="spectra"/>
+        <input port="spectra_reformatted" object="spectra_reformatted"/>
         <input port="networking_parameters" collection="networking_parameters"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="networkedges_selfloop" object="networkedges_selfloop"/>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="MERGE_NETWORKS_POLARITY">
+	<object     name="workflowParameters"/>
+
+	<action name="begin">
+		<output port="flowParams" object="workflowParameters"/>
+	</action>
+
+    <object name="merged_network"/>
+	<action name="merge_polarity">
+        <input  port="workflowParameters" object="workflowParameters"/>
+        <output  port="merged_network" object="merged_network"/>
+    </action>
+
+	<action name="end">
+		<input port="merged_network" object="merged_network"/>
+	</action>
+</flow>

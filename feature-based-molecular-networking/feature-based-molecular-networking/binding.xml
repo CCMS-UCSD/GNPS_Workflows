@@ -184,6 +184,11 @@
         <upload port="spectra" type="folder">
             <query name="resource" value="spectra"/>
         </upload>
+
+        <upload port="spectra_reformatted" type="folder">
+            <query name="resource" value="spectra_reformatted"/>
+        </upload>
+        
         <upload port="librarysearch_results_file_DB" type="folder">
             <query name="resource" value="DB_result"/>
         </upload>

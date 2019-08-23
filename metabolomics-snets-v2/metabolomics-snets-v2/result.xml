@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="ming_test" version="1.2.3">
+<interface id="ming_test" version="release_8">
     <!-- View definitions -->
     <download>
         <source type="folder" name="clusterinfo/"/>
@@ -11,263 +11,275 @@
         <source type="folder" name="qiime2_output/"/>
     </download>
 
+    <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
+        <blockRef id="main" type="clone_updated_networking"/>
+    </view>
+    <block id="clone_updated_networking" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22METABOLOMICS-SNETS-V2%22%2C%20%22version%22%3A%20%22current%22%7D'/>
+    </block>
 
-        <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
-                <blockRef id="main"   type="view_all_annotations_DB"/>
-        </view>
-        <block id="view_all_annotations_DB" type="table">
-                <data>
-                        <source type="file" name="result_specnets_DB/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
-                        </parsers>
-                        <processors>
-                                <processor type="uploadFilename" field="SpectrumFile"/>
-                        </processors>
-                </data>
-                <row>
-                        <column label="ViewLib" type="genericurlgenerator" width="5">
-                            <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
-                            <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
-                            <parameter name="LABEL" value="ViewLib"/>
-                        </column>
-                        <column label="Explore" type="genericurlgenerator" width="5">
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-                            <parameter name="REQUESTPARAMETER=task" value="698fc5a09db74c7492983b3673ff5bf6"/>
-                            <parameter name="REQUESTPARAMETER=view" value="molecule_explorer_v2_details"/>
-                            <parameter name="REQUESTPARAMETER=show" value="true"/>
-                            <parameter name="HASHPARAMTER=main.compound_name_input" value="[Compound_Name]||EXACT"/>
-                            <parameter name="LABEL" value="Explore Molecule in [MoleculeExplorerFiles] Files and [MoleculeExplorerDatasets] Datasets"/>
-                        </column>
-                        <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
-                        <column type="integer"     field="#Scan#"         label="ClusterIdx"            width="3"/>
-                        <column label="View All Spectra" type="genericurlgenerator" width="10" field="View Raw">
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-                            <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
-                            <parameter name="REQUESTPARAMETER=protein" value="[#Scan#]"/>
-                            <parameter name="REQUESTPARAMETER=show" value="true"/>
-                            <parameter name="LABEL" value="View Raw Spectra"/>
-                            <parameter name="USETASK" value="True"/>
-                        </column>
-                        <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
 
-                        <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
-                        <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
-                        <column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/>
-                        <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
-                        <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
+    <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="view_all_annotations_DB"/>
+    </view>
+    <block id="view_all_annotations_DB" type="table">
+        <data>
+            <source type="file" name="result_specnets_DB/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
+        </data>
+        <row>
+            <column label="ViewLib" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
+                <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
+                <parameter name="LABEL" value="ViewLib"/>
+            </column>
+            <column label="Explore" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=task" value="698fc5a09db74c7492983b3673ff5bf6"/>
+                <parameter name="REQUESTPARAMETER=view" value="molecule_explorer_v2_details"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="HASHPARAMTER=main.compound_name_input" value="[Compound_Name]||EXACT"/>
+                <parameter name="LABEL" value="Explore Molecule in [MoleculeExplorerFiles] Files and [MoleculeExplorerDatasets] Datasets"/>
+            </column>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
+            <column type="integer" field="#Scan#" label="ClusterIdx" width="3"/>
+            <column label="View All Spectra" type="genericurlgenerator" width="10" field="View Raw">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+                <parameter name="REQUESTPARAMETER=protein" value="[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="View Raw Spectra"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
 
-                        <column type="float"     field="MassDiff"         label="MassDiff"            precision="2"/>
-                        <column type="float"     field="SpecMZ"         label="SpecMZ"            precision="2"/>
-                        <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="SharedPeaks" label="SharedPeaks" width="3"/>
+            <column type="float" field="TIC_Query" label="TIC Query" precision="2"/>
+            <column type="float" field="RT_Query" label="RT Query" precision="2" />
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM" />
 
-                        <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
-                        <columbiomn type="text"     field="IonMode"         label="IonMode"            width="5"/>
-                        <column type="text"     field="PI"         label="PI"            width="5"/>
-                        <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
-                        <column type="text"     field="tags"         label="Tags"            width="5"/>
-                        <column label="Add Library Tag" type="addspectrumtag" width="12">
-                            <parameter name="spectrumID" value="[SpectrumID]"/>
-                        </column>
-                        <column type="structuredisplayer"     label="Structure">
-                            <parameter name="smilesstructure" value="[Smiles]"/>
-                        </column>
-                </row>
-                <row expander="image">
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
-                            <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                            <parameter name="scan"    value="[#Scan#]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
-                            <parameter name="file"    file="lib/[LibraryName]"/>
-                            <parameter name="spectrumid"    value="[SpectrumID]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                    </column>
-                </row>
-                <row expander="View Mirror Match" expandericontype="text">
-                    <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
-                            <parameter name="spectrum1_type"    value="flatfile"/>
-                            <parameter name="spectrum1_file"    file="spectra/specs_ms.mgf"/>>
-                            <parameter name="spectrum1_scan"    value="[#Scan#]"/>
-                            <parameter name="spectrum2_type"    value="lib"/>
-                            <parameter name="spectrum2_spectrumid"    value="[SpectrumID]"/>
-                    </column>
-                </row>
-        </block>
+            <column type="float" field="MassDiff" label="MassDiff" precision="2"/>
+            <column type="float" field="SpecMZ" label="SpecMZ" precision="2"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
 
-        <view id="group_by_compound" label="View Unique Library Compounds" group="Default Molecular Networking Results Views">
-            <blockRef id="main" type="group_by_compound"/>
-        </view>
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <columbiomn type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            <column type="text" field="tags" label="Tags" width="5"/>
+            <column label="Add Library Tag" type="addspectrumtag" width="12">
+                <parameter name="spectrumID" value="[SpectrumID]"/>
+            </column>
+            <column type="structuredisplayer" label="Structure">
+                <parameter name="smilesstructure" value="[Smiles]"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+        </row>
+        <row expander="View Mirror Match" expandericontype="text">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
+                <parameter name="spectrum1_scan" value="[#Scan#]"/>
+                <parameter name="spectrum2_type" value="lib"/>
+                <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
+            </column>
+        </row>
+    </block>
 
-        <block id="group_by_compound" type="table">
-                <data>
-                        <source type="file" name="result_specnets_DB/"/>
-                        <parsers>
-                                <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
-                                <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
-                        </parsers>
-                        <processors>
-                                <processor type="uploadFilename" field="SpectrumFile"/>
-                        </processors>
-                </data>
-                <row>
-                    <column label="ViewLib" type="genericurlgenerator" width="5"> \
-                        <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>\
-                        <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>\
-                        <parameter name="LABEL" value="ViewLib"/>\
-                    </column>\
+    <view id="group_by_compound" label="View Unique Library Compounds" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="group_by_compound"/>
+    </view>
 
-                        <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
-                        <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
-                        <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
-                        <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
-                        <column type="float"     field="MassDiff"         label="MassDiff"            precision="3"/>
-                        <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
-                        <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
-                        <column type="text"     field="IonMode"         label="IonMode"            width="5"/>
-                        <column type="text"     field="PI"         label="PI"            width="5"/>
-                        <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
-                        <column type="text"     field="tags"         label="Tags"            width="5"/>
-                        <column label="Add Library Tag" type="addspectrumtag" width="12">
-                            <parameter name="spectrumID" value="[SpectrumID]"/>
-                        </column>
-                        <column type="structuredisplayer"     label="Structure">
-                            <parameter name="smilesstructure" value="[Smiles]"/>
-                        </column>
-                </row>
-                <row expander="image">
-                        <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
-                                <parameter name="file"    file="spectra/[internalFilename]"/>
-                                <parameter name="scan"    value="[#Scan#]"/>
-                                <parameter name="compoundname" value="*..*"/>
-                                <parameter name="trim" value="true"/>
-                        </column>
-                        <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
-                                <parameter name="file"    file="lib/[LibraryName]"/>
-                                <parameter name="spectrumid"    value="[SpectrumID]"/>
-                                <parameter name="compoundname" value="*..*"/>
-                                <parameter name="trim" value="true"/>
-                        </column>
-                </row>
-        </block>
+    <block id="group_by_compound" type="table">
+        <data>
+            <source type="file" name="result_specnets_DB/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
+                <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
+        </data>
+        <row>
+            <column label="ViewLib" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
+                <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
+                <parameter name="LABEL" value="ViewLib"/>
+            </column>
 
-        <view id="view_all_clusters_withID_beta" label="View All Clusters With IDs" group="Default Molecular Networking Results Views">
-                <blockRef id="main" type="view_all_clusters_withID_beta"/>
-        </view>
-        <block id="view_all_clusters_withID_beta" type="table">
-                <data>
-                        <source type="file" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index">
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-                            <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
-                            <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
-                            <parameter name="REQUESTPARAMETER=show" value="true"/>
-                            <parameter name="LABEL" value="Cluster - [cluster index]"/>
-                            <parameter name="USETASK" value="True"/>
-                        </column>
-                        <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex"> \
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>\
-                            <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>\
-                            <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>\
-                            <parameter name="REQUESTPARAMETER=highlight_node" value="[cluster index]"/>\
-                            <parameter name="LABEL" value="View Network"/>\
-                            <parameter name="USETASK" value="True"/>\
-                            <parameter name="IGNORE_VALUE" value="-1"/>\
-                            <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>\
-                        </column>\
+            <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
+            <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM" />
+            <column type="float" field="MassDiff" label="MassDiff" precision="3"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <column type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            <column type="text" field="tags" label="Tags" width="5"/>
+            <column label="Add Library Tag" type="addspectrumtag" width="12">
+                <parameter name="spectrumID" value="[SpectrumID]"/>
+            </column>
+            <column type="structuredisplayer" label="Structure">
+                <parameter name="smilesstructure" value="[Smiles]"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                <parameter name="file" file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="compoundname" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="compoundname" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+    </block>
 
-                        <column type="parameterlink" target="result.jsp" label="AnnotatetoGNPS" includetask="true">
-                          <parameter name="view" value="cluster_details"/>
-                          <parameter name="protein" value="[cluster index]"/>
-                        </column>
+    <view id="view_all_clusters_withID_beta" label="View All Clusters With IDs" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="view_all_clusters_withID_beta"/>
+    </view>
+    <block id="view_all_clusters_withID_beta" type="table">
+        <data>
+            <source type="file" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+                <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="Cluster - [cluster index]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>
+                <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>
+                <parameter name="REQUESTPARAMETER=highlight_node" value="[cluster index]"/>
+                <parameter name="LABEL" value="View Network"/>
+                <parameter name="USETASK" value="True"/>
+                <parameter name="IGNORE_VALUE" value="-1"/>
+                <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
+            </column>
 
-                        <column type="parameterlink" target="result.jsp" label="AddtoChallenge" includetask="true">
-                          <parameter name="view" value="cluster_details"/>
-                          <parameter name="protein" value="[cluster index]"/>
-                        </column>
+            <column type="parameterlink" target="result.jsp" label="AnnotatetoGNPS" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                        <column type="integer"     field="number of spectra"        label="NumSpectra"          width="3"/>
-                        <column type="integer"     field="UniqueFileSourcesCount"        label="NumFiles"          width="3"/>
-                        <column type="float"       field="precursor mass"       label="PrecursorMZ"           precision="5"/>
-                        <column type="float"        field="sum(precursor intensity)"    label="PrecursorInt"         precision="5"/>
-                        <column type="float"        field="RTMean"    label="RTMean"         width="3"/>
-                        <column type="text"        field="AllGroups"    label="AllGroups"         width="3"/>
-                        <column type="text"        field="DefaultGroups"    label="DefaultGroups"         width="5"/>
-                        <column type="integer"        field="EvenOdd"    label="EvenOdd"         width="5"/>
-                        <column type="text"        field="LibraryID"    label="LibraryID"         width="20"/>
-                        <column type="integer"        field="NumberOrganismIDs"    label="Hits"         width="1"/>
+            <column type="parameterlink" target="result.jsp" label="AddtoChallenge" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                        <column type="expandable"        field="UniqueFileSources"    label="All Files"         width="20"/>
-                </row>
-                <row expander="image">
-                  <column type="jscolumnspectrumviewer" colspan="5">
-                      <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                      <parameter name="scan"    value="[cluster index]"/>
-                      <parameter name="compoundname"    value="[LibraryID]"/>
-                      <parameter name="trim" value="true"/>
-                  </column>
-                </row>
-                <row expander="View Analogs" expandericontype="text">
-                  <column type="block" block="related_network_list_specnets" colspan="7">
-                    <parameter name="spectraid" value="[cluster index]"/>
-                  </column>
-                </row>
-                <row expander="Search Spec" expandericontype="text">
-                    <column type="singlespectrumcolumnhandler" colspan="5">
-                        <parameter name="mz"    value="[precursor mass]"/>
-                        <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                        <parameter name="scan"    value="[cluster index]"/>
-                    </column>
-                </row>
-        </block>
+            <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
+            <column type="integer" field="UniqueFileSourcesCount" label="NumFiles" width="3"/>
+            <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
+            <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
+            <column type="float" field="RTMean" label="RTMean" width="3"/>
+            <column type="text" field="AllGroups" label="AllGroups" width="3"/>
+            <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
+            <column type="integer" field="EvenOdd" label="EvenOdd" width="5"/>
+            <column type="text" field="LibraryID" label="LibraryID" width="20"/>
+            <column type="integer" field="NumberOrganismIDs" label="Hits" width="1"/>
+
+            <column type="expandable" field="UniqueFileSources" label="All Files" width="20"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="compoundname" value="[LibraryID]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+        <row expander="View Analogs" expandericontype="text">
+            <column type="block" block="related_network_list_specnets" colspan="7">
+                <parameter name="spectraid" value="[cluster index]"/>
+            </column>
+        </row>
+        <row expander="Search Spec" expandericontype="text">
+            <column type="singlespectrumcolumnhandler" colspan="5">
+                <parameter name="mz" value="[precursor mass]"/>
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+            </column>
+        </row>
+    </block>
 
 
 
     <view id="network_components" label="View Spectral Families (In Browser Network Visualizer)" group="Network Visualizations">
-            <blockRef id="main" type="network_components"/>
+        <blockRef id="main" type="network_components"/>
     </view>
     <block id="network_components" type="table">
-            <data>
-                    <source type="file" name="networkcomponents/"/>
-                    <parsers>
-                            <parser type="sortedTabular" sortBy="NodeCount" operator="descending"/>
-                    </parsers>
-            </data>
-            <row>
-                    <column label="Visualize Network" type="genericurlgenerator" width="12" field="ComponentIndex"> \
-                        <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>\
-                        <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>\
-                        <parameter name="REQUESTPARAMETER=componentindex" value="[ComponentIndex]"/>\
-                        <parameter name="LABEL" value="Visualize Network"/>\
-                        <parameter name="USETASK" value="True"/>\
-                    </column>\
+        <data>
+            <source type="file" name="networkcomponents/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="NodeCount" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="Visualize Network" type="genericurlgenerator" width="12" field="ComponentIndex"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>
+                <parameter name="REQUESTPARAMETER=componentindex" value="[ComponentIndex]"/>
+                <parameter name="LABEL" value="Visualize Network"/>
+                <parameter name="USETASK" value="True"/>
+            </column>\
 
-                    <column label="View Network Nodes" type="genericurlgenerator" width="12" field="ComponentIndex"> \
-                        <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>\
-                        <parameter name="REQUESTPARAMETER=view" value="cluster_info_sliced"/>\
-                        <parameter name="REQUESTPARAMETER=componentindex" value="[ComponentIndex]"/>\
-                        <parameter name="REQUESTPARAMETER=show" value="true"/>\
-                        <parameter name="LABEL" value="Network Nodes"/>\
-                        <parameter name="USETASK" value="True"/>\
-                    </column>\
+            <column label="View Network Nodes" type="genericurlgenerator" width="12" field="ComponentIndex"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_info_sliced"/>
+                <parameter name="REQUESTPARAMETER=componentindex" value="[ComponentIndex]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="Network Nodes"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
 
-                    <column type="integer"        field="NodeCount" label="NodeCount"        width="5"/>
-                    <column type="float"       field="%ID"       label="%ID"           precision="3" />
-                    <column type="integer"       field="#Spectra"           label="#Spectra"             width="5"/>
-                    <column type="expandable"       field="AllIDs"           label="AllIDs"             width="10"/>
-                    <column type="expandable"       field="DefaultGroups"           label="DefaultGroups"             width="10"/>
-                    <column type="expandable"       field="UserGroups"           label="UserGroups"             width="10"/>
-            </row>
+            <column type="integer" field="NodeCount" label="NodeCount" width="5"/>
+            <column type="float" field="%ID" label="%ID" precision="3" />
+            <column type="integer" field="#Spectra" label="#Spectra" width="5"/>
+            <column type="expandable" field="AllIDs" label="AllIDs" width="10"/>
+            <column type="expandable" field="DefaultGroups" label="DefaultGroups" width="10"/>
+            <column type="expandable" field="UserGroups" label="UserGroups" width="10"/>
+        </row>
     </block>
 
     <view id="pairs_histogram" label="Network Summarizing Graphs" group="Network Visualizations">
-            <blockRef id="main" type="pairs_histogram"/>
+        <blockRef id="main" type="pairs_histogram"/>
     </view>
     <block id="pairs_histogram" type="chartdisplayer">
         <data>
@@ -281,7 +293,7 @@
 
 
     <view id="parameters_display" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
-            <blockRef id="main" type="parameters_display"/>
+        <blockRef id="main" type="parameters_display"/>
     </view>
     <block id="parameters_display" type="parametersdisplayer">
         <data>
@@ -296,27 +308,27 @@
 
 
     <view id="download_clustered_spectra" label="Download Clustered Spectra as MGF" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_clustered_spectra"/>
+        <blockRef id="main" type="download_clustered_spectra"/>
     </view>
     <block id="download_clustered_spectra" type="dummydownload">
-      <data>
-        <source type="file" name="spectra/specs_ms.mgf"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="spectra/specs_ms.mgf"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
     <view id="download_cytoscape_data" label="Download GraphML for Cytoscape" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_cytoscape_data"/>
+        <blockRef id="main" type="download_cytoscape_data"/>
     </view>
     <block id="download_cytoscape_data" type="dummydownload">
-      <data>
-         <source type="file" name="gnps_molecular_network_graphml/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="gnps_molecular_network_graphml/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
 
@@ -325,54 +337,54 @@
 
     <!-- Quantification Vizualization -->
     <view id="download_cluster_buckettable" label="Download Bucket Table" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_cluster_buckettable"/>
+        <blockRef id="main" type="download_cluster_buckettable"/>
     </view>
 
 
     <block id="download_cluster_buckettable" type="dummydownload">
-      <data>
-        <source type="file" name="cluster_buckets/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="cluster_buckets/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
     <view id="download_biom" label="Download BioM For Qiime/Qiita" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_biom"/>
+        <blockRef id="main" type="download_biom"/>
     </view>
     <block id="download_biom" type="dummydownload">
-      <data>
-        <source type="file" name="biom_output/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="biom_output/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
     <view id="download_metadata" label="Download Metadata For Qiime" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_metadata"/>
+        <blockRef id="main" type="download_metadata"/>
     </view>
     <block id="download_metadata" type="dummydownload">
-      <data>
-        <source type="file" name="metadata_for_qiime/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="metadata_for_qiime/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
     <!-- Ili Output -->
     <view id="download_ili_abundance" label="Download ili Data" group="Export/Download Network Files">
-            <blockRef id="main"   type="download_ili_abundance"/>
+        <blockRef id="main" type="download_ili_abundance"/>
     </view>
     <block id="download_ili_abundance" type="dummydownload">
-      <data>
-        <source type="file" name="ili_output/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="ili_output/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
 
@@ -383,33 +395,34 @@
 
 
     <view id="view_all_datasets_matched" label="View Matches to All Public Datasets" group="Advanced Views - Global Public Dataset Matches">
-            <blockRef id="main"   type="view_all_datasets_matched"/>
+        <blockRef id="main" type="view_all_datasets_matched"/>
     </view>
 
     <block id="view_all_datasets_matched" type="table">
-            <data>
-                <source type="file" name="all_dataset_matches/"/>
+        <data>
+            <source type="file" name="all_dataset_matches/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="score" operator="descending"/>
             </parsers>
         </data>
         <row>
-            <column type="text"     field="specs_filename"         label="specs_filename"            width="10"/>
-            <column type="text"     field="specs_scan"         label="specs_scan"            width="10"/>
-            <column type="text"     field="dataset_id"         label="dataset_id"            width="30"/>
-            <column type="text"     field="dataset_title"         label="dataset_title"            width="40"/>
-            <column type="float"     field="score"         label="score"            precision="2"/>
-            <column type="text"     field="Compound_Name"         label="Compound_Name"            width="10"/>
-            <column type="integer"     field="dataset_neighbors"         label="dataset_neighbors"            precision="2"/>
+            <column type="text" field="specs_filename" label="specs_filename" width="10"/>
+            <column type="text" field="specs_scan" label="specs_scan" width="10"/>
+            <column type="text" field="dataset_id" label="dataset_id" width="30"/>
+            <column type="text" field="dataset_title" label="dataset_title" width="40"/>
+            <column type="float" field="score" label="score" precision="2"/>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="10"/>
+            <column type="integer" field="dataset_neighbors" label="dataset_neighbors" precision="2"/>
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
-                <parameter name="spectrum1_type"    value="flatfile"/>
-                <parameter name="spectrum1_file"    file="spectra/[specs_filename]"/>>
-                <parameter name="spectrum1_scan"    value="[specs_scan]"/>
-                <parameter name="spectrum2_type"    value="flatfile"/>
-                <parameter name="spectrum2_file"    value="FILE->../../../../../../../../data/ccms-data/uploads/[dataset_filename]"/>
-                <parameter name="spectrum2_scan"    value="[dataset_scan]"/>
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="spectra/[specs_filename]"/>
+>
+                <parameter name="spectrum1_scan" value="[specs_scan]"/>
+                <parameter name="spectrum2_type" value="flatfile"/>
+                <parameter name="spectrum2_file" value="FILE->../../../../../../../../data/ccms-data/uploads/[dataset_filename]"/>
+                <parameter name="spectrum2_scan" value="[dataset_scan]"/>
             </column>
         </row>
     </block>
@@ -474,169 +487,167 @@
 
 
 
-        <view id="view_mz_histogram" label="Nodes, MZ Histogram" group="Advanced Views - Networking Graphs/Histograms">
-                <blockRef id="main"   type="view_mz_histogram"/>
-        </view>
+    <view id="view_mz_histogram" label="Nodes, MZ Histogram" group="Advanced Views - Networking Graphs/Histograms">
+        <blockRef id="main" type="view_mz_histogram"/>
+    </view>
 
-        <block id="view_mz_histogram" type="histogramdisplayer" viewname="view_all_clusters_withID_beta" columnname="parent mass">
-                <data>
-                    <source type="file" name="all_network_paths_histogram/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <block id="view_mz_histogram" type="histogramdisplayer" viewname="view_all_clusters_withID_beta" columnname="parent mass">
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
-        <view id="view_edges_delta_histogram" label="Edges, MZ Delta Histogram" group="Advanced Views - Networking Graphs/Histograms">
-                <blockRef id="main"   type="view_edges_delta_histogram"/>
-        </view>
+    <view id="view_edges_delta_histogram" label="Edges, MZ Delta Histogram" group="Advanced Views - Networking Graphs/Histograms">
+        <blockRef id="main" type="view_edges_delta_histogram"/>
+    </view>
 
-        <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="view_network_pairs" columnname="MzDiff">
-                <data>
-                    <source type="file" name="all_network_paths_histogram/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="view_network_pairs" columnname="MzDiff">
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
-        <view id="view_scatter_edge_score_to_delta" label="Edges, Score vs MZ Delta Plot" group="Advanced Views - Networking Graphs/Histograms">
-                <blockRef id="main"   type="view_scatter_edge_score_to_delta"/>
-        </view>
+    <view id="view_scatter_edge_score_to_delta" label="Edges, Score vs MZ Delta Plot" group="Advanced Views - Networking Graphs/Histograms">
+        <blockRef id="main" type="view_scatter_edge_score_to_delta"/>
+    </view>
 
-        <block id="view_scatter_edge_score_to_delta" type="scatterplotdisplayer" viewname="view_network_pairs" xname="MzDiff" yname="Cos_Score">
-                <data>
-                    <source type="file" name="all_network_paths_histogram/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <block id="view_scatter_edge_score_to_delta" type="scatterplotdisplayer" viewname="view_network_pairs" xname="MzDiff" yname="Cos_Score">
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
-        <view id="view_ppm_error_search_histogram" label="Library Search, PPM Error Histogram" group="Advanced Views - Networking Graphs/Histograms">
-                <blockRef id="main"   type="view_ppm_error_search_histogram"/>
-        </view>
+    <view id="view_ppm_error_search_histogram" label="Library Search, PPM Error Histogram" group="Advanced Views - Networking Graphs/Histograms">
+        <blockRef id="main" type="view_ppm_error_search_histogram"/>
+    </view>
 
-        <block id="view_ppm_error_search_histogram" type="histogramdisplayer" viewname="view_all_annotations_DB" columnname="MZErrorPPM">
-                <data>
-                    <source type="file" name="all_network_paths_histogram/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
-
-
+    <block id="view_ppm_error_search_histogram" type="histogramdisplayer" viewname="view_all_annotations_DB" columnname="MZErrorPPM">
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
 
-        <view id="group_by_organism_DB" label="Group by Organism DB" display="hidden">
-                <blockRef id="main" type="organism_list_DB"/>
-        </view>
 
-        <view id="organism_details_DB" display="hidden">
-                <blockRef id="main" type="spectra_per_organism_DB"/>
-        </view>
+
+    <view id="group_by_organism_DB" label="Group by Organism DB" display="hidden">
+        <blockRef id="main" type="organism_list_DB"/>
+    </view>
+
+    <view id="organism_details_DB" display="hidden">
+        <blockRef id="main" type="spectra_per_organism_DB"/>
+    </view>
 
     <view id="group_by_spectrum_specnets" label="Group by Spectrum Specnets" display="hidden">
-                <blockRef id="main" type="spectrum_list_specnets"/>
-        </view>
+        <blockRef id="main" type="spectrum_list_specnets"/>
+    </view>
 
-        <view id="view_all_clusters" label="View All Clusters" display="hidden">
-                <blockRef id="main" type="clusters_list_specnets"/>
-        </view>
-
-
+    <view id="view_all_clusters" label="View All Clusters" display="hidden">
+        <blockRef id="main" type="clusters_list_specnets"/>
+    </view>
 
 
 
-        <view id="view_network" label="View Network, Node Centric" group="Advanced Views - Misc Views">
-                <blockRef id="main" type="network_list_specnets"/>
-        </view>
 
 
-        <view id="view_network_pairs" label="View Network Pairs" group="Advanced Views - Misc Views">
-                <blockRef id="main" type="network_pairs_specnets"/>
-        </view>
-        <block id="network_pairs_specnets" type="table">
-                <data>
-                        <source type="file" name="networkedges_display_pairs/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="Node1" operator="ascending"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column type="integer"        field="Node1" label="Node1"        width="10"/>
-                        <column type="integer"        field="Node2" label="Node2"        width="10"/>
-                        <column type="float"       field="Cos_Score"       label="Cosine Score"           precision="5" />
-                        <column type="float"       field="MzDiff"           label="MzDiff"             precision="5"/>
-                </row>
-                <row expander="image">
-                    <column type="jscolumnspectrumviewer" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node1]"/>
-                        <parameter name="peptide" value="*..*"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node2]"/>
-                        <parameter name="peptide" value="*..*"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
-                            <parameter name="spectrum1_type"    value="flatfile"/>
-                            <parameter name="spectrum1_file"    file="[FileName]"/>
-                            <parameter name="spectrum1_scan"    value="[Node1]"/>
-                            <parameter name="spectrum2_type"    value="flatfile"/>
-                            <parameter name="spectrum2_file"    file="[FileName]"/>
-                            <parameter name="spectrum2_scan"    value="[Node2]"/>
-                    </column>
-                </row>
-        </block>
-
-        <view id="network_statistics"  label="Networking Statistics" group="Advanced Views - Misc Views">
-                <blockRef id="main" type="network_statistics"/>
-        </view>
-        <block id="network_statistics" type="stream" panelHeight="600px">
-            <data>
-                <source type="file" name="network_statistics/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <view id="view_network" label="View Network, Node Centric" group="Advanced Views - Misc Views">
+        <blockRef id="main" type="network_list_specnets"/>
+    </view>
 
 
-        <view id="view_raw_spectra" label="View Raw/Unclustered Spectra" group="Advanced Views - Misc Views">
-                <blockRef id="main"   type="view_raw_spectra"/>
-        </view>
+    <view id="view_network_pairs" label="View Network Pairs" group="Advanced Views - Misc Views">
+        <blockRef id="main" type="network_pairs_specnets"/>
+    </view>
+    <block id="network_pairs_specnets" type="table">
+        <data>
+            <source type="file" name="networkedges_display_pairs/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="Node1" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="Node1" label="Node1" width="10"/>
+            <column type="integer" field="Node2" label="Node2" width="10"/>
+            <column type="float" field="Cos_Score" label="Cosine Score" precision="5" />
+            <column type="float" field="MzDiff" label="MzDiff" precision="5"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node1]"/>
+                <parameter name="peptide" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node2]"/>
+                <parameter name="peptide" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="[FileName]"/>
+                <parameter name="spectrum1_scan" value="[Node1]"/>
+                <parameter name="spectrum2_type" value="flatfile"/>
+                <parameter name="spectrum2_file" file="[FileName]"/>
+                <parameter name="spectrum2_scan" value="[Node2]"/>
+            </column>
+        </row>
+    </block>
 
-        <block id="view_raw_spectra" type="table">
-                <data>
-                    <source type="file" name="allclustered_spectra_info_withpath/"/>
-                <parsers>
-                    <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
-                </parsers>
-                <processors>
-                    <processor type="uploadFilename" field="AllFiles"/>
-                </processors>
-            </data>
-            <row>
-                        <column type="integer"     field="cluster index"         label="ClusterIndex"            width="3"/>
-                        <column type="text"     field="AllFiles"        label="Filename"          width="10"/>
-                        <column type="integer"     field="ScanNumber"        label="Scan"          width="3"/>
-                        <column type="float"     field="sum(precursor intensity)"        label="Precursor Int"          precision="3"/>
-                        <column type="float"     field="RTMean"        label="RT"          precision="3"/>
-                        <column type="float"     field="parent mass"        label="Parent Mass"          precision="3"/>
-            </row>
-            <row expander="image">
-                <column type="jscolumnspectrumviewer" colspan="5">
-                    <parameter name="file"    file="[ProteosafeFilePath]"/>
-                    <parameter name="scan"    value="[ScanNumber]"/>
-                    <parameter name="peptide" value="*..*"/>
-                </column>
-            </row>
-        </block>
+    <view id="network_statistics" label="Networking Statistics" group="Advanced Views - Misc Views">
+        <blockRef id="main" type="network_statistics"/>
+    </view>
+    <block id="network_statistics" type="stream" panelHeight="600px">
+        <data>
+            <source type="file" name="network_statistics/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
 
+    <view id="view_raw_spectra" label="View Raw/Unclustered Spectra" group="Advanced Views - Misc Views">
+        <blockRef id="main" type="view_raw_spectra"/>
+    </view>
+
+    <block id="view_raw_spectra" type="table">
+        <data>
+            <source type="file" name="allclustered_spectra_info_withpath/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="AllFiles"/>
+            </processors>
+        </data>
+        <row>
+            <column type="integer" field="cluster index" label="ClusterIndex" width="3"/>
+            <column type="text" field="AllFiles" label="Filename" width="10"/>
+            <column type="integer" field="ScanNumber" label="Scan" width="3"/>
+            <column type="float" field="sum(precursor intensity)" label="Precursor Int" precision="3"/>
+            <column type="float" field="RTMean" label="RT" precision="3"/>
+            <column type="float" field="parent mass" label="Parent Mass" precision="3"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="scan" value="[ScanNumber]"/>
+                <parameter name="peptide" value="*..*"/>
+            </column>
+        </row>
+    </block>
 
 
 
@@ -654,54 +665,56 @@
 
 
 
-        <view id="cluster_details" display="hidden">
-                <blockRef id="main" type="results_per_cluster"/>
-        </view>
-
-        <view id="view_related_network" display="hidden">
-                <blockRef id="main" type="related_network_list_specnets"/>
-        </view>
 
 
+    <view id="cluster_details" display="hidden">
+        <blockRef id="main" type="results_per_cluster"/>
+    </view>
+
+    <view id="view_related_network" display="hidden">
+        <blockRef id="main" type="related_network_list_specnets"/>
+    </view>
 
 
-        <view id="makedatasetdocumentation" label="Make Public Dataset Documentation" group="Advanced Views - Make Dataset Public">
-                <blockRef id="main"   type="makedatasetdocumentation"/>
-        </view>
-        <block id="makedatasetdocumentation" type="dummylinkout">
-          <data>
-             <parsers>
+
+
+    <view id="makedatasetdocumentation" label="Make Public Dataset Documentation" group="Advanced Views - Make Dataset Public">
+        <blockRef id="main" type="makedatasetdocumentation"/>
+    </view>
+    <block id="makedatasetdocumentation" type="dummylinkout">
+        <data>
+            <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
-          </data>
-            <parameter name="URLBASE" value="https://ccms-ucsd.github.io/GNPSDocumentation/datasets/"/>
-        </block>
+        </data>
+        <parameter name="URLBASE" value="https://ccms-ucsd.github.io/GNPSDocumentation/datasets/"/>
+    </block>
 
-        <view id="linkout" label="Make Dataset Public Direct Link" group="Advanced Views - Make Dataset Public">
-            <blockRef id="main" type="linkout"/>
-        </view>
+    <view id="linkout" label="Make Dataset Public Direct Link" group="Advanced Views - Make Dataset Public">
+        <blockRef id="main" type="linkout"/>
+    </view>
 
-        <block id="linkout" type="table">
-            <data>
-                <source type="file" name="linkout_file/"/>
-                <parsers>
-                    <parser type="sortedTabular" sortBy="filenames" operator="ascending"/>
-                </parsers>
-            </data>
-            <row>
-                <column label="Reananlyze" type="genericurlgenerator" width="5">
-                    <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
-                    <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
-                    <parameter name="HASHPARAMTER=desc" value="GNPS - Dataset Creation from GNPS Molcular Networking - [task]"/>
-                    <parameter name="HASHPARAMTER=peak_list_files" value="[filenames]"/>
-                    <parameter name="HASHPARAMTER=other_files" value="[metadatanames]"/>
-                    <parameter name="LABEL" value="MassIVE Dataset Deposition Workflow (Prepopulated)"/>
-                </column>
-            </row>
-        </block>
+    <block id="linkout" type="table">
+        <data>
+            <source type="file" name="linkout_file/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="filenames" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="Reananlyze" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://massive.ucsd.edu/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARAMTER=workflow" value="MASSIVE-COMPLETE"/>
+                <parameter name="HASHPARAMTER=desc" value="GNPS - Dataset Creation from GNPS Molcular Networking - [task]"/>
+                <parameter name="HASHPARAMTER=peak_list_files" value="[filenames]"/>
+                <parameter name="HASHPARAMTER=other_files" value="[metadatanames]"/>
+                <parameter name="LABEL" value="MassIVE Dataset Deposition Workflow (Prepopulated)"/>
+            </column>
+        </row>
+    </block>
 
-        <!-- <view id="makedatasetlink" label="Make this data into Dataset at MassIVE" group="Advanced Views - Make Dataset Public">
-                <blockRef id="main"   type="makedatasetlink"/>
+    <!-- <view id="makedatasetlink" label="Make this data into Dataset at MassIVE" group="Advanced Views - Make Dataset Public">
+                <blockRef id="main" type="makedatasetlink"/>
         </view>
         <block id="makedatasetlink" type="dummylinkout">
           <data>
@@ -713,214 +726,215 @@
         </block> -->
 
 
-        <view id="view_spectrum" display="hidden">
-                <blockRef id="main"   type="view_spectrum"/>
-        </view>
+    <view id="view_spectrum" display="hidden">
+        <blockRef id="main" type="view_spectrum"/>
+    </view>
 
 
-        <block id="view_spectrum" type="spectrumpage">
-          <data>
+    <block id="view_spectrum" type="spectrumpage">
+        <data>
             <source type="file" name="result/"/>
-             <parsers>
+            <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
-          </data>
-        </block>
+        </data>
+    </block>
 
 
 
-        <view id="view_all_annotations_legacy" label="View All Library Hits" display="hidden">
-                <blockRef id="main"   type="view_all_annotations_legacy"/>
-        </view>
+    <view id="view_all_annotations_legacy" label="View All Library Hits" display="hidden">
+        <blockRef id="main" type="view_all_annotations_legacy"/>
+    </view>
 
-        <block id="view_all_annotations_legacy" type="table">
-                <data>
-                        <source type="file" name="result_specnets/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column type="text"        field="CompoundName" label="Compound_Name"        width="12"/>
-                        <column type="integer"     field="#Scan#"         label="ClusterIdx"            width="3"/>
-                        <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
-                        <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
-                        <column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/>
-                        <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
-                        <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
+    <block id="view_all_annotations_legacy" type="table">
+        <data>
+            <source type="file" name="result_specnets/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="CompoundName" label="Compound_Name" width="12"/>
+            <column type="integer" field="#Scan#" label="ClusterIdx" width="3"/>
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="SharedPeaks" label="SharedPeaks" width="3"/>
+            <column type="float" field="TIC_Query" label="TIC Query" precision="2"/>
+            <column type="float" field="RT_Query" label="RT Query" precision="2" />
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM" />
 
-                        <column type="float"     field="MassDiff"         label="MassDiff"            precision="2"/>
-                        <column type="float"     field="SpecMZ"         label="SpecMZ"            precision="2"/>
-                        <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
+            <column type="float" field="MassDiff" label="MassDiff" precision="2"/>
+            <column type="float" field="SpecMZ" label="SpecMZ" precision="2"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
 
-                        <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
-                        <columbiomn type="text"     field="IonMode"         label="IonMode"            width="5"/>
-                        <column type="text"     field="PI"         label="PI"            width="5"/>
-                        <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
-                        <column type="text"     field="tags"         label="Tags"            width="5"/>
-                </row>
-                <row expander="image">
-                    <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
-                            <parameter name="spectrum1_type"    value="flatfile"/>
-                            <!-- <parameter name="spectrum1_file"    file="spectra/[internalFilename]"/>> -->
-                            <parameter name="spectrum1_file"    file="spectra/specs_ms.mgf"/>>
-                            <parameter name="spectrum1_scan"    value="[#Scan#]"/>
-                            <parameter name="spectrum2_type"    value="lib"/>
-                            <parameter name="spectrum2_spectrumid"    value="[SpectrumID]"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
-                            <!-- <parameter name="file"    file="spectra/[internalFilename]"/> -->
-                            <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                            <parameter name="scan"    value="[#Scan#]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
-                            <parameter name="file"    file="lib/[LibraryName]"/>
-                            <parameter name="spectrumid"    value="[SpectrumID]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                    </column>
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <columbiomn type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            <column type="text" field="tags" label="Tags" width="5"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <!-- <parameter name="spectrum1_file" file="spectra/[internalFilename]"/>> -->
+                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
+>
+                <parameter name="spectrum1_scan" value="[#Scan#]"/>
+                <parameter name="spectrum2_type" value="lib"/>
+                <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                <!-- <parameter name="file" file="spectra/[internalFilename]"/> -->
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
 
-                </row>
-        </block>
-
-
-
+        </row>
+    </block>
 
 
-        <block id="organism_list_DB" type="table">
-                <data>
-                        <source type="file" name="result_specnets_DB/"/>
-                        <parsers>
-                                <parser type="groupedTabular" groupBy="Organism"/>
-                        </parsers>
 
-                </data>
-                <row>
-                        <column type="view" view="organism_details_DB" field="Organism" label="Organism" width="18">
-                                <parameter name="protein"   value="[Organism]"/>
-                                <parameter name="proteinID" value="[Organism]"/>
-                        </column>
 
-                        <column type="text"     field="Organism"   label="Organism"                width="18"/>
-                        <column type="integer"  field="Hits"      label="Hits"                       width="2"/>
-                </row>
 
-        </block>
+    <block id="organism_list_DB" type="table">
+        <data>
+            <source type="file" name="result_specnets_DB/"/>
+            <parsers>
+                <parser type="groupedTabular" groupBy="Organism"/>
+            </parsers>
 
-        <block id="spectra_per_organism_DB" type="table">
-                <data>
-                        <source type="file" name="result_specnets_DB/"/>
-                        <parsers>
-                                <parser type="slicedTabular" groupBy="Organism" sliceBy="{protein}"/>
-                        </parsers>
-                        <processors>
-                                <processor type="uploadFilename" field="SpectrumFile"/>
-                        </processors>
+        </data>
+        <row>
+            <column type="view" view="organism_details_DB" field="Organism" label="Organism" width="18">
+                <parameter name="protein" value="[Organism]"/>
+                <parameter name="proteinID" value="[Organism]"/>
+            </column>
 
-                </data>
-                <row>
-                        <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
-                        <column type="integer"     field="#Scan#"         label="Scan"            width="3"/>
-                        <!--<column type="text"     field="SpectrumID"         label="SpectrumID"            width="15"/>-->
-                        <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
+            <column type="text" field="Organism" label="Organism" width="18"/>
+            <column type="integer" field="Hits" label="Hits" width="2"/>
+        </row>
 
-                        <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
-                        <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
-                        <column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/>
-                        <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
-                        <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
-                        <column type="text"     field="Organism"         label="Organism"            width="3"/>
+    </block>
 
-                        <column type="integer"     field="MassDiff"         label="MassDiff"            width="3"/>
-                        <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
+    <block id="spectra_per_organism_DB" type="table">
+        <data>
+            <source type="file" name="result_specnets_DB/"/>
+            <parsers>
+                <parser type="slicedTabular" groupBy="Organism" sliceBy="{protein}"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
 
-                        <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
-                        <column type="text"     field="IonMode"         label="IonMode"            width="5"/>
-                        <column type="text"     field="PI"         label="PI"            width="5"/>
-                        <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
+        </data>
+        <row>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
+            <column type="integer" field="#Scan#" label="Scan" width="3"/>
+            <!--<column type="text" field="SpectrumID" label="SpectrumID" width="15"/>-->
+            <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
 
-                        <column type="mingplugin" target="/" label="Update">
-                          <parameter name="workflow" value="[UpdateWorkflowName]"/>
-                          <parameter name="SPECTRUMID" value="[SpectrumID]"/>
-                          <parameter name="ADDSPECTRA_LIBQUALITY" value="[Library_Class]"/>
-                          <parameter name="ADDSPECTRA_IONSOURCE" value="[Ion_Source]"/>
-                          <parameter name="ADDSPECTRA_INSTRUMENT" value="[Instrument]"/>
-                          <parameter name="ADDSPECTRA_IONMODE" value="[IonMode]"/>
-                          <parameter name="ADDSPECTRA_ACQUISITION" value="[Compound_Source]"/>
-                          <parameter name="ADDSPECTRA_SMILES" value="[Smiles]"/>
-                          <parameter name="ADDSPECTRA_INCHI" value="[INCHI]"/>
-                          <parameter name="ADDSPECTRA_INCHIAUX" value="[INCHI_AUX]"/>
-                          <parameter name="ADDSPECTRA_CASNUMBER" value="[CAS_Number]"/>
-                          <parameter name="ADDSPECTRA_PUB" value="[Pubmed_ID]"/>
-                          <parameter name="ADDSPECTRA_PI" value="[PI]"/>
-                          <parameter name="ADDSPECTRA_DATACOLLECTOR" value="[Data_Collector]"/>
-                          <parameter name="ADDSPECTRA_EXACTMASS" value="[ExactMass]"/>
-                          <parameter name="ADDSPECTRA_ADDUCT" value="[Adduct]"/>
-                          <parameter name="ADDSPECTRA_CHARGE" value="[Charge]"/>
-                          <parameter name="ADDSPECTRA_MOLECULEMASS" value="[Precursor_MZ]"/>
-                          <parameter name="ADDSPECTRA_COMPOUND_NAME" value="[Compound_Name]"/>
-                        </column>
-                </row>
-                <row expander="image">
-                        <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                                <parameter name="file"    file="spectra/[internalFilename]"/>
-                                <parameter name="scan"    value="[#Scan#]"/>
-                                <parameter name="peptide" value="*..*"/>
-                                <parameter name="trim" value="true"/>
-                        </column>
-                        <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                            <parameter name="file"    file="lib/[LibraryName]"/>
-                            <parameter name="spectrumid"    value="[SpectrumID]"/>
-                            <parameter name="peptide" value="*..*"/>
-                            <parameter name="trim" value="true"/>
-                        </column>
-                </row>
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="SharedPeaks" label="SharedPeaks" width="3"/>
+            <column type="float" field="TIC_Query" label="TIC Query" precision="2"/>
+            <column type="float" field="RT_Query" label="RT Query" precision="2" />
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM" />
+            <column type="text" field="Organism" label="Organism" width="3"/>
 
-        </block>
+            <column type="integer" field="MassDiff" label="MassDiff" width="3"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
+
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <column type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+
+            <column type="mingplugin" target="/" label="Update">
+                <parameter name="workflow" value="[UpdateWorkflowName]"/>
+                <parameter name="SPECTRUMID" value="[SpectrumID]"/>
+                <parameter name="ADDSPECTRA_LIBQUALITY" value="[Library_Class]"/>
+                <parameter name="ADDSPECTRA_IONSOURCE" value="[Ion_Source]"/>
+                <parameter name="ADDSPECTRA_INSTRUMENT" value="[Instrument]"/>
+                <parameter name="ADDSPECTRA_IONMODE" value="[IonMode]"/>
+                <parameter name="ADDSPECTRA_ACQUISITION" value="[Compound_Source]"/>
+                <parameter name="ADDSPECTRA_SMILES" value="[Smiles]"/>
+                <parameter name="ADDSPECTRA_INCHI" value="[INCHI]"/>
+                <parameter name="ADDSPECTRA_INCHIAUX" value="[INCHI_AUX]"/>
+                <parameter name="ADDSPECTRA_CASNUMBER" value="[CAS_Number]"/>
+                <parameter name="ADDSPECTRA_PUB" value="[Pubmed_ID]"/>
+                <parameter name="ADDSPECTRA_PI" value="[PI]"/>
+                <parameter name="ADDSPECTRA_DATACOLLECTOR" value="[Data_Collector]"/>
+                <parameter name="ADDSPECTRA_EXACTMASS" value="[ExactMass]"/>
+                <parameter name="ADDSPECTRA_ADDUCT" value="[Adduct]"/>
+                <parameter name="ADDSPECTRA_CHARGE" value="[Charge]"/>
+                <parameter name="ADDSPECTRA_MOLECULEMASS" value="[Precursor_MZ]"/>
+                <parameter name="ADDSPECTRA_COMPOUND_NAME" value="[Compound_Name]"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+
+    </block>
 
     <block id="spectrum_list_specnets" type="table">
-                <data>
-                        <source type="file" name="result_specnets/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="SpectrumFile" operator="ascending"/>
-                                <parser type="representativeTabular" groupBy="FileScanUniqueID" selectBy="MQScore" operator="max"/>
-                        </parsers>
-                        <processors>
-                                <processor type="uploadFilename" field="SpectrumFile"/>
-                        </processors>
-                </data>
-                <row>
-                        <column type="text"        field="SpectrumFile" label="Filename"        width="12"/>
-                        <column type="integer"     field="#Scan#"         label="Scan"            width="3"/>
-                        <column type="integer"     field="Charge"        label="Charge"          width="1"/>
-                        <column type="float"       field="MQScore"       label="Score"           precision="5"/>
-                        <column type="text"        field="CompoundName"    label="CompoundName"         width="18"/>
-                        <column type="text"        field="Organism"    label="Organism"         width="30"/>
-            <column type="integer"        field="LibSearchSharedPeaks"    label="SharedPeaks"         width="2"/>
-            <column type="float"        field="mzErrorPPM"    label="mzErrorPPM"         width="5"/>
-                </row>
-                <row expander="image">
-                        <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                                <parameter name="file"    file="spectra/[internalFilename]"/>
-                                <parameter name="scan"    value="[#Scan#]"/>
-                                <parameter name="peptide" value="[Annotation]"/>
-                                <parameter name="trim" value="true"/>
-                        </column>
-                        <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                                <parameter name="file"    file="lib/[LibraryName]"/>
-                                <parameter name="scan"    value="[dbIndex]"/>
-                                <parameter name="peptide" value="[Annotation]"/>
-                                <parameter name="trim" value="true"/>
-                        </column>
-                </row>
-                <row expander="down:up">
+        <data>
+            <source type="file" name="result_specnets/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="SpectrumFile" operator="ascending"/>
+                <parser type="representativeTabular" groupBy="FileScanUniqueID" selectBy="MQScore" operator="max"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
+        </data>
+        <row>
+            <column type="text" field="SpectrumFile" label="Filename" width="12"/>
+            <column type="integer" field="#Scan#" label="Scan" width="3"/>
+            <column type="integer" field="Charge" label="Charge" width="1"/>
+            <column type="float" field="MQScore" label="Score" precision="5"/>
+            <column type="text" field="CompoundName" label="CompoundName" width="18"/>
+            <column type="text" field="Organism" label="Organism" width="30"/>
+            <column type="integer" field="LibSearchSharedPeaks" label="SharedPeaks" width="2"/>
+            <column type="float" field="mzErrorPPM" label="mzErrorPPM" width="5"/>
+        </row>
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="peptide" value="[Annotation]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="scan" value="[dbIndex]"/>
+                <parameter name="peptide" value="[Annotation]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+        <row expander="down:up">
             <column type="block" block="results_per_spectrum_specnets" colspan="7">
                 <parameter name="spectraid" value="[FileScanUniqueID]"/>
             </column>
         </row>
-        </block>
+    </block>
 
-        <block id="results_per_spectrum_specnets" type="table">
+    <block id="results_per_spectrum_specnets" type="table">
         <data>
             <source type="file" name="result_specnets/"/>
             <parsers>
@@ -932,76 +946,76 @@
             </processors>
         </data>
         <row>
-            <column type="text"        field="SpectrumFile" label="Filename"        width="12"/>
-            <column type="integer"     field="#Scan#"         label="Scan"            width="3"/>
-            <column type="integer"     field="Charge"        label="Charge"          width="1"/>
-            <column type="float"       field="MQScore"       label="Score"           precision="5"/>
-            <column type="float"       field="FDR"           label="FDR"             precision="5"/>
-            <column type="text"        field="CompoundName"    label="CompoundName"         width="18"/>
-                        <column type="text"        field="Organism"    label="Organism"         width="30"/>
+            <column type="text" field="SpectrumFile" label="Filename" width="12"/>
+            <column type="integer" field="#Scan#" label="Scan" width="3"/>
+            <column type="integer" field="Charge" label="Charge" width="1"/>
+            <column type="float" field="MQScore" label="Score" precision="5"/>
+            <column type="float" field="FDR" label="FDR" precision="5"/>
+            <column type="text" field="CompoundName" label="CompoundName" width="18"/>
+            <column type="text" field="Organism" label="Organism" width="30"/>
         </row>
         <row expander="image">
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file"    file="spectra/[internalFilename]"/>
-                <parameter name="scan"    value="[#Scan#]"/>
+                <parameter name="file" file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
                 <parameter name="peptide" value="[Annotation]"/>
                 <parameter name="trim" value="true"/>
             </column>
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file"    file="lib/[LibraryName]"/>
-                <parameter name="scan"    value="[dbIndex]"/>
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="scan" value="[dbIndex]"/>
                 <parameter name="peptide" value="[Annotation]"/>
                 <parameter name="trim" value="true"/>
             </column>
         </row>
-        </block>
+    </block>
 
-        <block id="clusters_list_specnets" type="table">
-                <data>
-                        <source type="file" name="clusterinfosummarygroup_attributes/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
-                        </parsers>
-<!--                        <processors>
+    <block id="clusters_list_specnets" type="table">
+        <data>
+            <source type="file" name="clusterinfosummarygroup_attributes/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+            </parsers>
+            <!--                        <processors>
                                 <processor type="uploadFilename" field="SpectrumFile"/>
                         </processors>-->
-                </data>
-                <row>
-                        <column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
-                                <parameter name="protein"   value="[cluster index]"/>
-                                <parameter name="proteinID" value="[cluster index]"/>
-                        </column>
+        </data>
+        <row>
+            <column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
+                <parameter name="protein" value="[cluster index]"/>
+                <parameter name="proteinID" value="[cluster index]"/>
+            </column>
 
-                        <column type="integer"     field="number of spectra"        label="NumSpectra"          width="3"/>
-                        <column type="float"       field="precursor mass"       label="PrecursorMZ"           precision="5"/>
-                        <column type="float"        field="sum(precursor intensity)"    label="PrecursorInt"         precision="5"/>
-                        <column type="float"        field="RTMean"    label="RTMean"         width="5"/>
-                        <column type="text"        field="AllGroups"    label="AllGroups"         width="5"/>
-                        <column type="text"        field="DefaultGroups"    label="DefaultGroups"         width="5"/>
-                </row>
-                <row expander="image">
-                  <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                      <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                      <parameter name="scan"    value="[cluster index]"/>
-                      <parameter name="peptide" value="*..*"/>
-                      <parameter name="trim" value="true"/>
-                  </column>
-                </row>
+            <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
+            <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
+            <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
+            <column type="float" field="RTMean" label="RTMean" width="5"/>
+            <column type="text" field="AllGroups" label="AllGroups" width="5"/>
+            <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
+        </row>
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
 
-                <row expander="down:up">
-                  <column type="block" block="related_network_list_specnets" colspan="7">
-                    <parameter name="spectraid" value="[cluster index]"/>
-                  </column>
-                </row>
-        </block>
-
-
+        <row expander="down:up">
+            <column type="block" block="related_network_list_specnets" colspan="7">
+                <parameter name="spectraid" value="[cluster index]"/>
+            </column>
+        </row>
+    </block>
 
 
 
 
 
-        <block id="results_per_cluster" type="table">
+
+
+    <block id="results_per_cluster" type="table">
         <data>
             <source type="file" name="allclustered_spectra_info_withpath/"/>
             <parsers>
@@ -1012,29 +1026,29 @@
             </processors>
         </data>
         <row>
-                        <column type="integer"     field="cluster index"         label="ClusterIndex"            width="3"/>
-                        <column type="mingplugin" target="/" label="AnnotatetoGNPS">
-                          <parameter name="workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
-                          <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
-                          <parameter name="spec_on_server" value="[Original_Path]"/>
-                        </column>
-                        <column type="mingplugin" target="/" label="AddtoChallenge">
-                          <parameter name="workflow" value="ADD-SINGLE-CHALLENGE"/>
-                          <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
-                          <parameter name="spec_on_server" value="[Original_Path]"/>
-                        </column>
-                        <column label="View Metadata" type="genericurlgenerator" width="10" >
-                            <parameter name="URLBASE" value="https://redu.ucsd.edu/datalookup"/>
-                            <parameter name="REQUESTPARAMETER=filename" value="[Original_Path]"/>
-                            <parameter name="LABEL" value="View Global Metadata"/>
-                        </column>
-                        <column type="text"     field="AllFiles"        label="Filename"          width="10"/>
-                        <column type="integer"     field="ScanNumber"        label="Scan"          width="3"/>
-                        <column type="float"     field="sum(precursor intensity)"        label="Precursor Int"          precision="3"/>
-                        <column type="float"     field="RTMean"        label="RT"          precision="3"/>
-                        <column type="float"     field="parent mass"        label="Parent Mass"          precision="3"/>
+            <column type="integer" field="cluster index" label="ClusterIndex" width="3"/>
+            <column type="mingplugin" target="/" label="AnnotatetoGNPS">
+                <parameter name="workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
+                <parameter name="spec_on_server" value="[Original_Path]"/>
+            </column>
+            <column type="mingplugin" target="/" label="AddtoChallenge">
+                <parameter name="workflow" value="ADD-SINGLE-CHALLENGE"/>
+                <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
+                <parameter name="spec_on_server" value="[Original_Path]"/>
+            </column>
+            <column label="View Metadata" type="genericurlgenerator" width="10">
+                <parameter name="URLBASE" value="https://redu.ucsd.edu/datalookup"/>
+                <parameter name="REQUESTPARAMETER=filename" value="[Original_Path]"/>
+                <parameter name="LABEL" value="View Global Metadata"/>
+            </column>
+            <column type="text" field="AllFiles" label="Filename" width="10"/>
+            <column type="integer" field="ScanNumber" label="Scan" width="3"/>
+            <column type="float" field="sum(precursor intensity)" label="Precursor Int" precision="3"/>
+            <column type="float" field="RTMean" label="RT" precision="3"/>
+            <column type="float" field="parent mass" label="Parent Mass" precision="3"/>
 
-                        <!-- <column type="mingplugin" target="/" label="Gold">
+            <!-- <column type="mingplugin" target="/" label="Gold">
                           <parameter name="workflow" value="ADD-SINGLE-ANNOTATED-GOLD"/>
                           <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
                           <parameter name="spec_on_server" value="[Original_Path]"/>
@@ -1047,50 +1061,50 @@
         </row>
         <row expander="View Spectrum" expandericontype="text">
             <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file"    file="[ProteosafeFilePath]"/>
-                <parameter name="scan"    value="[ScanNumber]"/>
+                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="scan" value="[ScanNumber]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
             <!--
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file"    file="[ProteosafeFilePath]"/>
-                <parameter name="scan"    value="[ScanNumber]"/>
+                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="scan" value="[ScanNumber]"/>
                 <parameter name="peptide" value="*..*"/>
                 <parameter name="trim" value="true"/>
             </column>-->
         </row>
         <row expander="Search Spec" expandericontype="text">
-                    <column type="singlespectrumcolumnhandler" colspan="5">
-                        <parameter name="mz"    value="[parent mass]"/>
-                        <parameter name="file"    file="[ProteosafeFilePath]"/>
-                        <parameter name="scan"    value="[ScanNumber]"/>
-                    </column>
-                </row>
-        </block>
+            <column type="singlespectrumcolumnhandler" colspan="5">
+                <parameter name="mz" value="[parent mass]"/>
+                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="scan" value="[ScanNumber]"/>
+            </column>
+        </row>
+    </block>
 
-        <!--VIEW NETWORK-->
+    <!--VIEW NETWORK-->
 
-        <block id="network_list_specnets" type="table">
-                <data>
-                        <source type="file" name="networkedges_display/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="Node1" operator="ascending"/>
-                                <parser type="representativeTabular" groupBy="Node1" selectBy="Cos_Score" operator="max"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column type="integer"        field="Node1" label="Node Index"        width="10"/>
-                </row>
+    <block id="network_list_specnets" type="table">
+        <data>
+            <source type="file" name="networkedges_display/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="Node1" operator="ascending"/>
+                <parser type="representativeTabular" groupBy="Node1" selectBy="Cos_Score" operator="max"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="Node1" label="Node Index" width="10"/>
+        </row>
 
-                <row expander="down:up">
-                  <column type="block" block="related_network_list_specnets" colspan="7">
-                    <parameter name="spectraid" value="[Node1]"/>
-                  </column>
-                </row>
-        </block>
+        <row expander="down:up">
+            <column type="block" block="related_network_list_specnets" colspan="7">
+                <parameter name="spectraid" value="[Node1]"/>
+            </column>
+        </row>
+    </block>
 
 
-            <block id="related_network_list_specnets" type="table">
+    <block id="related_network_list_specnets" type="table">
         <data>
             <source type="file" name="networkedges_display/"/>
             <parsers>
@@ -1102,193 +1116,205 @@
             </processors>
         </data>
         <row>
-            <column type="integer"        field="Node1" label="Node Index"        width="10"/>
-            <column type="integer"     field="Node2"         label="Neighbor Index"            width="10"/>
-            <column type="float"       field="Cos_Score"       label="Cosine Score"           precision="5" />
-            <column type="float"       field="MzDiff"           label="MzDiff"             precision="5"/>
+            <column type="integer" field="Node1" label="Node Index" width="10"/>
+            <column type="integer" field="Node2" label="Neighbor Index" width="10"/>
+            <column type="float" field="Cos_Score" label="Cosine Score" precision="5" />
+            <column type="float" field="MzDiff" label="MzDiff" precision="5"/>
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file"    file="[FileName]"/>
-                <parameter name="scan"    value="[Node1]"/>
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node1]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file"    file="[FileName]"/>
-                <parameter name="scan"    value="[Node2]"/>
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node2]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
         </row>
-        </block>
+    </block>
 
 
 
-        <view id="network_pairs_specnets_allcomponents" label="View Network Pairs All Component" display="hidden">
-                <blockRef id="main" type="network_pairs_specnets_allcomponents"/>
-        </view>
+    <view id="network_pairs_specnets_allcomponents" label="View Network Pairs All Component" display="hidden">
+        <blockRef id="main" type="network_pairs_specnets_allcomponents"/>
+    </view>
 
-        <block id="network_pairs_specnets_allcomponents" type="table">
-                <data>
-                        <source type="file" name="networkedges_selfloop/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column type="integer"        field="CLUSTERID1" label="Node1"        width="10"/>
-                        <column type="integer"        field="CLUSTERID2" label="Node2"        width="10"/>
-                        <column type="float"       field="Cosine"       label="Cosine Score"           precision="5" />
-                        <column type="float"       field="DeltaMZ"           label="MzDiff"             precision="5"/>
-                        <column type="integer"       field="ComponentIndex"           label="ComponentIndex"             width="1"/>
-                </row>
+    <block id="network_pairs_specnets_allcomponents" type="table">
+        <data>
+            <source type="file" name="networkedges_selfloop/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="CLUSTERID1" label="Node1" width="10"/>
+            <column type="integer" field="CLUSTERID2" label="Node2" width="10"/>
+            <column type="float" field="Cosine" label="Cosine Score" precision="5" />
+            <column type="float" field="DeltaMZ" label="MzDiff" precision="5"/>
+            <column type="integer" field="ComponentIndex" label="ComponentIndex" width="1"/>
+        </row>
 
-                <row expander="image">
-                    <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node1]"/>
-                        <parameter name="peptide" value="*..*"/>
-                        <parameter name="trim" value="true"/>
-                    </column>
-                    <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node2]"/>
-                        <parameter name="peptide" value="*..*"/>
-                        <parameter name="trim" value="true"/>
-                    </column>
-                </row>
-        </block>
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node1]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node2]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+    </block>
 
-        <view id="network_pairs_specnets_componentsliced" label="View Network Pairs Component Sliced" display="hidden">
-                <blockRef id="main" type="network_pairs_specnets_componentsliced"/>
-        </view>
-
-
-        <block id="network_pairs_specnets_componentsliced" type="table">
-                <data>
-                        <source type="file" name="networkedges_selfloop/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
-                                <parser type="slicedTabular" groupBy="ComponentIndex" sliceBy="{componentindex}"/>
-                        </parsers>
-                </data>
-                <row>
-                        <column type="integer"        field="CLUSTERID1" label="Node1"        width="10"/>
-                        <column type="integer"        field="CLUSTERID2" label="Node2"        width="10"/>
-                        <column type="float"       field="Cosine"       label="Cosine Score"           precision="5" />
-                        <column type="float"       field="DeltaMZ"           label="MzDiff"             precision="5"/>
-                        <column type="integer"       field="ComponentIndex"           label="MzDiff"             width="1"/>
-                </row>
-
-                <row expander="image">
-                    <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node1]"/>
-                        <parameter name="peptide" value="*..*"/>
-                        <parameter name="trim" value="true"/>
-                    </column>
-                    <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                        <parameter name="file"    file="[FileName]"/>
-                        <parameter name="scan"    value="[Node2]"/>
-                        <parameter name="peptide" value="*..*"/>
-                        <parameter name="trim" value="true"/>
-                    </column>
-                </row>
-        </block>
-
-        <view id="cluster_info_sliced" label="View Clusters Sliced" display="hidden">
-                <blockRef id="main" type="cluster_info_sliced"/>
-        </view>
+    <view id="network_pairs_specnets_componentsliced" label="View Network Pairs Component Sliced" display="hidden">
+        <blockRef id="main" type="network_pairs_specnets_componentsliced"/>
+    </view>
 
 
-        <block id="cluster_info_sliced" type="table">
-                <data>
-                        <source type="file" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
-                        <parsers>
-                                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
-                                <parser type="slicedTabular" groupBy="componentindex" sliceBy="{componentindex}"/>
-                        </parsers>
-                </data>
-                <row>
-                        <!--<column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
-                                <parameter name="protein"   value="[cluster index]"/>
+    <block id="network_pairs_specnets_componentsliced" type="table">
+        <data>
+            <source type="file" name="networkedges_selfloop/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
+                <parser type="slicedTabular" groupBy="ComponentIndex" sliceBy="{componentindex}"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="CLUSTERID1" label="Node1" width="10"/>
+            <column type="integer" field="CLUSTERID2" label="Node2" width="10"/>
+            <column type="float" field="Cosine" label="Cosine Score" precision="5" />
+            <column type="float" field="DeltaMZ" label="MzDiff" precision="5"/>
+            <column type="integer" field="ComponentIndex" label="MzDiff" width="1"/>
+        </row>
+
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node1]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="[FileName]"/>
+                <parameter name="scan" value="[Node2]"/>
+                <parameter name="peptide" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+    </block>
+
+    <view id="cluster_info_sliced" label="View Clusters Sliced" display="hidden">
+        <blockRef id="main" type="cluster_info_sliced"/>
+    </view>
+
+
+    <block id="cluster_info_sliced" type="table">
+        <data>
+            <source type="file" name="clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+                <parser type="slicedTabular" groupBy="componentindex" sliceBy="{componentindex}"/>
+            </parsers>
+        </data>
+        <row>
+            <!--<column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
+                                <parameter name="protein" value="[cluster index]"/>
                                 <parameter name="proteinID" value="[cluster index]"/>
                         </column>-->
 
-                        <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index"> \
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>\
-                            <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>\
-                            <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>\
-                            <parameter name="LABEL" value="Cluster - [cluster index]"/>\
-                            <parameter name="USETASK" value="True"/>\
-                        </column>\
+            <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+\
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+\
+                <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
+\
+                <parameter name="LABEL" value="Cluster - [cluster index]"/>
+\
+                <parameter name="USETASK" value="True"/>
+\
+            </column>\
 
-                        <!--<column type="view" view="network_displayer" field="componentindex" label="Spec Family" width="5">
-                                <parameter name="componentindex"   value="[componentindex]"/>
+                                                <!--<column type="view" view="network_displayer" field="componentindex" label="Spec Family" width="5">
+                                <parameter name="componentindex" value="[componentindex]"/>
                         </column>-->
-                        <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex"> \
-                            <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>\
-                            <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>\
-                            <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>\
-                            <parameter name="LABEL" value="View Network"/>\
-                            <parameter name="USETASK" value="True"/>\
-                            <parameter name="IGNORE_VALUE" value="-1"/>\
-                            <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>\
-                        </column>\
+            <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+\
+                <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>
+\
+                <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>
+\
+                <parameter name="LABEL" value="View Network"/>
+\
+                <parameter name="USETASK" value="True"/>
+\
+                <parameter name="IGNORE_VALUE" value="-1"/>
+\
+                <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
+\
+            </column>\
 
-                        <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
-                          <parameter name="view" value="cluster_details"/>
-                          <parameter name="protein" value="[cluster index]"/>
-                        </column>
+            <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                        <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
-                          <parameter name="view" value="cluster_details"/>
-                          <parameter name="protein" value="[cluster index]"/>
-                        </column>
+            <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                        <column type="integer"     field="number of spectra"        label="NumSpectra"          width="3"/>
-                        <column type="integer"     field="UniqueFileSourcesCount"        label="NumFiles"          width="3"/>
-                        <column type="float"       field="precursor mass"       label="PrecursorMZ"           precision="5"/>
-                        <column type="float"        field="sum(precursor intensity)"    label="PrecursorInt"         precision="5"/>
-                        <column type="float"        field="RTMean"    label="RTMean"         width="3"/>
-                        <column type="text"        field="AllGroups"    label="AllGroups"         width="3"/>
-                        <column type="text"        field="DefaultGroups"    label="DefaultGroups"         width="5"/>
-                        <column type="integer"        field="EvenOdd"    label="EvenOdd"         width="5"/>
-                        <column type="text"        field="LibraryID"    label="LibraryID"         width="20"/>
-                        <column type="integer"        field="NumberOrganismIDs"    label="Hits"         width="1"/>
-                </row>
-                <row expander="image">
-<!--                  <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                      <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                      <parameter name="scan"    value="[cluster index]"/>
-                      <parameter name="compoundname"    value="[LibraryID]"/>
+            <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
+            <column type="integer" field="UniqueFileSourcesCount" label="NumFiles" width="3"/>
+            <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
+            <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
+            <column type="float" field="RTMean" label="RTMean" width="3"/>
+            <column type="text" field="AllGroups" label="AllGroups" width="3"/>
+            <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
+            <column type="integer" field="EvenOdd" label="EvenOdd" width="5"/>
+            <column type="text" field="LibraryID" label="LibraryID" width="20"/>
+            <column type="integer" field="NumberOrganismIDs" label="Hits" width="1"/>
+        </row>
+        <row expander="image">
+            <!--                  <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                      <parameter name="file" file="spectra/specs_ms.mgf"/>
+                      <parameter name="scan" value="[cluster index]"/>
+                      <parameter name="compoundname" value="[LibraryID]"/>
                       <parameter name="trim" value="true"/>
                   </column>
                   <column type="stream" invoke="annotatedSpectrumImageText" contentType="text/plain" colspan="5">
-                      <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                      <parametbiomer name="scan"    value="[cluster index]"/>
-                      <parameter name="compoundname"    value="[LibraryID]"/>
+                      <parameter name="file" file="spectra/specs_ms.mgf"/>
+                      <parametbiomer name="scan" value="[cluster index]"/>
+                      <parameter name="compoundname" value="[LibraryID]"/>
                       <parameter name="trim" value="true"/>
                   </column>-->
-                  <column type="jscolumnspectrumviewer" colspan="5">
-                      <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                      <parameter name="scan"    value="[cluster index]"/>
-                      <parameter name="compoundname"    value="[LibraryID]"/>
-                      <parameter name="trim" value="true"/>
-                  </column>
-                </row>
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="compoundname" value="[LibraryID]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
 
 
-                <row expander="down:up">
-                  <column type="block" block="related_network_list_specnets" colspan="7">
-                    <parameter name="spectraid" value="[cluster index]"/>
-                  </column>
-                </row>
-        </block>
+        <row expander="down:up">
+            <column type="block" block="related_network_list_specnets" colspan="7">
+                <parameter name="spectraid" value="[cluster index]"/>
+            </column>
+        </row>
+    </block>
 
 
 
-<!--
-        <view id="powerview"  display="hidden">
+    <!--
+        <view id="powerview" display="hidden">
                 <blockRef id="main" type="powerview"/>
         </view>
         <block id="powerview" type="powerview">
@@ -1301,20 +1327,20 @@
         </block> -->
 
 
-        <view id="network_displayer"  label="Network Display (Alpha)" display="hidden">
-                <blockRef id="main" type="network_displayer"/>
-        </view>
-        <block id="network_displayer" type="network_displayer" display="hidden">
-            <data>
-                <source type="file" name="result/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <view id="network_displayer" label="Network Display (Alpha)" display="hidden">
+        <blockRef id="main" type="network_displayer"/>
+    </view>
+    <block id="network_displayer" type="network_displayer" display="hidden">
+        <data>
+            <source type="file" name="result/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
 
-        <!-- <view id="task_data_reuse" label="Reanalyze Cluster Spectra" group="Experimental Views">
+    <!-- <view id="task_data_reuse" label="Reanalyze Cluster Spectra" group="Experimental Views">
                 <blockRef id="main" type="task_data_reuse"/>
         </view>
 
@@ -1331,17 +1357,17 @@
 
 
 
-        <view id="parameters_xml_grabber"  label="parameters_xml_grabber" display="hidden">
-                <blockRef id="main" type="parameters_xml_grabber"/>
-        </view>
-        <block id="parameters_xml_grabber" type="stream" panelHeight="600px">
-            <data>
-                <source type="file" name="params/"/>
-                <parsers>
-                    <parser type="stream" contentType="text/plain"/>
-                </parsers>
-            </data>
-        </block>
+    <view id="parameters_xml_grabber" label="parameters_xml_grabber" display="hidden">
+        <blockRef id="main" type="parameters_xml_grabber"/>
+    </view>
+    <block id="parameters_xml_grabber" type="stream" panelHeight="600px">
+        <data>
+            <source type="file" name="params/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
 
 
 
@@ -1350,39 +1376,39 @@
 
 
     <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
-            <blockRef id="main"   type="cytoscape_preview"/>
+        <blockRef id="main" type="cytoscape_preview"/>
     </view>
     <block id="cytoscape_preview" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
         <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
 
     <view id="reanalyze_ms2lda" label="Analyze with MS2LDA" group="Advanced Views - Experimental Views">
-            <blockRef id="main"   type="reanalyze_ms2lda"/>
+        <blockRef id="main" type="reanalyze_ms2lda"/>
     </view>
     <block id="reanalyze_ms2lda" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Classic Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "MGF_SOURCE":"mscluster"}'/>
     </block>
 
     <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
-            <blockRef id="main"   type="molnetenhancer"/>
+        <blockRef id="main" type="molnetenhancer"/>
     </view>
     <block id="molnetenhancer" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
@@ -1400,19 +1426,19 @@
 
     <!-- Compound Occurrence -->
     <view id="view_compound_occurrence" label="View Compounds and File Occurrence" group="Advanced Views - Misc Views">
-            <blockRef id="main"   type="view_compound_occurrence"/>
+        <blockRef id="main" type="view_compound_occurrence"/>
     </view>
 
     <block id="view_compound_occurrence" type="table">
-            <data>
-                <source type="file" name="compound_filename_occurences/"/>
+        <data>
+            <source type="file" name="compound_filename_occurences/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="TotalFiles" operator="ascending"/>
             </parsers>
         </data>
         <row>
-                    <column type="text"     field="LibraryID"        label="LibraryID"          width="10"/>
-                    <column type="integer"     field="TotalFiles"        label="TotalFiles"          width="3"/>
+            <column type="text" field="LibraryID" label="LibraryID" width="10"/>
+            <column type="integer" field="TotalFiles" label="TotalFiles" width="3"/>
         </row>
     </block>
 
@@ -1420,72 +1446,72 @@
 
     <!-- Legacy -->
     <view id="view_all_clusters_withID" label="View All Clusters With IDs" group="Legacy Views" display="hidden">
-            <blockRef id="main" type="clusters_list_specnets_withID"/>
+        <blockRef id="main" type="clusters_list_specnets_withID"/>
     </view>
     <block id="clusters_list_specnets_withID" type="table">
-            <data>
-                    <source type="file" name="clusterinfosummarygroup_attributes_withIDs/"/>
-                    <parsers>
-                            <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
-                    </parsers>
-            </data>
-            <row>
-                    <column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
-                            <parameter name="protein"   value="[cluster index]"/>
-                            <parameter name="proteinID" value="[cluster index]"/>
-                    </column>
+        <data>
+            <source type="file" name="clusterinfosummarygroup_attributes_withIDs/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
+                <parameter name="protein" value="[cluster index]"/>
+                <parameter name="proteinID" value="[cluster index]"/>
+            </column>
 
-                    <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
-                      <parameter name="view" value="cluster_details"/>
-                      <parameter name="protein" value="[cluster index]"/>
-                    </column>
+            <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                    <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
-                      <parameter name="view" value="cluster_details"/>
-                      <parameter name="protein" value="[cluster index]"/>
-                    </column>
+            <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
+                <parameter name="view" value="cluster_details"/>
+                <parameter name="protein" value="[cluster index]"/>
+            </column>
 
-                    <column type="integer"     field="number of spectra"        label="NumSpectra"          width="3"/>
-                    <column type="float"       field="precursor mass"       label="PrecursorMZ"           precision="5"/>
-                    <column type="float"        field="sum(precursor intensity)"    label="PrecursorInt"         precision="5"/>
-                    <column type="float"        field="RTMean"    label="RTMean"         width="3"/>
-                    <column type="text"        field="AllGroups"    label="AllGroups"         width="3"/>
-                    <column type="text"        field="DefaultGroups"    label="DefaultGroups"         width="5"/>
-                    <column type="text"        field="LibraryID"    label="LibraryID"         width="20"/>
-                    <column type="integer"        field="NumberOrganismIDs"    label="Hits"         width="1"/>
-            </row>
-            <row expander="image">
-              <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                  <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                  <parameter name="scan"    value="[cluster index]"/>
-                  <parameter name="compoundname"    value="[LibraryID]"/>
-                  <parameter name="trim" value="true"/>
-              </column>
-              <column type="stream" invoke="annotatedSpectrumImageText" contentType="text/plain" colspan="5">
-                  <parameter name="file"    file="spectra/specs_ms.mgf"/>
-                  <parameter name="scan"    value="[cluster index]"/>
-                  <parameter name="compoundname"    value="[LibraryID]"/>
-                  <parameter name="trim" value="true"/>
-              </column>
-            </row>
+            <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
+            <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
+            <column type="float" field="sum(precursor intensity)" label="PrecursorInt" precision="5"/>
+            <column type="float" field="RTMean" label="RTMean" width="3"/>
+            <column type="text" field="AllGroups" label="AllGroups" width="3"/>
+            <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
+            <column type="text" field="LibraryID" label="LibraryID" width="20"/>
+            <column type="integer" field="NumberOrganismIDs" label="Hits" width="1"/>
+        </row>
+        <row expander="image">
+            <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="compoundname" value="[LibraryID]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="stream" invoke="annotatedSpectrumImageText" contentType="text/plain" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="compoundname" value="[LibraryID]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
 
 
-            <row expander="down:up">
-              <column type="block" block="related_network_list_specnets" colspan="7">
+        <row expander="down:up">
+            <column type="block" block="related_network_list_specnets" colspan="7">
                 <parameter name="spectraid" value="[cluster index]"/>
-              </column>
-            </row>
+            </column>
+        </row>
     </block>
 
     <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
-            <blockRef id="main"   type="view_qiime2_emperor"/>
+        <blockRef id="main" type="view_qiime2_emperor"/>
     </view>
     <block id="view_qiime2_emperor" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
 
         <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
     </block>
@@ -1530,49 +1556,49 @@
     </block>
 
     <view id="view_all_topology_signatures" label="Topology Signatures" group="Deprecated Views">
-            <blockRef id="main"   type="view_all_topology_signatures"/>
+        <blockRef id="main" type="view_all_topology_signatures"/>
     </view>
 
     <block id="view_all_topology_signatures" type="table">
-            <data>
-                <source type="file" name="all_network_paths/"/>
+        <data>
+            <source type="file" name="all_network_paths/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="DeltaKey" operator="ascending"/>
             </parsers>
         </data>
         <row>
-                    <column type="integer"     field="Delta1"         label="Delta1"            width="3"/>
-                    <column type="integer"     field="Delta2"         label="Delta2"            width="3"/>
-                    <column type="integer"     field="Delta3"         label="Delta3"            width="3"/>
-                    <column type="text"     field="DeltaKey"        label="DeltaKey"          width="20"/>
-                    <column type="text"     field="Nodes"        label="Nodes"          width="40"/>
+            <column type="integer" field="Delta1" label="Delta1" width="3"/>
+            <column type="integer" field="Delta2" label="Delta2" width="3"/>
+            <column type="integer" field="Delta3" label="Delta3" width="3"/>
+            <column type="text" field="DeltaKey" label="DeltaKey" width="20"/>
+            <column type="text" field="Nodes" label="Nodes" width="40"/>
         </row>
     </block> -->
 
     <view id="view_all_topology_signatures_histogram" label="Topology Signatures Histogram" group="Deprecated Views">
-            <blockRef id="main"   type="view_all_topology_signatures_histogram"/>
+        <blockRef id="main" type="view_all_topology_signatures_histogram"/>
     </view>
 
     <block id="view_all_topology_signatures_histogram" type="table">
-            <data>
-                <source type="file" name="all_network_paths_histogram/"/>
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="count" operator="descending"/>
             </parsers>
         </data>
         <row>
-                    <column type="integer"     field="Delta1"         label="Delta1"            width="3"/>
-                    <column type="integer"     field="Delta2"         label="Delta2"            width="3"/>
-                    <column type="integer"     field="Delta3"         label="Delta3"            width="3"/>
-                    <column type="integer"     field="count"         label="count"            width="3"/>
-                    <column type="text"     field="delta_key"        label="delta_key"          width="10"/>
-                    <column label="View Paths" type="genericurlgenerator" width="12" field="delta_key">
-                        <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-                        <parameter name="REQUESTPARAMETER=view" value="view_all_topology_signatures"/>
-                        <parameter name="HASHPARAMTER=DeltaKey_input" value="[delta_key]"/>
-                        <parameter name="LABEL" value="View Paths"/>
-                        <parameter name="USETASK" value="True"/>
-                    </column>
+            <column type="integer" field="Delta1" label="Delta1" width="3"/>
+            <column type="integer" field="Delta2" label="Delta2" width="3"/>
+            <column type="integer" field="Delta3" label="Delta3" width="3"/>
+            <column type="integer" field="count" label="count" width="3"/>
+            <column type="text" field="delta_key" label="delta_key" width="10"/>
+            <column label="View Paths" type="genericurlgenerator" width="12" field="delta_key">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="view_all_topology_signatures"/>
+                <parameter name="HASHPARAMTER=DeltaKey_input" value="[delta_key]"/>
+                <parameter name="LABEL" value="View Paths"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
         </row>
     </block>
 

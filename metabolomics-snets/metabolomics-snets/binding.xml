@@ -11,6 +11,12 @@
 		<download port="flowParams" type="file">
 			<query name="resource" value="params"/>
 		</download>
+        <download port="metadatafile" type="file">
+			<query name="resource" value="metadatafile"/>
+		</download>
+        <download port="ili_stl_model" type="file">
+			<query name="resource" value="ili_stl_model"/>
+		</download>
 		<download port="groupmapping" type="file">
 			<query name="resource" value="groupmapping"/>
 		</download>
@@ -96,11 +102,15 @@
 		<productionToOutput port="clusterinfosummary"     production="clusterinfosummary"/>
 	</bind>
 
-
+    <!-- Merging Grouping Information -->
 	<bind action="metabolomicgroupmappingconvert" tool="MetabolomicGroupConvert">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
 		<inputAsRequirement port="groupmapping"       requirement="groupmapping"/>
+        <inputAsRequirement port="attributemapping"       requirement="attributemapping"/>
+        <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
+        <inputAsRequirement port="inputspectra"       requirement="inputspectra"/>
 		<productionToOutput port="groupmapping_converted"     production="groupmapping_converted"/>
+        <productionToOutput port="attributemapping_converted"     production="attributemapping_converted"/>
 	</bind>
 
 	<bind action="metabolomicclusterinfogroup" tool="MetabolomicClusterinfoGroup">
@@ -124,6 +134,12 @@
 		<inputAsRequirement port="result_specnets"  requirement="result_specnets"/>
 		<productionToOutput port="clusterinfosummarygroup_attributes_withIDs"     production="clusterinfosummarygroup_attributes_withIDs"/>
 	</bind>
+
+    <!-- Compound Occurrence in Files -->
+    <bind action="metabolomic_create_compound_filename_occurences" tool="metabolomic_create_compound_filename_occurences">
+        <inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs"  requirement="clusterinfosummarygroup_attributes_withIDs"/>
+        <productionToOutput port="compound_filename_occurences"     production="compound_filename_occurences"/>
+    </bind>
 
 
 	<bind action="metabolomic_create_all_cluster_info" tool="MetabolomicViewAllClusters">
@@ -183,11 +199,30 @@
 		<productionToOutput port="network_statistics"     production="network_statistics"/>
 	</bind>
 
+	<bind action="metabolomics_convert_graphml" tool="metabolomics_convert_graphml">
+		<inputAsRequirement port="networkedges_selfloop" requirement="networkedges_selfloop"/>
+		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+		<inputAsRequirement port="result_specnets_DB"       requirement="result_specnets_DB"/>
+		<productionToOutput port="gnps_molecular_network_graphml"     production="gnps_molecular_network_graphml"/>
+	</bind>
+
+
+
+	<!-- Extra Optional Features -->
 	<bind action="create_cluster_buckets" tool="ClusterBucketCreator">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
 		<inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
 		<inputAsRequirement port="clusterinfogroup"       requirement="clusterinfogroup"/>
+		<inputAsRequirement port="metadata_for_qiime"       requirement="metadata_for_qiime"/>
 		<productionToOutput port="cluster_buckets"     production="cluster_buckets"/>
+		<productionToOutput port="biom_output"     production="biom_output"/>
+	</bind>
+
+    <bind action="create_metadata_for_qiime" tool="create_metadata_for_qiime">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="metadatafile" requirement="metadatafile"/>
+		<productionToOutput port="metadata_for_qiime"     production="metadata_for_qiime"/>
+        <productionToOutput port="view_emporer"     production="view_emporer"/>
 	</bind>
 
     <bind action="create_topology_signatures" tool="NetworkTopologyCreator">
@@ -198,15 +233,17 @@
 		<productionToOutput port="all_network_paths_histogram"     production="all_network_paths_histogram"/>
 	</bind>
 
+    <bind action="create_ili_output" tool="create_ili_output">
+        <inputAsRequirement port="flowParams" requirement="flowParams"/>
+        <inputAsRequirement port="metadatafile" requirement="metadatafile"/>
+        <inputAsRequirement port="clusterinfosummarygroup_attributes_withIDs" requirement="clusterinfosummarygroup_attributes_withIDs"/>
+        <inputAsRequirement port="clusterinfogroup"       requirement="clusterinfogroup"/>
+        <inputAsRequirement port="ili_stl_model"       requirement="ili_stl_model"/>
+        <productionToOutput port="ili_output"     production="ili_output"/>
+        <productionToOutput port="view_ili"     production="view_ili"/>
+    </bind>
+
 	<!-- Dataset Matches -->
-
-	<!-- <bind action="find_dataset_matches" tool="FindDatasetMatches">
-		<inputAsRequirement port="flowParams" requirement="flowParams"/>
-		<inputAsRequirement port="spectra" requirement="spectra"/>
-		<inputAsRequirement port="result_specnets_DB" requirement="result_specnets_DB"/>
-		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
-	</bind> -->
-
 	<bind action="find_dataset_matches_parallelprep" tool="FindDatasetMatchesParallelPrep">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
 		<productionToOutput port="all_dataset_matches_parallel_params"       production="all_dataset_matches_parallel_params"/>
@@ -292,6 +329,21 @@
 		<upload port="cluster_buckets" type="file">
 			<query name="resource" value="cluster_buckets"/>
 		</upload>
+        <upload port="ili_output" type="file">
+			<query name="resource" value="ili_output"/>
+		</upload>
+        <upload port="view_ili" type="file">
+			<query name="resource" value="view_ili"/>
+		</upload>
+		<upload port="biom_output" type="file">
+			<query name="resource" value="biom_output"/>
+		</upload>
+        <upload port="metadata_for_qiime" type="file">
+			<query name="resource" value="metadata_for_qiime"/>
+		</upload>
+        <upload port="view_emporer" type="file">
+			<query name="resource" value="view_emporer"/>
+		</upload>
         <upload port="all_network_paths" type="file">
 			<query name="resource" value="all_network_paths"/>
 		</upload>
@@ -305,5 +357,13 @@
 		<upload port="all_dataset_matches" type="file">
 			<query name="resource" value="all_dataset_matches"/>
 		</upload>
+		<upload port="gnps_molecular_network_graphml" type="file">
+			<query name="resource" value="gnps_molecular_network_graphml"/>
+		</upload>
+
+        <upload port="compound_filename_occurences" type="file">
+			<query name="resource" value="compound_filename_occurences"/>
+		</upload>
+
 	</bind>
 </binding>

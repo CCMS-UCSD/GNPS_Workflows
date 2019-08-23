@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="speclib_add" version="1.2.3">
+<interface id="speclib_add" version="release_9">
     <download>
         <source type="folder" name="networking_pairs_results_file_filtered/"/>
         <source type="folder" name="networkedges_selfloop/"/>
@@ -13,7 +13,17 @@
         <source type="folder" name="qiime2_output/"/>
     </download>
 
-
+    <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
+        <blockRef id="main" type="clone_updated_networking"/>
+    </view>
+    <block id="clone_updated_networking" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22FEATURE-BASED-MOLECULAR-NETWORKING%22%2C%20%22version%22%3A%20%22current%22%7D'/>
+    </block>
 
     <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_annotations_DB"/>
@@ -82,7 +92,8 @@
         <row expander="View Mirror Match" expandericontype="text">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>>
+                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
+>
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
@@ -95,55 +106,58 @@
     </view>
 
     <block id="group_by_compound" type="table">
-            <data>
-                    <source type="file" name="DB_result/"/>
-                    <parsers>
-                            <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
-                            <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
-                    </parsers>
-                    <processors>
-                            <processor type="uploadFilename" field="SpectrumFile"/>
-                    </processors>
-            </data>
-            <row>
-                <column label="ViewLib" type="genericurlgenerator" width="5"> \
-                    <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>\
-                    <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>\
-                    <parameter name="LABEL" value="ViewLib"/>\
-                </column>\
+        <data>
+            <source type="file" name="DB_result/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
+                <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
+            </parsers>
+            <processors>
+                <processor type="uploadFilename" field="SpectrumFile"/>
+            </processors>
+        </data>
+        <row>
+            <column label="ViewLib" type="genericurlgenerator" width="5"> \
+                <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
+\
+                <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
+\
+                <parameter name="LABEL" value="ViewLib"/>
+\
+            </column>\
 
-                    <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
-                    <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
-                    <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
-                    <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
-                    <column type="float"     field="MassDiff"         label="MassDiff"            precision="3"/>
-                    <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
-                    <column type="text"     field="Instrument"         label="Instrument"            width="5"/>
-                    <column type="text"     field="IonMode"         label="IonMode"            width="5"/>
-                    <column type="text"     field="PI"         label="PI"            width="5"/>
-                    <column type="text"     field="Ion_Source"         label="Ion Source"            width="5"/>
-                    <column type="text"     field="tags"         label="Tags"            width="5"/>
-                    <column label="Add Library Tag" type="addspectrumtag" width="12">
-                        <parameter name="spectrumID" value="[SpectrumID]"/>
-                    </column>
-                    <column type="structuredisplayer"     label="Structure">
-                        <parameter name="smilesstructure" value="[Smiles]"/>
-                    </column>
-            </row>
-            <row expander="image">
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
-                            <parameter name="file"    file="spectra/[internalFilename]"/>
-                            <parameter name="scan"    value="[#Scan#]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                            <parameter name="trim" value="true"/>
-                    </column>
-                    <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
-                            <parameter name="file"    file="lib/[LibraryName]"/>
-                            <parameter name="spectrumid"    value="[SpectrumID]"/>
-                            <parameter name="compoundname" value="*..*"/>
-                            <parameter name="trim" value="true"/>
-                    </column>
-            </row>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
+            <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
+            <column type="float" field="MQScore" label="Cosine" precision="2"/>
+            <column type="integer" field="MZErrorPPM" label="MZErrorPPM" />
+            <column type="float" field="MassDiff" label="MassDiff" precision="3"/>
+            <column type="float" field="LibMZ" label="LibMZ" precision="2"/>
+            <column type="text" field="Instrument" label="Instrument" width="5"/>
+            <column type="text" field="IonMode" label="IonMode" width="5"/>
+            <column type="text" field="PI" label="PI" width="5"/>
+            <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            <column type="text" field="tags" label="Tags" width="5"/>
+            <column label="Add Library Tag" type="addspectrumtag" width="12">
+                <parameter name="spectrumID" value="[SpectrumID]"/>
+            </column>
+            <column type="structuredisplayer" label="Structure">
+                <parameter name="smilesstructure" value="[Smiles]"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5" label="Query" width="550" height="350">
+                <parameter name="file" file="spectra/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
+                <parameter name="compoundname" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Library" width="550" height="350">
+                <parameter name="file" file="lib/[LibraryName]"/>
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+                <parameter name="compoundname" value="*..*"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
     </block>
 
     <view id="view_all_analog_annotations_DB" label="View All Analog Library Hits" group="Default Molecular Networking Results Views">
@@ -201,7 +215,8 @@
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>>
+                <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
+>
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
@@ -220,7 +235,7 @@
         </row>
     </block>
 
-    <view id="view_all_clusters_withID" label="View All Clusters With IDs" group="Default Molecular Networking Results Views">
+    <view id="view_all_clusters_withID" label="View All Spectra With Annotations" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_clusters_withID"/>
     </view>
 
@@ -258,9 +273,11 @@
                 <parameter name="USETASK" value="True"/>
             </column> -->
 
-            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
+            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10">
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
-                <parameter name="HASHPARMTER=spec_on_server" value="[task]/"/>
+                <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="t.{task}/spectra/specs_ms.mgf"/>
+                <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[cluster index]"/>
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
 
@@ -278,6 +295,13 @@
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[cluster index]"/>
                 <parameter name="trim" value="true"/>
+            </column>
+        </row>
+        <row expander="Search Spec" expandericontype="text">
+            <column type="singlespectrumcolumnhandler" colspan="5">
+                <parameter name="mz" value="[precursor mass]"/>
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
             </column>
         </row>
     </block>
@@ -357,7 +381,7 @@
         </row>
     </block>
 
-    <view id="written_description" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
+    <view id="written_description" label="Networking Parameters and Written Description" group="Methods and Citation for Manuscripts">
         <blockRef id="main" type="written_description"/>
     </view>
     <block id="written_description" type="stream">
@@ -417,7 +441,8 @@
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[CLUSTERID1]"/>
-                <parameter name="trim" value="true"/>g
+                <parameter name="trim" value="true"/>
+g
             </column>
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
@@ -428,12 +453,12 @@
     </block>
 
     <view id="view_edges_delta_histogram" label="Edges, MZ Delta Histogram" group="Advanced Views - Networking Graphs/Histograms">
-            <blockRef id="main"   type="view_edges_delta_histogram"/>
+        <blockRef id="main" type="view_edges_delta_histogram"/>
     </view>
 
     <block id="view_edges_delta_histogram" type="histogramdisplayer" viewname="network_pairs_specnets_allcomponents" columnname="DeltaMZ">
-            <data>
-                <source type="file" name="all_network_paths_histogram/"/>
+        <data>
+            <source type="file" name="all_network_paths_histogram/"/>
             <parsers>
                 <parser type="stream" contentType="text/plain"/>
             </parsers>
@@ -441,14 +466,14 @@
     </block>
 
     <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
-            <blockRef id="main"   type="cytoscape_preview"/>
+        <blockRef id="main" type="cytoscape_preview"/>
     </view>
     <block id="cytoscape_preview" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
         <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
@@ -466,30 +491,42 @@
 
 
     <view id="reanalyze_ms2lda" label="Analyze with MS2LDA" group="Advanced Views - Experimental Views">
-            <blockRef id="main"   type="reanalyze_ms2lda"/>
+        <blockRef id="main" type="reanalyze_ms2lda"/>
     </view>
     <block id="reanalyze_ms2lda" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
         <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mzmine"}'/> -->
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
+    </block>
+
+    <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="molnetenhancer"/>
+    </view>
+    <block id="molnetenhancer" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
 
 
 
     <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
-            <blockRef id="main"   type="view_qiime2_emperor"/>
+        <blockRef id="main" type="view_qiime2_emperor"/>
     </view>
     <block id="view_qiime2_emperor" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
 
         <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
     </block>

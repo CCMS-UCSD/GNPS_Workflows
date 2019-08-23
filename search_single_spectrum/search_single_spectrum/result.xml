@@ -87,6 +87,14 @@
             </parsers>
         </data>
         <row>
+            <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10" >
+                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
+                <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
+                <parameter name="HASHPARAMTER=spec_on_server" value="[filename]"/>
+                <parameter name="HASHPARAMTER=ADDSPECTRA_EXTRACTSCAN" value="[filescan]"/>
+                <parameter name="LABEL" value="AnnotatetoGNPS"/>
+            </column>
+
             <column type="text" field="dataset_id" label="dataset_id" width="30"/>
             <!-- <column type="text" field="dataset_scan" label="dataset_scan" width="10"/> -->
             <column type="text" field="filename" label="GNPS Filepath" width="40"/>
