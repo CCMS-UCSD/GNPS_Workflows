@@ -1,0 +1,3 @@
+[submodule "openms-molecular-networking/tools/scripts"]
+	path = openms-molecular-networking/tools/scripts
+	url = https://github.com/Bioinformatic-squad-DorresteinLab/openms-gnps-tools.git
