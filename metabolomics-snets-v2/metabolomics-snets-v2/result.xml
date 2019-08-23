@@ -1421,7 +1421,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR:1.2.8", "desc":"DEREPLICATOR of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR", "desc":"DEREPLICATOR of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
     </block>
 
     <view id="dereplicatorplus" label="Annotate with DEREPLICATOR+" group="Advanced Views - Experimental Views">
@@ -1433,7 +1433,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS:1.0.0", "desc":"DEREPLICATOR+ of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS", "desc":"DEREPLICATOR+ of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
     </block>
 
 
