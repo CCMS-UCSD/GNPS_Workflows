@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <flow name="feature-based-molecular-networking">
     <object name="workflowParameters"/>
-    <object name="inputSpectra"/>
+    <collection name="inputSpectra"/>
     <object name="quantification_table"/>
     <object name="metadata_table"/>
     <collection name="additional_pairs"/>
@@ -9,7 +9,7 @@
 
     <action name="begin">
         <output port="flowParams" object="workflowParameters"/>
-        <output port="spec" object="inputSpectra"/>
+        <output port="spec" collection="inputSpectra"/>
         <output port="lib" collection="library"/>
         <output port="quantification_table" object="quantification_table"/>
         <output port="metadata_table" object="metadata_table"/>
@@ -20,7 +20,7 @@
     <action name="input_validation">
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
-        <input port="inputSpectra" object="inputSpectra"/>
+        <input port="inputSpectra" collection="inputSpectra"/>
         <input port="metadata_table" object="metadata_table"/>
         <output port="validation_summary" collection="validation_summary"/>
     </action>
@@ -33,7 +33,7 @@
         <input port="quantification_table" object="quantification_table"/>
         <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
 
-        <input port="inputSpectra" object="inputSpectra"/>
+        <input port="inputSpectra" collection="inputSpectra"/>
         <output port="spectra_reformatted" object="spectra_reformatted"/>
     </action>
 

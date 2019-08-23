@@ -10,7 +10,7 @@
     <tool name="input_validation">
         <require name="workflowParameters" type="file"/>
         <require name="quantification_table" type="file"/>
-        <require name="inputSpectra" type="file"/>
+        <require name="inputSpectra" type="folder"/>
         <require name="metadata_table" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
@@ -54,7 +54,7 @@
         <require name="quantification_table" type="file"/>
         <produce name="quantification_table_reformatted" type="file" naming="explicit" extension="csv"/>
 
-        <require name="inputSpectra" type="file"/>
+        <require name="inputSpectra" type="folder"/>
         <produce name="spectra_reformatted" type="file" naming="fixed" value="spectra_reformatted.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
