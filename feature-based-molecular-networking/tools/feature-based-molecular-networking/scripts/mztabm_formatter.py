@@ -28,6 +28,10 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     
 
+    return {}
+
+#TODO: Finish this function to read the input files and find the MS2 and actually extract the peaks into an MGF
+def create_mgf(input_filenames, output_mgf, compound_filename_mapping)
     return
 
 if __name__=="__main__":
