@@ -79,20 +79,35 @@ def process_GNPS_file(GNPS_file):
     return gnpslibfile, netfile
 
 #add all chemical structural information output as dataframe items in list
-def add_Chemical_Info(gnpslibfile, nap_ID, directory, Derep_job_ID=None, Varquest_job_ID=None, derepfile=None, varquestfile=None):
-    nap = pd.read_csv("http://proteomics2.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=final_out/node_attributes_table.tsv" % nap_ID, sep = "\t")
+def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Varquest_job_ID=None, derepfile=None, varquestfile=None):
+
     gnpslib = pd.read_csv(gnpslibfile, sep='\t')
-    if Derep_job_ID != None and Varquest_job_ID != None:
-        derep = pd.read_csv(derepfile +[s for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
+
+    matches = [gnpslib]
+
+    if nap_ID != None:
+        nap = pd.read_csv("http://proteomics2.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=final_out/node_attributes_table.tsv" % nap_ID, sep = "\t")
+        matches.append(nap)
+    elif nap_ID == None:
+        nap = None    
+
+    if Derep_job_ID != None:
+        derep = pd.read_csv(derepfile + [s for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
+        matches.append(derep)
+    elif Derep_job_ID == None:
+        derep = None
+
+    if Varquest_job_ID != None:
         varquest = pd.read_csv(varquestfile +[s for s in os.listdir(varquestfile) if "DEREPLICATOR" in s][0], sep = '\t')
-        matches = [gnpslib, nap, derep, varquest]
-    else:
-        matches = [gnpslib, nap]
+        matches.append(varquest)
+    elif Varquest_job_ID == None:
+        varquest = None
+
     file_name = directory + '/SMILES.csv'
     out = unique_smiles(matches)
     out['df'].to_csv(file_name, quoting=csv.QUOTE_NONE, escapechar='&')
     print('SMILES have been written to "'+file_name+'"')
-    
+
     return file_name, out; #returns the file name of the SMILES.csv (str)
 
 #convert SMILES to InchiKeys
