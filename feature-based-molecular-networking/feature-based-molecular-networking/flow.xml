@@ -215,5 +215,6 @@
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="written_description" object="written_description"/>
         <input port="validation_summary" collection="validation_summary"/>
+        <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
     </action>
 </flow>
