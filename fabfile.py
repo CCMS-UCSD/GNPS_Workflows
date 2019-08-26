@@ -9,7 +9,7 @@ env.hosts=['proteomics2.ucsd.edu']
 env.user='miw023'
 env.production_user = "ccms"
 env.workflow_components = ['input.xml', 'binding.xml', 'flow.xml', 'result.xml', 'tool.xml']
-#env.gateway="mingxun@mingwangbeta.ucsd.edu"
+env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
 VERSION="release_9"
 
@@ -58,7 +58,8 @@ def update_folder(local_path, final_path, production=False):
         put(local_path, remote_temp_path, mirror_local_mode=True)
         sudo('cp -r {} {}'.format(remote_temp_path, final_path), user=env.production_user)
     else:
-        put(local_path, final_path, mirror_local_mode=True)
+        print("Uploading folder", local_path, final_path)
+        #put(local_path, final_path, mirror_local_mode=True)
 
 #Uploading the actual tools to the server
 def update_tools(workflow_name, workflow_version, production_str=""):
@@ -71,4 +72,7 @@ def update_tools(workflow_name, workflow_version, production_str=""):
 
     local_path = 'tools/{}'.format(workflow_name)
     final_path = '/data/cluster/tools/{}/{}/'.format(workflow_name, workflow_version)
+
+    print(local_path, final_path)
+
     update_folder(local_path, final_path, production=production)
