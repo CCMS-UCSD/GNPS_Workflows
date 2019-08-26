@@ -84,5 +84,4 @@ def update_folder(local_path, final_path, production=False):
         run("mkdir -p {}".format(remote_temp_path), warn_only=True)
         put(local_path, remote_temp_path, mirror_local_mode=True)
         run('rsync -avp {}/ {}'.format(os.path.join(remote_temp_path, os.path.basename(local_path)), final_path))
-        #put(local_path, final_path, mirror_local_mode=True)
 
