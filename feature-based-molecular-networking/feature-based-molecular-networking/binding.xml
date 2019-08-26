@@ -222,5 +222,8 @@
         <upload port="written_description" type="folder">
             <query name="resource" value="written_description"/>
         </upload>
+        <upload port="quantification_table_reformatted" type="folder">
+            <query name="resource" value="quantification_table_reformatted"/>
+        </upload>
     </bind>
 </binding>
