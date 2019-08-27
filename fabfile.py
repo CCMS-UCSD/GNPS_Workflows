@@ -1,23 +1,18 @@
 from fabric import Connection
 from fabric import task
+from fabric import config
 import os
 from xml.etree import ElementTree as ET
 import uuid
 import glob
 
-#env.hosts=['gnps.ucsd.edu']
+# env.hosts=['gnps.ucsd.edu']
 # env.hosts=['proteomics2.ucsd.edu']
 # env.user='miw023'
 # env.production_user = "ccms"
 # env.workflow_components = ['input.xml', 'binding.xml', 'flow.xml', 'result.xml', 'tool.xml']
-# env.gateway="mingxun@mingwangbeta.ucsd.edu"
 
 workflow_components = ['input.xml', 'binding.xml', 'flow.xml', 'result.xml', 'tool.xml']
-
-# fab_connection = Connection(
-#     host="proteomics2.ucsd.edu",
-#     user="miw023"
-# )
 
 VERSION="release_9"
 
@@ -56,33 +51,46 @@ def update_workflow_xml(fab_connection, workflow_name, workflow_version, product
 def update_file(fab_connection, local_path, final_path, production=False):
     if production:
         remote_temp_path = os.path.join("/tmp/{}_{}".format(local_path.replace("/", "_"), str(uuid.uuid4())))
-        fab_connection.put(local_path, remote_temp_path, mirror_local_mode=True)
-        fab_connection.sudo('cp {} {}'.format(remote_temp_path, final_path), user=env.production_user)
+        fab_connection.put(local_path, remote_temp_path, preserve_mode=True)
+        fab_connection.sudo('cp {} {}'.format(remote_temp_path, final_path), user=fab_connection["env"]["production_user"])
     else:
-        fab_connection.put(local_path, final_path, mirror_local_mode=True)
+        fab_connection.put(local_path, final_path, preserve_mode=True)
 
-def update_folder(local_path, final_path, production=False):
+#TODO: update this to work with rsync
+def update_folder(fab_connection, local_path, final_path, production=False):
+    #Tar up local folder and upload to temporary space on server and untar
+    local_temp_path = os.path.join("/tmp/{}_{}.tar".format(local_path.replace("/", "_"), str(uuid.uuid4())))
+    cmd = "tar -C {} -chvf {} .".format(local_path, local_temp_path)
+    print(cmd)
+    os.system(cmd)
+
+    remote_temp_tar_path = os.path.join("/tmp/{}_{}.tar".format(local_path.replace("/", "_"), str(uuid.uuid4())))
+    fab_connection.put(local_temp_path, remote_temp_tar_path, preserve_mode=True)
+
+    remote_temp_path = os.path.join("/tmp/{}_{}".format(local_path.replace("/", "_"), str(uuid.uuid4())))
+    fab_connection.run("mkdir {}".format(remote_temp_path))
+    fab_connection.run("tar -C {} -xvf {}".format(remote_temp_path, remote_temp_tar_path))
+
     if production:
-        remote_temp_path = os.path.join("/tmp/{}_{}".format(local_path.replace("/", "_"), str(uuid.uuid4())))
-        put(local_path, remote_temp_path, mirror_local_mode=True)
-        sudo('cp -r {} {}'.format(remote_temp_path, final_path), user=env.production_user)
+        #fab_connection.sudo('rsync -rlptDv {}/ {}'.format(remote_temp_path, final_path), user=fab_connection["env"]["production_user"], password=fab_connection["sudo"]["password"])
+        #fab_connection.sudo('rsync -rlptDv {}/ {}'.format(remote_temp_path, final_path))
+        fab_connection.run('sudo su ccms && whoami')
+        fab_connection.run('sudo su ccms && whoami')
+        fab_connection.run('whoami')
     else:
-        print("Uploading folder", local_path, final_path)
-        #put(local_path, final_path, mirror_local_mode=True)
+        fab_connection.run('rsync -rlptDv {}/ {}'.format(remote_temp_path, final_path))
 
 #Uploading the actual tools to the server
 @task
-def update_tools(workflow_name, workflow_version, production_str=""):
+def update_tools(fab_connection, workflow_name, workflow_version, production_str=""):
     production = production_str=="production"
 
     if production:
-        sudo("mkdir -p /data/cluster/tools/{}/{}".format(workflow_name, workflow_version), warn_only=True, user=env.production_user)
+        fab_connection.sudo("mkdir -p /data/cluster/tools/{}/{}".format(workflow_name, workflow_version), user=fab_connection["env"]["production_user"])
     else:
-        run("mkdir -p /data/cluster/tools/{}/{}".format(workflow_name, workflow_version), warn_only=True)
+        fab_connection.run("mkdir -p /data/cluster/tools/{}/{}".format(workflow_name, workflow_version))
 
-    local_path = 'tools/{}'.format(workflow_name)
+    local_path = 'tools/{}/'.format(workflow_name)
     final_path = '/data/cluster/tools/{}/{}/'.format(workflow_name, workflow_version)
 
-    print(local_path, final_path)
-
-    update_folder(local_path, final_path, production=production)
+    update_folder(fab_connection, local_path, final_path, production=production)
