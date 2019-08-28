@@ -46,11 +46,25 @@ def convert_to_feature_csv(input_filename, output_filename):
             assay_to_msrun[record["type"].split("-")[0]] = record["value"]
     print(assay_to_msrun)
 
-
+    output_record_list = []
     for record in smf_data.to_dict(orient="records"):
-        for assay in assay_to_msrun:
-            
+        #Recording abundance
+        output_dict = {}
+        output_dict["row ID"] = record["SMF_ID"]
+        output_dict["row m/z"] = record["exp_mass_to_charge"]
+        output_dict["row retention time"] = record["retention_time_in_seconds"]
 
+        for assay in assay_to_msrun:
+            assay_abundance_key = "abundance_{}".format(assay)
+            assay_abundance = record[assay_abundance_key]
+            filename = ms_run_to_filename[assay_to_msrun[assay]]
+            output_dict["{} Peak area".format(filename)] = assay_abundance
+
+        output_record_list.append(output_dict)
+
+        #Looking up 
+    
+    pd.DataFrame(output_record_list).to_csv(output_filename, sep=",", index=False)
     
 
     return {}
