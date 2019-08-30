@@ -1,4 +1,1 @@
-debug: true
-run:
-  warn: true
-  echo: true
+CCMSDeployments/fabric.yml

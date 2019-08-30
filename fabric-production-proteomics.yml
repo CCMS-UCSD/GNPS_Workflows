@@ -1,6 +1,1 @@
-debug: true
-run:
-  warn: true
-  echo: true
-env:
-  production_user: ccms
+CCMSDeployments/fabric-production-proteomics.yml
