@@ -46,6 +46,8 @@ def convert_to_feature_csv(input_filename, output_filename):
             assay_to_msrun[record["type"].split("-")[0]] = record["value"]
     print(assay_to_msrun)
 
+    smf_to_scans = {}
+
     output_record_list = []
     for record in smf_data.to_dict(orient="records"):
         #Recording abundance
@@ -62,15 +64,46 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         output_record_list.append(output_dict)
 
-        #Looking up 
+        sme_id = str(record["SME_ID_REFS"])
+        all_sme = [int(sme) for sme in sme_id.split("|")]
+
+        #Looking up the filename
+        sme_records = sme_data[sme_data["SME_ID"].isin(all_sme)]
+        all_spectra_references = list(sme_records["spectra_ref"])
+        all_spectra_references = [spectra_reference.split("|") for spectra_reference in all_spectra_references]
+        all_spectra_references = [item for sublist in all_spectra_references for item in sublist]
+
+        spectra_tuples = [(ms_run_to_filename[spectra_ref.split(":")[0].strip()], spectra_ref.split(":")[1]) for spectra_ref in all_spectra_references]
+
+        smf_to_scans[record["SMF_ID"]] = spectra_tuples
     
     pd.DataFrame(output_record_list).to_csv(output_filename, sep=",", index=False)
-    
 
-    return {}
+    return smf_to_scans
 
 #TODO: Finish this function to read the input files and find the MS2 and actually extract the peaks into an MGF
 def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mangle_mapping=None):
+    spectrum_list = []
+    
+    for scan in compound_filename_mapping:
+        print(scan, compound_filename_mapping[scan])
+        #Choosing one at random, the first, TODO: do a consensus or something like that
+        target_ms2 = compound_filename_mapping[scan][0]
+
+        filename_to_load = ""
+        for input_filename in input_filenames:
+            if target_ms2[0] in input_filename:
+                filename_to_load = input_filename
+        if len(filename_to_load) == 0:
+            continue
+
+        #Find the right spectrum, should probably use proteowizard to do this
+
+        #print(target_ms2[0], filename_to_load, input_filenames)
+
+    output_mgf_file = open(output_mgf, "w")
+    output_mgf_file.close()
+
     return None
 
 if __name__=="__main__":
@@ -78,4 +111,4 @@ if __name__=="__main__":
    compound_filename_mapping = convert_to_feature_csv(sys.argv[1], sys.argv[2])
 
    import glob
-   create_mgf(os.path.join(sys.argv[3], "*"), sys.argv[4], compound_filename_mapping)
+   create_mgf(glob.glob(os.path.join(sys.argv[3], "*")), sys.argv[4], compound_filename_mapping)
