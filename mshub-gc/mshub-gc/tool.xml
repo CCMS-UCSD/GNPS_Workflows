@@ -5,7 +5,7 @@
         <pathVar name="python.exe" path="bin/python"/>
     </pathSet>
 
-    <pathSet base="mshub-gc">
+    <pathSet base="mshub-gc/release_9">
         <pathVar name="preprocess_gcms_data.script" path="process_gc.py"/>
         <pathVar name="preprocess_import.script" path="proc/io/importmsdata.py"/>
         <pathVar name="preprocess_align.script" path="proc/preproc/intrapalign.py"/>
