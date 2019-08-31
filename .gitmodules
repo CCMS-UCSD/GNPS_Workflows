@@ -8,3 +8,6 @@
 [submodule "CCMSDeployments"]
 	path = CCMSDeployments
 	url = https://github.com/CCMS-UCSD/CCMSDeployments.git
+[submodule "CCMS_ProteoSAFe_pythonAPI"]
+	path = CCMS_ProteoSAFe_pythonAPI
+	url = https://github.com/mwang87/CCMS_ProteoSAFe_pythonAPI.git
