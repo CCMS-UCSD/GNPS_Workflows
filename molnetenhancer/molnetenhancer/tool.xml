@@ -2,7 +2,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="molnetenhancer" path="python3.5"/>
     </pathSet>
-    <pathSet base="molnetenhancer">
+    <pathSet base="$base">
         <pathVar name="molnetenhancer.script" path="molnetenhancer.py"/>
     </pathSet>
 
