@@ -13,6 +13,7 @@ import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
 import glob
+import pandas as pd
 
 def determine_input_files(header_list):
     filenames = []
@@ -39,20 +40,33 @@ def determine_input_files(header_list):
     return filenames, filename_headers
 
 def load_group_attribute_mappings(metadata_filename):
-    row_count, table_data = ming_fileio_library.parse_table_with_headers(metadata_filename)
     filename_header = "filename"
 
     attributes_to_groups_mapping = defaultdict(set)
     group_to_files_mapping = defaultdict(list)
-    for key in table_data:
-        all_group_names = []
-        if key.find("ATTRIBUTE_") != -1:
-            #Determine unique values in this column
-            for i in range(row_count):
-                filename = table_data[filename_header][i].rstrip()
+    # row_count, table_data = ming_fileio_library.parse_table_with_headers(metadata_filename)
+    # for key in table_data:
+    #     all_group_names = []
+    #     if key.find("ATTRIBUTE_") != -1:
+    #         #Determine unique values in this column
+    #         for i in range(row_count):
+    #             filename = table_data[filename_header][i].rstrip()
+    #             if len(filename) > 2:
+    #                 group_to_files_mapping[table_data[key][i]].append(filename)
+    #                 attributes_to_groups_mapping[key].add(table_data[key][i])
+
+    metadata_df = pd.read_csv(metadata_filename, sep="\t")
+    print(metadata_df.head())
+    record_list = metadata_df.to_dict(orient="records")
+    for record in record_list:
+        for header in record:
+            if "ATTRIBUTE_" in header:
+                filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
+                group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
+                attribute = header.rstrip().replace('\n', '').replace('\r', '')
                 if len(filename) > 2:
-                    group_to_files_mapping[table_data[key][i]].append(filename)
-                    attributes_to_groups_mapping[key].add(table_data[key][i])
+                    group_to_files_mapping[group_name].append(filename)
+                    attributes_to_groups_mapping[attribute].add(group_name)
 
     return group_to_files_mapping, attributes_to_groups_mapping
 
@@ -155,8 +169,11 @@ def main():
         print("ROW SUM NORM")
         for filename_header in input_filename_headers:
             file_quants = [float(quantification_object[filename_header]) for quantification_object in quantification_list]
-            for quantification_object in quantification_list:
-                quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants)
+            summed_file_quants = sum(file_quants)
+            #Handling zero column
+            if summed_file_quants > 0:
+                for quantification_object in quantification_list:
+                    quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants) * 1000000
 
     """Loading MS2 Spectra"""
     mgf_collection = ming_spectrum_library.SpectrumCollection(args.mgf_filename)
@@ -203,7 +220,7 @@ def main():
             cluster_obj["RTMean"] = cluster_obj["RTConsensus"]
             cluster_obj["RTStdErr"] = 0
 
-        cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
+        cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID&show=true#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
         #cluster_obj["AllFiles"] = "###".join(all_files)
 
         cluster_obj["sum(precursor intensity)"] = sum(all_abundances)

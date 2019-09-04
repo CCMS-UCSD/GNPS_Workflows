@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task"/>
+        <query name="user" valueRef="@user"/>
+        <compression type="zip"/>
+        <download port="spec" type="folder">
+            <query name="resource" value="spec"/>
+        </download>
+        <download port="params" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
+
+    </bind>
+
+    <bind action="preprocess_gcms_data" tool="preprocess_gcms_data">
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="preprocessing_scratch" production="preprocessing_scratch"/>
+        <productionToOutput port="clustered_mgf" production="clustered_mgf"/>
+        <productionToOutput port="clusterinfo" production="clusterinfo"/>
+        <productionToOutput port="clustersummary" production="clustersummary"/>
+        <productionToOutput port="summary_output" production="summary_output"/>
+    </bind>
+
+
+    <bind action="end" type="upload">
+        <url value="{livesearch.upload}"/>
+        <query name="task" valueRef="@task"/>
+        <contentQuery name="content"/>
+        <compression type="zip"/>
+        <upload port="clustered_mgf" type="file">
+            <query name="resource" value="clustered_mgf"/>
+        </upload>
+        <upload port="clusterinfo" type="file">
+            <query name="resource" value="clusterinfo"/>
+        </upload>
+        <upload port="clustersummary" type="file">
+            <query name="resource" value="clustersummary"/>
+        </upload>
+        <upload port="summary_output" type="folder">
+            <query name="resource" value="summary_output"/>
+        </upload>
+        <upload port="preprocessing_scratch" type="folder">
+            <query name="resource" value="preprocessing_scratch"/>
+        </upload>
+    </bind>
+</binding>

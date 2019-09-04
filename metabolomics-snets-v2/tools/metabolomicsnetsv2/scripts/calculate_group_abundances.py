@@ -85,9 +85,10 @@ def calculate_rt_stats(cluster_summary_list, cluster_to_RT):
 
 def calculate_ancillary_information(all_clusters_list, task):
     for cluster in all_clusters_list:
-        cluster_membership_url = "https://gnps.ucsd.edu//ProteoSAFe/result.jsp?task=%s&view=cluster_details&protein=%s" % (task, cluster["cluster index"])
-        cluster["ProteoSAFeClusterLink"] = cluster_membership_url
-
+        cluster_membership_url = "https://gnps.ucsd.edu//ProteoSAFe/result.jsp?task=%s&view=cluster_details&protein=%s&show=true" % (task, cluster["cluster index"])
+        cluster["GNPSLinkout_Cluster"] = cluster_membership_url
+        cluster["GNPSLinkout_Network"] = "https://gnps.ucsd.edu/ProteoSAFe/result.jsp?view=network_displayer&componentindex=%s&task=%s&show=true" % (cluster["componentindex"], task)
+        
         charge = int(cluster["precursor charge"])
         precursor = float(cluster["parent mass"])
         if charge == 0:
@@ -228,11 +229,11 @@ def main():
     print("rt stats")
     calculate_rt_stats(cluster_summary_list, cluster_to_RT)
 
-    print("calculate_ancillary_information")
-    calculate_ancillary_information(cluster_summary_list, params_object["task"][0])
-
     print("populate_network_component")
     populate_network_component(cluster_summary_list, args.input_networking_pairs)
+
+    print("calculate_ancillary_information")
+    calculate_ancillary_information(cluster_summary_list, params_object["task"][0])    
 
     print("populate_network_identifications")
     populate_network_identifications(cluster_summary_list, args.input_library_search)

@@ -4,8 +4,7 @@
         <toolPath tool="LibrarySearchMerge_Molecular" path="bin/python3.5" />
     </pathSet>
 
-    <!-- <pathSet base="spectralib/2013.0117"> -->
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
         <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule.allcandidates"/>
 
@@ -88,7 +87,7 @@
     <pathSet base="anaconda3">
         <toolPath tool="searchlibrarysearch_molecularv2_parallelstep" path="bin/python3.5" />
     </pathSet>
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <pathVar name="LibrarySearchParallel_Molecular" path="main_execmodule.allcandidates"/>
         <pathVar name="searchlibrarysearch_molecularv2_parallelstep.script" path="searchlibrarysearch_molecularv2_parallelstep.py"/>
     </pathSet>
@@ -117,7 +116,7 @@
     <pathSet base="anaconda3">
         <toolPath tool="filesummary" path="bin/python3.5" />
     </pathSet>
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <pathVar name="msaccess.file" path="msaccess"/>
         <pathVar name="filesummary.script" path="filesummary.py"/>
     </pathSet>
@@ -140,7 +139,7 @@
     <pathSet base="anaconda3">
         <toolPath tool="mergeresults_filesummary" path="bin/python3.5" />
     </pathSet>
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <pathVar name="mergeresults_filesummary.script" path="mergeresults_filesummary.py"/>
     </pathSet>
 
@@ -161,7 +160,7 @@
 
 
     <!-- Creating Parallelism -->
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <toolPath tool="create_parallel_params" path="parallel_paramgen.py" />
     </pathSet>
     <tool name="create_parallel_params">
@@ -177,7 +176,7 @@
     <pathSet base="anaconda3">
         <toolPath tool="group_results_by_annotation" path="bin/python3.5" />
     </pathSet>
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <pathVar name="group_results_by_annotation.script" path="group_results_by_annotation.py"/>
     </pathSet>
     <tool name="group_results_by_annotation">
@@ -195,7 +194,7 @@
     <pathSet base="anaconda3">
         <toolPath tool="create_compound_filename_occurences" path="bin/python3.5" />
     </pathSet>
-    <pathSet base="molecularsearch/2013.0902">
+    <pathSet base="$base">
         <pathVar name="create_compound_filename_occurences.script" path="create_IDCompound_presence_abscence.py"/>
     </pathSet>
     <tool name="create_compound_filename_occurences">

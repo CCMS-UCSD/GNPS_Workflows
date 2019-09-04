@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="massive-complete" version="1.2.9">
+	<!-- Result files that should always be downloaded -->
+	<download>
+		<source type="folder" name="result/"/>
+	</download>
+
+	<!-- Main dataset "advanced" view -->
+	<view id="advanced_view" label="Advanced Dataset View">
+		<blockRef id="main" type="massivepage"/>
+	</view>
+	<block id="massivepage" type="massivepage" site="GNPS">
+		<data>
+			<parsers>
+				<parser type="stream" contentType="text/xml"/>
+			</parsers>
+		</data>
+	</block>
+
+	<!-- BEGIN standard dataset mzTab result view specifications -->
+	<view id="view_result_list" label="Browse Submitted Result Files">
+		<blockRef id="main" type="file_list"/>
+	</view>
+	<block id="file_list" type="table">
+		<data>
+			<source type="dataset" name="ccms_statistics/statistics.tsv"/>
+			<parsers>
+				<parser type="tabular"/>
+			</parsers>
+		</data>
+		<row>
+			<column type="text"                                    field="Dataset_mzTab"    label="Result File"                 width="12"/>
+			<column type="fdrview" view="group_by_spectrum"        field="Found_PSMs"       label="Total PSMs"                  width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+				<parameter name="fdr"  value="PSM_FDR"/>
+			</column>
+			<column type="numberview" view="group_by_spectrum"     field="Invalid_PSM_rows" label="Invalid PSMs"                width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+				<parameter name="hash" value="#{%22valid_input%22%3A%22INVALID%22}"/>
+			</column>
+			<column type="fdrview" view="group_by_peptide"         field="Peptide_rows"     label="Peptides"                    width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+				<parameter name="fdr"  value="Peptide_FDR"/>
+			</column>
+			<column type="fdrview" view="group_by_peptide_derived" field="Found_Variants"   label="Peptides (Derived)"          width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+				<parameter name="fdr"  value="Peptide_FDR"/>
+			</column>
+			<column type="view"    view="group_by_protein"         field="Protein_rows"     label="Proteins"                    width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+			</column>
+			<column type="view"    view="group_by_protein_derived" field="Found_Proteins"   label="Proteins (Derived)"          width="3" preload="Yes">
+				<parameter name="file" value="[File_descriptor]"/>
+			</column>
+			<column type="view"       view="group_by_protein"      value="View"             label="&quot;One-Hit Wonders&quot;" width="3" preload="Yes" tooltip="Proteins identified by exactly one peptide.">
+				<parameter name="file" value="[File_descriptor]"/>
+				<parameter name="hash" value="#{%22Peptides_lowerinput%22%3A%221%22%2C%22Peptides_upperinput%22%3A%221%22}"/>
+			</column>
+			<column type="view"       view="group_by_ptm"          value="View"             label="PTMs"                        width="3" preload="Yes" tooltip="Spectrum identifications, grouped by unique sets of post-translational modifications.">
+				<parameter name="file" value="[File_descriptor]"/>
+			</column>
+            <column type="task"       field="Uploaded_file"        label="Source Task"      width="3" tooltip="Original ProteoSAFe task from which this file came."/>
+			<column type="populatemzTabFilesAnalyzedDisplayer"     label="Re-Analyze Files" width="3">
+                  <parameter name="view"                  value="group_by_spectrum"/>
+                  <parameter name="filename"              value="[File_descriptor]"/>
+                  <parameter name="display_mztabfilename" value="[File_descriptor]"/>
+                  <parameter name="targeturl"             value="http://proteomics.ucsd.edu/ProteoSAFe/index.jsp"/>
+                  <parameter name="workflow"              value="MSGF_PLUS"/>
+                  <parameter name="spectrumparametername" value="spec_on_server"/>
+          </column>
+		</row>
+	</block>
+
+	<!-- PSM views -->
+	<view id="group_by_spectrum" display="hidden">
+		<blockRef id="main" type="spectrum_list"/>
+	</view>
+	<block id="spectrum_list" type="table_ss">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="SQLite"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"            label="PSM ID"         width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="#SpecFile"         label="Peak List File" width="12" tooltip="The name of the peak list file from which this spectrum came, as referenced from within the source MzTab file"/>
+			<column type="integer" field="nativeID_index"    label="Index"          width="3"  tooltip="Spectrum index (0-based) in the file."/>
+			<column type="integer" field="nativeID_scan"     label="Scan"           width="3"  tooltip="Spectrum scan number"/>
+			<column type="text"    field="modified_sequence" label="Peptide"        width="18" tooltip="The modified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modifications"     label="Modifications"  width="18" tooltip="The positions and accessions of all post-translational modifications found for this spectrum identification"/>
+			<column type="text"    field="accession"         label="Protein"        width="18" tooltip="The accession of the protein matched to this spectrum"/>
+			<column type="integer" field="charge"            label="Charge"         width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine"     label="Search Engine"  width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"             label="Valid"          width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+		<row expander="down:up">
+			<column type="block" block="psms_per_spectrum" colspan="9">
+				<parameter name="file"     value="{file}"/>
+				<parameter name="spectrum" value="[PSM_ID]"/>
+			</column>
+		</row>
+	</block>
+	<block id="psms_per_spectrum" type="table">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="slicedTabular" groupBy="PSM_ID" sliceBy="{spectrum}"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"        label="PSM ID"        width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="accession"     label="Protein"       width="18" tooltip="The accession of the protein matched to this spectrum"/>
+			<column type="integer" field="charge"        label="Charge"        width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine" label="Search Engine" width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"         label="Valid"         width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+	</block>
+
+	<!-- Peptide views -->
+	<view id="group_by_peptide" display="hidden">
+		<blockRef id="main" type="peptide_list"/>
+	</view>
+	<view id="group_by_peptide_derived" display="hidden">
+		<blockRef id="main" type="peptide_list"/>
+	</view>
+	<block id="peptide_list" type="table_ss">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="representativeTabular" groupBy="variant" selectBy="PSM_ID" operator="min"/>
+				<parser type="sortedTabular"         sortBy="sequence" operator="ascending"/>
+				<parser type="SQLite"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"            label="PSM ID"           width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="#SpecFile"         label="Peak List File"   width="12" tooltip="The name of the peak list file from which this spectrum came, as referenced from within the source MzTab file"/>
+			<column type="integer" field="nativeID_index"    label="Index"            width="3"  tooltip="Spectrum index (0-based) in the file."/>
+			<column type="integer" field="nativeID_scan"     label="Scan"             width="3"  tooltip="Spectrum scan number"/>
+			<column type="text"    field="sequence"          label="Peptide"          width="18" tooltip="The unmodified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modified_sequence" label="Modified Peptide" width="18" tooltip="The modified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modifications"     label="Modifications"  width="18" tooltip="The positions and accessions of all post-translational modifications found for this spectrum identification"/>
+			<column type="text"    field="accession"         label="Protein"          width="18" tooltip="The accession of the protein matched to this spectrum"/>
+			<column type="integer" field="charge"            label="Charge"           width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine"     label="Search Engine"    width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"             label="Valid"            width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+		<row expander="down:up">
+			<column type="block" block="spectra_per_peptide" colspan="9">
+				<parameter name="file"    value="{file}"/>
+				<parameter name="variant" value="[variant]"/>
+			</column>
+		</row>
+	</block>
+	<block id="spectra_per_peptide" type="table">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="slicedTabular" groupBy="variant" sliceBy="{variant}"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"            label="PSM ID"           width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="#SpecFile"         label="Peak List File"   width="12" tooltip="The name of the peak list file from which this spectrum came, as referenced from within the source MzTab file"/>
+			<column type="integer" field="nativeID_index"    label="Index"            width="3"  tooltip="Spectrum index (0-based) in the file."/>
+			<column type="integer" field="nativeID_scan"     label="Scan"             width="3"  tooltip="Spectrum scan number"/>
+			<column type="text"    field="modified_sequence" label="Modified Peptide" width="18" tooltip="The modified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modifications"     label="Modifications"  width="18" tooltip="The positions and accessions of all post-translational modifications found for this spectrum identification"/>
+			<column type="text"    field="accession"         label="Protein"          width="18" tooltip="The accession of the protein matched to this spectrum"/>
+			<column type="integer" field="charge"            label="Charge"           width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine"     label="Search Engine"    width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"             label="Valid"            width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+	</block>
+
+	<!-- Protein views -->
+	<view id="group_by_protein" display="hidden">
+		<blockRef id="main" type="protein_list"/>
+	</view>
+	<view id="group_by_protein_derived" display="hidden">
+		<blockRef id="main" type="protein_list"/>
+	</view>
+	<block id="protein_list" type="table_ss">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="unrolledTabular" unrollBy="accession" fieldDelimiter=";"/>
+				<parser type="groupedTabular"  groupBy="accession"/>
+				<parser type="SQLite"/>
+			</parsers>
+			<processors>
+				<processor type="mzTab"/>
+				<processor type="protein"      field="accession"/>
+				<processor type="peptideCount" field="modified_sequence"/>
+			</processors>
+		</data>
+		<row>
+			<column type="view" view="protein_details" field="accession" label="Protein" width="18" preload="Yes">
+				<parameter name="file"    value="{file}"/>
+				<parameter name="protein" value="[accession]"/>
+			</column>
+			<column type="integer" field="Hits"     label="PSMs"                       width="2"/>
+			<column type="integer" field="Peptides" label="Unique Unmodified Peptides" width="2"/>
+			<column type="integer" field="Modified" label="Unique Modified Peptides"   width="2"/>
+		</row>
+		<row expander="down:up">
+			<column type="block" block="spectra_per_protein" colspan="5">
+				<parameter name="file"    value="{file}"/>
+				<parameter name="protein" value="[accession]"/>
+			</column>
+		</row>
+	</block>
+
+	<view id="protein_details" display="hidden">
+		<blockRef id="title" type="protein_title"/>
+		<blockRef id="main"  type="spectra_per_protein"/>
+	</view>
+	<block id="protein_title" type="title">
+		<data><source type="value" value="Protein {protein}"/></data>
+	</block>
+	<block id="spectra_per_protein" type="table">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="unrolledTabular" unrollBy="accession" fieldDelimiter=";"/>
+				<parser type="slicedTabular"   groupBy="accession"  sliceBy="{protein}"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"            label="PSM ID"         width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="#SpecFile"         label="Peak List File" width="12" tooltip="The name of the peak list file from which this spectrum came, as referenced from within the source MzTab file"/>
+			<column type="integer" field="nativeID_index"    label="Index"          width="3"  tooltip="Spectrum index (0-based) in the file."/>
+			<column type="integer" field="nativeID_scan"     label="Scan"           width="3"  tooltip="Spectrum scan number"/>
+			<column type="text"    field="modified_sequence" label="Peptide"        width="18" tooltip="The modified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modifications"     label="Modifications"  width="18" tooltip="The positions and accessions of all post-translational modifications found for this spectrum identification"/>
+			<column type="integer" field="charge"            label="Charge"         width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine"     label="Search Engine"  width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"             label="Valid"          width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+	</block>
+
+	<!-- PTM views -->
+	<view id="group_by_ptm" display="hidden">
+		<blockRef id="main" type="ptm_list"/>
+	</view>
+	<block id="ptm_list" type="table_ss">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="unrolledTabular" unrollBy="mod_set" fieldDelimiter="|"/>
+				<parser type="groupedTabular"  groupBy="mod_set"/>
+				<parser type="SQLite"/>
+			</parsers>
+			<processors>
+				<processor type="mzTab"/>
+				<processor type="peptideCount" field="modified_sequence"/>
+			</processors>
+		</data>
+		<row>
+			<column type="view" view="ptm_details" field="mod_set" label="Post-Translational Modifications" width="18" preload="Yes">
+				<parameter name="file"       value="{file}"/>
+				<parameter name="mod_set"    value="[mod_set]"/>
+				<parameter name="null_label" value="None"/>
+			</column>
+			<column type="integer" field="Hits"     label="PSMs with this Modification" width="2"/>
+			<column type="integer" field="Peptides" label="Unique Unmodified Peptides"  width="2"/>
+			<column type="integer" field="Modified" label="Unique Modified Peptides"    width="2"/>
+		</row>
+	</block>
+
+	<view id="ptm_details" display="hidden">
+		<blockRef id="title" type="ptm_title"/>
+		<blockRef id="main"  type="spectra_per_ptm"/>
+	</view>
+	<block id="ptm_title" type="title">
+		<data>
+			<source type="value"
+				value="Post-Translational Modifications: {mod_set}"/>
+		</data>
+	</block>
+	<block id="spectra_per_ptm" type="table">
+		<data>
+			<source type="file" name="{file}"/>
+			<parsers>
+				<parser type="mzTab"/>
+				<parser type="unrolledTabular" unrollBy="mod_set" fieldDelimiter="|"/>
+				<parser type="slicedTabular"   groupBy="mod_set"  sliceBy="{mod_set}"/>
+			</parsers>
+			<processors>
+				<processor type="dataset"/>
+				<processor type="mzTab"/>
+				<processor type="fileDescriptor"     field="#SpecFile"/>
+				<processor type="nativeID"           field="nativeID"/>
+				<processor type="baseFilename"       field="internalFilename"  newField="baseFilename"/>
+				<processor type="stringSubstitution" field="sequence"          replacedField="sequence_li"          search="I" replace="L"/>
+				<processor type="stringSubstitution" field="modified_sequence" replacedField="modified_sequence_li" search="I" replace="L"/>
+			</processors>
+		</data>
+		<row>
+			<column type="integer" field="PSM_ID"            label="PSM ID"           width="3"  tooltip="PSM ID from within the source MzTab file"/>
+			<column type="text"    field="#SpecFile"         label="Peak List File"   width="12" tooltip="The name of the peak list file from which this spectrum came, as referenced from within the source MzTab file"/>
+			<column type="integer" field="nativeID_index"    label="Index"            width="3"  tooltip="Spectrum index (0-based) in the file."/>
+			<column type="integer" field="nativeID_scan"     label="Scan"             width="3"  tooltip="Spectrum scan number"/>
+			<column type="text"    field="modified_sequence" label="Modified Peptide" width="18" tooltip="The modified peptide sequence matched to this spectrum"/>
+			<column type="text"    field="modifications"     label="Modifications"  width="18" tooltip="The positions and accessions of all post-translational modifications found for this spectrum identification"/>
+			<column type="text"    field="accession"         label="Protein"          width="18" tooltip="The accession of the protein matched to this spectrum"/>
+			<column type="integer" field="charge"            label="Charge"           width="1"  tooltip="Precursor ion charge"/>
+			<column type="text"    field="search_engine"     label="Search Engine"    width="12" tooltip="Search engine used to generate this identification"/>
+			<column type="text"    field="valid"             label="Valid"            width="7"  tooltip="If a spectrum could not be found in the source peak list file, or if the identification contains any ambiguous PTM references, then it will be marked as &quot;INVALID&quot;."/>
+		</row>
+		<row expander="image">
+			<column type="jscolumnspectrumviewer" colspan="20" width="600" height="500">
+				<parameter name="file"      file="[internalFilename]"/>
+				<parameter name="scan"      value="[nativeID_scan]"/>
+				<parameter name="index"     value="[nativeID_index_1-based]"/>
+				<parameter name="peptide"   value="[modified_sequence]"/>
+				<parameter name="modformat" value="inspect"/>
+				<parameter name="trim"      value="true"/>
+			</column>
+		</row>
+	</block>
+	<!-- END standard dataset mzTab result view specifications -->
+</interface>

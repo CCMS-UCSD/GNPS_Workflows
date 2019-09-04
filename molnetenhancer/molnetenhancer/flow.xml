@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="MOLNETENHANCER">
+        <object     name="workflowParameters"/>
+        
+
+        <action name="begin">
+                <output port="flowParams" object="workflowParameters"/>
+        </action>
+
+        <collection name="output_network"/>
+        <action name="molnetenhancer">
+                <input  port="workflowParameters"             object="workflowParameters"/>
+                <output port="output_network"           collection="output_network"/>
+        </action>
+
+        <action name="end">
+                <input port="output_network"           collection="output_network"/>
+        </action>
+</flow>

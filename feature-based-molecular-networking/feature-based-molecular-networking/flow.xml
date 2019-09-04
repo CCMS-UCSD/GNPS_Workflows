@@ -26,18 +26,22 @@
     </action>
 
     <object name="quantification_table_reformatted"/>
+    <object name="spectra_reformatted"/>
     <action name="reformat_quantification">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
         <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
+
+        <input port="inputSpectra" object="inputSpectra"/>
+        <output port="spectra_reformatted" object="spectra_reformatted"/>
     </action>
 
     <object name="spectra"/>
     <action name="renumber_mgf">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="inputSpectra" object="inputSpectra"/>
+        <input port="inputSpectra" object="spectra_reformatted"/>
         <output port="spectra" object="spectra"/>
     </action>
 
@@ -198,6 +202,7 @@
 
     <action name="end">
         <input port="spectra" object="spectra"/>
+        <input port="spectra_reformatted" object="spectra_reformatted"/>
         <input port="networking_parameters" collection="networking_parameters"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="networkedges_selfloop" object="networkedges_selfloop"/>
@@ -210,5 +215,6 @@
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="written_description" object="written_description"/>
         <input port="validation_summary" collection="validation_summary"/>
+        <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
     </action>
 </flow>

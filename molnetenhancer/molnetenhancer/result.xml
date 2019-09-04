@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="MOLNETENHANCER" version="1.2.3">
+    <download>
+            <source type="folder" name="output_network/"/>
+    </download>
+
+    <view id="download_data" label="Download Network">
+        <blockRef id="main"   type="download_data"/>
+    </view>
+    <block id="download_data" type="dummydownload">
+      <data>
+        <source type="file" name="output_network/ClassyFireResults_Network.graphml"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+            <blockRef id="main"   type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+    </block>
+    
+</interface>

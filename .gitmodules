@@ -1,0 +1,13 @@
+[submodule "openms-molecular-networking/tools/scripts"]
+	path = openms-molecular-networking/tools/scripts
+	url = https://github.com/Bioinformatic-squad-DorresteinLab/openms-gnps-tools.git
+[submodule "merge_networks_polarity/tools/MergePolarity"]
+	path = merge_networks_polarity/tools/MergePolarity
+	url = https://github.com/mwang87/MergePolarity.git
+
+[submodule "CCMSDeployments"]
+	path = CCMSDeployments
+	url = https://github.com/CCMS-UCSD/CCMSDeployments.git
+[submodule "CCMS_ProteoSAFe_pythonAPI"]
+	path = CCMS_ProteoSAFe_pythonAPI
+	url = https://github.com/mwang87/CCMS_ProteoSAFe_pythonAPI.git

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+	 	<url value="{livesearch.download}"/>
+	 	<query name="task" valueRef="@task" />
+        <query name="user" valueRef="@user"/>
+	 	<compression type="zip" />
+		<download port="params" type="file">
+			<query name="resource" value="params"/>
+		</download>
+		<download port="lib" type="folder">
+			<query name="resource" value="lib"/>
+		</download>
+                <downloadParams>
+                        <query name="resource" value="params"/>
+                </downloadParams>
+
+	</bind>
+
+	<bind action="create_spectrum_file" tool="create_spectrum_file">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<productionToOutput port="spectra"       production="spectra"/>
+	</bind>
+
+    <!-- Matching to Datasets -->
+
+	<bind action="find_dataset_matches_parallelprep" tool="FindDatasetMatchesParallelPrep">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<productionToOutput port="all_dataset_matches_parallel_params"       production="all_dataset_matches_parallel_params"/>
+	</bind>
+
+	<bind action="find_single_dataset_matches_parallel_step" tool="FindDatasetMatchesParallelStep">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+		<inputAsRequirement port="all_dataset_matches_parallel_params" requirement="all_dataset_matches_parallel_params"/>
+		<productionToOutput port="all_dataset_matches_parallel_matches_output"       production="all_dataset_matches_parallel_matches_output"/>
+        <productionToOutput port="all_dataset_matches_parallel_unique_files_output"       production="all_dataset_matches_parallel_unique_files_output"/>
+        <productionToOutput port="all_dataset_matches_parallel_all_file_matches_output"       production="all_dataset_matches_parallel_all_file_matches_output"/>
+	</bind>
+
+	<bind action="find_dataset_matches_parallel_merge" tool="FindDatasetMatchesParallelMerge">
+		<inputAsRequirement port="all_dataset_matches_parallel_matches_output" requirement="all_dataset_matches_parallel_matches_output"/>
+		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
+	</bind>
+
+    <bind action="all_dataset_file_matches_parallel_merge" tool="FindDatasetMatchesParallelMerge">
+		<inputAsRequirement port="all_dataset_matches_parallel_matches_output" requirement="all_dataset_matches_parallel_matches_output"/>
+		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
+	</bind>
+
+    <bind action="all_dataset_spectra_matches_parallel_merge" tool="FindDatasetMatchesParallelMerge">
+		<inputAsRequirement port="all_dataset_matches_parallel_matches_output" requirement="all_dataset_matches_parallel_matches_output"/>
+		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
+	</bind>
+
+	<bind action="create_linkout_file" tool="create_linkout_file">
+		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
+		<productionToOutput port="linkout_file"       production="linkout_file"/>
+	</bind>
+
+	<!-- Foodomics -->
+	<bind action="foodomics_track" tool="foodomics_track">
+		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
+		<productionToOutput port="foodomics_tracking_file"       production="foodomics_tracking_file"/>
+	</bind>
+
+    <!-- Library Search -->
+    <bind action="library_search_single" tool="library_search_single">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <inputAsRequirement port="library" requirement="library"/>
+		<productionToOutput port="all_library_matches"       production="all_library_matches"/>
+	</bind>
+
+    <bind action="get_dbannotations" tool="get_dbannotations">
+		<inputAsRequirement port="all_library_matches"             requirement="result"/>
+		<productionToOutput port="all_library_matches_db"           production="DB_result"/>
+	</bind>
+
+	<bind action="end" type="upload">
+	 	<url value="{livesearch.upload}"/>
+	 	<query name="task" valueRef="@task"/>
+	 	<contentQuery name="content"/>
+	 	<compression type="zip"/>
+		<upload port="all_dataset_matches" type="file">
+			<query name="resource" value="all_dataset_matches"/>
+		</upload>
+        <upload port="all_dataset_file_matches" type="file">
+			<query name="resource" value="all_dataset_file_matches"/>
+		</upload>
+        <upload port="all_dataset_spectra_matches" type="file">
+			<query name="resource" value="all_dataset_spectra_matches"/>
+		</upload>
+		<upload port="spectra" type="file">
+			<query name="resource" value="spectra"/>
+		</upload>
+        <upload port="all_library_matches_db" type="file">
+            <query name="resource" value="all_library_matches_db"/>
+        </upload>
+		<upload port="linkout_file" type="file">
+            <query name="resource" value="linkout_file"/>
+        </upload>
+		<upload port="foodomics_tracking_file" type="file">
+            <query name="resource" value="foodomics_tracking_file"/>
+        </upload>
+	</bind>
+</binding>

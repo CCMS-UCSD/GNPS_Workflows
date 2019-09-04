@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="ming_test">
+	<object     name="workflowParameters"/>
+	<object     name="spectra"/>
+	<collection     name="library"/>
+
+	<action name="begin">
+		<output port="lib" 		  collection="library"/>
+		<output port="params" object="workflowParameters"/>
+	</action>
+
+	<action name="create_spectrum_file">
+        <input  port="flowParams" object="workflowParameters"/>
+        <output  port="spectra" object="spectra"/>
+    </action>
+
+    <!-- Matching to Datasets -->
+    <collection name="all_dataset_matches_parallel_params"/>
+    <action name="find_dataset_matches_parallelprep">
+        <input  port="flowParams" object="workflowParameters"/>
+        <output  port="all_dataset_matches_parallel_params" object="all_dataset_matches_parallel_params"/>
+    </action>
+
+    <collection name="all_dataset_matches_parallel_matches_output"/>
+    <collection name="all_dataset_matches_parallel_unique_files_output"/>
+    <collection name="all_dataset_matches_parallel_all_file_matches_output"/>
+    <action name="find_single_dataset_matches_parallel_step" multiplicity="multiple" type="parallel">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="all_dataset_matches_parallel_params"       collection="all_dataset_matches_parallel_params"  transformation="unfolding"/>
+        <output  port="all_dataset_matches_parallel_matches_output" collection="all_dataset_matches_parallel_matches_output"/>
+        <output  port="all_dataset_matches_parallel_unique_files_output" collection="all_dataset_matches_parallel_unique_files_output"/>
+        <output  port="all_dataset_matches_parallel_all_file_matches_output" collection="all_dataset_matches_parallel_all_file_matches_output"/>
+    </action>
+
+    <object name="all_dataset_matches"/>
+    <action name="find_dataset_matches_parallel_merge">
+        <input  port="all_dataset_matches_parallel_matches_output"       collection="all_dataset_matches_parallel_matches_output"/>
+        <output  port="all_dataset_matches" object="all_dataset_matches"/>
+    </action>
+
+    <object name="all_dataset_file_matches"/>
+    <action name="all_dataset_file_matches_parallel_merge">
+        <input  port="all_dataset_matches_parallel_matches_output"       collection="all_dataset_matches_parallel_unique_files_output"/>
+        <output  port="all_dataset_matches" object="all_dataset_file_matches"/>
+    </action>
+
+    <object name="all_dataset_spectra_matches"/>
+    <action name="all_dataset_spectra_matches_parallel_merge">
+        <input  port="all_dataset_matches_parallel_matches_output"       collection="all_dataset_matches_parallel_all_file_matches_output"/>
+        <output  port="all_dataset_matches" object="all_dataset_spectra_matches"/>
+    </action>
+
+    <object name="linkout_file"/>
+    <action name="create_linkout_file">
+        <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
+        <output  port="linkout_file" object="linkout_file"/>
+    </action>
+
+    <!-- Foodomics Specific -->
+    <object name="foodomics_tracking_file"/>
+    <action name="foodomics_track">
+        <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
+        <output  port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+    </action>
+
+
+
+    <!-- Library Search -->
+    <object name="all_library_matches"/>
+    <action name="library_search_single">
+        <input  port="workflowParameters" object="workflowParameters"/>
+        <input port="spectra" object="spectra"/>
+        <input  port="library" collection="library"/>
+        <output port="all_library_matches" object="all_library_matches"/>
+    </action>
+
+    <object name="all_library_matches_db"/>
+    <action name="get_dbannotations">
+        <input  port="all_library_matches"             object="all_library_matches"/>
+        <output port="all_library_matches_db"           object="all_library_matches_db"/>
+    </action>
+
+	<action name="end">
+		<input port="all_dataset_matches" object="all_dataset_matches"/>
+        <input port="all_dataset_file_matches" object="all_dataset_file_matches"/>
+        <input port="all_dataset_spectra_matches" object="all_dataset_spectra_matches"/>
+        <input port="all_library_matches_db" object="all_library_matches_db"/>
+		<input port="spectra" object="spectra"/>
+        <input port="linkout_file" object="linkout_file"/>
+        <input port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+	</action>
+</flow>

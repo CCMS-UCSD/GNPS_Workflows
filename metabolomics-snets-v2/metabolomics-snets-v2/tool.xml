@@ -1,9 +1,7 @@
 <toolset>
-
-
     <!-- MSClustering -->
 
-    <pathSet base="metabolomicsnetsv2">
+    <pathSet base="$base">
         <!-- <toolPath tool="MetabolomicSpecnets_ClusteringOnly" path="main_specnets"/> -->
         <pathVar name="MetabolomicSpecnets_ClusteringOnly.script" path="scripts/mscluster_wrapper.py"/>
         <pathVar name="MetabolomicSpecnets_ClusteringOnly.binary" path="binaries/main_specnets"/>
@@ -13,10 +11,10 @@
     </pathSet>
 
     <tool name="MetabolomicSpecnets_ClusteringOnly">
-        <require name="spec"       type="folder"/>
+        <require name="spec" type="folder"/>
         <require name="specnetparams" type="file"/>
-        <produce name="spectra"        type="folder"/>
-        <produce name="aligns"        type="folder"/>
+        <produce name="spectra" type="folder"/>
+        <produce name="aligns" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="MetabolomicSpecnets_ClusteringOnly.script"/>
@@ -30,31 +28,36 @@
 
     <!-- Molecular Networking -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="copy_spectra_mgf" path="python"/>
+        <toolPath tool="copy_filter_spectra_mgf" path="python"/>
         <toolPath tool="prep_molecular_networking_parameters" path="python"/>
         <toolPath tool="merge_tsv_efficient" path="python"/>
         <toolPath tool="filter_networking_edges" path="python"/>
     </pathSet>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
-        <pathVar name="copy_spectra_mgf.script" path="copy_spectra.py"/>
+    <pathSet base="$base/scripts">
+        <pathVar name="copy_filter_spectra_mgf.script" path="copy_filter_spectra.py"/>
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
     </pathSet>
 
-    <pathSet base="metabolomicsnetsv2/binaries">
+    <pathSet base="$base/binaries">
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
-    <tool name="copy_spectra_mgf">
+    <tool name="copy_filter_spectra_mgf">
         <require name="spectra" type="folder"/>
+        <require name="groupmapping_converted" type="file"/>
+        <require name="clusterinfo" type="file"/>
         <produce name="specs_ms" type="file" naming="fixed" value="specs_ms.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
-            <arg pathRef="copy_spectra_mgf.script"/>
+            <arg pathRef="copy_filter_spectra_mgf.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="specs_ms"/>
+            <arg valueRef="groupmapping_converted"/>
+            <arg valueRef="clusterinfo"/>
+            <arg option="-filterg6" valueRef="@FILTER_G6_BLANKS"/>
         </execution>
     </tool>
 
@@ -99,7 +102,7 @@
 
     <!-- Other utilities -->
 
-    <pathSet base="metabolomicsnetsv2/binaries">
+    <pathSet base="$base/binaries">
         <toolPath tool="LibrarySearchParallel_specnets" path="main_execmodule"/>
         <toolPath tool="LibrarySearchMerge_specnets" path="main_execmodule"/>
         <toolPath tool="LibrarySearchParamGeneration_specnets" path="main_execmodule"/>
@@ -114,7 +117,7 @@
         <pathVar name="convertexe_specnets.file" path="convert"/>
     </pathSet>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="MetabolomicPairsinfo.script" path="pairsinfo.py"/>
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
         <pathVar name="GetDBAnnotations_specnets.script" path="getGNPS_library_annotations.py"/>
@@ -247,7 +250,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="MetabolomicGroupConvert" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="MetabolomicGroupConvert.script" path="groupmetadataconvert.py"/>
     </pathSet>
     <tool name="MetabolomicGroupConvert">
@@ -285,7 +288,7 @@
         </execution>
     </tool>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="MetabolomicClusterinfoGroup.script" path="calculate_group_abundances.py"/>
     </pathSet>
     <pathSet base="anaconda3/bin">
@@ -314,7 +317,7 @@
         </execution>
     </tool>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="metabolomic_create_components.script" path="create_components_table.py"/>
     </pathSet>
     <pathSet base="anaconda3/bin">
@@ -368,7 +371,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="metabolomic_create_compound_filename_occurences" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="metabolomic_create_compound_filename_occurences.script" path="create_IDCompound_presence_abscence.py"/>
     </pathSet>
     <tool name="metabolomic_create_compound_filename_occurences">
@@ -387,7 +390,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="MetabolomicViewAllClusters" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="MetabolomicViewAllClusters.script" path="create_enriched_clusterinfo.py"/>
     </pathSet>
     <tool name="MetabolomicViewAllClusters">
@@ -420,7 +423,7 @@
         </execution>
     </tool>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="MetabolomicPairsinfov2.script" path="pairsinfov2.py"/>
     </pathSet>
     <pathSet base="anaconda3/bin">
@@ -459,7 +462,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="metabolomic_network_edges_display" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="metabolomic_network_edges_display.script" path="create_network_edges_outputformatting.py"/>
     </pathSet>
     <tool name="metabolomic_network_edges_display">
@@ -538,7 +541,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="ClusterBucketCreator" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="ClusterBucketCreator.script" path="clustering_create_bucket.py"/>
     </pathSet>
 
@@ -562,7 +565,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="run_qiime2" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
     </pathSet>
 
@@ -581,7 +584,7 @@
         </execution>
     </tool>
 
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
     </pathSet>
     <pathSet base="anaconda3/bin">
@@ -608,7 +611,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="create_ili_output" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="create_ili_output.script" path="create_ili_compatible_output.py"/>
     </pathSet>
     <tool name="create_ili_output">
@@ -640,7 +643,7 @@
         <toolPath tool="FindDatasetMatchesParallelStep" path="python"/>
         <toolPath tool="FindDatasetMatchesParallelMerge" path="python"/>
     </pathSet>
-    <pathSet base="metabolomicsnetsv2/scripts">
+    <pathSet base="$base/scripts">
         <pathVar name="FindDatasetMatchesParallelPrep.script" path="find_related_public_data_prep.py"/>
         <pathVar name="FindDatasetMatchesParallelStep.script" path="find_related_public_data_wrapper.py"/>
         <pathVar name="FindDatasetMatchesParallelMerge.script" path="find_related_public_data_merge.py"/>
@@ -684,6 +687,25 @@
             <arg pathRef="FindDatasetMatchesParallelMerge.script"/>
             <arg valueRef="all_dataset_matches_parallel_matches_output"/>
             <arg valueRef="all_dataset_matches"/>
+        </execution>
+    </tool>
+
+
+    <!-- Dataset Submission -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="create_linkout_file" path="python3.5"/>
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="create_linkout_file.script" path="create_dataset_submission_link.py" />
+    </pathSet>
+    <tool name="create_linkout_file">
+        <require name="workflowParameters" type="file"/>
+        <produce name="linkout_file" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_linkout_file.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="linkout_file"/>
         </execution>
     </tool>
 

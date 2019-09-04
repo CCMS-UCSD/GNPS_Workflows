@@ -98,8 +98,10 @@
 
     <!-- Parallel Networking -->
 
-    <bind action="copy_spectra_mgf" tool="copy_spectra_mgf">
+    <bind action="copy_filter_spectra_mgf" tool="copy_filter_spectra_mgf">
         <inputAsRequirement port="spectra" requirement="spectra"/>
+		<inputAsRequirement port="groupmapping_converted" requirement="groupmapping_converted"/>
+		<inputAsRequirement port="clusterinfo" requirement="clusterinfo"/>
         <productionToOutput port="specs_ms" production="specs_ms"/>
     </bind>
 
@@ -302,6 +304,12 @@
 		<productionToOutput port="all_dataset_matches"       production="all_dataset_matches"/>
 	</bind>
 
+	<!-- Dataset Linkout -->
+	<bind action="create_linkout_file" tool="create_linkout_file">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<productionToOutput port="linkout_file"       production="linkout_file"/>
+	</bind>
+
 
 
 	<bind action="end" type="upload">
@@ -374,6 +382,9 @@
 		</upload>
         <upload port="qiime2_output" type="folder">
             <query name="resource" value="qiime2_output"/>
+        </upload>
+		<upload port="linkout_file" type="folder">
+            <query name="resource" value="linkout_file"/>
         </upload>
 	</bind>
 </binding>

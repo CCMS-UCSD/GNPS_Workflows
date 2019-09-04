@@ -63,10 +63,10 @@ def main():
         cluster_index = cluster["cluster index"]
         if cluster_index in nodes_to_component:
             cluster["componentindex"] = nodes_to_component[cluster_index]
-            cluster["GNPSLinkout_Network"] = "https://gnps.ucsd.edu/ProteoSAFe/result.jsp?view=network_displayer&componentindex=%s&task=%s" % (nodes_to_component[cluster_index], param_obj["task"][0])
+            cluster["GNPSLinkout_Network"] = "https://gnps.ucsd.edu/ProteoSAFe/result.jsp?view=network_displayer&componentindex=%s&task=%s&show=true" % (nodes_to_component[cluster_index], param_obj["task"][0])
         else:
             cluster["componentindex"] = "-1"
-            cluster["GNPSLinkout_Network"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (param_obj["task"][0], cluster_index, cluster_index)
+            cluster["GNPSLinkout_Network"] = 'This Node is a Singleton'
 
         if cluster_index in library_ids_dict:
             cluster["LibraryID"] = library_ids_dict[cluster_index]["Compound_Name"]

@@ -3,7 +3,7 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="ms2lda_motifdb" path="python"/>
     </pathSet>
-    <pathSet base="ms2lda_motifdb">
+    <pathSet base="$base">
         <pathVar name="ms2lda_motifdb.script" path="ms2lda_runfull.py"/>
     </pathSet>
     <tool name="ms2lda_motifdb">
@@ -27,6 +27,10 @@
             <arg valueRef="@MASSBANK_MOTIF_INCLUDE"/>
             <arg valueRef="@URINE_MOTIF_INCLUDE"/>
             <arg valueRef="@EUPHORBIA_MOTIF_INCLUDE"/>
+            <arg valueRef="@RHAMNACEAE_MOTIF_INCLUDE"/>
+            <arg valueRef="@STREP_SALIN_MOTIF_INCLUDE"/>
+            <arg valueRef="@PHOTORHABDUS_MOTIF_INCLUDE"/>
+            <arg valueRef="@USER_MOTIF_SET"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="network_pairs"/>
             <arg valueRef="mzmine_csv"/>
@@ -37,7 +41,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="create_graphml" path="python"/>
     </pathSet>
-    <pathSet base="ms2lda_motifdb">
+    <pathSet base="$base">
         <pathVar name="create_graphml.script" path="create_graphml.py"/>
     </pathSet>
     <tool name="create_graphml">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<flow name="ming_testing">
+<flow name="metabolomics-snet">
     <collection name="input_file_validation_flag"/>
     <collection name="inputspectra"/>
     <collection name="spectrapklbin"/>
@@ -46,15 +46,18 @@
 
     <object name="network_statistics"/>
 
-    <object name="cluster_buckets"/>
     <object name="all_network_paths"/>
     <object name="all_network_paths_histogram"/>
+
+    <object name="compound_filename_occurences"/>
 
 
 
     <action name="begin">
         <output port="spec"       collection="inputspectra"/>
         <output port="lib" 		collection="library"/>
+        <output port="metadatafile" 	object="metadatafile"/>
+        <output port="ili_stl_model" 	object="ili_stl_model"/>
         <output port="groupmapping" 	object="groupmapping"/>
         <output port="attributemapping"     object="attributemapping"/>
         <output port="toolParams" collection="toolParameters"/>
@@ -127,11 +130,22 @@
         <output port="clusterinfosummary"     object="clusterinfosummary"/>
     </action>
 
+
+    <!-- Merging Grouping Information -->
+    <object name="metadatafile"/>
+    <object name="attributemapping_converted"/>
+
     <action name="metabolomicgroupmappingconvert">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="groupmapping" object="groupmapping"/>
+        <input  port="attributemapping" object="attributemapping"/>
+        <input  port="metadatafile" object="metadatafile"/>
+        <input port="inputspectra"     collection="inputspectra"/>
         <output port="groupmapping_converted"     object="groupmapping_converted"/>
+        <output port="attributemapping_converted"     object="attributemapping_converted"/>
     </action>
+
+
 
     <action name="metabolomicclusterinfogroup">
         <input  port="spec"       collection="inputspectra"/>
@@ -153,6 +167,12 @@
         <input port="clusterinfosummarygroup_attributes"     object="clusterinfosummarygroup_attributes"/>
         <input port="result_specnets"     object="result_specnets_DB"/>
         <output port="clusterinfosummarygroup_attributes_withIDs"     object="clusterinfosummarygroup_attributes_withIDs"/>
+    </action>
+
+    <!-- Compound Occurrence in Files -->
+    <action name="metabolomic_create_compound_filename_occurences">
+        <input port="clusterinfosummarygroup_attributes_withIDs"     object="clusterinfosummarygroup_attributes_withIDs"/>
+        <output port="compound_filename_occurences"     object="compound_filename_occurences"/>
     </action>
 
 
@@ -196,7 +216,7 @@
     </action>
 
     <action name="metabolomic_add_arbitrary_attribute">
-        <input  port="attributemapping" object="attributemapping"/>
+        <input  port="attributemapping" object="attributemapping_converted"/>
         <input  port="clusterinfosummarygroup_attributes_withIDs"       object="clusterinfosummarygroup_attributes_withIDs"/>
         <output  port="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute" object="clusterinfosummarygroup_attributes_withIDs_arbitraryattribute"/>
     </action>
@@ -208,12 +228,42 @@
         <output  port="network_statistics" object="network_statistics"/>
     </action>
 
+    <!-- Creating Cytoscape Compatible graphML -->
+    <object name="gnps_molecular_network_graphml"/>
+    <action name="metabolomics_convert_graphml">
+        <input  port="networkedges_selfloop"       object="networkedges_selfloop"/>
+        <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummarygroup_attributes_withIDs"/>
+        <input  port="result_specnets_DB" object="result_specnets_DB"/>
+        <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
+    </action>
+
+
+    <!-- Extra Optional Features -->
+    <object name="cluster_buckets"/>
+    <object name="biom_output"/>
+    <object name="ili_stl_model"/>
+    <object name="ili_output"/>
+    <object name="view_ili"/>
+
     <action name="create_cluster_buckets">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummarygroup_attributes_withIDs"/>
         <input  port="clusterinfogroup"       object="clusterinfogroup"/>
+        <input  port="metadata_for_qiime"       object="metadata_for_qiime"/>
         <output  port="cluster_buckets" object="cluster_buckets"/>
+        <output  port="biom_output" object="biom_output"/>
     </action>
+
+    <object name="metadata_for_qiime"/>
+    <object name="view_emporer"/>
+    <action name="create_metadata_for_qiime">
+        <input  port="workflowParameters" object="workflowParameters"/>
+        <input  port="metadatafile" object="metadatafile"/>
+        <output  port="metadata_for_qiime" object="metadata_for_qiime"/>
+        <output  port="view_emporer" object="view_emporer"/>
+    </action>
+
+
 
     <action name="create_topology_signatures">
         <input  port="flowParams" object="workflowParameters"/>
@@ -222,6 +272,17 @@
         <output  port="all_network_paths" object="all_network_paths"/>
         <output  port="all_network_paths_histogram" object="all_network_paths_histogram"/>
     </action>
+
+    <action name="create_ili_output">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="metadatafile" object="metadatafile"/>
+        <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummarygroup_attributes_withIDs"/>
+        <input  port="clusterinfogroup"       object="clusterinfogroup"/>
+        <input  port="ili_stl_model"       object="ili_stl_model"/>
+        <output  port="ili_output" object="ili_output"/>
+        <output  port="view_ili" object="view_ili"/>
+    </action>
+
 
 
     <!-- Dataset Matches -->
@@ -247,13 +308,6 @@
         <output  port="all_dataset_matches" object="all_dataset_matches"/>
     </action>
 
-    <!-- <action name="find_dataset_matches">
-        <input  port="flowParams" object="workflowParameters"/>
-        <input port="spectra" collection="spectra"/>
-        <input  port="result_specnets_DB"       object="result_specnets_DB"/>
-        <output  port="all_dataset_matches" object="all_dataset_matches"/>
-    </action> -->
-
 
     <action name="end">
         <input port="result_specnets_DB" object="result_specnets_DB"/>
@@ -276,9 +330,17 @@
         <input port="networkcomponents" object="networkcomponents"/>
         <input port="network_statistics" object="network_statistics"/>
         <input port="cluster_buckets" object="cluster_buckets"/>
+        <input port="ili_output" object="ili_output"/>
+        <input port="view_ili" object="view_ili"/>
+        <input port="biom_output" object="biom_output"/>
+        <input port="metadata_for_qiime" object="metadata_for_qiime"/>
+        <input port="view_emporer" object="view_emporer"/>
         <input port="all_network_paths" object="all_network_paths"/>
         <input port="all_network_paths_histogram" object="all_network_paths_histogram"/>
         <input port="groupmapping_converted" object="groupmapping_converted"/>
         <input port="all_dataset_matches" object="all_dataset_matches"/>
+        <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+
+        <input port="compound_filename_occurences" object="compound_filename_occurences"/>
     </action>
 </flow>

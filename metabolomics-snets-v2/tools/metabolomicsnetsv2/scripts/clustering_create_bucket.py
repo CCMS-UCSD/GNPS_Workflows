@@ -38,7 +38,6 @@ def create_bucket_from_clusterinfo(cluster_info_filename, param_filename, cluste
             for mangled_name in mangled_mapping.keys():
                 cluster_index_to_file_map[cluster_number][mangled_name] = 0.0
 
-        #print table_data["#Filename"][i].split("/")[1]
         mangled_filename_only = os.path.basename(table_data["#Filename"][i])
         cluster_index_to_file_map[cluster_number][mangled_filename_only] += max(float(table_data["#PrecIntensity"][i]), 1.0)
         spectrum_info = {"filename":table_data["#Filename"][i], "intensity": table_data["#PrecIntensity"][i]}
