@@ -230,7 +230,7 @@
                 <parameter name="spectraid" value="[cluster index]"/>
             </column>
         </row>
-        <row expander="Search Spec" expandericontype="text">
+        <row expander="MASST Spectrum" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">
                 <parameter name="mz" value="[precursor mass]"/>
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
