@@ -3,11 +3,11 @@
     <download>
     </download>
 
-    <view id="view_all_annotations_DB" label="View All Spectra Hits">
+    <view id="view_all_annotations_DB" label="View All Spectra Hits" group="Default Results Views">
         <blockRef id="main" type="view_all_annotations_DB"/>
     </view>
 
-    <view id="view_all_annotations_top_hit" label="View Top Hits">
+    <view id="view_all_annotations_top_hit" label="View Top Hits" group="Default Results Views">
         <blockRef id="main" type="view_all_annotations_top_hit"/>
     </view>
 
@@ -73,7 +73,6 @@
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
                 <parameter name="spectrum1_file" file="spec/[internalFilename]"/>
->
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
@@ -171,7 +170,7 @@
         </row>
     </block>
 
-    <view id="group_by_compound" label="View All Compounds">
+    <view id="group_by_compound" label="View All Compounds" group="Default Results Views">
         <blockRef id="main" type="group_by_compound"/>
     </view>
 
