@@ -6,18 +6,6 @@
             <source type="folder" name="Kovats_Result_Nonfiltered/"/>
         </download>
 
-        <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
-                <blockRef id="main" type="clone_updated_networking"/>
-        </view>
-        <block id="clone_updated_networking" type="dummylinkout">
-                <data>
-                <parsers>
-                        <parser type="stream" contentType="text/xml"/>
-                </parsers>
-                </data>
-                <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22MOLECULAR-LIBRARYSEARCH-GC%22%2C%20%22workflow_version%22%3A%20%22current%22%7D'/>
-        </block>
-
 	<!-- View definitions -->
 	<view id="group_by_spectrum" label="Group by Spectrum" display="hidden">
 		<blockRef id="main" type="spectrum_list"/>
