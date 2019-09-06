@@ -11,7 +11,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22SEARCH_SINGLE_SPECTRUM%22%2C%20%22version%22%3A%20%22current%22%7D'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22SEARCH_SINGLE_SPECTRUM%22%2C%20%22workflow_version%22%3A%20%22current%22%7D'/>
     </block>
 
     <view id="view_all_datasets_matched" label="Dataset Matches" group="Community Matches">
