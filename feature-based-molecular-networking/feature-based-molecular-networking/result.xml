@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="speclib_add" version="release_9">
+<interface id="speclib_add" version="VERSION">
     <download>
         <source type="folder" name="networking_pairs_results_file_filtered/"/>
         <source type="folder" name="networkedges_selfloop/"/>
@@ -119,11 +119,8 @@
         <row>
             <column label="ViewLib" type="genericurlgenerator" width="5"> \
                 <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
-\
                 <parameter name="LABEL" value="ViewLib"/>
-\
             </column>\
 
             <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
@@ -297,7 +294,7 @@
                 <parameter name="trim" value="true"/>
             </column>
         </row>
-        <row expander="Search Spec" expandericontype="text">
+        <row expander="MASST Spectrum" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">
                 <parameter name="mz" value="[precursor mass]"/>
                 <parameter name="file" file="spectra/specs_ms.mgf"/>

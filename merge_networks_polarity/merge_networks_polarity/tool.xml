@@ -2,7 +2,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="merge_polarity" path="python3.5"/>
     </pathSet>
-    <pathSet base="MergePolarity/">
+    <pathSet base="$base">
         <pathVar name="merge_polarity.script" path="merge_polarity.py" />
     </pathSet>
 

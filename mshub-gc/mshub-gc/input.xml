@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="MSHUB-GC" version="VERSION">
+    <workflow-id>MSHUB-GC</workflow-id>
+    <workflow-label>MSHUB-GC</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Spectrum Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+        </parameter>
+
+        <!-- PyMS Parameters -->
+        <parameter name="PYMS_INTERPEAK_ALIGN_MAXPEAKSHIFT" label="PYMS_INTERPEAK_ALIGN_MAXPEAKSHIFT (Enter a number)">
+            <default value="auto"/>
+        </parameter>
+
+        <parameter name="PYMS_DECONV_INTENSITY_THRESHOLD" label="PYMS_DECONV_INTENSITY_THRESHOLD (Enter a number)">
+            <default value="auto"/>
+        </parameter>
+
+        <parameter name="PYMS_DECONV_RIGHT_ANG_THRESHOLD" label="PYMS_DECONV_RIGHT_ANG_THRESHOLD (Enter a number)">
+            <default value="auto"/>
+        </parameter>
+
+        <parameter name="PYMS_DECONV_LEFT_ANG_THRESHOLD" label="PYMS_DECONV_LEFT_ANG_THRESHOLD (Enter a number)">
+            <default value="auto"/>
+        </parameter>
+
+
+
+        <!-- Clustering of Spectra if it sucks-->
+        <parameter name="CLUSTER_SPECTRA" label="CLUSTER_SPECTRA">
+            <options>
+                <option value="YES" label="YES"/>
+                <option value="NO" label="NO"/>
+            </options>
+            <validator type="set"/>
+            <default value="NO"/>
+        </parameter>
+
+        <parameter name="RT_TOLERANCE" label="RT_TOLERANCE">
+            <default value="2.0"/>
+            <validator type="float" minimumExclusive="0" maximum="500"/>
+        </parameter>
+
+        <parameter name="TIME_UNIT" label="TIME_UNIT">
+            <options>
+                <option value="MIN" label="MIN"/>
+                <option value="SEC" label="SEC"/>
+            </options>
+            <validator type="set"/>
+            <default value="SEC"/>
+        </parameter>
+
+
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Select Files">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced MSHub Processing">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PYMS_INTERPEAK_ALIGN_MAXPEAKSHIFT"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PYMS_INTERPEAK_ALIGN_MAXPEAKSHIFT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PYMS_DECONV_INTENSITY_THRESHOLD"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PYMS_DECONV_INTENSITY_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="PYMS_DECONV_LEFT_ANG_THRESHOLD"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PYMS_DECONV_LEFT_ANG_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="PYMS_DECONV_RIGHT_ANG_THRESHOLD"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PYMS_DECONV_RIGHT_ANG_THRESHOLD">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Clustering">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="CLUSTER_SPECTRA"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="CLUSTER_SPECTRA"></input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TIME_UNIT"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="TIME_UNIT"></input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="RT_TOLERANCE"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="RT_TOLERANCE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+</interface>

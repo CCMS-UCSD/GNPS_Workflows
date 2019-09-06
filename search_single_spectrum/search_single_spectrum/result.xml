@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="ming_test" version="1.2.3">
 
+
+    <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
+        <blockRef id="main" type="clone_updated_networking"/>
+    </view>
+    <block id="clone_updated_networking" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22SEARCH_SINGLE_SPECTRUM%22%2C%20%22version%22%3A%20%22current%22%7D'/>
+    </block>
+
     <view id="view_all_datasets_matched" label="Dataset Matches" group="Community Matches">
         <blockRef id="main" type="view_all_datasets_matched"/>
     </view>
@@ -68,7 +81,7 @@
             <column type="text" field="dataset_scan" label="dataset_scan" width="10"/>
             <column type="text" field="filename" label="filename" width="40"/>
             <column label="View Metadata" type="genericurlgenerator" width="10" >
-                <parameter name="URLBASE" value="https://redu.ucsd.edu:5005/datalookup"/>
+                <parameter name="URLBASE" value="https://redu.ucsd.edu/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>

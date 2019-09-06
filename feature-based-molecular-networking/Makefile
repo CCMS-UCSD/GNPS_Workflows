@@ -1,5 +1,7 @@
-deploy-debug:
-	fab -f ../fabfile.py update_workflow_xml:feature-based-molecular-networking,release_9 update_tools:feature-based-molecular-networking,release_9
+include ../Makefile.credentials
+include ../Makefile.deploytemplate
 
-deploy-production:
-	fab -f ../fabfile.py update_workflow_xml:feature-based-molecular-networking,release_9,production update_tools:feature-based-molecular-networking,release_9,production
+WORKFLOW_NAME=feature-based-molecular-networking
+TOOL_FOLDER_NAME=feature-based-molecular-networking
+WORKFLOW_VERSION=release_10
+
