@@ -26,28 +26,19 @@
             </processors>
         </data>
         <row>
-            <column label="ViewLib" type="genericurlgenerator" width="5"> \
+            <column label="ViewLib" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
-\
                 <parameter name="LABEL" value="ViewLib"/>
-\
-            </column>\
-            <column label="Explore" type="genericurlgenerator" width="5"> \
+            </column>
+            <column label="Explore" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=task" value="698fc5a09db74c7492983b3673ff5bf6"/>
-\
                 <parameter name="REQUESTPARAMETER=view" value="molecule_explorer_v2_details"/>
-\
                 <parameter name="REQUESTPARAMETER=show" value="true"/>
-\
                 <parameter name="HASHPARAMTER=main.compound_name_input" value="[Compound_Name]||EXACT"/>
-\
                 <parameter name="LABEL" value="ExploreMolecule"/>
-\
-            </column>\
+            </column>
             <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
             <column type="integer" field="#Scan#" label="Scan" width="3"/>
             <column type="text" field="SpectrumFile" label="Filename" width="12"/>
@@ -96,6 +87,13 @@
                 <parameter name="file" file="lib/[LibraryName]"/>
                 <parameter name="spectrumid" value="[SpectrumID]"/>
                 <parameter name="compoundname" value="*..*"/>
+            </column>
+        </row>
+        <row expander="MASST Spectrum" expandericontype="text">
+            <column type="singlespectrumcolumnhandler" colspan="5">
+                <parameter name="mz" value="[SpecMZ]"/>
+                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="scan" value="[#Scan#]"/>
             </column>
         </row>
     </block>
