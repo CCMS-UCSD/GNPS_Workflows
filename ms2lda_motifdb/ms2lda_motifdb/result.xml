@@ -2,6 +2,19 @@
 <interface id="speclib_add" version="1.2.3">
     <download></download>
 
+
+    <view id="clone_updated_networking" label="Clone Job to Current Workflow Version" group="Clone to Current Workflow Version">
+        <blockRef id="main" type="clone_updated_networking"/>
+    </view>
+    <block id="clone_updated_networking" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B%22workflow%22%3A%22MS2LDA_MOTIFDB%22%2C%20%22version%22%3A%20%22current%22%7D'/>
+    </block>
+
     <view id="view_motifs" label="View Motif Labels for Spectra">
         <blockRef id="main" type="view_motifs"/>
     </view>
