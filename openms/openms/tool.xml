@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<toolset>
+    <!-- Global tool input fetch method -->
+    <fetchMethod value="link"/>
+    <!-- Paths -->
+    <!-- OpenMS + GNPS Workflow -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="convert-mzxml-to-mzml" path="python"/>
+        <toolPath tool="feature-finder-metabo" path="python"/>
+        <toolPath tool="id-mapper" path="python"/>
+        <toolPath tool="map-aligner-pose-clustering" path="python"/>
+        <toolPath tool="metabolite-adduct-decharger" path="python"/>
+        <toolPath tool="feature-linker-unlabeled" path="python"/>
+        <toolPath tool="file-filter" path="python"/>
+        <toolPath tool="gnps-export" path="python"/>
+        <toolPath tool="text-exporter" path="python"/>
+        <toolPath tool="parse-output" path="python"/>
+    </pathSet>
+    
+    <pathSet base="$base/binaries">
+        <pathVar name="ld_library_path" path="openms/lib:/data/beta-proteomics2/tools/anaconda3/lib/"/>
+        <pathVar name="exc_path" path="openms/bin"/>
+        <pathVar name="openms_data_path" path="openms/share"/>
+    </pathSet>
+
+    <pathSet base="$base/scripts">
+        <pathVar name="idmapper_empty" path="empty.idXML"/>
+
+        <pathVar name="convert-mzxml-to-mzml.script" path="convert_mzxml_to_mzml.py"/>
+        <pathVar name="feature-finder-metabo.script" path="featurefindermetabo.py"/>
+        <pathVar name="id-mapper.script" path="idmapper.py"/>
+        <pathVar name="map-aligner-pose-clustering.script" path="mapalignerposeclustering.py"/>
+        <pathVar name="metabolite-adduct-decharger.script" path="metaboliteadductdecharger.py"/>
+        <pathVar name="feature-linker-unlabeled.script" path="featurelinkerunlabeled.py"/>
+        <pathVar name="file-filter.script" path="filefilter.py"/>
+        <pathVar name="gnps-export.script" path="gnpsexport.py"/>
+        <pathVar name="text-exporter.script" path="textexporter.py"/>
+        <pathVar name="parse-output.script" path="parse_output.py"/>
+    </pathSet>
+
+    <tool name="convert-mzxml-to-mzml">
+        <require name="inputFiles" type="folder"/>
+        <produce name="inFiles" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="convert-mzxml-to-mzml.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="inputFiles"/>
+            <arg valueRef="inFiles"/>
+        </execution>
+    </tool>
+    <tool name="feature-finder-metabo">
+        <require name="inFiles" type="folder"/>
+        <require name="iniFiles-featurefinder" type="file"/>
+        <produce name="featurefindermetabo" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="feature-finder-metabo.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="inFiles"/>
+            <arg valueRef="iniFiles-featurefinder"/>
+            <arg valueRef="featurefindermetabo"/>
+        </execution>
+    </tool>
+    <tool name="id-mapper">
+        <require name="inFiles" type="folder"/>
+        <require name="iniFiles-idmapper" type="file"/>
+        <require name="featurefindermetabo" type="folder"/>
+        <produce name="idmapper" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="id-mapper.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="inFiles"/>
+            <arg valueRef="iniFiles-idmapper"/>
+            <arg pathRef="idmapper_empty"/>
+            <arg valueRef="featurefindermetabo"/>
+            <arg valueRef="idmapper"/>
+        </execution>
+    </tool>
+    <tool name="map-aligner-pose-clustering">
+        <require name="idmapper" type="folder"/>
+        <require name="iniFiles-mapaligner" type="file"/>
+        <produce name="mapalignerposeclustering" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="map-aligner-pose-clustering.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="idmapper"/>
+            <arg valueRef="iniFiles-mapaligner"/>
+            <arg valueRef="mapalignerposeclustering"/>
+        </execution>
+    </tool>
+    <tool name="metabolite-adduct-decharger">
+        <require name="mapalignerposeclustering" type="folder"/>
+        <require name="iniFiles-adductdecharger" type="file"/>
+        <produce name="metaboliteadductdecharger" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolite-adduct-decharger.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="mapalignerposeclustering"/>
+            <arg valueRef="iniFiles-adductdecharger"/>
+            <arg valueRef="metaboliteadductdecharger"/>
+        </execution>
+    </tool>
+    <tool name="feature-linker-unlabeled">
+        <require name="metaboliteadductdecharger" type="folder"/>
+        <require name="iniFiles-featurelinker" type="file"/>
+        <require name="flowParams" type="file"/>
+        <produce name="featurelinkerunlabeled" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="feature-linker-unlabeled.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="metaboliteadductdecharger"/>
+            <arg valueRef="iniFiles-featurelinker"/>
+            <arg valueRef="featurelinkerunlabeled"/>
+            <arg valueRef="flowParams"/>
+        </execution>
+    </tool>
+    <tool name="file-filter">
+        <require name="featurelinkerunlabeled" type="folder"/>
+        <produce name="filefilter" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="file-filter.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="featurelinkerunlabeled"/>
+            <arg valueRef="filefilter"/>
+        </execution>
+    </tool>
+    <tool name="gnps-export">
+        <require name="filefilter" type="folder"/>
+        <require name="inFiles" type="folder"/>
+        <require name="iniFiles-gnpsexport" type="file"/>
+        <produce name="gnpsexport" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="gnps-export.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="filefilter"/>
+            <arg valueRef="inFiles"/>
+            <arg valueRef="iniFiles-gnpsexport"/>
+            <arg valueRef="gnpsexport"/>
+        </execution>
+    </tool>
+    <tool name="text-exporter">
+        <require name="filefilter" type="folder"/>
+        <require name="iniFiles-textexporter" type="file"/>
+        <require name="flowParams" type="file"/>
+        <produce name="textexporter" type="folder"/>
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="text-exporter.script"/>
+            <arg pathRef="ld_library_path"/>
+            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_data_path"/>
+            <arg valueRef="filefilter"/>
+            <arg valueRef="iniFiles-textexporter"/>
+            <arg valueRef="textexporter"/>
+        </execution>
+    </tool>
+    <tool name="parse-output">
+        <require name="inFiles" type="folder"/>
+        <require name="featurefindermetabo" type="folder"/>
+        <require name="iniFiles-featurefinder" type="folder"/>
+        <require name="idmapper" type="folder"/>
+        <require name="iniFiles-idmapper" type="folder"/>
+        <require name="mapalignerposeclustering" type="folder"/>
+        <require name="iniFiles-mapaligner" type="folder"/>
+        <require name="metaboliteadductdecharger" type="folder"/>
+        <require name="iniFiles-adductdecharger" type="folder"/>
+        <require name="featurelinkerunlabeled" type="folder"/>
+        <require name="iniFiles-featurelinker" type="folder"/>
+        <require name="filefilter" type="folder"/>
+        <require name="gnpsexport" type="folder"/>
+        <require name="iniFiles-gnpsexport" type="folder"/>
+        <require name="textexporter" type="folder"/>
+        <require name="iniFiles-textexporter" type="folder"/>
+
+        <produce name="output" type="folder"/>
+        <!-- <produce name="openms_output" type="folder"/> -->
+        <!-- <produce name="download_all_files" type="folder"/> -->
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="parse-output.script"/>
+            <arg valueRef="inFiles"/>
+            <arg valueRef="featurefindermetabo"/>
+            <arg valueRef="idmapper"/>
+            <arg valueRef="mapalignerposeclustering"/>
+            <arg valueRef="metaboliteadductdecharger"/>
+            <arg valueRef="featurelinkerunlabeled"/>
+            <arg valueRef="filefilter"/>
+            <arg valueRef="gnpsexport"/>
+            <arg valueRef="textexporter"/>
+
+            <arg valueRef="output"/>
+            <!-- <arg valueRef="openms_output"/> -->
+            <!-- <arg valueRef="iniFiles"/> -->
+        </execution>
+    </tool>
+</toolset>
