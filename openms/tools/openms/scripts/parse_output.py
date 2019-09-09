@@ -16,7 +16,7 @@ if __name__ == '__main__':
     print("current dir...")
     for dir in os.listdir(os.path.abspath('.')):
         if len(os.listdir(os.path.abspath(dir))) > 0:
-            print "\t"+dir, os.listdir(os.path.abspath(dir))
+            print("\t", dir, os.listdir(os.path.abspath(dir)))
 
     #parse output diretory
     print sys.argv[OUTPUT_DIR_INDEX]
