@@ -62,14 +62,24 @@ final, ClassyFireResults_file = create_ClassyFireResults(netfile, inchi_dic, dir
 create_GraphML(GNPS_file, final, directory)
 
 #optional MS2LDA job Mass 2 Motifs
+if args.prob:
+    prob = args.prob
+elif args.prob == None:
+    prob = 0.01
+
+if args.overlap:
+    overlap = args.overlap
+elif args.overlap == None:
+    overlap = 0.3
+
+if args.top:
+    top = args.top
+elif args.top == None:
+    top = 5
+
 if args.ms2lda:
-    if args.prob or args.overlap or args.top:
-        user_Params = pack_User_Params(args.prob, args.overlap, args.top)
-    if args.ms2lda and user_Params:
-        MS2LDA_job_ID = args.ms2lda
-        mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params)
-    else:
-        MS2LDA_job_ID = args.ms2lda
-        mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory)
+    user_Params = pack_User_Params(prob, overlap, top)
+    MS2LDA_job_ID = args.ms2lda
+    mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params)
     
 print('operations completed')
