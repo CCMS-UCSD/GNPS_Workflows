@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="MOLNETENHANCER" version="1.2.3">
     <download>
-            <source type="folder" name="output_network/"/>
-            <source type="folder" name="qiime2_output/"/>
+      <source type="folder" name="output_network/"/>
     </download>
 
 
@@ -28,6 +27,20 @@
         </parsers>
       </data>
         <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+    </block>
+
+
+    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="view_qiime2_emperor"/>
+    </view>
+    <block id="view_qiime2_emperor" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dqiime2_output%252Fqiime2_emperor.qzv%26block%3Dmain'/>
     </block>
     
 </interface>
