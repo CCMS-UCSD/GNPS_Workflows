@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import csv 
 import json
-from networkx import *
+import networkx as nx
 from pathlib import Path
 
 def create_Folder(directory='Output Files'):
@@ -172,12 +172,12 @@ def create_ClassyFireResults(netfile, inchi_dic, directory):
 def create_GraphML(GNPS_file, final, directory):
     if any("FEATURE" in s for s in os.listdir(GNPS_file)):
         graphMLfile = GNPS_file + [x for x in os.listdir(GNPS_file) if 'FEATURE' in x][0]
-        graphML = read_graphml(graphMLfile)
+        graphML = nx.read_graphml(graphMLfile)
         graphML_classy = make_classyfire_graphml(graphML,final)
         nx.write_graphml(graphML_classy, directory+"/ClassyFireResults_Network.graphml", infer_numeric_types = True)
     elif any("METABOLOMICS" in s for s in os.listdir(GNPS_file)):
         graphMLfile = GNPS_file + [x for x in os.listdir(GNPS_file) if 'METABOLOMICS' in x][0]
-        graphML = read_graphml(graphMLfile)
+        graphML = nx.read_graphml(graphMLfile)
         graphML_classy = make_classyfire_graphml(graphML,final)
         nx.write_graphml(graphML_classy, directory+"/ClassyFireResults_Network.graphml", infer_numeric_types = True)
     else:
@@ -196,10 +196,10 @@ def unpack_User_Params(user_Params):
     
     return prob, overlap, top
 
-def mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params=None):
+def mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params):
     #import MS2LDA data
     motifs = pd.read_csv('http://ms2lda.org/basicviz/get_gnps_summary/%s' % MS2LDA_job_ID)
-    edges = pd.read_csv(GNPS_file + 'networking_pairs_results_file_filtered/' + str(os.listdir(GNPS_file +'networking_pairs_results_file_filtered/')[0]), sep = '\t')
+    edges = pd.read_csv(GNPS_file + 'networkedges_selfloop/' + str(os.listdir(GNPS_file +'networkedges_selfloop/')[0]), sep = '\t')
     #unpack user parameters
     prob, overlap, top = unpack_User_Params(user_Params)
     #create network data with mapped motifs
