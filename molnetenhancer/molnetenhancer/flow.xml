@@ -13,7 +13,14 @@
                 <output port="output_network"           collection="output_network"/>
         </action>
 
+        <collection name="qiime2_output"/>
+        <action name="metabodisttree">
+                <input  port="output_network"             collection="output_network"/>
+                <output port="qiime2_output"           collection="qiime2_output"/>
+        </action>
+
         <action name="end">
                 <input port="output_network"           collection="output_network"/>
+                <input port="qiime2_output"           collection="qiime2_output"/>
         </action>
 </flow>

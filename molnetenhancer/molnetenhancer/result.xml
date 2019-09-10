@@ -2,6 +2,7 @@
 <interface id="MOLNETENHANCER" version="1.2.3">
     <download>
             <source type="folder" name="output_network/"/>
+            <source type="folder" name="qiime2_output/"/>
     </download>
 
 
