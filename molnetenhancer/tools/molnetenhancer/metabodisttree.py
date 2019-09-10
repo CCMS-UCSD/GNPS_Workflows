@@ -37,7 +37,7 @@ if task_information["workflow"] == "METABOLOMICS-SNETS-V2":
     with open(quantification_filename, 'wb') as f:
         f.write(requests.get(quantification_url).content)
 
-    SERVER_BASE = "http://dorresteinappshub:5024"
+    SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
     metabodist_endpoint = SERVER_BASE + "/processmetabodisttree"
 
     files = {'manifest': open(manifest_filename, 'r'), \
