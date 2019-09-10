@@ -5,7 +5,7 @@
     </download>
 
 
-    <view id="download_data" label="Download Network">
+    <view id="download_data" label="Download Network" group="Download">
         <blockRef id="main"   type="download_data"/>
     </view>
     <block id="download_data" type="dummydownload">
