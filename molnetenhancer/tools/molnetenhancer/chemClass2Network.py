@@ -96,8 +96,8 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
     fail_count = 0
 
     for i in range(len(smiles_df)):
-        print("INCHIKEY", i)
         smile_str = smiles_df.loc[i]['SMILES']
+        print("INCHIKEY", i, smile_str)
         link = 'http://dorresteinappshub.ucsd.edu:5065/smiles/inchikey?smiles=%s' % smile_str
         result = requests.get(link)
         soup = str(BeautifulSoup(result.content, 'html.parser'))
