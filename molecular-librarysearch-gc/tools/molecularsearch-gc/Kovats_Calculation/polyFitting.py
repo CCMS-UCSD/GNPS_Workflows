@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def getParams(inputF,cosineScore,error,lib,minimumFeature):
+def getParams(inputF,cosineScore,error,lib,minimumFeature,window_start,window_end):
     # parse the argument
     def search(lib,row):
         if row['INCHI'] in lib:
@@ -19,12 +19,18 @@ def getParams(inputF,cosineScore,error,lib,minimumFeature):
 
     #clean the data for polynomial fitting:
     df = df[df['ki_average']>500]
-    df = df[df.RT_Query<800]
+    duration = df.RT_Query.max()
+    df = df[df.RT_Query<=window_end]
+    df = df[df.RT_Query>=window_start]
+    #print(end,start)
+    #df = df[df.RT_Query<800]
     if len(df) < minimumFeature:
         return None
     #simply find the polynomial fitting
-    p_a = np.polyfit(df.RT_Query,df.ki_average,2)
+    p_a = np.polyfit(df.RT_Query,df.ki_average,3)
+    print(len(df))
     # we fit it twice to have more robust results:
     df =df[abs(df.ki_average-np.polyval(p_a,df.RT_Query))/np.polyval(p_a,df.RT_Query)<error]
+    print(len(df))
     p_b = np.polyfit(df.RT_Query,df.ki_average,2)
     return p_b
