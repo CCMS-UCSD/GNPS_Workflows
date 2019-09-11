@@ -65,6 +65,6 @@ if args.ms2lda!='None' and args.ms2lda!=None:
 elif args.gnps_ms2lda_job!='None' and args.gnps_ms2lda_job!=None:
     print('Load from GNPS')
 else:
-    print('No Op')
+    print('No MS2LDA Op')
     
 print('operations completed')
