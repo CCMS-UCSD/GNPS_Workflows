@@ -17,10 +17,7 @@
         <download port="Carbon_Marker_File" type="file">
             <query name="resource" value="Carbon_Marker_File"/>
         </download>
-        <download port="quantTable" type="file">
-            <query name="resource" value="quantTable"/>
-        </download>
-	<downloadParams>
+        <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
     </bind>
@@ -103,20 +100,6 @@
         <productionToOutput port="Kovats_Result_Nonfiltered" production="Kovats_Result_Nonfiltered"/>
     </bind>
 
-    <bind action="add_balanced_score" tool="add_balanced_score">
-        <inputAsRequirement port="DB_result" requirement="DB_result"/>
-        <inputAsRequirement port="DB_result_filtered" requirement="DB_result_filtered"/>
-        <inputAsRequirement port="Kovats_Result_Nonfiltered" requirement="Kovats_Result_Nonfiltered"/>
-        <inputAsRequirement port="Kovats_Result_Filtered" requirement="Kovats_Result_Filtered"/>
-        <inputAsRequirement port="params" requirement="workflowParameters"/>
-        <inputAsRequirement port="quantTable" requirement="quantTable"/>
-
-        <productionToOutput port="DB_result_mshub" production="DB_result_mshub"/>
-        <productionToOutput port="DB_result_filtered_mshub" production="DB_result_filtered_mshub"/>
-        <productionToOutput port="Kovats_Result_Nonfiltered_mshub" production="Kovats_Result_Nonfiltered_mshub"/>
-        <productionToOutput port="Kovats_Result_Filtered_mshub" production="Kovats_Result_Filtered_mshub"/>
-    </bind>
-
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -125,11 +108,11 @@
         <upload port="result" type="file">
             <query name="resource" value="result"/>
         </upload>
-        <upload port="DB_result_mshub" type="file">
-            <query name="resource" value="DB_result_mshub"/>
+        <upload port="DB_result" type="file">
+            <query name="resource" value="DB_result"/>
         </upload>
-        <upload port="DB_result_filtered_mshub" type="file">
-            <query name="resource" value="DB_result_filtered_mshub"/>
+        <upload port="DB_result_filtered" type="file">
+            <query name="resource" value="DB_result_filtered"/>
         </upload>
         <upload port="networking_pairs_results_file_filtered" type="file">
             <query name="resource" value="networking_pairs_results_file_filtered"/>
@@ -137,11 +120,11 @@
         <upload port="gnps_molecular_network_graphml" type="file">
             <query name="resource" value="gnps_molecular_network_graphml"/>
         </upload>
-        <upload port="Kovats_Result_Filtered_mshub" type="file">
-            <query name="resource" value="Kovats_Result_Filtered_mshub"/>
+        <upload port="Kovats_Result_Filtered" type="file">
+            <query name="resource" value="Kovats_Result_Filtered"/>
         </upload>
-        <upload port="Kovats_Result_Nonfiltered_mshub" type="file">
-            <query name="resource" value="Kovats_Result_Nonfiltered_mshub"/>
+        <upload port="Kovats_Result_Nonfiltered" type="file">
+            <query name="resource" value="Kovats_Result_Nonfiltered"/>
         </upload>
     </bind>
 </binding>

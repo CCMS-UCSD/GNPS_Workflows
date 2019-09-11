@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<flow name="molecular-librarysearch-gc-test">
+<flow name="molecular-librarysearch-gc">
     <collection name="spectra"/>
     <collection name="paramsgen"/>
     <collection name="toolParameters"/>
@@ -9,7 +9,7 @@
     <collection name="library"/>
     <object name="result"/>
     <object name="Carbon_Marker_File"/>
-    <object name="quantTable"/>
+
 
 
     <action name="begin">
@@ -18,7 +18,6 @@
         <output port="toolParams" collection="toolParameters"/>
         <output port="params" object="workflowParameters"/>
         <output port = "Carbon_Marker_File" object="Carbon_Marker_File"/>
-	<output port = "quantTable" object="quantTable"/>
     </action>
 
 
@@ -114,28 +113,11 @@
         <output port="Kovats_Result_Filtered"     object="Kovats_Result_Filtered"/>
     </action>
 
-    <!-- Add Balacned Score -->
-    <object name="Kovats_Result_Filtered_mshub"/>
-    <object name="Kovats_Result_Nonfiltered_mshub"/>
-    <object name="DB_result_filtered_mshub"/>
-    <object name="DB_result_mshub"/>
-    <action name="add_balanced_score">
-        <input  port="DB_result"       object="DB_result"/>
-        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
-        <input  port="Kovats_Result_Nonfiltered"       object="Kovats_Result_Nonfiltered"/>
-        <input  port="Kovats_Result_Filtered"       object="Kovats_Result_Filtered"/>
-        <input  port="params"    object="workflowParameters"/>
-        <input  port="quantTable"    object="quantTable"/>
-        <output port="DB_result_mshub"     object="DB_result_mshub"/>
-        <output port="DB_result_filtered_mshub"     object="DB_result_filtered_mshub"/>
-        <output port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
-        <output port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
-    </action>
     <action name="end">
-        <input port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
-        <input port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
-        <input port="DB_result_mshub" object="DB_result_mshub"/>
-        <input port="DB_result_filtered_mshub" object="DB_result_filtered_mshub"/>
+        <input port="Kovats_Result_Filtered"     object="Kovats_Result_Filtered"/>
+        <input port="Kovats_Result_Nonfiltered"     object="Kovats_Result_Nonfiltered"/>
+        <input port="DB_result" object="DB_result"/>
+        <input port="DB_result_filtered" object="DB_result_filtered"/>
         <input port="result" object="result"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
