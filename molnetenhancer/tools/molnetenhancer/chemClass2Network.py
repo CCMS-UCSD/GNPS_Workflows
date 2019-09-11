@@ -81,22 +81,22 @@ def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Va
     gnpslib = pd.read_csv(gnpslibfile, sep='\t')
     matches = [gnpslib]
 
-    if nap_ID != None:
+    if nap_ID != None and nap_ID != 'None':
         nap = pd.read_csv("http://proteomics2.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=final_out/node_attributes_table.tsv" % nap_ID, sep = "\t")
         matches.append(nap)
-    elif nap_ID == None:
+    elif nap_ID == None or nap_ID == 'None':
         nap = None    
 
-    if Derep_job_ID != None:
+    if Derep_job_ID != None and Derep_job_ID != 'None':
         derep = pd.read_csv(derepfile + [s for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
         matches.append(derep)
-    elif Derep_job_ID == None:
+    elif Derep_job_ID == None or Derep_job_ID == 'None':
         derep = None
 
-    if Varquest_job_ID != None:
+    if Varquest_job_ID != None and Varquest_job_ID != 'None':
         varquest = pd.read_csv(varquestfile +[s for s in os.listdir(varquestfile) if "DEREPLICATOR" in s][0], sep = '\t')
         matches.append(varquest)
-    elif Varquest_job_ID == None:
+    elif Varquest_job_ID == None or Varquest_job_ID == 'None':
         varquest = None
 
     file_name = directory + '/SMILES.csv'
