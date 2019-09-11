@@ -2,8 +2,8 @@
 <interface id="ming_test" version="1.2.3">
         <download>
             <source type="folder" name="gnps_molecular_network_graphml/"/>
-            <source type="folder" name="Kovats_Result_Filtered/"/>
-            <source type="folder" name="Kovats_Result_Nonfiltered/"/>
+            <source type="folder" name="Kovats_Result_Filtered_mshub/"/>
+            <source type="folder" name="Kovats_Result_Nonfiltered_mshub/"/>
         </download>
 
 	<!-- View definitions -->
@@ -240,7 +240,7 @@
 
          <block id="view_all_annotations_DB" type="table">
                 <data>
-                        <source type="file" name="DB_result/"/>
+                        <source type="file" name="DB_result_mshub/"/>
                         <parsers>
                                 <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
                         </parsers>
@@ -261,6 +261,7 @@
                         <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
 
                         <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
+                        <column type="float"     field="Balance_score(percentage)"         label="Balance_score(percentage)"            precision="2"/>
                         <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
                         <column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/>
                         <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
@@ -302,7 +303,7 @@
 
         <block id="group_by_compound" type="table">
                 <data>
-                        <source type="file" name="DB_result/"/>
+                        <source type="file" name="DB_result_filtered_mshub/"/>
                         <parsers>
                                 <parser type="sortedTabular"         sortBy="MQScore"      operator="descending"/>
                                 <parser type="representativeTabular" groupBy="Compound_Name" selectBy="MQScore" operator="max"/>
@@ -320,6 +321,7 @@
                         <column type="text"        field="Compound_Name" label="Compound_Name"        width="12"/>
                         <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
                         <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
+                        <column type="float"     field="Balance_score(percentage)"         label="Balance_score(percentage)"            precision="2"/>
                         <column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            />
                         <column type="float"     field="MassDiff"         label="MassDiff"            precision="3"/>
                         <column type="float"     field="LibMZ"         label="LibMZ"            precision="2"/>
@@ -334,7 +336,7 @@
         <!-- Block definitions -->
         <block id="organism_list_DB" type="table">
                 <data>
-                        <source type="file" name="DB_result/"/>
+                        <source type="file" name="DB_result_mshub/"/>
                         <parsers>
                                 <parser type="groupedTabular" groupBy="Organism"/>
                         </parsers>
@@ -354,7 +356,7 @@
 
         <block id="spectra_per_organism_DB" type="table">
                 <data>
-                        <source type="file" name="DB_result/"/>
+                        <source type="file" name="DB_result_filtered_mshub/"/>
                         <parsers>
                                 <parser type="slicedTabular" groupBy="Organism" sliceBy="{protein}"/>
                         </parsers>
@@ -441,7 +443,7 @@
         </view>
         <block id="download_filtered_kovats_results" type="dummydownload">
           <data>
-            <source type="file" name="Kovats_Result_Filtered/"/>
+            <source type="file" name="Kovats_Result_Filtered_mshub/"/>
              <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
@@ -453,7 +455,7 @@
         </view>
         <block id="download_nonfiltered_kovats_results" type="dummydownload">
           <data>
-            <source type="file" name="Kovats_Result_Nonfiltered/"/>
+            <source type="file" name="Kovats_Result_Nonfiltered_mshub/"/>
              <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
@@ -466,7 +468,7 @@
 
         <block id="view_kovats" type="table">
                 <data>
-                        <source type="file" name="Kovats_Result_Nonfiltered/"/>
+                        <source type="file" name="Kovats_Result_Nonfiltered_mshub/"/>
                         <parsers>
                                 <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
                         </parsers>
@@ -487,6 +489,7 @@
                         <column type="text"     field="LibraryQualityString"         label="Library Class"            width="5"/>
 
                         <column type="float"     field="MQScore"         label="Cosine"            precision="2"/>
+                        <column type="float"     field="Balance_score(percentage)"         label="Balance_score(percentage)"            precision="2"/>
                         <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
                         <!--column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/-->
                         <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />

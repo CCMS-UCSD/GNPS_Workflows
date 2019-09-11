@@ -1,12 +1,12 @@
 <toolset>
 
-    <pathSet base="molecularsearch-gc/release_9">
+    <pathSet base="molecularsearch-gc-test">
         <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
 	       <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
     </pathSet>
 
 
-    <pathSet base="molecularsearch-gc/release_9">
+    <pathSet base="molecularsearch-gc-test">
         <toolPath tool="LibrarySearchMerge_Molecular" path="tsv_merger.py"/>
         <toolPath tool="GetDBAnnotations_Molecular" path="getGNPS_library_annotations.py"/>
     </pathSet>
@@ -69,7 +69,8 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="filter_gc_identifications" path="python2.7"/>
     </pathSet>
-    <pathSet base="molecularsearch-gc/release_9">
+
+    <pathSet base="molecularsearch-gc-test">
         <pathVar name="filter_gc_identifications.script" path="filter_gc_identifications.py"/>
     </pathSet>
 
@@ -92,14 +93,12 @@
         <toolPath tool="merge_tsv_efficient" path="python3.5"/>
         <toolPath tool="filter_networking_edges" path="python3.5"/>
     </pathSet>
-
-    <pathSet base="molecularsearch-gc/release_9">
+<pathSet base="molecularsearch-gc-test">
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
     </pathSet>
-
-    <pathSet base="molecularsearch-gc/release_9">
+<pathSet base="molecularsearch-gc-test">
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
@@ -159,7 +158,7 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="metabolomics_convert_graphml" path="python2.7"/>
     </pathSet>
-    <pathSet base="molecularsearch-gc/release_9">
+    <pathSet base="molecularsearch-gc-test">
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
     </pathSet>
 
@@ -182,7 +181,7 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="create_clusterinfo_summary" path="python2.7"/>
     </pathSet>
-    <pathSet base="molecularsearch-gc/release_9">
+    <pathSet base="molecularsearch-gc-test">
         <pathVar name="create_clusterinfo_summary.script" path="create_clusterinfo_summary_from_mgf.py"/>
     </pathSet>
 
@@ -203,7 +202,7 @@
         <toolPath tool="Kovats_Calculation" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="molecularsearch-gc/release_9/Kovats_Calculation">
+    <pathSet base="molecularsearch-gc-test/Kovats_Calculation">
         <pathVar name="Kovats_Calculation.script" path="Kovats_Calculation.py"/>
         <pathVar name="Kovats_Lib" path="nonpolar.csv"/>
     </pathSet>
@@ -228,5 +227,40 @@
         </execution>
     </tool>
 
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="add_balanced_score" path="python3.5"/>
+    </pathSet>
+
+    <pathSet base="molecularsearch-gc-test">
+        <pathVar name="add_balanced_score.script" path="add_mshub_data.py"/>
+    </pathSet>
+
+    <tool name="add_balanced_score">
+        <require name="DB_result"       type="file"/>
+        <require name="DB_result_filtered"       type="file"/>
+        <require name="Kovats_Result_Nonfiltered"       type="file"/>
+        <require name="Kovats_Result_Filtered"       type="file"/>
+        <require name="workflowParameters"       type="file"/>
+        <require name="quantTable"       type="file"/>
+
+        <produce name="DB_result_mshub"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="DB_result_filtered_mshub"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="Kovats_Result_Nonfiltered_mshub"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="Kovats_Result_Filtered_mshub"        type="file" naming="explicit"  extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="add_balanced_score.script"/>
+                <arg valueRef="DB_result"/>
+                <arg valueRef="DB_result_filtered"/>
+                <arg valueRef="Kovats_Result_Nonfiltered"/>
+                <arg valueRef="Kovats_Result_Filtered"/>
+                <arg valueRef="workflowParameters"/>
+                <arg valueRef="quantTable"/>
+                <arg valueRef="DB_result_mshub"/>
+                <arg valueRef="DB_result_filtered_mshub"/>
+                <arg valueRef="Kovats_Result_Nonfiltered_mshub"/>
+                <arg valueRef="Kovats_Result_Filtered_mshub"/>
+        </execution>
+    </tool>
 
 </toolset>

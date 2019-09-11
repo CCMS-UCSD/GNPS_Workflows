@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="molecular-librarysearch-GC" version="1.2.5">
-	<workflow-id>MOLECULAR-LIBRARYSEARCH-GC</workflow-id>
-	<workflow-label>Lib-GC</workflow-label>
+<interface id="molecular-librarysearch-gc-test" version="1.2.5">
+	<workflow-id>MOLECULAR-LIBRARYSEARCH-GC-TEST</workflow-id>
+	<workflow-label>Lib-GC-test</workflow-label>
 	<parameters>
         <parameter name="desc" label="Description">
             <validator type="length" maximum="1000"/>
@@ -159,6 +159,19 @@
 
 			<parameter name="runKovats" label="Perform Kovats Calculation">
 					<default value="off"/>
+			</parameter>
+			<parameter name="window_start" label="Retention Time Window Starts(min)">
+				<validator type="required"/>
+					<default value="3"/>
+					<validator type="float" minimumExclusive="0"/>
+			</parameter>
+			<parameter name="window_end" label="Retention Time Window Ends(min)">
+				<validator type="required"/>
+					<default value="12"/>
+					<validator type="float" minimumExclusive="0" />
+			</parameter>
+			<parameter name="quantTable" label="quantTable">
+				 <fileGenerator type="upload" purpose="quantTable" target="quantTable"/>
 			</parameter>
 
 		</parameters>
@@ -510,6 +523,18 @@
 						<property name="label">Carbon Marker Files</property>
           </module>
 				</cell>
+
+				<cell>
+						<label>
+							<content parameter="quantTable"/>
+						</label>
+				</cell>
+
+				<cell>
+					<module id="quantTable" type="fileSelector">
+						<property name="label">Quant Table</property>
+					</module>
+				</cell>
 			</row>
 		<row>
 				<cell>
@@ -544,6 +569,38 @@
 				  </input>
 				</cell>
 			</row>
+
+			<row>
+					<cell>
+						<label>
+							<content parameter = "window_start"/>
+							<tooltip id="window_start">
+								The start of retention time window will be used for Kovats Prediction
+							</tooltip>
+						</label>
+					</cell>
+
+					<cell>
+						<input type = "text"    parameter = "window_start">
+							<attribute name = "size" value = "10"/>
+						</input>
+					</cell>
+
+					<cell>
+						<label>
+							<content parameter = "window_end"/>
+							<tooltip id="window_end">
+								The end of retention time window will be used for Kovats Prediction
+							</tooltip>
+						</label>
+					</cell>
+
+					<cell>
+						<input type = "text"    parameter = "window_end">
+							<attribute name = "size" value = "10"/>
+						</input>
+					</cell>
+				</row>
 			</block>
 
 </interface>
