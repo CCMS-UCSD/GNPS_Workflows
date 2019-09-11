@@ -188,11 +188,8 @@
         <row>
             <column label="ViewLib" type="genericurlgenerator" width="5"> \
                 <parameter name="URLBASE" value="/ProteoSAFe/gnpslibraryspectrum.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=SpectrumID" value="[SpectrumID]"/>
-\
                 <parameter name="LABEL" value="ViewLib"/>
-\
             </column>\
             <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
             <column type="text" field="LibraryQualityString" label="Library Class" width="5"/>
@@ -260,7 +257,6 @@
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
                 <parameter name="spectrum1_file" file="spec/[internalFilename]"/>
->
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
@@ -716,6 +712,18 @@
             <column type="integer" field="identified_ms2" label="Identified MS2" width="10"/>
             <column type="float" field="percent_identified" label="Percent ID" width="10"/>
         </row>
+    </block>
+
+    <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="redu_global_pca"/>
+    </view>
+    <block id="redu_global_pca" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
     </block>
 
 </interface>
