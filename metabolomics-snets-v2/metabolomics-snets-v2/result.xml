@@ -1399,6 +1399,18 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
+    <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="redu_global_pca"/>
+    </view>
+    <block id="redu_global_pca" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
+    </block>
+
     <view id="dereplicator" label="Annotate with DEREPLICATOR" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="dereplicator"/>
     </view>
