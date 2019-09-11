@@ -35,14 +35,6 @@ def main():
     except:
         errorFilter = 0.1
     try:
-        window_start = int(params_obj["window_start"][0])*60
-    except:
-        window_start = 60
-    try:
-        window_end = int(params_obj["window_end"][0])*60
-    except:
-        window_end = 60*13
-    try:
         if params_obj["runKovats"][0] == "on":
             optin = True
     except:
@@ -54,29 +46,27 @@ def main():
     # set minimumFeature to be 10 currently
     minimunFeature = 10
     if not optin:
-        empty_tsv = open(result_nonfiltered,'w')
-        empty_tsv.write('Kovats Calculation Opt Out')
-        empty_tsv = open(result_filtered,'w')
+        empty_tsv = open(result,'w')
         empty_tsv.write('Kovats Calculation Opt Out')
         return
     #if there is no csv file
     if carbonMarker == '':
-        try:
-            supporting_file = polyFitting.getParams(input,cosineScore,1.5,\
-                                            lib,10,window_start,window_end)
-            mode = 'p'
-            if supporting_file is None:
-                empty_tsv = open(result_filtered,'w')
-                empty_tsv.write('Not enough data for polynomial fitting')
-                empty_tsv = open(result_nonfiltered,'w')
-                empty_tsv.write('Not enough data for polynomial fitting')
-                return
-        except:
-            empty_tsv = open(result_nonfiltered,'w')
-            empty_tsv.write('data not good for polynomial fitting')
-            empty_tsv = open(result_filtered,'w')
-            empty_tsv.write('data not good for polynomial fitting')
+        supporting_file = polyFitting.getParams(input_filtered,cosineScore,1.5,lib,minimunFeature)
+        if supporting_file is None:
+            empty_tsv = open(result,'w')
+            empty_tsv.write('Not enough data for polynomial fitting')
             return
+        mode = 'p'
+        #try:
+        #    supporting_file = polyFitting.getParams(input,cosineScore,1.5)
+        #    mode = 'p'
+        #except:
+        #    empty_tsv = open(result,'w')
+        #    empty_tsv.write(param+'\n')
+        #    empty_tsv.write(input+'\n')
+        #    empty_tsv.write(carbonMarker+'\n')
+        #    empty_tsv.write(result+'\n')
+        #    return
     else:
         supporting_file = carbonMarker
         mode = 'm'
@@ -86,8 +76,7 @@ def main():
     #    empty_tsv = open(result,'w')
     #    empty_tsv.write('48,exit')
     #    return
-    mapping.csv_builder(input,mode,supporting_file,cosineScore,errorFilter,\
-                        result_nonfiltered,result_filtered,lib,window_start,window_end)
+    mapping.csv_builder(input,mode,supporting_file,cosineScore,errorFilter,result_nonfiltered,result_filtered,lib)
 
 
 
