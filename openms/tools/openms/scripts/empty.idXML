@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://www.openms.de/xml-stylesheet/IdXML.xsl" ?>
+<IdXML version="1.5" xsi:noNamespaceSchemaLocation="https://www.openms.de/xml-schema/IdXML_1_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<SearchParameters id="SP_0" db="/ebio/abt1_share/CrossLinking_MS/workflows/XFDR_test_case/data/OpenProXL_input.fasta" db_version="" taxonomy="" mass_type="monoisotopic" charges="" enzyme="trypsin" missed_cleavages="2" precursor_peak_tolerance="10" precursor_peak_tolerance_ppm="true" peak_mass_tolerance="0.2" peak_mass_tolerance_ppm="false" >
+				<UserParam type="string" name="input_decoys" value="/ebio/abt1_share/CrossLinking_MS/workflows/XFDR_test_case/data/decoy.fasta"/>
+				<UserParam type="int" name="decoy_prefix" value="1"/>
+				<UserParam type="string" name="decoy_string" value="decoy_"/>
+				<UserParam type="float" name="fragment:mass_tolerance_xlinks" value="0.3"/>
+				<UserParam type="float" name="cross_link:mass" value="138.068"/>
+				<UserParam type="floatList" name="cross_link:mass_monolink" value="[0, 156.079]"/>
+	</SearchParameters>
+	<IdentificationRun date="2017-05-12T15:34:13" search_engine="OpenXQuest" search_engine_version="2.1.0" search_parameters_ref="SP_0" >
+	</IdentificationRun>
+</IdXML>

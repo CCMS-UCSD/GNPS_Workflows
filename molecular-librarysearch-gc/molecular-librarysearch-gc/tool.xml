@@ -1,12 +1,12 @@
 <toolset>
 
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
 	       <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
     </pathSet>
 
 
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <toolPath tool="LibrarySearchMerge_Molecular" path="tsv_merger.py"/>
         <toolPath tool="GetDBAnnotations_Molecular" path="getGNPS_library_annotations.py"/>
     </pathSet>
@@ -70,7 +70,7 @@
         <toolPath tool="filter_gc_identifications" path="python2.7"/>
     </pathSet>
 
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <pathVar name="filter_gc_identifications.script" path="filter_gc_identifications.py"/>
     </pathSet>
 
@@ -93,12 +93,14 @@
         <toolPath tool="merge_tsv_efficient" path="python3.5"/>
         <toolPath tool="filter_networking_edges" path="python3.5"/>
     </pathSet>
-<pathSet base="molecularsearch-gc">
+
+    <pathSet base="$base">
         <pathVar name="prep_molecular_networking_parameters.script" path="prep_molecular_networking_parameters.py"/>
         <pathVar name="merge_tsv_efficient.script" path="merge_tsv_files_efficient.py"/>
         <pathVar name="filter_networking_edges.script" path="filter_networking_edges.py"/>
     </pathSet>
-<pathSet base="molecularsearch-gc">
+
+    <pathSet base="$base">
         <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
     </pathSet>
 
@@ -158,7 +160,7 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="metabolomics_convert_graphml" path="python2.7"/>
     </pathSet>
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
     </pathSet>
 
@@ -181,7 +183,7 @@
     <pathSet base="anaconda2/bin">
         <toolPath tool="create_clusterinfo_summary" path="python2.7"/>
     </pathSet>
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <pathVar name="create_clusterinfo_summary.script" path="create_clusterinfo_summary_from_mgf.py"/>
     </pathSet>
 
@@ -202,7 +204,7 @@
         <toolPath tool="Kovats_Calculation" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="molecularsearch-gc/Kovats_Calculation">
+    <pathSet base="$base/Kovats_Calculation">
         <pathVar name="Kovats_Calculation.script" path="Kovats_Calculation.py"/>
         <pathVar name="Kovats_Lib" path="nonpolar.csv"/>
     </pathSet>

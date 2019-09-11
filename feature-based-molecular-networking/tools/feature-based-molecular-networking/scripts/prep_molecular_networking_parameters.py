@@ -10,10 +10,20 @@ import ming_proteosafe_library
 
 def number_scans_in_mgf_file(mgf_filename):
     number_spectra = 0
+    number_real_spectra = 0
+    number_of_peaks = 0
     for line in open(mgf_filename):
         if line.rstrip() == "BEGIN IONS":
+            number_of_peaks = 0
             number_spectra += 1
-    return number_spectra
+        if len(line) > 2:
+            if line[0].isdigit():
+                number_of_peaks += 1
+        if line.rstrip() == "END IONS":
+            if number_of_peaks > 0:
+                number_real_spectra += 1
+
+    return number_spectra, number_real_spectra
 
 def main():
     parser = argparse.ArgumentParser(description='Create parallel parameters')
@@ -26,11 +36,17 @@ def main():
     params_object = ming_proteosafe_library.parse_xml_file(open(args.workflow_parameters))
 
     #Determing number of spectra in mgf file
-    number_of_spectra = number_scans_in_mgf_file(args.mgf_filename)
+    number_of_spectra, number_real_spectra = number_scans_in_mgf_file(args.mgf_filename)
 
     parallelism = args.parallelism
     if parallelism > number_of_spectra:
         parallelism = 1
+
+    recommended_parallelism = max(1, int(number_real_spectra/1000))
+
+    print("recommended_parallelism", recommended_parallelism)
+
+    parallelism = min(recommended_parallelism, parallelism)
 
     number_per_partition = int(number_of_spectra/parallelism)
     for i in range(parallelism):

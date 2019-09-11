@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import csv 
 import json
-from networkx import *
+import networkx as nx
 from pathlib import Path
 
 infer_numeric_types = True
@@ -43,8 +43,22 @@ def request_Varquest_file(Varquest_job_ID):
     zf = ZipFile(BytesIO(result.content))
     zf.extractall('Varquest_output')
     zf.close()
-    folder_name = 'Varquest_output'
     return folder_name; #returns the folder name of the Varquest_output folder (str)
+
+#cURL requested Dereplicator file based on the user-defined Dereplicator job ID
+def request_Derep_file(Derep_job_ID, directory):
+    import requests
+    from io import BytesIO
+    from zipfile import ZipFile
+
+    Derep_job_ID = Derep_job_ID
+    result = requests.post("https://gnps.ucsd.edu/ProteoSAFe/DownloadResult?task=%s&view=view_significant" % Derep_job_ID) 
+    print('Dereplicator request success: ' + str(result.ok))
+    zf = ZipFile(BytesIO(result.content))
+    folder_name = directory + '/Derep_output'
+    zf.extractall(folder_name)
+    zf.close()
+    return folder_name; #returns the folder name of the Derep_output folder (str)
 
 #proces GNPS file
 def process_GNPS_file(GNPS_file):
@@ -62,21 +76,29 @@ def process_GNPS_file(GNPS_file):
     return gnpslibfile, netfile
 
 #add all chemical structural information output as dataframe items in list
-def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Varquest_job_ID=None):
+def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Varquest_job_ID=None, derepfile=None, varquestfile=None):
+
     gnpslib = pd.read_csv(gnpslibfile, sep='\t')
     matches = [gnpslib]
 
-    if nap_ID != None and nap_ID != "None":
+    if nap_ID != None and nap_ID != 'None':
         nap = pd.read_csv("http://proteomics2.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=final_out/node_attributes_table.tsv" % nap_ID, sep = "\t")
         matches.append(nap)
-    if Derep_job_ID != None and Derep_job_ID != "None":
-        derep = pd.read_csv("http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=%s&block=main&file=result/significant_matches.tsv" % Derep_job_ID, sep = "\t")
+    elif nap_ID == None or nap_ID == 'None':
+        nap = None    
+
+    if Derep_job_ID != None and Derep_job_ID != 'None':
+        derep = pd.read_csv(derepfile + [s for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
         matches.append(derep)
-    if Varquest_job_ID != None and Varquest_job_ID != "None":
-        Varquest_file = request_Varquest_file(Varquest_job_ID) + '/'
-        varquest = pd.read_csv('Varquest_output' +[s for s in os.listdir('Varquest_output') if "DEREPLICATOR" in s][0], sep = '\t')
+    elif Derep_job_ID == None or Derep_job_ID == 'None':
+        derep = None
+
+    if Varquest_job_ID != None and Varquest_job_ID != 'None':
+        varquest = pd.read_csv(varquestfile +[s for s in os.listdir(varquestfile) if "DEREPLICATOR" in s][0], sep = '\t')
         matches.append(varquest)
-    
+    elif Varquest_job_ID == None or Varquest_job_ID == 'None':
+        varquest = None
+
     file_name = directory + '/SMILES.csv'
     out = unique_smiles(matches)
     out['df'].to_csv(file_name, quoting=csv.QUOTE_NONE, escapechar='&')
@@ -96,8 +118,8 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
     fail_count = 0
 
     for i in range(len(smiles_df)):
-        print("INCHIKEY", i)
         smile_str = smiles_df.loc[i]['SMILES']
+        print("INCHIKEY", i, smile_str)
         link = 'http://dorresteinappshub.ucsd.edu:5065/smiles/inchikey?smiles=%s' % smile_str
         result = requests.get(link)
         soup = str(BeautifulSoup(result.content, 'html.parser'))
@@ -119,7 +141,6 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
     inchi_dic = make_inchidic(out)
 
     print('conversions have been written to "'+file_name+'"')
-
     return out, file_name, inchi_dic, SMILES_failed #returns dictionary, inchi_dic and list of failed
 
 def get_Classy(InchiKeys, directory):
@@ -150,40 +171,43 @@ def create_ClassyFireResults(netfile, inchi_dic, directory):
 def create_GraphML(GNPS_file, final, directory):
     if any("FEATURE" in s for s in os.listdir(GNPS_file)):
         graphMLfile = GNPS_file + [x for x in os.listdir(GNPS_file) if 'FEATURE' in x][0]
-        graphML = read_graphml(graphMLfile)
+        graphML = nx.read_graphml(graphMLfile)
         graphML_classy = make_classyfire_graphml(graphML,final)
         nx.write_graphml(graphML_classy, directory+"/ClassyFireResults_Network.graphml", infer_numeric_types = infer_numeric_types)
     elif any("METABOLOMICS" in s for s in os.listdir(GNPS_file)):
         graphMLfile = GNPS_file + [x for x in os.listdir(GNPS_file) if 'METABOLOMICS' in x][0]
-        graphML = read_graphml(graphMLfile)
+        graphML = nx.read_graphml(graphMLfile)
         graphML_classy = make_classyfire_graphml(graphML,final)
         nx.write_graphml(graphML_classy, directory+"/ClassyFireResults_Network.graphml", infer_numeric_types = infer_numeric_types)
     else:
         print('There is no graphML file for this GNPS molecular network job')
     print('graphML has been written to ClassyFireResults_Network.graphml')
 
-def mass_2_Motifs(GNPS_file, ClassyFireResults_file, output_directory, MS2LDA_job_ID=None, GNPS_MS2LDA_job_ID=None):
+def pack_User_Params(prob, overlap, top):
+    user_Params = [prob, overlap, top]
+    return user_Params
 
-    if MS2LDA_job_ID != None and MS2LDA_job_ID != "None":
-        #import MS2LDA data
-        motifs = pd.read_csv('http://ms2lda.org/basicviz/get_gnps_summary/%s' % MS2LDA_job_ID)
-        edges = pd.read_csv(GNPS_file + 'networking_pairs_results_file_filtered/' + str(os.listdir(GNPS_file +'networking_pairs_results_file_filtered/')[0]), sep = '\t')
-    elif GNPS_MS2LDA_job_ID != None and GNPS_MS2LDA_job_ID != "None":
-        print("Load from GNPS")
-        return
-    else:
-        print("No Op")
-        return
+def unpack_User_Params(user_Params):
+    prob = user_Params[0]
+    overlap = user_Params[1]
+    top = user_Params[2]
+    return prob, overlap, top
 
+def mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params):
+    #import MS2LDA data
+    motifs = pd.read_csv('http://ms2lda.org/basicviz/get_gnps_summary/%s' % MS2LDA_job_ID)
+    edges = pd.read_csv(GNPS_file + 'networkedges_selfloop/' + str(os.listdir(GNPS_file +'networkedges_selfloop/')[0]), sep = '\t')
+    #unpack user parameters
+    prob, overlap, top = unpack_User_Params(user_Params)
     #create network data with mapped motifs
-    motif_network = Mass2Motif_2_Network(edges,motifs,prob = 0.01,overlap = 0.3, top = 5)
-    motif_network['edges'].to_csv("Mass2Motifs_Edges.tsv",sep='\t',index=False)
-    motif_network['nodes'].to_csv("Mass2Motifs_Nodes.tsv",sep='\t',index=True)
+    motif_network = Mass2Motif_2_Network(edges, motifs, prob, overlap, top)
+    motif_network['edges'].to_csv('Mass2Motifs_Edges.tsv', sep='\t',index=False)
+    motif_network['nodes'].to_csv('Mass2Motifs_Nodes.tsv', sep='\t',index=True)
     #create graphML file
     MG = make_motif_graphml(motif_network['nodes'],motif_network['edges'])
     #write graphML file
-    nx.write_graphml(MG, os.path.join(output_directory, "Motif_Network.graphml"), infer_numeric_types = True)
+    nx.write_graphml(MG, os.path.join(directory, "Motif_Network.graphml"), infer_numeric_types = infer_numeric_types)
     final = pd.read_csv(ClassyFireResults_file, sep = "\t")
-    graphML_classy = make_classyfire_graphml(MG,final)
-    nx.write_graphml(graphML_classy, os.path.join(output_directory, "Motif_ChemicalClass_Network.graphml"), infer_numeric_types = True)
+    graphML_classy = make_classyfire_graphml(MG, final)
+    nx.write_graphml(graphML_classy, os.path.join(directory, "Motif_ChemicalClass_Network.graphml"), infer_numeric_types = infer_numeric_types)
     print('Mass 2 Motifs graphML has been written to Motif_ChemicalClass_Network.graphml')

@@ -15,6 +15,8 @@ parser.add_argument("--filterg6", default="0")
 
 args = parser.parse_args()
 
+print(args)
+
 input_specs_ms = os.path.join(args.inputspectrafolder, "specs_ms.mgf")
 
 if args.filterg6 == "0":
@@ -28,9 +30,14 @@ files_to_filter = []
 for line in open(args.groupsfilename):
     if line.split("=")[0] == "GROUP_G6":
         files_to_filter = line.split("=")[1].split(";")
+        files_to_filter = [filename.rstrip() for filename in files_to_filter]
+
+print("files_to_filter", files_to_filter)
 
 filtered_clusterinfo_df = clusterinfo_df[clusterinfo_df["#Filename"].isin(files_to_filter)]
 clusters_to_filter = set(list(filtered_clusterinfo_df["#ClusterIdx"]))
+
+print("clusters_to_filter", clusters_to_filter)
 
 #Loading the spectra
 spectrum_collection = ming_spectrum_library.SpectrumCollection(input_specs_ms)
