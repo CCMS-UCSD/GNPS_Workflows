@@ -32,7 +32,7 @@ def request_GNPS_file(GNPS_job_ID, directory):
     return folder_name; #returns the folder name of the GNPS_output_graphML folder (str)
 
 #cURL requested Varquest file based on the user-defined Varquest job ID
-def request_Varquest_file(Varquest_job_ID):
+def request_Varquest_file(Varquest_job_ID, directory):
     import requests
     from io import BytesIO
     from zipfile import ZipFile
@@ -41,7 +41,8 @@ def request_Varquest_file(Varquest_job_ID):
     result = requests.post("https://gnps.ucsd.edu/ProteoSAFe/DownloadResult?task=%s&view=view_significant" % Varquest_job_ID) 
     print('Varquest request success: ' + str(result.ok))
     zf = ZipFile(BytesIO(result.content))
-    zf.extractall('Varquest_output')
+    folder_name = directory + '/Varquest_output'
+    zf.extractall(folder_name)
     zf.close()
     return folder_name; #returns the folder name of the Varquest_output folder (str)
 
@@ -119,7 +120,6 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
 
     for i in range(len(smiles_df)):
         smile_str = smiles_df.loc[i]['SMILES']
-        print("INCHIKEY", i, smile_str)
         link = 'http://dorresteinappshub.ucsd.edu:5065/smiles/inchikey?smiles=%s' % smile_str
         result = requests.get(link)
         soup = str(BeautifulSoup(result.content, 'html.parser'))
