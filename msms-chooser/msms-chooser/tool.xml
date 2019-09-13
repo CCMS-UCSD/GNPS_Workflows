@@ -1,0 +1,27 @@
+<toolset>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="ms_chooser" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="choose_ms2.script" path="prepare_library_addtions_gnps_collections.py"/>
+    </pathSet>
+
+    <tool name="ms_chooser">
+        <require name="spectra"       type="folder"/>
+        <require name="workflowParameters"       type="file"/>
+        <require name="annotation_table"       type="file"/>
+        <produce name="output_batch"        type="file" naming="fixed" value="output_batch" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="choose_ms2.script"/>
+                <arg option="proteosafe_param" valueRef="workflowParameters"/>
+                <arg valueRef="annotation_table"/>
+                <arg valueRef="spectra"/>
+                <arg valueRef="output_batch"/>
+                <arg option="-ppm_tolerance" valueRef="@PPM_TOLERANCE"/>
+        </execution>
+    </tool>
+
+</toolset>
