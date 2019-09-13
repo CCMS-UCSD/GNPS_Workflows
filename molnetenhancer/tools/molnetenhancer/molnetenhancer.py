@@ -65,7 +65,7 @@ final, ClassyFireResults_file = create_ClassyFireResults(netfile, inchi_dic, dir
 create_GraphML(GNPS_file, final, directory)
 
 #optional MS2LDA job Mass 2 Motifs
-if args.ms2lda!='None' and args.ms2lda!=None:
+if args.ms2lda!='None' and args.ms2lda!=None and len(args.ms2lda) > 2:
     user_Params = pack_User_Params(prob=args.prob, overlap=args.overlap, top=args.top)
     MS2LDA_job_ID = args.ms2lda
     mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params)
