@@ -19,7 +19,7 @@ def main():
     molecular_network_filtering_library.add_clusterinfo_summary_to_graph(G, sys.argv[2])
     molecular_network_filtering_library.add_library_search_results_to_graph(G, sys.argv[3])
 
-    nx.write_graphml(G, sys.argv[4])
+    nx.write_gml(G, sys.argv[4])
 
 
 

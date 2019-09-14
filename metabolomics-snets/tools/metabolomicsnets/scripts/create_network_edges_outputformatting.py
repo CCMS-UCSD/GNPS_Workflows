@@ -48,6 +48,7 @@ def main():
     for row in csv.DictReader(open(args.input_clusterinfosummary), delimiter='\t'):
         cluster_index = row["cluster index"]
         if not(cluster_index in included_nodes_in_edges):
+            edge_dict = {}
             edge_dict["CLUSTERID1"] = cluster_index
             edge_dict["CLUSTERID2"] = cluster_index
             edge_dict["DeltaMZ"] = "0.0"

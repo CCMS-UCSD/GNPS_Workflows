@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import os
-import csv
 import shutil
 from collections import defaultdict
 
@@ -65,23 +64,15 @@ def parse_table_with_headers(filename, skip_incomplete_lines=False, debug=False,
     return (line_count-1, column_values)
 
 def parse_table_with_headers_object_list(filename, delimiter="\t"):
-    # row_count, table_data = parse_table_with_headers(filename, skip_incomplete_lines=True, delimiter=delimiter)
-    #
-    # output_object_list = []
-    #
-    # for i in range(row_count):
-    #     my_object = {}
-    #     for key in table_data:
-    #         my_object[key] = table_data[key][i]
-    #     output_object_list.append(my_object)
-    #
-    # return output_object_list
+    row_count, table_data = parse_table_with_headers(filename, delimiter=delimiter)
 
     output_object_list = []
-    with open(filename) as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=delimiter)
-        for row in reader:
-            output_object_list.append(row)
+
+    for i in range(row_count):
+        my_object = {}
+        for key in table_data:
+            my_object[key] = table_data[key][i]
+        output_object_list.append(my_object)
 
     return output_object_list
 

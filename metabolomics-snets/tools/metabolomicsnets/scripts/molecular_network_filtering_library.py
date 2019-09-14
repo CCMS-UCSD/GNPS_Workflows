@@ -15,13 +15,12 @@ def loading_network(filename, hasHeaders=False):
     property1 = []
     cosine_score = []
     explained_intensity = []
-    edge_annotation = []
 
     if hasHeaders == True:
         row_count, table_data = ming_fileio_library.parse_table_with_headers(filename)
 
         if row_count == -1:
-            return nx.MultiGraph()
+            return nx.Graph()
 
         node1_list = table_data["CLUSTERID1"]
         node2_list = table_data["CLUSTERID2"]
@@ -39,16 +38,11 @@ def loading_network(filename, hasHeaders=False):
             property1 = node1_list
         if len(explained_intensity)  != len(node1_list):
             explained_intensity = node1_list
-        if "EdgeAnnotation" in table_data:
-            edge_annotation = table_data["EdgeAnnotation"]
-        else:
-            edge_annotation = [" "] * len(node1_list)
-
     else:
         row_count, table_data = ming_fileio_library.parse_table_without_headers(filename)
 
         if row_count == -1:
-            return nx.MultiGraph()
+            return nx.Graph()
 
         node1_list = table_data[0]
         node2_list = table_data[1]
@@ -57,7 +51,6 @@ def loading_network(filename, hasHeaders=False):
         property1 = table_data[3]
         cosine_score = table_data[4]
         explained_intensity = table_data[5]
-        edge_annotation = [" "] * len(node1_list)
 
     edge_property_map = {}
     edge_object_list = []
@@ -72,9 +65,6 @@ def loading_network(filename, hasHeaders=False):
         edge_object["cosine_score"] = float(cosine_score[i])
         edge_object["explained_intensity"] = float(explained_intensity[i])
         edge_object["component"] = -1
-        edge_object["EdgeType"] = "Cosine"
-        edge_object["EdgeAnnotation"] = edge_annotation[i].rstrip()
-        edge_object["EdgeScore"] = float(cosine_score[i])
 
         edge_key = node1_list[i] + "-" + node2_list[i]
 
@@ -85,38 +75,11 @@ def loading_network(filename, hasHeaders=False):
 
         intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_object))
 
-    G=nx.MultiGraph()
+    G=nx.Graph()
     G.add_nodes_from(intermediate_graph_nodes)
     G.add_edges_from(intermediate_edges_to_add)
 
     return G
-
-def add_additional_edges(G, path_to_supplemental_edges):
-    edge_list = ming_fileio_library.parse_table_with_headers_object_list(path_to_supplemental_edges, delimiter=",")
-
-    edges_to_add = []
-
-    for additional_edge_row in edge_list:
-        node1 = additional_edge_row["ID1"]
-        node2 = additional_edge_row["ID2"]
-
-        edgetype = additional_edge_row["EdgeType"]
-        score = additional_edge_row["Score"]
-        annotation = additional_edge_row["Annotation"]
-
-        edge_object = {}
-        edge_object["node1"] = node1
-        edge_object["node2"] = node2
-        edge_object["EdgeType"] = edgetype
-        edge_object["EdgeAnnotation"] = annotation.rstrip()
-        edge_object["EdgeScore"] = float(score)
-
-        edges_to_add.append((node1, node2, edge_object))
-
-    G.add_edges_from(edges_to_add)
-
-    return G
-
 
 def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     row_count, table_data = ming_fileio_library.parse_table_with_headers(cluster_info_summary_filename)
@@ -125,27 +88,7 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     #for node in G.node:
     #    print(node)
 
-    default_listed_columns = [("precursor mass", "float"), \
-    ("charge", "int"), \
-    ("parent mass", "float"), \
-    ("number of spectra", "int"), \
-    ("cluster index", "int"), \
-    ("sum(precursor intensity)", "float"), \
-    ("RTMean", "float"), \
-    ("AllGroups", "string"), ("DefaultGroups", "string"), \
-    ("RTConsensus", "float"), ("UniqueFileSources", "string")]
-
-    optional_listed_columns = [("Correlated Features Group ID", "string"), \
-    ("Annotated Adduct Features ID", "string"), \
-    ("Best Ion", "string"), \
-    ("neutral M mass", "float"), \
-    ("MS2 Verification Comment", "string"), \
-    ("ProteoSAFeClusterLink", "string"), \
-    ("GNPSLinkout_Cluster", "string"), \
-    ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
-
-
-
+    default_listed_columns = [("precursor mass", "float"), ("charge", "int"), ("parentmass", "float"), ("number_of_spectra", "int"), ("cluster index", "int"), ("sum(precursor intensity)", "float"), ("RTMean", "float"), ("ProteoSAFeClusterLink", "string"), ("AllGroups", "string"), ("DefaultGroups", "string")]
     group_columns = ["G1", "G2", "G3", "G4", "G5", "G6"]
 
     for i in range(row_count):
@@ -194,28 +137,6 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
                         G.node[cluster_index][header] = table_data[header][i]
                     except:
                         G.node[cluster_index][header] = ""
-
-            #Looking for optional columns
-            for optional_column in optional_listed_columns:
-                key_name = optional_column[0]
-                type_name = optional_column[1]
-
-                if key_name in table_data:
-                    try:
-                        if type_name == "float":
-                            G.node[cluster_index][key_name] = float(table_data[key_name][i])
-                        elif type_name == "int":
-                            G.node[cluster_index][key_name] = int(table_data[key_name][i])
-                        elif type_name == "string":
-                            G.node[cluster_index][key_name] = str(table_data[key_name][i])
-                    except:
-                        if type_name == "float":
-                            G.node[cluster_index][key_name] = float("0.0")
-                        elif type_name == "int":
-                            G.node[cluster_index][key_name] = int("0")
-                        elif type_name == "string":
-                            G.node[cluster_index][key_name] = str("N/A")
-
 
 
 def add_library_search_results_to_graph(G, library_search_filename):
@@ -269,23 +190,19 @@ def filter_top_k(G, top_k):
         #print("DELETE", edges_to_delete)
 
 
-        #for edge_to_remove in edges_to_delete:
-        #    G.remove_edge(edge_to_remove[0], edge_to_remove[1])
+        for edge_to_remove in edges_to_delete:
+            G.remove_edge(edge_to_remove[0], edge_to_remove[1])
 
 
-    #print("After Top K", len(G.edges()))
+    print("After Top K", len(G.edges()))
     #Doing this for each pair, makes sure they are in each other's top K
-    edge_to_remove = []
     for edge in G.edges(data=True):
         cosine_score = edge[2]["cosine_score"]
         threshold1 = node_cutoff_score[edge[0]]
         threshold2 = node_cutoff_score[edge[1]]
 
         if cosine_score < threshold1 or cosine_score < threshold2:
-            edge_to_remove.append(edge)
-
-    for edge in edge_to_remove:
-        G.remove_edge(edge[0], edge[1])
+            G.remove_edge(edge[0], edge[1])
 
     print("After Top K Mutual", len(G.edges()))
 

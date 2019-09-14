@@ -9,7 +9,7 @@ import ming_fileio_library
 from collections import defaultdict
 
 def usage():
-    print("<input intermediate folder> <output protein coverage file>")
+    print "<input intermediate folder> <output protein coverage file>"
 
 
 def main():
@@ -20,12 +20,13 @@ def main():
 
     #Creating a command line for each partition
     all_intermediate_files = ming_fileio_library.list_files_in_dir(input_intermediate_folder)
-    output_list = []
+    output_map = defaultdict(list)
     for parallel_output_filename in all_intermediate_files:
-        result_list = ming_fileio_library.parse_table_with_headers_object_list(parallel_output_filename)
-        output_list += result_list
+        row_count, table_data = ming_fileio_library.parse_table_with_headers(parallel_output_filename)
+        for key in table_data:
+            output_map[key] += table_data[key]
 
-    ming_fileio_library.write_list_dict_table_data(output_list, output_filename)
+    ming_fileio_library.write_dictionary_table_data(output_map, output_filename)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,6 @@ PSM Utilities to read psms
 import ming_fileio_library
 import math
 import re
-import random
 
 try:
     from pyteomics import mass
@@ -29,22 +28,15 @@ class PSM:
         self.fdr = -1.0
         self.ppm_error = -1.0
         self.frag_method = frag_method
-        self.collision_energy = 0.0
         self.extra_metadata = {}
-
 
     @staticmethod
     def output_header():
-        return_headers = "sequence\tscore\tdecoy\tFDR\tfilename\tscan\tcharge\tppm_error\tFragMethod\tcollision_energy"
+        return_headers = "sequence\tscore\tdecoy\tFDR\tfilename\tscan\tcharge\tppm_error\tfragmentation_method"
         return return_headers
 
     def __str__(self):
-        try:
-            return "%s\t%s\t%s\t%s\t%s\t%s\t%d\t%f\t%s\t%f" % (self.annotation, str(self.score), str(self.decoy), str(self.fdr), self.filename, str(self.scan), self.charge, self.ppm_error, self.frag_method, self.collision_energy)
-        except KeyboardInterrupt:
-            raise
-        except:
-            return "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (self.annotation, str(self.score), str(self.decoy), str(self.fdr), self.filename, str(self.scan), str(self.charge), str(self.ppm_error), self.frag_method, str(self.collision_energy))
+        return "%s\t%s\t%s\t%s\t%s\t%s\t%d\t%f\t%s" % (self.annotation, str(self.score), str(self.decoy), str(self.fdr), self.filename, str(self.scan), self.charge, self.ppm_error, self.frag_method)
 
     def __repr__(self):
         return str(self)
@@ -106,19 +98,6 @@ class PSMset:
     def load_PSM_tsvfile(self, filename, load_extra_metadata=False):
         self.psms = parse_psm_file(filename, load_extra_metadata)
 
-    def remove_redundant_psms(self):
-        new_psm_list = []
-        observed_psms = set()
-        for psm in self.psms:
-            spectrum_key = psm.filename + "." + str(psm.scan) + "." + str(psm.annotation)
-            if spectrum_key in observed_psms:
-                continue
-            observed_psms.add(spectrum_key)
-            new_psm_list.append(psm)
-        print("Filtered redundant PSMs from ", len(self.psms), "to", len(new_psm_list))
-        self.psms = new_psm_list
-
-
     #Filter PSMs to given FDR
     def filter_to_fdr(self, fdr):
         filtered_psms = filter_psm_fdr(self.psms, fdr)
@@ -140,40 +119,6 @@ class PSMset:
             output_psms += filtered_psms
         self.psms = output_psms
 
-    def filter_synthetic_psms_by_length(self, target_filename_list, decoy_filename_list, fdr=0.0000000001):
-        output_psms = []
-        peptide_length_map = {}
-        for psm in self.psms:
-            peptide_length = len(psm.get_stripped_sequence())
-            if not peptide_length in peptide_length_map:
-                peptide_length_map[peptide_length] = []
-            peptide_length_map[peptide_length].append(psm)
-
-        for peptide_length in peptide_length_map:
-            filtered_psms = filter_synthetic_psms(peptide_length_map[peptide_length], target_filename_list, decoy_filename_list, fdr=fdr)
-            print("Filtered Length " + str(peptide_length) + " " + str(len(peptide_length_map[peptide_length])) + " to " + str(len(filtered_psms)))
-            output_psms += filtered_psms
-        self.psms = output_psms
-
-    def synthetic_psms_by_length_decoy_set(self, target_filename_list, decoy_filename_list):
-        decoy_psms = []
-        peptide_length_map = {}
-        for psm in self.psms:
-            peptide_length = len(psm.get_stripped_sequence())
-            if not peptide_length in peptide_length_map:
-                peptide_length_map[peptide_length] = []
-            peptide_length_map[peptide_length].append(psm)
-
-        for peptide_length in peptide_length_map:
-            filtered_psms = get_synthetic_decoy_psms(peptide_length_map[peptide_length], target_filename_list, decoy_filename_list)
-            decoy_psms += filtered_psms
-        return decoy_psms
-
-
-
-
-
-
     #Calculate FDR of PSM Set
     def calculate_fdr(self):
         running_target_count = 0
@@ -191,14 +136,10 @@ class PSMset:
         if write_extra_metadata:
             if len(self.psms) > 0:
                 metadata_headers_list = self.psms[0].extra_metadata.keys()
-                output_headers = ""
-                if len(metadata_headers_list) > 0:
-                    metadata_header_string = ""
-                    for header in metadata_headers_list:
-                        metadata_header_string += header + "\t"
-                    output_headers = PSM.output_header() + "\t" + metadata_header_string.rstrip() + "\n"
-                else:
-                    output_headers = PSM.output_header() + "\n"
+                metadata_header_string = ""
+                for header in metadata_headers_list:
+                    metadata_header_string += header + "\t"
+                output_headers = PSM.output_header() + "\t" + metadata_header_string + "\n"
                 output_file.write(output_headers)
 
                 #print(metadata_headers_list)
@@ -207,14 +148,13 @@ class PSMset:
                     values_list = []
                     for header in metadata_headers_list:
                         if header in psm.extra_metadata:
-                            values_list.append(psm.extra_metadata[header].rstrip())
+                            values_list.append(psm.extra_metadata[header])
                         else:
                             values_list.append("0")
 
-                    if len(values_list) > 0:
-                        output_file.write(str(psm) + "\t" + "\t".join(values_list) + "\n")
-                    else:
-                        output_file.write(str(psm) + "\n")
+                    #print(psm.extra_metadata)
+                    #print("\t".join(values_list))
+                    output_file.write(str(psm) + "\t" + "\t".join(values_list) + "\n")
 
             else:
                 output_file.write(PSM.output_header() + "\n")
@@ -229,15 +169,14 @@ class PeptideVariant:
         self.variant_sequence = variant_sequence
         self.psms = []
         self.fdr = -1
-        self.local_fdr = -1
 
     @staticmethod
     def output_header():
-        return "variant_sequence\tscore\tdecoy\tFDR\tfilename\tscan\tcharge\tppm_error\tfragmentation_method\tcollision_energy\tnumberpsms\tstrippedsequence\tpeptidefdr\tlocalpeptidefdr\tlength"
+        return "variant_sequence\tscore\tdecoy\tFDR\tfilename\tscan\tcharge\tppm_error\tfragmentation_method\tnumberpsms\tstrippedsequence\tpeptidefdr"
 
     def __str__(self):
         max_psm = self.get_best_psm()
-        return "%s\t%d\t%s\t%s\t%s\t%s" %  (str(max_psm), len(self.psms), self.get_stripped_sequence(), str(self.fdr), str(self.local_fdr), str(len(self.get_stripped_sequence())))
+        return "%s\t%d\t%s\t%s" %  (str(max_psm), len(self.psms), self.get_stripped_sequence(), str(self.fdr))
 
     def add_psm(self, psm_object):
         self.psms.append(psm_object)
@@ -245,11 +184,8 @@ class PeptideVariant:
     def is_decoy(self):
         return self.psms[0].is_decoy()
 
-    def get_charge(self):
-        return self.psms[0].charge
-
     def sorting_value(self):
-        max_score = -10.0
+        max_score = 0
         for psm in self.psms:
             max_score = max(psm.sorting_value(), max_score)
         return max_score
@@ -386,24 +322,6 @@ class PeptideVariantSet:
         for variant in self.peptide_list:
             self.peptide_map[variant.variant_sequence] = variant
 
-    def filter_to_local_fdr_by_length(self, fdr):
-        output_peptides = []
-        peptide_length_map = {}
-        for peptide_obj in self.peptide_list:
-            peptide_length = len(peptide_obj.get_stripped_sequence())
-            if not peptide_length in peptide_length_map:
-                peptide_length_map[peptide_length] = []
-            peptide_length_map[peptide_length].append(peptide_obj)
-
-        for peptide_length in peptide_length_map:
-            filtered_peptides = filter_psm_local_fdr(peptide_length_map[peptide_length], fdr)
-            print("Filtered Length " + str(peptide_length) + " " + str(len(peptide_length_map[peptide_length])) + " to " + str(len(filtered_peptides)))
-            output_peptides += filtered_peptides
-        self.peptide_list = output_peptides
-        self.peptide_map = {}
-        for variant in self.peptide_list:
-            self.peptide_map[variant.variant_sequence] = variant
-
     def calculate_fdr(self):
         running_target_count = 0
         running_decoy_count = 0
@@ -466,14 +384,13 @@ def get_peptide_modification_list_inspect_format(peptide):
 
 def create_theoretical_peak_map(peptide, ion_type_list, charge_set=[1]):
     amino_acid_list = get_peptide_modification_list_inspect_format(peptide)
-    #print(amino_acid_list)
 
     only_letters_list = [letter for letter in peptide if letter.isalpha()]
 
     only_mods_mass_add_list = []
     for amino_acid in amino_acid_list:
         mod_mass_to_add = 0.0
-        mod_strings_tokenized = re.findall('[+-][0-9]*.[0-9]*', re.sub("[A-Z]", "", amino_acid))
+        mod_strings_tokenized = re.findall('[+-][1-9]*.[0-9]*', re.sub("[A-Z]", "", amino_acid))
         for mod_tokenized in mod_strings_tokenized:
             mod_mass_to_add += float(mod_tokenized)
         only_mods_mass_add_list.append(mod_mass_to_add)
@@ -645,7 +562,6 @@ def parse_MSGFPlus_tsvfile(filename):
     ppm_error_header = "PrecursorError(ppm)"
     da_pm_error_header = "PrecursorError(Da)"
     precursor_header = "Precursor"
-    frag_method_header = "FragMethod"
 
     parse_da_error = False
     if not ppm_error_header in table_data:
@@ -664,7 +580,6 @@ def parse_MSGFPlus_tsvfile(filename):
         #print table_data[score_header][i] + "\t" + str(score)
         filename = table_data[filename_header][i]
         charge = int(table_data[charge_header][i])
-        frag_method = table_data[frag_method_header][i]
         if parse_da_error:
             ppm_error = float(table_data[da_pm_error_header][i])/float(table_data[precursor_header][i]) * 1000000
         else:
@@ -684,7 +599,6 @@ def parse_MSGFPlus_tsvfile(filename):
 
         new_psm = PSM(filename, scan, peptide, score, decoy, protein, charge)
         new_psm.ppm_error = ppm_error
-        new_psm.frag_method = frag_method
         psm_list.append(new_psm)
 
     return psm_list
@@ -723,7 +637,7 @@ def parse_variant_file(filename):
 def parse_psm_file(filename, load_extra_metadata=False):
     rows, table_data = ming_fileio_library.parse_table_with_headers(filename)
 
-    known_headers = ["filename", "scan", "score", "decoy", "sequence", "charge", "ppm_error", "unmangled_name", "FDR", "collision_energy", "FragMethod"]
+    known_headers = ["filename", "scan", "score", "decoy", "sequence", "charge", "ppm_error", "unmangled_name", "FDR"]
     extra_metadata_headers = set(table_data.keys()).difference(set(known_headers))
 
     psm_list = []
@@ -736,12 +650,6 @@ def parse_psm_file(filename, load_extra_metadata=False):
         charge = int(table_data["charge"][i])
         ppm_error = float(table_data["ppm_error"][i])
         fdr = float(table_data["FDR"][i])
-        fragmentation_method = "N/A"
-        if "FragMethod" in table_data:
-            fragmentation_method = table_data["FragMethod"][i]
-        collision_energy = 0.0
-        if "collision_energy" in table_data:
-            collision_energy = float(table_data["collision_energy"][i])
         protein = "NONE"
 
         if "unmangled_name" in table_data:
@@ -750,8 +658,6 @@ def parse_psm_file(filename, load_extra_metadata=False):
         new_psm = PSM(filename, scan, variant_sequence, score, decoy, protein, charge)
         new_psm.ppm_error = ppm_error
         new_psm.fdr = fdr
-        new_psm.frag_method = fragmentation_method
-        new_psm.collision_energy = collision_energy
 
         if load_extra_metadata:
             extra_metadata = {}
@@ -769,7 +675,7 @@ def parse_psm_file(filename, load_extra_metadata=False):
 def parse_msplit_file(filename, load_extra_metadata=False):
     rows, table_data = ming_fileio_library.parse_table_with_headers(filename)
 
-    known_headers = ["filename", "scan", "score", "decoy", "sequence", "charge", "ppm_error", "unmangled_name", "FDR", "collision_energy", "FragMethod"]
+    known_headers = ["filename", "scan", "score", "decoy", "sequence", "charge", "ppm_error", "unmangled_name", "FDR"]
     extra_metadata_headers = set(table_data.keys()).difference(set(known_headers))
 
     psm_list = []
@@ -785,45 +691,6 @@ def parse_msplit_file(filename, load_extra_metadata=False):
         new_psm = PSM(filename, scan, variant_sequence, score, decoy, protein, charge)
         psm_list.append(new_psm)
     return psm_list
-
-def calculate_fdr_by_length(input_psms):
-    peptide_length_map = {}
-    for psm in input_psms:
-        peptide_length = len(psm.get_stripped_sequence())
-        if not peptide_length in peptide_length_map:
-            peptide_length_map[peptide_length] = []
-        peptide_length_map[peptide_length].append(psm)
-
-    for peptide_length in peptide_length_map:
-        calculate_psm_fdr(peptide_length_map[peptide_length])
-    return input_psms
-
-def calculate_psm_fdr(input_psms):
-    input_psms = sorted(input_psms, key=lambda psm: psm.sorting_value(), reverse=True)
-
-    running_target_count = 1
-    running_decoy_count = 0
-
-    output_psms = []
-
-    for psm in input_psms:
-        if psm.is_decoy() == 0:
-            running_target_count += 1
-        else:
-            running_decoy_count += 1
-
-        current_fdr = float(running_decoy_count) / float(running_target_count)
-
-        psm.fdr = current_fdr
-
-    #Properly finding the min q value for PSM
-    min_fdr = 1
-    input_psms.reverse()
-    for psm in input_psms:
-        min_fdr = min(min_fdr, psm.fdr)
-        psm.fdr = min_fdr
-
-    return input_psms
 
 ###
  # Filtering PSM results so that the returned set is at the
@@ -866,126 +733,6 @@ def filter_psm_fdr(input_psms, fdr_percentage):
 
     for psm in input_psms:
         if psm.fdr < fdr_percentage:
-            output_psms.append(psm)
-
-    return output_psms
-
-def filter_synthetic_psms(input_psms, target_filename_list, decoy_filename_list, fdr=0.00000000001):
-    target_filelist_psm_list = []
-    decoy_filelist_psm_list = []
-
-    for psm in input_psms:
-        filename = psm.filename
-        if filename in target_filename_list:
-            target_filelist_psm_list.append(psm)
-        else:
-            psm.decoy = 1
-            decoy_filelist_psm_list.append(psm)
-
-    print(len(target_filelist_psm_list), len(decoy_filelist_psm_list))
-
-    #Now lets select the appropriate number of decoys
-    random.seed(0)
-    random.shuffle(decoy_filelist_psm_list)
-    total_number_of_targets = len(target_filelist_psm_list)
-    decoy_filelist_psm_list = decoy_filelist_psm_list[:total_number_of_targets]
-    print(len(target_filelist_psm_list), len(decoy_filelist_psm_list))
-
-    merged_psm_list = target_filelist_psm_list + decoy_filelist_psm_list
-
-    return filter_psm_fdr(merged_psm_list, fdr)
-
-    #
-    #
-    # merged_psm_list = sorted(merged_psm_list, key=lambda psm: psm.sorting_value(), reverse=True)
-    #
-    # output_psms = []
-    #
-    # for psm in merged_psm_list:
-    #     if psm.is_decoy() == 1:
-    #         break
-    #     else:
-    #         output_psms.append(psm)
-    #
-    # return output_psms
-
-def get_synthetic_decoy_psms(input_psms, target_filename_list, decoy_filename_list):
-    target_filelist_psm_list = []
-    decoy_filelist_psm_list = []
-
-    for psm in input_psms:
-        filename = psm.filename
-        if filename in target_filename_list:
-            target_filelist_psm_list.append(psm)
-        else:
-            psm.decoy = 1
-            decoy_filelist_psm_list.append(psm)
-
-    print(len(target_filelist_psm_list), len(decoy_filelist_psm_list))
-
-    #Now lets select the appropriate number of decoys
-    random.seed(0)
-    random.shuffle(decoy_filelist_psm_list)
-    total_number_of_targets = len(target_filelist_psm_list)
-    decoy_filelist_psm_list = decoy_filelist_psm_list[:total_number_of_targets]
-
-    print(len(decoy_filelist_psm_list))
-
-    return decoy_filelist_psm_list
-
-
-###
- # Filtering PSM results so that the returned set is at the
- # prescribed local FDR
-###
-def filter_psm_local_fdr(input_psms, fdr_percentage):
-    local_window_size = 500
-
-    input_psms = sorted(input_psms, key=lambda psm: psm.sorting_value(), reverse=True)
-
-    running_target_count = 1
-    running_decoy_count = 0
-
-    recent_target_numbers = []
-    recent_decoy_numbers = []
-
-    output_psms = []
-
-    for psm in input_psms:
-        if psm.is_decoy() == 0:
-            recent_target_numbers.append(1)
-            recent_decoy_numbers.append(0)
-            running_target_count += 1
-        else:
-            recent_decoy_numbers.append(1)
-            recent_target_numbers.append(0)
-            running_decoy_count += 1
-
-        recent_target_numbers = recent_target_numbers[-local_window_size:]
-        recent_decoy_numbers = recent_decoy_numbers[-local_window_size:]
-
-        local_fdr = float(sum(recent_decoy_numbers)) / float(sum(recent_target_numbers))
-        current_fdr = float(running_decoy_count) / float(running_target_count)
-        #print(local_fdr, current_fdr)
-
-        psm.local_fdr = local_fdr
-        psm.fdr = current_fdr
-
-    #Properly finding the min q value for PSM
-    min_fdr = 1
-    input_psms.reverse()
-    for psm in input_psms:
-        min_fdr = min(min_fdr, psm.local_fdr)
-        psm.local_fdr = min_fdr
-
-    input_psms.reverse()
-    #for i in range(len(input_psms)):
-    #    index_to_check = len(input_psms) - i - 1
-    #    min_fdr = min(min_fdr, input_psms[index_to_check].fdr)
-    #    input_psms[index_to_check].fdr = min_fdr
-
-    for psm in input_psms:
-        if psm.local_fdr < fdr_percentage:
             output_psms.append(psm)
 
     return output_psms

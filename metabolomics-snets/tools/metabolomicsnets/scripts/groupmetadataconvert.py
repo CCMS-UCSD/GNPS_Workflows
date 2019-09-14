@@ -23,6 +23,7 @@ def main():
     param_obj = ming_proteosafe_library.parse_xml_file(open(args.proteosafe_parameters))
     mangled_file_mapping = ming_proteosafe_library.get_mangled_file_mapping(param_obj)
     reverse_file_mangling = ming_proteosafe_library.get_reverse_mangled_file_mapping(param_obj)
+    print(reverse_file_mangling.keys())
     file_path_prefix = args.inputspectrafolder
 
     output_group_file = open(args.output_groupmapping_file, "w")
@@ -67,16 +68,15 @@ def main():
     if len(metadata_files_in_folder) == 1:
         #Using metadatat file
         row_count, table_data = ming_fileio_library.parse_table_with_headers(metadata_files_in_folder[0])
-
         if not "filename" in table_data:
             print("Missing 'filename' header in metadata file. Please specify the file name that goes along with each piece of metadata with the header: filename")
             exit(1)
-
         attributes_to_groups_mapping = defaultdict(set)
         group_to_files_mapping = defaultdict(list)
         for i in range(row_count):
             filename = table_data["filename"][i]
             basename_filename = os.path.basename(filename).rstrip()
+            print(basename_filename, len(reverse_file_mangling.keys()))
             if basename_filename in reverse_file_mangling:
                 mangled_name = reverse_file_mangling[basename_filename]
                 for key in table_data:
@@ -88,7 +88,9 @@ def main():
                         attributes_to_groups_mapping[key.replace("ATTRIBUTE_", "")].add(group_name)
             else:
                 #Filename is not part of sample set
+                print(basename_filename, "missing")
                 continue
+
 
         for group_name in group_to_files_mapping:
             group_string = "GROUP_" + group_name + "="  + ";".join(group_to_files_mapping[group_name])

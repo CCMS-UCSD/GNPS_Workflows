@@ -33,7 +33,7 @@ def calculate_noise_level_in_peaks(peaks):
 #Determines the number of signal peaks in a set of peaks
 def calculate_signal_peaks_in_peaklist(peaks, SNR_Threshold):
     average_noise_intensity = calculate_noise_level_in_peaks(peaks)
-    if average_noise_intensity < 0.00001:
+    if average_noise_intensity < 0:
         return 0.0
 
     total_signal_peaks = 0

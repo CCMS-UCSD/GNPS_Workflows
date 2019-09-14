@@ -87,14 +87,14 @@ def score_alignment(spec1,spec2,pm1,pm2,tolerance,max_charge_consideration=1):
 
     spec1_n = sqrt_normalize_spectrum(convert_to_peaks(spec1))
     spec2_n = sqrt_normalize_spectrum(convert_to_peaks(spec2))
-    shift = (pm1 - pm2)
+    shift = abs(pm1 - pm2)
 
     #zero_shift_alignments = find_match_peaks(spec1_n,spec2_n,0,tolerance)
     #real_shift_alignments = find_match_peaks(spec1_n,spec2_n,shift,tolerance)
 
     zero_shift_alignments = find_match_peaks_efficient(spec1_n,spec2_n,0,tolerance)
     real_shift_alignments = []
-    if abs(shift) > tolerance:
+    if shift > tolerance:
         real_shift_alignments = find_match_peaks_efficient(spec1_n,spec2_n,shift,tolerance)
 
         if max_charge_consideration > 1:
@@ -150,16 +150,6 @@ def score_alignment_annotated_ion_peaks(spec1,spec2,pm1,pm2,tolerance,annotation
     #filter unannotated peaks
     filtered_peaks1 = ming_spectrum_library.attenuate_unannotated_peaks(spec1, 3, tolerance, annotation1)
     filtered_peaks2 = ming_spectrum_library.attenuate_unannotated_peaks(spec2, 3, tolerance, annotation2)
-
-    total_score, alignment = score_alignment(filtered_peaks1,filtered_peaks2,pm1,pm2,tolerance,max_charge_consideration)
-
-    return total_score
-
-#Filtering to annotated peaks only for the first spectrum
-def score_alignment_annotated_ion_peaks_one_sided(spec1,spec2,pm1,pm2,tolerance,annotation1,annotation2,max_charge_consideration=1):
-    #filter unannotated peaks
-    filtered_peaks1 = ming_spectrum_library.attenuate_unannotated_peaks(spec1, 3, tolerance, annotation1)
-    filtered_peaks2 = spec2
 
     total_score, alignment = score_alignment(filtered_peaks1,filtered_peaks2,pm1,pm2,tolerance,max_charge_consideration)
 

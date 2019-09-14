@@ -21,15 +21,19 @@ def main():
     params_obj = ming_proteosafe_library.parse_xml_file(open(paramxml_input_filename))
 
     try:
-       if params_obj["FIND_MATCHES_IN_PUBLIC_DATA"][0] != "1":
+       if params_obj["MATCH_REFERENCE_DATASETS"][0] != "1":
            parallelism = 1
     except:
        parallelism = 1
-
-    #dataset_dict = ming_proteosafe_library.get_all_dataset_dict()
     all_datasets = []
     try:
-        all_datasets = ming_proteosafe_library.get_all_datasets()
+        temp_datasets = ming_proteosafe_library.get_all_datasets()
+
+        #Filtering datasets to reference datasets
+        for dataset in temp_datasets:
+            if dataset["title"].find("GNPS_ref_") != -1:
+                all_datasets.append(dataset)
+
     except:
         all_datasets = []
 
