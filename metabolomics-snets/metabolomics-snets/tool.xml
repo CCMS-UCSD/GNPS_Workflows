@@ -48,7 +48,7 @@
 
     </pathSet>
 
-    <pathSet base="$base/anaconda2">
+    <pathSet base="anaconda2">
         <toolPath tool="NetworkTopologyCreator" path="bin/python2.7"/>
         <toolPath tool="MetabolomicPairsinfo" path="bin/python2.7"/>
         <toolPath tool="metabolomics_convert_graphml" path="bin/python2.7"/>
