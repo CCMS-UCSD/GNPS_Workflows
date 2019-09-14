@@ -7,11 +7,26 @@ import os
 import math
 import json
 import ming_proteosafe_library
+import ming_gnps_library
 
 def usage():
-    print "<param.xml> <output folder> <parallelism level>"
+    print("<param.xml> <output folder> <parallelism level>")
 
 
+def filter_datasets(filter_name, dataset_list):
+    if filter_name == "ALL":
+        return dataset_list
+
+    if filter_name == "GNPS":
+        return [dataset for dataset in dataset_list if (dataset["title"].find("Metabolights") == -1 and dataset["title"].find("Workbench") == -1 )]
+
+    if filter_name == "METABOLOMICSWORKBENCH":
+        return [dataset for dataset in dataset_list if dataset["title"].find("Workbench") != -1 ]
+
+    if filter_name == "METABOLIGHTS":
+        return [dataset for dataset in dataset_list if dataset["title"].find("Metabolights") != -1 ]
+
+    return []
 
 def main():
     paramxml_input_filename = sys.argv[1]
@@ -27,7 +42,17 @@ def main():
        parallelism = 1
 
     #dataset_dict = ming_proteosafe_library.get_all_dataset_dict()
-    all_datasets = ming_proteosafe_library.get_all_datasets()
+    all_datasets = []
+    try:
+        all_datasets = ming_gnps_library.get_all_datasets(gnps_only=True)
+    except:
+        all_datasets = []
+
+    try:
+        all_datasets = filter_datasets(params_obj["DATABASES"][0], all_datasets)
+    except:
+        all_datasets = all_datasets
+
 
     for i in range(parallelism):
         output_map = {"node_partition" : i, "total_paritions" : parallelism}

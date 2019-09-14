@@ -38,15 +38,14 @@ def finding_matches_in_public_data(input_spectra_filename, all_datasets):
     #Doing search serial
     search_results = []
     for search_param in search_parameters:
-        if total_matches > 0:
-            continue
-
+        #if total_matches > 0:
+        #    continue
+        print("SEARCHING " + str(search_param))
         dataset_matches = find_matches_in_dataset_wrapper(search_param)
         search_results.append(dataset_matches)
-
         total_matches += len(dataset_matches)
 
-        print "SEARCHING " + str(search_param)
+
 
     print("datasets to consider: " + str(len(search_parameters)))
 
@@ -138,7 +137,7 @@ def main():
     library_search_result_count, library_search_data = ming_fileio_library.parse_table_with_headers(library_search_results_filename)
     scan_to_library_map = {}
     for i in range(library_search_result_count):
-        scan = library_search_data["Scan"][i]
+        scan = library_search_data["#Scan#"][i]
         scan_to_library_map[scan] = {"Compound_Name" : library_search_data["Compound_Name"][i], "SpectrumID" : library_search_data["SpectrumID"][i]}
 
     for dataset in all_matches:

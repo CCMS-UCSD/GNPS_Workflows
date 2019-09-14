@@ -43,13 +43,9 @@ def main():
 
     object_list = []
 
-    print(metadata_files_in_folder)
-
     if len(metadata_files_in_folder) != 1:
-        print(reverse_file_mangling)
         for real_name in reverse_file_mangling:
             mangled_name = reverse_file_mangling[real_name]
-            print(mangled_name)
             if mangled_name.find("spec") == -1:
                 continue
             object_list.append({"filename" : real_name})

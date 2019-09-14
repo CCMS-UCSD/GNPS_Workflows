@@ -302,12 +302,10 @@ def parse_table_with_headers(filename):
             headers = line.split("\t")
             header_idx = 0
             for header in headers:
-                print header
                 index_to_header_map[header_idx] = header
                 header_idx += 1
                 if len(header) > 1:
                     column_values[header] = []
-
             continue
 
         line_splits = line.split("\t")

@@ -1,7 +1,7 @@
 import math
 import bisect
 from collections import namedtuple
-
+import ming_spectrum_library
 
 Match = namedtuple('Match', ['peak1', 'peak2', 'score'])
 Peak = namedtuple('Peak',['mz','intensity'])
@@ -81,21 +81,28 @@ def alignment_to_match(spec1_n,spec2_n,alignment):
 # then it will align the two spectrum given their parent masses
 # These spectra are expected to be a list of lists (size two mass, intensity) or a list of tuples
 ###
-def score_alignment(spec1,spec2,pm1,pm2,tolerance):
+def score_alignment(spec1,spec2,pm1,pm2,tolerance,max_charge_consideration=1):
     if len(spec1) == 0 or len(spec2) == 0:
         return 0.0, []
 
     spec1_n = sqrt_normalize_spectrum(convert_to_peaks(spec1))
     spec2_n = sqrt_normalize_spectrum(convert_to_peaks(spec2))
-    shift = abs(pm1 - pm2)
+    shift = (pm1 - pm2)
 
     #zero_shift_alignments = find_match_peaks(spec1_n,spec2_n,0,tolerance)
     #real_shift_alignments = find_match_peaks(spec1_n,spec2_n,shift,tolerance)
 
     zero_shift_alignments = find_match_peaks_efficient(spec1_n,spec2_n,0,tolerance)
     real_shift_alignments = []
-    if shift > tolerance:
+    if abs(shift) > tolerance:
         real_shift_alignments = find_match_peaks_efficient(spec1_n,spec2_n,shift,tolerance)
+
+        if max_charge_consideration > 1:
+            for charge_considered in range(2, max_charge_consideration + 1):
+                real_shift_alignments += find_match_peaks_efficient(spec1_n,spec2_n,shift/charge_considered,tolerance)
+
+    #Making real_shift_alignments without repetition
+    real_shift_alignments = list(set(real_shift_alignments))
 
     zero_shift_match = [alignment_to_match(spec1_n,spec2_n,alignment) for alignment in zero_shift_alignments]
     real_shift_match = [alignment_to_match(spec1_n,spec2_n,alignment) for alignment in real_shift_alignments]
@@ -118,3 +125,42 @@ def score_alignment(spec1,spec2,pm1,pm2,tolerance):
             total_score += match.score
 
     return total_score, reported_alignments
+
+def score_alignment_matched_peaks(spec1,spec2,pm1,pm2,tolerance,max_charge_consideration=1, reported_alignments=None):
+    if reported_alignments == None:
+        total_score, reported_alignments = score_alignment_matched_peaks(spec1,spec2,pm1,pm2,tolerance,max_charge_consideration)
+
+    spec1_peak_list = []
+    spec2_peak_list = []
+
+    for reported_alignment in reported_alignments:
+        spec1_peak_list.append(spec1[reported_alignment.peak1])
+        spec2_peak_list.append(spec2[reported_alignment.peak2])
+
+    spec1_n = sqrt_normalize_spectrum(convert_to_peaks(spec1_peak_list))
+    spec2_n = sqrt_normalize_spectrum(convert_to_peaks(spec2_peak_list))
+
+    score_total = 0.0
+    for i in range(len(spec1_peak_list)):
+        score_total += spec1_n[i].intensity * spec2_n[i].intensity
+
+    return score_total
+
+def score_alignment_annotated_ion_peaks(spec1,spec2,pm1,pm2,tolerance,annotation1,annotation2,max_charge_consideration=1):
+    #filter unannotated peaks
+    filtered_peaks1 = ming_spectrum_library.attenuate_unannotated_peaks(spec1, 3, tolerance, annotation1)
+    filtered_peaks2 = ming_spectrum_library.attenuate_unannotated_peaks(spec2, 3, tolerance, annotation2)
+
+    total_score, alignment = score_alignment(filtered_peaks1,filtered_peaks2,pm1,pm2,tolerance,max_charge_consideration)
+
+    return total_score
+
+#Filtering to annotated peaks only for the first spectrum
+def score_alignment_annotated_ion_peaks_one_sided(spec1,spec2,pm1,pm2,tolerance,annotation1,annotation2,max_charge_consideration=1):
+    #filter unannotated peaks
+    filtered_peaks1 = ming_spectrum_library.attenuate_unannotated_peaks(spec1, 3, tolerance, annotation1)
+    filtered_peaks2 = spec2
+
+    total_score, alignment = score_alignment(filtered_peaks1,filtered_peaks2,pm1,pm2,tolerance,max_charge_consideration)
+
+    return total_score
