@@ -2,7 +2,7 @@ import sys
 import os
 import proteosafe
 
-param_obj = proteosafe.parse_xml_file(open(sys.argv[1]))
+param_obj = proteosafe.parse_xml_file(sys.argv[1])
 output_filename = sys.argv[2]
 
 NAP_TASK = param_obj["NAP_TASK"][0]
