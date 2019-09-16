@@ -310,6 +310,12 @@
 		<productionToOutput port="linkout_file"       production="linkout_file"/>
 	</bind>
 
+	<!-- Description -->
+	<bind action="write_description" tool="write_description">
+			<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+			<productionToOutput port="written_description" production="written_description"/>
+	</bind>
+
 
 
 	<bind action="end" type="upload">
@@ -386,5 +392,8 @@
 		<upload port="linkout_file" type="folder">
             <query name="resource" value="linkout_file"/>
         </upload>
+		<upload port="written_description" type="folder">
+			<query name="resource" value="written_description"/>
+		</upload>
 	</bind>
 </binding>
