@@ -714,7 +714,7 @@
         <toolPath tool="write_description" path="python"/>
     </pathSet>
 
-    <pathSet base="$base">
+    <pathSet base="$base/scripts">
         <pathVar name="write_description.script" path="write_description.py"/>
     </pathSet>
 
