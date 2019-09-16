@@ -1,4 +1,5 @@
-# GNPS_Workflows
+# GNPS ProteoSAFe Workflows
+
 Public Workflows at GNPS code repository. Below are the direct links to try out the tools on GNPS and in Beta
 
 ## Workflow Links
