@@ -277,20 +277,6 @@
         </data>
     </block>
 
-
-
-    <view id="parameters_display" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
-        <blockRef id="main" type="parameters_display"/>
-    </view>
-    <block id="parameters_display" type="parametersdisplayer">
-        <data>
-            <source type="file" name="result/"/>
-            <parsers>
-                <parser type="stream" contentType="text/plain"/>
-            </parsers>
-        </data>
-    </block>
-
     <view id="written_description" label="Workflow Written Description" group="Methods and Citation for Manuscripts">
         <blockRef id="main" type="written_description"/>
     </view>
@@ -302,9 +288,6 @@
             </parsers>
         </data>
     </block>
-
-
-
 
     <view id="download_clustered_spectra" label="Download Clustered Spectra as MGF" group="Export/Download Network Files">
         <blockRef id="main" type="download_clustered_spectra"/>
