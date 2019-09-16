@@ -19,8 +19,16 @@
                 <output port="qiime2_output"           collection="qiime2_output"/>
         </action>
 
+        <!-- Written Description -->
+        <object name="written_description"/>
+        <action name="write_description">
+                <input  port="workflowParameters"       object="workflowParameters"/>
+                <output port="written_description"     object="written_description"/>
+        </action>
+
         <action name="end">
                 <input port="output_network"           collection="output_network"/>
                 <input port="qiime2_output"           collection="qiime2_output"/>
+                <input port="written_description"           collection="written_description"/>
         </action>
 </flow>
