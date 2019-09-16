@@ -16,4 +16,6 @@ Public Workflows at GNPS code repository. Below are the direct links to try out 
 | MSHub-GC Deconvolution  | [Workflow]()   | [Workflow]() |
 | Library Search/Molecular Networking GC  | [Workflow]()   | [Workflow]() |
 | Merge Polarity Networks  | [Workflow]()   | [Workflow]() |
+| Microbiome-Metabolomics Association - mmvec  | [Workflow]()   | [Workflow]() |
+
 
