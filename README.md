@@ -18,5 +18,6 @@ Public Workflows at GNPS code repository. Below are the direct links to try out 
 | Library Search/Molecular Networking GC  | [Workflow]()   | [Workflow]() |
 | Merge Polarity Networks  | [Workflow]()   | [Workflow]() |
 | Microbiome-Metabolomics Association - mmvec  | [Workflow]()   | [Workflow]() |
+| Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow]() |
 
 
