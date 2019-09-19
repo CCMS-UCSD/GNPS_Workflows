@@ -17,7 +17,7 @@
         </parsers>
       </data>
       <parameter name="URLBASE" value="http://gnps.ucsd.edu/ProteoSAFe/index.jsp"/>
-      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"d.[task]/clustered_mgf;", "quantTable":"d.[task]/preprocessing_scratch/data_integrals.csv;","library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
+      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;", "quantTable":"t.[task]/preprocessing_scratch/data_integrals.csv;","library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
     </block>
 
     <view id="view_spectra" label="View All Deconvolved Spectra">

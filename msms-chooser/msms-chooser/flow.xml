@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="MS-CHOOSER">
+    <collection name="spectra"/>
+    <object name="workflowParameters"/>
+    <object name="annotation_table"/>
+
+    <action name="begin">
+        <output port="spec" collection="spectra"/>
+        <output port="params" object="workflowParameters"/>
+        <output port="annotation_table" object="annotation_table"/>
+    </action>
+
+    <!-- Preprocessing -->
+    <object name="output_batch"/>
+    <action name="run_ms_chooser">
+        <input port="spectra" collection="spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="annotation_table" object="annotation_table"/>
+        <output port="output_batch" object="output_batch"/>
+    </action>
+
+
+    <action name="end">
+        <input port="output_batch" object="output_batch"/>
+    </action>
+</flow>

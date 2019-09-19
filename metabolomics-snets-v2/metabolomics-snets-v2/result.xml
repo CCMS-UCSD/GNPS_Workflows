@@ -277,22 +277,17 @@
         </data>
     </block>
 
-
-
-    <view id="parameters_display" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">
-        <blockRef id="main" type="parameters_display"/>
+    <view id="written_description" label="Workflow Written Description" group="Methods and Citation for Manuscripts">
+        <blockRef id="main" type="written_description"/>
     </view>
-    <block id="parameters_display" type="parametersdisplayer">
+    <block id="written_description" type="stream">
         <data>
-            <source type="file" name="result/"/>
+            <source type="file" name="written_description/"/>
             <parsers>
-                <parser type="stream" contentType="text/plain"/>
+                <parser type="stream" contentType="text/html"/>
             </parsers>
         </data>
     </block>
-
-
-
 
     <view id="download_clustered_spectra" label="Download Clustered Spectra as MGF" group="Export/Download Network Files">
         <blockRef id="main" type="download_clustered_spectra"/>
@@ -1399,6 +1394,18 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Classic Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
+    <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="redu_global_pca"/>
+    </view>
+    <block id="redu_global_pca" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
+    </block>
+
     <view id="dereplicator" label="Annotate with DEREPLICATOR" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="dereplicator"/>
     </view>
@@ -1549,67 +1556,5 @@
             </parsers>
         </data>
     </block>
-
-
-    <view id="view_emporer" label="View Emporer PCoA Plot in GNPS" group="Deprecated Views">
-        <blockRef id="main" type="view_emporer"/>
-    </view>
-    <block id="view_emporer" type="streamhtmlframe">
-        <data>
-            <source type="file" name="view_emporer/"/>
-            <parsers>
-                <parser type="stream" contentType="text/html"/>
-            </parsers>
-        </data>
-    </block>
-
-    <view id="view_all_topology_signatures" label="Topology Signatures" group="Deprecated Views">
-        <blockRef id="main" type="view_all_topology_signatures"/>
-    </view>
-
-    <block id="view_all_topology_signatures" type="table">
-        <data>
-            <source type="file" name="all_network_paths/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="DeltaKey" operator="ascending"/>
-            </parsers>
-        </data>
-        <row>
-            <column type="integer" field="Delta1" label="Delta1" width="3"/>
-            <column type="integer" field="Delta2" label="Delta2" width="3"/>
-            <column type="integer" field="Delta3" label="Delta3" width="3"/>
-            <column type="text" field="DeltaKey" label="DeltaKey" width="20"/>
-            <column type="text" field="Nodes" label="Nodes" width="40"/>
-        </row>
-    </block> -->
-
-    <view id="view_all_topology_signatures_histogram" label="Topology Signatures Histogram" group="Deprecated Views">
-        <blockRef id="main" type="view_all_topology_signatures_histogram"/>
-    </view>
-
-    <block id="view_all_topology_signatures_histogram" type="table">
-        <data>
-            <source type="file" name="all_network_paths_histogram/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="count" operator="descending"/>
-            </parsers>
-        </data>
-        <row>
-            <column type="integer" field="Delta1" label="Delta1" width="3"/>
-            <column type="integer" field="Delta2" label="Delta2" width="3"/>
-            <column type="integer" field="Delta3" label="Delta3" width="3"/>
-            <column type="integer" field="count" label="count" width="3"/>
-            <column type="text" field="delta_key" label="delta_key" width="10"/>
-            <column label="View Paths" type="genericurlgenerator" width="12" field="delta_key">
-                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-                <parameter name="REQUESTPARAMETER=view" value="view_all_topology_signatures"/>
-                <parameter name="HASHPARAMTER=DeltaKey_input" value="[delta_key]"/>
-                <parameter name="LABEL" value="View Paths"/>
-                <parameter name="USETASK" value="True"/>
-            </column>
-        </row>
-    </block>
-
-
 
 </interface>

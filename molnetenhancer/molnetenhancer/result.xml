@@ -17,6 +17,18 @@
       </data>
     </block>
 
+    <view id="written_description" label="Workflow Written Description" group="Methods and Citation for Manuscripts">
+        <blockRef id="main" type="written_description"/>
+    </view>
+    <block id="written_description" type="stream">
+        <data>
+            <source type="file" name="written_description/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
     <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
             <blockRef id="main"   type="cytoscape_preview"/>
     </view>
@@ -30,7 +42,7 @@
     </block>
 
 
-    <view id="view_qiime2_emperor" label="View qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
+    <view id="view_qiime2_emperor" label="View MetaboDistTree qiime2 Emperor Plots" group="Advanced Views - qiime2 Views">
         <blockRef id="main" type="view_qiime2_emperor"/>
     </view>
     <block id="view_qiime2_emperor" type="dummylinkout">

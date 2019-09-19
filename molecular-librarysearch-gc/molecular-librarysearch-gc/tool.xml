@@ -233,7 +233,7 @@
         <toolPath tool="add_balanced_score" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="molecularsearch-gc">
+    <pathSet base="$base">
         <pathVar name="add_balanced_score.script" path="add_mshub_data.py"/>
     </pathSet>
 

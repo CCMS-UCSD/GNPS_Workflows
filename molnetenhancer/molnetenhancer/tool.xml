@@ -14,7 +14,7 @@
             <arg pathRef="molnetenhancer.script"/>
             <arg valueRef="@GNPS_TASK"/>
             <arg option="-nap" valueRef="@NAP_TASK"/>
-            <arg option="-dereplicator" valueRef="@DEREPLICATOR_TASK"/>
+            <arg option="-derep" valueRef="@DEREPLICATOR_TASK"/>
             <arg option="-varquest" valueRef="@VARQUEST_TASK"/>
             <arg option="-ms2lda" valueRef="@MS2LDA_TASK"/>
             <arg valueRef="output_network"/>
@@ -38,6 +38,26 @@
             <arg valueRef="@GNPS_TASK"/>
             <arg valueRef="output_network"/>
             <arg valueRef="qiime2_output"/>
+        </execution>
+    </tool>
+
+    <!-- Running written description -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="write_description" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="write_description.script" path="write_description.py"/>
+    </pathSet>
+
+    <tool name="write_description">
+        <require name="workflowParameters" type="file"/>
+        <produce name="written_description" type="file" naming="explicit" extension="html"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="write_description.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="written_description"/>
         </execution>
     </tool>
 
