@@ -3,5 +3,5 @@ include ../Makefile.deploytemplate
 
 WORKFLOW_NAME=ms2lda_motifdb
 TOOL_FOLDER_NAME=ms2lda_motifdb
-WORKFLOW_VERSION=release_9
+WORKFLOW_VERSION=release_10.2
 
