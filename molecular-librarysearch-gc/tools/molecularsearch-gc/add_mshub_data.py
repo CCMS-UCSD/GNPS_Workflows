@@ -1,6 +1,35 @@
 import pandas as pd
 import argparse
 
+def propogate_balance_score(input_file, output_file, quant_table_df):
+    original_file_df = pd.read_csv(input_file,sep='\t')   
+
+    if quant_table_df is None:
+        original_file_df.to_csv(output_file,sep='\t', index=False)
+        return
+
+    scan_to_balance = {}
+    for i, key in enumerate(quant_table_df.keys()):
+        if "RTS:" in key:
+            continue
+
+        try:
+            balance_score = key.split("(")[-1].split("%")[0]
+            rt = key.split(" ")[0]
+            scan_to_balance[i] = balance_score
+        except:
+            raise
+            continue
+
+    for idx, row in original_file_df.iterrows():
+        scan = int(row["#Scan#"])
+        if scan in scan_to_balance:
+            original_file_df.loc[idx,"Balance_score(percentage)"] = scan_to_balance[scan]
+        else:
+            original_file_df.loc[idx,"Balance_score(percentage)"] = ""
+
+    original_file_df.to_csv(output_file,sep='\t', index=False)
+
 def main():
     parser = argparse.ArgumentParser(description='wrapper')
     parser.add_argument('DB_result', help='input')
@@ -15,30 +44,16 @@ def main():
     parser.add_argument('Kovats_Result_Nonfiltered_mshub', help='Kovats_Result_Nonfiltered')
     parser.add_argument('Kovats_Result_Filtered_mshub', help='Kovats_Result_Nonfiltered')
 
-
     args = parser.parse_args()
-    mapping =  {args.DB_result:args.DB_result_mshub,\
-                args.DB_result_filtered:args.DB_result_filtered_mshub,\
-                args.Kovats_Result_Filtered: args.Kovats_Result_Filtered_mshub,\
-                args.Kovats_Result_Nonfiltered: args.Kovats_Result_Nonfiltered_mshub}
-    for k,v in mapping.items():
-        original_file = pd.read_csv(k,sep='\t')
-        print(original_file)
-        original_file["Balance_score(percentage)"] = ""
-        if not args.quantTable:
-            original_file.to_csv(v,sep='\t')
-            continue
-        quantTable = pd.read_csv(args.quantTable)
-        print(quantTable)
-        for idx, row in original_file.iterrows():
-            #print(row["#Scan#"],quantTable[str(row["#Scan#"])][0].split("(")[-1].split(")")[0])
-            try:
-                print("quantTable")
-                print(quantTable[str(row["#Scan#"])][0])
-                original_file.loc[idx,"Balance_score(percentage)"] = quantTable[str(row["#Scan#"])][0].split("(")[-1].split("%")[0]
-            except:
-                continue
-        print(original_file)
-        original_file.to_csv(v,sep='\t')
+
+    quant_table_df = None
+    if args.quantTable != None:
+        quant_table_df = pd.read_csv(args.quantTable)
+
+    propogate_balance_score(args.DB_result, args.DB_result_mshub, quant_table_df)
+    propogate_balance_score(args.DB_result_filtered, args.DB_result_filtered_mshub, quant_table_df)
+    propogate_balance_score(args.Kovats_Result_Filtered, args.Kovats_Result_Filtered_mshub, quant_table_df)
+    propogate_balance_score(args.Kovats_Result_Nonfiltered, args.Kovats_Result_Nonfiltered, quant_table_df)
+
 if __name__ == "__main__":
     main()
