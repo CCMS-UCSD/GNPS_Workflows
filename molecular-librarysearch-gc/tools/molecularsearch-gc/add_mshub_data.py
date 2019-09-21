@@ -53,7 +53,7 @@ def main():
     propogate_balance_score(args.DB_result, args.DB_result_mshub, quant_table_df)
     propogate_balance_score(args.DB_result_filtered, args.DB_result_filtered_mshub, quant_table_df)
     propogate_balance_score(args.Kovats_Result_Filtered, args.Kovats_Result_Filtered_mshub, quant_table_df)
-    propogate_balance_score(args.Kovats_Result_Nonfiltered, args.Kovats_Result_Nonfiltered, quant_table_df)
+    propogate_balance_score(args.Kovats_Result_Nonfiltered, args.Kovats_Result_Nonfiltered_mshub, quant_table_df)
 
 if __name__ == "__main__":
     main()
