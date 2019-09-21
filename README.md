@@ -14,7 +14,7 @@ Public Workflows at GNPS code repository. Below are the direct links to try out 
 | MolNetEnhancer  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D) |
 | MSMS-Chooser  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSMS-CHOOSER%22%7D)   | [Workflow]() |
 | OpenMS Feature Detector for FBMN  | [Workflow]()   | [Workflow]() |
-| MSHub-GC Deconvolution  | [Workflow]()   | [Workflow]() |
+| MSHub-GC Deconvolution  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSHUB-GC%22%7)   | [Workflow]() |
 | Library Search/Molecular Networking GC  | [Workflow]()   | [Workflow]() |
 | Merge Polarity Networks  | [Workflow]()   | [Workflow]() |
 | Microbiome-Metabolomics Association - mmvec  | [Workflow]()   | [Workflow]() |
