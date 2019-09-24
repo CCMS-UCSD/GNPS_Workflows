@@ -264,6 +264,16 @@ def export_integral_table_to_file(dbfilepath, h5readpath, output_prefix, dataset
         #print(d_names)
         
         with open('%s_integrals.csv'%output_prefix, 'w') as fout:
+            
+            fout.write('No:');
+            j = 0;
+            for i in range(len(rts)):
+                if not rts_mask[i]:
+                    continue
+                j += 1;
+                fout.write(',%s'%j);
+            fout.write('\n');
+            
             fout.write('RTS:');
             for i in range(len(rts)):
                 if not rts_mask[i]:

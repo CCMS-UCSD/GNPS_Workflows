@@ -2,7 +2,13 @@
 """
 Created on Tue Jan 31 12:43:29 2017
 
+Command line arguments parser
+
+
+
 @author: Dr. Ivan Laponogov
+Copyright: Imperial College London
+License: permissive MIT license
 """
 import sys
 import os

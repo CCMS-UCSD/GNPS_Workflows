@@ -666,7 +666,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
     
     y0 = np.zeros(y.shape, dtype = np.float64);
                         
-    top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile, linear scale, Merged original rt %.2f min.'%(group_variance[start_i, 1]), False, plot_width = plot_width, plot_height = top_plot_height);
+    top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile, linear scale, Merged original rt %.2f min.'%(group_variance[start_i, 1] / 60), False, plot_width = plot_width, plot_height = top_plot_height);
         
     tops.append(top_plot)
     
@@ -674,7 +674,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
     minx = int(np.floor(minx));
     maxx = int(np.ceil(maxx));
                         
-    bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profiles, log scale, Merged original rt %.2f min.'%(group_variance[start_i, 1]), 
+    bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profiles, log scale, Merged original rt %.2f min.'%(group_variance[start_i, 1] / 60), 
                                         True, plot_width = plot_width, plot_height = bottom_plot_height, max_y = max_y);
                                         
     bottoms.append(bottom_plot)
@@ -693,7 +693,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
             
     y0 = np.zeros(y.shape, dtype = np.float64);
                         
-    top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile, linear scale, rt %.2f min. Reconstructed.'%(group_variance[start_i, 1]), False, plot_width = plot_width, plot_height = top_plot_height);
+    top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile, linear scale, rt %.2f min. Reconstructed.'%(group_variance[start_i, 1] / 60), False, plot_width = plot_width, plot_height = top_plot_height);
         
     tops.append(top_plot)
                         
@@ -702,7 +702,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
     minx = int(np.floor(minx));
     maxx = int(np.ceil(maxx));
                         
-    bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profiles, log scale, rt %.2f min. Reconstructed.'%(group_variance[start_i, 1]), 
+    bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profiles, log scale, rt %.2f min. Reconstructed.'%(group_variance[start_i, 1] / 60), 
                                         True, plot_width = plot_width, plot_height = bottom_plot_height, max_y = max_y * 20);
                                         
     bottoms.append(bottom_plot)    
@@ -728,7 +728,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
     
         y0 = np.zeros(y.shape, dtype = np.float64);
                         
-        top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile, linear scale, rt %.2f min. (%s%%) '%(group_variance[i, 1], int(group_variance[i, 7])), False, plot_width = plot_width, plot_height = top_plot_height);
+        top_plot = _make_top_plot(x, 1.0, y, y0, minx, maxx, 'Integral profile for peak %s, linear scale, rt %.2f min. (%s%%) '%(i + 1, group_variance[i, 1] / 60, int(group_variance[i, 7])), False, plot_width = plot_width, plot_height = top_plot_height);
         
         tops.append(top_plot)
                         
@@ -737,7 +737,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
         minx = int(np.floor(minx));
         maxx = int(np.ceil(maxx));
                         
-        bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profiles, log scale, rt %.2f min. (%s%%)'%(group_variance[i, 1], int(group_variance[i, 7])), 
+        bottom_plot = _make_bottom_plot(subpeaks, cmz_x, minx, maxx, dataset_count, dataset_names, 'Sample profile for peak %s, log scale, rt %.2f min. (%s%%)'%(i + 1, group_variance[i, 1] / 60, int(group_variance[i, 7])), 
                                         True, plot_width = plot_width, plot_height = bottom_plot_height, max_y = max_y * 20);
                                         
         bottoms.append(bottom_plot)
@@ -764,7 +764,7 @@ def generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_pr
                                     '<html lang="en">',
                                     '    <head>',
                                     '        <meta charset="utf-8">',
-                                    '        <title>Spectrum for rt peak %s</title>'%(i+1),
+                                    '        <title>Spectrums for Merged rt peaks %s - %s</title>'%(start_i + 1, extent + 1),
                                              CDN.render(),                        
                                     '        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">',
                                     '    </head>',
@@ -908,7 +908,7 @@ def export_HTML_view_to_file(dbfilepath, h5readpath, output_prefix, h5fullprofil
         with open('%s/rt_peaks.html'%output_prefix, 'w') as fout:
             rt_peaks = [];
             for i in range(rts_count):
-                printlog('RT peak: %s of %s'%(i+1, rts_count));
+                printlog('RT peak: %s of %s'%(i + 1, rts_count));
                 rt = rts[i];
                 
                 #subpeaks = peaks[crt_refs[i]].reshape(6, -1);                
@@ -930,13 +930,13 @@ def export_HTML_view_to_file(dbfilepath, h5readpath, output_prefix, h5fullprofil
                         if extent > i:       
                         
                             rt_peaks.append('\n'.join([
-                                '<tr><td>%s. '%(i+1),
-                                '<a href="spectra/mspec_%s.html" target="MSSpectrum">%.2f min. OriginalMerged</a>'%(i, rt/60),
+                                '<tr><td>',
+                                '<a href="spectra/mspec_%s-%s_merged.html" target="MSSpectrum">Original %.2f min. (Merged peaks %s-%s) </a>'%(i + 1, extent + 1, rt/60, i + 1, extent + 1),
                                 #'Mean Original Integral: %.1f'%group_variance[i, 5],
                                 '</td></tr>',
                                 ]));
                                 
-                            with open('%s/spectra/mspec_%s.html'%(output_prefix, i), 'w') as fspec:
+                            with open('%s/spectra/mspec_%s-%s_merged.html'%(output_prefix, i + 1, extent + 1), 'w') as fspec:
                                 generate_merged_spec_report(fspec, h5file, dbfilepath, h5readpath, output_prefix, dataset_names, cmz, rts, spectra, 
                                                                 h5fullprofile, plot_width, top_plot_height, bottom_plot_height, quantity_integrals, X_3D,
                                                                 group_variance, i, extent);
@@ -944,7 +944,7 @@ def export_HTML_view_to_file(dbfilepath, h5readpath, output_prefix, h5fullprofil
                     
                     rt_peaks.append('\n'.join([
                         '<tr><td>%s. '%(i+1),
-                        '<a href="spectra/spec_%s.html" target="MSSpectrum">%.2f min. deconv. (%s%%)</a><br>'%(i, rt/60, int(group_variance[i, 7])),
+                        '<a href="spectra/spec_%s.html" target="MSSpectrum">%.2f min. deconv. (%s%%)</a><br>'%(i + 1, rt/60, int(group_variance[i, 7])),
                         'Max Rel. Integral: %.3f<BR>'%max_rel_int[i],
                         'Best Order: %s'%best_order[i],
                         '</td></tr>',
@@ -954,13 +954,13 @@ def export_HTML_view_to_file(dbfilepath, h5readpath, output_prefix, h5fullprofil
                 
                     rt_peaks.append('\n'.join([
                         '<tr><td>%s. '%(i+1),
-                        '<a href="spectra/spec_%s.html" target="MSSpectrum">%.2f min.</a><br>'%(i, rt/60),
+                        '<a href="spectra/spec_%s.html" target="MSSpectrum">%.2f min.</a><br>'%(i + 1, rt/60),
                         'Max Rel. Integral: %.3f<BR>'%max_rel_int[i],
                         'Best Order: %s'%best_order[i],
                         '</td></tr>',
                         ]));
 
-                with open('%s/spectra/spec_%s.html'%(output_prefix, i), 'w') as fspec:
+                with open('%s/spectra/spec_%s.html'%(output_prefix, i + 1), 'w') as fspec:
 
                     cmz_x = np.array(cmz);
                     minx = np.min(cmz);
@@ -1000,7 +1000,7 @@ def export_HTML_view_to_file(dbfilepath, h5readpath, output_prefix, h5fullprofil
                                     '<html lang="en">',
                                     '    <head>',
                                     '        <meta charset="utf-8">',
-                                    '        <title>Spectrum for rt peak %s</title>'%(i+1),
+                                    '        <title>Spectrum for rt peak %s</title>'%(i + 1),
                                              CDN.render(),                        
                                     '        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">',
                                     '    </head>',
