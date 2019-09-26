@@ -87,6 +87,8 @@ def convert_to_feature_csv(input_filename, output_filename):
 def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mangle_mapping=None):
     spectrum_list = []
     
+    print(name_mangle_mapping)
+
     for scan in compound_filename_mapping:
         #print(scan, compound_filename_mapping[scan])
         #Choosing one at random, the first, TODO: do a consensus or something like that

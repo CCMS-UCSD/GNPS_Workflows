@@ -15,6 +15,7 @@ import xcms_formatter
 import mzmine2_formatter
 import progenesis_formatter
 import mztabm_formatter
+import proteosafe
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
     parser.add_argument('quantification_table_reformatted', help='quantification_table_reformatted')
     parser.add_argument('input_spectra_folder', help='input_spectra_folder')
     parser.add_argument('output_mgf', help='output_mgf')
+    parser.add_argument('workflowParameters', help='workflowParameters')
     args = parser.parse_args()
 
     input_filenames = glob.glob(os.path.join(args.input_spectra_folder, "*"))
@@ -100,9 +102,16 @@ def main():
         progenesis_formatter.convert_mgf(input_mgf, args.output_mgf, compound_scan_mapping)
     elif args.toolname == "MZTABM":
         print("MZTABM")
+        workflow_parameters = proteosafe.parse_xml_file(args.workflowParameters)
+        mangled_mapping = proteosafe.get_mangled_file_mapping(workflow_parameters)
+
+        name_mangle_mapping = {}
+        for key in mangled_mapping:
+            demangled_name = mangled_mapping[key]
+            name_mangle_mapping[os.path.basename(demangled_name)] = os.path.join(args.input_spectra_folder, key)
 
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
-        mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping)
+        mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
 
 if __name__ == "__main__":
     main()

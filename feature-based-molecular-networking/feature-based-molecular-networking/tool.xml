@@ -64,6 +64,7 @@
             <arg valueRef="quantification_table_reformatted"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra_reformatted"/>
+            <arg valueRef="workflowParameters"/>
         </execution>
     </tool>
 
