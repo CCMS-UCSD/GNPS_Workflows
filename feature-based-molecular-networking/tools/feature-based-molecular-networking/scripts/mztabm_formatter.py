@@ -96,6 +96,10 @@ def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mang
         for input_filename in input_filenames:
             if target_ms2[0] in input_filename:
                 filename_to_load = input_filename
+            if name_mangle_mapping is not None:
+                if target_ms2[0] in name_mangle_mapping:
+                    filename_to_load = name_mangle_mapping[target_ms2[0]]
+
         if len(filename_to_load) == 0:
             continue
 
