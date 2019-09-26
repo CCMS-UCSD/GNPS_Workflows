@@ -8,6 +8,7 @@ from io import StringIO
 import pandas as pd
 import sys
 import os
+import ming_spectrum_library
 
 #TODO: Ask about why there are two column headers of the same name
 def convert_to_feature_csv(input_filename, output_filename):
@@ -82,11 +83,12 @@ def convert_to_feature_csv(input_filename, output_filename):
     return smf_to_scans
 
 #TODO: Finish this function to read the input files and find the MS2 and actually extract the peaks into an MGF
+#TODO: Currently supports only mzML files
 def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mangle_mapping=None):
     spectrum_list = []
     
     for scan in compound_filename_mapping:
-        print(scan, compound_filename_mapping[scan])
+        #print(scan, compound_filename_mapping[scan])
         #Choosing one at random, the first, TODO: do a consensus or something like that
         target_ms2 = compound_filename_mapping[scan][0]
 
@@ -98,11 +100,22 @@ def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mang
             continue
 
         #Find the right spectrum, should probably use proteowizard to do this
+        spectrum_collection = ming_spectrum_library.SpectrumCollection(filename_to_load)
+        spectrum_collection.load_from_file()
 
-        #print(target_ms2[0], filename_to_load, input_filenames)
+        query_identifier = target_ms2[1]
+        query_scan = int(query_identifier.rstrip().split(" ")[-1].replace("scan=", ""))
 
-    output_mgf_file = open(output_mgf, "w")
-    output_mgf_file.close()
+        for spectrum in spectrum_collection.spectrum_list:
+            if spectrum.scan == query_scan:
+                spectrum.scan = scan
+                spectrum_list.append(spectrum)
+                print("Found Spectrum", query_scan, filename_to_load)
+                break
+
+    spectrum_collection = ming_spectrum_library.SpectrumCollection("")
+    spectrum_collection.spectrum_list = spectrum_list
+    spectrum_collection.save_to_mgf(open(output_mgf, "w"), renumber_scans=False)
 
     return None
 
