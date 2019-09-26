@@ -83,6 +83,7 @@ def convert_to_feature_csv(input_filename, output_filename):
     return smf_to_scans
 
 #TODO: Finish this function to read the input files and find the MS2 and actually extract the peaks into an MGF
+#TODO: Currently supports only mzML files
 def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mangle_mapping=None):
     spectrum_list = []
     
@@ -103,13 +104,13 @@ def create_mgf(input_filenames, output_mgf, compound_filename_mapping, name_mang
         spectrum_collection.load_from_file()
 
         query_identifier = target_ms2[1]
-        query_scan = int(query_identifier.replace("scan=", ""))
+        query_scan = int(query_identifier.rstrip().split(" ")[-1].replace("scan=", ""))
 
         for spectrum in spectrum_collection.spectrum_list:
             if spectrum.scan == query_scan:
                 spectrum.scan = scan
                 spectrum_list.append(spectrum)
-                print("Found Spectrum")
+                print("Found Spectrum", query_scan, filename_to_load)
                 break
 
     spectrum_collection = ming_spectrum_library.SpectrumCollection("")
