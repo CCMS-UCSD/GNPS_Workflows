@@ -444,11 +444,16 @@ class mzMLImport(object):
                         if sp['MS:1000511']==1: # ms level 1 only
                             if 'MS:1000016' in sp: # (code 'MS:1000016' for retention time value)
                                 X  = np.array(sp.centroidedPeaks).astype(float)
-                                imass_values      = X[:,0]
-                                n_imass_values = len(imass_values)
-                                if n_imass_values>0:
-                                    n_values = n_values + n_imass_values
-                                    n_scans  = n_scans + 1
+                                if len(X) > 0 and len(X.shape) == 2:
+                                    healthcheck = np.logical_and(np.all(np.isfinite(X)), np.all(np.isreal(X)));
+                                    if healthcheck:
+                                        n_values = n_values + len(X)
+                                        n_scans  = n_scans + 1
+                                    else:
+                                        printlog('Slice with numerical errors. Skipping...')
+                                else:
+                                    printlog('Empty slice. Skipping...')
+                                            
 
                 scan_start        = np.zeros(n_scans).astype(int)
                 scan_end          = np.zeros(n_scans).astype(int)
@@ -464,26 +469,33 @@ class mzMLImport(object):
                         if sp['MS:1000511']==1: # ms level 1 only
                             if 'MS:1000016' in sp: # (code 'MS:1000016' for retention time value)
                                 X  = np.array(sp.centroidedPeaks).astype(float)
-                                imass_values      = X[:,0]
-                                iintensity_values = X[:,1]
+                                if len(X) > 0 and len(X.shape) == 2:
+                                    healthcheck = np.logical_and(np.all(np.isfinite(X)), np.all(np.isreal(X)));
+                                    if healthcheck:
+                            
+                                        imass_values      = X[:,0]
+                                        iintensity_values = X[:,1]
+        
+                                        iscan = iscan+1
+                                        if np.median(np.diff(imass_values))<0:
+                                            imass_values= imass_values[::-1]
+                                            iintensity_values = iintensity_values[::-1]
+        
+                                        scan_start[iscan] = istart
+                                        iend       = istart + len(imass_values)-1
+                                        scan_end[iscan]  = iend
+        
+                                        mass_values[np.arange(istart,iend+1)] = imass_values[::-1]
+                                        intensity_values[np.arange(istart,iend+1)] = iintensity_values[::-1]
+                                        istart     = iend+1
+        
+                                        time_list[iscan]  = sp['MS:1000016']
 
-                                if len(imass_values)>0:
-                                    iscan = iscan+1
-                                    if np.median(np.diff(imass_values))<0:
-                                        imass_values= imass_values[::-1]
-                                        iintensity_values = iintensity_values[::-1]
-
-                                    scan_start[iscan] = istart
-                                    iend       = istart + len(imass_values)-1
-                                    scan_end[iscan]  = iend
-
-                                    mass_values[np.arange(istart,iend+1)] = imass_values[::-1]
-                                    intensity_values[np.arange(istart,iend+1)] = iintensity_values[::-1]
-                                    istart     = iend+1
-
-                                    time_list[iscan]  = sp['MS:1000016']
-
-
+                                    else:
+                                        printlog('Slice with numerical errors. Skipping...')
+                                else:
+                                    printlog('Empty slice. Skipping...')
+                                    
 
                 # arrange data for hdf5 database file storage
                 scan_indlist = np.vstack((scan_start,scan_end))
