@@ -1,6 +1,6 @@
 <toolset>
 
-    <pathSet base="anaconda3">
+    <pathSet base="miniconda3_gamma/envs/mshub-gc">
         <toolPath tool="preprocess_gcms_data" path="bin/python"/>
         <pathVar name="python.exe" path="bin/python"/>
     </pathSet>
