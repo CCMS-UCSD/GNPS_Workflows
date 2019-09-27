@@ -15,7 +15,8 @@ def convert_to_feature_csv(input_filename, output_filename):
     non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
         "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Adducts", "Formula", \
-        "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link"]
+        "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area", \
+        "Max Fold Change", "Highest Mean", "Lowest Mean"]
 
     input_records = input_format.to_dict(orient="records")
     sample_names = [header for header in input_format.keys() if not header in non_sample_names and not header[-2:] == ".1"]
