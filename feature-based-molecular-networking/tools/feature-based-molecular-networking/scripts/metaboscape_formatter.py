@@ -37,7 +37,7 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     # If not PASEF, assuming MetaboScape files are originating from a LC-MS/MS experiment, and process accordingly
     else:
-        output_format = input_format.drop(['NAME','MOLECULAR_FORMULA','ADDUCT','FEATURE_ID', 'KEGG', 'CAS'],axis = 1)
+        output_format = input_format.drop(['SHARED_NAME','NAME','MOLECULAR_FORMULA','ADDUCT','KEGG', 'CAS'],axis = 1)
         output_format.columns.values[0]="row ID"
         output_format.columns.values[1]="row retention time"
         output_format.columns.values[2] = "row m/z"
