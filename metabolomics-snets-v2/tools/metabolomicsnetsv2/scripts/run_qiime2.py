@@ -64,6 +64,10 @@ def main():
             if found is False:
                 object_list.append({"filename" : real_name})
 
+    if len(object_list) == 0:
+        print("Do not do things, not enough files")
+        exit(0)
+
     #Writing headers
     header_list = ["#SampleID", "BarcodeSequence", "LinkerPrimerSequence"]
     for key in object_list[0]:

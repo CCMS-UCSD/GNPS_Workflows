@@ -930,7 +930,10 @@ def load_mzml_file(filename, drop_ms1=False):
 
 
             fragmentation_method = "NO_FRAG"
-            totIonCurrent = float(spectrum["total ion current"])
+            try:
+                totIonCurrent = float(spectrum["total ion current"])
+            except:
+                totIonCurrent = 0
 
             try:
                 for key in activation:
@@ -1241,3 +1244,45 @@ def window_filter_peaks(peaks, window_size, top_peaks):
 
     new_peaks = sorted(new_peaks, key=lambda peak: peak[0])
     return new_peaks
+
+
+def writeMgf(inputPath, outputPath,format):
+    """ Convert the mzml or mzxml input format file to sirius mgf format
+        
+        Parameters:
+        inputPath (stirng): mzml/mzxml input path
+        outputPath (string): mgf output path
+        format (string ["mzml" or "mzxml"]): the input file type
+        
+        Returns:
+        void
+        
+    """
+    if format == "mzml":
+        speclist = load_mzml_file(inputPath)
+    elif format == "mzxml":
+        speclist = load_mzxml_file(inputPath)
+    else:
+        return
+    speclist.sort(key=lambda x: x.index)
+    fout = open(outputPath,"w")
+    featureID = 0
+    for i in speclist:
+        out = []
+        if i.ms_level == 1:
+            featureID +=1
+        out.append("BEGIN IONS")
+        out.append("FEATURE_ID=%d"%(featureID))
+        out.append("PEPMASS=%f"%(i.mz))
+        out.append("CHARGE=%d"%(i.charge))
+        out.append("RTINSECONDS=%f"%(i.retention_time))
+        out.append("SPECTYPE=CORRELATED MS")
+        out.append("MSLEVEL=%d"%(i.ms_level))
+        out.append("FILENAME=%s"%(i.filename))
+        out.append("SCAN=-1")
+        out.append(i.get_mgf_peak_string())
+        out = "\n".join(out)
+        out += "END IONS\n\n"
+        fout.write(out)
+
+

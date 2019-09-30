@@ -17,18 +17,18 @@
                 <!--<source type="file" name="spectra/specs_ms.mgf"/>-->
         </download>
 
-        <view id="clone_updated_networking" label="Clone Job to Latest Molecular Networking V2 Workflow" group="Clone to Latest Networking Workflow">
+	<view id="clone_updated_networking" label="Clone Job to Latest Molecular Networking V2 Workflow" group="Clone to Latest Networking Workflow">
             <blockRef id="main"   type="clone_updated_networking"/>
         </view>
-        <block id="clone_updated_networking" type="dummylinkout">
+	<block id="clone_updated_networking" type="dummylinkout">
           <data>
              <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
           </data>
             <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]&amp;params=%7B"workflow":"METABOLOMICS-SNETS-V2"%7D'/>
-        </block>
 
+        </block>
 
 
         <view id="parameters_display" label="Networking Parameters and Written Network Description" group="Methods and Citation for Manuscripts">

@@ -2,7 +2,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="create_spectrum_file" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="create_spectrum_file.script" path="create_spectrum_file.py" />
     </pathSet>
     <tool name="create_spectrum_file">
@@ -22,7 +22,7 @@
         <toolPath tool="FindDatasetMatchesParallelStep" path="python3.5"/>
         <toolPath tool="FindDatasetMatchesParallelMerge" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="FindDatasetMatchesParallelPrep.script" path="find_related_public_data_prep.py" />
         <pathVar name="FindDatasetMatchesParallelStep.script" path="find_related_public_data_wrapper.py" />
         <pathVar name="FindDatasetMatchesParallelMerge.script" path="find_related_public_data_merge.py" />
@@ -70,7 +70,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="library_search_single" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="library_search_single.script" path="molecular_librarysearch_wrapper.py" />
         <pathVar name="main_execmodule.binary" path="main_execmodule.allcandidates" />
     </pathSet>
@@ -93,7 +93,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="get_dbannotations" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="get_dbannotations.script" path="getGNPS_library_annotations.py"/>
     </pathSet>
     <tool name="get_dbannotations">
@@ -111,7 +111,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="trace_matches_to_file" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="trace_matches_to_file.script" path="trace_to_single_file.py" />
     </pathSet>
     <tool name="trace_matches_to_file">
@@ -131,7 +131,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="create_linkout_file" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="create_linkout_file.script" path="reanalysis_preparation.py" />
     </pathSet>
     <tool name="create_linkout_file">
@@ -150,7 +150,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="foodomics_track" path="python3.5"/>
     </pathSet>
-    <pathSet base="search_single_spectrum">
+    <pathSet base="$base">
         <pathVar name="foodomics_track.script" path="foodomics_track.py" />
         <pathVar name="foodomics_metadata.file" path="foodomics_metadata.txt" />
     </pathSet>

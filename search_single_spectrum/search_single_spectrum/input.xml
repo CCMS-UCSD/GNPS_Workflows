@@ -94,7 +94,7 @@
         <parameter name="SEARCH_RAW" label="Search UnClustered Data">
             <options>
                     <option value="0" label="Don't Search"/>
-                    <option value="1" label="Do Search"/>
+                    <!-- <option value="1" label="Do Search"/> -->
             </options>
             <validator type="set"/>
         </parameter>

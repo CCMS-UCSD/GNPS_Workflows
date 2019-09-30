@@ -2,6 +2,7 @@
 <interface id="speclib_add" version="1.2.3">
     <download></download>
 
+
     <view id="view_motifs" label="View Motif Labels for Spectra">
         <blockRef id="main" type="view_motifs"/>
     </view>

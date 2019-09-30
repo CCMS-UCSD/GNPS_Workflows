@@ -183,10 +183,10 @@
 			<default value="0"/>
 		</parameter> -->
 
-		<parameter name="FIND_MATCHES_IN_PUBLIC_DATA" label="Find Related Datasets">
+		<parameter name="FIND_MATCHES_IN_PUBLIC_DATA" label="Find Related Datasets (Temporarily Deprecated)">
 			<options>
 				<option value="0" label="Don't"/>
-				<option value="1" label="Do it"/>
+				<!-- <option value="1" label="Do it"/> -->
 			</options>
 			<default value="0"/>
 		</parameter>

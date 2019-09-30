@@ -301,6 +301,13 @@
         <output  port="linkout_file" object="linkout_file"/>
     </action>
 
+    <!-- Written Description -->
+    <object name="written_description"/>
+    <action name="write_description">
+            <input  port="workflowParameters"       object="workflowParameters"/>
+            <output port="written_description"     object="written_description"/>
+    </action>
+
 
     <action name="end">
         <!-- Library Search -->
@@ -345,5 +352,8 @@
 
         <!-- Dataset Linkout -->
         <input port="linkout_file" object="linkout_file"/>
+
+        <!-- Description -->
+        <input port="written_description"           collection="written_description"/>
     </action>
 </flow>

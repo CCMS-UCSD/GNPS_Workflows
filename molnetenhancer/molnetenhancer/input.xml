@@ -28,6 +28,10 @@
                 <parameter name="VARQUEST_TASK" label="Enter VARQUEST ID (Optional)">
                         <default value="None"/>
                 </parameter>
+                
+                <parameter name="MS2LDA_TASK" label="Enter MS2LDA.org Job ID (Optional)">
+                        <default value="None"/>
+                </parameter>
         </parameters>
 
         <block label="Molecular Network Enhancer">
@@ -79,6 +83,17 @@
                                 </input>
                         </cell>
                 </row>
-
+                <row>
+                        <cell>
+                                <label>
+                                        <content parameter="MS2LDA_TASK"/>
+                                </label>
+                        </cell>
+                        <cell>
+                                <input type="text" parameter="MS2LDA_TASK">
+                                        <attribute name="size" value="30"/>
+                                </input>
+                        </cell>
+                </row>
         </block>
 </interface>

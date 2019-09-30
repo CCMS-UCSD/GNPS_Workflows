@@ -18,6 +18,17 @@
                 <productionToOutput port="output_network" production="output_network"/>
         </bind>
 
+        <bind action="metabodisttree" tool="metabodisttree">
+                <inputAsRequirement port="output_network" requirement="output_network"/>
+                <productionToOutput port="qiime2_output" production="qiime2_output"/>
+        </bind>
+
+        <!-- Description -->
+        <bind action="write_description" tool="write_description">
+                <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+                <productionToOutput port="written_description" production="written_description"/>
+        </bind>
+
         <bind action="end" type="upload">
                 <url value="{livesearch.upload}"/>
                 <query name="task" valueRef="@task"/>
@@ -25,6 +36,12 @@
                 <compression type="zip"/>
                 <upload port="output_network" type="folder">
                         <query name="resource" value="output_network"/>
+                </upload>
+                <upload port="qiime2_output" type="folder">
+                        <query name="resource" value="qiime2_output"/>
+                </upload>
+                <upload port="written_description" type="folder">
+                        <query name="resource" value="written_description"/>
                 </upload>
         </bind>
 </binding>

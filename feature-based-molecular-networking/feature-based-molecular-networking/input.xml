@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="feature-based-molecular-networking" version="1.2.5">
+<interface id="feature-based-molecular-networking" version="VERSION">
     <workflow-id>FEATURE-BASED-MOLECULAR-NETWORKING</workflow-id>
     <workflow-label>Feature-based Molecular Networking</workflow-label>
 
@@ -161,6 +161,7 @@
                 <option value="METABOSCAPE" label="MetaboScape"/>
                 <option value="XCMS3" label="XCMS"/>
                 <option value="PROGENESIS" label="Progenesis QI"/>
+                <option value="MZTABM" label="MzTab-M"/>
             </options>
             <validator type="set"/>
             <default value="MZMINE2"/>

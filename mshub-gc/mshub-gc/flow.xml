@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="MSHUB-GC">
+    <collection name="spectra"/>
+    <object name="workflowParameters"/>
+
+    <action name="begin">
+        <output port="spec" collection="spectra"/>
+        <output port="params" object="workflowParameters"/>
+    </action>
+
+    <!-- Preprocessing -->
+    <collection name="preprocessing_scratch"/>
+    <object name="clustered_mgf"/>
+    <object name="clusterinfo"/>
+    <object name="clustersummary"/>
+    <collection name="summary_output"/>
+
+    <action name="preprocess_gcms_data">
+        <input port="spectra" collection="spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="preprocessing_scratch" collection="preprocessing_scratch"/>
+        <output port="clustered_mgf" object="clustered_mgf"/>
+        <output port="clusterinfo" object="clusterinfo"/>
+        <output port="clustersummary" object="clustersummary"/>
+        <output port="summary_output" collection="summary_output"/>
+    </action>
+
+
+    <action name="end">
+        <input port="clustered_mgf" collection="clustered_mgf"/>
+        <input port="clusterinfo" collection="clusterinfo"/>
+        <input port="clustersummary" collection="clustersummary"/>
+        <input port="summary_output" collection="summary_output"/>
+        <input port="preprocessing_scratch" collection="preprocessing_scratch"/>
+    </action>
+</flow>

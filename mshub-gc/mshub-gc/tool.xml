@@ -1,0 +1,50 @@
+<toolset>
+
+    <pathSet base="miniconda3_gamma/envs/mshub-gc">
+        <toolPath tool="preprocess_gcms_data" path="bin/python"/>
+        <pathVar name="python.exe" path="bin/python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="preprocess_gcms_data.script" path="process_gc.py"/>
+        <pathVar name="preprocess_import.script" path="proc/io/importmsdata.py"/>
+        <pathVar name="preprocess_align.script" path="proc/preproc/intrapalign.py"/>
+        <pathVar name="preprocess_noise.script" path="proc/preproc/noisefilter.py"/>
+        <pathVar name="preprocess_interalign.script" path="proc/preproc/interpalign.py"/>
+        <pathVar name="preprocess_peakdetect.script" path="proc/preproc/peakdetect.py"/>
+        <pathVar name="preprocess_export.script" path="proc/io/export.py"/>
+        <pathVar name="preprocess_report.script" path="proc/io/report.py"/>
+        <pathVar name="vistic_export.script" path="proc/vis/vistic.py"/>
+    </pathSet>
+
+    <tool name="preprocess_gcms_data">
+        <require name="spectra"       type="folder"/>
+        <require name="workflowParameters"       type="file"/>
+        <produce name="preprocessing_scratch"        type="folder"/>
+        <produce name="clustered_mgf" type="file" naming="fixed" value="specs_ms" extension="mgf"/>
+        <produce name="clusterinfo" type="file" naming="fixed" value="clusterinfo" extension="tsv"/>
+        <produce name="clustersummary" type="file" naming="fixed" value="clustersummary" extension="tsv"/>
+        <produce name="summary_output" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="preprocess_gcms_data.script"/>
+                <arg valueRef="workflowParameters"/>
+                <arg valueRef="spectra"/>
+                <arg valueRef="preprocessing_scratch"/>
+                <arg valueRef="clustered_mgf"/>
+                <arg valueRef="clusterinfo"/>
+                <arg valueRef="clustersummary"/>
+                <arg valueRef="summary_output"/>
+                <arg pathRef="python.exe"/>
+                <arg option="import_script" pathRef="preprocess_import.script"/>
+                <arg option="align_script" pathRef="preprocess_align.script"/>
+                <arg option="noise_script" pathRef="preprocess_noise.script"/>
+                <arg option="interalign_script" pathRef="preprocess_interalign.script"/>
+                <arg option="peakdetect_script" pathRef="preprocess_peakdetect.script"/>
+                <arg option="export_script" pathRef="preprocess_export.script"/>
+                <arg option="report_script" pathRef="preprocess_report.script"/>
+                <arg option="vistic_script" pathRef="vistic_export.script"/>
+        </execution>
+    </tool>
+
+</toolset>

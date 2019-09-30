@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<binding>
+  <bind action="begin" type="download">
+    <url value="{livesearch.download}"/>
+    <query name="task" valueRef="@task"/>
+    <query name="user" valueRef="@user"/>
+    <compression type="zip"/>
+    <download port="flowParams" type="file">
+      <query name="resource" value="params"/>
+    </download>
+    <downloadParams>
+      <query name="resource" value="params"/>
+    </downloadParams>
+    <download port="inputFiles" type="folder">
+      <query name="resource" value="inputFiles"/>
+    </download>
+    <!-- <download port="iniFiles" type="folder">
+      <query name="resource" value="iniFiles"/>
+    </downlaod> -->
+    <download port="iniFiles-featurefinder" type="file">
+      <query name="resource" value="iniFiles-featurefinder"/>
+    </download>
+    <download port="iniFiles-idmapper" type="file">
+      <query name="resource" value="iniFiles-idmapper"/>
+    </download>
+    <download port="iniFiles-mapaligner" type="file">
+      <query name="resource" value="iniFiles-mapaligner"/>
+    </download>
+    <download port="iniFiles-featurelinker" type="file">
+      <query name="resource" value="iniFiles-featurelinker"/>
+    </download>
+    <download port="iniFiles-adductdecharger" type="file">
+      <query name="resource" value="iniFiles-adductdecharger"/>
+    </download>
+    <download port="iniFiles-gnpsexport" type="file">
+      <query name="resource" value="iniFiles-gnpsexport"/>
+    </download>
+    <download port="iniFiles-textexporter" type="file">
+      <query name="resource" value="iniFiles-textexporter"/>
+    </download>
+  </bind>
+  <bind action="parse-input" tool="convert-mzxml-to-mzml">
+    <inputAsRequirement port="inputFiles" requirement="inputFiles"/>
+    <productionToOutput port="inFiles" production="inFiles"/>
+  </bind>
+  <bind action="feature-finder-metabo" tool="feature-finder-metabo">
+    <inputAsRequirement port="inFiles" requirement="inFiles"/>
+    <inputAsRequirement port="iniFiles-featurefinder" requirement="iniFiles-featurefinder"/>
+    <productionToOutput port="featurefindermetabo" production="featurefindermetabo"/>
+  </bind>
+  <bind action="id-mapper" tool="id-mapper">
+    <inputAsRequirement port="inFiles" requirement="inFiles"/>
+    <inputAsRequirement port="iniFiles-idmapper" requirement="iniFiles-idmapper"/>
+    <inputAsRequirement port="featurefindermetabo" requirement="featurefindermetabo"/>
+    <productionToOutput port="idmapper" production="idmapper"/>
+  </bind>
+  <bind action="map-aligner-pose-clustering" tool="map-aligner-pose-clustering">
+    <inputAsRequirement port="idmapper" requirement="idmapper"/>
+    <inputAsRequirement port="iniFiles-mapaligner" requirement="iniFiles-mapaligner"/>
+    <productionToOutput port="mapalignerposeclustering" production="mapalignerposeclustering"/>
+  </bind>
+  <bind action="metabolite-adduct-decharger" tool="metabolite-adduct-decharger">
+    <inputAsRequirement port="mapalignerposeclustering" requirement="mapalignerposeclustering"/>
+    <inputAsRequirement port="iniFiles-adductdecharger" requirement="iniFiles-adductdecharger"/>
+    <productionToOutput port="metaboliteadductdecharger" production="metaboliteadductdecharger"/>
+  </bind>
+  <bind action="feature-linker-unlabeled" tool="feature-linker-unlabeled">
+    <inputAsRequirement port="metaboliteadductdecharger" requirement="metaboliteadductdecharger"/>
+    <inputAsRequirement port="iniFiles-featurelinker" requirement="iniFiles-featurelinker"/>
+    <inputAsRequirement port="flowParams" requirement="flowParams"/>
+    <productionToOutput port="featurelinkerunlabeled" production="featurelinkerunlabeled"/>
+  </bind>
+  <bind action="file-filter" tool="file-filter">
+    <inputAsRequirement port="featurelinkerunlabeled" requirement="featurelinkerunlabeled"/>
+    <productionToOutput port="filefilter" production="filefilter"/>
+  </bind>
+  <bind action="gnps-export" tool="gnps-export">
+    <inputAsRequirement port="filefilter" requirement="filefilter"/>
+    <inputAsRequirement port="inFiles" requirement="inFiles"/>
+    <inputAsRequirement port="iniFiles-gnpsexport" requirement="iniFiles-gnpsexport"/>
+    <productionToOutput port="gnpsexport" production="gnpsexport"/>
+  </bind>
+  <bind action="text-exporter" tool="text-exporter">
+    <inputAsRequirement port="filefilter" requirement="filefilter"/>
+    <inputAsRequirement port="iniFiles-textexporter" requirement="iniFiles-textexporter"/>
+    <productionToOutput port="textexporter" production="textexporter"/>
+  </bind>
+  <bind action="parse-output" tool="parse-output">
+    <inputAsRequirement port="inFiles" requirement="inFiles"/>
+    <inputAsRequirement port="featurefindermetabo" requirement="featurefindermetabo"/>
+    <inputAsRequirement port="iniFiles-featurefinder" requirement="iniFiles-featurefinder"/>
+    <inputAsRequirement port="idmapper" requirement="idmapper"/>
+    <inputAsRequirement port="iniFiles-idmapper" requirement="iniFiles-idmapper"/>
+    <inputAsRequirement port="mapalignerposeclustering" requirement="mapalignerposeclustering"/>
+    <inputAsRequirement port="iniFiles-mapaligner" requirement="iniFiles-mapaligner"/>
+    <inputAsRequirement port="metaboliteadductdecharger" requirement="metaboliteadductdecharger"/>
+    <inputAsRequirement port="iniFiles-adductdecharger" requirement="iniFiles-adductdecharger"/>
+    <inputAsRequirement port="featurelinkerunlabeled" requirement="featurelinkerunlabeled"/>
+    <inputAsRequirement port="iniFiles-featurelinker" requirement="iniFiles-featurelinker"/>
+    <inputAsRequirement port="filefilter" requirement="filefilter"/>
+    <inputAsRequirement port="gnpsexport" requirement="gnpsexport"/>
+    <inputAsRequirement port="iniFiles-gnpsexport" requirement="iniFiles-gnpsexport"/>
+    <inputAsRequirement port="textexporter" requirement="textexporter"/>
+    <inputAsRequirement port="iniFiles-textexporter" requirement="iniFiles-textexporter"/>
+
+    <productionToOutput port="output"       production="output"/>
+    <!-- <productionToOutput port="openms_output" production="openms_output"/> -->
+    <!-- <productionToOutput port="download_all_files" production="download_all_files"/> -->
+  </bind>
+
+  <bind action="end" type="upload">
+    <url value="{livesearch.upload}"/>
+    <query name="task" valueRef="@task"/>
+    <contentQuery name="content"/>
+    <compression type="zip"/>
+
+    <!-- <upload port="openms_output" type="folder"> -->
+    	<!-- <query name="resource"	value="openms_output"/> -->
+    <!-- </upload> -->
+
+    <!-- <upload port="download_all_files" type="folder"> -->
+    	<!-- <query name="resource"	value="download_all_files"/> -->
+    <!-- </upload> -->
+    <upload port="output" type="folder">
+      <query name="resource" value="output"/>
+    </upload>
+  </bind>
+</binding>

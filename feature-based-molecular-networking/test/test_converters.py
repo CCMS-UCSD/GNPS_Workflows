@@ -24,8 +24,15 @@ class TestLoaders(unittest.TestCase):
         self.assertTrue(filecmp.cmp("./msdial_ims_output.csv", "./reference_input_file_for_formatter/MS-DIAL/GnpsTable_1_20198191357_PASEF_output.csv", shallow=False))
 
     def test_progenesis(self):
-        progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_Peaks.csv", \
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_Peaks.csv", \
             "./progenesis_output.csv")
+
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_MSMS.msp", "progenesis_output.mgf", compound_to_scan_mapping)
+
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/Neg_MSE_Catechin.csv", \
+            "./progenesis_output_catechin.csv")
+
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/Neg_MSE_Catechin.msp", "progenesis_output_catechin.mgf", compound_to_scan_mapping)
 
     def test_metaboscape(self):
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/Lipids.msmsonly.csv", \
