@@ -17,7 +17,7 @@ Public Workflows at GNPS code repository. Below are the direct links to try out 
 | MSHub-GC Deconvolution  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B"workflow":"MSHUB-GC"%7D)   | [Workflow]() |
 | Library Search/Molecular Networking GC  | [Workflow]()   | [Workflow]() |
 | Merge Polarity Networks  | [Workflow]()   | [Workflow]() |
-| Microbiome-Metabolomics Association - mmvec  | [Workflow]()   | [Workflow]() |
+| Microbiome-Metabolomics Association - mmvec  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22RHAPSODY_MMVEC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22RHAPSODY_MMVEC%22%7D) |
 | Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow]() |
 
 ## GNPS Secondary Services Links
