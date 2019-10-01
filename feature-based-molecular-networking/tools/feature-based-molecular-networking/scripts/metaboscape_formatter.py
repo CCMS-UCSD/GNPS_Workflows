@@ -24,7 +24,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         intensities = intensities.drop(['MaxIntensity'],axis = 1)
         metadata = input_format.loc[:,:'MaxIntensity']
         metadata_filtered = metadata[['FEATURE_ID','PEPMASS','RT']]
-        results = pd.concat([metadata_filtered,intensities], axis=1, sort=False)
+        results = pd.concat([metadata_filtered,intensities], axis=1)
         results.rename(columns={'FEATURE_ID': 'row ID','PEPMASS': 'row m/z','RT':'row retention time'}, inplace=True)
 
         for i in range(3,len(results.columns.values)):
