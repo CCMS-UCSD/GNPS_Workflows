@@ -28,6 +28,7 @@ Public Workflows at GNPS code repository. Below are the direct links to try out 
 | gnps-qiime.ucsd.edu | Qiime2 processing worker | Inactive |
 | gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | Active |
 | gnps-libraries.ucsd.edu | Exploring GNPS Libraries | Inactive |
+| gnps-structure.ucsd.edu | Structure processing worker | Active |
 | redu.ucsd.edu | Reuse of Public Data/Sample Information | Active |
 | gnps-quickstart.ucsd.edu | GNPS Quickstart Server | Active |
 | gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | Active |
