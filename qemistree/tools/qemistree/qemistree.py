@@ -10,7 +10,8 @@ def main():
     parser.add_argument("input_sirius_mgf")
     parser.add_argument("input_quant_table")
     parser.add_argument("output_folder")
-    parser.add_argument("qiime_bin")
+    parser.add_argument("conda_activate_bin")
+    parser.add_argument("conda_environment")
     parser.add_argument("sirius_bin")
 
     args = parser.parse_args()
@@ -21,27 +22,27 @@ def main():
     output_formula_qza = os.path.join(args.output_folder, "formula.qza")
 
     all_cmd = []
-    cmd = "LC_ALL=en_US && export LC_ALL && {} tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.qiime_bin, args.input_quant_table, output_feature_qza)
+    cmd = "source {} {} && LC_ALL=en_US && export LC_ALL && qiime tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.conda_activate_bin, args.conda_environment, args.input_quant_table, output_feature_qza)
     all_cmd.append(cmd)
 
-    cmd = "LC_ALL=en_US && export LC_ALL && {} tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.qiime_bin, args.input_sirius_mgf, output_mgf_qza)
+    cmd = "source {} {} && LC_ALL=en_US && export LC_ALL && qiime tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.conda_activate_bin, args.conda_environment, args.input_sirius_mgf, output_mgf_qza)
     all_cmd.append(cmd)
 
-    cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree compute-fragmentation-trees --p-sirius-path {} \
+    cmd = 'source {} {} && LC_ALL=en_US && export LC_ALL && qiime qemistree compute-fragmentation-trees --p-sirius-path {} \
     --i-features {} \
     --p-ppm-max 15 \
     --p-profile orbitrap \
     --p-ionization-mode positive \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
     all_cmd.append(cmd)
 
-    cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree rerank-molecular-formulas --p-sirius-path {} \
+    cmd = 'source {} {} && LC_ALL=en_US && export LC_ALL && qiime qemistree rerank-molecular-formulas --p-sirius-path {} \
     --i-features {} \
     --i-fragmentation-trees {} \
     --p-zodiac-threshold 0.95 \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-molecular-formulas {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza, output_formula_qza)
+    --o-molecular-formulas {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, output_fragtree_qza, output_formula_qza)
     all_cmd.append(cmd)
 
     # cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree make-hierarchy \

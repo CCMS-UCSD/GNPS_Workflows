@@ -4,6 +4,10 @@
         <toolPath tool="qemistree" path="python"/>
     </pathSet>
 
+    <pathSet base="miniconda3_gamma/bin">
+        <pathVar name="activate.path" path="activate"/>
+    </pathSet>
+
     <pathSet base="miniconda3_gamma/envs/qiime2-2019.7/bin">
         <pathVar name="qiime.path" path="qiime"/>
     </pathSet>
@@ -24,7 +28,8 @@
             <arg valueRef="spectra"/>
             <arg valueRef="quant_table"/>
             <arg valueRef="output_folder"/>
-            <arg pathRef="qiime.path"/>
+            <arg pathRef="activate.path"/>
+            <arg value="qiime2-2019.7"/>
             <arg pathRef="sirius.path"/>
         </execution>
     </tool>
