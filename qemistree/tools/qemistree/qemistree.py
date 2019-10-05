@@ -44,6 +44,12 @@ def main():
     --o-molecular-formulas {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_formula_qza)
     all_cmd.append(cmd)
 
+    # cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree make-hierarchy \
+    # --i-csi-results {} \
+    # --i-feature-tables {} \
+    # --o-tree demo-qemistree.qza \
+    # --o-merged-feature-table filtered-feature-table.qza \
+    # --o-merged-feature-data feature-data.qza'.format(args.qiime_bin, )
 
     for cmd in all_cmd:
         print(cmd)
