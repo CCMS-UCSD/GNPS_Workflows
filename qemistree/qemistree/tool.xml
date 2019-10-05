@@ -4,6 +4,10 @@
         <toolPath tool="qemistree" path="python"/>
     </pathSet>
 
+    <pathSet base="miniconda3_gamma/envs/qiime2-2019.7/bin">
+        <pathVar tool="qiime_bin" path="qiime"/>
+    </pathSet>
+
     <pathSet base="$base">
         <pathVar name="qemistree.script" path="qemistree.py"/>
     </pathSet>
@@ -19,6 +23,7 @@
             <arg valueRef="spectra"/>
             <arg valueRef="quant_table"/>
             <arg valueRef="output_folder"/>
+            <arg pathRef="qiime_bin"/>
         </execution>
     </tool>
 

@@ -2,12 +2,12 @@
 <flow name="QEMISTREE">
     <collection name="spectra"/>
     <object name="workflowParameters"/>
-    <object name="annotation_table"/>
+    <object name="quant_table"/>
 
     <action name="begin">
         <output port="spec" collection="spectra"/>
         <output port="params" object="workflowParameters"/>
-        <output port="annotation_table" object="annotation_table"/>
+        <output port="quant_table" object="quant_table"/>
     </action>
 
     <object name="output_batch"/>
