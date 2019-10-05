@@ -32,7 +32,7 @@ def main():
     --p-profile orbitrap \
     --p-ionization-mode positive \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
     all_cmd.append(cmd)
 
     for cmd in all_cmd:
