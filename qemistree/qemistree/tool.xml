@@ -5,7 +5,7 @@
     </pathSet>
 
     <pathSet base="miniconda3_gamma/envs/qiime2-2019.7/bin">
-        <pathVar tool="qiime_bin" path="qiime"/>
+        <pathVar name="qiime_bin" path="qiime"/>
     </pathSet>
 
     <pathSet base="$base">
