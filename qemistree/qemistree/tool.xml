@@ -14,7 +14,7 @@
     </pathSet>
 
     <tool name="qemistree">
-        <require name="spectra" type="folder"/>
+        <require name="spectra" type="file"/>
         <require name="workflowParameters" type="file"/>
         <require name="quant_table" type="file"/>
         <produce name="output_folder" type="folder"/>

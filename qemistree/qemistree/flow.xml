@@ -12,7 +12,7 @@
 
     <collection name="output_folder"/>
     <action name="qemistree">
-        <input port="spectra" collection="spectra"/>
+        <input port="spectra" object="spectra"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quant_table" object="quant_table"/>
         <output port="output_folder" collection="output_folder"/>

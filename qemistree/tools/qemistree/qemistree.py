@@ -36,12 +36,12 @@ def main():
     --o-fragmentation-trees {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
     all_cmd.append(cmd)
 
-    cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree rerank-molecular-formulas --p-sirius-path  \
+    cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree rerank-molecular-formulas --p-sirius-path {} \
     --i-features {} \
     --i-fragmentation-trees {} \
     --p-zodiac-threshold 0.95 \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-molecular-formulas {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_formula_qza)
+    --o-molecular-formulas {}'.format(args.qiime_bin, args.sirius_bin, output_mgf_qza, output_fragtree_qza, output_formula_qza)
     all_cmd.append(cmd)
 
     # cmd = 'LC_ALL=en_US && export LC_ALL && {} qemistree make-hierarchy \
