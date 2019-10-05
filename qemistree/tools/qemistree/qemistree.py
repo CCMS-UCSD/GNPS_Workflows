@@ -21,6 +21,7 @@ def main():
     output_fragtree_qza = os.path.join(args.output_folder, "fragmentation_trees.qza")
     output_formula_qza = os.path.join(args.output_folder, "formula.qza")
     output_fingerprints_qza = os.path.join(args.output_folder, "fingerprints.qza")
+    output_qemistree_qza = os.path.join(args.output_folder, "qemistree.qza")
     output_merged_feature_table_qza = os.path.join(args.output_folder, "merged_feature_table.qza")
     output_merged_data_qza = os.path.join(args.output_folder, "merged_data.qza")
 
@@ -58,11 +59,12 @@ def main():
     cmd = 'source {} {} && LC_ALL=en_US && export LC_ALL && qiime qemistree make-hierarchy \
     --i-csi-results {} \
     --i-feature-tables {} \
-    --o-tree demo-qemistree.qza \
+    --o-tree {} \
     --o-merged-feature-table {} \
     --o-merged-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
         output_fingerprints_qza, \
         output_feature_qza, \
+        output_qemistree_qza, \
         output_merged_feature_table_qza, \
         output_merged_data_qza)
     all_cmd.append(cmd)
