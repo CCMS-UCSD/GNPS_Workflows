@@ -14,8 +14,12 @@ def main():
 
     args = parser.parse_args()
 
-    output_qza = os.path.join(args.output_folder, "feature-table.qza")
-    cmd = "{} tools tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.qiime_bin, args.input_quant_table, output_qza)
+    output_feature_qza = os.path.join(args.output_folder, "feature-table.qza")
+    output_mgf_qza = os.path.join(args.output_folder, "sirius.mgf.qza")
+    cmd = "LC_ALL=en_US && export LC_ALL && {} tools tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.qiime_bin, args.input_quant_table, output_feature_qza)
+    os.system(cmd)
+
+    cmd = "{} tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.qiime_bin, args.input_sirius_mgf, output_mgf_qza)
     os.system(cmd)
 
 if __name__ == "__main__":
