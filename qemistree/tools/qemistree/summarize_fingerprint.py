@@ -25,7 +25,7 @@ def main():
         summary_filename = search_filenames[0]
         df = pd.read_csv(summary_filename, sep="\t")
 
-        df.to_csv(os.path.join(args.summary_folder, "summary_csi.tsv"), sep="\t")
+        df.to_csv(os.path.join(args.summary_folder, "summary_csi.tsv"), sep="\t", index=False)
 
 
     #Loading fingerprint mapping
@@ -60,7 +60,7 @@ def main():
 
         output_fingerprint_summary_list.append(feature_dict)
 
-    pd.DataFrame(output_fingerprint_summary_list).to_csv(os.path.join(summary_folder, "summary_fingerprints.tsv"), sep="\t")
+    pd.DataFrame(output_fingerprint_summary_list).to_csv(os.path.join(args.summary_folder, "summary_fingerprints.tsv"), sep="\t", index=False)
         
 
 

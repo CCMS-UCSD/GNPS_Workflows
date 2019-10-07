@@ -4,4 +4,26 @@
         <source type="folder" name="output_folder/"/>
     </download>
 
+    <view id="summary_view" label="View Summary" group="Default Views">
+		<blockRef id="main" type="summary_view"/>
+	</view>
+
+	<!-- Block definitions -->
+	<block id="summary_view" type="table">
+		<data>
+			<source type="file" name="fingerprint_summary/summary_csi.tsv"/>
+			<parsers>
+				<parser type="tabular"/>
+			</parsers>
+		</data>
+		<row>
+			<column type="text" field="experimentName" label="experimentName" width="12"/>
+			<column type="text" field="molecularFormula" label="molecularFormula" width="12"/>
+			<column type="text" field="inchikey2D" label="inchikey2D" width="12"/>
+			<column type="structuredisplayer" label="Structure">
+                <parameter name="inchistructure" value="[inchi]"/>
+            </column>
+		</row>
+	</block>
+
 </interface>
