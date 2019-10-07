@@ -14,7 +14,11 @@ def main():
     args = parser.parse_args()
 
     input_csi_qza = os.path.join(args.results_folder, "fingerprints.qza")
-    os.system("unzip {}", input_csi_qza)
+    cmd = "unzip {}".format(input_csi_qza)
+    print(cmd)
+    os.system(cmd)
 
     #Looking for summary filename
     search_filenames = glob.glob("**/summary_csi_fingerid.csv", recursive=True)
+
+    print(search_filenames)
