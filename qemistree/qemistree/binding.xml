@@ -27,6 +27,11 @@
         <productionToOutput port="output_folder" production="output_folder"/>
     </bind>
 
+    <bind action="summarize_fingerprints" tool="summarize_fingerprints">
+        <inputAsRequirement port="output_folder" requirement="output_folder"/>
+        <productionToOutput port="fingerprint_summary" production="fingerprint_summary"/>
+    </bind>
+
 
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
@@ -35,6 +40,9 @@
         <compression type="zip"/>
         <upload port="output_folder" type="folder">
             <query name="resource" value="output_folder"/>
+        </upload>
+        <upload port="fingerprint_summary" type="folder">
+            <query name="resource" value="fingerprint_summary"/>
         </upload>
     </bind>
 </binding>

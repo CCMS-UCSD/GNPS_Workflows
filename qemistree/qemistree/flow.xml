@@ -18,8 +18,15 @@
         <output port="output_folder" collection="output_folder"/>
     </action>
 
+    <collection name="fingerprint_summary"/>
+    <action name="summarize_fingerprints">
+        <input port="output_folder" collection="output_folder"/>
+        <output port="fingerprint_summary" collection="fingerprint_summary"/>
+    </action>
+
 
     <action name="end">
         <input port="output_folder" collection="output_folder"/>
+        <input port="fingerprint_summary" collection="fingerprint_summary"/>
     </action>
 </flow>

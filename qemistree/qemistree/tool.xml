@@ -1,11 +1,8 @@
 <toolset>
 
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="qemistree" path="python"/>
-    </pathSet>
-
     <pathSet base="miniconda3_gamma/bin">
         <pathVar name="activate.path" path="activate"/>
+        <toolPath tool="qemistree" path="python"/>
     </pathSet>
 
     <pathSet base="miniconda3_gamma/envs/qiime2-2019.7/bin">
@@ -31,6 +28,26 @@
             <arg pathRef="activate.path"/>
             <arg value="qiime2-2019.7"/>
             <arg pathRef="sirius.path"/>
+        </execution>
+    </tool>
+
+
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="summarize_fingerprints" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="summarize_fingerprints.script" path="summarize_fingerprints.py"/>
+    </pathSet>
+
+    <tool name="summarize_fingerprints">
+        <require name="output_folder" type="folder"/>
+        <produce name="fingerprint_summary" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="summarize_fingerprints.script"/>
+            <arg valueRef="output_folder"/>
+            <arg valueRef="fingerprint_summary"/>
         </execution>
     </tool>
 
