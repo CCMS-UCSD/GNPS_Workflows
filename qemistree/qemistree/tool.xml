@@ -37,7 +37,7 @@
         <toolPath tool="summarize_fingerprints" path="python"/>
     </pathSet>
     <pathSet base="$base">
-        <pathVar name="summarize_fingerprints.script" path="summarize_fingerprints.py"/>
+        <pathVar name="summarize_fingerprints.script" path="summarize_fingerprint.py"/>
     </pathSet>
 
     <tool name="summarize_fingerprints">
