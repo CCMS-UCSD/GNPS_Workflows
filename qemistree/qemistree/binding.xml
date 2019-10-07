@@ -32,6 +32,11 @@
         <productionToOutput port="fingerprint_summary" production="fingerprint_summary"/>
     </bind>
 
+    <bind action="create_network" tool="create_network">
+        <inputAsRequirement port="fingerprint_summary" requirement="fingerprint_summary"/>
+        <productionToOutput port="fingerprint_network" production="fingerprint_network"/>
+    </bind>
+
 
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
@@ -43,6 +48,9 @@
         </upload>
         <upload port="fingerprint_summary" type="folder">
             <query name="resource" value="fingerprint_summary"/>
+        </upload>
+        <upload port="fingerprint_network" type="folder">
+            <query name="resource" value="fingerprint_network"/>
         </upload>
     </bind>
 </binding>

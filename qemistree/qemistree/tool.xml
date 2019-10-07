@@ -45,4 +45,22 @@
         </execution>
     </tool>
 
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="create_network" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="create_network.script" path="fingerprint_network.py"/>
+    </pathSet>
+
+    <tool name="create_network">
+        <require name="fingerprint_summary" type="folder"/>
+        <produce name="fingerprint_network" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_network.script"/>
+            <arg valueRef="fingerprint_summary"/>
+            <arg valueRef="fingerprint_network"/>
+        </execution>
+    </tool>
+
 </toolset>
