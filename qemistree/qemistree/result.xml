@@ -23,6 +23,10 @@
 			<column type="structuredisplayer" label="Structure">
                 <parameter name="inchistructure" value="[inchi]"/>
             </column>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="REQUESTPARAMETER=inchi" value="[inchi]"/>
+            </column>
 		</row>
 	</block>
 
