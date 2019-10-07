@@ -27,8 +27,6 @@
         </execution>
     </tool>
 
-
-
     <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="summarize_fingerprints" path="python"/>
     </pathSet>

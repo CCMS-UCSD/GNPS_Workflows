@@ -26,8 +26,15 @@ def main():
     output_merged_data_qza = os.path.join(args.output_folder, "merged_data.qza")
 
     all_cmd = []
-    cmd = "source {} {} && LC_ALL=en_US && export LC_ALL && qiime tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.conda_activate_bin, args.conda_environment, args.input_quant_table, output_feature_qza)
-    all_cmd.append(cmd)
+
+    if ".biom" in args.input_quant_table:
+        cmd = "source {} {} && LC_ALL=en_US && export LC_ALL && qiime tools import --input-path {} --output-path {} --type FeatureTable[Frequency]".format(args.conda_activate_bin, args.conda_environment, args.input_quant_table, output_feature_qza)
+        all_cmd.append(cmd)
+    elif ".qza" in args.input_quant_table:
+        cmd = "cp {} {}".format(args.input_quant_table, output_feature_qza)
+    elif ".csv" in args.input_quant_table:
+        print("TODO: Will handle mzmine2 input, would recommend using FMBN first")
+        exit(1)
 
     cmd = "source {} {} && LC_ALL=en_US && export LC_ALL && qiime tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.conda_activate_bin, args.conda_environment, args.input_sirius_mgf, output_mgf_qza)
     all_cmd.append(cmd)
