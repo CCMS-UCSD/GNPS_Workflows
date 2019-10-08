@@ -12,6 +12,7 @@ import spectrum_alignment
 import ming_proteosafe_library
 import ming_parallel_library
 import ming_fileio_library
+import masst_validator
 
 def usage():
     print("<param.xml> <output mgf file>")
@@ -23,8 +24,12 @@ def main():
 
     params_obj = ming_proteosafe_library.parse_xml_file(open(paramxml_input_filename))
 
-    spectrum_collection = get_spectrum_collection_from_param_obj(params_obj)
+    #Validating the spectrum string
+    if masst_validator.validate(param_obj["spectrum_string"][0], int(param_obj["MIN_MATCHED_PEAKS"][0])) != 0:
+        print("Validation Error on Input")
+        exit(1)
 
+    spectrum_collection = get_spectrum_collection_from_param_obj(params_obj)
     spectrum_collection.save_to_mgf(open(output_mgf_file, "w"))
 
 
