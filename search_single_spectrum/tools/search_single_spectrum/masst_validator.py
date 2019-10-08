@@ -1,9 +1,9 @@
 def validate(peak_string, min_matched_peaks):
     counter = 0
 
-    peaks_lines = spectrum_string.split("\n")
+    peak_lines = peak_string.split("\n")
 
-    for peak_line in peak_lines:
+    for peak_entry in peak_lines:
         try:
             mass, inten = peak_entry.split()
         except:
