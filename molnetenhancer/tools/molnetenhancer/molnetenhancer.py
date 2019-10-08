@@ -65,12 +65,13 @@ final, ClassyFireResults_file = create_ClassyFireResults(netfile, inchi_dic, dir
 create_GraphML(GNPS_file, final, directory)
 
 #optional MS2LDA job Mass 2 Motifs
-if args.ms2lda!='None' and args.ms2lda!=None and len(args.ms2lda) > 2:
+if args.ms2lda!='None' and args.ms2lda!=None and len(args.ms2lda) > 2 and len(args.ms2lda) < 20:
     user_Params = pack_User_Params(prob=args.prob, overlap=args.overlap, top=args.top)
     MS2LDA_job_ID = args.ms2lda
     mass_2_Motifs(GNPS_file, MS2LDA_job_ID, ClassyFireResults_file, directory, user_Params)
 elif args.gnps_ms2lda_job!='None' and args.gnps_ms2lda_job!=None:
-    print('Load from GNPS')
+    print("MS2LDA from GNPS is currently not supported but is coming soon!")
+    exit(1)
 else:
     print('No MS2LDA Op')
     
