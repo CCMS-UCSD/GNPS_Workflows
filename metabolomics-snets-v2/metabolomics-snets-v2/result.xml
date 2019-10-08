@@ -9,6 +9,7 @@
         <source type="folder" name="result_specnets_DB/"/>
         <source type="folder" name="groupmapping_converted/"/>
         <source type="folder" name="qiime2_output/"/>
+        <source type="folder" name="gnps_molecular_network_graphml/"/>
     </download>
 
     <view id="view_all_annotations_DB" label="View All Library Hits" group="Default Molecular Networking Results Views">
