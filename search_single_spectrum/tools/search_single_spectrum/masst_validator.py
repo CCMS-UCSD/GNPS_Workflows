@@ -1,17 +1,14 @@
 def validate(peak_string, min_matched_peaks):
     counter = 0
 
-    #looping over every line in the string
-    for peak_entry in peak_string.splitlines():
-        #try splitting the string by space and tab
+    peaks_lines = spectrum_string.split("\n")
+
+    for peak_line in peak_lines:
         try:
-            mass, inten = peak_entry.split(" ")
+            mass, inten = peak_entry.split()
         except:
-            try:
-                mass, inten = peak_entry.split("   ")    
-            except:
-                print("Error: m/z and intensity not separated properly")
-                return 1
+            print("Error: m/z and intensity not separated properly")
+            return 1
 
         #making sure the input is a number with no additional characters
         try:
