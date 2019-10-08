@@ -14,7 +14,7 @@ def inchi2smiles (inchi):
     return response.text
 
 def smiles2inchi (smiles):
-    url = "https://dorresteinappshub.ucsd.edu:5065/inchi?smiles=%s"%smiles
+    url = "https://gnps-structure.ucsd.edu/inchi?smiles=%s"%smiles
     response = requests.get(url)
     if response.status_code !=200 :
         #print(response.text)

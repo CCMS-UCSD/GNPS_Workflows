@@ -12,7 +12,7 @@ def mass_from_inchi (inchi):
         #print (response.text)
         print(url)
         return 0
-    return response.json()["monoisotopicmass"]
+    return float(response.text)
 
 def mass_from_smiles (smiles):
     print(smiles)
@@ -23,4 +23,4 @@ def mass_from_smiles (smiles):
         #print (response.text)
         print(url)
         return 0
-    return response.json()["monoisotopicmass"]
+    return float(response.text)
