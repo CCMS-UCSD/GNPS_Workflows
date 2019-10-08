@@ -25,7 +25,7 @@ def main():
     params_obj = ming_proteosafe_library.parse_xml_file(open(paramxml_input_filename))
 
     #Validating the spectrum string
-    if masst_validator.validate(param_obj["spectrum_string"][0], int(param_obj["MIN_MATCHED_PEAKS"][0])) != 0:
+    if masst_validator.validate(params_obj["spectrum_string"][0], int(params_obj["MIN_MATCHED_PEAKS"][0])) != 0:
         print("Validation Error on Input")
         exit(1)
 
