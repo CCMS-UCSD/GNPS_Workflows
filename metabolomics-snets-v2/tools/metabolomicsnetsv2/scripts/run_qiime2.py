@@ -20,6 +20,8 @@ def main():
     parser.add_argument('cluster_buckets', help='cluster_buckets')
     parser.add_argument('metadata_folder', help='metadata_folder')
     parser.add_argument('output_folder', help='output_folder')
+    parser.add_argument("conda_activate_bin")
+    parser.add_argument("conda_environment")
     args = parser.parse_args()
 
     param_object = ming_proteosafe_library.parse_xml_file(open(args.param_xml, "r"))
@@ -131,27 +133,57 @@ def main():
     manifest_df["filepath"] = metadata_df["filename"]
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
 
-    """Calling remote server to do the calculation"""
-    SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    files = {'manifest': open(output_manifest_filename, 'r'), \
-    'metadata': open(output_metadata_filename, 'r'), \
-    'bucket': open(args.cluster_buckets, 'r')}
+    # """Calling remote server to do the calculation"""
+    # SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
+    # files = {'manifest': open(output_manifest_filename, 'r'), \
+    # 'metadata': open(output_metadata_filename, 'r'), \
+    # 'bucket': open(args.cluster_buckets, 'r')}
 
-    r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
-    response_dict = r_post.json()
+    # r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
+    # response_dict = r_post.json()
 
-    with open(os.path.join(args.output_folder, "qiime2_table.qza"), 'wb') as f:
-        r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-        r.raw.decode_content = True
-        shutil.copyfileobj(r.raw, f)
+    # with open(os.path.join(args.output_folder, "qiime2_table.qza"), 'wb') as f:
+    #     r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
+    #     r.raw.decode_content = True
+    #     shutil.copyfileobj(r.raw, f)
 
-    with open(os.path.join(args.output_folder, "qiime2_emperor.qzv"), 'wb') as f:
-        r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-        r.raw.decode_content = True
-        shutil.copyfileobj(r.raw, f)
+    # with open(os.path.join(args.output_folder, "qiime2_emperor.qzv"), 'wb') as f:
+    #     r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
+    #     r.raw.decode_content = True
+    #     shutil.copyfileobj(r.raw, f)
 
+    local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
+    local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
+    local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
+    local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
 
+    all_cmd = []
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime metabolomics import-gnpsnetworkingclusteringbuckettable \
+        --p-manifest {} \
+        --p-buckettable {} \
+        --o-feature-table {}".format(args.conda_activate_bin, args.conda_environment, output_manifest_filename, args.cluster_buckets, local_qza_table))
 
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity beta \
+        --i-table {} \
+        --p-metric cosine \
+        --o-distance-matrix {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_distance))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity pcoa \
+        --i-distance-matrix {} \
+        --o-pcoa {}".format(args.conda_activate_bin, args.conda_environment, local_qza_distance, local_qza_pcoa))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime emperor plot \
+        --i-pcoa {} \
+        --m-metadata-file {} \
+        --o-visualization {} \
+        --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+
+    for cmd in all_cmd:
+        os.system(cmd)
 
 if __name__ == "__main__":
     main()

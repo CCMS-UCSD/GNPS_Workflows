@@ -8,16 +8,16 @@ import json
 import requests
 import redis
 
-try:
-    redis_connection = redis.Redis(host='dorresteinappshub.ucsd.edu', port=6378, db=0)
-except:
-    redis_connection = None
-
+# try:
+#     redis_connection = redis.Redis(host='dorresteinappshub.ucsd.edu', port=6378, db=0)
+# except:
+#     redis_connection = None
+redis_connection = None
 
 
 def acquire_motifdb(db_list):
     db_list_key = json.dumps(db_list)
-    if redis_connection != None:
+    if redis_connection is not None:
         if redis_connection.exists(db_list_key):
             cached_data = json.loads(redis_connection.get(db_list_key))
             return cached_data["motifdb_spectra"], cached_data["motifdb_metadata"], set(cached_data["motifdb_features"])
@@ -38,7 +38,7 @@ def acquire_motifdb(db_list):
             motifdb_features.add(f)
 
     #Trying to cache
-    if redis_connection != None:
+    if redis_connection is not None:
         data_cache = {}
         data_cache["motifdb_spectra"] = motifdb_spectra
         data_cache["motifdb_metadata"] = motifdb_metadata

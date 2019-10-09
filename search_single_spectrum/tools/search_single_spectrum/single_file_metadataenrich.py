@@ -10,7 +10,7 @@ import ming_fileio_library
 
 
 def get_metadata_information_per_filename(filename):
-    url = "http://dorresteinappshub.ucsd.edu:5005/filename?query=%s" % (filename)
+    url = "https://redu.ucsd.edu/filename?query=%s" % (filename)
     r = requests.get(url)
     
     return r.json()

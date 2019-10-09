@@ -561,9 +561,9 @@
         </execution>
     </tool>
 
-
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="run_qiime2" path="python"/>
+        <pathVar name="activate.path" path="activate"/>
     </pathSet>
     <pathSet base="$base/scripts">
         <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
@@ -581,6 +581,8 @@
             <arg valueRef="cluster_buckets"/>
             <arg valueRef="metadatafile"/>
             <arg valueRef="qiime2_output"/>
+            <arg pathRef="activate.path"/>
+            <arg value="qiime2-2019.4"/>
         </execution>
     </tool>
 
