@@ -19,7 +19,7 @@ if __name__ == '__main__':
             print("\t", dir, os.listdir(os.path.abspath(dir)))
 
     #parse output diretory
-    print sys.argv[OUTPUT_DIR_INDEX]
+    print(sys.argv[OUTPUT_DIR_INDEX])
     output_dir = sys.argv[OUTPUT_DIR_INDEX]
 
     #download openms output
