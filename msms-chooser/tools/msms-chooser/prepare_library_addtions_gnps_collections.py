@@ -173,9 +173,9 @@ def main():
         #charge = 1
         #print(ionmode)
         if ionmode == "Positive":
-            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na","M-2H2O+H","2M+H"]
+            adduct_list = ["M", "M+H", "M-H2O+H", "M-2H2O+H", "2M+H", "M+Na", "2M+Na", "M+K", "2M+K", "M+NH4"]
         else:
-            adduct_list = ["M-H", "2M-H","2M-2H+Na"]
+            adduct_list = ["M-H", "M-2H", "2M-H","2M-2H+Na", "M+H2O-H"]
 
         for adduct in adduct_list:
             monoisotopic_mass, charge = ming_mass_spec_library.get_adduct_mass(exact_mass, adduct)
