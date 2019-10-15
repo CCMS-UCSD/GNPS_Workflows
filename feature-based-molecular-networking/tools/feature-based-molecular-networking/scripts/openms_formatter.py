@@ -3,8 +3,9 @@
 """
 Created on Wed Oct  3 17:31:35 2018
 
-@author: zheng zhang
+@author: zheng zhang and Louis Felix Nothias
 @purpose: to convert the openms output into a diserable format
+Filenames have to be unique ! If filenames are not unique, only the first filename occurence is outputed
 """
 import pandas as pd
 import sys
@@ -30,10 +31,12 @@ def convert_to_feature_csv(input_filename, output_filename):
         start_row_consensus += 1
     f.close()
 
-    #check duplicates
-    if len(spectrum_files) != len(set(spectrum_files)):
-        print ('The feature table contains duplicated filename(s). Update the filename(s) in the feature table and the metadata table')
-        return
+    #check/stop for duplicates filename and print them
+    #DuplicatedFileName = set([x for x in spectrum_files if spectrum_files.count(x) > 1])
+    #if len(spectrum_files) != len(set(spectrum_files)):
+    #    print ('The feature table contains duplicated filename(s). Update the filename(s) in the feature table and the metadata table')
+    #    print (DuplicatedFileName)
+    #    return
 
     # Transform the header to be final result format
     # rt_cf -> row retention time
@@ -59,8 +62,17 @@ def convert_to_feature_csv(input_filename, output_filename):
     result.fillna(value=0, inplace=True)
     result.insert(0, 'row ID', result.index+1)
     to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
+
+    # Removing duplicated filename from the spectrum_files to be outputted
+    seen = set()
+    to_write_list_nodupl = []
+    for item in to_write_list:
+        if item not in seen:
+            seen.add(item)
+            to_write_list_nodupl.append(item)
+
     result.to_csv(output_filename,index = False,
-                  columns = to_write_list)
+                  columns = to_write_list_nodupl)
 
 if __name__=="__main__":
     # there should be obly one input file
