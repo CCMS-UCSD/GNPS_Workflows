@@ -3,5 +3,5 @@ include ../Makefile.deploytemplate
 
 WORKFLOW_NAME=molnetenhancer
 TOOL_FOLDER_NAME=molnetenhancer
-WORKFLOW_VERSION=release_11
+WORKFLOW_VERSION=release_13
 

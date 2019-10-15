@@ -120,7 +120,7 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
 
     for i in range(len(smiles_df)):
         smile_str = smiles_df.loc[i]['SMILES']
-        link = 'http://dorresteinappshub.ucsd.edu:5065/smiles/inchikey?smiles=%s' % smile_str
+        link = 'https://gnps-structure.ucsd.edu/inchikey?smiles=%s' % smile_str
         result = requests.get(link)
         soup = str(BeautifulSoup(result.content, 'html.parser'))
 

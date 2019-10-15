@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task"/>
+        <query name="user" valueRef="@user"/>
+        <compression type="zip"/>
+        <download port="spec" type="folder">
+            <query name="resource" value="spec"/>
+        </download>
+        <download port="params" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <download port="quant_table" type="file">
+            <query name="resource" value="quant_table"/>
+        </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
+
+    </bind>
+
+    <bind action="qemistree" tool="qemistree">
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quant_table" requirement="quant_table"/>
+        <productionToOutput port="output_folder" production="output_folder"/>
+    </bind>
+
+    <bind action="summarize_fingerprints" tool="summarize_fingerprints">
+        <inputAsRequirement port="output_folder" requirement="output_folder"/>
+        <productionToOutput port="fingerprint_summary" production="fingerprint_summary"/>
+    </bind>
+
+    <bind action="create_network" tool="create_network">
+        <inputAsRequirement port="fingerprint_summary" requirement="fingerprint_summary"/>
+        <productionToOutput port="fingerprint_network" production="fingerprint_network"/>
+    </bind>
+
+
+    <bind action="end" type="upload">
+        <url value="{livesearch.upload}"/>
+        <query name="task" valueRef="@task"/>
+        <contentQuery name="content"/>
+        <compression type="zip"/>
+        <upload port="output_folder" type="folder">
+            <query name="resource" value="output_folder"/>
+        </upload>
+        <upload port="fingerprint_summary" type="folder">
+            <query name="resource" value="fingerprint_summary"/>
+        </upload>
+        <upload port="fingerprint_network" type="folder">
+            <query name="resource" value="fingerprint_network"/>
+        </upload>
+    </bind>
+</binding>
