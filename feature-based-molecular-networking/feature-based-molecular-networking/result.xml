@@ -261,21 +261,7 @@
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
             </column>
 
-            <!-- <column type="mingplugin" target="/" label="AnnotatetoGNPS">
-                <parameter name="workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
-                <parameter name="ADDSPECTRA_EXTRACTSCAN" value="[ScanNumber]"/>
-                <parameter name="spec_on_server" value="[Original_Path]"/>
-            </column>
-
-            <column label="View All Spectra" type="genericurlgenerator" width="10" field="View Raw">
-                <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
-                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
-                <parameter name="REQUESTPARAMETER=protein" value="[#Scan#]"/>
-                <parameter name="REQUESTPARAMETER=show" value="true"/>
-                <parameter name="LABEL" value="View Raw Spectra"/>
-                <parameter name="USETASK" value="True"/>
-            </column> -->
-
+            
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10">
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
                 <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
