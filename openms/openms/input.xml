@@ -7,7 +7,7 @@
 	<parameters>
 		<!-- Universal parameters -->
 		<parameter name="desc" label="Description">
-			<validator type="length" maximum="100"/>
+			<validator type="length" maximum="1000"/>
 		</parameter>
 
 		<parameter name="email" label="Email">
