@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="QEMISTREE">
+    <collection name="spectra"/>
+    <object name="workflowParameters"/>
+    <object name="quant_table"/>
+
+    <action name="begin">
+        <output port="spec" collection="spectra"/>
+        <output port="params" object="workflowParameters"/>
+        <output port="quant_table" object="quant_table"/>
+    </action>
+
+    <collection name="output_folder"/>
+    <action name="qemistree">
+        <input port="spectra" object="spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quant_table" object="quant_table"/>
+        <output port="output_folder" collection="output_folder"/>
+    </action>
+
+    <collection name="fingerprint_summary"/>
+    <action name="summarize_fingerprints">
+        <input port="output_folder" collection="output_folder"/>
+        <output port="fingerprint_summary" collection="fingerprint_summary"/>
+    </action>
+
+    <collection name="fingerprint_network"/>
+    <action name="create_network">
+        <input port="fingerprint_summary" collection="fingerprint_summary"/>
+        <output port="fingerprint_network" collection="fingerprint_network"/>
+    </action>
+
+
+    <action name="end">
+        <input port="output_folder" collection="output_folder"/>
+        <input port="fingerprint_summary" collection="fingerprint_summary"/>
+        <input port="fingerprint_network" collection="fingerprint_network"/>
+    </action>
+</flow>

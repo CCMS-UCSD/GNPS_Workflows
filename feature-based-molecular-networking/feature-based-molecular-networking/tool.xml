@@ -64,6 +64,7 @@
             <arg valueRef="quantification_table_reformatted"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra_reformatted"/>
+            <arg valueRef="workflowParameters"/>
         </execution>
     </tool>
 
@@ -332,8 +333,9 @@
     </tool>
 
     <!-- Running qiime2 -->
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="run_qiime2" path="python"/>
+        <pathVar name="activate.path" path="activate"/>
     </pathSet>
 
     <pathSet base="$base/scripts">
@@ -350,6 +352,8 @@
             <arg valueRef="metadata_table"/>
             <arg valueRef="quantification_table_reformatted"/>
             <arg valueRef="qiime2_output"/>
+            <arg pathRef="activate.path"/>
+            <arg value="qiime2-2019.4"/>
         </execution>
     </tool>
 

@@ -22,11 +22,11 @@
 		<blockRef id="main" type="spectra_per_organism"/>
 	</view>
 
-        <view id="view_all_annotations_DB" label="View All Spectra DB">
+        <view id="view_all_annotations_DB" label="View All Spectra DB" group="Default Views">
                 <blockRef id="main"   type="view_all_annotations_DB"/>
         </view>
 
-        <view id="group_by_compound" label="View All Compounds" >
+        <view id="group_by_compound" label="View All Compounds"  group="Default Views">
                 <blockRef id="main" type="group_by_compound"/>
         </view>
 
@@ -438,31 +438,7 @@
           </data>
         </block>
 
-        <view id="download_filtered_kovats_results" label="Download Filtered Computed Kovats Index Files" group="Export/Download Network Files">
-                <blockRef id="main"   type="download_filtered_kovats_results"/>
-        </view>
-        <block id="download_filtered_kovats_results" type="dummydownload">
-          <data>
-            <source type="file" name="Kovats_Result_Filtered_mshub/"/>
-             <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-          </data>
-        </block>
-
-        <view id="download_nonfiltered_kovats_results" label="Download Not Filtered Computed Kovats Index Files" group="Export/Download Network Files">
-                <blockRef id="main"   type="download_nonfiltered_kovats_results"/>
-        </view>
-        <block id="download_nonfiltered_kovats_results" type="dummydownload">
-          <data>
-            <source type="file" name="Kovats_Result_Nonfiltered_mshub/"/>
-             <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-          </data>
-        </block>
-
-        <view id="view_kovats" label="View Kovats Calculation Result">
+        <view id="view_kovats" label="View Kovats Calculation Result" group="Default Views">
                 <blockRef id="main"   type="view_kovats"/>
         </view>
 
@@ -493,9 +469,10 @@
                         <column type="integer"     field="SharedPeaks"         label="SharedPeaks"            width="3"/>
                         <!--column type="float"     field="TIC_Query"         label="TIC Query"            precision="2"/-->
                         <column type="float"     field="RT_Query"         label="RT Query"           precision="2" />
-                        <column type="float"     field="Kovats_Index_Lib_Record"         label="Kovats_Index_Lib_Record"            precision="2"/>
                         <column type="float"     field="Kovats_Index_calculated"         label="Kovats_Index_calculated"            precision="2"/>
-                        <column type="float"     field="Kovats_Index_Error"         label="Kovats_Index_Error"            precision="2"/>
+                        <!-- <column type="float"     field="Kovats_Index_Lib_Record"         label="Kovats_Index_Lib_Record"            precision="2"/>
+                        <column type="float"     field="Kovats_Index_calculated"         label="Kovats_Index_calculated"            precision="2"/>
+                        <column type="float"     field="Kovats_Index_Error"         label="Kovats_Index_Error"            precision="2"/> -->
 
                         <!--column type="integer"     field="MZErrorPPM"         label="MZErrorPPM"            /-->
                         <!--<column type="text"     field="Organism"         label="Organism"            width="3"/>-->

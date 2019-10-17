@@ -48,7 +48,7 @@ def main():
 
     quant_table_df = None
     if args.quantTable != None:
-        quant_table_df = pd.read_csv(args.quantTable)
+        quant_table_df = pd.read_csv(args.quantTable, skiprows=[0, 2, 3])
 
     propogate_balance_score(args.DB_result, args.DB_result_mshub, quant_table_df)
     propogate_balance_score(args.DB_result_filtered, args.DB_result_filtered_mshub, quant_table_df)

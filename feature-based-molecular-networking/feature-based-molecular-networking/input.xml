@@ -13,7 +13,7 @@
             <validator type="email"/>
         </parameter>
         <!-- Search file parameters -->
-        <parameter name="spec_on_server" label="MS2 MGF File">
+        <parameter name="spec_on_server" label="MS2 File MGF/MSP(Progenesis QI)/mzML(MzTab-M)">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
@@ -193,7 +193,7 @@
             </cell>
             <cell>
                 <module id="spec_on_server" type="fileSelector">
-                    <property name="label">MS2 spectral summary file (MGF format)</property>
+                    <property name="label">MS2 File MGF/MSP(Progenesis QI)/mzML(MzTab-M)</property>
                 </module>
             </cell>
         </row>

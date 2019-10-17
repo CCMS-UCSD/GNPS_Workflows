@@ -4,23 +4,9 @@
         <source type="folder" name="clusterinfo/"/>
         <source type="folder" name="clustersummary/"/>
         <source type="folder" name="clustered_mgf/"/>
-        <source type="folder" name="preprocessing_scratch/"/>
     </download>
 
-    <view id="librarysearch" label="Process Library Seach" group="Continue Process">
-            <blockRef id="main"   type="librarysearch"/>
-    </view>
-    <block id="librarysearch" type="dummylinkout">
-      <data>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
-      <parameter name="URLBASE" value="http://gnps.ucsd.edu/ProteoSAFe/index.jsp"/>
-      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;", "quantTable":"t.[task]/preprocessing_scratch/data_integrals.csv;","library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
-    </block>
-
-    <view id="view_spectra" label="View All Deconvolved Spectra">
+    <view id="view_spectra" label="View All Deconvolved Spectra" group="Default Views">
         <blockRef id="main" type="view_spectra"/>
     </view>
 
@@ -45,7 +31,21 @@
         </row>
     </block>
 
-    <view id="download_clustered_spectra" label="Download Spectra as MGF" group="Export/Download Network Files">
+    <view id="librarysearch" label="Search Spectral Library and Molecular Network" group="Continue Processing">
+            <blockRef id="main"   type="librarysearch"/>
+    </view>
+    <block id="librarysearch" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+      <parameter name="URLBASE" value="http://gnps.ucsd.edu/ProteoSAFe/index.jsp"/>
+      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;", "quantTable":"t.[task]/preprocessing_scratch/data_integrals.csv;","library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
+    </block>
+    
+
+    <view id="download_clustered_spectra" label="Download Spectra as MGF" group="Export/Download Files">
         <blockRef id="main"   type="download_clustered_spectra"/>
     </view>
     <block id="download_clustered_spectra" type="dummydownload">
@@ -56,12 +56,25 @@
         </parsers>
       </data>
     </block>
-    <view id="download_quant_table" label="Download Quant Table" group="Export/Download Network Files">
+    
+    <view id="download_quant_table" label="Download Quant Table" group="Export/Download Files">
         <blockRef id="main"   type="download_quant_table"/>
     </view>
     <block id="download_quant_table" type="dummydownload">
       <data>
         <source type="file" name="preprocessing_scratch/data_integrals.csv"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
+    <view id="download_hdf5_data" label="Download MSHub Spectra Data" group="Export/Download Files">
+        <blockRef id="main"   type="download_hdf5_data"/>
+    </view>
+    <block id="download_hdf5_data" type="dummydownload">
+      <data>
+        <source type="file" name="preprocessing_scratch/data.h5"/>
          <parsers>
             <parser type="stream" contentType="text/xml"/>
         </parsers>

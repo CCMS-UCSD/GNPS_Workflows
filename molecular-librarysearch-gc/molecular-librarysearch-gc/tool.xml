@@ -206,7 +206,7 @@
 
     <pathSet base="$base/Kovats_Calculation">
         <pathVar name="Kovats_Calculation.script" path="Kovats_Calculation.py"/>
-        <pathVar name="Kovats_Lib" path="nonpolar.csv"/>
+        <!-- <pathVar name="Kovats_Lib" path="nonpolar.csv"/> This is now moved to staticlibs -->
     </pathSet>
 
     <tool name="Kovats_Calculation">
@@ -219,7 +219,7 @@
 
         <execution env="binary" argConvention="adhoc">
                 <arg pathRef="Kovats_Calculation.script"/>
-                <arg pathRef="Kovats_Lib"/>
+                <arg value="/data/ccms-data/uploads/staticlibs/NIST_WILEY_KOVATS_LIBRARY_FILE/kovats_library_file.csv"/>
                 <arg valueRef="DB_result"/>
                 <arg valueRef="DB_result_filtered"/>
                 <arg valueRef="workflowParameters"/>

@@ -37,7 +37,6 @@ def load_mzxml_file(filename, drop_ms1=False):
 
     with open(filename) as fd:
         mzxml = None#xmltodict.parse(fd.read())
-        #mzxml = xmltodict.parse(fd.read())
         read_scans = mzxml['mzXML']['msRun']['scan']
         filename_output = os.path.split(filename)[1]
         index = 1

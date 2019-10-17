@@ -58,6 +58,9 @@ def main():
             else:
                 gnps_library_spectrum = ming_gnps_library.get_library_spectrum(spectrum_id)
                 spectrum_id_cache[spectrum_id] = gnps_library_spectrum
+
+            #Making sure not an error
+            gnps_library_spectrum["annotations"][0]["Compound_Name"]
         except KeyboardInterrupt:
             raise
         except:
