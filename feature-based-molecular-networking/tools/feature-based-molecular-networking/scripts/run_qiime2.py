@@ -48,6 +48,9 @@ def main():
     """Adding in missing filenames into the metadata"""
     new_output_metadata = pd.DataFrame(metadata_object_list)
 
+    #Removing protected headers
+    new_output_metadata = new_output_metadata.drop(columns=["feature", "#SampleID"], errors="ignore")
+
     output_columns = list(new_output_metadata.keys())
     output_columns.remove("sample_name")
     output_columns.insert(0, "sample_name")
@@ -60,22 +63,7 @@ def main():
     manifest_df["filepath"] = new_output_metadata["filename"]
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
 
-    # """Calling remote server to do the calculation"""
-    # SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    # files = {'manifest': open(output_manifest_filename, 'r'), 'metadata': open(output_metadata_filename, 'r'), 'quantification': open(input_quantification_table, 'r')}
-    # r_post = requests.post(SERVER_BASE + "/process", files=files)
-    # response_dict = r_post.json()
-
-    # with open(os.path.join(output_folder, "qiime2_table.qza"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
-    # with open(os.path.join(output_folder, "qiime2_emperor.qzv"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
+    #Running Qiime2
     local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
     local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
     local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")

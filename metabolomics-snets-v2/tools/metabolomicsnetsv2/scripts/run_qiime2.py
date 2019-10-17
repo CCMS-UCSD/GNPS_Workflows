@@ -120,11 +120,14 @@ def main():
             if len(metadatum["sample_name"]) > 1:
                 metadatum["#SampleID"] = metadatum["sample_name"]
 
-
     #Removing metadata filenames that are not in the actual data
     #analysis_files = 
 
     metadata_df = pd.DataFrame(object_list)
+    
+    #Removing protected headers
+    metadata_df = metadata_df.drop(columns=["feature", "#SampleID"], errors="ignore")
+
     metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
 
     """Outputting Manifest Filename"""
@@ -133,25 +136,7 @@ def main():
     manifest_df["filepath"] = metadata_df["filename"]
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
 
-    # """Calling remote server to do the calculation"""
-    # SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    # files = {'manifest': open(output_manifest_filename, 'r'), \
-    # 'metadata': open(output_metadata_filename, 'r'), \
-    # 'bucket': open(args.cluster_buckets, 'r')}
-
-    # r_post = requests.post(SERVER_BASE + "/processclassic", files=files)
-    # response_dict = r_post.json()
-
-    # with open(os.path.join(args.output_folder, "qiime2_table.qza"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
-    # with open(os.path.join(args.output_folder, "qiime2_emperor.qzv"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
+    #Running Qiime2
     local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
     local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
     local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
