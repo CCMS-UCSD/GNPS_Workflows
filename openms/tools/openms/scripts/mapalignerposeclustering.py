@@ -11,12 +11,17 @@ def mapalignerposeclustering(input_port, ini_file, out_port):
     if ini_file is not None:
         command += "-ini " + ini_file + " "
     command += "-in "
-    for input_file,file_count in wrkflw.parsefolder(input_port):
-        command += input_file + ' '
+
+    outputs = []
+    for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=['log']):
+        command += '{} '.format(input_file)
+        outputs.append("{out}/{out}-{filec}.featureXML ".format(out=out_port,filec=file_count))
+        # command += input_file + ' '
     command += '-out '
-    for input_file,file_count in wrkflw.parsefolder(input_port):
-        command += out_port+"/"+out_port+"-"+file_count+".featureXML" + ' '
-    command += '> ' + out_port+'/logfile.txt'
+    command += ' '.join(outputs)
+    # for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=['log']):
+        # command += out_port+"/"+out_port+"-"+file_count+".featureXML" + ' '
+    command += '> ' + out_port+'/logfile-00000.txt'
     # command += '-log ' + out_port+'/logfile-00000.txt'
 
     print("COMMAND: " + command + "\n")
@@ -47,4 +52,8 @@ if __name__ == '__main__':
 
     mapalignerposeclustering(in_port, ini_file, out_port)
 
-    # wrkflw.postvalidation(modulename="map-aligner-pose-clustering", outpath=out_port)
+    wrkflw.postvalidation(modulename="map aligner pose-clustering", \
+      inpath=in_port, \
+      outpath=out_port, \
+      logtype=wrkflw.LogType.SINGLE
+    )
