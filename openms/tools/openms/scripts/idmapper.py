@@ -5,13 +5,6 @@ from subprocess import Popen
 import ming_parallel_library as mpl
 import openms_workflow as wrkflw
 
-def parse_folder(dir):
-    if not os.path.exists(dir):
-        yield None
-    for file in sorted(os.listdir(dir)):
-        if "log" not in file:
-            yield (dir+"/"+file, os.path.splitext(file)[0].split('-')[1])
-
 
 def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_port):
     command = 'IDMapper '
@@ -33,9 +26,15 @@ def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_p
 '''
 def idmapper(input_port, ini_file, idxml_path, featurefinder_port, out_port):
     commands = []
-    for input_file,file_count in wrkflw.parsefolder(featurefinder_port):
-        cmd = get_exec_cmd(input_file,file_count,ini_file,idxml_path,\
-          input_port,out_port)
+    for input_file,file_count in wrkflw.parsefolder(featurefinder_port, blacklist=['log']):
+        cmd = get_exec_cmd( \
+          input_file, \
+          file_count, \
+          ini_file, \
+          idxml_path, \
+          input_port, \
+          out_port
+        )
         commands.append(cmd)
 
     mpl.run_parallel_shellcommands(commands,8)
@@ -65,4 +64,4 @@ if __name__ == '__main__':
 
     idmapper(mzml_port, ini_file, sys.argv[6], featurefinder_port, out_port)
 
-    # wrkflw.postvalidation(modulename="id-mapper", outpath=out_port)
+    wrkflw.postvalidation(modulename="id mapper", inpath=mzml_port, outpath=out_port)

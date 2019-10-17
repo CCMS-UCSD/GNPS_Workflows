@@ -5,21 +5,11 @@ import xmltodict as xtd
 import openms_workflow as wrkflw
 
 
-def parse_folder(dir):
-    if not os.path.exists(dir):
-        yield None
-    for file in sorted(os.listdir(dir)):
-        if "log" not in file:
-            yield (dir+"/"+file, os.path.splitext(file)[0].split('-')[1])
-
-
 '''
 #6 module: gnps export
 '''
 def gnpsexport(input_port, inputFiles_port, ini_file, out_port):
-    assert len(list(parse_folder(input_port))) > 0
-
-    for input_file,file_count in list(parse_folder(input_port)):
+    for input_file,file_count in list(wrkflw.parsefolder(input_port, whitelist=['consensusXML'])):
         output = out_port+'/'+out_port+"-"+file_count+".mgf"
 
         command = "GNPSExport "
@@ -35,11 +25,11 @@ def gnpsexport(input_port, inputFiles_port, ini_file, out_port):
                 # print (map['@id'], map['@name'])
                 file_maps[int(map['@id'])] = map['@name']
 
-        for input_file,file_count in sorted(list(parse_folder(inputFiles_port))):
+        for input_file,file_count in sorted(list(wrkflw.parsefolder(inputFiles_port, whitelist=['mzML']))):
             command += input_file + " "
         command += "-out " + output + ' '
-        command += '> ' + out_port+'/logfile.txt'
-        # command += '-log ' + out_port+'/logfile.txt'
+        command += '> ' + out_port+'/logfile-00000.txt'
+        # command += '-log ' + out_port+'/logfile-00000.txt'
 
         print("COMMAND: " + command + "\n")
         os.system(command)
@@ -62,11 +52,17 @@ if __name__ == '__main__':
     # ini file
     ini_file = None
     if os.path.exists('iniFiles'):
-        ini_dir = list(parse_folder('iniFiles'))
+        ini_dir = list(wrkflw.parsefolder('iniFiles'))
         if len(ini_dir) > 0:
             ini_file = ini_dir[0][0]
     # shutil.copyfile(ini_file, sys.argv[3])
 
     gnpsexport(in_port, inputFiles_port, ini_file, out_port)
 
-    # wrkflw.postvalidation(modulename="gnps-export", outpath=out_port)
+    wrkflw.postvalidation( \
+      modulename="gnps export", \
+      inpath=in_port, \
+      outpath=out_port, \
+      logtype=wrkflw.LogType.SINGLE, \
+      output_per_job=0
+    )
