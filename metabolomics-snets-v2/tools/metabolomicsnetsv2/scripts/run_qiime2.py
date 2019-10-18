@@ -120,21 +120,17 @@ def main():
             if len(metadatum["sample_name"]) > 1:
                 metadatum["#SampleID"] = metadatum["sample_name"]
 
-    #Removing metadata filenames that are not in the actual data
-    #analysis_files = 
-
     metadata_df = pd.DataFrame(object_list)
-    
-    #Removing protected headers
-    metadata_df = metadata_df.drop(columns=["feature", "#SampleID"], errors="ignore")
-
-    metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
 
     """Outputting Manifest Filename"""
     manifest_df = pd.DataFrame()
     manifest_df["sample_name"] = metadata_df["#SampleID"]
     manifest_df["filepath"] = metadata_df["filename"]
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
+
+    #Removing protected headers
+    metadata_df = metadata_df.drop(columns=["feature", "#SampleID"], errors="ignore")
+    metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
 
     #Running Qiime2
     local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
