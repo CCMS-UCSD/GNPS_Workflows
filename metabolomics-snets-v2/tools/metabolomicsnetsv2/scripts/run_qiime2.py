@@ -129,7 +129,7 @@ def main():
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
 
     #Removing protected headers
-    metadata_df = metadata_df.drop(columns=["feature", "#SampleID"], errors="ignore")
+    #metadata_df = metadata_df.drop(columns=["feature", "#SampleID"], errors="ignore")
     metadata_df.to_csv(output_metadata_filename, index=False, sep="\t", columns=header_list)
 
     #Running Qiime2
