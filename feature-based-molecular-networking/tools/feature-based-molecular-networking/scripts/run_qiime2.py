@@ -65,9 +65,13 @@ def main():
 
     #Running Qiime2
     local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
+    local_qza_relative_table = os.path.join(args.output_folder, "qiime2_relative_table.qza")
     local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
     local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
     local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
+    local_qza_biplot = os.path.join(args.output_folder, "qiime2_biplot.qza")
+    local_qzv_biplot_emperor = os.path.join(args.output_folder, "qiime2_biplot_emperor.qzv")
+
 
     all_cmd = []
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
@@ -93,6 +97,27 @@ def main():
         --m-metadata-file {} \
         --o-visualization {} \
         --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+
+    #Biplotting
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime feature-table relative-frequency \
+        --i-table {} \
+        --o-relative-frequency-table  {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_relative_table))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity pcoa-biplot \
+        --i-pcoa {} \
+        --i-features {} \
+        --o-biplot {}".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, local_qza_relative_table, local_qza_biplot))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime emperor biplot \
+        --i-biplot {} \
+        --m-sample-metadata-file {} \
+        --p-number-of-features 10 \
+        --o-visualization {} \
+        --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_biplot, output_metadata_filename, local_qzv_biplot_emperor))
+
 
     for cmd in all_cmd:
         os.system(cmd)
