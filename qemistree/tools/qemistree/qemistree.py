@@ -32,6 +32,7 @@ def main():
         all_cmd.append(cmd)
     elif ".qza" in args.input_quant_table:
         cmd = "cp {} {}".format(args.input_quant_table, output_feature_qza)
+        all_cmd.append(cmd)
     elif ".csv" in args.input_quant_table:
         print("TODO: Will handle mzmine2 input, would recommend using FMBN first")
         exit(1)
