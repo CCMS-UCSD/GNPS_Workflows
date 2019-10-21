@@ -3,4 +3,4 @@ include ../Makefile.deploytemplate
 
 WORKFLOW_NAME=msms-chooser
 TOOL_FOLDER_NAME=msms-chooser
-WORKFLOW_VERSION=release_13
+WORKFLOW_VERSION=release_14
