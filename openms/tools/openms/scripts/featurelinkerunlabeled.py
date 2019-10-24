@@ -12,7 +12,7 @@ def featurelinkerunlabeledkd(input_port, ini_file, out_port):
     if ini_file is not None:
         command += "-ini " + ini_file + " "
     command += "-in "
-    for input_file,file_count in wrkflw.parsefolder(input_port,whitelist=["featureXML"]):
+    for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
         command += input_file + " "
     command += "-out " + out_port+"/"+out_port+"-00000.consensusXML "
     command += '> ' + out_port+'/logfile-00000.txt'
@@ -58,7 +58,7 @@ def fix_filenames(out_port, mapping_file):
                 files[int(raw_file_path)] = map[1]
 
     # print(list(wrkflw.parsefolder(out_port)))
-    for input_file,file_count in wrkflw.parsefolder(out_port):
+    for input_file,file_count in wrkflw.parsefolder(out_port, blacklist=['log']):
         with open(input_file) as f:
             file_dict = xtd.parse(f.read())
 
@@ -108,7 +108,13 @@ if __name__ == '__main__':
     else:
         featurelinkerunlabeledkd(in_port, ini_file, out_port)
 
-    # wrkflw.postvalidation(modulename="feature-linker-unlabeled", outpath=out_port,\
-    # logtype="single", output_per_job=0)
 
     fix_filenames(out_port, sys.argv[7])
+
+    wrkflw.postvalidation( \
+      modulename=linker_tool, \
+      inpath=in_port, \
+      outpath=out_port, \
+      logtype=wrkflw.LogType.SINGLE, \
+      output_per_job=0
+    )

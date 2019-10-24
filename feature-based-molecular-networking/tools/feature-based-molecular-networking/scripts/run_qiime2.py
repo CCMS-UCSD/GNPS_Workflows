@@ -48,6 +48,9 @@ def main():
     """Adding in missing filenames into the metadata"""
     new_output_metadata = pd.DataFrame(metadata_object_list)
 
+    #Removing protected headers
+    new_output_metadata = new_output_metadata.drop(columns=["feature", "#SampleID"], errors="ignore")
+
     output_columns = list(new_output_metadata.keys())
     output_columns.remove("sample_name")
     output_columns.insert(0, "sample_name")
@@ -60,26 +63,15 @@ def main():
     manifest_df["filepath"] = new_output_metadata["filename"]
     manifest_df.to_csv(output_manifest_filename, index=False, sep=",")
 
-    # """Calling remote server to do the calculation"""
-    # SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
-    # files = {'manifest': open(output_manifest_filename, 'r'), 'metadata': open(output_metadata_filename, 'r'), 'quantification': open(input_quantification_table, 'r')}
-    # r_post = requests.post(SERVER_BASE + "/process", files=files)
-    # response_dict = r_post.json()
-
-    # with open(os.path.join(output_folder, "qiime2_table.qza"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
-    # with open(os.path.join(output_folder, "qiime2_emperor.qzv"), 'wb') as f:
-    #     r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-    #     r.raw.decode_content = True
-    #     shutil.copyfileobj(r.raw, f)
-
+    #Running Qiime2
     local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
+    local_qza_relative_table = os.path.join(args.output_folder, "qiime2_relative_table.qza")
     local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
     local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
     local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
+    local_qza_biplot = os.path.join(args.output_folder, "qiime2_biplot.qza")
+    local_qzv_biplot_emperor = os.path.join(args.output_folder, "qiime2_biplot_emperor.qzv")
+
 
     all_cmd = []
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
@@ -105,6 +97,27 @@ def main():
         --m-metadata-file {} \
         --o-visualization {} \
         --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+
+    #Biplotting
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime feature-table relative-frequency \
+        --i-table {} \
+        --o-relative-frequency-table  {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_relative_table))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity pcoa-biplot \
+        --i-pcoa {} \
+        --i-features {} \
+        --o-biplot {}".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, local_qza_relative_table, local_qza_biplot))
+
+    all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime emperor biplot \
+        --i-biplot {} \
+        --m-sample-metadata-file {} \
+        --p-number-of-features 10 \
+        --o-visualization {} \
+        --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_biplot, output_metadata_filename, local_qzv_biplot_emperor))
+
 
     for cmd in all_cmd:
         os.system(cmd)

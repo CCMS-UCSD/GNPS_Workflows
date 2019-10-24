@@ -25,7 +25,7 @@ def get_exec_cmd(input_file, file_count, ini_file, out_port):
 '''
 def metaboliteadductdecharger(input_port, ini_file, out_port):
     commands = []
-    for input_file,file_count in wrkflw.parsefolder(input_port):
+    for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=['log']):
         cmd = get_exec_cmd(input_file,file_count,ini_file,out_port)
         commands.append(cmd)
 
@@ -58,4 +58,9 @@ if __name__ == '__main__':
 
     metaboliteadductdecharger(in_port, ini_file, out_port)
 
-    # wrkflw.postvalidation(modulename="metabolite-adduct-decharger", outpath=out_port)
+    wrkflw.postvalidation( \
+      modulename="metabolite adduct decharger", \
+      inpath=in_port, \
+      outpath=out_port, \
+      output_per_job=2
+    )
