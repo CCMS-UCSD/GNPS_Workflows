@@ -3,11 +3,13 @@
     <collection name="spectra"/>
     <object name="workflowParameters"/>
     <object name="quant_table"/>
+    <object name="metadata_table"/>
 
     <action name="begin">
         <output port="spec" collection="spectra"/>
         <output port="params" object="workflowParameters"/>
         <output port="quant_table" object="quant_table"/>
+        <output port="metadata_table" object="metadata_table"/>
     </action>
 
     <collection name="output_folder"/>
@@ -15,6 +17,7 @@
         <input port="spectra" object="spectra"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quant_table" object="quant_table"/>
+        <input port="metadata_table" object="metadata_table"/>
         <output port="output_folder" collection="output_folder"/>
     </action>
 
