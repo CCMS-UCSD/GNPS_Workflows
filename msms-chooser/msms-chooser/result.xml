@@ -38,6 +38,7 @@
             <column type="genericimagedisplayer" label="Structure">
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/png"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
+                <parameter name="REQUESTPARAMETER=label" value="1"/>
             </column>
         </row>
         <row expander="MASST Spectrum" expandericontype="text">
