@@ -44,7 +44,7 @@ if param_obj["additional_pairs"][0] == "1":
         output_sentences.append("Additional edges were provided by the user.")
 #NETWORK VISUALIZATION
 output_sentences.append("The molecular networks were visualized using Cytoscape software (Shannon, P. et al. Genome Res. 13, 2498–2504 (2003), https://dx.doi.org/10.1101%2Fgr.1239303), and/or the Cytoscape tools for the web-based visualization F1000Res. 3, 143 (2014), http://dx.doi.org/10.12688/f1000research.4510.2.')
-output_sentences.append("The molecular networking job can be accessed at %s .") % (param_obj["JOBID"][0]))
+output_sentences.append("The molecular networking job can be accessed at %s .") % (param_obj["task"][0]))
 output_sentences.append("The mass spectrometry data were deposited on public repository (provide repository accession number), such as MassIVE (http://massive.ucsd.edu) or MetaboLights (https://www.ebi.ac.uk/metabolights/).")
 
 #CITATIONS
