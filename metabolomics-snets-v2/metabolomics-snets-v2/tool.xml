@@ -498,6 +498,7 @@
             <arg valueRef="networkedges_selfloop"/>
             <arg valueRef="networkedges_display_pairs"/>
             <arg valueRef="networkedges_display"/>
+            <arg option="-filterg6" valueRef="@FILTER_G6_BLANKS"/>
         </execution>
     </tool>
 
