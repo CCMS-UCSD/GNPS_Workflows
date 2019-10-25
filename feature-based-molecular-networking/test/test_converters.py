@@ -50,6 +50,10 @@ class TestLoaders(unittest.TestCase):
         xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/XCMS3-GNPS_AG_test_featuretable.txt", \
             "./xcms3_output.csv")
 
+    def test_xcms3_iin(self):
+        xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/camera_iin_quant_table_sub.txt", \
+            "./xcms3_output_iin.csv")
+
 
 if __name__ == '__main__':
     unittest.main()
