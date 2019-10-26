@@ -57,10 +57,10 @@
       </data>
     </block>
     
-    <view id="download_quant_table" label="Download Quant Table" group="Export/Download Files">
-        <blockRef id="main"   type="download_quant_table"/>
+    <view id="download_integral_table" label="Download MSHub Data Integral Table" group="Export/Download Files">
+        <blockRef id="main"   type="download_integral_table"/>
     </view>
-    <block id="download_quant_table" type="dummydownload">
+    <block id="download_integral_table" type="dummydownload">
       <data>
         <source type="file" name="preprocessing_scratch/data_integrals.csv"/>
          <parsers>
