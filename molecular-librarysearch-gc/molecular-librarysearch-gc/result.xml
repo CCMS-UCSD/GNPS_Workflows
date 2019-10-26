@@ -22,11 +22,11 @@
 		<blockRef id="main" type="spectra_per_organism"/>
 	</view>
 
-        <view id="view_all_annotations_DB" label="View All Spectra DB" group="Default Views">
+        <view id="view_all_annotations_DB" label="View All Spectra DB" group="Default Molecular Networking Results Views">
                 <blockRef id="main"   type="view_all_annotations_DB"/>
         </view>
 
-        <view id="group_by_compound" label="View All Compounds"  group="Default Views">
+        <view id="group_by_compound" label="View All Compounds"  group="Default Molecular Networking Results Views">
                 <blockRef id="main" type="group_by_compound"/>
         </view>
 
@@ -426,10 +426,10 @@
         </block>
 
 
-        <view id="download_graphml" label="Download GraphML" group="Export/Download Network Files">
-                <blockRef id="main"   type="download_graphml"/>
+        <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
+                <blockRef id="main"   type="download_cytoscape_data"/>
         </view>
-        <block id="download_graphml" type="dummydownload">
+        <block id="download_cytoscape_data" type="dummydownload">
           <data>
             <source type="file" name="gnps_molecular_network_graphml/"/>
              <parsers>
@@ -438,7 +438,7 @@
           </data>
         </block>
 
-        <view id="view_kovats" label="View Kovats Calculation Result" group="Default Views">
+        <view id="view_kovats" label="View Kovats Calculation Result" group="Default Molecular Networking Results Views">
                 <blockRef id="main"   type="view_kovats"/>
         </view>
 
