@@ -8,6 +8,19 @@ import argparse
 import subprocess
 from collections import defaultdict
 
+def load_feature_to_rt_mapping(integrals_filename):
+    mapping = {}
+
+    df = pd.read_csv(integrals_filename)
+
+    mapping_record = df.to_dict(orient="records")[0]
+
+    for key in mapping_record:
+        if key == "No:":
+            continue
+        mapping[key] = mapping_record[key].split(" ")[0]
+
+    return mapping
 
 def main():
     parser = argparse.ArgumentParser(description='Processing and feature detecting all gc files')
@@ -19,15 +32,17 @@ def main():
 
     integrals_df = pd.read_csv(input_integrals_filename, skiprows=[1,2,3])
 
+    feature_to_rt_mapping = load_feature_to_rt_mapping(input_integrals_filename)
+
     all_molecules = list(integrals_df.keys())
-    all_molecules.pop("No:")
+    all_molecules.remove("No:")
 
     output_list = []
     for molecule in all_molecules:
         output_dict = {}
         output_dict["row ID"] = molecule
         output_dict["row m/z"] = "0"
-        output_dict["row RT"] = "0"
+        output_dict["row retention time"] = feature_to_rt_mapping[molecule]
         for record in integrals_df.to_dict(orient="records"):
             sample_name = record["No:"]
             abundance = record[molecule]
