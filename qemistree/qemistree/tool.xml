@@ -14,12 +14,14 @@
         <require name="spectra" type="file"/>
         <require name="workflowParameters" type="file"/>
         <require name="quant_table" type="file"/>
+        <require name="metadata_table" type="file"/>
         <produce name="output_folder" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="qemistree.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="quant_table"/>
+            <arg valueRef="metadata_table"/>
             <arg valueRef="output_folder"/>
             <arg pathRef="activate.path"/>
             <arg value="qiime2-2019.4"/>

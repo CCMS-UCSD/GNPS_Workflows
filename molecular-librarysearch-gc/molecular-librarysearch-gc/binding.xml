@@ -17,8 +17,14 @@
         <download port="Carbon_Marker_File" type="file">
             <query name="resource" value="Carbon_Marker_File"/>
         </download>
-        <download port="quantTable" type="file">
-            <query name="resource" value="quantTable"/>
+        <download port="mshub_balance_scores" type="file">
+            <query name="resource" value="mshub_balance_scores"/>
+        </download>
+        <download port="quantification_table" type="file">
+            <query name="resource" value="quantification_table"/>
+        </download>
+        <download port="metadata_table" type="file">
+            <query name="resource" value="metadata_table"/>
         </download>
 	<downloadParams>
             <query name="resource" value="params"/>
@@ -109,12 +115,21 @@
         <inputAsRequirement port="Kovats_Result_Nonfiltered" requirement="Kovats_Result_Nonfiltered"/>
         <inputAsRequirement port="Kovats_Result_Filtered" requirement="Kovats_Result_Filtered"/>
         <inputAsRequirement port="params" requirement="workflowParameters"/>
-        <inputAsRequirement port="quantTable" requirement="quantTable"/>
+        <inputAsRequirement port="mshub_balance_scores" requirement="mshub_balance_scores"/>
 
         <productionToOutput port="DB_result_mshub" production="DB_result_mshub"/>
         <productionToOutput port="DB_result_filtered_mshub" production="DB_result_filtered_mshub"/>
         <productionToOutput port="Kovats_Result_Nonfiltered_mshub" production="Kovats_Result_Nonfiltered_mshub"/>
         <productionToOutput port="Kovats_Result_Filtered_mshub" production="Kovats_Result_Filtered_mshub"/>
+    </bind>
+
+    <!-- Cluster Info -->
+    <bind action="clusterinfosummary_creation" tool="clusterinfosummary_creation">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="clusterinfo_summary" production="clusterinfo_summary"/>
     </bind>
 
     <bind action="end" type="upload">
@@ -142,6 +157,9 @@
         </upload>
         <upload port="Kovats_Result_Nonfiltered_mshub" type="file">
             <query name="resource" value="Kovats_Result_Nonfiltered_mshub"/>
+        </upload>
+        <upload port="clusterinfo_summary" type="file">
+            <query name="resource" value="clusterinfo_summary"/>
         </upload>
     </bind>
 </binding>

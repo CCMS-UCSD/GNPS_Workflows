@@ -25,6 +25,12 @@
         <output port="summary_output" collection="summary_output"/>
     </action>
 
+    <object name="quantification_output"/>
+    <action name="create_quantification">
+        <input port="preprocessing_scratch" collection="preprocessing_scratch"/>
+        <output port="quantification_output" object="quantification_output"/>
+    </action>
+
 
     <action name="end">
         <input port="clustered_mgf" collection="clustered_mgf"/>
@@ -32,5 +38,6 @@
         <input port="clustersummary" collection="clustersummary"/>
         <input port="summary_output" collection="summary_output"/>
         <input port="preprocessing_scratch" collection="preprocessing_scratch"/>
+        <input port="quantification_output" collection="quantification_output"/>
     </action>
 </flow>

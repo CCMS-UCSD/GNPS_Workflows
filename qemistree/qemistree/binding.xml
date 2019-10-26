@@ -14,6 +14,9 @@
         <download port="quant_table" type="file">
             <query name="resource" value="quant_table"/>
         </download>
+        <download port="metadata_table" type="file">
+            <query name="resource" value="metadata_table"/>
+        </download>
         <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
@@ -24,6 +27,7 @@
         <inputAsRequirement port="spectra" requirement="spectra"/>
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quant_table" requirement="quant_table"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
         <productionToOutput port="output_folder" production="output_folder"/>
     </bind>
 

@@ -35,6 +35,14 @@
                 <parameter name="scan" value="[EXTRACTSCAN]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/png"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
+                <parameter name="REQUESTPARAMETER=label" value="1"/>
+                <parameter name="REQUESTPARAMETER=xmax" value="[MOLECULEMASS]"/>
+                <parameter name="REQUESTPARAMETER=rescale" value="1"/>
+                <parameter name="REQUESTPARAMETER=rotation" value="90"/>
+            </column>
         </row>
         <row expander="MASST Spectrum" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">

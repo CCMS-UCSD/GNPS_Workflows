@@ -22,11 +22,11 @@
 		<blockRef id="main" type="spectra_per_organism"/>
 	</view>
 
-        <view id="view_all_annotations_DB" label="View All Spectra DB" group="Default Views">
+        <view id="view_all_annotations_DB" label="View All Spectra DB" group="Default Molecular Networking Results Views">
                 <blockRef id="main"   type="view_all_annotations_DB"/>
         </view>
 
-        <view id="group_by_compound" label="View All Compounds"  group="Default Views">
+        <view id="group_by_compound" label="View All Compounds"  group="Default Molecular Networking Results Views">
                 <blockRef id="main" type="group_by_compound"/>
         </view>
 
@@ -425,11 +425,44 @@
 
         </block>
 
+    <view id="view_all_clusters_withID" label="View All Spectra With Annotations" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="view_all_clusters_withID"/>
+    </view>
 
-        <view id="download_graphml" label="Download GraphML" group="Export/Download Network Files">
-                <blockRef id="main"   type="download_graphml"/>
+    <block id="view_all_clusters_withID" type="table">
+        <data>
+            <source type="file" name="clusterinfo_summary/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="cluster index" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="cluster index" label="ClusterIdx" width="3"/>
+            <column type="float" field="RTConsensus" label="RTConsensus" precision="2"/>
+            <column type="text" field="AllGroups" label="AllGroups" width="3"/>
+            <column type="text" field="LibraryID" label="LibraryID" width="20"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+        <row expander="USI Links" expandericontype="text">
+            <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
+            </column>
+        </row>
+    </block>
+
+
+        <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
+                <blockRef id="main"   type="download_cytoscape_data"/>
         </view>
-        <block id="download_graphml" type="dummydownload">
+        <block id="download_cytoscape_data" type="dummydownload">
           <data>
             <source type="file" name="gnps_molecular_network_graphml/"/>
              <parsers>
@@ -438,7 +471,7 @@
           </data>
         </block>
 
-        <view id="view_kovats" label="View Kovats Calculation Result" group="Default Views">
+        <view id="view_kovats" label="View Kovats Calculation Result" group="Default Molecular Networking Results Views">
                 <blockRef id="main"   type="view_kovats"/>
         </view>
 
