@@ -158,8 +158,8 @@
         <upload port="Kovats_Result_Nonfiltered_mshub" type="file">
             <query name="resource" value="Kovats_Result_Nonfiltered_mshub"/>
         </upload>
-        <upload port="clusterinfosummary" type="file">
-            <query name="resource" value="clusterinfosummary"/>
+        <upload port="clusterinfo_summary" type="file">
+            <query name="resource" value="clusterinfo_summary"/>
         </upload>
     </bind>
 </binding>

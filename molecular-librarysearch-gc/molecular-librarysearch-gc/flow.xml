@@ -148,6 +148,6 @@
         <input port="result" object="result"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
-        <input port="clusterinfosummary" object="clusterinfosummary"/>
+        <input port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
 </flow>
