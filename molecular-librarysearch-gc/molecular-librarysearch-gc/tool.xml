@@ -25,7 +25,7 @@
             <arg option="ccms" value="1"/>
             <arg option="ccms_param_dir" valueRef="paramsgen"/>
             <arg option="g"/>
-            <arg option="ccms_num_nodes" value="100"/>
+            <arg option="ccms_num_nodes" value="10"/>
         </execution>
     </tool>
 

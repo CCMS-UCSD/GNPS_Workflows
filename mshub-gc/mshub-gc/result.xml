@@ -41,10 +41,10 @@
         </parsers>
       </data>
       <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
-      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", \
-      "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;", \
-      "mshub_balance_scores":"t.[task]/preprocessing_scratch/data_integrals.csv;", \
-      "quanttable":"t.[task]/quantification_output;", \
+      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", 
+      "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;",
+      "mshub_balance_scores":"t.[task]/preprocessing_scratch/data_integrals.csv;",
+      "quantification_table":"t.[task]/quantification_output;",
       "library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
     </block>
     

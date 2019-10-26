@@ -10,7 +10,7 @@
             <validator type="email"/>
         </parameter>
         <!-- Search file parameters -->
-        <parameter name="spec_on_server" label="Spectrum Files">
+        <parameter name="spec_on_server" label="Deconvolved EI Spectra MGF File">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
@@ -21,16 +21,20 @@
             <default value="d.speclibs/gnps_library;"/>
         </parameter>
 
+        <parameter name="quantification_table" label="Feature Quantification Table">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
+        </parameter>
+
+        <parameter name="metadata_table" label="Sample Metadata Table">
+            <fileGenerator type="upload" purpose="metadata_table" target="metadata_table"/>
+        </parameter>
+
         <parameter name="FORCE_EXACT_MATCH" label="FORCE_EXACT_MATCH">
             <default value="1"/>
             <validator type="integer" minimumExclusive="-1" maximum="1"/>
         </parameter>
 
-        <!--<parameter label="Spectral Library" name="db.DB">
-	    <options resource="searchable_spectral_library"/>
-	    <fileGenerator type="resource" resource="searchable_spectral_library" target="lib"/>
-	</parameter>
-	-->
         <!-- Basic MS parameters -->
         <parameter name="tolerance.PM_tolerance" label="Precursor Ion Mass Tolerance">
             <default value="20000"/>
@@ -187,10 +191,36 @@
             </cell>
             <cell colspan="3">
                 <module id="spec_on_server" type="fileSelector">
-                    <property name="label">Spectrum Files</property>
+                    <property name="label">Deconvolved EI Spectra MGF File</property>
                 </module>
             </cell>
         </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="quantification_table"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="quantification_table" type="fileSelector">
+                    <property name="label">Quantification Table</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="metadata_table"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="metadata_table" type="fileSelector">
+                    <property name="label">Sample Metadata Table</property>
+                </module>
+            </cell>
+        </row>
+
         <row>
             <cell>
                 <label>

@@ -20,6 +20,12 @@
         <download port="mshub_balance_scores" type="file">
             <query name="resource" value="mshub_balance_scores"/>
         </download>
+        <download port="quantification_table" type="file">
+            <query name="resource" value="quantification_table"/>
+        </download>
+        <download port="metadata_table" type="file">
+            <query name="resource" value="metadata_table"/>
+        </download>
 	<downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
