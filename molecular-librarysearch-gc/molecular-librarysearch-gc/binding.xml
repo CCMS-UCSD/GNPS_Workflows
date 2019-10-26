@@ -17,8 +17,8 @@
         <download port="Carbon_Marker_File" type="file">
             <query name="resource" value="Carbon_Marker_File"/>
         </download>
-        <download port="quantTable" type="file">
-            <query name="resource" value="quantTable"/>
+        <download port="mshub_balance_scores" type="file">
+            <query name="resource" value="mshub_balance_scores"/>
         </download>
 	<downloadParams>
             <query name="resource" value="params"/>
@@ -109,7 +109,7 @@
         <inputAsRequirement port="Kovats_Result_Nonfiltered" requirement="Kovats_Result_Nonfiltered"/>
         <inputAsRequirement port="Kovats_Result_Filtered" requirement="Kovats_Result_Filtered"/>
         <inputAsRequirement port="params" requirement="workflowParameters"/>
-        <inputAsRequirement port="quantTable" requirement="quantTable"/>
+        <inputAsRequirement port="mshub_balance_scores" requirement="mshub_balance_scores"/>
 
         <productionToOutput port="DB_result_mshub" production="DB_result_mshub"/>
         <productionToOutput port="DB_result_filtered_mshub" production="DB_result_filtered_mshub"/>

@@ -170,8 +170,8 @@
 					<default value="12"/>
 					<validator type="float" minimumExclusive="0" />
 			</parameter>
-			<parameter name="quantTable" label="quantTable">
-				 <fileGenerator type="upload" purpose="quantTable" target="quantTable"/>
+			<parameter name="mshub_balance_scores" label="MSHub Balance Score">
+				 <fileGenerator type="upload" purpose="mshub_balance_scores" target="mshub_balance_scores"/>
 			</parameter>
 
 		</parameters>
@@ -526,13 +526,13 @@
 
 				<cell>
 						<label>
-							<content parameter="quantTable"/>
+							<content parameter="mshub_balance_scores"/>
 						</label>
 				</cell>
 
 				<cell>
-					<module id="quantTable" type="fileSelector">
-						<property name="label">Quant Table</property>
+					<module id="mshub_balance_scores" type="fileSelector">
+						<property name="label">MSHub Balance Scores</property>
 					</module>
 				</cell>
 			</row>
