@@ -89,7 +89,7 @@
     </action>
 
     <!-- Creating temporary query mgf file -->
-    <object name="clusterinfosummary"/>
+    <object name="clusterinfo_summary"/>
 
     <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
@@ -103,7 +103,7 @@
     <object name="gnps_molecular_network_graphml"/>
     <action name="metabolomics_convert_graphml">
         <input port="networkedges_selfloop" object="networking_pairs_results_file_filtered"/>
-        <input port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummary"/>
+        <input port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfo_summary"/>
         <input port="result_specnets_DB" object="DB_result_filtered"/>
         <output port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
     </action>
