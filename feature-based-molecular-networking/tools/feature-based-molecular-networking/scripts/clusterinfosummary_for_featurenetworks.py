@@ -44,17 +44,7 @@ def load_group_attribute_mappings(metadata_filename):
 
     attributes_to_groups_mapping = defaultdict(set)
     group_to_files_mapping = defaultdict(list)
-    # row_count, table_data = ming_fileio_library.parse_table_with_headers(metadata_filename)
-    # for key in table_data:
-    #     all_group_names = []
-    #     if key.find("ATTRIBUTE_") != -1:
-    #         #Determine unique values in this column
-    #         for i in range(row_count):
-    #             filename = table_data[filename_header][i].rstrip()
-    #             if len(filename) > 2:
-    #                 group_to_files_mapping[table_data[key][i]].append(filename)
-    #                 attributes_to_groups_mapping[key].add(table_data[key][i])
-
+    
     metadata_df = pd.read_csv(metadata_filename, sep="\t")
     print(metadata_df.head())
     record_list = metadata_df.to_dict(orient="records")
@@ -148,7 +138,9 @@ def main():
         GROUP_COUNT_AGGREGATE_METHOD = "None"
 
 
-    quantification_list = ming_fileio_library.parse_table_with_headers_object_list(args.consensus_feature_file, delimiter=",")
+    quantification_df = pd.read_csv(args.consensus_feature_file)
+    quantification_list = quantification_df.to_dict(orient="records")
+
     input_filenames, input_filename_headers = determine_input_files(quantification_list[0].keys())
 
     ### Filling in Quantification table if it is missing values
@@ -260,11 +252,7 @@ def main():
 
         clusters_list.append(cluster_obj)
 
-    ming_fileio_library.write_list_dict_table_data(clusters_list, args.output_clusterinfo_summary)
-
-
-
-
+    pd.DataFrame(clusters_list).to_csv(args.output_clusterinfo_summary, sep="\t", index=False)
 
 
 

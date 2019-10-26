@@ -123,6 +123,15 @@
         <productionToOutput port="Kovats_Result_Filtered_mshub" production="Kovats_Result_Filtered_mshub"/>
     </bind>
 
+    <!-- Cluster Info -->
+    <bind action="clusterinfosummary_creation" tool="clusterinfosummary_creation">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="clusterinfo_summary" production="clusterinfo_summary"/>
+    </bind>
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>

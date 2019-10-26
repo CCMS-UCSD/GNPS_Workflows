@@ -90,10 +90,13 @@
 
     <!-- Creating temporary query mgf file -->
     <object name="clusterinfosummary"/>
-    <action name="create_clusterinfo_summary">
+
+    <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table"/>
+        <input port="metadata_table" object="metadata_table"/>
         <input port="spectra" object="spectra"/>
-        <output port="clusterinfosummary" object="clusterinfosummary"/>
+        <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
 
     <!-- Creating Cytoscape Compatible graphML -->
@@ -145,5 +148,6 @@
         <input port="result" object="result"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+        <input port="clusterinfosummary" object="clusterinfosummary"/>
     </action>
 </flow>
