@@ -8,7 +8,6 @@ import json
 import argparse
 import statistics
 import glob
-import ming_fileio_library
 import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
@@ -213,8 +212,6 @@ def main():
             cluster_obj["RTStdErr"] = 0
 
         cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID&show=true#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
-        #cluster_obj["AllFiles"] = "###".join(all_files)
-
         cluster_obj["sum(precursor intensity)"] = sum(all_abundances)
         cluster_obj["SumPeakIntensity"] = sum(all_abundances)
         cluster_obj["number of spectra"] = len(all_files)
