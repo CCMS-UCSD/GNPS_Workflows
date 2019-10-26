@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="molecular-librarysearch-gc" version="1.2.5">
-	<workflow-id>MOLECULAR-LIBRARYSEARCH-GC</workflow-id>
-	<workflow-label>Lib-GC</workflow-label>
-	<parameters>
+    <workflow-id>MOLECULAR-LIBRARYSEARCH-GC</workflow-id>
+    <workflow-label>Lib-GC</workflow-label>
+    <parameters>
         <parameter name="desc" label="Description">
             <validator type="length" maximum="1000"/>
         </parameter>
@@ -22,11 +22,11 @@
         </parameter>
 
         <parameter name="FORCE_EXACT_MATCH" label="FORCE_EXACT_MATCH">
-                <default value="1"/>
-                <validator type="integer" minimumExclusive="-1" maximum="1"/>
+            <default value="1"/>
+            <validator type="integer" minimumExclusive="-1" maximum="1"/>
         </parameter>
 
-	<!--<parameter label="Spectral Library" name="db.DB">
+        <!--<parameter label="Spectral Library" name="db.DB">
 	    <options resource="searchable_spectral_library"/>
 	    <fileGenerator type="resource" resource="searchable_spectral_library" target="lib"/>
 	</parameter>
@@ -41,21 +41,21 @@
             <validator type="float" minimumExclusive="0" maximum="1"/>
         </parameter>
 
-	<parameter name="SCORE_THRESHOLD" label="Score Threshold">
+        <parameter name="SCORE_THRESHOLD" label="Score Threshold">
             <default value="0.5"/>
             <validator type="float" minimumExclusive="0" maximum="1"/>
         </parameter>
 
-	<parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
+        <parameter name="MIN_MATCHED_PEAKS" label="Min Matched Peaks">
             <default value="6"/>
             <validator type="integer" minimumExclusive="0" maximum="500"/>
         </parameter>
 
-	<parameter name="MIN_PEAK_INT" label="Min Peak Int">
+        <parameter name="MIN_PEAK_INT" label="Min Peak Int">
             <default value="0.0"/>
         </parameter>
 
-	<parameter name="FILTER_STDDEV_PEAK_INT" label="Filter StdDev Intensity">
+        <parameter name="FILTER_STDDEV_PEAK_INT" label="Filter StdDev Intensity">
             <default value="0.0"/>
         </parameter>
 
@@ -66,8 +66,8 @@
 
         <parameter name="FILTER_PRECURSOR_WINDOW" label="Filter Precursor Window">
             <options>
-                    <option value="0" label="Don't Filter"/>
-                    <option value="1" label="Filter"/>
+                <option value="0" label="Don't Filter"/>
+                <option value="1" label="Filter"/>
             </options>
             <validator type="set"/>
             <default value="1"/>
@@ -75,8 +75,8 @@
 
         <parameter name="WINDOW_FILTER" label="Filter peaks in 50Da Window">
             <options>
-                    <option value="0" label="Don't Filter"/>
-                    <option value="1" label="Filter"/>
+                <option value="0" label="Don't Filter"/>
+                <option value="1" label="Filter"/>
             </options>
             <validator type="set"/>
             <default value="1"/>
@@ -84,8 +84,8 @@
 
         <parameter name="FILTER_LIBRARY" label="Filter Library">
             <options>
-                    <option value="0" label="Don't Filter Library"/>
-                    <option value="1" label="Filter Library"/>
+                <option value="0" label="Don't Filter Library"/>
+                <option value="1" label="Filter Library"/>
             </options>
             <validator type="set"/>
             <default value="1"/>
@@ -94,8 +94,8 @@
 
         <parameter name="ANALOG_SEARCH" label="Search Analogs">
             <options>
-                    <option value="0" label="Don't Search"/>
-                    <option value="1" label="Do Search"/>
+                <option value="0" label="Don't Search"/>
+                <option value="1" label="Do Search"/>
             </options>
             <validator type="set"/>
         </parameter>
@@ -111,9 +111,9 @@
 
         <parameter name="SEARCH_LIBQUALITY" label="Library Class">
             <options>
-                    <option value="1" label="Gold"/>
-                    <option value="2" label="Silver"/>
-                    <option value="3" label="Bronze"/>
+                <option value="1" label="Gold"/>
+                <option value="2" label="Silver"/>
+                <option value="3" label="Bronze"/>
             </options>
             <validator type="set"/>
             <default value="3"/>
@@ -140,46 +140,44 @@
             <validator type="integer" minimumExclusive="-1" maximum="100000"/>
         </parameter>
 
-			<!-- Kovats Filter Parameters -->
-			<parameter name="Kovats_Filter_Cosine_Threshold" label="Cosine Threshold for Kovats Filter">
-				<validator type="required"/>
-					<default value="0.9"/>
-					<validator type="float" minimumExclusive="0" maximum="1"/>
-			</parameter>
+        <!-- Kovats Filter Parameters -->
+        <parameter name="Kovats_Filter_Cosine_Threshold" label="Cosine Threshold for Kovats Filter">
+            <validator type="required"/>
+            <default value="0.9"/>
+            <validator type="float" minimumExclusive="0" maximum="1"/>
+        </parameter>
 
-			<parameter name="Error_Filter_Threshold" label="Kovats Retention Index Filtering Window (+/- %)">
-				<validator type="required"/>
-					<default value="10"/>
-					<validator type="integer" minimumExclusive="-1" maximum="300"/>
-			</parameter>
+        <parameter name="Error_Filter_Threshold" label="Kovats Retention Index Filtering Window (+/- %)">
+            <validator type="required"/>
+            <default value="10"/>
+            <validator type="integer" minimumExclusive="-1" maximum="300"/>
+        </parameter>
 
-			<parameter name="Carbon_Marker_File" label = "Input Carbon Marker File (Optional)">
-					<fileGenerator type="upload" purpose="Carbon_Marker_File" target="Carbon_Marker_File"/>
-			</parameter>
+        <parameter name="Carbon_Marker_File" label = "Input Carbon Marker File (Optional)">
+            <fileGenerator type="upload" purpose="Carbon_Marker_File" target="Carbon_Marker_File"/>
+        </parameter>
 
-			<parameter name="runKovats" label="Perform Kovats Calculation">
-					<default value="off"/>
-			</parameter>
-			<parameter name="window_start" label="Retention Time Window Starts(min)">
-				<validator type="required"/>
-					<default value="3"/>
-					<validator type="float" minimumExclusive="0"/>
-			</parameter>
-			<parameter name="window_end" label="Retention Time Window Ends(min)">
-				<validator type="required"/>
-					<default value="12"/>
-					<validator type="float" minimumExclusive="0" />
-			</parameter>
-			<parameter name="mshub_balance_scores" label="MSHub Balance Score">
-				 <fileGenerator type="upload" purpose="mshub_balance_scores" target="mshub_balance_scores"/>
-			</parameter>
+        <parameter name="runKovats" label="Perform Kovats Calculation">
+            <default value="off"/>
+        </parameter>
+        <parameter name="window_start" label="Retention Time Window Starts(min)">
+            <validator type="required"/>
+            <default value="3"/>
+            <validator type="float" minimumExclusive="0"/>
+        </parameter>
+        <parameter name="window_end" label="Retention Time Window Ends(min)">
+            <validator type="required"/>
+            <default value="12"/>
+            <validator type="float" minimumExclusive="0" />
+        </parameter>
+        <parameter name="mshub_balance_scores" label="MSHub Balance Score">
+            <fileGenerator type="upload" purpose="mshub_balance_scores" target="mshub_balance_scores"/>
+        </parameter>
 
-		</parameters>
+    </parameters>
 
-	<!-- Input form layout -->
+    <!-- Input form layout -->
     <block label="Search Options">
-
-
         <row>
             <cell>
                 <label>
@@ -193,32 +191,19 @@
                 </module>
             </cell>
         </row>
-        <!--<row>
+        <row>
             <cell>
-                <label><content parameter="library_on_server"/></label>
-            </cell>
-            <cell colspan="3">
-                <module id="library_on_server" type="fileSelector">
-                    <property name="label">Spectral Library</property>
-                </module>
-            </cell>
-        </row>-->
-    <row>
-        <cell>
                 <label>
                     <content parameter="FORCE_EXACT_MATCH"/>
                 </label>
             </cell>
 
-        <cell>
-        <input type="text" parameter="FORCE_EXACT_MATCH">
+            <cell>
+                <input type="text" parameter="FORCE_EXACT_MATCH">
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
-
-
-    </row>
-
+        </row>
         <row>
             <cell>
                 <label>
@@ -226,37 +211,41 @@
                     <tooltip id="parent_mass_tolerance_tooltip">
 						Specify the precursor ions mass tolerance (in Daltons) for spectral library search. Default value is ± 0.025 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap). Default value is 6, but note that this parameters should be tuned depending on the collision-induced fragmentation behavior of the molecules of interest, and the experimental conditions (such the mode of ionisation, the fragmentation conditions, and the mobile phase,  ...). High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
 						For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the documentation table).  **Please note: The default parameters recommended above for high resolution mass spectrometers will not result in proper searches of the spectral libraries created using lower accuracy instruments, such as Respect and a large portions of NIST. Therefore, if you want to perform spectral matching with these low-resolution mass spectra, we recommend using the 2.0 Da PIMT regardless of the type of mass spectrometer used. Moreover, downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
             <cell>
                 <input type="text" parameter="tolerance.PM_tolerance">
                     <attribute name="size" value="3"/>
                 </input>
-                <label><content>Da</content></label>
+                <label>
+                    <content>Da</content>
+                </label>
             </cell>
             <cell>
                 <label>
                     <content parameter="tolerance.Ion_tolerance"/>
                     <tooltip id="ion_tolerance_tooltip">
 						Parameters used for spectral library search. This value specifies how much fragment ions can be shifted from their expected m/z values. Default value is ± 0.02 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap) and 2.0 Da for low-resolution mass spectrometers (ion traps, QqQ). See documentation for more details (Link to the documentation table).
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
             <cell>
                 <input type="text" parameter="tolerance.Ion_tolerance">
                     <attribute name="size" value="3"/>
                 </input>
-                <label><content>Da</content></label>
+                <label>
+                    <content>Da</content>
+                </label>
             </cell>
         </row>
-	<row>
-	    <cell>
+        <row>
+            <cell>
                 <label>
                     <content parameter="MIN_MATCHED_PEAKS"/>
-					<tooltip id="minmatched_peaks_tooltip">
+                    <tooltip id="minmatched_peaks_tooltip">
 						Minimum number of commun fragment ions that should share a MS/MS spectra to be considered as a spectral library annotation. Default value is 6, but note that this parameters should be tuned depending of the molecule of interest, and the experimental conditions (such as the ionisation mode, and the fragmentation conditions, ...). For example, collision-induced fragmentation of some lipids produce only few fragment ions. A low value will allow to match MS/MS spectra of molecules producing few fragment ions, but will tend to increase the number of inaccurate annotation.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
             <cell>
@@ -264,27 +253,27 @@
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
-	    <cell>
+            <cell>
                 <label>
                     <content parameter="SCORE_THRESHOLD"/>
-					<tooltip id="score_threshold_tooltip">
+                    <tooltip id="score_threshold_tooltip">
 						Minimum cosine score to be considered as an annotation in spectral library search.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
 
-	    <cell>
-		<input type="text" parameter="SCORE_THRESHOLD">
+            <cell>
+                <input type="text" parameter="SCORE_THRESHOLD">
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
 
-	</row>
-      </block>
+        </row>
+    </block>
 
-      <block label="Advanced Search Options">
+    <block label="Advanced Search Options">
         <row>
-          <cell>
+            <cell>
                 <label>
                     <content parameter="SEARCH_LIBQUALITY"/>
                 </label>
@@ -304,10 +293,7 @@
                 <input type="select" parameter="ANALOG_SEARCH">
                 </input>
             </cell>
-
-
         </row>
-
 
         <row>
             <cell>
@@ -332,6 +318,7 @@
                 </input>
             </cell>
         </row>
+
         <row>
             <cell>
                 <label>
@@ -343,24 +330,24 @@
                     <property name="label">Library Files</property>
                 </module>
             </cell>
-          </row>
+        </row>
     </block>
 
-      <block label="Advanced Filtering Options">
+    <block label="Advanced Filtering Options">
 
-	<row>
+        <row>
 
-	    <cell>
+            <cell>
                 <label>
                     <content parameter="FILTER_STDDEV_PEAK_INT"/>
-					<tooltip id="std_dev_filter_tooltip">
+                    <tooltip id="std_dev_filter_tooltip">
 						For each MS/MS spectrum the 25% least intense fragment ions are collected and the std-dev is calculated as well as the mean. A minimum peak intensity is calculated as mean + k * std-dev where k is user selectable. All peaks below this threshold are deleted. By default filter is inactive (value is set to 0). This option is not encouraged. By default, no filter.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
 
-	    <cell>
-		<input type="text" parameter="FILTER_STDDEV_PEAK_INT">
+            <cell>
+                <input type="text" parameter="FILTER_STDDEV_PEAK_INT">
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
@@ -378,27 +365,27 @@
             </cell>
 
 
-	    <cell>
+            <cell>
                 <label>
                     <content parameter="MIN_PEAK_INT"/>
                 </label>
             </cell>
 
-	    <cell>
-		<input type="text" parameter="MIN_PEAK_INT">
+            <cell>
+                <input type="text" parameter="MIN_PEAK_INT">
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
 
 
-	</row>
-	<row>
+        </row>
+        <row>
             <cell>
                 <label>
                     <content parameter="FILTER_PRECURSOR_WINDOW"/>
-					<tooltip id="precursor_window_filter_tooltip">
+                    <tooltip id="precursor_window_filter_tooltip">
 						All peaks in a +/- 17 Da window around precursor ion mass are deleted. By default, yes filter. This removes the residual precursor ion, which is frequently observed in MS/MS spectra acquired on qTOFs. By default, yes filter.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
 
@@ -407,24 +394,24 @@
                 </input>
             </cell>
 
-	    <cell>
+            <cell>
                 <label>
                     <content parameter="FILTER_LIBRARY"/>
                 </label>
             </cell>
 
-	    <cell>
-		<input type="select" parameter="FILTER_LIBRARY">
+            <cell>
+                <input type="select" parameter="FILTER_LIBRARY">
                 </input>
             </cell>
-	</row>
-	<row>
+        </row>
+        <row>
             <cell>
                 <label>
                     <content parameter="WINDOW_FILTER"/>
-					<tooltip id="window_filter_tooltip">
+                    <tooltip id="window_filter_tooltip">
 						For each peak in spectrum to be kept, it must be at least 6th most intense peak in a window +/- 50Th around its m/z.
-					</tooltip>
+                    </tooltip>
                 </label>
             </cell>
 
@@ -433,174 +420,176 @@
                 </input>
             </cell>
         </row>
-      </block>
+    </block>
 
-      <block label="Advanced Network Options">
-          <row>
-              <cell>
-                  <label>
-                      <content parameter="PAIRS_MIN_COSINE"/>
-                      <tooltip id="min_pair_cosine_tooltip">
+    <block label="Advanced Network Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PAIRS_MIN_COSINE"/>
+                    <tooltip id="min_pair_cosine_tooltip">
                           Minimum cosine score that must occur between a pair of consensus MS/MS spectra in order for an edge to be formed in the molecular network. Default value is 0.7. Lower value will increase the size of the clusters by inducing the clustering of less
                           related MS/MS spectra, higher value will limit do the opposite.
-                      </tooltip>
-                  </label>
-              </cell>
-              <cell>
-                  <input type="text" parameter="PAIRS_MIN_COSINE">
-                      <attribute name="size" value="3"/>
-                  </input>
-              </cell>
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PAIRS_MIN_COSINE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
 
-              <cell>
-                  <label>
-                      <content parameter="MAX_SHIFT"/>
-                      <tooltip id="MAX_SHIFT_tooltip">
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT"/>
+                    <tooltip id="MAX_SHIFT_tooltip">
                           Maximum mass difference between two spectra
-                      </tooltip>
-                  </label>
-              </cell>
-              <cell>
-                  <input type="text" parameter="MAX_SHIFT">
-                      <attribute name="size" value="3"/>
-                  </input>
-              </cell>
-          </row>
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAX_SHIFT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
 
-          <row>
-              <cell>
-                  <label>
-                      <content parameter="TOPK"/>
-                      <tooltip id="network_topk_gnps_tooltip">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOPK"/>
+                    <tooltip id="network_topk_gnps_tooltip">
                           Maximum number of neighbor nodes for one single node. The edge between two nodes are kept only if both nodes are within each other's TopK most similar nodes. For example, if this value is set at 20, then a single node may be connected to up to 20
                           other nodes. Keeping this value low makes very large networks (many nodes) much easier to visualize.
-                      </tooltip>
-                  </label>
-              </cell>
-              <cell>
-                  <input type="text" parameter="TOPK">
-                      <attribute name="size" value="3"/>
-                  </input>
-              </cell>
-              <cell>
-                  <label>
-                      <content parameter="MAXIMUM_COMPONENT_SIZE"/>
-                      <tooltip id="max_component_size_gnps_tooltip">
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="TOPK">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="MAXIMUM_COMPONENT_SIZE"/>
+                    <tooltip id="max_component_size_gnps_tooltip">
                           Maximum size of nodes allowed in a single connected network. Nodes within a single connected molecular network will be separated by increasing cosine threshold for that specific connected molecular network. Default value is 100. Use 0 to allow an
                           unlimited number of nodes in a single network. Note that with large datasets, or when a great number of related molecules are in the dataset, this value should be higher (or turn to 0) to retain as much information as possible. Downstream, these
                           larger networks can be visualized using Cytoscape layout algorithms that can increase the intra-network clustering, allowing to visualize spectral groups in the network despite the number of nodes in the network.
-                      </tooltip>
-                  </label>
-              </cell>
-              <cell>
-                  <input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
-                      <attribute name="size" value="3"/>
-                  </input>
-              </cell>
-          </row>
-      </block>
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+    </block>
 
-			<block label ="Advanced Kovats Index Calculation Options">
-				<row>
-					<cell colspan="3">
-						<input type="checkbox" parameter="runKovats"/>
-						<label><content parameter="runKovats"/></label>
-					</cell>
-				</row>
-				<row>
-				<cell>
-						<label>
-							<content parameter="Carbon_Marker_File"/>
-							<tooltip id="Carbon_Marker_File">
+    <block label ="Advanced Kovats Index Calculation Options">
+        <row>
+            <cell colspan="3">
+                <input type="checkbox" parameter="runKovats"/>
+                <label>
+                    <content parameter="runKovats"/>
+                </label>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="Carbon_Marker_File"/>
+                    <tooltip id="Carbon_Marker_File">
 								Carbon Marker retention time file that will be used for Kovats Index
 								prediction.
-							</tooltip>
-					  </label>
-				</cell>
+                    </tooltip>
+                </label>
+            </cell>
 
-				<cell>
-					<module id="Carbon_Marker_File" type="fileSelector">
-						<property name="label">Carbon Marker Files</property>
-          </module>
-				</cell>
+            <cell>
+                <module id="Carbon_Marker_File" type="fileSelector">
+                    <property name="label">Carbon Marker Files</property>
+                </module>
+            </cell>
 
-				<cell>
-						<label>
-							<content parameter="mshub_balance_scores"/>
-						</label>
-				</cell>
+            <cell>
+                <label>
+                    <content parameter="mshub_balance_scores"/>
+                </label>
+            </cell>
 
-				<cell>
-					<module id="mshub_balance_scores" type="fileSelector">
-						<property name="label">MSHub Balance Scores</property>
-					</module>
-				</cell>
-			</row>
-		<row>
-				<cell>
-					<label>
-						<content parameter = "Kovats_Filter_Cosine_Threshold"/>
-						<tooltip id="Kovats_Filter_Cosine_Threshold">
+            <cell>
+                <module id="mshub_balance_scores" type="fileSelector">
+                    <property name="label">MSHub Balance Scores</property>
+                </module>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter = "Kovats_Filter_Cosine_Threshold"/>
+                    <tooltip id="Kovats_Filter_Cosine_Threshold">
 							Feature below the cosine threshold wont be included in the kovats index filter,
 							and kovats index calculation.
-						</tooltip>
-					</label>
-				</cell>
+                    </tooltip>
+                </label>
+            </cell>
 
-				<cell>
-					<input type = "text"    parameter = "Kovats_Filter_Cosine_Threshold">
-				  	<attribute name = "size" value = "10"/>
-				  </input>
-				</cell>
+            <cell>
+                <input type = "text"    parameter = "Kovats_Filter_Cosine_Threshold">
+                    <attribute name = "size" value = "10"/>
+                </input>
+            </cell>
 
-				<cell>
-					<label>
-						<content parameter = "Error_Filter_Threshold"/>
-						<tooltip id="Error_Filter_Threshold">
+            <cell>
+                <label>
+                    <content parameter = "Error_Filter_Threshold"/>
+                    <tooltip id="Error_Filter_Threshold">
 							Percentage error (in decimal) that will be used as a standard
 							to filter out invalid output.
-						</tooltip>
-					</label>
-				</cell>
+                    </tooltip>
+                </label>
+            </cell>
 
-				<cell>
-					<input type = "text"    parameter = "Error_Filter_Threshold">
-				  	<attribute name = "size" value = "10"/>
-				  </input>
-				</cell>
-			</row>
+            <cell>
+                <input type = "text"    parameter = "Error_Filter_Threshold">
+                    <attribute name = "size" value = "10"/>
+                </input>
+            </cell>
+        </row>
 
-			<row>
-					<cell>
-						<label>
-							<content parameter = "window_start"/>
-							<tooltip id="window_start">
+        <row>
+            <cell>
+                <label>
+                    <content parameter = "window_start"/>
+                    <tooltip id="window_start">
 								The start of retention time window will be used for Kovats Prediction
-							</tooltip>
-						</label>
-					</cell>
+                    </tooltip>
+                </label>
+            </cell>
 
-					<cell>
-						<input type = "text"    parameter = "window_start">
-							<attribute name = "size" value = "10"/>
-						</input>
-					</cell>
+            <cell>
+                <input type = "text"    parameter = "window_start">
+                    <attribute name = "size" value = "10"/>
+                </input>
+            </cell>
 
-					<cell>
-						<label>
-							<content parameter = "window_end"/>
-							<tooltip id="window_end">
+            <cell>
+                <label>
+                    <content parameter = "window_end"/>
+                    <tooltip id="window_end">
 								The end of retention time window will be used for Kovats Prediction
-							</tooltip>
-						</label>
-					</cell>
+                    </tooltip>
+                </label>
+            </cell>
 
-					<cell>
-						<input type = "text"    parameter = "window_end">
-							<attribute name = "size" value = "10"/>
-						</input>
-					</cell>
-				</row>
-			</block>
+            <cell>
+                <input type = "text"    parameter = "window_end">
+                    <attribute name = "size" value = "10"/>
+                </input>
+            </cell>
+        </row>
+    </block>
 
 </interface>
