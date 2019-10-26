@@ -20,7 +20,7 @@
         <output port="toolParams" collection="toolParameters"/>
         <output port="params" object="workflowParameters"/>
         <output port = "Carbon_Marker_File" object="Carbon_Marker_File"/>
-	    <output port = "mshub_balance_scores" object="mshub_balance_scores"/>
+        <output port = "mshub_balance_scores" object="mshub_balance_scores"/>
         <output port = "quantification_table" object="quantification_table"/>
         <output port = "metadata_table" object="metadata_table"/>
     </action>
@@ -99,10 +99,10 @@
     <!-- Creating Cytoscape Compatible graphML -->
     <object name="gnps_molecular_network_graphml"/>
     <action name="metabolomics_convert_graphml">
-        <input  port="networkedges_selfloop"       object="networking_pairs_results_file_filtered"/>
-        <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummary"/>
-        <input  port="result_specnets_DB" object="DB_result_filtered"/>
-        <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
+        <input port="networkedges_selfloop" object="networking_pairs_results_file_filtered"/>
+        <input port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummary"/>
+        <input port="result_specnets_DB" object="DB_result_filtered"/>
+        <output port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
     </action>
 
 
@@ -110,12 +110,12 @@
     <object name="Kovats_Result_Filtered"/>
     <object name="Kovats_Result_Nonfiltered"/>
     <action name="Kovats_Calculation">
-        <input  port="DB_result"       object="DB_result"/>
-        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
-        <input  port="Carbon_Marker_File"   object="Carbon_Marker_File"/>
-        <input  port="params"    object="workflowParameters"/>
-        <output port="Kovats_Result_Nonfiltered"     object="Kovats_Result_Nonfiltered"/>
-        <output port="Kovats_Result_Filtered"     object="Kovats_Result_Filtered"/>
+        <input port="DB_result" object="DB_result"/>
+        <input port="DB_result_filtered" object="DB_result_filtered"/>
+        <input port="Carbon_Marker_File" object="Carbon_Marker_File"/>
+        <input port="params" object="workflowParameters"/>
+        <output port="Kovats_Result_Nonfiltered" object="Kovats_Result_Nonfiltered"/>
+        <output port="Kovats_Result_Filtered" object="Kovats_Result_Filtered"/>
     </action>
 
     <!-- Add Balacned Score -->
@@ -124,22 +124,22 @@
     <object name="DB_result_filtered_mshub"/>
     <object name="DB_result_mshub"/>
     <action name="add_balanced_score">
-        <input  port="DB_result"       object="DB_result"/>
-        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
-        <input  port="Kovats_Result_Nonfiltered"       object="Kovats_Result_Nonfiltered"/>
-        <input  port="Kovats_Result_Filtered"       object="Kovats_Result_Filtered"/>
-        <input  port="params"    object="workflowParameters"/>
-        <input  port="mshub_balance_scores"    object="mshub_balance_scores"/>
-        <output port="DB_result_mshub"     object="DB_result_mshub"/>
-        <output port="DB_result_filtered_mshub"     object="DB_result_filtered_mshub"/>
-        <output port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
-        <output port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
+        <input port="DB_result" object="DB_result"/>
+        <input port="DB_result_filtered" object="DB_result_filtered"/>
+        <input port="Kovats_Result_Nonfiltered" object="Kovats_Result_Nonfiltered"/>
+        <input port="Kovats_Result_Filtered" object="Kovats_Result_Filtered"/>
+        <input port="params" object="workflowParameters"/>
+        <input port="mshub_balance_scores" object="mshub_balance_scores"/>
+        <output port="DB_result_mshub" object="DB_result_mshub"/>
+        <output port="DB_result_filtered_mshub" object="DB_result_filtered_mshub"/>
+        <output port="Kovats_Result_Nonfiltered_mshub" object="Kovats_Result_Nonfiltered_mshub"/>
+        <output port="Kovats_Result_Filtered_mshub" object="Kovats_Result_Filtered_mshub"/>
     </action>
 
-    
+
     <action name="end">
-        <input port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
-        <input port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
+        <input port="Kovats_Result_Filtered_mshub" object="Kovats_Result_Filtered_mshub"/>
+        <input port="Kovats_Result_Nonfiltered_mshub" object="Kovats_Result_Nonfiltered_mshub"/>
         <input port="DB_result_mshub" object="DB_result_mshub"/>
         <input port="DB_result_filtered_mshub" object="DB_result_filtered_mshub"/>
         <input port="result" object="result"/>
