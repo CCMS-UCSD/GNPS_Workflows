@@ -47,4 +47,25 @@
         </execution>
     </tool>
 
+
+    <pathSet base="miniconda3_gamma/envs/mshub-gc">
+        <toolPath tool="create_quantification" path="bin/python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="create_quantification.script" path="create_quantification.py"/>
+    </pathSet>
+
+    <tool name="create_quantification">
+        <require name="preprocessing_scratch"       type="folder"/>
+        <produce name="quantification_output" type="file" naming="fixed" value="clustersummary" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="create_quantification.script"/>
+                <arg valueRef="preprocessing_scratch"/>
+                <arg valueRef="quantification_output"/>
+        </execution>
+    </tool>
+
+
 </toolset>
