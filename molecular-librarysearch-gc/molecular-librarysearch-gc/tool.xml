@@ -270,7 +270,7 @@
         <toolPath tool="clusterinfosummary_creation" path="python"/>
     </pathSet>
 
-    <pathSet base="$base/scripts">
+    <pathSet base="$base">
         <pathVar name="clusterinfosummary_creation.script" path="clusterinfosummary_for_featurenetworks.py"/>
     </pathSet>
 
