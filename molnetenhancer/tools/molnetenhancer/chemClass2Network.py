@@ -79,7 +79,7 @@ def process_GNPS_file(GNPS_file):
 #add all chemical structural information output as dataframe items in list
 def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Varquest_job_ID=None, derepfile=None, varquestfile=None):
 
-    gnpslib = pd.read_csv(gnpslibfile, sep='\t')
+    gnpslib = pd.read_csv(gnpslibfile, sep='\t', error_bad_lines = False)
     matches = [gnpslib]
 
     if nap_ID != None and nap_ID != 'None':
