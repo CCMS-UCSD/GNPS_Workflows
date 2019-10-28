@@ -8,8 +8,8 @@ output_filename = sys.argv[2]
 
 output_sentences = []
 #INTRODUCTION
-output_sentences.append("<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n\n")
-output_sentences.append("A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://doi.org/10.1101/812404"> Nothias LF et al. bioRxiv 2019</a>) on GNPS (<a href="https://gnps.ucsd.edu"> https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n")
+output_sentences.append("<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n")
+output_sentences.append(""A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://doi.org/10.1101/812404"> Nothias LF et al. bioRxiv 2019</a>) on GNPS (<a href="https://gnps.ucsd.edu"> https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n"")
 
 #FBMN PROCESSING
 output_sentences.append("The mass spectrometry data were first processed with %s (cite accordingly, see below) and the results were exported to GNPS for FBMN analysis." % (param_obj["QUANT_TABLE_SOURCE"][0]))
@@ -30,7 +30,7 @@ output_sentences.append("Finally, the maximum size of a molecular family was set
 
 #SPECTRAL LIBRARY SEARCH
 if param_obj["ANALOG_SEARCH"][0] == "0":
-    output_sentences.append("The spectra in the network were then searched against GNPS' spectral libraries (Cite <a href="https://doi.org/10.1038/nbt.3597"> Wang M, et al. Nature Biotech. 2016 </a> and <a href="https://doi.org/10.1002/jms.1777"> Horai, H. et al. J. Mass Spectrom. 45, 703-714 (2010))</a>.")
+    output_sentences.append(""The spectra in the network were then searched against GNPS' spectral libraries (Cite <a href="https://doi.org/10.1038/nbt.3597"> Wang M, et al. Nature Biotech. 2016 </a> and <a href="https://doi.org/10.1002/jms.1777"> Horai, H. et al. J. Mass Spectrom. 45, 703-714 (2010))</a>.")
 if param_obj["ANALOG_SEARCH"][0] == "1":
     output_sentences.append("The analogue search mode was used by searching against MS/MS spectra with a maximum difference of %s in the precursor ion value." % (param_obj["MAX_SHIFT_MASS"][0]))
 if param_obj["FILTER_LIBRARY"][0] == "1":
@@ -43,51 +43,51 @@ if param_obj["GROUP_COUNT_AGGREGATE_METHOD"][0] == "0":
 if param_obj["GROUP_COUNT_AGGREGATE_METHOD"][0] == "1":
     output_sentences.append("The group value of the metadata was calculated by using the mean value all files intensity within a group.")
 if param_obj["RUN_DEREPLICATOR"][0] == "1":
-        output_sentences.append("The DEREPLICATOR was used to annotate MS/MS spectra (<a href="https://dx.doi.org/10.1038/s41467-018-06082-8">Mohimani, H. et al. Nat. Commun. 9, 4035 (2018)</a>).")
+        output_sentences.append(""The DEREPLICATOR was used to annotate MS/MS spectra (<a href="https://dx.doi.org/10.1038/s41467-018-06082-8">Mohimani, H. et al. Nat. Commun. 9, 4035 (2018)</a>)."")
 if "additional_pairs" in param_obj:
-        output_sentences.append("Additional edges were provided by the user.")
+        output_sentences.append(""Additional edges were provided by the user."")
 
 #NETWORK VISUALIZATION
-output_sentences.append("The molecular networks were visualized using Cytoscape software (<a href="https://dx.doi.org/10.1101/gr.1239303">Shannon, P. et al. Genome Res. 13, 2498-2504 (2003)</a>), and/or the Cytoscape tools for the web-based visualization (<a href="https://dx.doi.org/10.12688/f1000research.4510.2">Ono et al F1000Res. 3, 143 (2014)</a>). \n")
+output_sentences.append(""The molecular networks were visualized using Cytoscape software (<a href="https://dx.doi.org/10.1101/gr.1239303">Shannon, P. et al. Genome Res. 13, 2498-2504 (2003)</a>), and/or the Cytoscape tools for the web-based visualization (<a href="https://dx.doi.org/10.12688/f1000research.4510.2">Ono et al F1000Res. 3, 143 (2014)</a>). \n"")
 
 #DATA DEPOSITION AND JOB ACCESSIBILITY
 output_sentences.append("<br><br>\n<strong>Data deposition and job accessibility</strong><br><br>\n")
-output_sentences.append("The mass spectrometry data were deposited on public repository (provide the deposition accession number), such as <a href="https://massive.ucsd.edu">MassIVE</a> or <a href="https://www.ebi.ac.uk/metabolights/MetaboLights">MetaboLights</a>.\n")
+output_sentences.append(""The mass spectrometry data were deposited on public repository (provide the deposition accession number), such as <a href="https://massive.ucsd.edu">MassIVE</a> or <a href="https://www.ebi.ac.uk/metabolights/MetaboLights">MetaboLights</a>.\n"")
 output_sentences.append("The molecular networking job can be accessed at https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task={} .".format(param_obj["task"][0]))
 
 #CITATIONS
 output_sentences.append("<br><br>\n<strong>Citations</strong><br><br>\n")
-output_sentences.append('For Feature-Based Molecular Networking: Nothias LF et al. Feature-based Molecular Networking in the GNPS Analysis Environment. bioRxiv 812404 (2019). <a href="https://doi.org/10.1101/812404"> https://doi.org/10.1101/812404</a>. \n')
-output_sentences.append('For the GNPS web-platform: Wang M et al. "Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking." Nature Biotechnology 34.8 (2016): 828-837. <a href="https://doi.org/10.1038/nbt.3597">https://doi.org/10.1038/nbt.3597</a>. \n')
+output_sentences.append(""For Feature-Based Molecular Networking: Nothias LF et al. Feature-based Molecular Networking in the GNPS Analysis Environment. bioRxiv 812404 (2019). <a href="https://doi.org/10.1101/812404"> https://doi.org/10.1101/812404</a>. \n"")
+output_sentences.append("For the GNPS web-platform: Wang M et al. "Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking." Nature Biotechnology 34.8 (2016): 828-837. <a href="https://doi.org/10.1038/nbt.3597">https://doi.org/10.1038/nbt.3597</a>. \n"")
 
 #PROCESSING CITATION
 if param_obj["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
-    output_sentences.append("Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n")
-    output_sentences.append("Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n")
+    output_sentences.append(""Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n"")
+    output_sentences.append(""Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n"")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "XCMS3":
-    output_sentences.append("For XCMS: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a>. See the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n")
+    output_sentences.append(""For XCMS: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a>. See the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "MSDIAL":
-    output_sentences.append("For MS-DIAL: Tsugawa H et al. MS-DIAL: data-independent MS/MS deconvolution for comprehensive metabolome analysis. Nature Methods 12, 523-526 (2015), <a href="https://doi.org/10.1038/nmeth.3393">https://doi.org/10.1038/nmeth.3393.</a> \n")
+    output_sentences.append(""For MS-DIAL: Tsugawa H et al. MS-DIAL: data-independent MS/MS deconvolution for comprehensive metabolome analysis. Nature Methods 12, 523-526 (2015), <a href="https://doi.org/10.1038/nmeth.3393">https://doi.org/10.1038/nmeth.3393.</a> \n"")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "OPENMS":
-    output_sentences.append("For OpenMS: Rost HL et al. OpenMS: a flexible open-source software platform for mass spectrometry data analysis. Nature Methods 13, 741-748 (2016), <a href="https://doi.org/10.1038/nmeth.3959">https://doi.org/10.1038/nmeth.3959.</a> \n")
+    output_sentences.append(""For OpenMS: Rost HL et al. OpenMS: a flexible open-source software platform for mass spectrometry data analysis. Nature Methods 13, 741-748 (2016), <a href="https://doi.org/10.1038/nmeth.3959">https://doi.org/10.1038/nmeth.3959.</a> \n"")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "OPTIMUS":
-    output_sentences.append("For Optimus: Protsyuk I et al. 3D molecular cartography using LC-MS facilitated by Optimus and’ili software. Nature Protocols 13, 134-154 (2018), <a href="https://doi.org/10.1038/nprot.2017.122">https://doi.org/10.1038/nprot.2017.122.</a> \n")
+    output_sentences.append(""For Optimus: Protsyuk I et al. 3D molecular cartography using LC-MS facilitated by Optimus and’ili software. Nature Protocols 13, 134-154 (2018), <a href="https://doi.org/10.1038/nprot.2017.122">https://doi.org/10.1038/nprot.2017.122.</a> \n"")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "METABOSCAPE":
-    output_sentences.append("For MetaboScape: MetaboScape, Bruker Daltonics GmbH, Bremen, Germany, version [specify the version]. Software available at <a href="https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html">https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html.</a> \n")
+    output_sentences.append(""For MetaboScape: MetaboScape, Bruker Daltonics GmbH, Bremen, Germany, version [specify the version]. Software available at <a href="https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html">https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html.</a> \n")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "PROGENESIS":
-    output_sentences.append("For Progenesis QI: Progenesis QI, Nonlinear Dynamics, Milford, MA, version [specify the version]. Software available at <a href="https://www.nonlinear.com/progenesis/qi/">https://www.nonlinear.com/progenesis/qi/</a>. \n")
+    output_sentences.append(""For Progenesis QI: Progenesis QI, Nonlinear Dynamics, Milford, MA, version [specify the version]. Software available at <a href="https://www.nonlinear.com/progenesis/qi/">https://www.nonlinear.com/progenesis/qi/</a>. \n"")
 if param_obj["QUANT_TABLE_SOURCE"][0] == "MZTABM":
-    output_sentences.append("For mzTab-M: Hoffman et al. mzTab-M: A Data Standard for Sharing Quantitative Results in Mass Spectrometry Metabolomic. Analytical Chemistry 9153302-3310 (2019), <a href="https://doi.org/10.1021/acs.analchem.8b04310">https://doi.org/10.1021/acs.analchem.8b04310></a>. \n")
+    output_sentences.append(""For mzTab-M: Hoffman et al. mzTab-M: A Data Standard for Sharing Quantitative Results in Mass Spectrometry Metabolomic. Analytical Chemistry 9153302-3310 (2019), <a href="https://doi.org/10.1021/acs.analchem.8b04310">https://doi.org/10.1021/acs.analchem.8b04310></a>. \n"")
 
 #DEREPLICATOR ifitwas used
 if param_obj["RUN_DEREPLICATOR"][0] == "1":
-    output_sentences.append("For the DEREPLICATOR: Mohimani, H. et al. Dereplication of microbial metabolites through database search of mass spectra, Nature Communications 9, 4035 (2018), <a href="https://dx.doi.org/10.1038/s41467-018-06082-8">https://dx.doi.org/10.1038/s41467-018-06082-8.</a> \n")
-    output_sentences.append("For the DEREPLICATOR VarQuest: Gurevich, A. et al. Increased diversity of peptidic natural products revealed by modification-tolerant database search of mass spectra. Nature Microbiology 3, 319-327 (2018), <a href="https://dx.doi.org/10.1038/s41564-017-0094-2">https://dx.doi.org/10.1038/s41564-017-0094-2</a>.")
+    output_sentences.append(""For the DEREPLICATOR: Mohimani, H. et al. Dereplication of microbial metabolites through database search of mass spectra, Nature Communications 9, 4035 (2018), <a href="https://dx.doi.org/10.1038/s41467-018-06082-8">https://dx.doi.org/10.1038/s41467-018-06082-8.</a> \n"")
+    output_sentences.append(""For the DEREPLICATOR VarQuest: Gurevich, A. et al. Increased diversity of peptidic natural products revealed by modification-tolerant database search of mass spectra. Nature Microbiology 3, 319-327 (2018), <a href="https://dx.doi.org/10.1038/s41564-017-0094-2">https://dx.doi.org/10.1038/s41564-017-0094-2</a>."")
 
 #NETWORK VISUALIZER
-output_sentences.append("<br><br>\n<strong>Additional citations</strong><br><br>\n")
-output_sentences.append("If you used the Cytoscape software:  Shannon, P. et al. Cytoscape: a software environment for integrated models of biomolecular interaction networks. Genome Res. 13, 2498-2504 (2003), <a href="https://dx.doi.org/10.1101/gr.1239303">https://dx.doi.org/10.1101/gr.1239303</a>. \n")
-output_sentences.append("If you used the network web-based visualiser:  Ono, K., Demchak, B. and Ideker, T. Cytoscape tools for the web age: D3.js and Cytoscape.js exporters. F1000Res. 3, 143 (2014), <a href="https://dx.doi.org/10.12688/f1000research.4510.2">https://dx.doi.org/10.12688/f1000research.4510.2</a>.")
+output_sentences.append(""<br><br>\n<strong>Additional citations</strong><br><br>\n")
+output_sentences.append(""If you used the Cytoscape software:  Shannon, P. et al. Cytoscape: a software environment for integrated models of biomolecular interaction networks. Genome Res. 13, 2498-2504 (2003), <a href="https://dx.doi.org/10.1101/gr.1239303">https://dx.doi.org/10.1101/gr.1239303</a>. \n"")
+output_sentences.append(""If you used the network web-based visualiser:  Ono, K., Demchak, B. and Ideker, T. Cytoscape tools for the web age: D3.js and Cytoscape.js exporters. F1000Res. 3, 143 (2014), <a href="https://dx.doi.org/10.12688/f1000research.4510.2">https://dx.doi.org/10.12688/f1000research.4510.2</a>."")
 
 output_sentences.append("<br><br>\n<strong>Disclaimer</strong><br><br>\n")
 output_sentences.append("This description is generated to facilitate the report, and the reproducibility of the analysis. It also provide the citation of the tools used. Note that if copy/pasted as is in your manuscript, it might be flagged as plagiarism by the editor. For that reason, we recommend cautiouness and using it as a guideline.")
