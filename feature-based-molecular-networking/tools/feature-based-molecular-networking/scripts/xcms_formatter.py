@@ -43,6 +43,11 @@ def convert_to_feature_csv(input_filename, output_filename):
 
             ## Join back the tables
         output_format = pd.concat([table_part_left_processed, table_part_right], axis=1, join='inner')
+
+            ## Rounding up values for better Cytoscape rendering
+        output_format['row m/z'] = input_format_df['row m/z'].apply(lambda x: round(x, 3))
+        output_format['row retention time'] = input_format_df['row retention time'].apply(lambda x: round(x, 1))
+
         output_format.to_csv(output_filename,index = False)
 
     #Check and convert for XCMS-CAMERA for IINxFBMN
@@ -65,6 +70,11 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         #    ## Join back the tables
             output_format = pd.concat([table_part_left, table_part_right], axis=1, join='inner')
+
+        #    ## Rounding up values for better Cytoscape rendering
+            output_format['neutral M mass'] = input_format_df['neutral M mass'].apply(lambda x: round(x, 4))
+            output_format['row m/z'] = input_format_df['row m/z'].apply(lambda x: round(x, 3))
+            output_format['row retention time'] = input_format_df['row retention time'].apply(lambda x: round(x, 1))
             output_format.to_csv(output_filename,index = False)
 
     else:
