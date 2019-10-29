@@ -3,13 +3,14 @@ import os
 import ming_proteosafe_library
 
 def write_description(param_xml_filename, output_description_filename):
-    param_obj = ming_proteosafe_library.parse_xml_file(open(sys.argv[1]))
-    output_filename = sys.argv[2]
+    param_obj = ming_proteosafe_library.parse_xml_file(open(param_xml_filename))
+    output_filename = output_description_filename
 
     output_sentences = []
     #INTRODUCTION
     output_sentences.append('<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n')
     output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://doi.org/10.1101/812404">Nothias LF et al. bioRxiv 2019</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
+
 
     #FBMN PROCESSING
     output_sentences.append('The mass spectrometry data were first processed with %s (cite accordingly, see below) and the results were exported to GNPS for FBMN analysis.' % (param_obj["QUANT_TABLE_SOURCE"][0]))

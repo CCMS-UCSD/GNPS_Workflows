@@ -222,7 +222,7 @@
         <require name="Kovats_Result_Nonfiltered"       type="file"/>
         <require name="Kovats_Result_Filtered"       type="file"/>
         <require name="workflowParameters"       type="file"/>
-        <require name="quantTable"       type="file"/>
+        <require name="mshub_balance_scores"       type="file"/>
 
         <produce name="DB_result_mshub"        type="file" naming="explicit"  extension="tsv"/>
         <produce name="DB_result_filtered_mshub"        type="file" naming="explicit"  extension="tsv"/>
@@ -236,7 +236,7 @@
                 <arg valueRef="Kovats_Result_Nonfiltered"/>
                 <arg valueRef="Kovats_Result_Filtered"/>
                 <arg valueRef="workflowParameters"/>
-                <arg valueRef="quantTable"/>
+                <arg valueRef="mshub_balance_scores"/>
                 <arg valueRef="DB_result_mshub"/>
                 <arg valueRef="DB_result_filtered_mshub"/>
                 <arg valueRef="Kovats_Result_Nonfiltered_mshub"/>

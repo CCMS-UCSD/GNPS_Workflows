@@ -2,6 +2,7 @@ import unittest
 import sys
 import filecmp
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
+sys.path.insert(0, "tools/feature-based-molecular-networking/scripts/")
 import msdial_formatter
 import progenesis_formatter
 import metaboscape_formatter
