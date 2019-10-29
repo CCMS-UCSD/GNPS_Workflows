@@ -54,7 +54,7 @@ def write_description(param_xml_filename, output_description_filename):
     #DATA DEPOSITION AND JOB ACCESSIBILITY
     output_sentences.append('<br><br>\n<strong>Data Deposition and Job Accessibility</strong><br><br>\n')
     output_sentences.append('The mass spectrometry data were deposited on public repository (provide the deposition accession number), such as <a href="https://massive.ucsd.edu">MassIVE</a> or <a href="https://www.ebi.ac.uk/metabolights/MetaboLights">MetaboLights</a>.\n')
-    output_sentences.append('The molecular networking job can be publicly accessed at <a href="https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task={}">https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task={}</a> (we recommend sharing this link in your manuscript). '.format(param_obj["task"][0]))
+    output_sentences.append('The molecular networking job can be publicly accessed at <a href="https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task={}">https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task={}</a> (we recommend sharing this link in your manuscript). '.format(param_obj["task"][0], param_obj["task"][0]))
 
     #CITATIONS
     output_sentences.append('<br><br>\n<strong>Citations</strong><br><br>\n')
