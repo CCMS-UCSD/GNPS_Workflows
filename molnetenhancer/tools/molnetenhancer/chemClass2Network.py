@@ -163,7 +163,7 @@ def create_ClassyFireResults(netfile, inchi_dic, directory):
     #Renaming no matches in score columns to 0
     for key in final:
         if "_score" in key:
-            final[key] = final[key].map({"" : 0.0}, na_action="ignore")
+            final[key][final[key] == ''] = 0.0
 
     file_name = directory + "/ClassyFireResults_Network.txt"
     final.to_csv(file_name, sep = '\t', index = False)
