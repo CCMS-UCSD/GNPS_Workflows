@@ -29,6 +29,7 @@
 
     <bind action="create_quantification" tool="create_quantification">
         <inputAsRequirement port="preprocessing_scratch" requirement="preprocessing_scratch"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <productionToOutput port="quantification_output" production="quantification_output"/>
     </bind>
 
