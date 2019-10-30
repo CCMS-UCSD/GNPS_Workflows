@@ -12,11 +12,11 @@ import sys
 def convert_to_feature_csv(input_filename, output_filename):
     input_format = pd.read_csv(input_filename, sep='\t', skiprows=3)
 
-    #for loop to scrap off the potential presence of IMS data columns
-    for col in input_format.columns:
-        if 'Average drift time' in col:
-            input_format = input_format.drop(['Average drift time','Average CCS'], axis=1)
+    #Check IMS data columns and drop them
+    if 'Average drift time' in input_format.columns:
+        input_format = input_format.drop(['Average drift time','Average CCS'], axis=1)
 
+    #Continue with the processing
     headers = list(input_format.keys())
     sample_names = headers[22:]
 
@@ -30,23 +30,21 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         output_record = {}
         output_record["row ID"] = str(scan)
-        output_record["row retention time"] = str(rt)
         output_record["row m/z"] = str(mz)
+        output_record["row retention time"] = str(rt)
 
         for sample_name in sample_names:
             output_record[sample_name + " Peak area"] = record[sample_name]
 
         output_records.append(output_record)
 
-    output_headers = ["row ID", "row retention time", "row m/z"]
+    output_headers = ["row ID", "row m/z", "row retention time"]
     output_headers += [sample_name + " Peak area" for sample_name in sample_names]
 
     output_df = pd.DataFrame(output_records)
     output_df.to_csv(output_filename, sep=",", index=False, columns=output_headers)
 
     return
-
-
 
 if __name__=="__main__":
     # there should be obly one input file
