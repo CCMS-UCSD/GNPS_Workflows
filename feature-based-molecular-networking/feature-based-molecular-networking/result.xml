@@ -237,7 +237,7 @@
         </row>
     </block>
 
-    <view id="view_all_clusters_withID" label="View All Spectra With Annotations" group="Default Molecular Networking Results Views">
+    <view id="view_all_clusters_withID" label="View All Spectra With IDs" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_all_clusters_withID"/>
     </view>
 
@@ -253,6 +253,7 @@
             <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex">
                 <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
                 <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>
+                <parameter name="REQUESTPARAMETER=highlight_node" value="[cluster index]"/>
                 <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>
                 <parameter name="LABEL" value="View Network"/>
                 <parameter name="USETASK" value="True"/>
