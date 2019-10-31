@@ -134,7 +134,7 @@ def main():
     try:
         GROUP_COUNT_AGGREGATE_METHOD = param_obj["GROUP_COUNT_AGGREGATE_METHOD"][0]
     except:
-        GROUP_COUNT_AGGREGATE_METHOD = "None"
+        GROUP_COUNT_AGGREGATE_METHOD = "Sum"
 
 
     quantification_df = pd.read_csv(args.consensus_feature_file)
