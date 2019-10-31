@@ -82,10 +82,12 @@ def main():
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US && export LC_ALL && qiime diversity beta-phylogenetic \
+    --i-table {} \
     --i-phylogeny {} \
     --p-metric "weighted_unifrac" \
      --o-distance-matrix {}'.format(args.conda_activate_bin, args.conda_environment, \
-        output_merged_data_qza, \
+        output_merged_feature_table_qza, \
+        output_qemistree_qza, \
         output_distance_matrix_qza)
     all_cmd.append(cmd)
 
