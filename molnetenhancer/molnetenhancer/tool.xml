@@ -2,6 +2,7 @@
     <pathSet base="anaconda3/bin">
         <toolPath tool="molnetenhancer" path="python3.5"/>
     </pathSet>
+
     <pathSet base="$base">
         <pathVar name="molnetenhancer.script" path="molnetenhancer.py"/>
     </pathSet>
@@ -21,9 +22,9 @@
         </execution>
     </tool>
 
-
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="metabodisttree" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/bin">
+        <pathVar name="activate.path" path="activate"/>
+        <toolPath tool="metabodisttree" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="metabodisttree.script" path="metabodisttree.py"/>
@@ -38,6 +39,8 @@
             <arg valueRef="@GNPS_TASK"/>
             <arg valueRef="output_network"/>
             <arg valueRef="qiime2_output"/>
+            <arg pathRef="activate.path"/>
+            <arg value="qiime2-2019.4"/>
         </execution>
     </tool>
 
