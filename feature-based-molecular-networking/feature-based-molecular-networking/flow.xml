@@ -200,6 +200,15 @@
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
 
+
+    <!-- Summarizing Statistics for Networks -->
+    <object name="network_statistics"/>
+    <action name="metabolomic_network_statistics">
+        <input  port="gnps_molecular_network_graphml"       object="gnps_molecular_network_graphml"/>
+        <output  port="network_statistics" object="network_statistics"/>
+    </action>
+
+
     <action name="end">
         <input port="spectra" object="spectra"/>
         <input port="spectra_reformatted" object="spectra_reformatted"/>
@@ -216,5 +225,6 @@
         <input port="written_description" object="written_description"/>
         <input port="validation_summary" collection="validation_summary"/>
         <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
+        <input port="network_statistics" collection="network_statistics"/>
     </action>
 </flow>

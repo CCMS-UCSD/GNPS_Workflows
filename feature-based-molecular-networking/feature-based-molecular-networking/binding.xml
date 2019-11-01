@@ -175,6 +175,13 @@
         <productionToOutput port="qiime2_output" production="qiime2_output"/>
     </bind>
 
+    <!-- Summarizing Statistics for Networks -->
+    <bind action="metabolomic_network_statistics" tool="metabolomic_network_statistics">
+        <inputAsRequirement port="gnps_molecular_network_graphml" requirement="gnps_molecular_network_graphml"/>
+        <productionToOutput port="network_statistics" production="network_statistics"/>
+    </bind>
+    
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -224,6 +231,9 @@
         </upload>
         <upload port="quantification_table_reformatted" type="folder">
             <query name="resource" value="quantification_table_reformatted"/>
+        </upload>
+        <upload port="network_statistics" type="folder">
+            <query name="resource" value="network_statistics"/>
         </upload>
     </bind>
 </binding>
