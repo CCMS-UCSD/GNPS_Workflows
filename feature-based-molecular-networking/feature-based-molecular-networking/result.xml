@@ -581,6 +581,19 @@ g
     </block>
 
 
+    <view id="network_statistics" label="Networking Statistics" group="Advanced Views - Misc Views">
+        <blockRef id="main" type="network_statistics"/>
+    </view>
+    <block id="network_statistics" type="stream" panelHeight="600px">
+        <data>
+            <source type="file" name="network_statistics/"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block>
+
+
 
 
 
