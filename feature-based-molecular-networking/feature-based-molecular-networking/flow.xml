@@ -174,6 +174,7 @@
         <input  port="networking_pairs_results_file_filtered"       object="networkedges_selfloop"/>
         <input  port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
         <input  port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+        <input  port="libraryanalogsearch_results_file_DB" object="libraryanalogsearch_results_file_DB"/>
         <input  port="additional_pairs" collection="additional_pairs"/>
         <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
     </action>
