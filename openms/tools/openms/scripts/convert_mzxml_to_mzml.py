@@ -21,7 +21,7 @@ def get_exec_cmd(input_file, file_count, out_port):
 '''
 def fileconverter(input_port, out_port):
     commands = []
-    for input_file,file_count in list(wrkflw.parsefolder(input_port)):        
+    for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=["log"]):
         if any([ext.lower() in input_file.lower() for ext in ['mzData', 'mzXML',\
                 'cachedMzML', 'dta', 'dta2d', 'mgf', 'featureXML',\
                 'consensusXML', 'ms2', 'fid', 'tsv', 'peplist', 'kroenik',\
@@ -30,6 +30,7 @@ def fileconverter(input_port, out_port):
           commands.append(cmd)
         elif "mzml" in input_file.lower():
           shutil.copyfile(input_file, out_port+"/"+out_port+"-"+file_count+".mzML")
+          os.system("echo \"original file format for {} is mzml\" >> {}".format(input_file,out_port+"/logfile-"+file_count+".txt"))
         else:
           continue
     mpl.run_parallel_shellcommands(commands,8)
@@ -54,3 +55,5 @@ if __name__ == '__main__':
     out_port = sys.argv[5]
 
     fileconverter(in_port, out_port)
+
+

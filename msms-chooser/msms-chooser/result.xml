@@ -4,19 +4,7 @@
         <source type="folder" name="output_batch/"/>
     </download>
 
-    <view id="download_table" label="Download Output Batch Table" group="download_output_batch">
-        <blockRef id="main"   type="download_output_batch"/>
-    </view>
-    <block id="download_output_batch" type="dummydownload">
-      <data>
-        <source type="file" name="output_batch/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
-    </block>
-
-    <view id="view_table" label="View Output Batch Table" group="view_output_batch">
+    <view id="view_table" label="View Output Batch Table" group="Default Views">
         <blockRef id="main"   type="view_output_batch"/>
     </view>
     <block id="view_output_batch" type="table">
@@ -36,12 +24,24 @@
           <column type="text"     field="CHARGE"         label="CHARGE"         width="12"/>
           <column type="text"     field="IONMODE"         label="IONMODE"         width="12"/>
           <column type="text"     field="EXACTMASS"         label="EXACTMASS"         width="12"/>
+          <column type="genericimagedisplayer" label="Structure">
+            <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+            <parameter name="REQUESTPARAMETER=smiles" value="[SMILES]"/>
+        </column>
       </row>
       <row expander="View Spectrum" expandericontype="text">
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="[FILENAME]"/>
                 <parameter name="scan" value="[EXTRACTSCAN]"/>
                 <parameter name="peptide" value="*..*"/>
+            </column>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/png"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
+                <parameter name="REQUESTPARAMETER=label" value="1"/>
+                <parameter name="REQUESTPARAMETER=xmax" value="[MOLECULEMASS]"/>
+                <parameter name="REQUESTPARAMETER=rescale" value="1"/>
+                <parameter name="REQUESTPARAMETER=rotation" value="90"/>
             </column>
         </row>
         <row expander="MASST Spectrum" expandericontype="text">
@@ -52,5 +52,31 @@
             </column>
         </row>
     </block>
+
+    <view id="add_batch" label="Add Batch Anotation on GNPS" group="Batch File for GNPS">
+        <blockRef id="main" type="add_batch"/>
+    </view>
+    <block id="add_batch" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"ADD-BATCH-ANNOTATED", "desc":"Add Batch from [task]", "annotation_table_on_server":"t.[task]/output_batch"}'/>
+    </block>
+
+
+    <view id="download_table" label="Download Output Batch Table" group="Batch File for GNPS">
+        <blockRef id="main"   type="download_output_batch"/>
+    </view>
+    <block id="download_output_batch" type="dummydownload">
+      <data>
+        <source type="file" name="output_batch/"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
 
 </interface>

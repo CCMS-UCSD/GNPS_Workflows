@@ -79,7 +79,7 @@ def process_GNPS_file(GNPS_file):
 #add all chemical structural information output as dataframe items in list
 def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Varquest_job_ID=None, derepfile=None, varquestfile=None):
 
-    gnpslib = pd.read_csv(gnpslibfile, sep='\t')
+    gnpslib = pd.read_csv(gnpslibfile, sep='\t', error_bad_lines = False)
     matches = [gnpslib]
 
     if nap_ID != None and nap_ID != 'None':
@@ -111,6 +111,7 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
     import requests
     from bs4 import BeautifulSoup
     from lxml import html
+    import urllib.parse
 
     smiles_df = pd.read_csv(SMILES_csv)
 
@@ -120,16 +121,17 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
 
     for i in range(len(smiles_df)):
         smile_str = smiles_df.loc[i]['SMILES']
-        link = 'https://gnps-structure.ucsd.edu/inchikey?smiles=%s' % smile_str
-        result = requests.get(link)
-        soup = str(BeautifulSoup(result.content, 'html.parser'))
+        link = 'https://gnps-structure.ucsd.edu/inchikey?smiles={}'.format(urllib.parse.quote(smile_str))
 
-        if '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">' in soup:
+        try:
+            result = requests.get(link)
+            result.raise_for_status()
+            InchiKeys_lst.append('InChIKey=' + result)
+        except:
             SMILES_failed.append(smile_str)
             fail_count += 1
             InchiKeys_lst.append('InChIKey=XXXXXXXXXXXXXX-XXXXXXXXXX-X')#place holder for unidentified
-        else:
-            InchiKeys_lst.append('InChIKey=' + soup)
+            
     print('Number of failed conversions is ' + str(fail_count))
 
     ikeys = pd.DataFrame(data=InchiKeys_lst)
@@ -161,7 +163,7 @@ def create_ClassyFireResults(netfile, inchi_dic, directory):
     #Renaming no matches in score columns to 0
     for key in final:
         if "_score" in key:
-            final[key] = final[key].map({"" : 0.0}, na_action="ignore")
+            final[key][final[key] == ''] = 0.0
 
     file_name = directory + "/ClassyFireResults_Network.txt"
     final.to_csv(file_name, sep = '\t', index = False)

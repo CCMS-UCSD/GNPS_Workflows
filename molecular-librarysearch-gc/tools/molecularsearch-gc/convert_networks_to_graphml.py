@@ -8,7 +8,7 @@ import molecular_network_filtering_library
 import networkx as nx
 
 def usage():
-    print "<pairs info> <cluster info summary> <library identifications> <output graphml filename>"
+    print("<pairs info> <cluster info summary> <library identifications> <output graphml filename>")
 
 
 def main():

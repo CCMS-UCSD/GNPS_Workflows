@@ -27,6 +27,12 @@
         <productionToOutput port="summary_output" production="summary_output"/>
     </bind>
 
+    <bind action="create_quantification" tool="create_quantification">
+        <inputAsRequirement port="preprocessing_scratch" requirement="preprocessing_scratch"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="quantification_output" production="quantification_output"/>
+    </bind>
+
 
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
@@ -47,6 +53,9 @@
         </upload>
         <upload port="preprocessing_scratch" type="folder">
             <query name="resource" value="preprocessing_scratch"/>
+        </upload>
+        <upload port="quantification_output" type="folder">
+            <query name="resource" value="quantification_output"/>
         </upload>
     </bind>
 </binding>

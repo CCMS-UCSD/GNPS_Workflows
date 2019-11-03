@@ -13,6 +13,7 @@ import mass_from_structure
 import inchi_smile_converter
 import proteosafe
 
+
 def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, proteosafe_param):
     #Grouping by filename
     structures_by_filename = defaultdict(list)
@@ -138,7 +139,7 @@ def main():
             # filling in smiles and inchi if any is missing
             smiles = ""
             inchi = ""
-            exact_mass = 0
+            
             if "SMILES" in annotation:
                 smiles = str(annotation["SMILES"])
             if "INCHI" in annotation:
@@ -148,8 +149,11 @@ def main():
                 smiles = inchi_smile_converter.inchi2smiles(inchi)
             if len(smiles) > 4 and len(inchi) < 4:
                 inchi = inchi_smile_converter.smiles2inchi(smiles)
-            if exact_mass == 0:
-                exact_mass = mass_from_structure.mass_from_smiles(smiles)
+            
+            exact_mass = mass_from_structure.mass_from_smiles(smiles)
+
+            if exact_mass <= 0:
+                continue
         except KeyboardInterrupt:
             raise
         except:
