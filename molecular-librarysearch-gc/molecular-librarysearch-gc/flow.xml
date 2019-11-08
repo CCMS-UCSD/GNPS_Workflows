@@ -139,6 +139,13 @@
         <output port="Kovats_Result_Filtered_mshub" object="Kovats_Result_Filtered_mshub"/>
     </action>
 
+    <!-- Written Description -->
+    <object name="written_description"/>
+    <action name="write_description">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="written_description"     object="written_description"/>
+    </action>
+
 
     <action name="end">
         <input port="Kovats_Result_Filtered_mshub" object="Kovats_Result_Filtered_mshub"/>
@@ -149,5 +156,6 @@
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
         <input port="clusterinfo_summary" object="clusterinfo_summary"/>
+        <input port="written_description" object="written_description"/>
     </action>
 </flow>

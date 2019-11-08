@@ -132,6 +132,12 @@
         <productionToOutput port="clusterinfo_summary" production="clusterinfo_summary"/>
     </bind>
 
+    <!-- External Analysis -->
+    <bind action="write_description" tool="write_description">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="written_description" production="written_description"/>
+    </bind>
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -160,6 +166,9 @@
         </upload>
         <upload port="clusterinfo_summary" type="file">
             <query name="resource" value="clusterinfo_summary"/>
+        </upload>
+        <upload port="written_description" type="folder">
+            <query name="resource" value="written_description"/>
         </upload>
     </bind>
 </binding>
