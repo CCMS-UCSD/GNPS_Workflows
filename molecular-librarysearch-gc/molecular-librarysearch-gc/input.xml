@@ -18,7 +18,7 @@
         <parameter name="library_on_server" label="Spectral Library">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="library" target="lib"/>
-            <default value="d.speclibs/gnps_library;"/>
+            <default value="d.CCMS_SpectralLibraries/GNPS_GC_Libraries;"/>
         </parameter>
 
         <parameter name="quantification_table" label="Feature Quantification Table">
