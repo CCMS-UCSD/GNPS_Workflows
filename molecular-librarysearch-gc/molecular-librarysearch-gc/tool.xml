@@ -290,4 +290,29 @@
         </execution>
     </tool>
 
+    <!-- Running qiime2 -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="run_qiime2" path="python"/>
+        <pathVar name="activate.path" path="activate"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="run_qiime2.script" path="run_qiime2.py"/>
+    </pathSet>
+
+    <tool name="run_qiime2">
+        <require name="quantification_table_reformatted" type="file"/>
+        <require name="metadata_table" type="file"/>
+        <produce name="qiime2_output" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="run_qiime2.script"/>
+            <arg valueRef="metadata_table"/>
+            <arg valueRef="quantification_table_reformatted"/>
+            <arg valueRef="qiime2_output"/>
+            <arg pathRef="activate.path"/>
+            <arg value="qiime2-2019.4"/>
+        </execution>
+    </tool>
+
 </toolset>
