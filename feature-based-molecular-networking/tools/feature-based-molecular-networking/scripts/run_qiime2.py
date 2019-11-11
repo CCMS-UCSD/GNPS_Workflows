@@ -4,6 +4,7 @@ import sys
 import requests
 import shutil
 import argparse
+import glob
 
 def main():
     parser = argparse.ArgumentParser(description='')
@@ -20,10 +21,20 @@ def main():
     df_quantification = pd.read_csv(args.input_quantification_table, sep=",")
 
     """Reading Metadata Filename and filling in empty entries"""
-    if len(args.input_metadata_filename) > 2:
+    if len(args.input_metadata_filename) < 2:
+        df_metadata = pd.DataFrame([{"filename": "placeholder"}])
+    elif os.path.isfile(args.input_metadata_filename):
         df_metadata = pd.read_csv(args.input_metadata_filename, sep="\t")
     else:
-        df_metadata = pd.DataFrame([{"filename": "placeholder"}])
+        #It is a directory
+        metadata_files = glob.glob(os.path.join(args.input_metadata_filename, "*"))
+        if len(metadata_files) > 1:
+            print("Enter only a single metadata file")
+            exit(1)
+        elif len(metadata_files) == 0:
+            df_metadata = pd.DataFrame([{"filename": "placeholder"}])
+        else:
+            df_metadata = pd.read_csv(metadata_files[0], sep="\t")
 
     if not "sample_name" in df_metadata:
         df_metadata["sample_name"] = df_metadata["filename"]

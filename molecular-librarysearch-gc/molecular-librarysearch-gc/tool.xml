@@ -302,7 +302,7 @@
 
     <tool name="run_qiime2">
         <require name="quantification_table_reformatted" type="file"/>
-        <require name="metadata_table" type="file"/>
+        <require name="metadata_table" type="folder"/>
         <produce name="qiime2_output" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">

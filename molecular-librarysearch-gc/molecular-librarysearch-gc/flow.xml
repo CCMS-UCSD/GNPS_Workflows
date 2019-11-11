@@ -149,7 +149,7 @@
     <!-- Qiime2 -->
     <collection name="qiime2_output"/>
     <action name="run_qiime2">
-        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
+        <input  port="quantification_table_reformatted"       object="quantification_table"/>
         <input  port="metadata_table"       object="metadata_table"/>
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
