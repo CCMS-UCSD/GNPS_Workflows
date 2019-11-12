@@ -1,0 +1,53 @@
+<toolset>
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="run_mmvec" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="run_mmvec.script" path="run_mmvec.py"/>
+    </pathSet>
+
+    <tool name="run_mmvec">
+        <require name="metabolites_qza"       type="file"/>
+        <require name="metabolites_metadata"       type="file"/>
+        <require name="microbiome_qza"       type="file"/>
+        <require name="microbiome_taxonomy"       type="file"/>
+        <produce name="mmvec_output"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="run_mmvec.script"/>
+                <arg valueRef="metabolites_qza"/>
+                <arg valueRef="metabolites_metadata"/>
+                <arg valueRef="microbiome_qza"/>
+                <arg valueRef="microbiome_taxonomy"/>
+                <arg valueRef="mmvec_output"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="mmvec_conditionals_summarize" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="mmvec_conditionals_summarize.script" path="decode_mmvec.py"/>
+    </pathSet>
+
+    <tool name="mmvec_conditionals_summarize">
+        <require name="metabolites_metadata"       type="file"/>
+        <require name="microbiome_taxonomy"       type="file"/>
+        <require name="mmvec_output"       type="folder"/>
+        <produce name="mmvec_conditionals_display"        type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+                <arg pathRef="mmvec_conditionals_summarize.script"/>
+                <arg valueRef="mmvec_output"/>
+                <arg valueRef="microbiome_taxonomy"/>
+                <arg valueRef="metabolites_metadata"/>
+                <arg valueRef="mmvec_conditionals_display"/>
+        </execution>
+    </tool>
+
+
+</toolset>

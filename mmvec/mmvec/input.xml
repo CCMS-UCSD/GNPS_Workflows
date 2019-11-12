@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="MMVEC" version="1.0">
+    <workflow-id>MMVEC</workflow-id>
+    <workflow-label>MMVEC</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <!-- Search file parameters -->
+        <parameter name="metabolites_qza" label="Metabolites biom qza">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="metabolites_qza" target="metabolites_qza"/>
+        </parameter>
+
+        <parameter name="metabolites_metadata" label="Metabolites Annotations">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="metabolites_metadata" target="metabolites_metadata"/>
+        </parameter>
+
+        <parameter name="microbiome_qza" label="Microbiome biom qza">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="microbiome_qza" target="microbiome_qza"/>
+        </parameter>
+
+        <parameter name="microbiome_taxonomy" label="Microbiome Taxonomy Annotations">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="microbiome_taxonomy" target="microbiome_taxonomy"/>
+        </parameter>
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Metabolomics Input">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="metabolites_qza"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="metabolites_qza" type="fileSelector">
+                    <property name="label">metabolites_qza</property>
+                </module>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="metabolites_metadata"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="metabolites_metadata" type="fileSelector">
+                    <property name="label">metabolites_metadata</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Microbiome Input">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="microbiome_qza"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="microbiome_qza" type="fileSelector">
+                    <property name="label">microbiome_qza</property>
+                </module>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="microbiome_taxonomy"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="microbiome_taxonomy" type="fileSelector">
+                    <property name="label">microbiome_taxonomy</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+
+    
+
+</interface>
