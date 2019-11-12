@@ -15,13 +15,15 @@ def convert_to_feature_csv(input_filename, output_filename):
     non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
         "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Adducts", "Formula", \
-        "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area", \
-        "Max Fold Change", "Highest Mean", "Lowest Mean"]
+        "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area",
+        "Highest Mean", "Lowest Mean","CCS (angstrom^2)","Anova (p)","q Value","Max Fold Change",
+        "Max Ab > 100","High Samples","Anova p-value <= 0.05","Max fold change >= 1000","dCCS (angstrom^2)"]
 
     input_records = input_format.to_dict(orient="records")
     sample_names = [header for header in input_format.keys() if not header in non_sample_names and not header[-2:] == ".1"]
 
     output_records = []
+    output_records2 = []
     compound_to_scan_mapping = {}
     running_scan = 0
     for record in input_records:
@@ -32,18 +34,45 @@ def convert_to_feature_csv(input_filename, output_filename):
         rt = record["Retention time (min)"]
 
         output_record = {}
-        output_record["row ID"] = str(running_scan)
-        output_record["row retention time"] = str(rt)
-        output_record["row m/z"] = str(mz)
 
+        output_record["row ID"] = str(running_scan)
+        output_record["row m/z"] = str(mz)
+        output_record["row retention time"] = str(rt)
+
+        output_record2 = {}
         for sample_name in sample_names:
-            output_record[sample_name + " Peak area"] = record[sample_name]
+            output_record2[sample_name + " Peak area"] = record[sample_name]
 
         output_records.append(output_record)
+        output_records2.append(output_record2)
+
         compound_to_scan_mapping[compound_name] = running_scan
 
+    # Prepared the processed tables
     output_df = pd.DataFrame(output_records)
-    output_df.to_csv(output_filename, sep=",", index=False)
+    output_df2 = pd.DataFrame(output_records2)
+    output_df_prepared = pd.concat([output_df, output_df2], axis=1)
+    # Retrieved the metadata from the initial table
+    newdf = input_format.loc[:, input_format.columns.isin(non_sample_names)]
+
+    # Drop the column with weird characters and mess with the CSV format
+    if 'Accepted Description' in newdf.columns:
+        newdf = newdf.drop(['Accepted Description'], axis=1)
+
+    # Rename column name for consistency
+    if 'Formula' in newdf.columns:
+        newdf.rename(columns={'Formula':'Molecular Formula'}, inplace=True)
+    if 'Neutral mass (Da)' in newdf.columns:
+        newdf.rename(columns={'Neutral mass (Da)':'Neutral mass'}, inplace=True)
+    if 'CCS (angstrom^2)' in newdf.columns:
+        newdf.rename(columns={'CCS (angstrom^2)':'CCS'}, inplace=True)
+    if 'dCCS (angstrom^2)' in newdf.columns:
+        newdf.rename(columns={'dCCS (angstrom^2)':'dCCS'}, inplace=True)
+
+    # Create the output table
+    newdf_out = pd.concat([output_df_prepared,newdf],axis=1)
+    newdf_out.to_csv(output_filename, sep=",", index=False)
+    print(newdf_out.head(5))
 
     return compound_to_scan_mapping
 
