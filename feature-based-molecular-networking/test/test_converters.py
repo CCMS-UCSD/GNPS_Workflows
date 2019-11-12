@@ -26,7 +26,7 @@ class TestLoaders(unittest.TestCase):
 
     def test_progenesis(self):
         ## SONAR MSE
-        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks.csv", \
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", \
             "./progenesis_MSE_output.csv")
 
         self.assertTrue(filecmp.cmp("./progenesis_MSE_output.csv", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", shallow=False))

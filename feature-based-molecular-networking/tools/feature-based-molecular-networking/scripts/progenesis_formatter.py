@@ -72,7 +72,6 @@ def convert_to_feature_csv(input_filename, output_filename):
     # Create the output table
     newdf_out = pd.concat([output_df_prepared,newdf],axis=1)
     newdf_out.to_csv(output_filename, sep=",", index=False)
-    print(newdf_out.head(5))
 
     return compound_to_scan_mapping
 
