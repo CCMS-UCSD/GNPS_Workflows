@@ -146,6 +146,14 @@
         <output port="written_description"     object="written_description"/>
     </action>
 
+    <!-- Qiime2 -->
+    <collection name="qiime2_output"/>
+    <action name="run_qiime2">
+        <input  port="quantification_table_reformatted"       object="quantification_table"/>
+        <input  port="metadata_table"       object="metadata_table"/>
+        <output port="qiime2_output"     collection="qiime2_output"/>
+    </action>
+
 
     <action name="end">
         <input port="Kovats_Result_Filtered_mshub" object="Kovats_Result_Filtered_mshub"/>
@@ -157,5 +165,6 @@
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
         <input port="clusterinfo_summary" object="clusterinfo_summary"/>
         <input port="written_description" object="written_description"/>
+        <input port="qiime2_output" collection="qiime2_output"/>
     </action>
 </flow>
