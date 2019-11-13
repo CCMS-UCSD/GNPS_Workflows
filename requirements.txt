@@ -3,3 +3,4 @@ pyteomics
 requests
 numpy
 pandas
+networkx
