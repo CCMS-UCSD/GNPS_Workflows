@@ -1,5 +1,7 @@
 import pandas as pd
 import argparse
+import glob
+import os
 
 def propogate_balance_score(input_file, output_file, quant_table_df):
     original_file_df = pd.read_csv(input_file,sep='\t')   
@@ -37,7 +39,7 @@ def main():
     parser.add_argument('Kovats_Result_Nonfiltered', help='input_filtered')
     parser.add_argument('Kovats_Result_Filtered', help='workflow_parameters')
     parser.add_argument('workflowParameters', help='Carbon_Marker_File')
-    parser.add_argument('quantTable', help='Kovats_Result_Nonfiltered')
+    parser.add_argument('mshub_balance_scores', help='Kovats_Result_Nonfiltered')
 
     parser.add_argument('DB_result_mshub', help='Kovats_Result_Nonfiltered')
     parser.add_argument('DB_result_filtered_mshub', help='Kovats_Result_Nonfiltered')
@@ -47,8 +49,11 @@ def main():
     args = parser.parse_args()
 
     quant_table_df = None
-    if args.quantTable != None:
-        quant_table_df = pd.read_csv(args.quantTable, skiprows=[0, 2, 3])
+
+    quant_files_list = glob.glob(os.path.join(args.mshub_balance_scores, "*"))
+
+    if len(quant_files_list) == 1:
+        quant_table_df = pd.read_csv(quant_files_list[0], skiprows=[0, 2, 3])
 
     propogate_balance_score(args.DB_result, args.DB_result_mshub, quant_table_df)
     propogate_balance_score(args.DB_result_filtered, args.DB_result_filtered_mshub, quant_table_df)

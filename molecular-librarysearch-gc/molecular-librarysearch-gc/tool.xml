@@ -222,7 +222,7 @@
         <require name="Kovats_Result_Nonfiltered"       type="file"/>
         <require name="Kovats_Result_Filtered"       type="file"/>
         <require name="workflowParameters"       type="file"/>
-        <require name="mshub_balance_scores"       type="file"/>
+        <require name="mshub_balance_scores"       type="folder"/>
 
         <produce name="DB_result_mshub"        type="file" naming="explicit"  extension="tsv"/>
         <produce name="DB_result_filtered_mshub"        type="file" naming="explicit"  extension="tsv"/>
