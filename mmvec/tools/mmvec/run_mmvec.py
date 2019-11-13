@@ -17,7 +17,7 @@ def main():
     parser.add_argument("conda_environment")
     args = parser.parse_args()
 
-    #Checking if header names are appropriate, if not, then lets correct them
+    #Checking if header names are appropriate, if not, then lets correct them. Need to fix and test: https://github.com/biocore/mmvec/tree/master/examples/cf
     temp_reformatted_metadata_filename = "reformatted_metabolomics_identifications.tsv"
     metabolomics_metadata_df = pd.read_csv(args.input_metabolomics_feature_metadata, sep="\t")
     if "Feature Information" in metabolomics_metadata_df:
