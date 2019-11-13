@@ -1,3 +1,5 @@
 xmltodict
 pyteomics
 requests
+numpy
+pandas
