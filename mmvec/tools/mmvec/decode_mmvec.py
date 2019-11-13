@@ -10,9 +10,11 @@ input_taxonomy_file = sys.argv[2]
 input_molecules_file = sys.argv[3]
 output_filename = sys.argv[4]
 
-conditional_probabilities = os.path.join(input_mmvec_folder, "conditionals.qza")
+conditional_probabilities = os.path.join(input_mmvec_folder, "conditional.qza")
 
-os.system("unzip -o {}".format(conditional_probabilities))
+unzip_cmd = "unzip -o {}".format(conditional_probabilities)
+print(unzip_cmd)
+os.system(unzip_cmd)
 
 conditionals_tsv = glob.glob("**/conditionals.tsv", recursive=True)
 if len(conditionals_tsv) != 1:
@@ -29,8 +31,9 @@ all_molecules = list(conditionals_df.keys())[1:]
 
 output_records = []
 all_records = conditionals_df.to_dict(orient="records")
+
 for record in all_records:
-    taxa_sequence = record["Unnamed: 0"]
+    taxa_sequence = record["featureid"]
     for molecule in all_molecules:
         output_record = {}
         conditional_value = record[molecule]

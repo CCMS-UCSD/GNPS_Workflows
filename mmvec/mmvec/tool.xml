@@ -1,9 +1,10 @@
 <toolset>
 
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="run_mmvec" path="python"/>
+        <pathVar name="activate.path" path="activate"/>
     </pathSet>
-
+    
     <pathSet base="$base">
         <pathVar name="run_mmvec.script" path="run_mmvec.py"/>
     </pathSet>
@@ -22,6 +23,8 @@
                 <arg valueRef="microbiome_qza"/>
                 <arg valueRef="microbiome_taxonomy"/>
                 <arg valueRef="mmvec_output"/>
+                <arg pathRef="activate.path"/>
+                <arg value="qiime2-2019.10-mmvec"/>
         </execution>
     </tool>
 

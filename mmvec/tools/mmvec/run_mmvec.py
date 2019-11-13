@@ -51,6 +51,7 @@ def main():
     local_metabolite_metadata_filename = temp_reformatted_metadata_filename
     local_microbial_metadata_filename = args.import_microbial_feature_metadata
 
+    conditional = os.path.join(mmvec_output_directory, "conditional.qza")
     conditional_biplot = os.path.join(mmvec_output_directory, "conditional_biplot.qza")
     output_emperor = os.path.join(mmvec_output_directory, "emperor.qzv")
     
@@ -58,52 +59,27 @@ def main():
     all_cmd = []
 
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
-        qiime rhapsody mmvec \
+        qiime mmvec paired-omics \
         --p-latent-dim {} \
         --p-learning-rate {} \
         --p-epochs {} \
         --i-microbes {} \
         --i-metabolites {} \
-        --output-dir {}".format(args.conda_activate_bin, args.conda_environment, \
+        --o-conditionals {} \
+        --o-conditional-biplot {}".format(args.conda_activate_bin, args.conda_environment, \
         LATENT_DIM, LEARNING_RATE, EPOCHS, \
-        metabolite_qza, microbiome_qza, mmvec_output_directory))
+        metabolite_qza, microbiome_qza, conditional, conditional_biplot))
 
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
         qiime emperor biplot \
-        --i-biplot %s \
-        --m-sample-metadata-file %s \
-        --m-feature-metadata-file %s \
-        --o-visualization %s \
-        --p-ignore-missing-samples" % (conditional_biplot, local_metabolite_metadata_filename, local_microbial_metadata_filename, output_emperor))
-
-
-    # """Calling remote server to do the calculation"""
-    # SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5025"
-    # files = {'microbial_qza': open(input_microbial_qza, 'rb'), \
-    # 'metabolite_qza': open(input_metabolomics_qza, 'rb'), \
-    # 'microbial_metadata': open(input_microbial_metadata, 'rb'), \
-    # 'metabolite_metadata': open(temp_reformatted_metadata_filename, 'rb'), \
-    # }
-
-    # r_post = requests.post(SERVER_BASE + "/mmvec", files=files)
-    # output_tgz = os.path.join(output_folder, 'rhapsody_results.tgz')
-    # open(output_tgz, 'wb').write(r_post.content)
-    # temp_folder = "temp"
-    # try:
-    #     os.mkdir(temp_folder)
-    # except:
-    #     print("can't make temp folder")
-    # os.system("tar xzvf %s -C %s" % (output_tgz, temp_folder))
-
-
-    # for qza_file in glob.glob(os.path.join(temp_folder, "**", "*.qza"), recursive=True):
-    #     print(qza_file)
-    #     shutil.copy(qza_file, os.path.join(output_folder, os.path.basename(qza_file)))
-    # for qzv_file in glob.glob(os.path.join(temp_folder, "**", "*.qzv"), recursive=True):
-    #     print(qza_file)
-    #     shutil.copy(qzv_file, os.path.join(output_folder, os.path.basename(qzv_file)))
+        --i-biplot {} \
+        --m-sample-metadata-file {} \
+        --m-feature-metadata-file {} \
+        --o-visualization {} \
+        --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, conditional_biplot, local_metabolite_metadata_filename, local_microbial_metadata_filename, output_emperor))
 
     for cmd in all_cmd:
+        print(cmd)
         os.system(cmd)
 
 if __name__ == "__main__":
