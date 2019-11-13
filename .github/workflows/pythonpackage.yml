@@ -25,3 +25,4 @@ jobs:
       run: |
         pip install nose2
         cd feature-based-molecular-networking/test && nose2 -v
+        cd molecular-librarysearch-gc/test && nose2 -v
