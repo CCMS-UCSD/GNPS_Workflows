@@ -7,9 +7,5 @@ feature-based-molecular-networking/test/msdial_ims_output.csv
 feature-based-molecular-networking/test/msdial_output.csv
 feature-based-molecular-networking/test/mzmine_output.csv
 feature-based-molecular-networking/test/openms_output.csv
-feature-based-molecular-networking/test/progenesis_output.csv
-feature-based-molecular-networking/test/progenesis_output.mgf
-feature-based-molecular-networking/test/progenesis_output_catechin.csv
-feature-based-molecular-networking/test/progenesis_output_catechin.mgf
-feature-based-molecular-networking/test/xcms3_output.csv
 feature-based-molecular-networking/test/xcms3_output_iin.csv
+feature-based-molecular-networking/test/xcms3_output.csv

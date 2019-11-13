@@ -26,24 +26,24 @@ class TestLoaders(unittest.TestCase):
 
     def test_progenesis(self):
         ## SONAR MSE
-        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", \
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks.txt", \
             "./progenesis_MSE_output.csv")
 
         self.assertTrue(filecmp.cmp("./progenesis_MSE_output.csv", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_MSMS.msp", "progenesis_MSE_output.mgf", compound_to_scan_mapping)
 
-        self.assertTrue(filecmp.cmp("./progenesis_MSE_output.mgf", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_MSMS.msp", shallow=False))
+        #self.assertTrue(filecmp.cmp("./progenesis_MSE_output.mgf", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_MSMS.msp", shallow=False))
 
         ## CATECHIN MSE
-        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.csv", \
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.txt", \
             "./progenesis_MSE_output_catechin.csv")
 
         self.assertTrue(filecmp.cmp("./progenesis_MSE_output_catechin.csv", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.msp", "progenesis_MSE_output_catechin.mgf", compound_to_scan_mapping)
 
-        self.assertTrue(filecmp.cmp("./progenesis_MSE_output_catechin.mgf", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.msp", shallow=False))
+        #self.assertTrue(filecmp.cmp("./progenesis_MSE_output_catechin.mgf", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.msp", shallow=False))
 
         ## IMS
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.csv", \
@@ -53,7 +53,7 @@ class TestLoaders(unittest.TestCase):
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", "progenesis_output_IMS.mgf", compound_to_scan_mapping)
 
-        self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", shallow=False))
+        #self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", shallow=False))
 
 
     def test_metaboscape(self):
