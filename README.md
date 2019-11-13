@@ -2,7 +2,7 @@
 
 This public repository contains the GNPS Workflows running on GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu).
 
-![](https://github.com/actions/GNPS_Workflows/workflows/.github/workflows/pythonpackage.yml/badge.svg)
+![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/Python%20package/badge.svg)
 
 ## Contribute to GNPS
 
