@@ -25,15 +25,26 @@ class TestLoaders(unittest.TestCase):
         #self.assertTrue(filecmp.cmp("./msdial_ims_output.csv", "./reference_input_file_for_formatter/MS-DIAL/GnpsTable_1_20198191357_PASEF_output.csv", shallow=False))
 
     def test_progenesis(self):
+        ## SONAR MSE
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_Peaks.csv", \
             "./progenesis_output.csv")
-
+        #self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/SONAR_20_Yeast_MSMS.msp", "progenesis_output.mgf", compound_to_scan_mapping)
 
+
+
+        ## CATECHIN MSE
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/Neg_MSE_Catechin.csv", \
             "./progenesis_output_catechin.csv")
-
+        #self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/Neg_MSE_Catechin.msp", "progenesis_output_catechin.mgf", compound_to_scan_mapping)
+
+        ## IMS
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/161118_pos_IMS.csv", \
+            "./progenesis_IMS_output.csv")
+        #self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/161118_pos_IMS.msp", "progenesis_output_IMS.mgf", compound_to_scan_mapping)
+
 
     def test_metaboscape(self):
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/Lipids.msmsonly.csv", \
