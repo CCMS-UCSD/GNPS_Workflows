@@ -12,13 +12,26 @@ def calculate_stats(input_graphml, output_file):
     nodes_str = str(no_nodes)
     edges_str = str(no_edges_try)
 
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write("number of nodes =")
-        f.write(nodes_str)
-        f.write(" ")
-        f.write("number of edges =")
-        f.write(edges_str)
+    self_loops = nx.number_of_selfloops(G)
+    connected_comp = no_nodes - self_loops
+    connected_comp_str = str(connected_comp)
 
+    no_ann_nodes = nx.get_node_attributes(G,'Compound_Name')
+    len_no_ann_nodes = len(no_ann_nodes)
+    no_ann_nodes_str = str(len_no_ann_nodes)
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("number of nodes=")
+        f.write(nodes_str)
+        f.write("\n")
+        f.write("number of edges=")
+        f.write(edges_str)
+        f.write("\n")
+        f.write("number of connected components=")
+        f.write(connected_comp_str)
+        f.write("\n")
+        f.write("number of annotated nodes=")
+        f.write(no_ann_nodes_str)
 
 def main():
     calculate_stats(sys.argv[1], sys.argv[2])
