@@ -33,8 +33,8 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         output_record = {}
         output_record["row ID"] = str(running_scan)
-        output_record["row retention time"] = str(rt)
-        output_record["row m/z"] = str(mz)
+        output_record["row retention time"] = float(rt)
+        output_record["row m/z"] = float(mz)
 
         for sample_name in sample_names:
             output_record[sample_name + " Peak area"] = record[sample_name]
@@ -43,7 +43,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         compound_to_scan_mapping[compound_name] = running_scan
 
     output_df = pd.DataFrame(output_records)
-    output_df.to_csv(output_filename, sep=",", index=False)
+    output_df.to_csv(output_filename, sep=",", index=False, float_format="'%.4f'")
 
     return compound_to_scan_mapping
 
