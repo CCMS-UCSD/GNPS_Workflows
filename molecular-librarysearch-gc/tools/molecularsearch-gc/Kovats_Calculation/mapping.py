@@ -66,12 +66,12 @@ def loadDf(csv,cosine,prediction,mode,lib, window_start, window_end):
 
 
 def loadMarkers(marker):
-    df = pd.read_csv(marker,sep = ';')
+    df = pd.read_csv(marker, sep=',')
     # compounds name has to be in the format of "name(C#)"
     for i in range(len(df)):
-        c_n = (df['Compound_Name'][i].split('(C')[-1]).split(")")[0]
+        c_n = df['Carbon_Number'][i]
         df.ix[i, 'Compound_Name'] = float(c_n)
-        df.ix[i, 'RT_Query'] = float(df['RT_Query'][i])
+        df.ix[i, 'RT'] = float(df['RT'][i])
     df = df.sort_values(['Compound_Name'], ascending=[True])
     return df
 
