@@ -2,10 +2,3 @@
 **/*.swp
 **/credentials.json
 **/*.pyc
-feature-based-molecular-networking/test/metaboscape_output.csv
-feature-based-molecular-networking/test/msdial_ims_output.csv
-feature-based-molecular-networking/test/msdial_output.csv
-feature-based-molecular-networking/test/mzmine_output.csv
-feature-based-molecular-networking/test/openms_output.csv
-feature-based-molecular-networking/test/xcms3_output_iin.csv
-feature-based-molecular-networking/test/xcms3_output.csv
