@@ -130,11 +130,11 @@ def main():
     except:
         ROW_NORMALIZATION = "None"
 
-    GROUP_COUNT_AGGREGATE_METHOD = "Sum"
+    GROUP_COUNT_AGGREGATE_METHOD = "Mean"
     try:
         GROUP_COUNT_AGGREGATE_METHOD = param_obj["GROUP_COUNT_AGGREGATE_METHOD"][0]
     except:
-        GROUP_COUNT_AGGREGATE_METHOD = "None"
+        GROUP_COUNT_AGGREGATE_METHOD = "Mean"
 
 
     quantification_df = pd.read_csv(args.consensus_feature_file)

@@ -132,6 +132,19 @@
         <productionToOutput port="clusterinfo_summary" production="clusterinfo_summary"/>
     </bind>
 
+    <!-- External Analysis -->
+    <bind action="write_description" tool="write_description">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="written_description" production="written_description"/>
+    </bind>
+
+    <!-- External Analysis -->
+    <bind action="run_qiime2" tool="run_qiime2">
+        <inputAsRequirement port="quantification_table_reformatted" requirement="quantification_table_reformatted"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <productionToOutput port="qiime2_output" production="qiime2_output"/>
+    </bind>
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -160,6 +173,12 @@
         </upload>
         <upload port="clusterinfo_summary" type="file">
             <query name="resource" value="clusterinfo_summary"/>
+        </upload>
+        <upload port="written_description" type="folder">
+            <query name="resource" value="written_description"/>
+        </upload>
+        <upload port="qiime2_output" type="folder">
+            <query name="resource" value="qiime2_output"/>
         </upload>
     </bind>
 </binding>

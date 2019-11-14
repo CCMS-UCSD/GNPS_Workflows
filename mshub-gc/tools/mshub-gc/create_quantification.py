@@ -6,6 +6,7 @@ import getopt
 import os
 import argparse
 import subprocess
+import proteosafe
 from collections import defaultdict
 
 def load_feature_to_rt_mapping(integrals_filename):
@@ -22,13 +23,15 @@ def load_feature_to_rt_mapping(integrals_filename):
 
     return mapping
 
-def main():
-    parser = argparse.ArgumentParser(description='Processing and feature detecting all gc files')
-    parser.add_argument('preprocessing_scratch', help='preprocessing_scratch')
-    parser.add_argument('quantification_output', help='quantification_output')
-    args = parser.parse_args()
+def convert_quantification(input_integrals_filename, workflow_parameters, output_filename):
+    params_obj = proteosafe.parse_xml_file(workflow_parameters)
+    mangled_mapping = proteosafe.get_mangled_file_mapping(params_obj)
+    all_input_filename = [os.path.basename(mangled_mapping[key]) for key in mangled_mapping]
 
-    input_integrals_filename = os.path.join(args.preprocessing_scratch, "data_integrals.csv")
+    filename_mapping = {}
+    for filename in all_input_filename:
+        removed_extension = os.path.splitext(filename)[0]
+        filename_mapping[removed_extension] = filename
 
     integrals_df = pd.read_csv(input_integrals_filename, skiprows=[1,2,3])
 
@@ -46,11 +49,25 @@ def main():
         for record in integrals_df.to_dict(orient="records"):
             sample_name = record["No:"]
             abundance = record[molecule]
+
+            if sample_name in filename_mapping:
+                sample_name = filename_mapping[sample_name]
             output_dict[sample_name + " Peak area"] = abundance
 
         output_list.append(output_dict)
 
-    pd.DataFrame(output_list).to_csv(args.quantification_output, sep=",", index=False)
+    pd.DataFrame(output_list).to_csv(output_filename, sep=",", index=False)
+
+def main():
+    parser = argparse.ArgumentParser(description='Processing and feature detecting all gc files')
+    parser.add_argument('preprocessing_scratch', help='preprocessing_scratch')
+    parser.add_argument('workflow_parameters', help='workflow_parameters')
+    parser.add_argument('quantification_output', help='quantification_output')
+    args = parser.parse_args()
+
+    input_integrals_filename = os.path.join(args.preprocessing_scratch, "data_integrals.csv")
+
+    convert_quantification(input_integrals_filename, args.workflow_parameters, args.quantification_output)
 
 
 

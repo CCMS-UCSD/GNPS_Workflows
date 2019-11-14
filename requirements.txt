@@ -1,0 +1,6 @@
+xmltodict
+pyteomics
+requests
+numpy
+pandas
+networkx

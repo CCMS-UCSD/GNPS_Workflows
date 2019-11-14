@@ -4,12 +4,14 @@ import requests
 import shutil
 import pandas as pd
 import proteosafe
-
+import MetaboDistTrees
 
 parser = argparse.ArgumentParser()
 parser.add_argument('GNPS', help='enter your GNPS job ID')
 parser.add_argument('molnetenhancer_input_folder', help='molnetenhancer_input')
 parser.add_argument('output_folder', help='output_folder')
+parser.add_argument("conda_activate_bin")
+parser.add_argument("conda_environment")
 args = parser.parse_args()
 
 task_id = args.GNPS
@@ -41,25 +43,56 @@ if task_information["workflow"] == "METABOLOMICS-SNETS-V2":
         with open(quantification_filename, 'wb') as f:
             f.write(requests.get(quantification_url).content)
 
-        metabodist_endpoint = SERVER_BASE + "/processmetabodisttree"
+        bucket_table_df = pd.read_csv(quantification_filename, sep="\t")
 
-        files = {'manifest': open(manifest_filename, 'r'), \
-            'metadata': open(metadata_filename, 'r'), \
-            'quantification': open(quantification_filename, 'r'), \
-            'classyfireresult': open(classyfire_result_filename, 'r')}
+        #Performing the MetaboDistTrees
+        classyfire_df = pd.read_csv(classyfire_result_filename, sep = '\t')
+        lev = ['CF_class','CF_subclass', 'CF_Dparent','cluster.index']
 
-        r_post = requests.post(metabodist_endpoint, files=files, data={"type":"classical"})
-        response_dict = r_post.json()
-        
-        with open(os.path.join(args.output_folder, "metabodistree_table.qza"), 'wb') as f:
-            r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-            r.raw.decode_content = True
-            shutil.copyfileobj(r.raw, f)
+        local_classytree_folder = "classytree"
+        MetaboDistTrees.get_classytrees(classyfire_df, bucket_table_df, lev, method='average', metric='jaccard', outputdir=local_classytree_folder)
 
-        with open(os.path.join(args.output_folder, "metabodistree_emperor.qzv"), 'wb') as f:
-            r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-            r.raw.decode_content = True
-            shutil.copyfileobj(r.raw, f)
+        #Visualizing in Qiime2
+        local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
+        local_qza_tree = os.path.join(args.output_folder, "qiime2_tree.qza")
+        local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
+        local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
+        local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
+
+        all_cmd = []
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime metabolomics import-mzmine2 \
+            --p-manifest {} \
+            --p-quantificationtable {} \
+            --o-feature-table {}".format(args.conda_activate_bin, args.conda_environment, manifest_filename, quantification_filename, local_qza_table))
+
+        classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime tools import --type 'Phylogeny[Rooted]' \
+            --input-path {} \
+            --output-path {}".format(classytree_tree_filename, local_qza_tree))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime diversity beta \
+            --i-table {} \
+            --i-phylogeny {} \
+            --p-metric weighted_unifrac \
+            --o-distance-matrix {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime diversity pcoa \
+            --i-distance-matrix {} \
+            --o-pcoa {}".format(args.conda_activate_bin, args.conda_environment, local_qza_distance, local_qza_pcoa))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime emperor plot \
+            --i-pcoa {} \
+            --m-metadata-file {} \
+            --o-visualization {} \
+            --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+
+        for cmd in all_cmd:
+            os.system(cmd)
 
     except KeyboardInterrupt:
         raise
@@ -102,28 +135,54 @@ if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
         cols = [c for c in bucket_table_df.columns if not("Unnamed: " in c)]
         bucket_table_df = bucket_table_df[cols]
 
-        bucket_table_df.to_csv(quantification_filename, sep="\t", index=False)
+        #Performing the MetaboDistTrees
+        classyfire_df = pd.read_csv(classyfire_result_filename, sep = '\t')
+        lev = ['CF_class','CF_subclass', 'CF_Dparent','cluster.index']
 
-        
-        metabodist_endpoint = SERVER_BASE + "/processmetabodisttree"
+        local_classytree_folder = "classytree"
+        MetaboDistTrees.get_classytrees(classyfire_df, bucket_table_df, lev, method='average', metric='jaccard', outputdir=local_classytree_folder)
 
-        files = {'manifest': open(manifest_filename, 'r'), \
-            'metadata': open(metadata_filename, 'r'), \
-            'quantification': open(quantification_filename, 'r'), \
-            'classyfireresult': open(classyfire_result_filename, 'r')}
+        #Visualizing in Qiime2
+        local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
+        local_qza_tree = os.path.join(args.output_folder, "qiime2_tree.qza")
+        local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
+        local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
+        local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
 
-        r_post = requests.post(metabodist_endpoint, files=files)
-        response_dict = r_post.json()
-        
-        with open(os.path.join(args.output_folder, "metabodistree_table.qza"), 'wb') as f:
-            r = requests.get(SERVER_BASE + response_dict["table_qza"], stream=True)
-            r.raw.decode_content = True
-            shutil.copyfileobj(r.raw, f)
+        all_cmd = []
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime metabolomics import-mzmine2 \
+            --p-manifest {} \
+            --p-quantificationtable {} \
+            --o-feature-table {}".format(args.conda_activate_bin, args.conda_environment, manifest_filename, quantification_filename, local_qza_table))
 
-        with open(os.path.join(args.output_folder, "metabodistree_emperor.qzv"), 'wb') as f:
-            r = requests.get(SERVER_BASE + response_dict["emperor_qzv"], stream=True)
-            r.raw.decode_content = True
-            shutil.copyfileobj(r.raw, f)
+        classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime tools import --type 'Phylogeny[Rooted]' \
+            --input-path {} \
+            --output-path {}".format(classytree_tree_filename, local_qza_tree))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime diversity beta \
+            --i-table {} \
+            --i-phylogeny {} \
+            --p-metric weighted_unifrac \
+            --o-distance-matrix {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime diversity pcoa \
+            --i-distance-matrix {} \
+            --o-pcoa {}".format(args.conda_activate_bin, args.conda_environment, local_qza_distance, local_qza_pcoa))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime emperor plot \
+            --i-pcoa {} \
+            --m-metadata-file {} \
+            --o-visualization {} \
+            --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+
+        for cmd in all_cmd:
+            os.system(cmd)
 
     except KeyboardInterrupt:
         raise

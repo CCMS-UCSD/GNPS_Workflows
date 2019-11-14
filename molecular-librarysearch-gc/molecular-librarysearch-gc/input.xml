@@ -18,7 +18,7 @@
         <parameter name="library_on_server" label="Spectral Library">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="library" target="lib"/>
-            <default value="d.speclibs/gnps_library;"/>
+            <default value="d.CCMS_SpectralLibraries/GNPS_GC_Libraries;"/>
         </parameter>
 
         <parameter name="quantification_table" label="Feature Quantification Table">
@@ -220,38 +220,8 @@
                 </module>
             </cell>
         </row>
-
         <row>
-            <cell>
-                <label>
-                    <content parameter="FORCE_EXACT_MATCH"/>
-                </label>
-            </cell>
-
-            <cell>
-                <input type="text" parameter="FORCE_EXACT_MATCH">
-                    <attribute name="size" value="3"/>
-                </input>
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <label>
-                    <content parameter="tolerance.PM_tolerance"/>
-                    <tooltip id="parent_mass_tolerance_tooltip">
-						Specify the precursor ions mass tolerance (in Daltons) for spectral library search. Default value is ± 0.025 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap). Default value is 6, but note that this parameters should be tuned depending on the collision-induced fragmentation behavior of the molecules of interest, and the experimental conditions (such the mode of ionisation, the fragmentation conditions, and the mobile phase,  ...). High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
-						For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the documentation table).  **Please note: The default parameters recommended above for high resolution mass spectrometers will not result in proper searches of the spectral libraries created using lower accuracy instruments, such as Respect and a large portions of NIST. Therefore, if you want to perform spectral matching with these low-resolution mass spectra, we recommend using the 2.0 Da PIMT regardless of the type of mass spectrometer used. Moreover, downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used.
-                    </tooltip>
-                </label>
-            </cell>
-            <cell>
-                <input type="text" parameter="tolerance.PM_tolerance">
-                    <attribute name="size" value="3"/>
-                </input>
-                <label>
-                    <content>Da</content>
-                </label>
-            </cell>
+            
             <cell>
                 <label>
                     <content parameter="tolerance.Ion_tolerance"/>
@@ -313,16 +283,6 @@
                 <input type="select" parameter="SEARCH_LIBQUALITY">
                 </input>
             </cell>
-            <cell>
-                <label>
-                    <content parameter="ANALOG_SEARCH"/>
-                </label>
-            </cell>
-
-            <cell>
-                <input type="select" parameter="ANALOG_SEARCH">
-                </input>
-            </cell>
         </row>
 
         <row>
@@ -334,17 +294,6 @@
 
             <cell>
                 <input type="text" parameter="TOP_K_RESULTS">
-                </input>
-            </cell>
-
-            <cell>
-                <label>
-                    <content parameter="MAX_SHIFT_MASS"/>
-                </label>
-            </cell>
-
-            <cell>
-                <input type="text" parameter="MAX_SHIFT_MASS">
                 </input>
             </cell>
         </row>
@@ -465,20 +414,6 @@
             </cell>
             <cell>
                 <input type="text" parameter="PAIRS_MIN_COSINE">
-                    <attribute name="size" value="3"/>
-                </input>
-            </cell>
-
-            <cell>
-                <label>
-                    <content parameter="MAX_SHIFT"/>
-                    <tooltip id="MAX_SHIFT_tooltip">
-                          Maximum mass difference between two spectra
-                    </tooltip>
-                </label>
-            </cell>
-            <cell>
-                <input type="text" parameter="MAX_SHIFT">
                     <attribute name="size" value="3"/>
                 </input>
             </cell>
@@ -617,6 +552,78 @@
             <cell>
                 <input type = "text"    parameter = "window_end">
                     <attribute name = "size" value = "10"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+    <block label ="Advanced Deprecated Options">
+        <row>   
+            <cell>
+                <label>
+                    <content parameter="tolerance.PM_tolerance"/>
+                    <tooltip id="parent_mass_tolerance_tooltip">
+                        Specify the precursor ions mass tolerance (in Daltons) for spectral library search. Default value is ± 0.025 Da for high-resolution mass spectrometers (q-TOF, q-Orbitrap). Default value is 6, but note that this parameters should be tuned depending on the collision-induced fragmentation behavior of the molecules of interest, and the experimental conditions (such the mode of ionisation, the fragmentation conditions, and the mobile phase,  ...). High molecular weight (MW) compounds, and compounds with more hetero-atoms will generally tend to produce more fragment ions. However, this rule cannot be systematized. For example, some lipids with high MW generate only few fragment ions.
+                        For low-resolution MS/MS instruments (e.g. , ion traps, triple-quadrupole/QqQ), a PIMT ion mass tolerance of ± 2.0 Da is recommended. See documentation for more details (Link to the documentation table).  **Please note: The default parameters recommended above for high resolution mass spectrometers will not result in proper searches of the spectral libraries created using lower accuracy instruments, such as Respect and a large portions of NIST. Therefore, if you want to perform spectral matching with these low-resolution mass spectra, we recommend using the 2.0 Da PIMT regardless of the type of mass spectrometer used. Moreover, downstream filtering of the MS/MS spectral library hits can be done based the mass spectrometers used.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="tolerance.PM_tolerance">
+                    <attribute name="size" value="3"/>
+                </input>
+                <label>
+                    <content>Da</content>
+                </label>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="ANALOG_SEARCH"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="ANALOG_SEARCH">
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT_MASS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="MAX_SHIFT_MASS">
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="MAX_SHIFT"/>
+                    <tooltip id="MAX_SHIFT_tooltip">
+                            Maximum mass difference between two spectra
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAX_SHIFT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="FORCE_EXACT_MATCH"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="FORCE_EXACT_MATCH">
+                    <attribute name="size" value="3"/>
                 </input>
             </cell>
         </row>

@@ -28,6 +28,7 @@
     <object name="quantification_output"/>
     <action name="create_quantification">
         <input port="preprocessing_scratch" collection="preprocessing_scratch"/>
+        <input port="workflowParameters" object="workflowParameters"/>
         <output port="quantification_output" object="quantification_output"/>
     </action>
 

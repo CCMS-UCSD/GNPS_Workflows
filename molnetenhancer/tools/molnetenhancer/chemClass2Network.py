@@ -12,6 +12,8 @@ def create_Folder(directory='Output Files'):
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
+    except KeyboardInterrupt:
+        raise
     except OSError:
         print ('Error: Creating directory. ' +  directory)
     #return directory
@@ -54,7 +56,7 @@ def request_Derep_file(Derep_job_ID, directory):
 
     Derep_job_ID = Derep_job_ID
     result = requests.post("https://gnps.ucsd.edu/ProteoSAFe/DownloadResult?task=%s&view=view_significant" % Derep_job_ID) 
-    print('Dereplicator request success: ' + str(result.ok))
+    print('Dereplicator request success: ', str(result.ok))
     zf = ZipFile(BytesIO(result.content))
     folder_name = directory + '/Derep_output'
     zf.extractall(folder_name)
@@ -121,12 +123,15 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
 
     for i in range(len(smiles_df)):
         smile_str = smiles_df.loc[i]['SMILES']
-        link = 'https://gnps-structure.ucsd.edu/inchikey?smiles={}'.format(urllib.parse.quote(smile_str))
 
         try:
+            link = 'https://gnps-structure.ucsd.edu/inchikey?smiles={}'.format(urllib.parse.quote(smile_str))
+            print(link)
             result = requests.get(link)
             result.raise_for_status()
-            InchiKeys_lst.append('InChIKey=' + result)
+            InchiKeys_lst.append('InChIKey=' + result.text)
+        except KeyboardInterrupt:
+            raise
         except:
             SMILES_failed.append(smile_str)
             fail_count += 1
