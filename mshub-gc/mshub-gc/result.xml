@@ -4,6 +4,7 @@
         <source type="folder" name="clusterinfo/"/>
         <source type="folder" name="clustersummary/"/>
         <source type="folder" name="clustered_mgf/"/>
+        <source type="folder" name="quantification_output/"/>
     </download>
 
     <view id="view_spectra" label="View All Deconvolved Spectra" group="Default Views">
@@ -44,8 +45,7 @@
       <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", 
       "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;",
       "mshub_balance_scores":"t.[task]/preprocessing_scratch/data_integrals.csv;",
-      "quantification_table":"t.[task]/quantification_output;",
-      "library_on_server":"d.staticlibs/NIST_EI_14;"}'/>
+      "quantification_table":"t.[task]/quantification_output;"}'/>
     </block>
     
 
@@ -55,6 +55,20 @@
     <block id="download_clustered_spectra" type="dummydownload">
       <data>
         <source type="file" name="clustered_mgf/"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
+    
+
+    <view id="download_feature_table" label="Download Feature Table" group="Export/Download Files">
+        <blockRef id="main"   type="download_feature_table"/>
+    </view>
+    <block id="download_feature_table" type="dummydownload">
+      <data>
+        <source type="file" name="quantification_output/"/>
          <parsers>
             <parser type="stream" contentType="text/xml"/>
         </parsers>

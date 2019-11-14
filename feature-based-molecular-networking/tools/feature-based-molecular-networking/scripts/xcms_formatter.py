@@ -32,7 +32,7 @@ def convert_to_feature_csv(input_filename, output_filename):
                 ## Do some table processing
         table_part_right = table_part_right.fillna(value=0)
                 ##Remove the FT string from the first column
-        new_column = table_part_left['row ID'].to_list()
+        new_column = table_part_left['row ID']
         new_column = [w.replace('FT', '') for w in new_column]
         table_part_left_copy = pd.DataFrame(np.array([new_column]).T)
         table_part_left_copy.columns = ['row ID']
