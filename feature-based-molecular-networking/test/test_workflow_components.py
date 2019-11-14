@@ -19,3 +19,13 @@ def test_metadata_test():
     selected_columns = metadata_permanova_prioritizer.permanova_validation(input_filename)
 
     print(selected_columns)
+
+def test_additional_edges():
+    import convert_networks_to_graphml
+
+    convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv", 
+    "reference_data/IIN/cluster_summary.tsv", 
+    "reference_data/IIN/library_matches.tsv", 
+    "reference_data/IIN/library_matches.tsv", 
+    "reference_data/IIN/additional_edges", 
+    "iin.graphml")
