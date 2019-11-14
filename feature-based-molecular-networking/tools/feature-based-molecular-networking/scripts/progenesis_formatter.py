@@ -57,10 +57,20 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
     charge = -1
     peaks = []
 
+    # This is a stop gap solution to make sure we don't have repetitions in the MGF file. 
+    # We only take one MS2 arbitrarily selected and output into the MGF file
+    observed_compound_names = set()
 
     for line in open(input_msp):
         if line.startswith("Comment:"):
             compound_name = line.rstrip().replace("Comment: ", "")
+
+            if compound_name in observed_compound_names:
+                print("skipping repeated feature")
+                continue
+
+            observed_compound_names.add(compound_name)
+
             read_name = True
             scan = (compound_to_scan_mapping[compound_name])
         elif line.startswith("PrecursorMZ:"):
