@@ -43,17 +43,6 @@ def process(GNPS_job_ID, varquest_job_id, dereplicator_job_id, ms2lda_job_id, ms
     create_Folder(directory=output_directory)
     GNPS_file = request_GNPS_file(GNPS_job_ID, output_directory) + '/'
 
-    #request Varquest and Derep files if specified
-    # if  varquest_job_id !='None' and varquest_job_id is not None:
-    #     Varquest_file = request_Varquest_file(varquest_job_id, output_directory) + '/'
-    # else:
-    #     Varquest_file = None
-
-    # if dereplicator_job_id!='None' and dereplicator_job_id!=None:
-    #     Derep_file = request_Derep_file(dereplicator_job_id, output_directory) + '/'
-    # else:
-    #     Derep_file = None
-
     gnpslibfile, netfile = process_GNPS_file(GNPS_file)
     SMILES_csv, out_dict = add_Chemical_Info(gnpslibfile, output_directory, nap_ID=nap_job_id, Derep_job_ID=dereplicator_job_id, Varquest_job_ID=varquest_job_id)
 
@@ -65,10 +54,6 @@ def process(GNPS_job_ID, varquest_job_id, dereplicator_job_id, ms2lda_job_id, ms
     #Creating a network with classyfire information
     final, ClassyFireResults_file = create_ClassyFireResults(netfile, inchi_dic, output_directory)
     create_GraphML(GNPS_file, final, output_directory)
-
-
-
-
 
 
     #optional MS2LDA job Mass 2 Motifs
