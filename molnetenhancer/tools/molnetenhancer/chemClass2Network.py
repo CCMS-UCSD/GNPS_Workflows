@@ -111,7 +111,7 @@ def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Va
 #convert SMILES to InchiKeys
 def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
     import requests
-    from bs4 import BeautifulSoup
+    #from bs4 import BeautifulSoup
     from lxml import html
     import urllib.parse
 
