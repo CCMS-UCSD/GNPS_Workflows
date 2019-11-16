@@ -6,3 +6,4 @@ pandas
 networkx==2.1
 pyMolNetEnhancer
 joblib
+requests_cache
