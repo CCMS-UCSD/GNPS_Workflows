@@ -30,9 +30,11 @@ def main():
 
     args = parser.parse_args()
 
-    process(args.GNPS, args.varquest, args.derep, args.ms2lda, args.gnps_ms2lda_job, args.nap, args.output_directory)
+    process(args.GNPS, args.output_directory, varquest_job_id=args.varquest, \
+        dereplicator_job_id=args.derep, ms2lda_job_id=args.ms2lda, \
+        ms2lda_gnps_job_id=args.gnps_ms2lda_job, nap_job_id=args.nap)
 
-def process(GNPS_job_ID, varquest_job_id, dereplicator_job_id, ms2lda_job_id, ms2lda_gnps_job_id, nap_job_id, output_directory, ms2lda_prob=0.01, ms2lda_overlap=0.3, ms2lda_top=5):
+def process(GNPS_job_ID, output_directory, varquest_job_id=None, dereplicator_job_id=None, ms2lda_job_id=None, ms2lda_gnps_job_id=None, nap_job_id=None, ms2lda_prob=0.01, ms2lda_overlap=0.3, ms2lda_top=5):
     '''
     nap_ID = 'c4bb6b8be9e14bdebe87c6ef3abe11f6'
     GNPS_job_ID = 'b817262cb6114e7295fee4f73b22a3ad'
