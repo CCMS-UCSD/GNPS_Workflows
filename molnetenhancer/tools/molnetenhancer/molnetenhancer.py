@@ -44,18 +44,18 @@ def process(GNPS_job_ID, varquest_job_id, dereplicator_job_id, ms2lda_job_id, ms
     GNPS_file = request_GNPS_file(GNPS_job_ID, output_directory) + '/'
 
     #request Varquest and Derep files if specified
-    if  varquest_job_id !='None' and varquest_job_id is not None:
-        Varquest_file = request_Varquest_file(varquest_job_id, output_directory) + '/'
-    else:
-        Varquest_file = None
+    # if  varquest_job_id !='None' and varquest_job_id is not None:
+    #     Varquest_file = request_Varquest_file(varquest_job_id, output_directory) + '/'
+    # else:
+    #     Varquest_file = None
 
-    if dereplicator_job_id!='None' and dereplicator_job_id!=None:
-        Derep_file = request_Derep_file(dereplicator_job_id, output_directory) + '/'
-    else:
-        Derep_file = None
+    # if dereplicator_job_id!='None' and dereplicator_job_id!=None:
+    #     Derep_file = request_Derep_file(dereplicator_job_id, output_directory) + '/'
+    # else:
+    #     Derep_file = None
 
     gnpslibfile, netfile = process_GNPS_file(GNPS_file)
-    SMILES_csv, out_dict = add_Chemical_Info(gnpslibfile, output_directory, nap_ID=nap_job_id, Derep_job_ID=dereplicator_job_id, Varquest_job_ID=varquest_job_id, derepfile=Derep_file, varquestfile=Varquest_file)
+    SMILES_csv, out_dict = add_Chemical_Info(gnpslibfile, output_directory, nap_ID=nap_job_id, Derep_job_ID=dereplicator_job_id, Varquest_job_ID=varquest_job_id)
 
     print('Calculating InCHI Keys')
     InchiKeys_lst, InchiKeys, inchi_dic, SMILES_failed = convert_SMILES_InchiKeys(SMILES_csv, out_dict, output_directory)
@@ -65,6 +65,11 @@ def process(GNPS_job_ID, varquest_job_id, dereplicator_job_id, ms2lda_job_id, ms
     #Creating a network with classyfire information
     final, ClassyFireResults_file = create_ClassyFireResults(netfile, inchi_dic, output_directory)
     create_GraphML(GNPS_file, final, output_directory)
+
+
+
+
+
 
     #optional MS2LDA job Mass 2 Motifs
     if ms2lda_job_id!='None' and ms2lda_job_id!=None and len(ms2lda_job_id) > 2 and len(ms2lda_job_id) < 20:
