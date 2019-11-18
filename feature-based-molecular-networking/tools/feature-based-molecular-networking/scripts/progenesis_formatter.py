@@ -12,6 +12,11 @@ import sys
 def convert_to_feature_csv(input_filename, output_filename):
     input_format = pd.read_csv(input_filename, sep=",", skiprows=2)
 
+    required_names = ["Compound", "Retention time (min)", "m/z"]
+    for require_name in required_names:
+        if not require_name in input_format:
+            raise Exception("Missing Column {}".format(require_name))
+
     non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
         "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Adducts", "Formula", \

@@ -43,7 +43,11 @@ class TestLoaders(unittest.TestCase):
         self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progensis_MSE/161118_pos_IMS_output.csv", shallow=False))
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progensis_MSE/161118_pos_IMS.msp", "161118_pos_IMS.mgf", compound_to_scan_mapping)
 
-
+    #Making sure this raises exception
+    def test_progenesis_failure(self):
+        with self.assertRaises(Exception) as context:
+            progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progensis_MSE/missing_columns.csv", "/dev/null")
+        
     def test_metaboscape(self):
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/Lipids.msmsonly.csv", \
             "./metaboscape_output.csv")
