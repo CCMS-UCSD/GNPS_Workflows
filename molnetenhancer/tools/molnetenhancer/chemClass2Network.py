@@ -131,7 +131,6 @@ def convert_SMILES_InchiKeys(SMILES_csv, out, directory):
 
         try:
             link = 'https://gnps-structure.ucsd.edu/inchikey?smiles={}'.format(urllib.parse.quote(smile_str))
-            print(link)
             result = requests.get(link)
             result.raise_for_status()
             InchiKeys_lst.append('InChIKey=' + result.text)
