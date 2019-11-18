@@ -93,17 +93,27 @@ def add_Chemical_Info(gnpslibfile, directory, nap_ID=None, Derep_job_ID=None, Va
 
     #Getting VarQuest IDs
     if Derep_job_ID != None and Derep_job_ID != 'None':
-        derepfile = request_Derep_file(Derep_job_ID, directory)
-        derep = pd.read_csv([os.path.join(derepfile, s) for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
-        matches.append(derep)
+        try:
+            derepfile = request_Derep_file(Derep_job_ID, directory)
+            derep = pd.read_csv([os.path.join(derepfile, s) for s in os.listdir(derepfile) if "DEREPLICATOR" in s][0], sep = '\t')
+            matches.append(derep)
+        except KeyboardInterrupt:
+            raise
+        except:
+            derep = None
     else:
         derep = None
 
     #Getting Derepcliator IDs
     if Varquest_job_ID != None and Varquest_job_ID != 'None':
-        varquestfile = request_Varquest_file(Varquest_job_ID, directory)
-        varquest = pd.read_csv([os.path.join(varquestfile, s) for s in os.listdir(varquestfile) if "DEREPLICATOR" in s][0], sep = '\t')
-        matches.append(varquest)
+        try:
+            varquestfile = request_Varquest_file(Varquest_job_ID, directory)
+            varquest = pd.read_csv([os.path.join(varquestfile, s) for s in os.listdir(varquestfile) if "DEREPLICATOR" in s][0], sep = '\t')
+            matches.append(varquest)
+        except KeyboardInterrupt:
+            raise
+        except:
+            varquest = None
     else:
         varquest = None
 
