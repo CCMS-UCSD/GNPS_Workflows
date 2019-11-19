@@ -44,9 +44,26 @@ def convert_to_feature_csv(input_filename, output_filename):
         for sample_name in sample_names:
             output_record[sample_name + " Peak area"] = record[sample_name]
 
+        #Adding in special columns for CCS
+        if "CCS (angstrom^2)" in record:
+            output_record["CCS"] = record["CCS (angstrom^2)"]
+        if "dCCS (angstrom^2)" in record:
+            output_record["dCCS"] = record["dCCS (angstrom^2)"]
+
+        #Adding extra columns that are not sample_names
+        for key in record:
+            if key in sample_name:
+                continue
+
+            try:
+                output_record[key] = record[key].encode("ascii", errors="replace")
+            except:
+                continue
 
         output_records.append(output_record)
         compound_to_scan_mapping[compound_name] = running_scan
+
+
 
     output_df = pd.DataFrame(output_records)
     output_df.to_csv(output_filename, sep=",", index=False, float_format="%.4f")
