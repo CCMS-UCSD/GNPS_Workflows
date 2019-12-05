@@ -1,6 +1,6 @@
 name: Python package
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -29,3 +29,4 @@ jobs:
         cd feature-based-molecular-networking/test && nose2 -v && cd ../../
         cd molecular-librarysearch-gc/test && nose2 -v && cd ../..
         cd mshub-gc/test && nose2 -v && cd ../..
+        cd molnetenhancer/test && nose2 -v && cd ../..

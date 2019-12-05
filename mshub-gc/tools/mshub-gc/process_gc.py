@@ -32,7 +32,7 @@ def parse_peaks_for_output(input_filename, output_filename):
             splits = line.rstrip().split(";")
             for split in splits:
                 peak_splits = split.lstrip().rstrip().split(" ")
-                mass = float(peak_splits[0])
+                mass = float(int(float(peak_splits[0])))
                 intensity = float(peak_splits[1]) * 100000
                 all_peaks.append([str(mass), str(intensity)])
             #Write output

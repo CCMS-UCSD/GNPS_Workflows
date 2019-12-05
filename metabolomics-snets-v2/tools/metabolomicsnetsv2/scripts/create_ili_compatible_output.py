@@ -65,7 +65,8 @@ def create_ili_output_from_clusterinfo(cluster_info_filename, param_filename, cl
 
         #print table_data["#Filename"][i].split("/")[1]
         mangled_filename_only = os.path.basename(table_data["#Filename"][i])
-        cluster_index_to_file_map[cluster_number][mangled_filename_only] += float(table_data["#PrecIntensity"][i])
+        #cluster_index_to_file_map[cluster_number][mangled_filename_only] += float(table_data["#PrecIntensity"][i])
+        cluster_index_to_file_map[cluster_number][mangled_filename_only] += 1  # Only displaying the spectrum counts
         spectrum_info = {"filename":table_data["#Filename"][i], "intensity": table_data["#PrecIntensity"][i]}
         all_files[table_data["#Filename"][i]] = 1
         clusters_map[cluster_number].append(spectrum_info)

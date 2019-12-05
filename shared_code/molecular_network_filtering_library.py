@@ -144,14 +144,14 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("GNPSLinkout_Cluster", "string"), \
     ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
 
-
+    print("+++++++++++++++", nx.__version__)
 
     group_columns = ["G1", "G2", "G3", "G4", "G5", "G6"]
 
     for i in range(row_count):
         cluster_index = table_data["cluster index"][i]
 
-        if cluster_index in G.node:
+        if cluster_index in G:
             for default_column in default_listed_columns:
                 key_name = default_column[0]
                 type_name = default_column[1]
