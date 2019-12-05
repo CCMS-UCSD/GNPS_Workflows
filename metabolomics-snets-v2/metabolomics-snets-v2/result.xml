@@ -1063,7 +1063,7 @@
         </row>
         <row expander="View Spectrum" expandericontype="text">
             <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="file" file="[Original_Path]"/>
                 <parameter name="scan" value="[ScanNumber]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
@@ -1071,7 +1071,7 @@
         <row expander="MASST Spectrum" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">
                 <parameter name="mz" value="[parent mass]"/>
-                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="file" file="[Original_Path]"/>
                 <parameter name="scan" value="[ScanNumber]"/>
             </column>
         </row>
