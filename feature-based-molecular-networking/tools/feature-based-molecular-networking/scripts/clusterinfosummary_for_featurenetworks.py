@@ -12,6 +12,7 @@ import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
 import glob
+import math
 import pandas as pd
 
 def determine_input_files(header_list):
@@ -44,18 +45,21 @@ def load_group_attribute_mappings(metadata_filename):
     attributes_to_groups_mapping = defaultdict(set)
     group_to_files_mapping = defaultdict(list)
     
-    metadata_df = pd.read_csv(metadata_filename, sep="\t")
+    metadata_df = pd.read_csv(metadata_filename, sep="\t", skip_blank_lines=True)
     print(metadata_df.head())
     record_list = metadata_df.to_dict(orient="records")
     for record in record_list:
         for header in record:
             if "ATTRIBUTE_" in header:
-                filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
-                group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
-                attribute = header.rstrip().replace('\n', '').replace('\r', '')
-                if len(filename) > 2:
-                    group_to_files_mapping[group_name].append(filename)
-                    attributes_to_groups_mapping[attribute].add(group_name)
+                try:
+                    filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
+                    group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
+                    attribute = header.rstrip().replace('\n', '').replace('\r', '')
+                    if len(filename) > 2:
+                        group_to_files_mapping[group_name].append(filename)
+                        attributes_to_groups_mapping[attribute].add(group_name)
+                except:
+                    continue
 
     return group_to_files_mapping, attributes_to_groups_mapping
 
@@ -103,24 +107,14 @@ def enrich_adduct_annotations(cluster_object, quant_table_object):
     if "auto MS2 verify" in quant_table_object:
         cluster_object["MS2 Verification Comment"] = quant_table_object["auto MS2 verify"]
 
-
-def main():
-    parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
-    parser.add_argument('params_xml', help='params_xml')
-    parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
-    parser.add_argument('metadata_folder', help='metadata metadata_folder')
-    parser.add_argument('mgf_filename', help='mgf_filename')
-    parser.add_argument('output_clusterinfo_summary', help='output file')
-    args = parser.parse_args()
-
-    param_obj = ming_proteosafe_library.parse_xml_file(open(args.params_xml))
+def process(input_param_xml, input_consensus_feature_file, metadata_files, input_mgf_filename, output_clusterinfo_summary):
+    param_obj = ming_proteosafe_library.parse_xml_file(open(input_param_xml))
 
     task_id = param_obj["task"][0]
 
     group_to_files_mapping = defaultdict(list)
     attributes_to_groups_mapping = defaultdict(set)
 
-    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
     if len(metadata_files) == 1:
         group_to_files_mapping, attributes_to_groups_mapping = load_group_attribute_mappings(metadata_files[0])
 
@@ -137,7 +131,7 @@ def main():
         GROUP_COUNT_AGGREGATE_METHOD = "Mean"
 
 
-    quantification_df = pd.read_csv(args.consensus_feature_file)
+    quantification_df = pd.read_csv(input_consensus_feature_file)
     quantification_list = quantification_df.to_dict(orient="records")
 
     input_filenames, input_filename_headers = determine_input_files(quantification_list[0].keys())
@@ -167,7 +161,7 @@ def main():
                     quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants) * 1000000
 
     """Loading MS2 Spectra"""
-    mgf_collection = ming_spectrum_library.SpectrumCollection(args.mgf_filename)
+    mgf_collection = ming_spectrum_library.SpectrumCollection(input_mgf_filename)
     mgf_collection.load_from_file()
 
     clusters_list = []
@@ -248,8 +242,20 @@ def main():
 
         clusters_list.append(cluster_obj)
 
-    pd.DataFrame(clusters_list).to_csv(args.output_clusterinfo_summary, sep="\t", index=False)
+    pd.DataFrame(clusters_list).to_csv(output_clusterinfo_summary, sep="\t", index=False)
 
+def main():
+    parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
+    parser.add_argument('params_xml', help='params_xml')
+    parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
+    parser.add_argument('metadata_folder', help='metadata metadata_folder')
+    parser.add_argument('mgf_filename', help='mgf_filename')
+    parser.add_argument('output_clusterinfo_summary', help='output file')
+    args = parser.parse_args()
+
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
+
+    process(args.params_xml, args.consensus_feature_file, metadata_files, args.mgf_filename, args.output_clusterinfo_summary)
 
 
 if __name__ == "__main__":

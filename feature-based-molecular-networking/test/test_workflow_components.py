@@ -29,3 +29,15 @@ def test_additional_edges():
     "reference_data/IIN/library_matches.tsv", 
     "reference_data/IIN/additional_edges", 
     "iin.graphml")
+
+
+def test_clustersummary():
+    import clusterinfosummary_for_featurenetworks
+
+    input_param_xml = "reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/params.xml"
+    input_consensus_feature_file = "reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/quant.csv"
+    metadata_files = ["reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/metadata_table-00000.txt"]
+    input_mgf_filename = "reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/spec-00000.mgf"
+    output_clusterinfo_summary = "reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/clustersummary.tsv"
+
+    clusterinfosummary_for_featurenetworks.process(input_param_xml, input_consensus_feature_file, metadata_files, input_mgf_filename, output_clusterinfo_summary)
