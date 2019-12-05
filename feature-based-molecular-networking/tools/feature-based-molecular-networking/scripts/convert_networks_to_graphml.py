@@ -38,7 +38,7 @@ def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, i
     if input_analoglibrarysearch is not None:
         molecular_network_filtering_library.add_library_search_results_to_graph(G, input_librarysearch, annotation_prefix="Analog:")
 
-    nx.write_graphml(G, output_graphml)
+    nx.write_graphml(G, output_graphml, infer_numeric_types=True)
 
 if __name__ == "__main__":
     main()
