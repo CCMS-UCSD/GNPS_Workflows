@@ -194,7 +194,6 @@
         <require name="workflowParameters"       type="file"/>
         <require name="Carbon_Marker_File"       type="file"/>
         <produce name="Kovats_Result_Nonfiltered"        type="file" naming="explicit"  extension="tsv"/>
-        <produce name="Kovats_Result_Filtered"        type="file" naming="explicit"  extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
                 <arg pathRef="Kovats_Calculation.script"/>
@@ -203,7 +202,6 @@
                 <arg valueRef="workflowParameters"/>
                 <arg valueRef="Carbon_Marker_File"/>
                 <arg valueRef="Kovats_Result_Nonfiltered"/>
-                <arg valueRef="Kovats_Result_Filtered"/>
         </execution>
     </tool>
 

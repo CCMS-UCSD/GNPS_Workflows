@@ -156,21 +156,21 @@
         <upload port="DB_result_mshub" type="file">
             <query name="resource" value="DB_result_mshub"/>
         </upload>
-        <upload port="DB_result_filtered_mshub" type="file">
+        <!-- <upload port="DB_result_filtered_mshub" type="file">
             <query name="resource" value="DB_result_filtered_mshub"/>
-        </upload>
+        </upload> -->
         <upload port="networking_pairs_results_file_filtered" type="file">
             <query name="resource" value="networking_pairs_results_file_filtered"/>
         </upload>
         <upload port="gnps_molecular_network_graphml" type="file">
             <query name="resource" value="gnps_molecular_network_graphml"/>
         </upload>
-        <upload port="Kovats_Result_Filtered_mshub" type="file">
+        <!-- <upload port="Kovats_Result_Filtered_mshub" type="file">
             <query name="resource" value="Kovats_Result_Filtered_mshub"/>
         </upload>
         <upload port="Kovats_Result_Nonfiltered_mshub" type="file">
             <query name="resource" value="Kovats_Result_Nonfiltered_mshub"/>
-        </upload>
+        </upload> -->
         <upload port="clusterinfo_summary" type="file">
             <query name="resource" value="clusterinfo_summary"/>
         </upload>

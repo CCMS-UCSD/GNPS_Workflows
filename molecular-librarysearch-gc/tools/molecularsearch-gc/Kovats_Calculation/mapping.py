@@ -22,7 +22,7 @@ import math
 
 
 # load df from input data file
-def loadDf(csv,cosine,prediction,mode,lib, window_start, window_end):
+def loadDf(csv, prediction):
     df = pd.read_csv(csv,sep = '\t')
 
     new_df = df
@@ -30,38 +30,11 @@ def loadDf(csv,cosine,prediction,mode,lib, window_start, window_end):
     new_df['Kovats_Index_Lib_Record'] = np.nan
     new_df['Kovats_Index_Error'] = np.nan
     new_df['Kovats_Confidence'] = np.nan
-    # filter out by cosine score first
-    #new_df = new_df[new_df.MQScore > cosine]
-    new_df = new_df[new_df.RT_Query >= window_start]
-    new_df = new_df[new_df.RT_Query <= window_end]
-    new_df = new_df.reset_index(drop=True)
-    # load database:
-    # library is sorted by CAS
-    lib_df = pd.read_csv(lib)
-    lib_df = lib_df[lib_df.polarity.str.contains('non-polar')]
-    lib = pd.Series(lib_df.ki_nonpolar_average.values,index=lib_df.INCHI.values).to_dict()
+    
     #fill in the kovat index from the library search
     for i in range(len(new_df)):
-        if mode == 'm':
-            new_df['Kovats_Index_calculated'][i] =kovatIndex(float(new_df['RT_Query'][i]), prediction)
-        else:
-            new_df['Kovats_Index_calculated'][i]= np.polyval(prediction,float(new_df['RT_Query'][i]))
+        new_df['Kovats_Index_calculated'][i] = kovatIndex(float(new_df['RT_Query'][i]), prediction)
 
-        try:
-            new_df['Kovats_Index_Lib_Record'][i] = lib[new_df['INCHI'][i]]
-            new_df['Kovats_Index_Error'][i] = abs(new_df['Kovats_Index_calculated'][i] - new_df['Kovats_Index_Lib_Record'][i])/new_df['Kovats_Index_Lib_Record'][i]
-        except:
-            continue
-
-    # check the polynomial confidence
-    if mode == "p":
-        for i in range(0,math.ceil(new_df.RT_Query.max()),100):
-            df_slice = new_df[(new_df.RT_Query>=i) & (new_df.RT_Query<=i+100)]
-            print(df_slice.Kovats_Index_Lib_Record.isna().sum())
-            print(new_df[(new_df.RT_Query>=i) & (new_df.RT_Query<=i+100)])
-            new_df.loc[(new_df.RT_Query>=i) & \
-                    (new_df.RT_Query<=i+100),'Kovats_Confidence'] = \
-                    len(df_slice)-df_slice.Kovats_Index_Lib_Record.isna().sum()
     return new_df
 
 
@@ -88,25 +61,16 @@ def kovatIndex(rt, markerDic):
     return 0.0
 
 
-def csv_builder(inputF,mode,additionalFile,cosineScore,errorTolerance,result_nonfiltered,\
-                result_filtered,lib, window_start, window_end):
-    # load markers
-    if mode == 'p':
-        prediction = additionalFile
-        print(prediction)
-    else:
-        try:
-            prediction = loadMarkers(additionalFile)
-        except:
-            empty_tsv = open(result_nonfiltered,'w')
-            empty_tsv_filtered = open(result_filtered,'w')
-            empty_tsv.write('Bad Carbon Marker File Format')
-            empty_tsv_filtered.write('Bad Carbon Marker File Format')
-            return
+def csv_builder(inputF, additionalFile, result_nonfiltered):
+    
+    try:
+        prediction = loadMarkers(additionalFile)
+    except:
+        empty_tsv = open(result_nonfiltered,'w')
+        empty_tsv_filtered = open(result_filtered,'w')
+        empty_tsv.write('Bad Carbon Marker File Format')
+        empty_tsv_filtered.write('Bad Carbon Marker File Format')
+        return
     #LoadDataframe and trim it to be the one we need
-    df = loadDf(inputF,cosineScore,prediction,mode,lib, window_start, window_end)
+    df = loadDf(inputF, prediction)
     df.to_csv(result_nonfiltered, sep='\t',index=False,na_rep="None")
-    # filtering by RI error threshold
-
-    df_filtered = df[df.Kovats_Index_Error < errorTolerance]
-    df_filtered.to_csv(result_filtered, sep='\t',index=False,na_rep="None")
