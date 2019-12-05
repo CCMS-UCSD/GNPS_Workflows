@@ -1062,9 +1062,14 @@
 
         </row>
         <row expander="View Spectrum" expandericontype="text">
-            <column type="jscolumnspectrumviewer" colspan="5">
+            <column type="jscolumnspectrumviewer" colspan="5" label="Raw Spectrum">
                 <parameter name="file" file="[Original_Path]"/>
                 <parameter name="scan" value="[ScanNumber]"/>
+                <parameter name="peptide" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Consensus Spectrum">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
         </row>
