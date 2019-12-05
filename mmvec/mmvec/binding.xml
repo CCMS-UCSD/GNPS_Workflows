@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task"/>
+        <query name="user" valueRef="@user"/>
+        <compression type="zip"/>
+        <download port="params" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <download port="metabolites_qza" type="file">
+            <query name="resource" value="metabolites_qza"/>
+        </download>
+        <download port="metabolites_metadata" type="file">
+            <query name="resource" value="metabolites_metadata"/>
+        </download>
+        <download port="microbiome_qza" type="file">
+            <query name="resource" value="microbiome_qza"/>
+        </download>
+        <download port="microbiome_taxonomy" type="file">
+            <query name="resource" value="microbiome_taxonomy"/>
+        </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
+
+    </bind>
+
+    <bind action="run_mmvec" tool="run_mmvec">
+        <inputAsRequirement port="metabolites_qza" requirement="metabolites_qza"/>
+        <inputAsRequirement port="metabolites_metadata" requirement="metabolites_metadata"/>
+        <inputAsRequirement port="microbiome_qza" requirement="microbiome_qza"/>
+        <inputAsRequirement port="microbiome_taxonomy" requirement="microbiome_taxonomy"/>
+        <productionToOutput port="mmvec_output" production="mmvec_output"/>
+    </bind>
+
+    <bind action="mmvec_conditionals_summarize" tool="mmvec_conditionals_summarize">
+        <inputAsRequirement port="metabolites_metadata" requirement="metabolites_metadata"/>
+        <inputAsRequirement port="microbiome_taxonomy" requirement="microbiome_taxonomy"/>
+        <inputAsRequirement port="mmvec_output" requirement="mmvec_output"/>
+        <productionToOutput port="mmvec_conditionals_display" production="mmvec_conditionals_display"/>
+    </bind>
+
+
+    <bind action="end" type="upload">
+        <url value="{livesearch.upload}"/>
+        <query name="task" valueRef="@task"/>
+        <contentQuery name="content"/>
+        <compression type="zip"/>
+        <upload port="mmvec_output" type="folder">
+            <query name="resource" value="mmvec_output"/>
+        </upload>
+        <upload port="mmvec_conditionals_display" type="file">
+            <query name="resource" value="mmvec_conditionals_display"/>
+        </upload>
+    </bind>
+</binding>

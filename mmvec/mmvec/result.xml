@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="ming_test" version="1.2.3">
+    <download>
+        <source type="folder" name="mmvec_output/"/>
+    </download>
+
+
+
+    <view id="view_conditional_table" label="View Conditional Probability Table" group="Default Results Views">
+        <blockRef id="main" type="view_conditional_table"/>
+    </view>
+    <block id="view_conditional_table" type="table_ss">
+        <data>
+            <source type="file" name="mmvec_conditionals_display/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="conditional_value" operator="descending"/>
+                <parser type="SQLite"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="float" field="conditional_value" label="conditional_value" precision="2"/>
+            <column type="text" field="Taxon" label="Taxon" width="3"/>
+            <column type="text" field="molecule_identifier" label="molecule_identifier" width="3"/>
+            <column type="text" field="name" label="Compound Name" width="3"/>
+        </row>
+    </block>
+
+    <view id="view_qiime2_emperor" label="View mmvec Emperor Plots" group="Advanced Views - qiime2 Views">
+            <blockRef id="main"   type="view_qiime2_emperor"/>
+    </view>
+
+
+    <block id="view_qiime2_emperor" type="dummylinkout">
+      <data>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Dmmvec_output%2Femperor.qzv%26block%3Dmain'/>
+    </block>
+
+    <view id="download_mmvec_data" label="Download mmvec output" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_mmvec_data"/>
+    </view>
+
+    <block id="download_mmvec_data" type="dummydownload">
+        <data>
+            <source type="file" name="mmvec_output/emperor.qzv"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+</interface>

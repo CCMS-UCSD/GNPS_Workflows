@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="RHAPSODY_MMVEC">
+    
+    <object name="workflowParameters"/>
+    <object name="metabolites_qza"/>
+    <object name="metabolites_metadata"/>
+    <object name="microbiome_qza"/>
+    <object name="microbiome_taxonomy"/>
+
+    <action name="begin">
+        <output port="params" object="workflowParameters"/>
+        <output port="metabolites_qza" object="metabolites_qza"/>
+        <output port="metabolites_metadata" object="metabolites_metadata"/>
+        <output port="microbiome_qza" object="microbiome_qza"/>
+        <output port="microbiome_taxonomy" object="microbiome_taxonomy"/>
+    </action>
+
+    <!-- Preprocessing -->
+    <collection name="mmvec_output"/>
+    <action name="run_mmvec">
+        <input port="metabolites_qza" object="metabolites_qza"/>
+        <input port="metabolites_metadata" object="metabolites_metadata"/>
+        <input port="microbiome_qza" object="microbiome_qza"/>
+        <input port="microbiome_taxonomy" object="microbiome_taxonomy"/>
+        <output port="mmvec_output" collection="mmvec_output"/>
+    </action>
+
+    <collection name="mmvec_conditionals_display"/>
+    <action name="mmvec_conditionals_summarize">
+        <input port="metabolites_metadata" object="metabolites_metadata"/>
+        <input port="microbiome_taxonomy" object="microbiome_taxonomy"/>
+        <input port="mmvec_output" collection="mmvec_output"/>
+        <output port="mmvec_conditionals_display" object="mmvec_conditionals_display"/>
+    </action>
+
+    <action name="end">
+        <input port="mmvec_output" collection="mmvec_output"/>
+        <input port="mmvec_conditionals_display" object="mmvec_conditionals_display"/>
+    </action>
+</flow>
