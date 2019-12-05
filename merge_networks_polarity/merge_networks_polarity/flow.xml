@@ -7,12 +7,18 @@
 	</action>
 
     <object name="merged_network"/>
+	<object name="summary_table"/>
+	<object name="summary"/>
 	<action name="merge_polarity">
         <input  port="workflowParameters" object="workflowParameters"/>
         <output  port="merged_network" object="merged_network"/>
+		<output  port="summary_table" object="summary_table"/>
+		<output  port="summary" object="summary"/>
     </action>
 
 	<action name="end">
 		<input port="merged_network" object="merged_network"/>
+		<input port="summary_table" object="summary_table"/>
+		<input port="summary" object="summary"/>
 	</action>
 </flow>

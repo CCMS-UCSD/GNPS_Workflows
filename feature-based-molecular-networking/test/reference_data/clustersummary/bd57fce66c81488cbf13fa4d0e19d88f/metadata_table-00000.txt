@@ -1,0 +1,12 @@
+filename	ATTRIBUTE_Fe-infusion
+Hui_N1.mzML	No
+Hui_N1_fe.mzML	Yes
+Hui_N2.mzML	No
+Hui_N2_fe.mzML	Yes
+Hui_N3.mzML	No
+Hui_N3_fe.mzML	Yes
+	
+	
+	
+	
+	

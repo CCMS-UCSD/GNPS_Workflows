@@ -3,4 +3,8 @@ pyteomics
 requests
 numpy
 pandas
-networkx
+networkx==2.1
+pyMolNetEnhancer
+joblib
+requests_cache
+lxml
