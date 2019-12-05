@@ -11,3 +11,21 @@ def test_network_stats():
     import calculate_stats_graphml
     input_filename = "reference_data/network.graphml"
     calculate_stats_graphml.calculate_stats(input_filename, "/dev/null")
+
+def test_metadata_test():
+    import metadata_permanova_prioritizer
+
+    input_filename = "reference_data/test_metadata_permanova_parse.tsv"
+    selected_columns = metadata_permanova_prioritizer.permanova_validation(input_filename)
+
+    print(selected_columns)
+
+def test_additional_edges():
+    import convert_networks_to_graphml
+
+    convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv", 
+    "reference_data/IIN/cluster_summary.tsv", 
+    "reference_data/IIN/library_matches.tsv", 
+    "reference_data/IIN/library_matches.tsv", 
+    "reference_data/IIN/additional_edges", 
+    "iin.graphml")

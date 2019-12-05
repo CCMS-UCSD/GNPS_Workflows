@@ -2,6 +2,8 @@
 
 This public repository contains the GNPS Workflows running on GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu).
 
+![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/Python%20package/badge.svg)
+
 ## Contribute to GNPS
 
 The GNPS community is always welcoming suggestions and contributions. Be part of the community and contribute !
@@ -57,6 +59,10 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | Active |
 | masst.ucsd.edu | GNPS MASST Query Server | Active |
 
+## Testing
 
+We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
+
+```nose2 -v```
 
 

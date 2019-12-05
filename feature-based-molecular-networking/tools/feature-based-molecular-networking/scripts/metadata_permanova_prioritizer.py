@@ -14,7 +14,6 @@ def permanova_validation(input_file):
 
         #each label need to make up more than 10% of the population
         lowest_num_labels_allowed = number_of_labels * 0.1
-        print(lowest_num_labels_allowed)
         #counting the occurance of each label within a column 
         count_dictionary = Counter(templist)
                 

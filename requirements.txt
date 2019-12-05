@@ -1,0 +1,10 @@
+xmltodict
+pyteomics
+requests
+numpy
+pandas
+networkx==2.1
+pyMolNetEnhancer
+joblib
+requests_cache
+lxml
