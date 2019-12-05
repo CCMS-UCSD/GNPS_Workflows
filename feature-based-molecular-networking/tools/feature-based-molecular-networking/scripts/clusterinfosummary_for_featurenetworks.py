@@ -107,6 +107,7 @@ def enrich_adduct_annotations(cluster_object, quant_table_object):
     if "auto MS2 verify" in quant_table_object:
         cluster_object["MS2 Verification Comment"] = quant_table_object["auto MS2 verify"]
 
+def process(input_param_xml, input_consensus_feature_file, input_metadata_folder, input_mgf_filename, metadata_files, )
 
 def main():
     parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
