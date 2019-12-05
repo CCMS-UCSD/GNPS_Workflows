@@ -12,6 +12,7 @@ import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
 import glob
+import math
 import pandas as pd
 
 def determine_input_files(header_list):
@@ -44,18 +45,21 @@ def load_group_attribute_mappings(metadata_filename):
     attributes_to_groups_mapping = defaultdict(set)
     group_to_files_mapping = defaultdict(list)
     
-    metadata_df = pd.read_csv(metadata_filename, sep="\t")
+    metadata_df = pd.read_csv(metadata_filename, sep="\t", skip_blank_lines=True)
     print(metadata_df.head())
     record_list = metadata_df.to_dict(orient="records")
     for record in record_list:
         for header in record:
             if "ATTRIBUTE_" in header:
-                filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
-                group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
-                attribute = header.rstrip().replace('\n', '').replace('\r', '')
-                if len(filename) > 2:
-                    group_to_files_mapping[group_name].append(filename)
-                    attributes_to_groups_mapping[attribute].add(group_name)
+                try:
+                    filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
+                    group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
+                    attribute = header.rstrip().replace('\n', '').replace('\r', '')
+                    if len(filename) > 2:
+                        group_to_files_mapping[group_name].append(filename)
+                        attributes_to_groups_mapping[attribute].add(group_name)
+                except:
+                    continue
 
     return group_to_files_mapping, attributes_to_groups_mapping
 
