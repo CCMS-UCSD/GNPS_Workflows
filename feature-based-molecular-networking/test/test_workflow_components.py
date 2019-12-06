@@ -22,6 +22,8 @@ def test_metadata_test():
 
 def test_additional_edges():
     import convert_networks_to_graphml
+    import networkx as nx
+    import unittest
 
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv", 
     "reference_data/IIN/cluster_summary.tsv", 
@@ -29,6 +31,12 @@ def test_additional_edges():
     "reference_data/IIN/library_matches.tsv", 
     "reference_data/IIN/additional_edges", 
     "iin.graphml")
+    
+    G = nx.read_graphml("iin.graphml")   
+    listy = G.get_edge_data('7347','9043')
+    mass_difference = float(listy[0]["mass_difference"])
+    mass_difference = round(mass_difference, 4)
+    assert(mass_difference == 3.0051)
 
 
 def test_clustersummary():
@@ -41,3 +49,4 @@ def test_clustersummary():
     output_clusterinfo_summary = "reference_data/clustersummary/bd57fce66c81488cbf13fa4d0e19d88f/clustersummary.tsv"
 
     clusterinfosummary_for_featurenetworks.process(input_param_xml, input_consensus_feature_file, metadata_files, input_mgf_filename, output_clusterinfo_summary)
+
