@@ -91,12 +91,8 @@ def loading_network(filename, hasHeaders=False):
 
     return G
 
-def add_additional_edges(G, path_to_supplemental_edges, cluster_info_summary_filename):
+def add_additional_edges(G, path_to_supplemental_edges):
     edge_list = ming_fileio_library.parse_table_with_headers_object_list(path_to_supplemental_edges, delimiter=",")
-    row_count, table_data = ming_fileio_library.parse_table_with_headers(cluster_info_summary_filename)
-    
-    id_list = table_data["cluster index"]
-    precursor_list = table_data["precursor mass"]
 
     edges_to_add = []
 
@@ -104,11 +100,8 @@ def add_additional_edges(G, path_to_supplemental_edges, cluster_info_summary_fil
         node1 = additional_edge_row["ID1"]
         node2 = additional_edge_row["ID2"]
         
-        node1_location = id_list.index(node1)
-        node2_location = id_list.index(node2)
-
-        node1_mz = precursor_list[node1_location]
-        node2_mz = precursor_list[node2_location]
+        node1_mz = G.node[node1]["precursor mass"]
+        node2_mz = G.node[node2]["precursor mass"]
 
         mass_diffy = float(node1_mz) - float(node2_mz)
 
