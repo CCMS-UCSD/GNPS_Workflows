@@ -33,7 +33,7 @@ def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, i
         all_pairs_files = glob.glob(os.path.join(input_pairsfolder, "*"))
         for additional_pairs_file in all_pairs_files:
             print("Adding Additional Edges", additional_pairs_file)
-            molecular_network_filtering_library.add_additional_edges(G, additional_pairs_file, input_clusterinfosummary)
+            molecular_network_filtering_library.add_additional_edges(G, additional_pairs_file)
 
     if input_analoglibrarysearch is not None:
         molecular_network_filtering_library.add_library_search_results_to_graph(G, input_librarysearch, annotation_prefix="Analog:")
