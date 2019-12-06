@@ -60,7 +60,9 @@ def main():
         exit(0)
 
     ### Performing Prediction
-
+    calculate_kovats(args.input_identifications_filename, 
+    args.input_marker_filename, 
+    args.output_identifications_filename)
 
 if __name__ == "__main__":
     main()
