@@ -103,7 +103,7 @@ def add_additional_edges(G, path_to_supplemental_edges):
         node1_mz = G.node[node1]["precursor mass"]
         node2_mz = G.node[node2]["precursor mass"]
 
-        mass_diffy = float(node1_mz) - float(node2_mz)
+        mass_difference = float(node1_mz) - float(node2_mz)
 
         edgetype = additional_edge_row["EdgeType"]
         score = additional_edge_row["Score"]
@@ -115,7 +115,7 @@ def add_additional_edges(G, path_to_supplemental_edges):
         edge_object["EdgeType"] = edgetype
         edge_object["EdgeAnnotation"] = annotation.rstrip()
         edge_object["EdgeScore"] = float(score)
-        edge_object["mass_difference"] = mass_diffy
+        edge_object["mass_difference"] = mass_difference
         edges_to_add.append((node1, node2, edge_object))
 
     G.add_edges_from(edges_to_add)
