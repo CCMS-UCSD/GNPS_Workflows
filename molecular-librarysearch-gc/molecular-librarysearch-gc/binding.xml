@@ -106,19 +106,11 @@
         <productionToOutput port="DB_result_kovats" production="DB_result_kovats"/>
     </bind>
 
-    <!-- <bind action="add_balanced_score" tool="add_balanced_score">
-        <inputAsRequirement port="DB_result" requirement="DB_result"/>
-        <inputAsRequirement port="DB_result_filtered" requirement="DB_result_filtered"/>
-        <inputAsRequirement port="Kovats_Result_Nonfiltered" requirement="Kovats_Result_Nonfiltered"/>
-        <inputAsRequirement port="Kovats_Result_Filtered" requirement="Kovats_Result_Filtered"/>
-        <inputAsRequirement port="params" requirement="workflowParameters"/>
+    <bind action="add_balanced_score" tool="add_balanced_score">
+        <inputAsRequirement port="library_identifications" requirement="library_identifications"/>
         <inputAsRequirement port="mshub_balance_scores" requirement="mshub_balance_scores"/>
-
-        <productionToOutput port="DB_result_mshub" production="DB_result_mshub"/>
-        <productionToOutput port="DB_result_filtered_mshub" production="DB_result_filtered_mshub"/>
-        <productionToOutput port="Kovats_Result_Nonfiltered_mshub" production="Kovats_Result_Nonfiltered_mshub"/>
-        <productionToOutput port="Kovats_Result_Filtered_mshub" production="Kovats_Result_Filtered_mshub"/>
-    </bind> -->
+        <productionToOutput port="library_identifications_with_balance" production="library_identifications_with_balance"/>
+    </bind>
 
     <!-- Cluster Info -->
     <bind action="clusterinfosummary_creation" tool="clusterinfosummary_creation">
@@ -152,6 +144,9 @@
         </upload>
         <upload port="DB_result_kovats" type="file">
             <query name="resource" value="DB_result_kovats"/>
+        </upload>
+        <upload port="DB_result_kovats_balance_score" type="file">
+            <query name="resource" value="DB_result_kovats_balance_score"/>
         </upload>
         <upload port="DB_result_filtered" type="file">
             <query name="resource" value="DB_result_filtered"/>

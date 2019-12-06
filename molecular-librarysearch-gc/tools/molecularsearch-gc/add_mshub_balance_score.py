@@ -34,17 +34,9 @@ def propogate_balance_score(input_file, output_file, quant_table_df):
 
 def main():
     parser = argparse.ArgumentParser(description='wrapper')
-    parser.add_argument('DB_result', help='input')
-    parser.add_argument('DB_result_filtered', help='input')
-    parser.add_argument('Kovats_Result_Nonfiltered', help='input_filtered')
-    parser.add_argument('Kovats_Result_Filtered', help='workflow_parameters')
-    parser.add_argument('workflowParameters', help='Carbon_Marker_File')
-    parser.add_argument('mshub_balance_scores', help='Kovats_Result_Nonfiltered')
-
-    parser.add_argument('DB_result_mshub', help='Kovats_Result_Nonfiltered')
-    parser.add_argument('DB_result_filtered_mshub', help='Kovats_Result_Nonfiltered')
-    parser.add_argument('Kovats_Result_Nonfiltered_mshub', help='Kovats_Result_Nonfiltered')
-    parser.add_argument('Kovats_Result_Filtered_mshub', help='Kovats_Result_Nonfiltered')
+    parser.add_argument('library_identifications', help='input')
+    parser.add_argument('mshub_balance_scores', help='mshub_balance_scores')
+    parser.add_argument('library_identifications_with_balance', help='library_identifications_with_balance')
 
     args = parser.parse_args()
 
@@ -55,10 +47,7 @@ def main():
     if len(quant_files_list) == 1:
         quant_table_df = pd.read_csv(quant_files_list[0], skiprows=[0, 2, 3])
 
-    propogate_balance_score(args.DB_result, args.DB_result_mshub, quant_table_df)
-    propogate_balance_score(args.DB_result_filtered, args.DB_result_filtered_mshub, quant_table_df)
-    propogate_balance_score(args.Kovats_Result_Filtered, args.Kovats_Result_Filtered_mshub, quant_table_df)
-    propogate_balance_score(args.Kovats_Result_Nonfiltered, args.Kovats_Result_Nonfiltered_mshub, quant_table_df)
+    propogate_balance_score(args.library_identifications, args.library_identifications_with_balance, quant_table_df)
 
 if __name__ == "__main__":
     main()
