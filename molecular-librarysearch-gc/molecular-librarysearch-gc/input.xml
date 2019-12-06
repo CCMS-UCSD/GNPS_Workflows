@@ -162,6 +162,11 @@
         </parameter>
 
         <parameter name="runKovats" label="Perform Kovats Calculation">
+            <options>
+                <option value="off" label="off"/>
+                <option value="on" label="on"/>
+            </options>
+            <validator type="set"/>
             <default value="off"/>
         </parameter>
         <parameter name="window_start" label="Retention Time Window Starts(min)">
@@ -455,7 +460,7 @@
     <block label ="Advanced Kovats Index Calculation Options">
         <row>
             <cell colspan="3">
-                <input type="checkbox" parameter="runKovats"/>
+                <input type="select" parameter="runKovats"/>
                 <label>
                     <content parameter="runKovats"/>
                 </label>
