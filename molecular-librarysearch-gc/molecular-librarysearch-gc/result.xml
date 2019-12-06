@@ -226,7 +226,7 @@
     </view>
     <block id="view_all_annotations_DB" type="table">
         <data>
-            <source type="file" name="DB_result_kovats/"/>
+            <source type="file" name="DB_result_kovats_balance_score/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="MQScore" operator="descending"/>
             </parsers>

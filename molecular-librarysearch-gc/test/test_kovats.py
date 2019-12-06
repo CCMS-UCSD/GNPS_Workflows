@@ -1,8 +1,6 @@
 import sys
 sys.path.insert(0, "../tools/molecularsearch-gc/")
 
-
-
 def test_kovats():
     import calculate_kovats
     input_markerfile = "reference_data/kovats/carbonmarkerfile.csv"
