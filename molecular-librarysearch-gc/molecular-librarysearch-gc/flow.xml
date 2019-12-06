@@ -155,5 +155,6 @@
         <input port="written_description" object="written_description"/>
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="DB_result_kovats" object="DB_result_kovats"/>
+        <input port="DB_result_filtered" object="DB_result_filtered"/>
     </action>
 </flow>

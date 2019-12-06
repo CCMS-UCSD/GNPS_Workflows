@@ -153,6 +153,9 @@
         <upload port="DB_result_kovats" type="file">
             <query name="resource" value="DB_result_kovats"/>
         </upload>
+        <upload port="DB_result_filtered" type="file">
+            <query name="resource" value="DB_result_filtered"/>
+        </upload>
         <upload port="networking_pairs_results_file_filtered" type="file">
             <query name="resource" value="networking_pairs_results_file_filtered"/>
         </upload>
