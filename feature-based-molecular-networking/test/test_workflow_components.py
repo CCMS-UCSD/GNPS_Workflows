@@ -36,7 +36,4 @@ def test_additional_edges():
     listy = G.get_edge_data('7347','9043')
     mass_difference = float(listy[0]["mass_difference"])
     mass_difference = round(mass_difference, 4)
-    if  3.0051 == mass_difference: 
-        return(0)
-    else:
-        return(1)
+    assert(mass_difference == 3.0051)
