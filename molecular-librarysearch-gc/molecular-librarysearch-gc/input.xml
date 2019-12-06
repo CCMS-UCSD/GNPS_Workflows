@@ -437,11 +437,13 @@
 
     <block label ="Advanced Kovats Index Calculation Options">
         <row>
-            <cell colspan="3">
-                <input type="select" parameter="runKovats"/>
-                <label>
+        <cell>
+        <label>
                     <content parameter="runKovats"/>
                 </label>
+        </cell>
+            <cell colspan="3">
+                <input type="select" parameter="runKovats"/>
             </cell>
         </row>
         <row>
