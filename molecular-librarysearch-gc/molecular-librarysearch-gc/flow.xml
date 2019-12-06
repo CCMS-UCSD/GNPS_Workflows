@@ -110,13 +110,11 @@
 
 
     <!-- Kovats Calculation -->
-    <object name="Kovats_Result_Nonfiltered"/>
+    <object name="DB_result_kovats"/>
     <action name="Kovats_Calculation">
         <input port="DB_result" object="DB_result"/>
-        <input port="DB_result_filtered" object="DB_result_filtered"/>
         <input port="Carbon_Marker_File" object="Carbon_Marker_File"/>
-        <input port="params" object="workflowParameters"/>
-        <output port="Kovats_Result_Nonfiltered" object="Kovats_Result_Nonfiltered"/>
+        <output port="DB_result_kovats" object="DB_result_kovats"/>
     </action>
 
     <!-- Add Balance Score -->
@@ -150,13 +148,12 @@
 
 
     <action name="end">
-        <!-- <input port="Kovats_Result_Nonfiltered_mshub" object="Kovats_Result_Nonfiltered_mshub"/> -->
-        <input port="DB_result_mshub" object="DB_result_mshub"/>
         <input port="result" object="result"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
         <input port="clusterinfo_summary" object="clusterinfo_summary"/>
         <input port="written_description" object="written_description"/>
         <input port="qiime2_output" collection="qiime2_output"/>
+        <input port="DB_result_kovats" object="DB_result_kovats"/>
     </action>
 </flow>

@@ -183,25 +183,21 @@
         <toolPath tool="Kovats_Calculation" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="$base/Kovats_Calculation">
-        <pathVar name="Kovats_Calculation.script" path="Kovats_Calculation.py"/>
-        <!-- <pathVar name="Kovats_Lib" path="nonpolar.csv"/> This is now moved to staticlibs -->
+    <pathSet base="$base">
+        <pathVar name="Kovats_Calculation.script" path="calculate_kovats.py"/>
     </pathSet>
 
     <tool name="Kovats_Calculation">
         <require name="DB_result"       type="file"/>
-        <require name="DB_result_filtered"       type="file"/>
-        <require name="workflowParameters"       type="file"/>
         <require name="Carbon_Marker_File"       type="file"/>
-        <produce name="Kovats_Result_Nonfiltered"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="DB_result_kovats"        type="file" naming="explicit"  extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
                 <arg pathRef="Kovats_Calculation.script"/>
                 <arg valueRef="DB_result"/>
-                <arg valueRef="DB_result_filtered"/>
-                <arg valueRef="workflowParameters"/>
                 <arg valueRef="Carbon_Marker_File"/>
-                <arg valueRef="Kovats_Result_Nonfiltered"/>
+                <arg valueRef="DB_result_kovats"/>
+                <arg option="-run_kovats" valueRef="@runKovats"/>
         </execution>
     </tool>
 
@@ -209,7 +205,7 @@
         <toolPath tool="add_balanced_score" path="python3.5"/>
     </pathSet>
 
-    <pathSet base="$base">
+    <!-- <pathSet base="$base">
         <pathVar name="add_balanced_score.script" path="add_mshub_data.py"/>
     </pathSet>
 
@@ -239,7 +235,7 @@
                 <arg valueRef="Kovats_Result_Nonfiltered_mshub"/>
                 <arg valueRef="Kovats_Result_Filtered_mshub"/>
         </execution>
-    </tool>
+    </tool> -->
 
     <!-- Cluster Info -->
     <pathSet base="anaconda3/bin">
