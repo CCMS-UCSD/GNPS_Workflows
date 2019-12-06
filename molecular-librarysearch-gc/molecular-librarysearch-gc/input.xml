@@ -460,6 +460,18 @@
                     <property name="label">Carbon Marker Files</property>
                 </module>
             </cell>
+
+            <cell>
+                <label>
+                    <content parameter="mshub_balance_scores"/>
+                </label>
+            </cell>
+
+            <cell>
+                <module id="mshub_balance_scores" type="fileSelector">
+                    <property name="label">MSHub Balance Scores</property>
+                </module>
+            </cell>
         </row>
 
     </block>
