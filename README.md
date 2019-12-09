@@ -53,7 +53,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-libraries.ucsd.edu | Exploring GNPS Libraries | Inactive |
 | gnps-structure.ucsd.edu | Structure processing worker | Active |
 | redu.ucsd.edu | Reuse of Public Data/Sample Information | Active |
-| gnps-quickstart.ucsd.edu | GNPS Quickstart Server | Active | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
+| gnps-quickstart.ucsd.edu | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
 | gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
 | masst.ucsd.edu | GNPS MASST Query Server | Active |
 
