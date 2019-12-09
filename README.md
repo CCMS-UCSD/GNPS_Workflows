@@ -56,7 +56,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-structure.ucsd.edu | Structure processing worker | Active |
 | redu.ucsd.edu | Reuse of Public Data/Sample Information | Active |
 | gnps-quickstart.ucsd.edu | GNPS Quickstart Server | Active |
-| gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | Active |
+| gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production%20integration/badge.svg) |
 | masst.ucsd.edu | GNPS MASST Query Server | Active |
 
 ## Testing
