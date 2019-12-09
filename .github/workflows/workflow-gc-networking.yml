@@ -1,4 +1,4 @@
-name: workflow-misc
+name: workflow-gc-networking
 
 on: [push]
 
