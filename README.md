@@ -24,7 +24,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 
 
 
-## Workflow Links
+## GNPS Workflows
 
 | Workflow  | GNPS Link  | Beta Link  | Unit Test | Workflow GNPS Test | Workflow Beta Test |
 |---|---|---|---|---|---|
