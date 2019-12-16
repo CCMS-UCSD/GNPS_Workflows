@@ -48,8 +48,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | Link  | Description  | Status |
 |---|---|---|
 | gnps-external.ucsd.edu | Linking out structures to external services (e.g. NPAtlas) | Active |
-| gnps-qiime.ucsd.edu | Qiime2 processing worker | Inactive |
-| gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | Active |
+| gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | ![](https://github.com/mwang87/ClassyfireProxy/workflows/production-integration/badge.svg) |
 | gnps-libraries.ucsd.edu | Exploring GNPS Libraries | Inactive |
 | gnps-structure.ucsd.edu | Structure processing worker | ![](https://github.com/mwang87/ChemicalStructureWebService/workflows/production-integration/badge.svg) |
 | redu.ucsd.edu | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
