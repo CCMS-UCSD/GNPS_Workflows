@@ -55,6 +55,8 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-quickstart.ucsd.edu | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
 | gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
 | masst.ucsd.edu | GNPS MASST Query Server | Active |
+| metabolomics-usi.ucsd.edu | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
+
 
 ## Testing
 
