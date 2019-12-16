@@ -22,9 +22,13 @@ Your are kindly invited to open "issues" on our GitHub repositories, and propose
 Discussions and suggestions can also take place on the GNPS forum at [https://groups.google.com/forum/#!forum/molecular_networking_bug_reports](https://groups.google.com/forum/#!forum/molecular_networking_bug_reports).
 
 
+## GNPS Core Status
 
+| Feature  | GNPS Server Status | Beta Server Status |
+|---|---|---|
+| --- | --- | --- |
 
-## GNPS Workflows
+## GNPS Workflows Links/Status
 
 | Workflow  | GNPS Link  | Beta Link  | Unit Test | Workflow GNPS Test | Workflow Beta Test |
 |---|---|---|---|---|---|
