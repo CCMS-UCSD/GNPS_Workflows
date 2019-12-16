@@ -51,7 +51,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-qiime.ucsd.edu | Qiime2 processing worker | Inactive |
 | gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | Active |
 | gnps-libraries.ucsd.edu | Exploring GNPS Libraries | Inactive |
-| gnps-structure.ucsd.edu | Structure processing worker | Active |
+| gnps-structure.ucsd.edu | Structure processing worker | ![](https://github.com/mwang87/ChemicalStructureWebService/workflows/production-integration/badge.svg) |
 | redu.ucsd.edu | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
 | gnps-quickstart.ucsd.edu | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
 | gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
