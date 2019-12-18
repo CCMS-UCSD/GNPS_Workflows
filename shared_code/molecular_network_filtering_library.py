@@ -138,7 +138,8 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("sum(precursor intensity)", "float"), \
     ("RTMean", "float"), \
     ("AllGroups", "string"), ("DefaultGroups", "string"), \
-    ("RTConsensus", "float"), ("UniqueFileSources", "string")]
+    ("RTConsensus", "float"), ("UniqueFileSources", "string"), \
+    ("Num Signals in Spectra", "int")]
 
     optional_listed_columns = [("Correlated Features Group ID", "string"), \
     ("Annotated Adduct Features ID", "string"), \
@@ -147,7 +148,8 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("MS2 Verification Comment", "string"), \
     ("ProteoSAFeClusterLink", "string"), \
     ("GNPSLinkout_Cluster", "string"), \
-    ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
+    ("GNPSLinkout_Network", "string"), ("componentindex", "string"), \
+    ("Num Signals in Spectra", "int")]
 
     print("+++++++++++++++", nx.__version__)
 
