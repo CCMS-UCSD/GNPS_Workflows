@@ -3,7 +3,7 @@ name: web-gnps-api
 on: 
   push:
   schedule:
-   - cron:  '*/5 * * * *'
+   - cron:  '*/60 * * * *'
 
 jobs:
   build:
