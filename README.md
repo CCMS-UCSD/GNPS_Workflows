@@ -60,11 +60,11 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 | gnps-external.ucsd.edu | Linking out structures to external services (e.g. NPAtlas) | ![](https://github.com/mwang87/GNPS_ExternalStructureProxy/workflows/production-integration/badge.svg) |
 | gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | ![](https://github.com/mwang87/ClassyfireProxy/workflows/production-integration/badge.svg) |
 | gnps-structure.ucsd.edu | Structure processing worker | ![](https://github.com/mwang87/ChemicalStructureWebService/workflows/production-integration/badge.svg) |
-| redu.ucsd.edu | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
-| gnps-quickstart.ucsd.edu | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
-| gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
-| masst.ucsd.edu | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
-| metabolomics-usi.ucsd.edu | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
+| [redu.ucsd.edu](https://redu.ucsd.edu/) | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
+| [gnps-quickstart.ucsd.edu](https://gnps-quickstart.ucsd.edu/) | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
+| [gnps-cytoscape.ucsd.edu](https://gnps-cytoscape.ucsd.edu/) | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
+| [masst.ucsd.edu](https://masst.ucsd.edu/) | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
+| [metabolomics-usi.ucsd.edu](https://metabolomics-usi.ucsd.edu/) | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
 
 
 ## Testing
