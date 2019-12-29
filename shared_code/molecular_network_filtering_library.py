@@ -151,7 +151,8 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("MS2 Verification Comment", "string"), \
     ("ProteoSAFeClusterLink", "string"), \
     ("GNPSLinkout_Cluster", "string"), \
-    ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
+    ("GNPSLinkout_Network", "string"), ("componentindex", "string"), \
+    ("Num Signals in Spectra", "int")]
 
     print("+++++++++++++++", nx.__version__)
 

@@ -187,7 +187,10 @@ def process(input_param_xml, input_consensus_feature_file, metadata_files, input
         #
         # except:
         #     continue
-
+        
+        number_spectra_peaks = len(spectrum_object.peaks)
+        cluster_obj["Num Signals in Spectra"] = number_spectra_peaks
+        
         all_files = [os.path.basename(filename) for filename in input_filename_headers if float(quantification_object[filename]) > 0]
         abundance_per_file = [(os.path.basename(filename), float(quantification_object[filename])) for filename in input_filename_headers]
         all_abundances = [float(quantification_object[filename]) for filename in input_filename_headers]
