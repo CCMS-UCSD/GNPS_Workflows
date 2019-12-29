@@ -22,7 +22,7 @@ Your are kindly invited to open "issues" on our GitHub repositories, and propose
 Discussions and suggestions can also take place on the GNPS forum at [https://groups.google.com/forum/#!forum/molecular_networking_bug_reports](https://groups.google.com/forum/#!forum/molecular_networking_bug_reports).
 
 
-## GNPS Core Status
+## GNPS Core Webserver Status
 
 | Feature  | GNPS Server Status | Beta Server Status |
 |---|---|---|
