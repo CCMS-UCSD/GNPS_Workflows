@@ -100,7 +100,7 @@ def test_gnps_library(server_url):
     assert(len(ratings_list) > 1)
 
     url = "https://{}/ProteoSAFe/ContinuousIDRatingSummaryServlet?dataset_id=MSV000078547&summary_type=per_dataset".format(server_url)
-    data =  .get(url)
+    data =  requests.get(url)
     ratings_list = json.loads(data.text)["ratings"]
     assert(len(ratings_list) > 1)
 
