@@ -83,16 +83,16 @@ def test_gnps_library(server_url):
 
     url = "https://{}/ProteoSAFe/gnpslibrary.jsp?library=GNPS-LIBRARY&test=true".format(server_url)
     r = requests.get(url)
-    assert(len(r.text) > 10000)
+    assert(len(r.text) > 20000)
 
     url = "https://{}/ProteoSAFe/SpectrumCommentServlet?SpectrumID=CCMSLIB00000001547".format(server_url)
-    utils.test_load_time(url, 10000)
+    utils.test_load_time(url, 20000)
     
     url = "https://{}/ProteoSAFe/static/gnps-splash.jsp?test=true".format(server_url)
-    utils.test_load_time(url, 10000)
+    utils.test_load_time(url, 20000)
 
     url = "https://{}/ProteoSAFe/gnpslibrary.jsp?library=GNPS-LIBRARY&test=true#%7B%22Library_Class_input%22%3A%221%7C%7C2%7C%7C3%7C%7CEXACT%22%7D".format(server_url)
-    utils.test_load_time(url, 10000)
+    utils.test_load_time(url, 20000)
 
     url = "https://{}/ProteoSAFe/ContinuousIDRatingSummaryServlet?spectrum_id=CCMSLIB00000006885&summary_type=per_spectrum".format(server_url)
     data = requests.get(url)
@@ -100,7 +100,7 @@ def test_gnps_library(server_url):
     assert(len(ratings_list) > 1)
 
     url = "https://{}/ProteoSAFe/ContinuousIDRatingSummaryServlet?dataset_id=MSV000078547&summary_type=per_dataset".format(server_url)
-    data = requests.get(url)
+    data =  .get(url)
     ratings_list = json.loads(data.text)["ratings"]
     assert(len(ratings_list) > 1)
 
