@@ -16,7 +16,7 @@ def determine_delta_annotations(mass_delta, node_mz, list_of_annotations, ppm_ac
     for annotation in list_of_annotations:
         mass_of_annotation = annotation["mass"]
         try:
-            ppm = (abs(mass_delta - mass_of_annotation)/node_mz) * 1000000
+            ppm = (abs(abs(mass_delta) - mass_of_annotation)/node_mz) * 1000000
         except:
             ppm = 10000
         if ppm < ppm_accuracy:
