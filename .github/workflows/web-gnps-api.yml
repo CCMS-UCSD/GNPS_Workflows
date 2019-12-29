@@ -29,4 +29,4 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        cd gnps_webserver_tests/api && nose2 -v
+        cd test_gnps_webserver/api && nose2 -v
