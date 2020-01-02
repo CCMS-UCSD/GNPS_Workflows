@@ -24,9 +24,9 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 
 ## GNPS Core Webserver Status
 
-| Feature  | GNPS Server Status | Beta Server Status |
-|---|---|---|
-| GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) | --- |
+| Feature  | GNPS and Beta Server Status |
+|---|---|
+| GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
 
 
 
