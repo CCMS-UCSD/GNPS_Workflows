@@ -27,6 +27,7 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | Feature  | GNPS and Beta Server Status |
 |---|---|
 | GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
+| GNPS UI Selenium Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-selenium/badge.svg) |
 
 
 
