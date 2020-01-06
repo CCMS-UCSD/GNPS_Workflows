@@ -30,4 +30,4 @@ jobs:
       run: |
         pip install nose2
         pip install selenium
-        cd test_gnps_webserver/api && nose2 -v
+        cd test_gnps_webserver/selenium/result_views && nose2 -v
