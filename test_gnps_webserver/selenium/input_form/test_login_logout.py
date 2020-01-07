@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,7 +12,8 @@ class Proteomics2LoginLogout(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(30)
-        self.base_url = "https://proteomics3.ucsd.edu/"
+        self.base_url = os.environ.get("SERVER_URL", "https://gnps.ucsd.edu/")
+        print("Testing", self.base_url)
         self.verificationErrors = []
         self.accept_next_alert = True
     
