@@ -29,5 +29,5 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        pip install selenium
+        pip install  -r test_gnps_webserver/selenium/requirements.txt
         cd test_gnps_webserver/selenium/result_views && nose2 -v
