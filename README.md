@@ -22,9 +22,16 @@ Your are kindly invited to open "issues" on our GitHub repositories, and propose
 Discussions and suggestions can also take place on the GNPS forum at [https://groups.google.com/forum/#!forum/molecular_networking_bug_reports](https://groups.google.com/forum/#!forum/molecular_networking_bug_reports).
 
 
+## GNPS Core Webserver Status
+
+| Feature  | GNPS and Beta Server Status |
+|---|---|
+| GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
+| GNPS UI Selenium Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-selenium/badge.svg) |
 
 
-## GNPS Workflows
+
+## GNPS Workflows Links/Status
 
 | Workflow  | GNPS Link  | Beta Link  | Unit Test | Workflow GNPS Test | Workflow Beta Test |
 |---|---|---|---|---|---|
@@ -43,6 +50,10 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D) |---|
 | Qemistree | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D) |---|
 
+## GNPS Documentation
+
+Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg)
+
 ## GNPS Microservices Links/Status
 
 | Link  | Description  | Status |
@@ -50,11 +61,11 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 | gnps-external.ucsd.edu | Linking out structures to external services (e.g. NPAtlas) | ![](https://github.com/mwang87/GNPS_ExternalStructureProxy/workflows/production-integration/badge.svg) |
 | gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | ![](https://github.com/mwang87/ClassyfireProxy/workflows/production-integration/badge.svg) |
 | gnps-structure.ucsd.edu | Structure processing worker | ![](https://github.com/mwang87/ChemicalStructureWebService/workflows/production-integration/badge.svg) |
-| redu.ucsd.edu | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
-| gnps-quickstart.ucsd.edu | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
-| gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
-| masst.ucsd.edu | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
-| metabolomics-usi.ucsd.edu | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
+| [redu.ucsd.edu](https://redu.ucsd.edu/) | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
+| [gnps-quickstart.ucsd.edu](https://gnps-quickstart.ucsd.edu/) | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
+| [gnps-cytoscape.ucsd.edu](https://gnps-cytoscape.ucsd.edu/) | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
+| [masst.ucsd.edu](https://masst.ucsd.edu/) | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
+| [metabolomics-usi.ucsd.edu](https://metabolomics-usi.ucsd.edu/) | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
 
 
 ## Testing
