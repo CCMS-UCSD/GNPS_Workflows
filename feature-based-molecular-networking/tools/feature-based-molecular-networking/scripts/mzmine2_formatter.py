@@ -38,6 +38,24 @@ def convert_to_feature_csv(input_filename, output_filename):
     input_quantification.rename(columns=rename_mapping, inplace=True)
     input_quantification.to_csv(output_filename,index = False)
 
+###function verifies that the quant table follows proper mzmine format
+def validate_mzmine_output_file(quant_table_filename):
+    required_columns = ["row ID", "row retention time", "row m/z"]
+    
+    file_open = open(quant_table_filename, 'r')
+    first_line = next(file_open)
+
+    #try splitting it by comma
+    all_columns_list = first_line.split(",")
+    
+    
+    #make sure the manatory headings are in the file
+    if not (set(required_columns).issubset(set(all_columns_list))):
+        return(1)
+
+    else:
+        return(0)
+
 if __name__=="__main__":
     # there should be obly one input file
-    convert_to_feature_csv(sys.argv[1], sys.argv[2])
+    convert_to_feature_csv(sys.argv[1], sys.argv[2]) 
