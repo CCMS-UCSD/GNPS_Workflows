@@ -28,6 +28,7 @@ jobs:
         pip install -r requirements.txt
     - name: Test with nose2
       run: |
+        echo $CCMS_TESTUSER_PASSWORD
         pip install nose2
         pip install selenium
         cd test_gnps_webserver/selenium/result_views && export SERVER_URL="https://gnps.ucsd.edu" && nose2 -v && cd ../../..
