@@ -29,7 +29,7 @@ class Proteomics2LoginLogout(unittest.TestCase):
         driver.find_element_by_name("user").clear()
         driver.find_element_by_name("user").send_keys("test")
         driver.find_element_by_name("password").clear()
-        driver.find_element_by_name("password").send_keys(os.eviron.get("CCMS_TESTUSER_PASSWORD"))
+        driver.find_element_by_name("password").send_keys(os.environ.get("CCMS_TESTUSER_PASSWORD"))
         driver.find_element_by_name("login").click()
         for i in range(60):
             try:
