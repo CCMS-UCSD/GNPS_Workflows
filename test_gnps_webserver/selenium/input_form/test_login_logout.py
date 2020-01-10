@@ -26,6 +26,7 @@ class Proteomics2LoginLogout(unittest.TestCase):
             except: pass
             time.sleep(1)
         else: self.fail("time out")
+        print(os.environ)
         driver.find_element_by_name("user").clear()
         driver.find_element_by_name("user").send_keys("test")
         driver.find_element_by_name("password").clear()
