@@ -1083,7 +1083,7 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[ProteosafeFilePath]:scan:[ScanNumber]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[Original_Path]:scan:[ScanNumber]"/>
                 <parameter name="LABEL" value="Spectrum USI"/>
             </column>
         </row>
