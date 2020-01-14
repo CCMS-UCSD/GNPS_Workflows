@@ -1,4 +1,4 @@
-name: workflow-gc-mshub
+name: workflow-unit-gc-mshub
 
 on: [push]
 

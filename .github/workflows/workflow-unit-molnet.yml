@@ -1,4 +1,4 @@
-name: workflow-molnet
+name: workflow-unit-molnet
 
 on: [push]
 

@@ -1,4 +1,4 @@
-name: workflow-fbmn
+name: workflow-unit-fbmn
 
 on: [push]
 
