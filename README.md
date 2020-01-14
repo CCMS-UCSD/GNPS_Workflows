@@ -71,8 +71,15 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 
 ## Testing
 
+### Unit Testing
+
 We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
 
 ```nose2 -v```
+
+
+### Integration Testing
+
+In order to add specific examples of workflow on GNPS to make sure they are tested periodically, you can add to our test files. Specifically for each workflow we have a list of test tasks that we clone and run every 12 hours. These can be found in the test-integration-workflow folder for each workflow. 
 
 
