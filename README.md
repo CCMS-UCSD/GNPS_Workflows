@@ -28,8 +28,8 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 |---|---|
 | GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
 | GNPS UI Selenium Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-selenium/badge.svg) |
-| GNPS Workflows Fast Test | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/proteomics3-workflow-fast/badge.svg) |
-| Beta Workflows Fast Test | ![](https://github.com/CCMS-UCSD/CCMSDeployments/workflows/web-integration-fast/badge.svg) |
+| GNPS Workflows Fast Test | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-fast/badge.svg) |
+| Beta Workflows Fast Test | ![](https://github.com/CCMS-UCSD/CCMSDeployments/workflows/proteomics3-workflow-fast/badge.svg) |
 
 
 ## GNPS Workflows Links/Status
