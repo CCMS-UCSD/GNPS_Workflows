@@ -1,4 +1,4 @@
-name: workflow-integration-fast
+name: workflow-integration-gnps-fast
 
 on:
   push:
