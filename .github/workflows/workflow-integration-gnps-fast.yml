@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - testing-integration
   schedule:
    - cron:  '*/60 * * * *'
 
