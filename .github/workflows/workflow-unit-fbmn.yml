@@ -1,4 +1,4 @@
-name: workflow-gc-networking
+name: workflow-unit-fbmn
 
 on: [push]
 
@@ -26,4 +26,4 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        cd feature-based-molecular-networking/test && nose2 -v && cd ../../
+        cd feature-based-molecular-networking/test && nose2 -v
