@@ -1,12 +1,8 @@
 name: workflow-integration-gnps-masst
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '8 0,12 * * *'
 
 jobs:
   workflow-test:

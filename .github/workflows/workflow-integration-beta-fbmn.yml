@@ -1,12 +1,8 @@
 name: workflow-integration-beta-fbmn
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '0 0,12 * * *'
 
 jobs:
   workflow-test:

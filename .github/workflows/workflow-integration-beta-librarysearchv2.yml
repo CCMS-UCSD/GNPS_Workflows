@@ -1,12 +1,8 @@
 name: workflow-integration-beta-librarysearchv2
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '1 0,12 * * *'
 
 jobs:
   workflow-test:

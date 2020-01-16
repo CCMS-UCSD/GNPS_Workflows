@@ -1,12 +1,8 @@
 name: workflow-integration-gnps-networkingv2
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '10 0,12 * * *'
 
 jobs:
   workflow-test:

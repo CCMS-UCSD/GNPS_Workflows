@@ -1,12 +1,8 @@
 name: workflow-integration-gnps-fast
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/60 * * * *'
+   - cron:  '5 * * * *'
 
 jobs:
   workflow-test:

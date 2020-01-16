@@ -1,12 +1,8 @@
 name: workflow-integration-beta-misc
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '3 0,12 * * *'
 
 jobs:
   workflow-test:

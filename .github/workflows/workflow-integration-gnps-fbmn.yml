@@ -1,12 +1,8 @@
 name: workflow-integration-gnps-fbmn
 
 on:
-  push:
-    branches:
-      - master
-      - testing-integration
   schedule:
-   - cron:  '*/1440 * * * *'
+   - cron:  '6 0,12 * * *'
 
 jobs:
   workflow-test:
