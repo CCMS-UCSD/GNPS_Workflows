@@ -2,8 +2,6 @@
 
 This public repository contains the GNPS Workflows running on GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu).
 
-![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/Python%20package/badge.svg)
-
 ## Contribute to GNPS
 
 The GNPS community is always welcoming suggestions and contributions. Be part of the community and contribute !
@@ -24,41 +22,67 @@ Your are kindly invited to open "issues" on our GitHub repositories, and propose
 Discussions and suggestions can also take place on the GNPS forum at [https://groups.google.com/forum/#!forum/molecular_networking_bug_reports](https://groups.google.com/forum/#!forum/molecular_networking_bug_reports).
 
 
+## GNPS Core Webserver Status
+
+| Feature  | GNPS and Beta Server Status |
+|---|---|
+| GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
+| GNPS UI Selenium Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-selenium/badge.svg) |
+| GNPS Workflows Fast Test | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-fast/badge.svg) |
+| Beta Workflows Fast Test | ![](https://github.com/CCMS-UCSD/CCMSDeployments/workflows/proteomics3-workflow-test/badge.svg) |
 
 
-## Workflow Links
+## GNPS Workflows Links/Status
 
-| Workflow  | GNPS Link  | Beta Link  |
-|---|---|---|
-| Molecular Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D) |
-| Large Scale Library Search  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D) |
-| MASST  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SEARCH_SINGLE_SPECTRUM%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SEARCH_SINGLE_SPECTRUM%22,%22library_on_server%22:%22d.speclibs;%22%7D) |
-| Feature-Based Molecular Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22FEATURE-BASED-MOLECULAR-NETWORKING%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22FEATURE-BASED-MOLECULAR-NETWORKING%22,%22library_on_server%22:%22d.speclibs;%22%7D) |
-| MS2LDA Motif DB  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MS2LDA_MOTIFDB%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MS2LDA_MOTIFDB%22%7D) |
-| MolNetEnhancer/MetaboDistTree  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D) |
-| MSMS-Chooser  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSMS-CHOOSER%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSMS-CHOOSER%22%7D) |
-| OpenMS Feature Detector for FBMN - Future  | [Workflow]()   | [Workflow]() |
-| MSHub-GC Deconvolution  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B"workflow":"MSHUB-GC"%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B"workflow":"MSHUB-GC"%7D) |
-| Library Search/Molecular Networking GC  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-GC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-GC%22%7D) |
-| Merge Polarity Networks  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D) |
-| Microbiome-Metabolomics Association - mmvec  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22RHAPSODY_MMVEC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22RHAPSODY_MMVEC%22%7D) |
-| Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D) |
-| Qemistree | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D) |
+| Workflow  | GNPS Link  | Beta Link  | Unit Test | Workflow GNPS Test | Workflow Beta Test |
+|---|---|---|---|---|---|
+| Molecular Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D)  | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-unit-networking/badge.svg)| ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-networkingv2/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-networkingv2/badge.svg)
+| Large Scale Library Search  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-V2%22,%22library_on_server%22:%22d.speclibs;%22%7D) |---| ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-librarysearchv2/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-librarysearchv2/badge.svg)
+| MASST  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SEARCH_SINGLE_SPECTRUM%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SEARCH_SINGLE_SPECTRUM%22,%22library_on_server%22:%22d.speclibs;%22%7D) |---|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-masst/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-masst/badge.svg)
+| Feature-Based Molecular Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22FEATURE-BASED-MOLECULAR-NETWORKING%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22FEATURE-BASED-MOLECULAR-NETWORKING%22,%22library_on_server%22:%22d.speclibs;%22%7D) |![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-unit-fbmn/badge.svg)| ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-fbmn/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-fbmn/badge.svg)
+| MS2LDA Motif DB  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MS2LDA_MOTIFDB%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MS2LDA_MOTIFDB%22%7D) |---|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| MolNetEnhancer/MetaboDistTree  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLNETENHANCER%22%7D) |![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-unit-molnet/badge.svg)|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| MSMS-Chooser  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSMS-CHOOSER%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MSMS-CHOOSER%22%7D) |---|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| OpenMS Feature Detector for FBMN - Future Feature  | [Workflow]()   | [Workflow]() |---|
+| MSHub-GC Deconvolution  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B"workflow":"MSHUB-GC"%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B"workflow":"MSHUB-GC"%7D) |![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-unit-gc-mshub/badge.svg)|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| Library Search/Molecular Networking GC  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-GC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH-GC%22%7D) |![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-unit-gc-networking/badge.svg)|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| Merge Polarity Networks  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D) |---|
+| Microbiome-Metabolomics Association - mmvec  | [Workflow - Inactive](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MMVEC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MMVEC%22%7D) |---|
+| Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D) |---|![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-beta-misc/badge.svg)
+| Qemistree | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D) |---|
+| Legacy Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS%22,%22library_on_server%22:%22d.speclibs;%22%7D)  | --- | --- | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-legacynetworking/badge.svg) | 
+| Legacy Library Search  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | --- |---| ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-librarysearch/badge.svg) | 
 
-## GNPS Secondary Services Links
+
+## GNPS Documentation
+
+Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg)
+
+## GNPS Microservices Links/Status
 
 | Link  | Description  | Status |
 |---|---|---|
-| gnps-external.ucsd.edu | Linking out structures to external services (e.g. NPAtlas) | Active |
-| gnps-qiime.ucsd.edu | Qiime2 processing worker | Inactive |
-| gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | Active |
-| gnps-libraries.ucsd.edu | Exploring GNPS Libraries | Inactive |
-| gnps-structure.ucsd.edu | Structure processing worker | Active |
-| redu.ucsd.edu | Reuse of Public Data/Sample Information | Active |
-| gnps-quickstart.ucsd.edu | GNPS Quickstart Server | Active |
-| gnps-cytoscape.ucsd.edu | GNPS Cytoscape Export/Styling Server | Active |
-| masst.ucsd.edu | GNPS MASST Query Server | Active |
+| gnps-external.ucsd.edu | Linking out structures to external services (e.g. NPAtlas) | ![](https://github.com/mwang87/GNPS_ExternalStructureProxy/workflows/production-integration/badge.svg) |
+| gnps-classyfire.ucsd.edu | Classyfire caching proxy for GNPS | ![](https://github.com/mwang87/ClassyfireProxy/workflows/production-integration/badge.svg) |
+| gnps-structure.ucsd.edu | Structure processing worker | ![](https://github.com/mwang87/ChemicalStructureWebService/workflows/production-integration/badge.svg) |
+| [redu.ucsd.edu](https://redu.ucsd.edu/) | Reuse of Public Data/Sample Information | ![](https://github.com/mwang87/ReDU-MS2-GNPS/workflows/production-integration/badge.svg) |
+| [gnps-quickstart.ucsd.edu](https://gnps-quickstart.ucsd.edu/) | GNPS Quickstart Server | ![](https://github.com/mwang87/GNPS_quickstart/workflows/production-integration/badge.svg) |
+| [gnps-cytoscape.ucsd.edu](https://gnps-cytoscape.ucsd.edu/) | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
+| [masst.ucsd.edu](https://masst.ucsd.edu/) | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
+| [metabolomics-usi.ucsd.edu](https://metabolomics-usi.ucsd.edu/) | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
 
 
+## Testing
+
+### Unit Testing
+
+We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
+
+```nose2 -v```
+
+
+### Integration Testing
+
+In order to add specific examples of workflow on GNPS to make sure they are tested periodically, you can add to our test files. Specifically for each workflow we have a list of test tasks that we clone and run every 12 hours. These can be found in the test-integration-workflow folder for each workflow. 
 
 

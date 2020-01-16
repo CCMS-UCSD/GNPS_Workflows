@@ -97,21 +97,30 @@ def add_additional_edges(G, path_to_supplemental_edges):
     edges_to_add = []
 
     for additional_edge_row in edge_list:
-        node1 = additional_edge_row["ID1"]
-        node2 = additional_edge_row["ID2"]
+        try:
+            node1 = additional_edge_row["ID1"]
+            node2 = additional_edge_row["ID2"]
+            
+            node1_mz = G.node[node1]["precursor mass"]
+            node2_mz = G.node[node2]["precursor mass"]
 
-        edgetype = additional_edge_row["EdgeType"]
-        score = additional_edge_row["Score"]
-        annotation = additional_edge_row["Annotation"]
+            mass_difference = float(node1_mz) - float(node2_mz)
 
-        edge_object = {}
-        edge_object["node1"] = node1
-        edge_object["node2"] = node2
-        edge_object["EdgeType"] = edgetype
-        edge_object["EdgeAnnotation"] = annotation.rstrip()
-        edge_object["EdgeScore"] = float(score)
+            edgetype = additional_edge_row["EdgeType"]
+            score = additional_edge_row["Score"]
+            annotation = additional_edge_row["Annotation"]
 
-        edges_to_add.append((node1, node2, edge_object))
+            edge_object = {}
+            edge_object["node1"] = node1
+            edge_object["node2"] = node2
+            edge_object["EdgeType"] = edgetype
+            edge_object["EdgeAnnotation"] = annotation.rstrip()
+            edge_object["EdgeScore"] = float(score)
+            edge_object["mass_difference"] = mass_difference
+            edges_to_add.append((node1, node2, edge_object))
+        except:
+            print("Error Adding Edge")
+            continue
 
     G.add_edges_from(edges_to_add)
 
@@ -144,14 +153,14 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("GNPSLinkout_Cluster", "string"), \
     ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
 
-
+    print("+++++++++++++++", nx.__version__)
 
     group_columns = ["G1", "G2", "G3", "G4", "G5", "G6"]
 
     for i in range(row_count):
         cluster_index = table_data["cluster index"][i]
 
-        if cluster_index in G.node:
+        if cluster_index in G:
             for default_column in default_listed_columns:
                 key_name = default_column[0]
                 type_name = default_column[1]

@@ -6,11 +6,8 @@ import os
 import ming_fileio_library
 from collections import defaultdict
 
-def main():
-    input_library_identifications = sys.argv[1]
-    output_library_identifications = sys.argv[2]
-
-    annotations_list = ming_fileio_library.parse_table_with_headers_object_list(input_library_identifications)
+def filter_identifications(input_filename, output_filename):
+    annotations_list = ming_fileio_library.parse_table_with_headers_object_list(input_filename)
 
     already_identified_compounds = set()
     already_identified_spectra = set()
@@ -33,8 +30,13 @@ def main():
         already_identified_compounds.add(compound_name)
         already_identified_spectra.add(spectrum_identifier)
 
-    ming_fileio_library.write_list_dict_table_data(output_annotation_list, output_library_identifications)
+    ming_fileio_library.write_list_dict_table_data(output_annotation_list, output_filename)
 
+def main():
+    input_library_identifications = sys.argv[1]
+    output_library_identifications = sys.argv[2]
+
+    filter_identifications(input_library_identifications, output_library_identifications)
 
 
 if __name__ == "__main__":

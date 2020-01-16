@@ -177,7 +177,7 @@ def main():
         #charge = 1
         #print(ionmode)
         if ionmode == "Positive":
-            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na","M-2H2O+H","2M+H"]
+            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na", "M-2H2O+H", "2M+H", "M+K", "2M+K"]
         else:
             adduct_list = ["M-H", "2M-H","2M-2H+Na"]
 

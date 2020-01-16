@@ -12,6 +12,11 @@ import sys
 def convert_to_feature_csv(input_filename, output_filename):
     input_format = pd.read_csv(input_filename, sep=",", skiprows=2)
 
+    required_names = ["Compound", "Retention time (min)", "m/z"]
+    for require_name in required_names:
+        if not require_name in input_format:
+            raise Exception("Missing Column {}".format(require_name))
+
     non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
         "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Adducts", "Formula", \
@@ -42,6 +47,22 @@ def convert_to_feature_csv(input_filename, output_filename):
         output_record2 = {}
         for sample_name in sample_names:
             output_record2[sample_name + " Peak area"] = record[sample_name]
+
+        #Adding in special columns for CCS
+        if "CCS (angstrom^2)" in record:
+            output_record["CCS"] = record["CCS (angstrom^2)"]
+        if "dCCS (angstrom^2)" in record:
+            output_record["dCCS"] = record["dCCS (angstrom^2)"]
+
+        #Adding extra columns that are not sample_names
+        for key in record:
+            if key in sample_name:
+                continue
+
+            try:
+                output_record[key] = record[key].encode("ascii", errors="replace")
+            except:
+                continue
 
         output_records.append(output_record)
         output_records2.append(output_record2)
@@ -79,25 +100,52 @@ def convert_to_feature_csv(input_filename, output_filename):
 def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
     output_filename = open(output_mgf, "w")
     read_name = False
+    
+    scan = -1
+    precursor_mz = -1
+    charge = -1
+    peaks = []
+
+    # This is a stop gap solution to make sure we don't have repetitions in the MGF file. 
+    # We only take one MS2 arbitrarily selected and output into the MGF file
+    observed_compound_names = set()
+
     for line in open(input_msp):
-        if line.startswith("Name:"):
-            compound_name = line.rstrip().replace("Name: ", "").split("(")[1][:-1]
+        if line.startswith("Comment:"):
+            compound_name = line.rstrip().replace("Comment: ", "")
+
+            if compound_name in observed_compound_names:
+                print("skipping repeated feature")
+                continue
+
+            observed_compound_names.add(compound_name)
+
             read_name = True
+            scan = (compound_to_scan_mapping[compound_name])
+        elif line.startswith("PrecursorMZ:"):
+            precursor_mz = (line.rstrip().replace("PrecursorMZ: ", ""))
+        elif line.startswith("Charge:"):
+            charge = (line.rstrip().replace("Charge: ", ""))
+        elif len(line.rstrip()) == 0 and read_name == True:
+            read_name = False
+
             output_filename.write("BEGIN IONS\n")
             output_filename.write("SCANS=%s\n" % (compound_to_scan_mapping[compound_name]))
             output_filename.write("MSLEVEL=2\n")
-        elif line.startswith("PrecursorMZ:"):
-            output_filename.write("PEPMASS=%s\n" % (line.rstrip().replace("PrecursorMZ: ", "")))
-        elif line.startswith("Charge:"):
             output_filename.write("CHARGE=%s\n" % (line.rstrip().replace("Charge: ", "")))
-        elif len(line.rstrip()) == 0 and read_name == True:
-            read_name = False
+            for peak in peaks:
+                output_filename.write("%f %f\n" % (peak[0], peak[1]))
             output_filename.write("END IONS\n\n")
+
+            scan = -1
+            precursor_mz = -1
+            charge = -1
+            peaks = []
         else:
             try:
                 mass = float(line.split(" ")[0])
                 intensity = float(line.split(" ")[1])
-                output_filename.write("%f %f\n" % (mass, intensity))
+                peaks.append([mass, intensity])
             except:
                 continue
 
