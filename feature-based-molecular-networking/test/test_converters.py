@@ -53,7 +53,7 @@ class TestLoaders(unittest.TestCase):
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", "progenesis_output_IMS.mgf", compound_to_scan_mapping)
 
-        #self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", shallow=False))
+        #self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.mgf", shallow=False))
 
     #Making sure this raises exception
     def test_progenesis_failure(self):
