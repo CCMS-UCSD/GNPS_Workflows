@@ -19,7 +19,7 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
-        "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Adducts", "Formula", \
+        "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Formula", \
         "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area",
         "Highest Mean", "Lowest Mean","CCS (angstrom^2)","Anova (p)","q Value","Max Fold Change",
         "Max Ab > 100","High Samples","Anova p-value <= 0.05","Max fold change >= 1000","dCCS (angstrom^2)"]
@@ -73,6 +73,11 @@ def convert_to_feature_csv(input_filename, output_filename):
     output_df = pd.DataFrame(output_records)
     output_df2 = pd.DataFrame(output_records2)
     output_df_prepared = pd.concat([output_df, output_df2], axis=1)
+    
+    # Round value for retention time column
+    output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].astype(float)
+    output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].apply(lambda x: round(x, 3))
+    
     # Retrieved the metadata from the initial table
     newdf = input_format.loc[:, input_format.columns.isin(non_sample_names)]
 
@@ -89,11 +94,31 @@ def convert_to_feature_csv(input_filename, output_filename):
         newdf.rename(columns={'CCS (angstrom^2)':'CCS'}, inplace=True)
     if 'dCCS (angstrom^2)' in newdf.columns:
         newdf.rename(columns={'dCCS (angstrom^2)':'dCCS'}, inplace=True)
+        
+    # Drop useless duplicated columns
+    if 'm/z' in newdf.columns:
+        newdf = newdf.drop(['m/z'], axis=1)
+    if 'Retention time (min)' in newdf.columns:
+        newdf = newdf.drop(['Retention time (min)'], axis=1)
+        
+    #Round values for columns
+    newdf['Neutral mass'] = newdf['Neutral mass'].apply(lambda x: round(x, 4))
+    newdf['Chromatographic peak width (min)'] = newdf['Chromatographic peak width (min)'].apply(lambda x: round(x, 3))
 
     # Create the output table
     newdf_out = pd.concat([output_df_prepared,newdf],axis=1)
-    newdf_out.to_csv(output_filename, sep=",", index=False)
 
+    # Remove duplicated columns
+    if 'Compound' in newdf_out.columns: 
+        newdf_out = newdf_out.drop(newdf_out.columns[0], axis=1)
+    if 'Isotope Distribution' in newdf_out.columns: 
+        newdf_out = newdf_out.drop(newdf_out.columns[0], axis=1)
+     
+    #Drop empty column   
+    newdf_out = newdf_out.dropna(how='all', axis=1)
+        
+    newdf_out.to_csv(output_filename, sep=",", index=False)
+    
     return compound_to_scan_mapping
 
 #Converts MSP to MGF
