@@ -4,3 +4,6 @@
 [submodule "CCMS_ProteoSAFe_pythonAPI"]
 	path = CCMS_ProteoSAFe_pythonAPI
 	url = https://github.com/mwang87/CCMS_ProteoSAFe_pythonAPI.git
+[submodule "merge_networks_polarity/tools/MergePolarity"]
+	path = merge_networks_polarity/tools/MergePolarity
+	url = https://github.com/mwang87/MergePolarity
