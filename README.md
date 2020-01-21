@@ -86,3 +86,14 @@ We have a limited number of unit tests for GNPS workflows. A test folder can be 
 In order to add specific examples of workflow on GNPS to make sure they are tested periodically, you can add to our test files. Specifically for each workflow we have a list of test tasks that we clone and run every 12 hours. These can be found in the test-integration-workflow folder for each workflow. 
 
 
+## Workflow Deployments
+
+In order to deploy workflows, we have included the workflow deployment packages from CCMS. Specifically, we will want to follow the guide [here](https://github.com/CCMS-UCSD/CCMSDeployments). 
+
+Once you have checked out this repository, make sure to have all the submodules checked out as well. Then you will need to follow these [steps](https://github.com/CCMS-UCSD/CCMSDeployments#necessary-steps-to-get-working). 
+
+Then we can get a workflow onto proteomics2. To test it without over-writing the default version, you can use this command:
+
+```make deploy-debug```
+
+as outlined [here](https://github.com/CCMS-UCSD/CCMSDeployments#to-deploy-a-single-test-workflow).
