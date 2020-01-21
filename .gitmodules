@@ -1,6 +1,3 @@
-[submodule "merge_networks_polarity/tools/MergePolarity"]
-	path = merge_networks_polarity/tools/MergePolarity
-	url = https://github.com/mwang87/MergePolarity.git
 [submodule "CCMSDeployments"]
 	path = CCMSDeployments
 	url = https://github.com/CCMS-UCSD/CCMSDeployments.git
