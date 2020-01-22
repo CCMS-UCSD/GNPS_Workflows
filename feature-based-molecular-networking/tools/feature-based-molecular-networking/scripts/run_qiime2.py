@@ -129,6 +129,14 @@ def main():
         --o-visualization {} \
         --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_biplot, output_metadata_filename, local_qzv_biplot_emperor))
 
+    # Running Permanova 
+    import metadata_permanova_prioritizer
+    selected_columns = metadata_permanova_prioritizer.permanova_validation(output_metadata_filename)
+    for column in selected_columns:
+        print(column)
+
+
+
 
     for cmd in all_cmd:
         os.system(cmd)
