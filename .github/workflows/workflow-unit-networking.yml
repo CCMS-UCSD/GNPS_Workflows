@@ -1,4 +1,4 @@
-name: workflow-misc
+name: workflow-unit-networking
 
 on: [push]
 
@@ -26,7 +26,4 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        # cd feature-based-molecular-networking/test && nose2 -v && cd ../../
-        # cd molecular-librarysearch-gc/test && nose2 -v && cd ../..
-        # cd mshub-gc/test && nose2 -v && cd ../..
-        # cd molnetenhancer/test && nose2 -v && cd ../..
+        cd metabolomics-snets-v2/test && nose2 -v && cd ../../

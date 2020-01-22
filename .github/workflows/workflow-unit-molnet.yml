@@ -1,4 +1,4 @@
-name: workflow-networking
+name: workflow-unit-molnet
 
 on: [push]
 
@@ -26,4 +26,4 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        cd metabolomics-snets-v2/test && nose2 -v && cd ../../
+        cd molnetenhancer/test && nose2 -v && cd ../..
