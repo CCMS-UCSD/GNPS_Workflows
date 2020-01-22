@@ -134,7 +134,19 @@ def main():
     selected_columns = metadata_permanova_prioritizer.permanova_validation(output_metadata_filename)
     for column in selected_columns:
         print(column)
+        output_qiime2_permanova_qzv = os.path.join(args.output_folder, "permanova_{}.qzv".format(column))
+        from pathvalidate import sanitize_filename
+        output_qiime2_permanova_qzv = sanitize_filepath(output_qiime2_permanova_qzv)
 
+        cmd = "LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity beta-group-significance \
+        --i-distance-matrix {} \
+        --m-metadata-file {} \
+        --m-metadata-column \"{}\" \
+        --p-pairwise \
+        --o-visualization {}".format(args.conda_activate_bin, args.conda_environment, local_qza_distance, output_metadata_filename, column, output_qiime2_permanova_qzv)
+
+        all_cmd.append(cmd)
 
 
 

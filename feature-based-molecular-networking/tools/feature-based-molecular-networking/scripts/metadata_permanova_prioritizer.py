@@ -16,7 +16,7 @@ def permanova_validation(input_file):
         lowest_num_labels_allowed = number_of_labels * 0.1
         #counting the occurance of each label within a column 
         count_dictionary = Counter(templist)
-                
+
         #iterating over looking to see if any category is under the limit
         for key,value in count_dictionary.items():
             #on the condition a label in ever under-represented
