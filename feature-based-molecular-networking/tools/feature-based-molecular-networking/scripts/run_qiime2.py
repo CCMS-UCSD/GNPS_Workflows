@@ -135,8 +135,8 @@ def main():
     for column in selected_columns:
         print(column)
         output_qiime2_permanova_qzv = os.path.join(args.output_folder, "permanova_{}.qzv".format(column))
-        from pathvalidate import sanitize_filename
-        output_qiime2_permanova_qzv = sanitize_filepath(output_qiime2_permanova_qzv)
+        import pathvalidate
+        output_qiime2_permanova_qzv = pathvalidate.sanitize_filepath(output_qiime2_permanova_qzv)
 
         cmd = "LC_ALL=en_US && export LC_ALL && source {} {} && \
         qiime diversity beta-group-significance \
@@ -151,6 +151,7 @@ def main():
 
 
     for cmd in all_cmd:
+        print(cmd)
         os.system(cmd)
 
 
