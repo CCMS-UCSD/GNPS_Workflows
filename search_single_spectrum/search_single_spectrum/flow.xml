@@ -14,6 +14,13 @@
         <output  port="spectra" object="spectra"/>
     </action>
 
+    <!-- Written Description -->
+    <object name="written_description"/>
+    <action name="write_description">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="written_description"     object="written_description"/>
+    </action>  
+
     <!-- Matching to Datasets -->
     <collection name="all_dataset_matches_parallel_params"/>
     <action name="find_dataset_matches_parallelprep">
@@ -87,6 +94,7 @@
         <input port="all_library_matches_db" object="all_library_matches_db"/>
 		<input port="spectra" object="spectra"/>
         <input port="linkout_file" object="linkout_file"/>
+        <input port="written_description" object="written_description"/>
         <input port="foodomics_tracking_file" object="foodomics_tracking_file"/>
 	</action>
 </flow>
