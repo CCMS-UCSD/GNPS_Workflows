@@ -6,10 +6,11 @@ feature-based-molecular-networking/test/metaboscape_output.csv
 feature-based-molecular-networking/test/msdial_ims_output.csv
 feature-based-molecular-networking/test/msdial_output.csv
 feature-based-molecular-networking/test/mzmine_output.csv
+feature-based-molecular-networking/test/Neg_MSE_Catechin_output.csv
 feature-based-molecular-networking/test/openms_output.csv
-feature-based-molecular-networking/test/progenesis_output.csv
-feature-based-molecular-networking/test/progenesis_output.mgf
-feature-based-molecular-networking/test/progenesis_output_catechin.csv
-feature-based-molecular-networking/test/progenesis_output_catechin.mgf
-feature-based-molecular-networking/test/xcms3_output.csv
-feature-based-molecular-networking/test/xcms3_output_iin.csv
+feature-based-molecular-networking/test/progenesis_IMS_output.csv
+feature-based-molecular-networking/test/progenesis_MSE_output.csv
+feature-based-molecular-networking/test/progenesis_output_IMS.mgf
+feature-based-molecular-networking/test/progenesis_MSE_output.mgf
+feature-based-molecular-networking/test/progenesis_MSE_output_catechin.csv
+feature-based-molecular-networking/test/progenesis_MSE_output_catechin.mgf
