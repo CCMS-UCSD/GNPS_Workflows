@@ -54,4 +54,4 @@ def test_permanova_selection():
     import metadata_permanova_prioritizer
 
     permanova_colums = metadata_permanova_prioritizer.permanova_validation("reference_data/permanova/metadata_table-00000.txt")
-    print(permanova_colums)
+    assert(len(permanova_colums) == 4)
