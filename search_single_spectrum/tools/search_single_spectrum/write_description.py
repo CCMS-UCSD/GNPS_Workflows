@@ -21,7 +21,7 @@ if param_obj["RUN_MSCLUSTER"] == "on":
 output_sentences.append("The precursor ion mass tolerance was set to %s Da and a MS/MS fragment ion tolerance of %s Da." % (param_obj["tolerance.PM_tolerance"][0], param_obj["tolerance.Ion_tolerance"][0]))
 if param_obj["FILTER_LIBRARY"][0] == "1":
     output_sentences.append("The library spectra were filtered in the same manner as the input data.")
-output_sentences.append("All matches kept between network spectra and library spectra were required to have a score above %s and at least %s matched peaks." % (param_obj["SCORE_THRESHOLD"][0], param_obj["MIN_MATCHED_PEAKS"][0]))
+output_sentences.append("All matches kept between input spectra and library spectra were required to have a score above %s and at least %s matched peaks." % (param_obj["SCORE_THRESHOLD"][0], param_obj["MIN_MATCHED_PEAKS"][0]))
 output_sentences.append("<br><br>\n<strong>Citation</strong><br><br>\n")
 output_sentences.append('Wang, Mingxun, et al. "MASST: A Web-based Basic Mass Spectrometry Search Tool for Molecules to Search Public Data." Preprint at https://doi.org/10.1101/591016')
 output_sentences.append('<br><br>')
