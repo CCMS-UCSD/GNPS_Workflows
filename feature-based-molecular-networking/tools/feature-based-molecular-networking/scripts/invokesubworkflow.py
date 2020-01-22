@@ -19,8 +19,6 @@ def main():
     parser.add_argument('--runparameter', default='NONE', help='Workflow xml parameter to check if this parameter is equal to "1" to actually invoke the workflow')
     args = parser.parse_args()
 
-    credentials = json.loads(open(args.credentials).read())
-
     workflow_parameters_map = ming_proteosafe_library.parse_xml_file(open(args.workflowparamters))
 
     if args.runparameter != "NONE":
@@ -48,6 +46,7 @@ def main():
 
             new_parameters[parameter_new_key] = workflow_parameters_map[parameter_old_key][0]
 
+    credentials = json.loads(open(args.credentials).read())
     task_id = ming_proteosafe_library.invoke_workflow(args.serverurl, new_parameters, credentials["username"], credentials["password"])
     if task_id == None:
         exit(1)
