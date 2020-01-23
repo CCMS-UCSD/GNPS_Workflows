@@ -50,3 +50,12 @@ def test_clustersummary():
 
     clusterinfosummary_for_featurenetworks.process(input_param_xml, input_consensus_feature_file, metadata_files, input_mgf_filename, output_clusterinfo_summary)
 
+def test_permanova_selection():
+    import metadata_permanova_prioritizer
+
+    permanova_colums = metadata_permanova_prioritizer.permanova_validation("reference_data/permanova/metadata_table-00000.txt")
+    assert(len(permanova_colums) == 4)
+
+    permanova_colums = metadata_permanova_prioritizer.permanova_validation("reference_data/permanova/kelly_metadata.txt")
+    print(permanova_colums)
+    assert("ATTRIBUTE_bdi_group" in permanova_colums)
