@@ -11,19 +11,12 @@ def permanova_validation(input_file):
        #writing the column into a list    
         templist = metadata[column].tolist()
         number_of_labels = len(templist)
+        max_number_of_labels = float(number_of_labels) / 5.0
+        min_number_of_labels = 2
 
-        #each label need to make up more than 10% of the population
-        lowest_num_labels_allowed = number_of_labels * 0.1
-        #counting the occurance of each label within a column 
-        count_dictionary = Counter(templist)
-
-        #iterating over looking to see if any category is under the limit
-        for key,value in count_dictionary.items():
-            #on the condition a label in ever under-represented
-            if value < lowest_num_labels_allowed:
-                break
-                
-        #should this loop never break, we accept this column for PERMANOVA
+        unique_labels = len(set(templist))
+        if unique_labels > max_number_of_labels or unique_labels < min_number_of_labels:
+            continue
         else:
             columns_to_PERMANOVA.append(column)
 
