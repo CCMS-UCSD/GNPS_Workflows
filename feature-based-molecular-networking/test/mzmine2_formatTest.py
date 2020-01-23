@@ -17,3 +17,7 @@ class ValidatorTests(unittest.TestCase):
     @unittest.expectedFailure
     def test_Delimeter(self):
         validate_mzmine_output_file('reference_input_file_for_formatter/mzmine2/incorrectDelim.csv')
+
+    @unittest.expectedFailure
+    def test_Peakarea(self):
+         validate_mzmine_output_file('reference_input_file_for_formatter/mzmine2/nopeakarealabel.csv')
