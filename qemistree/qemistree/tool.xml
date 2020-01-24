@@ -26,6 +26,7 @@
             <arg pathRef="activate.path"/>
             <arg value="qiime2-2019.10-qemistree"/>
             <arg pathRef="sirius.path"/>
+            <arg option="-instrument" valueRef="@INSTRUMENT"/>
         </execution>
     </tool>
 
