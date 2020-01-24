@@ -33,9 +33,10 @@ def main():
     output_formula_qza = os.path.join(args.output_folder, "formula.qza")
     output_fingerprints_qza = os.path.join(args.output_folder, "fingerprints.qza")
     output_qemistree_qza = os.path.join(args.output_folder, "qemistree.qza")
+    output_qemistree_pruned_qza = os.path.join(args.output_folder, "qemistree-pruned.qza")
     output_merged_feature_table_qza = os.path.join(args.output_folder, "merged_feature_table.qza")
     output_classified_feature_data_qza = os.path.join(args.output_folder, "classified_feature_data.qza")
-    output_merged_data_qza = os.path.join(args.output_folder, "merged_data.qza")
+    output_merged_data_qza = os.path.join(args.output_folder, "merged_feature_data.qza")
     output_distance_matrix_qza = os.path.join(args.output_folder, "distance_matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
     output_emperor_qza = os.path.join(args.output_folder, "emperor.qzv")
@@ -131,12 +132,14 @@ def main():
     all_cmd.append(cmd)
 
     # Prune Tree
-    # cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree get-classyfire-taxonomy \
-    # --i-feature-data {} \
-    # --o-classified-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
-    #     output_merged_data_qza, \
-    #     output_classified_feature_data_qza)
-    # all_cmd.append(cmd)
+    cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree prune-hierarchy \
+    --i-feature-data {output_classified_feature_data_qza} \
+    --p-column class \
+    --i-tree {output_qemistree_qza} \
+    --o-pruned-tree {output_qemistree_pruned_qza}'
+    all_cmd.append(cmd)
+
+
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime diversity beta-phylogenetic \
     --i-table {} \
