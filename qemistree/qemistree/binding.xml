@@ -17,6 +17,9 @@
         <download port="metadata_table" type="file">
             <query name="resource" value="metadata_table"/>
         </download>
+        <download port="library_identifications" type="file">
+            <query name="resource" value="library_identifications"/>
+        </download>
         <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
@@ -28,6 +31,7 @@
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quant_table" requirement="quant_table"/>
         <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <inputAsRequirement port="library_identifications" requirement="library_identifications"/>
         <productionToOutput port="output_folder" production="output_folder"/>
     </bind>
 

@@ -11,6 +11,7 @@ def main():
     parser.add_argument("input_sirius_mgf")
     parser.add_argument("input_quant_table")
     parser.add_argument("input_metadata_folder")
+    parser.add_argument("input_library_identifications_folder")
     parser.add_argument("output_folder")
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
@@ -78,20 +79,48 @@ def main():
     --o-predicted-fingerprints {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_formula_qza, ppm_max, output_fingerprints_qza)
     all_cmd.append(cmd)
 
+    input_library_identifications_files = glob.glob(os.path.join(args.input_library_identifications_folder, "*"))
+
     # TODO: Add in library identifications to be imported, need to write import statement
-    cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree make-hierarchy \
-    --i-csi-results {} \
-    --i-feature-tables {} \
-    --p-metric euclidean \
-    --o-tree {} \
-    --o-feature-table {} \
-    --o-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
-        output_fingerprints_qza, \
-        output_feature_qza, \
-        output_qemistree_qza, \
-        output_merged_feature_table_qza, \
-        output_merged_data_qza)
-    all_cmd.append(cmd)
+    if len(input_library_identifications_files) == 1:
+        identifications_qza = os.path.join(args.output_folder, "library_identifications.qza")
+        cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime tools import \
+        --input-path {} \
+        --output-path {} \
+        --type FeatureData[Molecules]'.format(args.conda_activate_bin, args.conda_environment, \
+            input_library_identifications_files[0], \
+            identifications_qza)
+        all_cmd.append(cmd)
+
+        cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree make-hierarchy \
+        --i-csi-results {} \
+        --i-feature-tables {} \
+        --i-ms2-matches {}\
+        --p-metric euclidean \
+        --o-tree {} \
+        --o-feature-table {} \
+        --o-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
+            output_fingerprints_qza, \
+            output_feature_qza, \
+            identifications_qza, \
+            output_qemistree_qza, \
+            output_merged_feature_table_qza, \
+            output_merged_data_qza)
+        all_cmd.append(cmd)
+    else:
+        cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree make-hierarchy \
+        --i-csi-results {} \
+        --i-feature-tables {} \
+        --p-metric euclidean \
+        --o-tree {} \
+        --o-feature-table {} \
+        --o-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
+            output_fingerprints_qza, \
+            output_feature_qza, \
+            output_qemistree_qza, \
+            output_merged_feature_table_qza, \
+            output_merged_data_qza)
+        all_cmd.append(cmd)
 
     # Interfaces with Classyfire
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree get-classyfire-taxonomy \

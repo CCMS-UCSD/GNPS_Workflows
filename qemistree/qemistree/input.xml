@@ -20,8 +20,12 @@
             <fileGenerator type="upload" purpose="annotation" target="quant_table"/>
         </parameter>
 
-        <parameter name="metadata_table" label="metadata_table">
+        <parameter name="metadata_table" label="metadata_table (Optional)">
             <fileGenerator type="upload" purpose="annotation" target="metadata_table"/>
+        </parameter>
+
+        <parameter name="library_identifications" label="library_identifications (Optional but recommended)">
+            <fileGenerator type="upload" purpose="annotation" target="library_identifications"/>
         </parameter>
 
         <parameter name="INSTRUMENT" label="Select Instrument Type">
@@ -71,6 +75,18 @@
             <cell colspan="3">
                 <module id="metadata_table" type="fileSelector">
                     <property name="label">metadata_table</property>
+                </module>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="library_identifications"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_identifications" type="fileSelector">
+                    <property name="label">library_identifications</property>
                 </module>
             </cell>
         </row>
