@@ -14,8 +14,16 @@ def main():
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
     parser.add_argument("sirius_bin")
+    parser.add_argument("--instrument", default="orbitrap")
 
     args = parser.parse_args()
+
+    instrument = args.instrument
+    if instrument == "orbitrap":
+        ppm_max = "15"
+    else:
+        #This means its qtof
+        ppm_max = "20"
 
     output_feature_qza = os.path.join(args.output_folder, "feature-table.qza")
     output_mgf_qza = os.path.join(args.output_folder, "sirius.mgf.qza")
@@ -24,6 +32,7 @@ def main():
     output_fingerprints_qza = os.path.join(args.output_folder, "fingerprints.qza")
     output_qemistree_qza = os.path.join(args.output_folder, "qemistree.qza")
     output_merged_feature_table_qza = os.path.join(args.output_folder, "merged_feature_table.qza")
+    output_classified_feature_data_qza = os.path.join(args.output_folder, "classified_feature_data.qza")
     output_merged_data_qza = os.path.join(args.output_folder, "merged_data.qza")
     output_distance_matrix_qza = os.path.join(args.output_folder, "distance_matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
@@ -38,7 +47,7 @@ def main():
         cmd = "cp {} {}".format(args.input_quant_table, output_feature_qza)
         all_cmd.append(cmd)
     elif ".csv" in args.input_quant_table:
-        print("TODO: Will handle mzmine2 input, would recommend using FMBN first")
+        print("TODO: Will handle mzmine2 input, would recommend using FMBN first to generate valid qza.")
         exit(1)
 
     cmd = "source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.conda_activate_bin, args.conda_environment, args.input_sirius_mgf, output_mgf_qza)
@@ -46,40 +55,58 @@ def main():
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree compute-fragmentation-trees --p-sirius-path {} \
     --i-features {} \
-    --p-ppm-max 15 \
-    --p-profile orbitrap \
+    --p-ppm-max {} \
+    --p-profile {} \
     --p-ionization-mode positive \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, output_fragtree_qza)
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree rerank-molecular-formulas --p-sirius-path {} \
     --i-features {} \
     --i-fragmentation-trees {} \
-    --p-zodiac-threshold 0.95 \
+    --p-zodiac-threshold 0.98 \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
     --o-molecular-formulas {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, output_fragtree_qza, output_formula_qza)
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree predict-fingerprints --p-sirius-path {} \
     --i-molecular-formulas {} \
-    --p-ppm-max 20 \
+    --p-ppm-max {} \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-predicted-fingerprints {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_formula_qza, output_fingerprints_qza)
+    --o-predicted-fingerprints {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_formula_qza, ppm_max, output_fingerprints_qza)
     all_cmd.append(cmd)
 
+    # TODO: Add in library identifications to be imported, need to write import statement
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree make-hierarchy \
     --i-csi-results {} \
     --i-feature-tables {} \
+    --p-metric euclidean \
     --o-tree {} \
-    --o-merged-feature-table {} \
-    --o-merged-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
+    --o-feature-table {} \
+    --o-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
         output_fingerprints_qza, \
         output_feature_qza, \
         output_qemistree_qza, \
         output_merged_feature_table_qza, \
         output_merged_data_qza)
     all_cmd.append(cmd)
+
+    # Interfaces with Classyfire
+    cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree get-classyfire-taxonomy \
+    --i-feature-data {} \
+    --o-classified-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
+        output_merged_data_qza, \
+        output_classified_feature_data_qza)
+    all_cmd.append(cmd)
+
+    # Prune Tree
+    # cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree get-classyfire-taxonomy \
+    # --i-feature-data {} \
+    # --o-classified-feature-data {}'.format(args.conda_activate_bin, args.conda_environment, \
+    #     output_merged_data_qza, \
+    #     output_classified_feature_data_qza)
+    # all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime diversity beta-phylogenetic \
     --i-table {} \
@@ -107,6 +134,8 @@ def main():
         args.input_metadata_table, \
         output_emperor_qza)
     all_cmd.append(cmd)
+
+    
 
     for cmd in all_cmd:
         print(cmd)
