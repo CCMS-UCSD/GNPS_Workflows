@@ -16,7 +16,6 @@ args = parser.parse_args()
 
 task_id = args.GNPS
 
-SERVER_BASE = "http://dorresteinappshub.ucsd.edu:5024"
 task_information = proteosafe.get_task_information("gnps.ucsd.edu", task_id)
 print(task_information)
 
