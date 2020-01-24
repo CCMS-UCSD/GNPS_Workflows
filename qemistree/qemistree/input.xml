@@ -25,6 +25,15 @@
             <fileGenerator type="upload" purpose="annotation" target="metadata_table"/>
         </parameter>
 
+        <parameter name="INSTRUMENT" label="Select Instrument Type">
+            <options>
+                <option value="orbitrap" label="orbitrap"/>
+                <option value="qtof" label="qtof"/>
+            </options>
+            <validator type="set"/>
+            <default value="orbitrap"/>
+        </parameter>
+
     </parameters>
 
     <!-- Input form layout -->
@@ -64,6 +73,24 @@
                 <module id="metadata_table" type="fileSelector">
                     <property name="label">metadata_table</property>
                 </module>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="INSTRUMENT"/>
+                    <tooltip id="INSTRUMENT_gnps_tooltip">
+						Orbitrap sets the PPM error to 15ppm and qtof sets it to 20ppm as a side effect. 
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="INSTRUMENT">
+                </input>
             </cell>
         </row>
     </block>
