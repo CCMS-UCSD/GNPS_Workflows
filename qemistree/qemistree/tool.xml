@@ -14,7 +14,7 @@
         <require name="spectra" type="file"/>
         <require name="workflowParameters" type="file"/>
         <require name="quant_table" type="file"/>
-        <require name="metadata_table" type="file"/>
+        <require name="metadata_table" type="folder"/>
         <produce name="output_folder" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">

@@ -21,7 +21,6 @@
         </parameter>
 
         <parameter name="metadata_table" label="metadata_table">
-            <validator type="required"/>
             <fileGenerator type="upload" purpose="annotation" target="metadata_table"/>
         </parameter>
 

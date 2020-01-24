@@ -4,12 +4,13 @@ import getopt
 import os
 import pandas as pd
 import argparse
+import glob
 
 def main():
     parser = argparse.ArgumentParser(description='Annotate spectra')
     parser.add_argument("input_sirius_mgf")
     parser.add_argument("input_quant_table")
-    parser.add_argument("input_metadata_table")
+    parser.add_argument("input_metadata_folder")
     parser.add_argument("output_folder")
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
@@ -125,15 +126,18 @@ def main():
         output_pcoa_qza)
     all_cmd.append(cmd)
 
-    cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime emperor plot \
-    --i-pcoa {} \
-    --m-metadata-file {} \
-    --p-ignore-missing-samples \
-    --o-visualization {}'.format(args.conda_activate_bin, args.conda_environment, \
-        output_pcoa_qza, \
-        args.input_metadata_table, \
-        output_emperor_qza)
-    all_cmd.append(cmd)
+    input_metadata_folder = args.input_metadata_folder
+    metadata_files = glob.glob(os.path.join(input_metadata_folder, "*"))
+    if len(metadata_files) == 1:
+        cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime emperor plot \
+        --i-pcoa {} \
+        --m-metadata-file {} \
+        --p-ignore-missing-samples \
+        --o-visualization {}'.format(args.conda_activate_bin, args.conda_environment, \
+            output_pcoa_qza, \
+            metadata_files[0], \
+            output_emperor_qza)
+        all_cmd.append(cmd)
 
     
 
