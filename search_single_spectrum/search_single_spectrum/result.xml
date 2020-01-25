@@ -196,8 +196,19 @@
 
         </row>
     </block>
-
-
+    
+    <view id="written_description" label="Workflow Written Description" group="Methods and Citation for Manuscripts">
+        <blockRef id="main" type="written_description"/>
+    </view>
+    <block id="written_description" type="stream">
+        <data>
+            <source type="file" name="written_description/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+    
     <view id="linkout" label="Analyze Files Found With Molecular Networking" group="Reanalyze Files Found">
         <blockRef id="main" type="linkout"/>
     </view>
