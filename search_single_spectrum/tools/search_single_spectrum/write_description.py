@@ -18,7 +18,7 @@ if param_obj["FILTER_LIBRARY"][0] == "1":
     output_sentences.append("The library spectra were filtered in the same manner as the input data.")
 output_sentences.append("All matches kept between input spectra and library spectra were required to have a score above %s and at least %s matched peaks." % (param_obj["SCORE_THRESHOLD"][0], param_obj["MIN_MATCHED_PEAKS"][0]))
 output_sentences.append("<br><br>\n<strong>Citation</strong><br><br>\n")
-output_sentences.append('Wang, Mingxun, et al. "MASST: A Web-based Basic Mass Spectrometry Search Tool for Molecules to Search Public Data." Preprint at https://doi.org/10.1101/591016')
+output_sentences.append('Wang, Mingxun, et al. "Mass spectrometry searches using MASST." Nature Biotechnology doi.org/10.1038/s41587-019-0375-9')
 output_sentences.append('<br><br>')
 
 open(output_filename, "w").write(" ".join(output_sentences))
