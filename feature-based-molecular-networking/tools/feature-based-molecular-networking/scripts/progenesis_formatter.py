@@ -21,7 +21,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
         "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Formula", \
         "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area",
-        "Highest Mean", "Lowest Mean","CCS (angstrom^2)","Anova (p)","q Value","Max Fold Change",
+        "Highest Mean", "Lowest Mean","CCS (angstrom^2)","Anova (p)","q Value","Max Fold Change","Adducts",
         "Max Ab > 100","High Samples","Anova p-value <= 0.05","Max fold change >= 1000","dCCS (angstrom^2)"]
 
     input_records = input_format.to_dict(orient="records")
