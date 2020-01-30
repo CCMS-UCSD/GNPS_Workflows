@@ -137,35 +137,54 @@ if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
         cols = [c for c in bucket_table_df.columns if not("Unnamed: " in c)]
         bucket_table_df = bucket_table_df[cols]
 
+        #Reformating metadata
+        md  = pd.read_csv(metadata_filename, sep = '\t')
+        md.sample_name = md.sample_name.str.replace(' Peak area','')
+        md.sample_name = md.sample_name.str.replace('.mzXML','')
+        md.sample_name = md.sample_name.str.replace('.mzML','')
+        md.sample_name = md.sample_name.str.replace('.mgf','')
+
+        md.to_csv(metadata_filename, sep='\t', index = False)
+
         #Performing the MetaboDistTrees
         classyfire_df = pd.read_csv(classyfire_result_filename, sep = '\t')
         lev = ['CF_class','CF_subclass', 'CF_Dparent','cluster.index']
 
-        local_classytree_folder = "classytree"
+        local_classytree_folder = "classytree/"
         MetaboDistTrees.get_classytrees(classyfire_df, bucket_table_df, lev, method='average', metric='jaccard', outputdir=local_classytree_folder)
 
         #Visualizing in Qiime2
+        local_biom_table = os.path.join(args.output_folder, "qiime2_table.biom")
         local_qza_table = os.path.join(args.output_folder, "qiime2_table.qza")
         local_qza_tree = os.path.join(args.output_folder, "qiime2_tree.qza")
         local_qza_distance = os.path.join(args.output_folder, "qiime2_distance.qza")
         local_qza_pcoa = os.path.join(args.output_folder, "qiime2_pcoa.qza")
         local_qzv_emperor = os.path.join(args.output_folder, "qiime2_emperor.qzv")
 
+        quantification_filename = os.path.join(local_classytree_folder,'Buckettable_ChemicalClasses.tsv')
+
         all_cmd = []
         all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
-            qiime metabolomics import-mzmine2 \
-            --p-manifest {} \
-            --p-quantificationtable {} \
-            --o-feature-table {}".format(args.conda_activate_bin, args.conda_environment, manifest_filename, quantification_filename, local_qza_table))
+            biom convert \
+            -i {} \
+            -o {} \
+            --table-type 'OTU table' \
+            --to-hdf5".format(args.conda_activate_bin, args.conda_environment, quantification_filename, local_biom_table))
+
+        all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            qiime tools import \
+            --type 'FeatureTable[Frequency]' \
+            --input-path {} \
+            --output-path {}".format(args.conda_activate_bin, args.conda_environment, local_biom_table, local_qza_table))
 
         classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
         all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
             qiime tools import --type 'Phylogeny[Rooted]' \
             --input-path {} \
-            --output-path {}".format(classytree_tree_filename, local_qza_tree))
+            --output-path {}".format(args.conda_activate_bin, args.conda_environment, classytree_tree_filename, local_qza_tree))
 
         all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
-            qiime diversity beta \
+            qiime diversity beta-phylogenetic \
             --i-table {} \
             --i-phylogeny {} \
             --p-metric weighted_unifrac \
@@ -181,7 +200,7 @@ if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
             --i-pcoa {} \
             --m-metadata-file {} \
             --o-visualization {} \
-            --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, output_metadata_filename, local_qzv_emperor))
+            --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_pcoa, metadata_filename, local_qzv_emperor))
 
         for cmd in all_cmd:
             os.system(cmd)
