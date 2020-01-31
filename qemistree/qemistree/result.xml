@@ -13,21 +13,21 @@
 	<!-- Block definitions -->
 	<block id="summary_view" type="table">
 		<data>
-			<source type="file" name="fingerprint_summary/summary_csi.tsv"/>
+			<source type="file" name="fingerprint_summary/summary.tsv"/>
 			<parsers>
 				<parser type="tabular"/>
 			</parsers>
 		</data>
 		<row>
-			<column type="text" field="experimentName" label="experimentName" width="12"/>
+			<column type="text" field="#featureID" label="#featureID" width="12"/>
 			<column type="text" field="molecularFormula" label="molecularFormula" width="12"/>
-			<column type="text" field="inchikey2D" label="inchikey2D" width="12"/>
-			<column type="structuredisplayer" label="Structure">
-                <parameter name="inchistructure" value="[inchi]"/>
-            </column>
+			<column type="text" field="class" label="class" width="12"/>
+			<column type="text" field="subclass" label="subclass" width="12"/>
+			<column type="text" field="direct_parent" label="direct_parent" width="12"/>
             <column type="genericimagedisplayer" label="Structure">
                 <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
                 <parameter name="REQUESTPARAMETER=inchi" value="[inchi]"/>
+				<parameter name="REQUESTPARAMETER=smiles" value="[smiles]"/>
             </column>
 		</row>
 	</block>

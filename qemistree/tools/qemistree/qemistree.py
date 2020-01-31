@@ -139,8 +139,6 @@ def main():
     --o-pruned-tree {output_qemistree_pruned_qza}'
     all_cmd.append(cmd)
 
-
-
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime diversity beta-phylogenetic \
     --i-table {} \
     --i-phylogeny {} \
@@ -171,8 +169,7 @@ def main():
             output_emperor_qza)
         all_cmd.append(cmd)
 
-    
-
+    #Actually running all the commands
     for cmd in all_cmd:
         print(cmd)
         os.system(cmd)
