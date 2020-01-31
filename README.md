@@ -24,13 +24,12 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 
 ## GNPS Core Webserver Status
 
-| Feature  | GNPS and Beta Server Status |
+| Feature  | Server Status |
 |---|---|
-| GNPS API Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-api/badge.svg) |
-| GNPS UI Selenium Tests | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/web-gnps-selenium/badge.svg) |
-| GNPS Workflows Fast Test | ![](https://github.com/CCMS-UCSD/GNPS_Workflows/workflows/workflow-integration-gnps-fast/badge.svg) |
-| Beta Workflows Fast Test | ![](https://github.com/CCMS-UCSD/CCMSDeployments/workflows/proteomics3-workflow-test/badge.svg) |
-
+| GNPS/Beta/MassIVE API Tests | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-api/badge.svg) |
+| GNPS/Beta/MassIVE Selenium Tests | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-selenium/badge.svg) |
+| GNPS Workflows Fast Test | ![workflow-integration-gnps-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-fast/badge.svg) |
+| Beta Workflows Fast Test | ![workflow-integration-proteomics3-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-proteomics3-fast/badge.svg) |
 
 ## GNPS Workflows Links/Status
 
