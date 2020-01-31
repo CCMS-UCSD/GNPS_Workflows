@@ -1246,14 +1246,14 @@
                 <parameter name="IGNORE_VALUE" value="-1"/>
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
             </column>
-            <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
-                <parameter name="view" value="cluster_details"/>
-                <parameter name="protein" value="[cluster index]"/>
-            </column>
 
-            <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
-                <parameter name="view" value="cluster_details"/>
-                <parameter name="protein" value="[cluster index]"/>
+            <column label="AddToLibrary" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+                <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="AddToLibrary"/>
+                <parameter name="USETASK" value="True"/>
             </column>
 
             <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
@@ -1467,14 +1467,13 @@
                 <parameter name="proteinID" value="[cluster index]"/>
             </column>
 
-            <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
-                <parameter name="view" value="cluster_details"/>
-                <parameter name="protein" value="[cluster index]"/>
-            </column>
-
-            <column type="parameterlink" target="result.jsp" label="+Challenge" includetask="true">
-                <parameter name="view" value="cluster_details"/>
-                <parameter name="protein" value="[cluster index]"/>
+            <column label="AddToLibrary" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
+                <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
+                <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=show" value="true"/>
+                <parameter name="LABEL" value="AddToLibrary"/>
+                <parameter name="USETASK" value="True"/>
             </column>
 
             <column type="integer" field="number of spectra" label="NumSpectra" width="3"/>
