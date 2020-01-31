@@ -24,6 +24,8 @@ Discussions and suggestions can also take place on the GNPS forum at [https://gr
 
 ## GNPS Core Webserver Status
 
+GNPS Integration Web and Workflow jobs are handled in the [CCMS-Integration-Tests Repository](https://github.com/CCMS-UCSD/CCMS-Integration-Tests).
+
 | Feature  | Server Status |
 |---|---|
 | GNPS/Beta/MassIVE API Tests | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-api/badge.svg) |
