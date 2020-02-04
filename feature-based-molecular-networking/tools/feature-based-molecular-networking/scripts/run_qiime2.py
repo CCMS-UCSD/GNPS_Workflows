@@ -129,8 +129,29 @@ def main():
         --o-visualization {} \
         --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, local_qza_biplot, output_metadata_filename, local_qzv_biplot_emperor))
 
+    # Running Permanova 
+    import metadata_permanova_prioritizer
+    selected_columns = metadata_permanova_prioritizer.permanova_validation(output_metadata_filename)
+    for column in selected_columns:
+        print(column)
+        output_qiime2_permanova_qzv = os.path.join(args.output_folder, "permanova_{}.qzv".format(column))
+        import pathvalidate
+        output_qiime2_permanova_qzv = pathvalidate.sanitize_filepath(output_qiime2_permanova_qzv)
+
+        cmd = "LC_ALL=en_US && export LC_ALL && source {} {} && \
+        qiime diversity beta-group-significance \
+        --i-distance-matrix {} \
+        --m-metadata-file {} \
+        --m-metadata-column \"{}\" \
+        --p-pairwise \
+        --o-visualization {}".format(args.conda_activate_bin, args.conda_environment, local_qza_distance, output_metadata_filename, column, output_qiime2_permanova_qzv)
+
+        all_cmd.append(cmd)
+
+
 
     for cmd in all_cmd:
+        print(cmd)
         os.system(cmd)
 
 
