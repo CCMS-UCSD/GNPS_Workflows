@@ -76,6 +76,13 @@
 		<productionToOutput port="all_library_matches_db"           production="DB_result"/>
 	</bind>
 
+    <!-- Description -->
+    <bind action="write_description" tool="write_description">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="written_description" production="written_description"/>
+    </bind>
+
+
 	<bind action="end" type="upload">
 	 	<url value="{livesearch.upload}"/>
 	 	<query name="task" valueRef="@task"/>
@@ -102,5 +109,9 @@
 		<upload port="foodomics_tracking_file" type="file">
             <query name="resource" value="foodomics_tracking_file"/>
         </upload>
+		<upload port="written_description" type="folder">
+            <query name="resource" value="written_description"/>
+        </upload>  
+
 	</bind>
 </binding>

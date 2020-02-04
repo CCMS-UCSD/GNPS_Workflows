@@ -128,7 +128,10 @@ if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
         bucket_table_df.columns = bucket_table_df.columns.str.replace('.mzXML','')
         bucket_table_df.columns = bucket_table_df.columns.str.replace('.mzML','')
         bucket_table_df.columns = bucket_table_df.columns.str.replace('.mgf','')
-        bucket_table_df = bucket_table_df.drop(['row m/z', 'row number of detected peaks', 'row retention time'], axis=1)
+        if 'row number of detected peaks' in bucket_table_df.columns:
+        	bucket_table_df = bucket_table_df.drop(['row m/z', 'row number of detected peaks', 'row retention time'], axis=1)
+        else:
+        	bucket_table_df = bucket_table_df.drop(['row m/z', 'row retention time'], axis=1)
         bucket_table_df = bucket_table_df.rename(columns = {'row ID':'#OTU ID'})
 
         cols = [c for c in bucket_table_df.columns if not("Unnamed: " in c)]
