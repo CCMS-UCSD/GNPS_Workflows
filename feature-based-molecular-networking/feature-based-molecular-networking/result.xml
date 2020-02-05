@@ -526,7 +526,18 @@ g
     </block>
 
 
-
+    <view id="qemistree" label="Launch Qemistree " group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="qemistree"/>
+    </view>
+    <block id="qemistree" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Reanalysis of [task] with Qemistree", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "quant_table":"d.[task]/qiime2_output/qiime2_table.qza"}'/> -->
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with Quemsitree", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "quant_table":"d.[task]/qiime2_output/qiime2_table.qza"}'/>
+    </block>
 
 
 
