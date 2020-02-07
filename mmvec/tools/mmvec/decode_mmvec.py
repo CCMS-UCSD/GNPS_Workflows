@@ -57,7 +57,6 @@ records_df = pd.DataFrame(output_records)
 records_df = records_df.merge(taxa_metadata_df, how="left", left_on="taxa_sequence", right_on=taxa_featureid_header)
 records_df = records_df.merge(molecules_metadata_df, how="left", left_on="molecule_identifier", right_on=metabolomics_feature_header)
 
-records_df = records_df[["conditional_value", "molecule_identifier", "taxa_sequence", "Taxon", "rt", "name"]]
 records_df.to_csv(output_filename, sep="\t", index=False)
 
 
