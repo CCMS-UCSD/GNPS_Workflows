@@ -43,9 +43,19 @@ for record in all_records:
 
         output_records.append(output_record)
 
+# Trying to figure out the metadata headers
+taxa_featureid_header = "featureid"
+if "Feature ID" in taxa_metadata_df:
+    taxa_featureid_header = "Feature ID"
+
+metabolomics_feature_header = "featureid"
+if "sampleid" in molecules_metadata_df:
+    metabolomics_feature_header = "sampleid"
+
+# Merging the files
 records_df = pd.DataFrame(output_records)
-records_df = records_df.merge(taxa_metadata_df, how="left", left_on="taxa_sequence", right_on="Feature ID")
-records_df = records_df.merge(molecules_metadata_df, how="left", left_on="molecule_identifier", right_on="feature id")
+records_df = records_df.merge(taxa_metadata_df, how="left", left_on="taxa_sequence", right_on=taxa_featureid_header)
+records_df = records_df.merge(molecules_metadata_df, how="left", left_on="molecule_identifier", right_on=metabolomics_feature_header)
 
 records_df = records_df[["conditional_value", "molecule_identifier", "taxa_sequence", "Taxon", "rt", "name"]]
 records_df.to_csv(output_filename, sep="\t", index=False)
