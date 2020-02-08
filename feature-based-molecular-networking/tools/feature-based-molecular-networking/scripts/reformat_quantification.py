@@ -40,6 +40,9 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         mzmine2_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+
+        # Validate the output of the mzmine2 like format
+        mzmine2_formatter.validate_mzmine_output_file(args.quantification_table_reformatted)
     elif args.toolname == "OPENMS":
         print("OPENMS")
         
@@ -112,6 +115,8 @@ def main():
 
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
+
+    
 
 if __name__ == "__main__":
     main()
