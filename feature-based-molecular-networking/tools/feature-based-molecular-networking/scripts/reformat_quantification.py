@@ -113,5 +113,8 @@ def main():
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
 
+    # Validate the output of the mzmine2 like format
+    mzmine2_formatter.validate_mzmine_output_file(args.quantification_table_reformatted)
+
 if __name__ == "__main__":
     main()
