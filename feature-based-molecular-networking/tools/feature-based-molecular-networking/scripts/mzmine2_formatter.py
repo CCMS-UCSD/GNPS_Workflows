@@ -64,7 +64,7 @@ def validate_mzmine_output_file(quant_table_filename):
     
     #make sure the manatory headings are in the file
     assert(set(required_columns).issubset(set(all_columns_list)))
-    all_file_list = [item for item in all_columns_list if any(substring in item for substring in valid_extensions)]
+    all_file_list = [item for item in all_columns_list if any(substring in item for substring in valid_extensions)] # This might not be valid for Progenesis QI output as it might strip off extension
     properly_formatted_files = [item for item in all_file_list if item.endswith(" Peak area")]
     assert(len(properly_formatted_files) != 0)
 
