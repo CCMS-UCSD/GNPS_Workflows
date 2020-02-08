@@ -13,6 +13,8 @@ def main():
     parser.add_argument('output_folder', help='output_folder')
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
+    parser.add_argument('--distance_metric', default="cosine", help='Enter Distance Metric')
+
     args = parser.parse_args()
 
     output_metadata_filename = os.path.join(args.output_folder, "qiime2_metadata.tsv")
@@ -94,8 +96,8 @@ def main():
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
         qiime diversity beta \
         --i-table {} \
-        --p-metric cosine \
-        --o-distance-matrix {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, local_qza_distance))
+        --p-metric {} \
+        --o-distance-matrix {}".format(args.conda_activate_bin, args.conda_environment, local_qza_table, args.distance_metric, local_qza_distance))
 
     all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
         qiime diversity pcoa \
