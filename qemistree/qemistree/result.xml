@@ -64,6 +64,21 @@
     </block>
 
 
+	<view id="download_data" label="Download Qiime2 Data" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="download_data"/>
+    </view>
+
+	<block id="download_data" type="dummydownload">
+        <data>
+            <source type="file" name="fingerprint_network/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+
+
 
 
 </interface>
