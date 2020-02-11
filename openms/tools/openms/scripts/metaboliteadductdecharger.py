@@ -7,14 +7,14 @@ import openms_workflow as wrkflw
 
 
 def get_exec_cmd(input_file, file_count, ini_file, out_port):
-    command = "MetaboliteAdductDecharger "
+    command = "MetaboliteAdductDecharger"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in " + input_file + " "
-    command += "-out_fm " + out_port+'/'+out_port+'-'+file_count+'.featureXML '
-    command += "-out_cm " + out_port+'/'+out_port+'-'+file_count+'.consensusXML '
-    command += "> " + out_port+'/logfile-'+file_count+'.txt'
-    # command += "-log " + out_port+'/logfile-'+file_count+'.txt'
+        command += " -ini " + ini_file
+    command += " -in " + input_file
+    command += " -out_fm " + out_port+'/'+out_port+'-'+file_count+'.featureXML'
+    command += " -out_cm " + out_port+'/'+out_port+'-'+file_count+'.consensusXML'
+    # command += "> " + out_port+'/logfile-'+file_count+'.txt'
+    command += " -log " + out_port+'/logfile-'+file_count+'.txt'
 
 
     print("COMMAND: " + command + "\n")

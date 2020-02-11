@@ -32,7 +32,7 @@ export CXXFLAGS="-isystem ${OPENMS_CONTRIB_LIBS}/include"
 
 ###
 # inlcude system binaries
-###
+###å
 export PATH=${PATH}:/bin:/usr/bin
 ```
 
@@ -70,3 +70,9 @@ Use conda environment as specified by exported environment dependencies: [conda-
     $ cmake -DBUILD_TYPE=WILDMAGIC .
     $ cmake -DBUILD_TYPE=HDF5 .
     ```
+
+## Building OpenMS Binaries
+```bash
+$ cd ${OPENMS_BUILD_DIR}
+$ cmake -DOPENMS_CONTRIB_LIBS="${OPENMS_CONTRIB_LIBS}" -DCMAKE_PREFIX_PATH="${CONDA_ROOT}" "${OPENMS_ROOT}"
+```

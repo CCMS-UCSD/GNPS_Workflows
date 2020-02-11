@@ -6,15 +6,18 @@ import ming_parallel_library as mpl
 import openms_workflow as wrkflw
 
 
-def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_port):
-    command = 'IDMapper '
+def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_port):   
+    # global env
+
+    # command = env + ' && IDMapper '
+    command = "IDMapper"
     if ini_file is not None:
-        command += '-ini ' + ini_file + ' '
-    command += '-in ' + input_file + ' -id ' + idxml_path + ' '
-    command += '-spectra:in ' + input_port+'/'+input_port+'-'+file_count+".mzML "
-    command += '-out ' + out_port+'/'+out_port+'-'+file_count+'.featureXML '
-    command += '> ' + out_port+'/logfile-'+file_count+'.txt'
-    # command += '-log ' + out_port+'/logfile-'+file_count+'.txt'
+        command += ' -ini ' + ini_file
+    command += ' -in ' + input_file + ' -id ' + idxml_path
+    command += ' -spectra:in ' + input_port+'/'+input_port+'-'+file_count+".mzML"
+    command += ' -out ' + out_port+'/'+out_port+'-'+file_count+'.featureXML'
+    # command += '> ' + out_port+'/logfile-'+file_count+'.txt'
+    command += ' -log ' + out_port+'/logfile-'+file_count+'.txt'
 
 
     print("COMMAND: " + command + '\n')
