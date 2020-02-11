@@ -1,9 +1,6 @@
-name: web-gnps-api
+name: workflow-unit-molnet
 
-on: 
-  push:
-  schedule:
-   - cron:  '*/60 * * * *'
+on: [push]
 
 jobs:
   build:
@@ -29,4 +26,4 @@ jobs:
     - name: Test with nose2
       run: |
         pip install nose2
-        cd test_gnps_webserver/api && nose2 -v
+        cd molnetenhancer/test && nose2 -v && cd ../..

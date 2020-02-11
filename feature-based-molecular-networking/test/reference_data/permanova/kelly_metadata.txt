@@ -1,0 +1,343 @@
+filename	sample_name	ATTRIBUTE_hiv_status_clean	ATTRIBUTE_batch	ATTRIBUTE_nadir_cd4	ATTRIBUTE_hcv	ATTRIBUTE_lt_mdd	ATTRIBUTE_bdi_group	ATTRIBUTE_gds_impairment	ATTRIBUTE_buffer_or_no	ATTRIBUTE_metabolomics_well_position	ATTRIBUTE_metabolomics_injecion_number	ATTRIBUTE_metabolomics_instrument	ATTRIBUTE_metabolomics_LC_description	ATTRIBUTE_metabolomics_dilution_factor	ATTRIBUTE_metabolomics_extraction_solvent	ATTRIBUTE_metabolomics_solvent_injected	ATTRIBUTE_metabolomics_notes
+BS16_BB6_01_42275.mzXML	11135.Sample.X3041977	HIV+	zengler_addiction_mibi	40	NO	NO	severe	imp	Buffer_Sample	BB6	42275	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS123_RC11_01_42403.mzXML	11135.Sample.X3042652	HIV+	zengler_addiction_mibi	1050	NO	YES	severe	imp	Buffer_Sample	RC11	42403	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS02_BA3_01_42255.mzXML	11135.Sample.X3042678	HIV+	zengler_addiction_mibi	79	NO	NO		imp	Buffer_Sample	BA3	42255	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S132_RD12_01_42195.mzXML	11135.Sample.X3042755	HIV+	hnrc_mibi_batch3	110	NO	YES			Sample	RD12	42195	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS150_RF2_01_42437.mzXML	11135.Sample.X3042766	HIV+	zengler_addiction_mibi	196	YES	NO	minimal	nml	Buffer_Sample	RF2	42437	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS17_BB7_01_42276.mzXML	11135.Sample.X3042803	HIV+	zengler_addiction_mibi	32	NO	NO	minimal		Buffer_Sample	BB7	42276	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS95_RA7_01_42371.mzXML	11135.Sample.X3043813	HIV+	zengler_addiction_mibi	6	YES	NO	minimal	nml	Buffer_Sample	RA7	42371	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS133_RD9_01_42415.mzXML	11135.Sample.X3043856	HIV+	zengler_addiction_mibi	1	NO	YES	minimal	imp	Buffer_Sample	RD9	42415	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS100_RA12_01_42376.mzXML	11135.Sample.X3043859	HIV+	zengler_addiction_mibi	18	NO	NO	minimal	nml	Buffer_Sample	RA12	42376	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS84_BH8_01_42356.mzXML	11135.Sample.X3043906	HIV+	zengler_addiction_mibi	4	NO	YES			Buffer_Sample	BH8	42356	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS12_BB2_01_42269.mzXML	11135.Sample.X3043919	HIV+	zengler_addiction_mibi	180	NO	NO	moderate		Buffer_Sample	BB2	42269	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS13_BB3_01_42270.mzXML	11135.Sample.X3043942	HIV+	zengler_addiction_mibi	8	NO	YES	severe	imp	Buffer_Sample	BB3	42270	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS124_RC12_01_42404.mzXML	11135.Sample.X3043989	HIV+	zengler_addiction_mibi	112	NO	YES		nml	Buffer_Sample	RC12	42404	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS159_RF11_01_42446.mzXML	11135.Sample.X3044021	HIV+	zengler_addiction_mibi	500	NO	NO	mild	nml	Buffer_Sample	RF11	42446	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS36_BD4_01_42299.mzXML	11135.Sample.X3044040	HIV+	zengler_addiction_mibi	0	NO	NO	minimal	nml	Buffer_Sample	BD4	42299	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS86_BH10_01_42358.mzXML	11135.Sample.X3044044	HIV+	zengler_addiction_mibi	358	NO	YES	minimal	nml	Buffer_Sample	BH10	42358	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS101_RB1_01_42379.mzXML	11135.Sample.X3044048	HIV+	zengler_addiction_mibi	7	NO	NO			Buffer_Sample	RB1	42379	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS141_RE5_01_42426.mzXML	11135.Sample.X3044090	HIV-	zengler_addiction_mibi	584	NO	NO	minimal	nml	Buffer_Sample	RE5	42426	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS174_RH2_01_42465.mzXML	11135.Sample.X3044183	HIV+	zengler_addiction_mibi	0	NO	NO		nml	Buffer_Sample	RH2	42465	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS37_BD5_01_42300.mzXML	11135.Sample.X3044185	HIV+	zengler_addiction_mibi	150	NO	YES	moderate	imp	Buffer_Sample	BD5	42300	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS38_BD6_01_42301.mzXML	11135.Sample.X3044242	HIV-	zengler_addiction_mibi	817	NO	NO	minimal	imp	Buffer_Sample	BD6	42301	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS40_BD8_01_42303.mzXML	11135.Sample.X3044454	HIV-	zengler_addiction_mibi	857	NO	NO	minimal	nml	Buffer_Sample	BD8	42303	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS39_BD7_01_42302.mzXML	11135.Sample.X3044458	HIV+	zengler_addiction_mibi	350	YES	NO	minimal	imp	Buffer_Sample	BD7	42302	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS130_RD6_01_42412.mzXML	11135.Sample.X3044478	HIV+	zengler_addiction_mibi	2	NO	YES	moderate	nml	Buffer_Sample	RD6	42412	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS122_RC10_01_42402.mzXML	11135.Sample.X3044479	HIV+	zengler_addiction_mibi	478	NO	NO	minimal	imp	Buffer_Sample	RC10	42402	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS113_RC1_01_42393.mzXML	11135.Sample.X3044488	HIV+	zengler_addiction_mibi	109	YES	YES	severe	imp	Buffer_Sample	RC1	42393	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS160_RF12_01_42447.mzXML	11135.Sample.X3044574	HIV+	zengler_addiction_mibi	796	NO	YES		imp	Buffer_Sample	RF12	42447	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS41_BD9_01_42304.mzXML	11135.Sample.X3044583	HIV+	zengler_addiction_mibi	300	NO	YES	minimal	nml	Buffer_Sample	BD9	42304	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS114_RC2_01_42394.mzXML	11135.Sample.X3044616	HIV-	zengler_addiction_mibi	578	NO	YES	moderate	nml	Buffer_Sample	RC2	42394	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS85_BH9_01_42357.mzXML	11135.Sample.X3044630	HIV+	zengler_addiction_mibi	400	NO	NO	minimal	imp	Buffer_Sample	BH9	42357	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS99_RA11_01_42375.mzXML	11135.Sample.X3044755	HIV+	zengler_addiction_mibi	2		YES	minimal	nml	Buffer_Sample	RA11	42375	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS142_RE6_01_42427.mzXML	11135.Sample.X3044761	HIV+	zengler_addiction_mibi	300	NO	YES	mild	nml	Buffer_Sample	RE6	42427	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS10_BA11_01_42264.mzXML	11135.Sample.X3044797	HIV+	zengler_addiction_mibi	407	NO	YES		nml	Buffer_Sample	BA11	42264	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS11_BA12_01_42265.mzXML	11135.Sample.X3044812	HIV+	zengler_addiction_mibi	475	NO	YES	minimal	imp	Buffer_Sample	BA12	42265	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S150_RF8_01_42218.mzXML	11135.Sample.X3045055	HIV+	hnrc_mibi_batch3	180	YES	YES	moderate	imp	Sample	RF8	42218	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS132_RD8_01_42414.mzXML	11135.Sample.X3045278	HIV+	zengler_addiction_mibi	100	NO	NO	minimal	imp	Buffer_Sample	RD8	42414	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS143_RE7_01_42428.mzXML	11135.Sample.X3045382	HIV+	zengler_addiction_mibi	17	NO	YES	minimal	nml	Buffer_Sample	RE7	42428	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS15_BB5_01_42274.mzXML	11135.Sample.X3045467	HIV+	zengler_addiction_mibi	40	YES	YES			Buffer_Sample	BB5	42274	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS09_BA10_01_42263.mzXML	11135.Sample.X3045682	HIV+	zengler_addiction_mibi	15	NO	NO	minimal	nml	Buffer_Sample	BA10	42263	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS161_RG1_01_42450.mzXML	11135.Sample.X3045790	HIV+	zengler_addiction_mibi	1	YES	NO	minimal	nml	Buffer_Sample	RG1	42450	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS14_BB4_01_42273.mzXML	11135.Sample.X3045820	HIV-	zengler_addiction_mibi	873	NO	NO	minimal	imp	Buffer_Sample	BB4	42273	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS171_RG11_01_42460.mzXML	11135.Sample.X3045822	HIV+	zengler_addiction_mibi	200	NO	YES	minimal	nml	Buffer_Sample	RG11	42460	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S131_RD11_01_42194.mzXML	11135.Sample.X3045824	HIV+	hnrc_mibi_batch3	198	YES	YES	minimal	imp	Sample	RD11	42194	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS152_RF4_01_42439.mzXML	11135.Sample.X3046192	HIV-	zengler_addiction_mibi	584	NO	NO	minimal	imp	Buffer_Sample	RF4	42439	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S149_RF7_01_42217.mzXML	11135.Sample.X3046201	HIV+	hnrc_mibi_batch3	6	YES	NO			Sample	RF7	42217	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS151_RF3_01_42438.mzXML	11135.Sample.X3046202	HIV-	zengler_addiction_mibi		NO	YES	minimal	nml	Buffer_Sample	RF3	42438	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS08_BA9_01_42262.mzXML	11135.Sample.X3046831	HIV-	zengler_addiction_mibi	1007	NO	NO	minimal	imp	Buffer_Sample	BA9	42262	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS31_BC10_01_42292.mzXML	11135.Sample.X3047050	HIV+	zengler_addiction_mibi	3	YES	YES	mild	imp	Buffer_Sample	BC10	42292	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS22_BB12_01_42281.mzXML	11135.Sample.X3047082	HIV-	zengler_addiction_mibi	661	NO	NO	minimal	nml	Buffer_Sample	BB12	42281	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS33_BC12_01_42294.mzXML	11135.Sample.X3047084	HIV-	zengler_addiction_mibi	972	NO	NO			Buffer_Sample	BC12	42294	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS44_BD12_01_42307.mzXML	11135.Sample.X3047269	HIV+	zengler_addiction_mibi	546	NO	YES	minimal	nml	Buffer_Sample	BD12	42307	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS43_BD11_01_42306.mzXML	11135.Sample.X3047295	HIV-	zengler_addiction_mibi	888	NO	YES			Buffer_Sample	BD11	42306	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS20_BB10_01_42279.mzXML	11135.Sample.X3047418	HIV+	zengler_addiction_mibi	63	NO	YES	mild	nml	Buffer_Sample	BB10	42279	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS94_RA6_01_42370.mzXML	11135.Sample.X3047430	HIV+	zengler_addiction_mibi	0	NO	YES	mild	nml	Buffer_Sample	RA6	42370	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS32_BC11_01_42293.mzXML	11135.Sample.X3047486	HIV+	zengler_addiction_mibi	5	NO	NO	minimal	imp	Buffer_Sample	BC11	42293	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS24_BC3_01_42285.mzXML	11135.Sample.X3048824	HIV+	zengler_addiction_mibi	45	YES	YES	moderate	imp	Buffer_Sample	BC3	42285	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS18_BB8_01_42277.mzXML	11135.Sample.X3049640	HIV-	zengler_addiction_mibi	1150	NO	NO	minimal	nml	Buffer_Sample	BB8	42277	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS35_BD3_01_42298.mzXML	11135.Sample.X3049694	HIV-	zengler_addiction_mibi		NO	YES	moderate	imp	Buffer_Sample	BD3	42298	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS34_BD2_01_42297.mzXML	11135.Sample.X3049747	HIV-	zengler_addiction_mibi	1298	NO	YES			Buffer_Sample	BD2	42297	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS26_BC5_01_42287.mzXML	11135.Sample.X3049749	HIV-	zengler_addiction_mibi	1413	NO	NO			Buffer_Sample	BC5	42287	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS149_RF1_01_42436.mzXML	11135.Sample.X3049830	HIV+	zengler_addiction_mibi	322	NO	YES	minimal	nml	Buffer_Sample	RF1	42436	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS23_BC2_01_42284.mzXML	11135.Sample.X3049849	HIV-	zengler_addiction_mibi	1080	NO	NO	minimal	imp	Buffer_Sample	BC2	42284	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS19_BB9_01_42278.mzXML	11135.Sample.X3049870	HIV-	zengler_addiction_mibi	542	NO	NO	minimal	imp	Buffer_Sample	BB9	42278	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS21_BB11_01_42280.mzXML	11135.Sample.X3049965	HIV-	zengler_addiction_mibi	719	NO	NO	minimal	nml	Buffer_Sample	BB11	42280	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS48_BE5_01_42314.mzXML	11135.Sample.X3049969	HIV+	zengler_addiction_mibi	238	YES	YES	minimal	nml	Buffer_Sample	BE5	42314	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS29_BC8_01_42290.mzXML	11135.Sample.X3050767	HIV+	zengler_addiction_mibi	180	NO	NO	moderate	imp	Buffer_Sample	BC8	42290	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS30_BC9_01_42291.mzXML	11135.Sample.X3050770	HIV-	zengler_addiction_mibi	1085	NO	YES			Buffer_Sample	BC9	42291	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS27_BC6_01_42288.mzXML	11135.Sample.X3050846	HIV-	zengler_addiction_mibi	116	NO	NO	minimal	nml	Buffer_Sample	BC6	42288	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS28_BC7_01_42289.mzXML	11135.Sample.X3050848	HIV+	zengler_addiction_mibi	446	YES	YES	severe	imp	Buffer_Sample	BC7	42289	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS49_BE6_01_42315.mzXML	11135.Sample.X3050951	HIV+	zengler_addiction_mibi	160	NO	YES	minimal	imp	Buffer_Sample	BE6	42315	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS52_BE9_01_42318.mzXML	11135.Sample.X3051602	HIV-	zengler_addiction_mibi	2050	NO	YES	minimal	nml	Buffer_Sample	BE9	42318	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS54_BE11_01_42320.mzXML	11135.Sample.X3051738	HIV-	zengler_addiction_mibi		NO	YES	severe		Buffer_Sample	BE11	42320	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS53_BE10_01_42319.mzXML	11135.Sample.X3051955	HIV+	zengler_addiction_mibi	150	NO	YES	minimal	nml	Buffer_Sample	BE10	42319	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS50_BE7_01_42316.mzXML	11135.Sample.X3051986	HIV+	zengler_addiction_mibi	288	YES	YES	minimal	nml	Buffer_Sample	BE7	42316	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS93_RA5_01_42369.mzXML	11135.Sample.X3051994	HIV-	zengler_addiction_mibi	800	NO	YES	minimal	nml	Buffer_Sample	RA5	42369	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS55_BE12_01_42321.mzXML	11135.Sample.X3052416	HIV+	zengler_addiction_mibi	300	NO	YES			Buffer_Sample	BE12	42321	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS56_BF2_01_42324.mzXML	11135.Sample.X3053571	HIV+	zengler_addiction_mibi	8	NO	YES	minimal	imp	Buffer_Sample	BF2	42324	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS51_BE8_01_42317.mzXML	11135.Sample.X3053613	HIV+	zengler_addiction_mibi	500	NO	NO			Buffer_Sample	BE8	42317	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS140_RE4_01_42425.mzXML	11135.Sample.X3053757	HIV+	zengler_addiction_mibi	300	NO	NO		imp	Buffer_Sample	RE4	42425	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S12_BB2_01_42047.mzXML	11135.Sample.X3053804	HIV+	hnrp_mibi_batch2	79	NO	NO	minimal	nml	Sample	BB2	42047	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS173_RH1_01_42464.mzXML	11135.Sample.X3053986	HIV+	zengler_addiction_mibi	109	YES	YES		nml	Buffer_Sample	RH1	42464	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S158_RG5_01_42228.mzXML	11135.Sample.X3054072	HIV+	hnrc_mibi_batch3	78	NO	YES	minimal	nml	Sample	RG5	42228	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS118_RC6_01_42398.mzXML	11135.Sample.X3054093	HIV+	zengler_addiction_mibi	12	NO	YES	minimal	nml	Buffer_Sample	RC6	42398	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS71_BG6_01_42341.mzXML	11135.Sample.X3054338	HIV+	zengler_addiction_mibi	15	NO	YES		nml	Buffer_Sample	BG6	42341	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS127_RD3_01_42409.mzXML	11135.Sample.X3054448	HIV+	zengler_addiction_mibi	400	NO	NO	minimal	imp	Buffer_Sample	RD3	42409	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS157_RF9_01_42444.mzXML	11135.Sample.X3054563	HIV+	zengler_addiction_mibi	60	NO	YES	minimal	nml	Buffer_Sample	RF9	42444	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS91_RA3_01_42367.mzXML	11135.Sample.X3054609	HIV+	zengler_addiction_mibi	250	NO	YES	minimal	nml	Buffer_Sample	RA3	42367	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS42_BD10_01_42305.mzXML	11135.Sample.X3054691	HIV+	zengler_addiction_mibi	292	NO	NO		nml	Buffer_Sample	BD10	42305	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS120_RC8_01_42400.mzXML	11135.Sample.X3054754	HIV-	zengler_addiction_mibi	626	NO	NO	minimal	nml	Buffer_Sample	RC8	42400	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS103_RB3_01_42381.mzXML	11135.Sample.X3054813	HIV+	zengler_addiction_mibi	220	NO	NO	mild	imp	Buffer_Sample	RB3	42381	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS88_BH12_01_42360.mzXML	11135.Sample.X3054956	HIV+	zengler_addiction_mibi	325	YES	YES		nml	Buffer_Sample	BH12	42360	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS129_RD5_01_42411.mzXML	11135.Sample.X3055200	HIV+	zengler_addiction_mibi	764	NO	NO			Buffer_Sample	RD5	42411	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S152_RF10_01_42220.mzXML	11135.Sample.X3055738	HIV+	hnrc_mibi_batch3	175	YES	YES			Sample	RF10	42220	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS62_BF8_01_42330.mzXML	11135.Sample.X3056145	HIV+	zengler_addiction_mibi	5	NO	YES	minimal	imp	Buffer_Sample	BF8	42330	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS46_BE3_01_42312.mzXML	11135.Sample.X3056148	HIV+	zengler_addiction_mibi	99	NO	YES	minimal	imp	Buffer_Sample	BE3	42312	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS72_BG7_01_42342.mzXML	11135.Sample.X3056170	HIV+	zengler_addiction_mibi	260	NO	YES	mild	nml	Buffer_Sample	BG7	42342	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS139_RE3_01_42424.mzXML	11135.Sample.X3056233	HIV+	zengler_addiction_mibi	580	NO	NO	minimal	imp	Buffer_Sample	RE3	42424	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS158_RF10_01_42445.mzXML	11135.Sample.X3056255	HIV+	zengler_addiction_mibi	97	NO	NO	minimal	nml	Buffer_Sample	RF10	42445	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS92_RA4_01_42368.mzXML	11135.Sample.X3056292	HIV+	zengler_addiction_mibi	90	YES	YES	minimal	imp	Buffer_Sample	RA4	42368	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS57_BF3_01_42325.mzXML	11135.Sample.X3056340	HIV+	zengler_addiction_mibi	92	NO	NO	minimal	imp	Buffer_Sample	BF3	42325	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS65_BF11_01_42333.mzXML	11135.Sample.X3056375	HIV+	zengler_addiction_mibi	134	NO	NO	minimal	nml	Buffer_Sample	BF11	42333	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS70_BG5_01_42340.mzXML	11135.Sample.X3056430	HIV-	zengler_addiction_mibi	1204	NO	NO	minimal	imp	Buffer_Sample	BG5	42340	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS64_BF10_01_42332.mzXML	11135.Sample.X3056471	HIV-	zengler_addiction_mibi		NO	NO	minimal	nml	Buffer_Sample	BF10	42332	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS66_BF12_01_42334.mzXML	11135.Sample.X3056476	HIV-	zengler_addiction_mibi		YES	NO	minimal	nml	Buffer_Sample	BF12	42334	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS63_BF9_01_42331.mzXML	11135.Sample.X3056696	HIV-	zengler_addiction_mibi		NO	NO	minimal	nml	Buffer_Sample	BF9	42331	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS58_BF4_01_42326.mzXML	11135.Sample.X3057627	HIV+	zengler_addiction_mibi	0	NO	YES	minimal	imp	Buffer_Sample	BF4	42326	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS60_BF6_01_42328.mzXML	11135.Sample.X3057673	HIV+	zengler_addiction_mibi	725	YES	YES		nml	Buffer_Sample	BF6	42328	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS107_RB7_01_42385.mzXML	11135.Sample.X3057713	HIV-	zengler_addiction_mibi		NO	NO	minimal	nml	Buffer_Sample	RB7	42385	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS47_BE4_01_42313.mzXML	11135.Sample.X3057791	HIV+	zengler_addiction_mibi	434	NO	NO	minimal	nml	Buffer_Sample	BE4	42313	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S136_RE5_01_42202.mzXML	11135.Sample.X3057807	HIV+	hnrc_mibi_batch3	710	NO	NO		imp	Sample	RE5	42202	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S151_RF9_01_42219.mzXML	11135.Sample.X3057829	HIV+	hnrc_mibi_batch3	170	NO	YES	mild	imp	Sample	RF9	42219	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS125_RD1_01_42407.mzXML	11135.Sample.X3057835	HIV+	zengler_addiction_mibi	250	NO	YES			Buffer_Sample	RD1	42407	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS59_BF5_01_42327.mzXML	11135.Sample.X3057935	HIV+	zengler_addiction_mibi	386	YES	NO	minimal	imp	Buffer_Sample	BF5	42327	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS102_RB2_01_42380.mzXML	11135.Sample.X3057979	HIV-	zengler_addiction_mibi	570	NO	NO	minimal	nml	Buffer_Sample	RB2	42380	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS61_BF7_01_42329.mzXML	11135.Sample.X3057985	HIV-	zengler_addiction_mibi	697	NO	NO	minimal	nml	Buffer_Sample	BF7	42329	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS79_BH3_01_42351.mzXML	11135.Sample.X3058022	HIV+	zengler_addiction_mibi	35	NO	YES	mild	imp	Buffer_Sample	BH3	42351	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS145_RE9_01_42430.mzXML	11135.Sample.X3058085	HIV+	zengler_addiction_mibi	21	NO	NO	minimal	nml	Buffer_Sample	RE9	42430	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS112_RB12_01_42390.mzXML	11135.Sample.X3058141	HIV+	zengler_addiction_mibi	310	NO	YES	minimal	imp	Buffer_Sample	RB12	42390	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS135_RD11_01_42417.mzXML	11135.Sample.X3058182	HIV+	zengler_addiction_mibi	241	NO	YES	mild	nml	Buffer_Sample	RD11	42417	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S157_RG4_01_42227.mzXML	11135.Sample.X3058210	HIV+	hnrc_mibi_batch3	8	NO	YES	moderate	imp	Sample	RG4	42227	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS121_RC9_01_42401.mzXML	11135.Sample.X3058255	HIV+	zengler_addiction_mibi	55	YES	NO	minimal	imp	Buffer_Sample	RC9	42401	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS109_RB9_01_42387.mzXML	11135.Sample.X3058256	HIV-	zengler_addiction_mibi	898	NO	YES	minimal	imp	Buffer_Sample	RB9	42387	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS45_BE2_01_42311.mzXML	11135.Sample.X3059167	HIV+	zengler_addiction_mibi	18	YES	YES	minimal	imp	Buffer_Sample	BE2	42311	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS87_BH11_01_42359.mzXML	11135.Sample.X3059176	HIV-	zengler_addiction_mibi		NO	NO	minimal	imp	Buffer_Sample	BH11	42359	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS76_BG11_01_42346.mzXML	11135.Sample.X3060222	HIV+	zengler_addiction_mibi	90	NO	NO	minimal	imp	Buffer_Sample	BG11	42346	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS77_BG12_01_42347.mzXML	11135.Sample.X3060226	HIV+	zengler_addiction_mibi	410	NO	NO	severe	imp	Buffer_Sample	BG12	42347	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S153_RF11_01_42221.mzXML	11135.Sample.X3061856	HIV+	hnrc_mibi_batch3	2	NO	NO	minimal	imp	Sample	RF11	42221	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS68_BG3_01_42338.mzXML	11135.Sample.X3061903	HIV+	zengler_addiction_mibi	486	YES	YES			Buffer_Sample	BG3	42338	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS138_RE2_01_42423.mzXML	11135.Sample.X3061906	HIV+	zengler_addiction_mibi	340	NO	YES	moderate	imp	Buffer_Sample	RE2	42423	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS69_BG4_01_42339.mzXML	11135.Sample.X3061922	HIV+	zengler_addiction_mibi	628	NO	YES	mild	imp	Buffer_Sample	BG4	42339	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS147_RE11_01_42432.mzXML	11135.Sample.X3061928	HIV+	zengler_addiction_mibi	187	NO	YES		nml	Buffer_Sample	RE11	42432	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS165_RG5_01_42454.mzXML	11135.Sample.X3062194	HIV+	zengler_addiction_mibi	172	NO	NO	minimal	imp	Buffer_Sample	RG5	42454	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS108_RB8_01_42386.mzXML	11135.Sample.X3062212	HIV+	zengler_addiction_mibi	125	NO	NO	minimal	nml	Buffer_Sample	RB8	42386	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS90_RA2_01_42366.mzXML	11135.Sample.X3062263	HIV+	zengler_addiction_mibi	535	NO	NO	severe	nml	Buffer_Sample	RA2	42366	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S03_BA4_01_42036.mzXML	11135.Sample.X3062265	HIV-	hnrp_mibi_batch2		NO	YES	mild	imp	Sample	BA4	42036	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S66_BF12_01_42113.mzXML	11135.Sample.X3062376	HIV+	hnrp_mibi_batch2	196	YES	NO	minimal	nml	Sample	BF12	42113	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS75_BG10_01_42345.mzXML	11135.Sample.X3062505	HIV+	zengler_addiction_mibi	900	NO	NO		imp	Buffer_Sample	BG10	42345	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS163_RG3_01_42452.mzXML	11135.Sample.X3062528	HIV+	zengler_addiction_mibi	350	NO	YES	minimal	imp	Buffer_Sample	RG3	42452	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS164_RG4_01_42453.mzXML	11135.Sample.X3062601	HIV-	zengler_addiction_mibi	636	YES	YES			Buffer_Sample	RG4	42453	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS154_RF6_01_42441.mzXML	11135.Sample.X3062690	HIV+	zengler_addiction_mibi	278	NO	NO	moderate	imp	Buffer_Sample	RF6	42441	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS104_RB4_01_42382.mzXML	11135.Sample.X3062735	HIV+	zengler_addiction_mibi	4	NO	YES	minimal	imp	Buffer_Sample	RB4	42382	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS119_RC7_01_42399.mzXML	11135.Sample.X3062850	HIV+	zengler_addiction_mibi	11	NO	YES	minimal	nml	Buffer_Sample	RC7	42399	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS78_BH2_01_42350.mzXML	11135.Sample.X3063036	HIV-	zengler_addiction_mibi	1170	NO	NO	minimal	imp	Buffer_Sample	BH2	42350	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS175_RH3_01_42466.mzXML	11135.Sample.X3063111	HIV+	zengler_addiction_mibi	3	YES	YES	mild	imp	Buffer_Sample	RH3	42466	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS177_RH5_01_42468.mzXML	11135.Sample.X3063166	HIV+	zengler_addiction_mibi	88	NO	NO			Buffer_Sample	RH5	42468	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS178_RH6_01_42469.mzXML	11135.Sample.X3063197	HIV-	zengler_addiction_mibi	532	NO	NO	minimal	nml	Buffer_Sample	RH6	42469	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS67_BG2_01_42337.mzXML	11135.Sample.X3063208	HIV+	zengler_addiction_mibi	8	NO	YES	minimal	imp	Buffer_Sample	BG2	42337	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS176_RH4_01_42467.mzXML	11135.Sample.X3063248	HIV+	zengler_addiction_mibi	180	YES	YES			Buffer_Sample	RH4	42467	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS73_BG8_01_42343.mzXML	11135.Sample.X3063253	HIV+	zengler_addiction_mibi	13	NO	YES	minimal	imp	Buffer_Sample	BG8	42343	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS128_RD4_01_42410.mzXML	11135.Sample.X3063601	HIV+	zengler_addiction_mibi	45	NO	YES	minimal	imp	Buffer_Sample	RD4	42410	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS110_RB10_01_42388.mzXML	11135.Sample.X3064056	HIV+	zengler_addiction_mibi	800	NO	NO	minimal	imp	Buffer_Sample	RB10	42388	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS156_RF8_01_42443.mzXML	11135.Sample.X3064104	HIV-	zengler_addiction_mibi	862	YES	NO	mild	nml	Buffer_Sample	RF8	42443	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS74_BG9_01_42344.mzXML	11135.Sample.X3064135	HIV+	zengler_addiction_mibi	183	NO	YES	minimal	imp	Buffer_Sample	BG9	42344	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS144_RE8_01_42429.mzXML	11135.Sample.X3064217	HIV+	zengler_addiction_mibi	648	NO	YES	severe	nml	Buffer_Sample	RE8	42429	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS172_RG12_01_42461.mzXML	11135.Sample.X3064278	HIV+	zengler_addiction_mibi	114	YES	NO	minimal	nml	Buffer_Sample	RG12	42461	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS81_BH5_01_42353.mzXML	11135.Sample.X3064313	HIV-	zengler_addiction_mibi	864	NO	NO	moderate	imp	Buffer_Sample	BH5	42353	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS89_RA1_01_42365.mzXML	11135.Sample.X3064622	HIV-	zengler_addiction_mibi	1440	NO	YES	minimal	nml	Buffer_Sample	RA1	42365	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS106_RB6_01_42384.mzXML	11135.Sample.X3064817	HIV+	zengler_addiction_mibi	300	NO	NO	minimal	imp	Buffer_Sample	RB6	42384	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS82_BH6_01_42354.mzXML	11135.Sample.X3065172	HIV+	zengler_addiction_mibi	19	NO	YES		nml	Buffer_Sample	BH6	42354	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS166_RG6_01_42455.mzXML	11135.Sample.X3065206	HIV+	zengler_addiction_mibi	692	NO	YES	minimal	nml	Buffer_Sample	RG6	42455	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS97_RA9_01_42373.mzXML	11135.Sample.X3065240	HIV+	zengler_addiction_mibi	700	NO	YES	severe	imp	Buffer_Sample	RA9	42373	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS136_RD12_01_42418.mzXML	11135.Sample.X3067703	HIV+	zengler_addiction_mibi	98	NO	YES	minimal	nml	Buffer_Sample	RD12	42418	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS80_BH4_01_42352.mzXML	11135.Sample.X3068057	HIV-	zengler_addiction_mibi		NO	YES	minimal	imp	Buffer_Sample	BH4	42352	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS134_RD10_01_42416.mzXML	11135.Sample.X3068112	HIV+	zengler_addiction_mibi	30	NO	YES			Buffer_Sample	RD10	42416	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS167_RG7_01_42456.mzXML	11135.Sample.X3068356	HIV-	zengler_addiction_mibi		NO	NO	minimal	nml	Buffer_Sample	RG7	42456	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS179_RH7_01_42470.mzXML	11135.Sample.X3068925	HIV+	zengler_addiction_mibi	63	NO	NO	minimal	nml	Buffer_Sample	RH7	42470	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS126_RD2_01_42408.mzXML	11135.Sample.X3069127	HIV-	zengler_addiction_mibi	875	NO	NO	minimal	nml	Buffer_Sample	RD2	42408	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS117_RC5_01_42397.mzXML	11135.Sample.X3069133	HIV+	zengler_addiction_mibi	40	NO	YES			Buffer_Sample	RC5	42397	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS105_RB5_01_42383.mzXML	11135.Sample.X3069205	HIV+	zengler_addiction_mibi	250	YES	YES	minimal	nml	Buffer_Sample	RB5	42383	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S57_BF3_01_42104.mzXML	11135.Sample.X3071522	HIV+	hnrp_mibi_batch2	0	NO	NO			Sample	BF3	42104	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS96_RA8_01_42372.mzXML	11135.Sample.X3071535	HIV+	zengler_addiction_mibi	7	NO	NO	minimal	imp	Buffer_Sample	RA8	42372	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS153_RF5_01_42440.mzXML	11135.Sample.x3071657	HIV+	zengler_addiction_mibi	727	NO	NO	moderate	nml	Buffer_Sample	RF5	42440	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS137_RE1_01_42422.mzXML	11135.Sample.x3071658	HIV+	zengler_addiction_mibi	201	NO	YES	minimal	nml	Buffer_Sample	RE1	42422	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS146_RE10_01_42431.mzXML	11135.Sample.X3071737	HIV+	zengler_addiction_mibi	320	NO	NO		imp	Buffer_Sample	RE10	42431	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS168_RG8_01_42457.mzXML	11135.Sample.X3071936	HIV+	zengler_addiction_mibi	15	NO	NO		imp	Buffer_Sample	RG8	42457	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS98_RA10_01_42374.mzXML	11135.Sample.X3071939	HIV-	zengler_addiction_mibi		NO	YES	minimal	imp	Buffer_Sample	RA10	42374	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS162_RG2_01_42451.mzXML	11135.Sample.X3071940	HIV-	zengler_addiction_mibi	1065	NO	NO	minimal	nml	Buffer_Sample	RG2	42451	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS83_BH7_01_42355.mzXML	11135.Sample.X3071987	HIV+	zengler_addiction_mibi	210	NO	NO	minimal	nml	Buffer_Sample	BH7	42355	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S60_BF6_01_42107.mzXML	11135.Sample.X3072097	HIV-	hnrp_mibi_batch2	930	NO	NO	minimal	nml	Sample	BF6	42107	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S15_BB5_01_42050.mzXML	11135.Sample.X3072104	HIV+	hnrp_mibi_batch2	6	NO	NO	minimal	imp	Sample	BB5	42050	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS07_BA8_01_42261.mzXML	11135.Sample.X3072208	HIV+	zengler_addiction_mibi	4	NO	YES	minimal	imp	Buffer_Sample	BA8	42261	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S16_BB6_01_42051.mzXML	11135.Sample.X3072563	HIV-	hnrp_mibi_batch2		NO	YES	severe	imp	Sample	BB6	42051	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S74_BG9_01_42123.mzXML	11135.Sample.X3073607	HIV+	hnrp_mibi_batch2	238	YES	YES	minimal	nml	Sample	BG9	42123	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S20_BB10_01_42055.mzXML	11135.Sample.X3073858	HIV+	hnrp_mibi_batch2	8	NO	YES	mild	nml	Sample	BB10	42055	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S29_BC8_01_42066.mzXML	11135.Sample.X3073898	HIV+	hnrp_mibi_batch2	180	YES	YES	mild	imp	Sample	BC8	42066	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S52_BE9_01_42094.mzXML	11135.Sample.X3073949	HIV+	hnrp_mibi_batch2	11	NO	NO	minimal	imp	Sample	BE9	42094	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS06_BA7_01_42260.mzXML	11135.Sample.X3073986	HIV+	zengler_addiction_mibi	45	YES	YES			Buffer_Sample	BA7	42260	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS116_RC4_01_42396.mzXML	11135.Sample.X3074280	HIV+	zengler_addiction_mibi	300	NO	NO			Buffer_Sample	RC4	42396	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS155_RF7_01_42442.mzXML	11135.Sample.X3074623	HIV-	zengler_addiction_mibi		NO	YES			Buffer_Sample	RF7	42442	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS05_BA6_01_42258.mzXML	11135.Sample.X3074686	HIV-	zengler_addiction_mibi	1146	NO	NO	minimal	imp	Buffer_Sample	BA6	42258	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S11_BA12_01_42044.mzXML	11135.Sample.X3074692	HIV+	hnrp_mibi_batch2	4	NO	YES	minimal	imp	Sample	BA12	42044	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS03_BA4_01_42256.mzXML	11135.Sample.X3074860	HIV+	zengler_addiction_mibi	200	NO	NO	minimal	nml	Buffer_Sample	BA4	42256	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS04_BA5_01_42257.mzXML	11135.Sample.X3074922	HIV-	zengler_addiction_mibi		NO	NO	mild	nml	Buffer_Sample	BA5	42257	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S48_BE5_01_42090.mzXML	11135.Sample.X3074942	HIV-	hnrp_mibi_batch2	1080	NO	NO	minimal	imp	Sample	BE5	42090	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS169_RG9_01_42458.mzXML	11135.Sample.X3074984	HIV+	zengler_addiction_mibi	250	NO	YES		imp	Buffer_Sample	RG9	42458	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S70_BG5_01_42119.mzXML	11135.Sample.X3075069	HIV-	hnrp_mibi_batch2	719	NO	NO	minimal	nml	Sample	BG5	42119	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S06_BA7_01_42039.mzXML	11135.Sample.X3075128	HIV+	hnrp_mibi_batch2	350	NO	YES	minimal	nml	Sample	BA7	42039	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S73_BG8_01_42122.mzXML	11135.Sample.X3075298	HIV+	hnrp_mibi_batch2	2	YES	YES	minimal	nml	Sample	BG8	42122	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+BS170_RG10_01_42459.mzXML	11135.Sample.X3075993	HIV-	zengler_addiction_mibi		NO	NO	mild	imp	Buffer_Sample	RG10	42459	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S51_BE8_01_42093.mzXML	11135.Sample.X3076513	HIV+	hnrp_mibi_batch2	55	YES	NO			Sample	BE8	42093	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S43_BD11_01_42082.mzXML	11135.Sample.X3076514	HIV+	hnrp_mibi_batch2	201	YES	NO	minimal	nml	Sample	BD11	42082	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S38_BD6_01_42077.mzXML	11135.Sample.X3076610	HIV+	hnrp_mibi_batch2	543	NO	NO	minimal	nml	Sample	BD6	42077	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S86_BH10_01_42137.mzXML	11135.Sample.X3076628	HIV+	hnrp_mibi_batch2	280	NO	NO			Sample	BH10	42137	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S69_BG4_01_42118.mzXML	11135.Sample.X3076697	HIV+	hnrp_mibi_batch2	86	NO	NO	minimal	imp	Sample	BG4	42118	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S129_RD9_01_42192.mzXML	11135.Sample.X3076710	HIV+	hnrc_mibi_batch3	199	YES	YES	severe	imp	Sample	RD9	42192	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S24_BC3_01_42061.mzXML	11135.Sample.X3076716	HIV+	hnrp_mibi_batch2	675	NO	YES		nml	Sample	BC3	42061	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S47_BE4_01_42089.mzXML	11135.Sample.X3076741	HIV+	hnrp_mibi_batch2	240	NO	YES			Sample	BE4	42089	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S25_BC4_01_42062.mzXML	11135.Sample.X3076753	HIV+	hnrp_mibi_batch2	100	NO	NO	minimal		Sample	BC4	42062	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S56_BF2_01_42103.mzXML	11135.Sample.X3076806	HIV+	hnrp_mibi_batch2	227	NO	YES	minimal	imp	Sample	BF2	42103	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S02_BA3_01_42035.mzXML	11135.Sample.X3076854	HIV+	hnrp_mibi_batch2	216	NO	YES	minimal	nml	Sample	BA3	42035	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S34_BD2_01_42073.mzXML	11135.Sample.X3076867	HIV+	hnrp_mibi_batch2	446	YES	YES	severe	imp	Sample	BD2	42073	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S65_BF11_01_42112.mzXML	11135.Sample.X3076904	HIV-	hnrp_mibi_batch2	1204	NO	NO		imp	Sample	BF11	42112	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S79_BH3_01_42130.mzXML	11135.Sample.X3078011	HIV-	hnrp_mibi_batch2		NO	YES		nml	Sample	BH3	42130	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S127_RD7_01_42190.mzXML	11135.Sample.X3078257	HIV+	hnrc_mibi_batch3	9	NO	NO	minimal		Sample	RD7	42190	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S126_RD6_01_42189.mzXML	11135.Sample.X3078269	HIV+	hnrc_mibi_batch3	32		YES	moderate	imp	Sample	RD6	42189	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S98_RA11_01_42153.mzXML	11135.Sample.X3078512	HIV+	hnrp_mibi_batch2	170	NO	YES		imp	Sample	RA11	42153	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S83_BH7_01_42134.mzXML	11135.Sample.X3078546	HIV+	hnrp_mibi_batch2	9	NO	NO	minimal	nml	Sample	BH7	42134	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S14_BB4_01_42049.mzXML	11135.Sample.X3078556	HIV+	hnrp_mibi_batch2	500	NO	NO	moderate	nml	Sample	BB4	42049	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S42_BD10_01_42081.mzXML	11135.Sample.X3078571	HIV+	hnrp_mibi_batch2	79	NO	NO	minimal	nml	Sample	BD10	42081	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S161_RG8_01_42231.mzXML	11135.Sample.X3079059	HIV+	hnrc_mibi_batch3	180	NO	YES	minimal	nml	Sample	RG8	42231	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S85_BH9_01_42136.mzXML	11135.Sample.X3079149	HIV+	hnrp_mibi_batch2	515	NO	NO	minimal	nml	Sample	BH9	42136	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S97_RA10_01_42152.mzXML	11135.Sample.X3079267	HIV+	hnrp_mibi_batch2	270	NO	YES	minimal	nml	Sample	RA10	42152	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S33_BC12_01_42070.mzXML	11135.Sample.X3079328	HIV+	hnrp_mibi_batch2	486	YES	YES	severe	nml	Sample	BC12	42070	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S96_RA9_01_42151.mzXML	11135.Sample.X3079329	HIV+	hnrp_mibi_batch2	24	NO	YES	minimal	imp	Sample	RA9	42151	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S94_RA7_01_42149.mzXML	11135.Sample.X3079376	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	RA7	42149	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S84_BH8_01_42135.mzXML	11135.Sample.X3079381	HIV+	hnrp_mibi_batch2	386	YES	NO	minimal	imp	Sample	BH8	42135	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S162_RG9_01_42232.mzXML	11135.Sample.X3079507	HIV-	hnrc_mibi_batch3		NO	YES	mild	nml	Sample	RG9	42232	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S93_RA6_01_42148.mzXML	11135.Sample.X3079517	HIV-	hnrp_mibi_batch2		NO	YES	minimal	imp	Sample	RA6	42148	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S78_BH2_01_42129.mzXML	11135.Sample.X3079524	HIV+	hnrp_mibi_batch2	284	NO	NO	severe	imp	Sample	BH2	42129	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S50_BE7_01_42092.mzXML	11135.Sample.X3079652	HIV+	hnrp_mibi_batch2	97	NO	NO	minimal	nml	Sample	BE7	42092	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S89_RA2_01_42144.mzXML	11135.Sample.X3079657	HIV+	hnrp_mibi_batch2	8	NO	YES	moderate	imp	Sample	RA2	42144	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S46_BE3_01_42088.mzXML	11135.Sample.X3079711	HIV+	hnrp_mibi_batch2	134	YES	YES	moderate	imp	Sample	BE3	42088	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S71_BG6_01_42120.mzXML	11135.Sample.X3079885	HIV+	hnrp_mibi_batch2	340	NO	YES	mild	imp	Sample	BG6	42120	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S81_BH5_01_42132.mzXML	11135.Sample.X3079889	HIV+	hnrp_mibi_batch2	200	NO	YES	minimal	nml	Sample	BH5	42132	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S62_BF8_01_42109.mzXML	11135.Sample.X3079897	HIV+	hnrp_mibi_batch2	300	NO	NO	minimal	imp	Sample	BF8	42109	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S87_BH11_01_42138.mzXML	11135.Sample.X3079906	HIV+	hnrp_mibi_batch2	1	NO	YES	moderate	imp	Sample	BH11	42138	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S80_BH4_01_42131.mzXML	11135.Sample.X3080010	HIV+	hnrp_mibi_batch2	90	YES	YES	minimal	imp	Sample	BH4	42131	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S92_RA5_01_42147.mzXML	11135.Sample.X3080016	HIV+	hnrp_mibi_batch2	150	NO	YES	minimal	imp	Sample	RA5	42147	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S05_BA6_01_42038.mzXML	11135.Sample.X3080022	HIV+	hnrp_mibi_batch2	309	YES	YES			Sample	BA6	42038	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S53_BE10_01_42098.mzXML	11135.Sample.X3080025	HIV+	hnrp_mibi_batch2	18	NO	YES	minimal	nml	Sample	BE10	42098	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S155_RG2_01_42225.mzXML	11135.Sample.X3080087	HIV+	hnrc_mibi_batch3	3	NO	YES			Sample	RG2	42225	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S102_RB4_01_42159.mzXML	11135.Sample.X3080089	HIV+	hnrp_mibi_batch2	208	NO	YES	moderate	nml	Sample	RB4	42159	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S125_RD5_01_42188.mzXML	11135.Sample.X3080103	HIV+	hnrc_mibi_batch3	40	NO	NO	minimal	imp	Sample	RD5	42188	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S99_RA12_01_42154.mzXML	11135.Sample.X3080170	HIV+	hnrp_mibi_batch2	497	YES	YES	moderate	nml	Sample	RA12	42154	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S88_BH12_01_42139.mzXML	11135.Sample.X3080189	HIV-	hnrp_mibi_batch2	657	YES	NO	minimal	nml	Sample	BH12	42139	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S37_BD5_01_42076.mzXML	11135.Sample.X3080257	HIV+	hnrp_mibi_batch2	29	NO	YES	minimal	imp	Sample	BD5	42076	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S72_BG7_01_42121.mzXML	11135.Sample.X3080470	HIV+	hnrp_mibi_batch2	480	NO	YES	moderate	nml	Sample	BG7	42121	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S61_BF7_01_42108.mzXML	11135.Sample.X3080497	HIV+	hnrp_mibi_batch2	92	NO	NO	minimal	imp	Sample	BF7	42108	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S95_RA8_01_42150.mzXML	11135.Sample.X3081346	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	RA8	42150	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S07_BA8_01_42040.mzXML	11135.Sample.X3081381	HIV+	hnrp_mibi_batch2	297	NO	YES	mild	nml	Sample	BA8	42040	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S28_BC7_01_42065.mzXML	11135.Sample.X3081466	HIV+	hnrp_mibi_batch2	208	NO	YES	moderate	imp	Sample	BC7	42065	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S19_BB9_01_42054.mzXML	11135.Sample.X3081600	HIV+	hnrp_mibi_batch2	176	NO	YES	moderate	nml	Sample	BB9	42054	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S10_BA11_01_42043.mzXML	11135.Sample.X3081626	HIV+	hnrp_mibi_batch2	53	NO	YES	minimal	nml	Sample	BA11	42043	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S26_BC5_01_42063.mzXML	11135.Sample.X3081670	HIV+	hnrp_mibi_batch2	4	NO	YES	minimal	nml	Sample	BC5	42063	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S90_RA3_01_42145.mzXML	11135.Sample.X3081706	HIV+	hnrp_mibi_batch2	24	NO	NO			Sample	RA3	42145	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S114_RC5_01_42175.mzXML	11135.Sample.X3081735	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	RC5	42175	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S115_RC6_01_42176.mzXML	11135.Sample.X3081762	HIV+	hnrp_mibi_batch2	200	NO	YES	severe	imp	Sample	RC6	42176	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S32_BC11_01_42069.mzXML	11135.Sample.X3081853	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	BC11	42069	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S54_BE11_01_42099.mzXML	11135.Sample.X3081904	HIV+	hnrp_mibi_batch2	300	NO	NO	mild	nml	Sample	BE11	42099	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S108_RB10_01_42165.mzXML	11135.Sample.X3081919	HIV-	hnrp_mibi_batch2		NO	NO	minimal	nml	Sample	RB10	42165	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S68_BG3_01_42117.mzXML	11135.Sample.X3081941	HIV+	hnrp_mibi_batch2	1	NO	YES			Sample	BG3	42117	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S91_RA4_01_42146.mzXML	11135.Sample.X3082008	HIV+	hnrp_mibi_batch2	30	NO	NO	minimal	nml	Sample	RA4	42146	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S08_BA9_01_42041.mzXML	11135.Sample.X3082016	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	BA9	42041	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S63_BF9_01_42110.mzXML	11135.Sample.X3082056	HIV-	hnrp_mibi_batch2	584	NO	NO	minimal	imp	Sample	BF9	42110	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S44_BD12_01_42083.mzXML	11135.Sample.X3082069	HIV+	hnrp_mibi_batch2	3	YES	NO	minimal	imp	Sample	BD12	42083	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S40_BD8_01_42079.mzXML	11135.Sample.X3082209	HIV-	hnrp_mibi_batch2	662	NO	YES	minimal	nml	Sample	BD8	42079	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S01_BA2_01_42034.mzXML	11135.Sample.X3082238	HIV+	hnrp_mibi_batch2	220	NO	YES		nml	Sample	BA2	42034	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S17_BB7_01_42052.mzXML	11135.Sample.X3082348	HIV-	hnrp_mibi_batch2		YES	NO	minimal	nml	Sample	BB7	42052	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S35_BD3_01_42074.mzXML	11135.Sample.X3082368	HIV+	hnrp_mibi_batch2	343	NO	YES	minimal	nml	Sample	BD3	42074	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S41_BD9_01_42080.mzXML	11135.Sample.X3082375	HIV+	hnrp_mibi_batch2	150	NO	YES	mild	nml	Sample	BD9	42080	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S21_BB11_01_42056.mzXML	11135.Sample.X3082421	HIV+	hnrp_mibi_batch2	18	YES	YES	severe	imp	Sample	BB11	42056	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S82_BH6_01_42133.mzXML	11135.Sample.X3088589	HIV-	hnrp_mibi_batch2	450	YES	YES	minimal	imp	Sample	BH6	42133	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S130_RD10_01_42193.mzXML	11135.Sample.X3088814	HIV-	hnrc_mibi_batch3		NO	NO	minimal	nml	Sample	RD10	42193	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S105_RB7_01_42162.mzXML	11135.Sample.X3088849	HIV+	hnrp_mibi_batch2	100	NO	NO			Sample	RB7	42162	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S13_BB3_01_42048.mzXML	11135.Sample.X3088929	HIV+	hnrp_mibi_batch2	18	NO	NO	moderate	imp	Sample	BB3	42048	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S64_BF10_01_42111.mzXML	11135.Sample.X3089018	HIV-	hnrp_mibi_batch2	578	NO	YES	mild	nml	Sample	BF10	42111	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S22_BB12_01_42057.mzXML	11135.Sample.X3089021	HIV+	hnrp_mibi_batch2	180	NO	YES			Sample	BB12	42057	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S112_RC3_01_42173.mzXML	11135.Sample.X3089054	HIV+	hnrp_mibi_batch2	8	NO	YES		imp	Sample	RC3	42173	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S156_RG3_01_42226.mzXML	11135.Sample.X3089101	HIV+	hnrc_mibi_batch3	44	NO	NO	mild	nml	Sample	RG3	42226	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S55_BE12_01_42100.mzXML	11135.Sample.X3089449	HIV+	hnrp_mibi_batch2	14	YES	YES	minimal	imp	Sample	BE12	42100	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S36_BD4_01_42075.mzXML	11135.Sample.X3089474	HIV-	hnrp_mibi_batch2		NO	YES	minimal	nml	Sample	BD4	42075	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S113_RC4_01_42174.mzXML	11135.Sample.X3089479	HIV+	hnrp_mibi_batch2	10	YES	YES	minimal	imp	Sample	RC4	42174	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S31_BC10_01_42068.mzXML	11135.Sample.X3089490	HIV+	hnrp_mibi_batch2	50	NO	YES	minimal	nml	Sample	BC10	42068	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S117_RC8_01_42178.mzXML	11135.Sample.X3089584	HIV+	hnrp_mibi_batch2	120	NO	NO	moderate	nml	Sample	RC8	42178	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S30_BC9_01_42067.mzXML	11135.Sample.X3089617	HIV+	hnrp_mibi_batch2	13	NO	YES	mild	imp	Sample	BC9	42067	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S49_BE6_01_42091.mzXML	11135.Sample.X3089692	HIV+	hnrp_mibi_batch2	700	NO	YES	moderate	imp	Sample	BE6	42091	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S04_BA5_01_42037.mzXML	11135.Sample.X3089871	HIV+	hnrp_mibi_batch2	0	YES	YES	minimal	nml	Sample	BA5	42037	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S59_BF5_01_42106.mzXML	11135.Sample.X3090406	HIV+	hnrp_mibi_batch2	475	NO	YES	minimal	imp	Sample	BF5	42106	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S104_RB6_01_42161.mzXML	11135.Sample.X3090599	HIV+	hnrp_mibi_batch2	180	YES	YES			Sample	RB6	42161	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S58_BF4_01_42105.mzXML	11135.Sample.X3090634	HIV+	hnrp_mibi_batch2	180	NO	NO	minimal	imp	Sample	BF4	42105	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S77_BG12_01_42126.mzXML	11135.Sample.X3090656	HIV+	hnrp_mibi_batch2	227	NO	YES	minimal	imp	Sample	BG12	42126	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S116_RC7_01_42177.mzXML	11135.Sample.X3091034	HIV+	hnrp_mibi_batch2	45	NO	YES	minimal	imp	Sample	RC7	42177	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S100_RB2_01_42157.mzXML	11135.Sample.X3091045	HIV-	hnrp_mibi_batch2	1170	NO	NO	minimal	nml	Sample	RB2	42157	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S23_BC2_01_42060.mzXML	11135.Sample.X3091175	HIV+	hnrp_mibi_batch2	135	NO	NO	mild	nml	Sample	BC2	42060	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S103_RB5_01_42160.mzXML	11135.Sample.X3091291	HIV+	hnrp_mibi_batch2	11	NO	YES	minimal	nml	Sample	RB5	42160	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S107_RB9_01_42164.mzXML	11135.Sample.X3091350	HIV-	hnrp_mibi_batch2	659	NO	NO	minimal	nml	Sample	RB9	42164	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S111_RC2_01_42170.mzXML	11135.Sample.X3091428	HIV+	hnrp_mibi_batch2	400	NO	YES			Sample	RC2	42170	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S09_BA10_01_42042.mzXML	11135.Sample.X3091433	HIV+	hnrp_mibi_batch2	350	YES	NO	minimal	nml	Sample	BA10	42042	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S18_BB8_01_42053.mzXML	11135.Sample.X3091462	HIV+	hnrp_mibi_batch2	183	NO	YES	mild	imp	Sample	BB8	42053	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S101_RB3_01_42158.mzXML	11135.Sample.X3091513	HIV+	hnrp_mibi_batch2	12	NO	YES	minimal	nml	Sample	RB3	42158	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S39_BD7_01_42078.mzXML	11135.Sample.X3092041	HIV+	hnrp_mibi_batch2	450	NO	NO	minimal	nml	Sample	BD7	42078	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S163_RG10_01_42233.mzXML	11135.Sample.X3092840	HIV-	hnrc_mibi_batch3		NO	NO			Sample	RG10	42233	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S67_BG2_01_42116.mzXML	11135.Sample.X3092848	HIV+	hnrp_mibi_batch2	423	NO	NO		nml	Sample	BG2	42116	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S121_RC12_01_42182.mzXML	11135.Sample.X3092859	HIV+	hnrp_mibi_batch2	300	NO	NO	minimal	nml	Sample	RC12	42182	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S118_RC9_01_42179.mzXML	11135.Sample.X3092915	HIV+	hnrp_mibi_batch2	480	NO	YES	minimal	imp	Sample	RC9	42179	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S109_RB11_01_42166.mzXML	11135.Sample.X3093784	HIV+	hnrp_mibi_batch2	300	NO	YES	minimal	imp	Sample	RB11	42166	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S76_BG11_01_42125.mzXML	11135.Sample.X3093795	HIV+	hnrp_mibi_batch2	97	NO	NO		nml	Sample	BG11	42125	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S27_BC6_01_42064.mzXML	11135.Sample.X3094653	HIV+	hnrp_mibi_batch2	587	NO	NO		imp	Sample	BC6	42064	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S110_RB12_01_42167.mzXML	11135.Sample.X3094724	HIV-	hnrp_mibi_batch2	1152	NO	YES	minimal	imp	Sample	RB12	42167	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S120_RC11_01_42181.mzXML	11135.Sample.X3094878	HIV-	hnrp_mibi_batch2		NO	NO	minimal	imp	Sample	RC11	42181	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S119_RC10_01_42180.mzXML	11135.Sample.X3094912	HIV-	hnrp_mibi_batch2	397	NO	YES	minimal	imp	Sample	RC10	42180	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S75_BG10_01_42124.mzXML	11135.Sample.X3100292	HIV+	hnrp_mibi_batch2	255	NO	YES	minimal	nml	Sample	BG10	42124	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S45_BE2_01_42087.mzXML	11135.Sample.X3101666	HIV-	hnrp_mibi_batch2	661	NO	NO	minimal	nml	Sample	BE2	42087	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S165_RG12_01_42235.mzXML	11135.Sample.X3102519	HIV+	hnrc_mibi_batch3	241	NO	YES	minimal	nml	Sample	RG12	42235	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S139_RE8_01_42205.mzXML	11135.Sample.X3103632	HIV+	hnrc_mibi_batch3	100	NO	NO	minimal	nml	Sample	RE8	42205	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S169_RH4_01_42241.mzXML	11135.Sample.X3104074	HIV+	hnrc_mibi_batch3	7	NO	NO		nml	Sample	RH4	42241	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S166_BH1_01_42238.mzXML	11135.Sample.X3104098	HIV+	hnrc_mibi_batch3	322	NO	YES	minimal	nml	Sample	BH1	42238	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S143_RE12_01_42209.mzXML	11135.Sample.X3104112	HIV+	hnrc_mibi_batch3	300	YES	YES	minimal	imp	Sample	RE12	42209	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S146_RF4_01_42214.mzXML	11135.Sample.X3104140	HIV+	hnrc_mibi_batch3	76	YES	YES	minimal	imp	Sample	RF4	42214	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S148_RF6_01_42216.mzXML	11135.Sample.X3104209	HIV+	hnrc_mibi_batch3	172	NO	NO	minimal	imp	Sample	RF6	42216	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S141_RE10_01_42207.mzXML	11135.Sample.X3104255	HIV+	hnrc_mibi_batch3	180	YES	YES	minimal	imp	Sample	RE10	42207	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S144_RF2_01_42212.mzXML	11135.Sample.X3104424	HIV+	hnrc_mibi_batch3	4	NO	YES	mild	imp	Sample	RF2	42212	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S147_RF5_01_42215.mzXML	11135.Sample.X3104497	HIV+	hnrc_mibi_batch3	8	NO	YES	minimal	nml	Sample	RF5	42215	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S145_RF3_01_42213.mzXML	11135.Sample.X3104642	HIV-	hnrc_mibi_batch3	719	NO	NO	minimal	imp	Sample	RF3	42213	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S168_RH3_01_42240.mzXML	11135.Sample.X3105072	HIV+	hnrc_mibi_batch3	5	NO	YES	minimal	imp	Sample	RH3	42240	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S167_RH2_01_42239.mzXML	11135.Sample.X3105097	HIV+	hnrc_mibi_batch3	800	NO	NO	minimal	nml	Sample	RH2	42239	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S142_RE11_01_42208.mzXML	11135.Sample.X3105748	HIV+	hnrc_mibi_batch3	6	NO	NO		nml	Sample	RE11	42208	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S133_RE2_01_42199.mzXML	11135.Sample.X3106644	HIV+	hnrc_mibi_batch3	230		YES	moderate	imp	Sample	RE2	42199	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S138_RE7_01_42204.mzXML	11135.Sample.X3106699	HIV-	hnrc_mibi_batch3	813	NO	NO	minimal	imp	Sample	RE7	42204	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S164_RG11_01_42234.mzXML	11135.Sample.X3107007	HIV-	hnrc_mibi_batch3	986	NO	NO	minimal	imp	Sample	RG11	42234	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S173_RH8_01_42245.mzXML	11135.Sample.X3107081	HIV-	hnrc_mibi_batch3	938	NO	NO	minimal	nml	Sample	RH8	42245	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S140_RE9_01_42206.mzXML	11135.Sample.X3107314	HIV-	hnrc_mibi_batch3	494	YES	YES	minimal	imp	Sample	RE9	42206	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S176_RH11_01_42248.mzXML	11135.Sample.X3109444	HIV+	hnrc_mibi_batch3	85	NO	NO	minimal	imp	Sample	RH11	42248	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S172_RH7_01_42244.mzXML	11135.Sample.X3109550	HIV-	hnrc_mibi_batch3	1413	NO	NO	minimal	nml	Sample	RH7	42244	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S177_RH12_01_42249.mzXML	11135.Sample.X3109870	HIV+	hnrc_mibi_batch3	37	NO	NO	minimal	nml	Sample	RH12	42249	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S175_RH10_01_42247.mzXML	11135.Sample.X3110482	HIV+	hnrc_mibi_batch3	8	NO	YES	severe	imp	Sample	RH10	42247	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S174_RH9_01_42246.mzXML	11135.Sample.X3110829	HIV-	hnrc_mibi_batch3	563	NO	NO	minimal	nml	Sample	RH9	42246	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S171_RH6_01_42243.mzXML	11135.Sample.X3111317	HIV+	hnrc_mibi_batch3	3	NO	NO	minimal	nml	Sample	RH6	42243	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S123_RD3_01_42186.mzXML	11135.Sample.X3111715	HIV+	hnrc_mibi_batch3	150	NO	YES	minimal	imp	Sample	RD3	42186	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S122_RD2_01_42185.mzXML	11135.Sample.X3113313	HIV+	hnrc_mibi_batch3	92	NO	NO	minimal	imp	Sample	RD2	42185	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S170_RH5_01_42242.mzXML	11135.Sample.X3114582	HIV-	hnrc_mibi_batch3	661	NO	NO	minimal	nml	Sample	RH5	42242	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none
+S124_RD4_01_42187.mzXML	11135.Sample.X3115341	HIV+	hnrc_mibi_batch3	2	YES	YES	minimal	imp	Sample	RD4	42187	Bruker Daltonics maXis Impact	C18 RP-UHPLC	5x	50% MeOH	50% MeOH	none

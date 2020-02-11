@@ -166,4 +166,26 @@
         </execution>
     </tool>
 
+
+
+    <!-- Running written description -->                                                                                                                                                       
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="write_description" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/">
+        <pathVar name="write_description.script" path="write_description.py"/>
+    </pathSet>
+
+    <tool name="write_description">
+        <require name="workflowParameters" type="file"/>
+        <produce name="written_description" type="file" naming="explicit" extension="html"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="write_description.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="written_description"/>
+        </execution>
+    </tool>
+
 </toolset>
