@@ -283,6 +283,7 @@
         <require name="networking_pairs_results_file_filtered" type="file"/>
         <require name="clusterinfo_summary_enriched" type="file"/>
         <require name="librarysearch_results_file_DB" type="file"/>
+        <require name="libraryanalogsearch_results_file_DB" type="file"/>
         <require name="additional_pairs" type="folder"/>
         <produce name="gnps_molecular_network_graphml" type="file" naming="explicit" extension="graphml"/>
 
@@ -291,8 +292,9 @@
             <arg valueRef="networking_pairs_results_file_filtered"/>
             <arg valueRef="clusterinfo_summary_enriched"/>
             <arg valueRef="librarysearch_results_file_DB"/>
-            <arg valueRef="additional_pairs"/>
             <arg valueRef="gnps_molecular_network_graphml"/>
+            <arg option="-input_pairsfolder" valueRef="additional_pairs"/>
+            <arg option="-input_analoglibrarysearch" valueRef="libraryanalogsearch_results_file_DB"/>
         </execution>
     </tool>
 
@@ -374,6 +376,26 @@
             <arg pathRef="write_description.script"/>
             <arg valueRef="workflowParameters"/>
             <arg valueRef="written_description"/>
+        </execution>
+    </tool>
+
+    <!-- Summarizing Statistics for Networks -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomic_network_statistics" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/scripts">
+        <pathVar name="metabolomic_network_statistics.script" path="calculate_stats_graphml.py"/>
+    </pathSet>
+
+    <tool name="metabolomic_network_statistics">
+        <require name="gnps_molecular_network_graphml" type="file"/>
+        <produce name="network_statistics" type="file" naming="explicit" extension="txt"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_network_statistics.script"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+            <arg valueRef="network_statistics"/>
         </execution>
     </tool>
 

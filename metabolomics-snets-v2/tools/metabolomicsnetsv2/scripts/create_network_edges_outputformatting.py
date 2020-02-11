@@ -16,7 +16,7 @@ def determine_delta_annotations(mass_delta, node_mz, list_of_annotations, ppm_ac
     for annotation in list_of_annotations:
         mass_of_annotation = annotation["mass"]
         try:
-            ppm = (abs(mass_delta - mass_of_annotation)/node_mz) * 1000000
+            ppm = (abs(abs(mass_delta) - mass_of_annotation)/node_mz) * 1000000
         except:
             ppm = 10000
         if ppm < ppm_accuracy:
@@ -50,6 +50,7 @@ def main():
     parser.add_argument('output_selfloop_edges', help='output_filtered_edges')
     parser.add_argument('output_display_edges', help='output_display_edges')
     parser.add_argument('output_bidirection_display_edges', help='output_bidirection_display_edges')
+    parser.add_argument("--filterg6", default="0")
     args = parser.parse_args()
 
     """Creating information for the clusters in the network"""
@@ -96,9 +97,16 @@ def main():
 
         edges_list.append(edge_dict)
 
+    #Adding Self Loops
     for row in csv.DictReader(open(args.input_clusterinfosummary), delimiter='\t'):
         cluster_index = row["cluster index"]
         if not(cluster_index in included_nodes_in_edges):
+            if args.filterg6 == "1":
+                #Check if the G6 count for the node is zero
+                if "G6" in row:
+                    if int(row["G6"]) > 0:
+                        continue
+
             edge_dict = {}
             edge_dict["CLUSTERID1"] = cluster_index
             edge_dict["CLUSTERID2"] = cluster_index

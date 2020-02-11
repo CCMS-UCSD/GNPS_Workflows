@@ -97,21 +97,30 @@ def add_additional_edges(G, path_to_supplemental_edges):
     edges_to_add = []
 
     for additional_edge_row in edge_list:
-        node1 = additional_edge_row["ID1"]
-        node2 = additional_edge_row["ID2"]
+        try:
+            node1 = additional_edge_row["ID1"]
+            node2 = additional_edge_row["ID2"]
+            
+            node1_mz = G.node[node1]["precursor mass"]
+            node2_mz = G.node[node2]["precursor mass"]
 
-        edgetype = additional_edge_row["EdgeType"]
-        score = additional_edge_row["Score"]
-        annotation = additional_edge_row["Annotation"]
+            mass_difference = float(node1_mz) - float(node2_mz)
 
-        edge_object = {}
-        edge_object["node1"] = node1
-        edge_object["node2"] = node2
-        edge_object["EdgeType"] = edgetype
-        edge_object["EdgeAnnotation"] = annotation.rstrip()
-        edge_object["EdgeScore"] = float(score)
+            edgetype = additional_edge_row["EdgeType"]
+            score = additional_edge_row["Score"]
+            annotation = additional_edge_row["Annotation"]
 
-        edges_to_add.append((node1, node2, edge_object))
+            edge_object = {}
+            edge_object["node1"] = node1
+            edge_object["node2"] = node2
+            edge_object["EdgeType"] = edgetype
+            edge_object["EdgeAnnotation"] = annotation.rstrip()
+            edge_object["EdgeScore"] = float(score)
+            edge_object["mass_difference"] = mass_difference
+            edges_to_add.append((node1, node2, edge_object))
+        except:
+            print("Error Adding Edge")
+            continue
 
     G.add_edges_from(edges_to_add)
 
@@ -144,14 +153,14 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
     ("GNPSLinkout_Cluster", "string"), \
     ("GNPSLinkout_Network", "string"), ("componentindex", "string")]
 
-
+    print("+++++++++++++++", nx.__version__)
 
     group_columns = ["G1", "G2", "G3", "G4", "G5", "G6"]
 
     for i in range(row_count):
         cluster_index = table_data["cluster index"][i]
 
-        if cluster_index in G.node:
+        if cluster_index in G:
             for default_column in default_listed_columns:
                 key_name = default_column[0]
                 type_name = default_column[1]
@@ -218,32 +227,32 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
 
 
 
-def add_library_search_results_to_graph(G, library_search_filename):
+def add_library_search_results_to_graph(G, library_search_filename, annotation_prefix=""):
     row_count, table_data = ming_fileio_library.parse_table_with_headers(library_search_filename)
 
     for i in range(row_count):
         cluster_index = table_data["#Scan#"][i]
 
         if cluster_index in G.node:
-            G.node[cluster_index]["Adduct"] = str(table_data["Adduct"][i].encode('ascii', 'ignore'))
-            G.node[cluster_index]["Compound_Name"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["Compound_Name"][i]]).replace("\\", "\\\\"))
-            G.node[cluster_index]["Adduct"] = str(table_data["Adduct"][i])
-            G.node[cluster_index]["INCHI"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["INCHI"][i]]).replace("\\", "\\\\"))
-            G.node[cluster_index]["Smiles"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["Smiles"][i]]).replace("\\", "\\\\"))
-            G.node[cluster_index]["MQScore"] = str(table_data["MQScore"][i])
-            G.node[cluster_index]["MassDiff"] = str(table_data["MassDiff"][i])
-            G.node[cluster_index]["MZErrorPPM"] = str(table_data["MZErrorPPM"][i])
-            G.node[cluster_index]["SharedPeaks"] = str(table_data["SharedPeaks"][i])
-            G.node[cluster_index]["tags"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["tags"][i]]).replace("\\", "\\\\"))
-            G.node[cluster_index]["Library_Class"] = str(table_data["Library_Class"][i])
-            G.node[cluster_index]["Instrument"] = str(table_data["Instrument"][i])
-            G.node[cluster_index]["IonMode"] = str(table_data["IonMode"][i])
-            G.node[cluster_index]["Ion_Source"] = str(table_data["Ion_Source"][i])
-            G.node[cluster_index]["PI"] = str(table_data["PI"][i])
-            G.node[cluster_index]["Data_Collector"] = str(table_data["Data_Collector"][i])
-            G.node[cluster_index]["Compound_Source"] = str(table_data["Compound_Source"][i])
-            G.node[cluster_index]["SpectrumID"] = str(table_data["SpectrumID"][i])
-            G.node[cluster_index]["GNPSLibraryURL"] = "http://gnps.ucsd.edu/ProteoSAFe/gnpslibraryspectrum.jsp?SpectrumID=" + table_data["SpectrumID"][i]
+            G.node[cluster_index][annotation_prefix + "Adduct"] = str(table_data["Adduct"][i].encode('ascii', 'ignore'))
+            G.node[cluster_index][annotation_prefix + "Compound_Name"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["Compound_Name"][i]]).replace("\\", "\\\\"))
+            G.node[cluster_index][annotation_prefix + "Adduct"] = str(table_data["Adduct"][i])
+            G.node[cluster_index][annotation_prefix + "INCHI"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["INCHI"][i]]).replace("\\", "\\\\"))
+            G.node[cluster_index][annotation_prefix + "Smiles"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["Smiles"][i]]).replace("\\", "\\\\"))
+            G.node[cluster_index][annotation_prefix + "MQScore"] = str(table_data["MQScore"][i])
+            G.node[cluster_index][annotation_prefix + "MassDiff"] = str(table_data["MassDiff"][i])
+            G.node[cluster_index][annotation_prefix + "MZErrorPPM"] = str(table_data["MZErrorPPM"][i])
+            G.node[cluster_index][annotation_prefix + "SharedPeaks"] = str(table_data["SharedPeaks"][i])
+            G.node[cluster_index][annotation_prefix + "tags"] = str(''.join([j if ord(j) < 128 else ' ' for j in table_data["tags"][i]]).replace("\\", "\\\\"))
+            G.node[cluster_index][annotation_prefix + "Library_Class"] = str(table_data["Library_Class"][i])
+            G.node[cluster_index][annotation_prefix + "Instrument"] = str(table_data["Instrument"][i])
+            G.node[cluster_index][annotation_prefix + "IonMode"] = str(table_data["IonMode"][i])
+            G.node[cluster_index][annotation_prefix + "Ion_Source"] = str(table_data["Ion_Source"][i])
+            G.node[cluster_index][annotation_prefix + "PI"] = str(table_data["PI"][i])
+            G.node[cluster_index][annotation_prefix + "Data_Collector"] = str(table_data["Data_Collector"][i])
+            G.node[cluster_index][annotation_prefix + "Compound_Source"] = str(table_data["Compound_Source"][i])
+            G.node[cluster_index][annotation_prefix + "SpectrumID"] = str(table_data["SpectrumID"][i])
+            G.node[cluster_index][annotation_prefix + "GNPSLibraryURL"] = "http://gnps.ucsd.edu/ProteoSAFe/gnpslibraryspectrum.jsp?SpectrumID=" + table_data["SpectrumID"][i]
 
 
 

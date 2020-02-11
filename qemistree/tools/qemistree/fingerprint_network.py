@@ -21,6 +21,7 @@ def main():
     parser = argparse.ArgumentParser(description='Annotate spectra')
     parser.add_argument("fingerprint_summary_folder")
     parser.add_argument("output_folder")
+    parser.add_argument("--min_score", type=float, default=0.8)
 
     args = parser.parse_args()
     input_filename = os.path.join(args.fingerprint_summary_folder, "summary_fingerprints.tsv")
@@ -46,7 +47,10 @@ def main():
             output_dict["SCAN1"] = record1["feature_id"]
             output_dict["SCAN2"] = record2["feature_id"]
 
-            sim = similarity(record1["fingerprint_scores"], record2["fingerprint_scores"])
+            sim = float(similarity(record1["fingerprint_scores"], record2["fingerprint_scores"]))
+
+            if sim < args.min_score:
+                continue
 
             output_dict["sim"] = sim
 
@@ -54,7 +58,16 @@ def main():
 
     pd.DataFrame(output_list).to_csv(os.path.join(args.output_folder, "pairs.tsv"), sep="\t", index=False)
 
+    #Output Supplementary Pairs
+    fbmn_pairs_df = pd.DataFrame(output_list)
+    fbmn_pairs_df["ID1"] = fbmn_pairs_df["SCAN1"]
+    fbmn_pairs_df["ID2"] = fbmn_pairs_df["SCAN2"]
+    fbmn_pairs_df["EdgeType"] = "FingerprintPairs"
+    fbmn_pairs_df["Score"] = fbmn_pairs_df["sim"]
+    fbmn_pairs_df["Annotation"] = "None"
 
+    fbmn_pairs_df = fbmn_pairs_df[["ID1", "ID2", "EdgeType", "Score", "Annotation"]]
+    fbmn_pairs_df.to_csv(os.path.join(args.output_folder, "fbmn_supplementary_pairs.csv"), sep=",", index=False)
     
             
 

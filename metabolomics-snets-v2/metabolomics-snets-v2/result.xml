@@ -99,17 +99,17 @@
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
                 <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[#Scan#]"/>
                 <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
-                <parameter name="LABEL" value="Mirror USI"/>
+                <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[#Scan#]"/>
-                <parameter name="LABEL" value="Query USI - mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[#Scan#]"/>
+                <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
-                <parameter name="LABEL" value="Library USI - mzspec:GNPSLIBRARY:[SpectrumID]"/>
+                <parameter name="LABEL" value="Library Spectrum USI"/>
             </column>
         </row>
 
@@ -251,7 +251,7 @@
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
-                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="Spectrum USI"/>
             </column>
         </row>
     </block>
@@ -1062,16 +1062,21 @@
 
         </row>
         <row expander="View Spectrum" expandericontype="text">
-            <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="[ProteosafeFilePath]"/>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Raw Spectrum">
+                <parameter name="file" file="[Original_Path]"/>
                 <parameter name="scan" value="[ScanNumber]"/>
+                <parameter name="peptide" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5" label="Consensus Spectrum">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[cluster index]"/>
                 <parameter name="peptide" value="*..*"/>
             </column>
         </row>
         <row expander="MASST Spectrum" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">
                 <parameter name="mz" value="[parent mass]"/>
-                <parameter name="file" file="[ProteosafeFilePath]"/>
+                <parameter name="file" file="[Original_Path]"/>
                 <parameter name="scan" value="[ScanNumber]"/>
             </column>
         </row>
@@ -1079,7 +1084,7 @@
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[ProteosafeFilePath]:scan:[ScanNumber]"/>
-                <parameter name="LABEL" value="Spectrum USI - mzspec:GNPSTASK-{task}:[ProteosafeFilePath]:scan:[ScanNumber]"/>
+                <parameter name="LABEL" value="Spectrum USI"/>
             </column>
         </row>
     </block>
@@ -1225,44 +1230,22 @@
             </parsers>
         </data>
         <row>
-            <!--<column type="view" view="cluster_details" field="cluster index" label="ClusterIndex" width="18">
-                                <parameter name="protein" value="[cluster index]"/>
-                                <parameter name="proteinID" value="[cluster index]"/>
-                        </column>-->
-
-            <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index"> \
+            <column label="ClusterIdx" type="genericurlgenerator" width="10" field="cluster index">
                 <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=view" value="cluster_details"/>
-\
                 <parameter name="REQUESTPARAMETER=protein" value="[cluster index]"/>
-\
                 <parameter name="LABEL" value="Cluster - [cluster index]"/>
-\
                 <parameter name="USETASK" value="True"/>
-\
-            </column>\
-
-                                                <!--<column type="view" view="network_displayer" field="componentindex" label="Spec Family" width="5">
-                                <parameter name="componentindex" value="[componentindex]"/>
-                        </column>-->
-            <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex"> \
+            </column>
+            <column label="Spec Family" type="genericurlgenerator" width="10" field="componentindex">
                 <parameter name="URLBASE" value="/ProteoSAFe/result.jsp"/>
-\
                 <parameter name="REQUESTPARAMETER=view" value="network_displayer"/>
-\
                 <parameter name="REQUESTPARAMETER=componentindex" value="[componentindex]"/>
-\
                 <parameter name="LABEL" value="View Network"/>
-\
                 <parameter name="USETASK" value="True"/>
-\
                 <parameter name="IGNORE_VALUE" value="-1"/>
-\
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
-\
-            </column>\
-
+            </column>
             <column type="parameterlink" target="result.jsp" label="AddToLibrary" includetask="true">
                 <parameter name="view" value="cluster_details"/>
                 <parameter name="protein" value="[cluster index]"/>
@@ -1285,18 +1268,6 @@
             <column type="integer" field="NumberOrganismIDs" label="Hits" width="1"/>
         </row>
         <row expander="image">
-            <!--                  <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                      <parameter name="file" file="spectra/specs_ms.mgf"/>
-                      <parameter name="scan" value="[cluster index]"/>
-                      <parameter name="compoundname" value="[LibraryID]"/>
-                      <parameter name="trim" value="true"/>
-                  </column>
-                  <column type="stream" invoke="annotatedSpectrumImageText" contentType="text/plain" colspan="5">
-                      <parameter name="file" file="spectra/specs_ms.mgf"/>
-                      <parametbiomer name="scan" value="[cluster index]"/>
-                      <parameter name="compoundname" value="[LibraryID]"/>
-                      <parameter name="trim" value="true"/>
-                  </column>-->
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[cluster index]"/>

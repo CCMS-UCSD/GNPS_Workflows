@@ -8,11 +8,11 @@ import json
 import argparse
 import statistics
 import glob
-import ming_fileio_library
 import ming_spectrum_library
 import ming_proteosafe_library
 from collections import defaultdict
 import glob
+import math
 import pandas as pd
 
 def determine_input_files(header_list):
@@ -44,29 +44,22 @@ def load_group_attribute_mappings(metadata_filename):
 
     attributes_to_groups_mapping = defaultdict(set)
     group_to_files_mapping = defaultdict(list)
-    # row_count, table_data = ming_fileio_library.parse_table_with_headers(metadata_filename)
-    # for key in table_data:
-    #     all_group_names = []
-    #     if key.find("ATTRIBUTE_") != -1:
-    #         #Determine unique values in this column
-    #         for i in range(row_count):
-    #             filename = table_data[filename_header][i].rstrip()
-    #             if len(filename) > 2:
-    #                 group_to_files_mapping[table_data[key][i]].append(filename)
-    #                 attributes_to_groups_mapping[key].add(table_data[key][i])
-
-    metadata_df = pd.read_csv(metadata_filename, sep="\t")
+    
+    metadata_df = pd.read_csv(metadata_filename, sep="\t", skip_blank_lines=True)
     print(metadata_df.head())
     record_list = metadata_df.to_dict(orient="records")
     for record in record_list:
         for header in record:
             if "ATTRIBUTE_" in header:
-                filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
-                group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
-                attribute = header.rstrip().replace('\n', '').replace('\r', '')
-                if len(filename) > 2:
-                    group_to_files_mapping[group_name].append(filename)
-                    attributes_to_groups_mapping[attribute].add(group_name)
+                try:
+                    filename = record[filename_header].rstrip().replace('\n', '').replace('\r', '')
+                    group_name = str(record[header]).rstrip().replace('\n', '').replace('\r', '')
+                    attribute = header.rstrip().replace('\n', '').replace('\r', '')
+                    if len(filename) > 2:
+                        group_to_files_mapping[group_name].append(filename)
+                        attributes_to_groups_mapping[attribute].add(group_name)
+                except:
+                    continue
 
     return group_to_files_mapping, attributes_to_groups_mapping
 
@@ -114,24 +107,14 @@ def enrich_adduct_annotations(cluster_object, quant_table_object):
     if "auto MS2 verify" in quant_table_object:
         cluster_object["MS2 Verification Comment"] = quant_table_object["auto MS2 verify"]
 
-
-def main():
-    parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
-    parser.add_argument('params_xml', help='params_xml')
-    parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
-    parser.add_argument('metadata_folder', help='metadata metadata_folder')
-    parser.add_argument('mgf_filename', help='mgf_filename')
-    parser.add_argument('output_clusterinfo_summary', help='output file')
-    args = parser.parse_args()
-
-    param_obj = ming_proteosafe_library.parse_xml_file(open(args.params_xml))
+def process(input_param_xml, input_consensus_feature_file, metadata_files, input_mgf_filename, output_clusterinfo_summary):
+    param_obj = ming_proteosafe_library.parse_xml_file(open(input_param_xml))
 
     task_id = param_obj["task"][0]
 
     group_to_files_mapping = defaultdict(list)
     attributes_to_groups_mapping = defaultdict(set)
 
-    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
     if len(metadata_files) == 1:
         group_to_files_mapping, attributes_to_groups_mapping = load_group_attribute_mappings(metadata_files[0])
 
@@ -141,14 +124,16 @@ def main():
     except:
         ROW_NORMALIZATION = "None"
 
-    GROUP_COUNT_AGGREGATE_METHOD = "Sum"
+    GROUP_COUNT_AGGREGATE_METHOD = "Mean"
     try:
         GROUP_COUNT_AGGREGATE_METHOD = param_obj["GROUP_COUNT_AGGREGATE_METHOD"][0]
     except:
-        GROUP_COUNT_AGGREGATE_METHOD = "None"
+        GROUP_COUNT_AGGREGATE_METHOD = "Mean"
 
 
-    quantification_list = ming_fileio_library.parse_table_with_headers_object_list(args.consensus_feature_file, delimiter=",")
+    quantification_df = pd.read_csv(input_consensus_feature_file)
+    quantification_list = quantification_df.to_dict(orient="records")
+
     input_filenames, input_filename_headers = determine_input_files(quantification_list[0].keys())
 
     ### Filling in Quantification table if it is missing values
@@ -176,14 +161,14 @@ def main():
                     quantification_object[filename_header] = float(quantification_object[filename_header]) / sum(file_quants) * 1000000
 
     """Loading MS2 Spectra"""
-    mgf_collection = ming_spectrum_library.SpectrumCollection(args.mgf_filename)
+    mgf_collection = ming_spectrum_library.SpectrumCollection(input_mgf_filename)
     mgf_collection.load_from_file()
 
     clusters_list = []
     for quantification_object in quantification_list:
 
         cluster_obj = {}
-        cluster_obj["cluster index"] = quantification_object["row ID"]
+        cluster_obj["cluster index"] = str(int(quantification_object["row ID"]))
         cluster_obj["precursor mass"] = "{0:.4f}".format(float(quantification_object["row m/z"]))
         cluster_obj["RTConsensus"] = "{0:.4f}".format(float(quantification_object["row retention time"]))
 
@@ -221,8 +206,6 @@ def main():
             cluster_obj["RTStdErr"] = 0
 
         cluster_obj["GNPSLinkout_Cluster"] = 'https://gnps.ucsd.edu/ProteoSAFe/result.jsp?task=%s&view=view_all_clusters_withID&show=true#{"main.cluster index_lowerinput":"%s","main.cluster index_upperinput":"%s"}' % (task_id, quantification_object["row ID"], quantification_object["row ID"])
-        #cluster_obj["AllFiles"] = "###".join(all_files)
-
         cluster_obj["sum(precursor intensity)"] = sum(all_abundances)
         cluster_obj["SumPeakIntensity"] = sum(all_abundances)
         cluster_obj["number of spectra"] = len(all_files)
@@ -257,15 +240,22 @@ def main():
         """
         enrich_adduct_annotations(cluster_obj, quantification_object)
 
-
         clusters_list.append(cluster_obj)
 
-    ming_fileio_library.write_list_dict_table_data(clusters_list, args.output_clusterinfo_summary)
+    pd.DataFrame(clusters_list).to_csv(output_clusterinfo_summary, sep="\t", index=False)
 
+def main():
+    parser = argparse.ArgumentParser(description='Creating Clustering Info Summary')
+    parser.add_argument('params_xml', help='params_xml')
+    parser.add_argument('consensus_feature_file', help='Consensus Quantification File')
+    parser.add_argument('metadata_folder', help='metadata metadata_folder')
+    parser.add_argument('mgf_filename', help='mgf_filename')
+    parser.add_argument('output_clusterinfo_summary', help='output file')
+    args = parser.parse_args()
 
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
 
-
-
+    process(args.params_xml, args.consensus_feature_file, metadata_files, args.mgf_filename, args.output_clusterinfo_summary)
 
 
 if __name__ == "__main__":

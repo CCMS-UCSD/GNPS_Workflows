@@ -9,7 +9,9 @@
     <collection name="library"/>
     <object name="result"/>
     <object name="Carbon_Marker_File"/>
-    <object name="quantTable"/>
+    <object name="mshub_balance_scores"/>
+    <object name="quantification_table"/>
+    <object name="metadata_table"/>
 
 
     <action name="begin">
@@ -18,7 +20,9 @@
         <output port="toolParams" collection="toolParameters"/>
         <output port="params" object="workflowParameters"/>
         <output port = "Carbon_Marker_File" object="Carbon_Marker_File"/>
-	<output port = "quantTable" object="quantTable"/>
+        <output port = "mshub_balance_scores" object="mshub_balance_scores"/>
+        <output port = "quantification_table" object="quantification_table"/>
+        <output port = "metadata_table" object="metadata_table"/>
     </action>
 
 
@@ -85,59 +89,67 @@
     </action>
 
     <!-- Creating temporary query mgf file -->
-    <object name="clusterinfosummary"/>
-    <action name="create_clusterinfo_summary">
+    <object name="clusterinfo_summary"/>
+
+    <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table"/>
+        <input port="metadata_table" object="metadata_table"/>
         <input port="spectra" object="spectra"/>
-        <output port="clusterinfosummary" object="clusterinfosummary"/>
+        <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
 
     <!-- Creating Cytoscape Compatible graphML -->
     <object name="gnps_molecular_network_graphml"/>
     <action name="metabolomics_convert_graphml">
-        <input  port="networkedges_selfloop"       object="networking_pairs_results_file_filtered"/>
-        <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummary"/>
-        <input  port="result_specnets_DB" object="DB_result_filtered"/>
-        <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
+        <input port="networkedges_selfloop" object="networking_pairs_results_file_filtered"/>
+        <input port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfo_summary"/>
+        <input port="result_specnets_DB" object="DB_result_filtered"/>
+        <output port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
     </action>
 
 
     <!-- Kovats Calculation -->
-    <object name="Kovats_Result_Filtered"/>
-    <object name="Kovats_Result_Nonfiltered"/>
+    <object name="DB_result_kovats"/>
     <action name="Kovats_Calculation">
-        <input  port="DB_result"       object="DB_result"/>
-        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
-        <input  port="Carbon_Marker_File"   object="Carbon_Marker_File"/>
-        <input  port="params"    object="workflowParameters"/>
-        <output port="Kovats_Result_Nonfiltered"     object="Kovats_Result_Nonfiltered"/>
-        <output port="Kovats_Result_Filtered"     object="Kovats_Result_Filtered"/>
+        <input port="DB_result" object="DB_result"/>
+        <input port="Carbon_Marker_File" object="Carbon_Marker_File"/>
+        <output port="DB_result_kovats" object="DB_result_kovats"/>
     </action>
 
-    <!-- Add Balacned Score -->
-    <object name="Kovats_Result_Filtered_mshub"/>
-    <object name="Kovats_Result_Nonfiltered_mshub"/>
-    <object name="DB_result_filtered_mshub"/>
-    <object name="DB_result_mshub"/>
+    <!-- Add Balance Score -->
+    <object name="DB_result_kovats_balance_score"/>
     <action name="add_balanced_score">
-        <input  port="DB_result"       object="DB_result"/>
-        <input  port="DB_result_filtered"       object="DB_result_filtered"/>
-        <input  port="Kovats_Result_Nonfiltered"       object="Kovats_Result_Nonfiltered"/>
-        <input  port="Kovats_Result_Filtered"       object="Kovats_Result_Filtered"/>
-        <input  port="params"    object="workflowParameters"/>
-        <input  port="quantTable"    object="quantTable"/>
-        <output port="DB_result_mshub"     object="DB_result_mshub"/>
-        <output port="DB_result_filtered_mshub"     object="DB_result_filtered_mshub"/>
-        <output port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
-        <output port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
+        <input port="library_identifications" object="DB_result_kovats"/>
+        <input port="mshub_balance_scores" object="mshub_balance_scores"/>
+        <output port="library_identifications_with_balance" object="DB_result_kovats_balance_score"/>
     </action>
+
+    <!-- Written Description -->
+    <object name="written_description"/>
+    <action name="write_description">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="written_description"     object="written_description"/>
+    </action>
+
+    <!-- Qiime2 -->
+    <collection name="qiime2_output"/>
+    <action name="run_qiime2">
+        <input  port="quantification_table_reformatted"       object="quantification_table"/>
+        <input  port="metadata_table"       object="metadata_table"/>
+        <output port="qiime2_output"     collection="qiime2_output"/>
+    </action>
+
+
     <action name="end">
-        <input port="Kovats_Result_Filtered_mshub"     object="Kovats_Result_Filtered_mshub"/>
-        <input port="Kovats_Result_Nonfiltered_mshub"     object="Kovats_Result_Nonfiltered_mshub"/>
-        <input port="DB_result_mshub" object="DB_result_mshub"/>
-        <input port="DB_result_filtered_mshub" object="DB_result_filtered_mshub"/>
         <input port="result" object="result"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+        <input port="clusterinfo_summary" object="clusterinfo_summary"/>
+        <input port="written_description" object="written_description"/>
+        <input port="qiime2_output" collection="qiime2_output"/>
+        <input port="DB_result_kovats" object="DB_result_kovats"/>
+        <input port="DB_result_kovats_balance_score" object="DB_result_kovats_balance_score"/>
+        <input port="DB_result_filtered" object="DB_result_filtered"/>
     </action>
 </flow>
