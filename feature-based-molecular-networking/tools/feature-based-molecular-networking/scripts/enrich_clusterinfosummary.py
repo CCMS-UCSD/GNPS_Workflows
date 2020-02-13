@@ -73,11 +73,13 @@ def main():
             cluster["MQScore"] = library_ids_dict[cluster_index]["MQScore"]
             cluster["SpectrumID"] = library_ids_dict[cluster_index]["SpectrumID"]
             cluster["Smiles"] = library_ids_dict[cluster_index]["Smiles"]
+            cluster["INCHI"] = library_ids_dict[cluster_index]["INCHI"]
         else:
             cluster["LibraryID"] = "N/A"
             cluster["MQScore"] = "N/A"
             cluster["SpectrumID"] = "N/A"
             cluster["Smiles"] = "N/A"
+            cluster["INCHI"] = "N/A"
 
     ming_fileio_library.write_list_dict_table_data(all_clusterinfo_list, args.output_clusterinfo_summary)
 
