@@ -15,6 +15,8 @@ def main():
     parser.add_argument('output_folder', help='output_folder')
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
+    parser.add_argument("--epochs", default="100")
+    parser.add_argument("--latentdim", default="5")
     args = parser.parse_args()
 
     #Checking if header names are appropriate, if not, then lets correct them. Need to fix and test: https://github.com/biocore/mmvec/tree/master/examples/cf
@@ -62,9 +64,9 @@ def main():
             --type FeatureTable[Frequency]".format(args.conda_activate_bin, args.conda_environment, args.import_microbial_features, microbiome_qza))
 
     #Running Qiime2 mmvec
-    LATENT_DIM = 5
+    LATENT_DIM = int(args.latentdim)
     LEARNING_RATE = 0.001
-    EPOCHS = 10
+    EPOCHS = int(args.epochs)
 
     local_metabolite_metadata_filename = temp_reformatted_metadata_filename
     local_microbial_metadata_filename = args.import_microbial_feature_metadata

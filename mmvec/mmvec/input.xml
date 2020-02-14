@@ -30,6 +30,25 @@
             <validator type="required"/>
             <fileGenerator type="upload" purpose="microbiome_taxonomy" target="microbiome_taxonomy"/>
         </parameter>
+
+        <parameter name="EPOCHS" label="Training Epochs">
+            <options>
+                <option value="10" label="10"/>
+                <option value="100" label="100"/>
+                <option value="1000" label="1000"/>
+                <option value="10000" label="10000"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
+        <parameter name="LATENTDIM" label="Latent Dimensions">
+            <options>
+                <option value="3" label="3"/>
+                <option value="5" label="5"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
     </parameters>
 
     <!-- Input form layout -->
@@ -87,6 +106,36 @@
         </row>
     </block>
 
-    
+    <block label="MMVEC Parameters">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="EPOCHS"/>
+                    <tooltip id="EPOCHS_analog_search_tooltip">
+                        Lorem Ipsum
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="EPOCHS"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LATENTDIM"/>
+                    <tooltip id="LATENTDIM_analog_search_tooltip">
+                        Lorem Ipsum
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="LATENTDIM"></input>
+            </cell>
+        </row>
+    </block>
 
 </interface>

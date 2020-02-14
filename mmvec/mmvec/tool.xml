@@ -25,6 +25,8 @@
                 <arg valueRef="mmvec_output"/>
                 <arg pathRef="activate.path"/>
                 <arg value="qiime2-2019.10-mmvec"/>
+                <arg option="-epochs" valueRef="@EPOCHS"/>
+                <arg option="-latentdim" valueRef="@LATENTDIM"/>
         </execution>
     </tool>
 
