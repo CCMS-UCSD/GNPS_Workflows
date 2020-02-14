@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="add-batch-annotated-validator" version="1.2.8">
+    <workflow-id>ADD-BATCH-ANNOTATED-VALIDATOR</workflow-id>
+    <workflow-label>ADD-BATCH-ANNOTATED-VALIDATOR</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+            <!--  -->
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Spectrum Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+        </parameter>
+
+        <parameter name="annotation_table_on_server" label="Annotation Table">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="library" target="annotation_table"/>
+        </parameter>
+    </parameters>
+
+    <block label="File Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="annotation_table_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="annotation_table_on_server" type="fileSelector">
+                    <property name="label">Annotation File</property>
+                </module>
+            </cell>
+
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+</interface>
