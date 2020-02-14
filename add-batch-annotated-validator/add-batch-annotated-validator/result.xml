@@ -2,7 +2,7 @@
 <interface id="speclib_add">
 
     <view id="add_batch_clone" label="add_batch_clone" group="For CCMS Only">
-        <blockRef id="main" type="analyze_sirius"/>
+        <blockRef id="main" type="add_batch_clone"/>
     </view>
     <block id="add_batch_clone" type="dummylinkout">
         <data>
@@ -10,7 +10,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=ee54161c9e794cd093d200e5fefd4bfc%26params={"workflow":"ADD-BATCH-ANNOTATED"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]#{"workflow":"ADD-BATCH-ANNOTATED"}'/>
     </block>
 
 </interface>
