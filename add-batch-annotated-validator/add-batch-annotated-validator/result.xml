@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="speclib_add">
-    <download>
-    </download>
 
     <view id="add_batch_clone" label="add_batch_clone" group="For CCMS Only">
         <blockRef id="main" type="analyze_sirius"/>
@@ -12,7 +10,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=ee54161c9e794cd093d200e5fefd4bfc&params={"workflow":"ADD-BATCH-ANNOTATED"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=ee54161c9e794cd093d200e5fefd4bfc%26params={"workflow":"ADD-BATCH-ANNOTATED"}'/>
     </block>
 
 </interface>

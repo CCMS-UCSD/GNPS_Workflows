@@ -8,7 +8,6 @@
         <!-- Universal parameters -->
         <parameter name="desc" label="Description">
             <validator type="length" maximum="1000"/>
-            <!--  -->
         </parameter>
         <parameter name="email" label="Email">
             <validator type="email"/>
@@ -39,7 +38,6 @@
                     <property name="label">Annotation File</property>
                 </module>
             </cell>
-
         </row>
         <row>
             <cell>

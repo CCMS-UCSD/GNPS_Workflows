@@ -18,6 +18,6 @@
     </action>
 
     <action name="end">
-        <input port="validation" collection="validation"/>
+        <input port="validation_information" collection="validation_information"/>
     </action>
 </flow>
