@@ -51,6 +51,10 @@ if "Feature ID" in taxa_metadata_df:
 metabolomics_feature_header = "featureid"
 if "sampleid" in molecules_metadata_df:
     metabolomics_feature_header = "sampleid"
+if "#Scan#" in molecules_metadata_df:
+    metabolomics_feature_header = "#Scan#"
+if "Feature Information" in molecules_metadata_df:
+    metabolomics_feature_header = "Feature Information"
 
 # Merging the files
 records_df = pd.DataFrame(output_records)
