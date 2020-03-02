@@ -22,16 +22,17 @@ def main():
     #Checking if header names are appropriate, if not, then lets correct them. Need to fix and test: https://github.com/biocore/mmvec/tree/master/examples/cf
     temp_reformatted_metadata_filename = os.path.join(args.output_folder, "reformatted_metabolomics_identifications.tsv")
     metabolomics_metadata_df = pd.read_csv(args.input_metabolomics_feature_metadata, sep="\t")
-    if "Feature Information" in metabolomics_metadata_df:
+
+    if "Feature Information" in metabolomics_metadata_df: # It already has Feature Information
         print("Copying")
         shutil.copyfile(args.input_metabolomics_feature_metadata, temp_reformatted_metadata_filename)
     #Checking for scan numbers in the header
-    elif "#Scan#" in metabolomics_metadata_df:
+    elif "#Scan#" in metabolomics_metadata_df: # This is from Library Idenfications from GNPS
         headers = list(metabolomics_metadata_df.keys())
         metabolomics_metadata_df["Feature Information"] = metabolomics_metadata_df["#Scan#"]
         headers = ["Feature Information"] + headers
         metabolomics_metadata_df.to_csv(temp_reformatted_metadata_filename, columns=headers, sep="\t", index=False)
-    else:
+    else: # Others
         print("Copying")
         shutil.copyfile(args.input_metabolomics_feature_metadata, temp_reformatted_metadata_filename)
 
