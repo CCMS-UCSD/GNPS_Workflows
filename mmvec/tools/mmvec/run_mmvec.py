@@ -27,12 +27,21 @@ def main():
         headers = list(metabolomics_metadata_df.keys())
         metabolomics_metadata_df["featureid"] = metabolomics_metadata_df["Feature Information"]
         headers = ["featureid"] + headers
+        try:
+            headers.remove('id')
+        except:
+            pass
         metabolomics_metadata_df.to_csv(temp_reformatted_metadata_filename, columns=headers, sep="\t", index=False)
     #Checking for scan numbers in the header
     elif "#Scan#" in metabolomics_metadata_df: # This is from Library Idenfications from GNPS
         headers = list(metabolomics_metadata_df.keys())
         metabolomics_metadata_df["featureid"] = metabolomics_metadata_df["#Scan#"]
         headers = ["featureid"] + headers
+        try:
+            headers.remove('id')
+        except:
+            pass
+        print(headers)
         metabolomics_metadata_df.to_csv(temp_reformatted_metadata_filename, columns=headers, sep="\t", index=False)
     else: # Others
         print("Copying")
