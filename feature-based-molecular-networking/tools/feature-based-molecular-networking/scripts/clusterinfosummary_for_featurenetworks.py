@@ -168,7 +168,6 @@ def process(input_param_xml, input_consensus_feature_file, metadata_files, input
     for quantification_object in quantification_list:
 
         cluster_obj = {}
-        
         cluster_obj["cluster index"] = str(int(quantification_object["row ID"]))
         cluster_obj["precursor mass"] = "{0:.4f}".format(float(quantification_object["row m/z"]))
         cluster_obj["RTConsensus"] = "{0:.4f}".format(float(quantification_object["row retention time"]))
