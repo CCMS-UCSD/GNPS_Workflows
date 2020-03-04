@@ -179,6 +179,18 @@
         </parameter>
 
 
+        <!-- Qiime2 Options -->
+        <parameter name="QIIME2_PCOA_DISTANCE" label="PCoA Distance Metric">
+            <options>
+                <option value="cosine" label="cosine"/>
+                <option value="braycurtis" label="braycurtis"/>
+                <option value="euclidean" label="euclidean"/>
+                <option value="jaccard" label="jaccard"/>
+            </options>
+            <validator type="set"/>
+            <default value="cosine"/>
+        </parameter>
+
 
     </parameters>
 
@@ -566,6 +578,24 @@
             </cell>
         </row>
     </block>
+
+    <block label="Advanced Multivariate Statistics Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="QIIME2_PCOA_DISTANCE"/>
+                    <tooltip id="QIIME2_PCOA_DISTANCE_gnps_tooltip">
+                        PCoA Distance Selection
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="QIIME2_PCOA_DISTANCE"></input>
+            </cell>
+        </row>
+    </block>
+    
 
     <block label="Advanced External Tools">
         <row>

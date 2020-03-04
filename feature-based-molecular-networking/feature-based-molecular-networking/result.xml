@@ -280,6 +280,11 @@
             <column type="text" field="AllGroups" label="AllGroups" width="3"/>
             <column type="text" field="DefaultGroups" label="DefaultGroups" width="5"/>
             <column type="text" field="LibraryID" label="LibraryID" width="20"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+				<parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
+                <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
+            </column>
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer" colspan="5">
