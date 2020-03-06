@@ -116,6 +116,9 @@
         <cell>
                 <label>
                     <content parameter="METADATA_COLUMN"/>
+                    <tooltip id="METADATA_COLUMN_gnps_tooltip">
+                        Metadata column to do stuff on. 
+                    </tooltip>
                 </label>
             </cell>
 
