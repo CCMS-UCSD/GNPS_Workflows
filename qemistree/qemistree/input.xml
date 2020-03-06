@@ -15,16 +15,16 @@
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
 
-        <parameter name="quant_table" label="quant_table">
+        <parameter name="quant_table" label="Quantification Table (qza or biom) from GNPS">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="annotation" target="quant_table"/>
         </parameter>
 
-        <parameter name="metadata_table" label="metadata_table (Optional)">
+        <parameter name="metadata_table" label="Metadata Table (Optional but recommended)">
             <fileGenerator type="upload" purpose="annotation" target="metadata_table"/>
         </parameter>
 
-        <parameter name="library_identifications" label="library_identifications (Optional but recommended)">
+        <parameter name="library_identifications" label="Library Identifications (Optional but recommended)">
             <fileGenerator type="upload" purpose="annotation" target="library_identifications"/>
         </parameter>
 
@@ -121,7 +121,7 @@
 
             <cell>
                 <input type="text" parameter="METADATA_COLUMN">
-                    <attribute name="size" value="3"/>
+                    <attribute name="size" value="15"/>
                 </input>
             </cell>
         </row>
