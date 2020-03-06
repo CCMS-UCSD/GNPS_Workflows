@@ -10,7 +10,7 @@
             <validator type="email"/>
         </parameter>
         <!-- Search file parameters -->
-        <parameter name="spec_on_server" label="Spectrum Files">
+        <parameter name="spec_on_server" label="Sirius MGF Spectrum File">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
