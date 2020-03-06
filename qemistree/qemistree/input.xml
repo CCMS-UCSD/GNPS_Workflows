@@ -121,7 +121,7 @@
 
             <cell>
                 <input type="text" parameter="METADATA_COLUMN">
-                    <attribute name="size" value="15"/>
+                    <attribute name="size" value="30"/>
                 </input>
             </cell>
         </row>
