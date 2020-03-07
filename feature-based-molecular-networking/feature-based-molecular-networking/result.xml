@@ -502,7 +502,6 @@ g
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mzmine"}'/> -->
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
     </block>
 
@@ -517,6 +516,19 @@ g
         </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Feature-Based Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
+
+    <view id="qemistree" label="Visualize with Qemistree" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="qemistree"/>
+    </view>
+    <block id="qemistree" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Qemistree of Feature-Based Molecular Networking [task]", "quant_table":"t.[task]/qiime2_output/qiime2_table.qza", "metadata_table":"t.[task]/qiime2_output/qiime2_metadata.tsv", "library_identifications":"t.[task]/clusterinfo_summary/"}'/>
+    </block>
+
 
     <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="redu_global_pca"/>
