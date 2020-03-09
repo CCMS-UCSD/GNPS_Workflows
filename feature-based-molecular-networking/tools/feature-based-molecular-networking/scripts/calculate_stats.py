@@ -6,7 +6,7 @@ from plotnine import *
 
 import metadata_permanova_prioritizer
 
-def calculate_statistics(input_quant_filename, input_metadata_file, output_plots_folder=None, metadata_column=None):
+def calculate_statistics(input_quant_filename, input_metadata_file, output_summary_folder, output_plots_folder=None, metadata_column=None):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -25,14 +25,18 @@ def calculate_statistics(input_quant_filename, input_metadata_file, output_plots
     # Merging with Metadata
     features_df["filename"] = features_df.index
     features_df = features_df.merge(metadata_df, how="inner", on="filename")
-    
 
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
     if metadata_column is None or metadata_column == "None":
-        columns_to_consider = metadata_permanova_prioritizer.permanova_validation(input_metadata_file)
-        for column_to_consider in columns_to_consider:
-            print(column_to_consider)
+        output_boxplot_list = []
 
+        columns_to_consider = metadata_permanova_prioritizer.permanova_validation(input_metadata_file)
+
+        # HACK TO MAKE FASTER
+        if len(columns_to_consider) > 0:
+            columns_to_consider = columns_to_consider[:1]
+
+        for column_to_consider in columns_to_consider:
             # Loop through all metabolites, and create plots
             if output_plots_folder is not None:
                 for metabolite_id in metabolite_id_list:
@@ -45,6 +49,15 @@ def calculate_statistics(input_quant_filename, input_metadata_file, output_plots
                     )
                     p.save(output_filename)
 
+                    output_dict = {}
+                    output_dict["metadata_column"] = column_to_consider
+                    output_dict["boxplotimg"] = os.path.basename(output_filename)
+                    output_dict["scan"] = metabolite_id
+
+                    output_boxplot_list.append(output_dict)
+
+        metadata_all_columns_summary_df = pd.DataFrame(output_boxplot_list)
+        metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')

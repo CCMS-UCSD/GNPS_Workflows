@@ -8,4 +8,9 @@ def test():
         os.mkdir("output_plots")
     except:
         pass
-    calculate_stats.calculate_statistics("reference_stats/feature_table.csv", "reference_stats/metadata.tsv", output_plots_folder="output_plots")
+    try:
+        os.mkdir("output_summary")
+    except:
+        pass
+
+    calculate_stats.calculate_statistics("reference_stats/feature_table.csv", "reference_stats/metadata.tsv", "output_summary", output_plots_folder="output_plots")
