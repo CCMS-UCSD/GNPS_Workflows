@@ -110,8 +110,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
-    parser.add_argument('metadata_folder', help='metadata_folder')
     parser.add_argument('quantification_file', help='mzmine2 style quantification filename')
+    parser.add_argument('metadata_folder', help='metadata_folder')
     parser.add_argument('output_stats_folder', help='output_stats_folder')
     parser.add_argument('output_images_folder', help='output_images_folder')
     parser.add_argument('--metadata_column', help='metadata_column', default=None)
@@ -122,8 +122,13 @@ def main():
 
     metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
 
+    print(metadata_files)
+
     if len(metadata_files) == 1:
-        calculate_statistics(args.quantification_file, metadata_files[0], args.output_stats_folder, output_plots_folder=args.output_images_folder)
+        calculate_statistics(args.quantification_file, 
+            metadata_files[0], 
+            args.output_stats_folder, 
+            output_plots_folder=args.output_images_folder)
 
 if __name__ == "__main__":
     main()
