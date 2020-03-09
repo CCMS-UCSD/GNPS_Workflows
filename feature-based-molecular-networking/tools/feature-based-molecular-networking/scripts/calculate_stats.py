@@ -21,7 +21,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # removing peak area from columns
     features_df.index = features_df["row ID"]
-    metabolite_id_list = list(features_df["row ID"])
+    metabolite_id_list = list(features_df["row ID"])[:50]
     headers_to_keep = [header for header in features_df.columns if "Peak area" in header]
     features_df = features_df[headers_to_keep]
     column_mapping = {headers:headers.replace(" Peak area", "") for headers in features_df.columns}
