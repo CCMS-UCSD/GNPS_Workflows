@@ -401,7 +401,7 @@
     </tool>
 
     <!-- Summarizing Statistics for Networks -->
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="metabolomic_feature_statistics" path="python"/>
     </pathSet>
 
