@@ -68,11 +68,38 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # TODO: implement plotting on a specific column
     if metadata_column in features_df:
+        output_stats_list = []
+
+        features_df = features_df[features_df[metadata_column].isin(condition_first, condition_second)]
+
         data_first_df = features_df[features_df[metadata_column] == condition_first]
         data_second_df = features_df[features_df[metadata_column] == condition_second]
 
         for metabolite_id in metabolite_id_list:
             stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
+
+            long_data_df = pd.melt(features_df, id_vars=[metadata_column], value_vars=[metabolite_id])
+
+            output_filename = os.path.join(output_plots_folder, "chosen_{}_{}.png".format(metadata_column, metabolite_id))
+
+            p = (
+                ggplot(long_data_df)
+                + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
+            )
+            p.save(output_filename)
+
+            output_stats_dict = {}
+            output_stats_dict["metadata_column"] = metadata_column
+            output_stats_dict["condition_first"] = condition_first
+            output_stats_dict["condition_second"] = condition_second
+            output_stats_dict["stat"] = stat
+            output_stats_dict["pvalue"] = pvalue
+            output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
+
+            output_stats_list.append(output_stats_dict)
+
+        metadata_columns_summary_df = pd.DataFrame(output_stats_list)
+        metadata_columns_summary_df.to_csv(os.path.join(output_summary_folder, "chosen_columns.tsv"), sep="\t", index=False)
 
 
 
