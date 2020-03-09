@@ -3,6 +3,7 @@ import sys
 import argparse
 import pandas as pd
 from plotnine import *
+import glob
 
 import metadata_permanova_prioritizer
 
@@ -59,6 +60,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file, output_summa
         metadata_all_columns_summary_df = pd.DataFrame(output_boxplot_list)
         metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
 
+    # TODO: implement plotting on a specific column
+
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
     parser.add_argument('metadata_folder', help='metadata_folder')
@@ -68,7 +71,10 @@ def main():
     parser.add_argument('--metadata_column', help='metadata_column', default=None)
     args = parser.parse_args()
 
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
 
+    if len(metadata_files) == 1:
+        calculate_statistics(args.quantification_file, metadata_files[0], args.output_stats_folder, output_plots_folder=args.output_images_folder)
 
 if __name__ == "__main__":
     main()
