@@ -626,22 +626,13 @@
                 <parameter name="USETASK" value="True"/>
             </column>
         </row>
-
-        
-
-
-        <!-- <row expander="image">
+        <row expander="image">
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
-                <parameter name="scan" value="[CLUSTERID1]"/>
+                <parameter name="scan" value="[scan]"/>
                 <parameter name="trim" value="true"/>
             </column>
-            <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="spectra/specs_ms.mgf"/>
-                <parameter name="scan" value="[CLUSTERID2]"/>
-                <parameter name="trim" value="true"/>
-            </column>
-        </row> -->
+        </row>
     </block>
 
     <view id="network_stats_selected_columns" label="View Select Column Plots" group="Advanced Views - Stats Views">
@@ -651,31 +642,28 @@
     <block id="network_stats_selected_columns" type="table">
         <data>
             <source type="file" name="feature_statistics/chosen_columns.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="pvalue" operator="ascending"/>
+            </parsers>
         </data>
         <row>
             <column type="text" field="metadata_column" label="metadata_column" width="10"/>
             <column type="text" field="scan" label="scan" width="10"/>
-            <column type="genericimagedisplayer" label="Structure">
+            <column type="genericimagedisplayer" label="Box Plot">
                 <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
-                <parameter name="REQUESTPARAMETER=task" value="[task]"/>
                 <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
-                <parameter name="REQUESTPARAMETER=block" value="main"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[scan]"/>
+                <parameter name="trim" value="true"/>
             </column>
         </row>
 
 
-        <!-- <row expander="image">
-            <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="spectra/specs_ms.mgf"/>
-                <parameter name="scan" value="[CLUSTERID1]"/>
-                <parameter name="trim" value="true"/>
-            </column>
-            <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="spectra/specs_ms.mgf"/>
-                <parameter name="scan" value="[CLUSTERID2]"/>
-                <parameter name="trim" value="true"/>
-            </column>
-        </row> -->
     </block>
 
 

@@ -104,6 +104,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
             output_stats_dict["stat"] = stat
             output_stats_dict["pvalue"] = pvalue
             output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
+            output_dict["scan"] = metabolite_id
 
             output_stats_list.append(output_stats_dict)
 
