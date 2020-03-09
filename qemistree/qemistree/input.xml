@@ -38,7 +38,7 @@
         </parameter>
 
         <parameter name="METADATA_COLUMN" label="Sample Metadata Column">
-            <default value="None"/>
+            <default value="sample_name"/>
         </parameter>
 
     </parameters>

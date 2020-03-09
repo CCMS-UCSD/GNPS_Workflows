@@ -17,7 +17,7 @@ def main():
     parser.add_argument("conda_environment")
     parser.add_argument("sirius_bin")
     parser.add_argument("--instrument", default="orbitrap")
-    parser.add_argument("--sample_metadata_column", default="None")
+    parser.add_argument("--sample_metadata_column", default="sample_name")
 
     args = parser.parse_args()
 
