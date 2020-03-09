@@ -45,14 +45,6 @@ def calculate_statistics(input_quant_filename, input_metadata_file, output_plots
                     )
                     p.save(output_filename)
 
-                    print(long_data_df)
-
-                    break
-                    
-            break
-
-            
-
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
