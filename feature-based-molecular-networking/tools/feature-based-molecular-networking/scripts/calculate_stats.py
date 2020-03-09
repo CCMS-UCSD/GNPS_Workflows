@@ -1,7 +1,13 @@
 #import_all_modules
 import sys
 import argparse
+import plotnine as p9
 
+import metadata_permanova_prioritizer
+
+def calculate_statistics(input_quant_filename, input_metadata_file, metadata_column=None):
+    if metadata_colums is None or metadata_column == "None":
+        print("Consider all columns")
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
