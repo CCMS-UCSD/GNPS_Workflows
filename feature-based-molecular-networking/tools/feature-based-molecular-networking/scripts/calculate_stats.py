@@ -128,7 +128,11 @@ def main():
         calculate_statistics(args.quantification_file, 
             metadata_files[0], 
             args.output_stats_folder, 
-            output_plots_folder=args.output_images_folder)
+            output_plots_folder=args.output_images_folder,
+            metadata_column=args.metadata_column,
+            condition_first=args.condition_first,
+            condition_second=args.condition_second,
+            metadata_facet_column=args.metadata_facet_column)
 
 if __name__ == "__main__":
     main()

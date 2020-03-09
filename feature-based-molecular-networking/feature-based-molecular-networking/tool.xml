@@ -421,6 +421,10 @@
             <arg valueRef="metadata_table"/>
             <arg valueRef="feature_statistics"/>
             <arg valueRef="feature_plots"/>
+            <arg option="-metadata_column" valueRef="@METADATA_COLUMN"/>
+            <arg option="-condition_first" valueRef="@METADATA_CONDITION_ONE"/>
+            <arg option="-condition_second" valueRef="@METADATA_CONDITION_TWO"/>
+            <arg option="-metadata_facet_column" valueRef="@METADATA_COLUMN_FACET"/>
         </execution>
     </tool>
 
