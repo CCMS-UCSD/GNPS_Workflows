@@ -182,6 +182,14 @@
         <productionToOutput port="network_statistics" production="network_statistics"/>
     </bind>
     
+    <!-- Feature Stats -->
+    <bind action="metabolomic_feature_statistics" tool="metabolomic_feature_statistics">
+        <inputAsRequirement port="quantification_table_reformatted" requirement="quantification_table_reformatted"/>
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <productionToOutput port="network_statistics" production="network_statistics"/>
+        <productionToOutput port="feature_plots" production="feature_plots"/>
+    </bind>
+    
 
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
@@ -235,6 +243,12 @@
         </upload>
         <upload port="network_statistics" type="folder">
             <query name="resource" value="network_statistics"/>
+        </upload>
+        <upload port="feature_statistics" type="folder">
+            <query name="resource" value="feature_statistics"/>
+        </upload>
+        <upload port="feature_plots" type="folder">
+            <query name="resource" value="feature_plots"/>
         </upload>
     </bind>
 </binding>
