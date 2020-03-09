@@ -34,6 +34,10 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     features_df["filename"] = features_df.index
     features_df = features_df.merge(metadata_df, how="inner", on="filename")
 
+    # Format Long version for later plotting
+    long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
+    long_form_df.to_csv(os.path.join("data_long.csv"), index=False)
+
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
     if metadata_column is None or metadata_column == "None":
         output_boxplot_list = []
