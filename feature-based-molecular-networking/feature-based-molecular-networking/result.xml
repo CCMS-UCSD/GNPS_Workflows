@@ -607,18 +607,61 @@
     <block id="network_stats_all_columns" type="table">
         <data>
             <source type="file" name="feature_statistics/all_columns.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="scan" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="genericurlgenerator" label="View Box Plot">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="LABEL" value="View Box Plot"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="text" field="metadata_column" label="metadata_column" width="10"/>
+            <column type="text" field="scan" label="scan" width="10"/>
+            <column type="genericimagedisplayer" label="Box Plot">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+
+        
+
+
+        <!-- <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[CLUSTERID1]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[CLUSTERID2]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row> -->
+    </block>
+
+    <view id="network_stats_selected_columns" label="View Select Column Plots" group="Advanced Views - Stats Views">
+        <blockRef id="main" type="network_stats_selected_columns"/>
+    </view>
+
+    <block id="network_stats_selected_columns" type="table">
+        <data>
+            <source type="file" name="feature_statistics/chosen_columns.tsv"/>
         </data>
         <row>
             <column type="text" field="metadata_column" label="metadata_column" width="10"/>
             <column type="text" field="scan" label="scan" width="10"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=task" value="[task]"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="REQUESTPARAMETER=block" value="main"/>
+            </column>
         </row>
-
-        <column type="genericimagedisplayer" label="Structure">
-            <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
-            <parameter name="REQUESTPARAMETER=task" value="[task]"/>
-            <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
-            <parameter name="REQUESTPARAMETER=block" value="main"/>
-        </column>
 
 
         <!-- <row expander="image">
