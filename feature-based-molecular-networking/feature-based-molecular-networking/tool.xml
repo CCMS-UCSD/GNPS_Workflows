@@ -95,7 +95,7 @@
             <arg valueRef="mgf_file"/>
             <arg valueRef="workflowParameters"/>
             <arg valueRef="networking_parameters"/>
-            <arg option="-parallelism" value="1"/>
+            <arg option="-parallelism" value="10"/>
         </execution>
     </tool>
 

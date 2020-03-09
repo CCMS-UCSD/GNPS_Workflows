@@ -13,7 +13,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                             output_plots_folder=None, 
                             metadata_column=None, 
                             condition_first=None, 
-                            condition_second=None):
+                            condition_second=None,
+                            metadata_facet_column=None):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -70,15 +71,15 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     if metadata_column in features_df:
         output_stats_list = []
 
-        features_df = features_df[features_df[metadata_column].isin(condition_first, condition_second)]
+        features_df = features_df[features_df[metadata_column].isin([condition_first, condition_second])]
 
         data_first_df = features_df[features_df[metadata_column] == condition_first]
         data_second_df = features_df[features_df[metadata_column] == condition_second]
 
         for metabolite_id in metabolite_id_list:
             stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
-
-            long_data_df = pd.melt(features_df, id_vars=[metadata_column], value_vars=[metabolite_id])
+            long_data_df = pd.melt(features_df, id_vars=["filename"], value_vars=[metabolite_id])
+            long_data_df = long_data_df.merge(metadata_df, how="inner", on="filename")
 
             output_filename = os.path.join(output_plots_folder, "chosen_{}_{}.png".format(metadata_column, metabolite_id))
 
@@ -86,6 +87,10 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                 ggplot(long_data_df)
                 + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
             )
+
+            if metadata_facet_column is not None and metadata_facet_column != "None":
+                p = p + facet_wrap(facets=metadata_facet_column)
+
             p.save(output_filename)
 
             output_stats_dict = {}
@@ -110,6 +115,9 @@ def main():
     parser.add_argument('output_stats_folder', help='output_stats_folder')
     parser.add_argument('output_images_folder', help='output_images_folder')
     parser.add_argument('--metadata_column', help='metadata_column', default=None)
+    parser.add_argument('--condition_first', help='condition_first', default=None)
+    parser.add_argument('--condition_second', help='condition_second', default=None)
+    parser.add_argument('--metadata_facet_column', help='metadata_facet_column', default=None)
     args = parser.parse_args()
 
     metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
