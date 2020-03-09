@@ -21,7 +21,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # removing peak area from columns
     features_df.index = features_df["row ID"]
-    metabolite_id_list = list(features_df["row ID"])[:50]
+    metabolite_id_list = list(features_df["row ID"])
     headers_to_keep = [header for header in features_df.columns if "Peak area" in header]
     features_df = features_df[headers_to_keep]
     column_mapping = {headers:headers.replace(" Peak area", "") for headers in features_df.columns}
@@ -36,7 +36,9 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # Format Long version for later plotting
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
-    long_form_df.to_csv(os.path.join("data_long.csv"), index=False)
+    long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
+
+    metabolite_id_list = metabolite_id_list[:50] #TODO: remove this limit
 
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
     #if metadata_column is None or metadata_column == "None":

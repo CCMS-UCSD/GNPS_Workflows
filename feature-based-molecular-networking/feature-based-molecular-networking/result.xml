@@ -663,8 +663,18 @@
                 <parameter name="trim" value="true"/>
             </column>
         </row>
+    </block>
 
-
+    <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views">
+        <blockRef id="main" type="data_for_plotting"/>
+    </view>
+    <block id="data_for_plotting" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=feature_statistics/data_long.csv'/>
     </block>
 
 
