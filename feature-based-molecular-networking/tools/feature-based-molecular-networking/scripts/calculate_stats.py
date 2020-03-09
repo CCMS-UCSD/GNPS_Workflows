@@ -4,10 +4,16 @@ import argparse
 import pandas as pd
 from plotnine import *
 import glob
+from scipy.stats import mannwhitneyu
 
 import metadata_permanova_prioritizer
 
-def calculate_statistics(input_quant_filename, input_metadata_file, output_summary_folder, output_plots_folder=None, metadata_column=None):
+def calculate_statistics(input_quant_filename, input_metadata_file, 
+                            output_summary_folder, 
+                            output_plots_folder=None, 
+                            metadata_column=None, 
+                            condition_first=None, 
+                            condition_second=None):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -61,6 +67,14 @@ def calculate_statistics(input_quant_filename, input_metadata_file, output_summa
         metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
 
     # TODO: implement plotting on a specific column
+    if metadata_column in features_df:
+        data_first_df = features_df[features_df[metadata_column] == condition_first]
+        data_second_df = features_df[features_df[metadata_column] == condition_second]
+
+        for metabolite_id in metabolite_id_list:
+            stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
+
+
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')

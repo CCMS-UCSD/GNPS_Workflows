@@ -445,7 +445,6 @@
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[CLUSTERID1]"/>
                 <parameter name="trim" value="true"/>
-g
             </column>
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
@@ -600,6 +599,39 @@ g
         </data>
     </block>
 
+
+    <view id="network_stats_all_columns" label="View All Column Plots" group="Advanced Views - Stats Views">
+        <blockRef id="main" type="network_stats_all_columns"/>
+    </view>
+
+    <block id="network_stats_all_columns" type="table">
+        <data>
+            <source type="file" name="feature_statistics/all_columns.tsv"/>
+        </data>
+        <row>
+            <column type="text" field="metadata_column" label="metadata_column" width="10"/>
+            <column type="text" field="scan" label="scan" width="10"/>
+        </row>
+
+        <column type="genericimagedisplayer" label="Structure">
+            <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+            <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
+            <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
+        </column>
+
+        <!-- <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[CLUSTERID1]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[CLUSTERID2]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row> -->
+    </block>
 
 
 
