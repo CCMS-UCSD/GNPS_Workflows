@@ -648,6 +648,7 @@
         </data>
         <row>
             <column type="text" field="metadata_column" label="metadata_column" width="10"/>
+            <column type="text" field="pvalue" label="pvalue" width="10"/>
             <column type="text" field="scan" label="scan" width="10"/>
             <column type="genericimagedisplayer" label="Box Plot">
                 <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
