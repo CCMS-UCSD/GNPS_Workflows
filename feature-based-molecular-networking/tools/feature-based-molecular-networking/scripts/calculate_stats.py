@@ -39,7 +39,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     long_form_df.to_csv(os.path.join("data_long.csv"), index=False)
 
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
-    if metadata_column is None or metadata_column == "None":
+    #if metadata_column is None or metadata_column == "None":
+    if True:
         output_boxplot_list = []
 
         columns_to_consider = metadata_permanova_prioritizer.permanova_validation(input_metadata_file)
