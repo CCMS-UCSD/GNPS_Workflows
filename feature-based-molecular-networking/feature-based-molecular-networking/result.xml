@@ -614,10 +614,12 @@
         </row>
 
         <column type="genericimagedisplayer" label="Structure">
-            <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
-            <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
-            <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
+            <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+            <parameter name="REQUESTPARAMETER=task" value="[task]"/>
+            <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+            <parameter name="REQUESTPARAMETER=block" value="main"/>
         </column>
+
 
         <!-- <row expander="image">
             <column type="jscolumnspectrumviewer" colspan="5">
