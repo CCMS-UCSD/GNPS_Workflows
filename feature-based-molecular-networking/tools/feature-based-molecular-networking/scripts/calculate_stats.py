@@ -39,56 +39,6 @@ def plot_box(input_params):
 
     return None
 
-# def plot_bar(input_params):
-#     features_df = input_params["features_df"]
-#     column_to_consider = input_params["column_to_consider"]
-#     output_filename = input_params["output_filename"]
-#     metabolite_id = input_params["metabolite_id"]
-
-#     long_data_df = pd.melt(features_df, id_vars=[column_to_consider], value_vars=[metabolite_id])
-#     p = (
-#         ggplot(long_data_df)
-#         + geom_boxplot(aes(x="factor({})".format(column_to_consider), y="value", fill=column_to_consider))
-#     )
-#     p.save(output_filename)
-
-#     output_dict = {}
-#     output_dict["metadata_column"] = column_to_consider
-#     output_dict["boxplotimg"] = os.path.basename(output_filename)
-#     output_dict["scan"] = metabolite_id
-
-#     return output_dict
-
-# def plot_bar_selected(input_params):
-#     long_data_df = input_params["long_data_df"]
-#     metadata_column = input_params["metadata_column"]
-#     metadata_facet_column = input_params["metadata_facet_column"]
-#     output_filename = input_params["output_filename"]input_params["metadata_facet"] = metadata_facet_column
-#     stat = input_params["stat"]
-#     pvalue = input_params["pvalue"]
-#     metabolite_id = input_params["metabolite_id"]
-#     condition_first = input_params["condition_first"]
-#     condition_second = input_params["condition_second"]
-    
-#     p = (
-#         ggplot(long_data_df)
-#         + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
-#     )
-
-#     if metadata_facet_column is not None and metadata_facet_column != "None":
-#         p = p + facet_wrap(facets=metadata_facet_column)
-
-#     #p.save(output_filename)
-
-#     output_stats_dict = {}
-#     output_stats_dict["metadata_column"] = metadata_column
-#     output_stats_dict["condition_first"] = condition_first
-#     output_stats_dict["condition_second"] = condition_second
-#     output_stats_dict["stat"] = stat
-#     output_stats_dict["pvalue"] = pvalue
-#     output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
-#     output_stats_dict["scan"] = metabolite_id
-
 def calculate_statistics(input_quant_filename, input_metadata_file, 
                             output_summary_folder, 
                             output_plots_folder=None, 
