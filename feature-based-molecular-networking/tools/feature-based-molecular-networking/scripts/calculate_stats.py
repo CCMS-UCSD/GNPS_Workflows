@@ -38,7 +38,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                             metadata_column=None, 
                             condition_first=None, 
                             condition_second=None,
-                            metadata_facet_column=None):
+                            metadata_facet_column=None,
+                            run_stats=True):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -63,6 +64,9 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
 
     metabolite_id_list = metabolite_id_list
+
+    if run_stats == False:
+        return
 
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
     #if metadata_column is None or metadata_column == "None":
@@ -150,13 +154,17 @@ def main():
     parser.add_argument('--run', help='run', default="Yes")
     args = parser.parse_args()
 
-    # In case people don't want to run this
-    if args.run != "Yes":
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
+    if len(metadata_files) != 1:
         exit(0)
 
-    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
+    # In case people don't want to run this
+    if args.run == "Yes":
+        run_stats = True
+    else:
+        run_stats = False
 
-    if len(metadata_files) == 1:
+    try:
         calculate_statistics(args.quantification_file, 
             metadata_files[0], 
             args.output_stats_folder, 
@@ -164,7 +172,12 @@ def main():
             metadata_column=args.metadata_column,
             condition_first=args.condition_first,
             condition_second=args.condition_second,
-            metadata_facet_column=args.metadata_facet_column)
+            metadata_facet_column=args.metadata_facet_column,
+            run_stats=run_stats)
+    except KeyboardInterrupt:
+        raise
+    except:
+        pass
 
 if __name__ == "__main__":
     main()
