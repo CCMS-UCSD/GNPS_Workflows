@@ -30,7 +30,34 @@ def plot_bar(input_params):
     return output_dict
 
 def plot_bar_selected(input_params):
-    return {}
+    long_data_df = input_params["long_data_df"]
+    metadata_column = input_params["metadata_column"]
+    metadata_facet_column = input_params["metadata_facet_column"]
+    output_filename = input_params["output_filename"]
+    stat = input_params["stat"]
+    pvalue = input_params["pvalue"]
+    metabolite_id = input_params["metabolite_id"]
+    condition_first = input_params["condition_first"]
+    condition_second = input_params["condition_second"]
+    
+    p = (
+        ggplot(long_data_df)
+        + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
+    )
+
+    if metadata_facet_column is not None and metadata_facet_column != "None":
+        p = p + facet_wrap(facets=metadata_facet_column)
+
+    p.save(output_filename)
+
+    output_stats_dict = {}
+    output_stats_dict["metadata_column"] = metadata_column
+    output_stats_dict["condition_first"] = condition_first
+    output_stats_dict["condition_second"] = condition_second
+    output_stats_dict["stat"] = stat
+    output_stats_dict["pvalue"] = pvalue
+    output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
+    output_stats_dict["scan"] = metabolite_id
 
 def calculate_statistics(input_quant_filename, input_metadata_file, 
                             output_summary_folder, 
@@ -108,33 +135,54 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         data_first_df = features_df[features_df[metadata_column] == condition_first]
         data_second_df = features_df[features_df[metadata_column] == condition_second]
 
+        param_candidates = []
+
         for metabolite_id in metabolite_id_list:
             stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
+            output_filename = os.path.join(output_plots_folder, "chosen_{}_{}.png".format(metadata_column, metabolite_id))
             long_data_df = pd.melt(features_df, id_vars=["filename"], value_vars=[metabolite_id])
             long_data_df = long_data_df.merge(metadata_df, how="inner", on="filename")
 
-            output_filename = os.path.join(output_plots_folder, "chosen_{}_{}.png".format(metadata_column, metabolite_id))
+            input_params = {}
+            input_params["stat"] = stat
+            input_params["pvalue"] = pvalue
+            input_params["long_data_df"] = long_data_df
+            input_params["metadata_column"] = metadata_column
+            input_params["metadata_facet_column"] = metadata_facet_column
+            input_params["output_filename"] = output_filename
+            input_params["metabolite_id"] = metabolite_id
+            input_params["condition_first"] = condition_first
+            input_params["condition_second"] = condition_second
 
-            p = (
-                ggplot(long_data_df)
-                + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
-            )
 
-            if metadata_facet_column is not None and metadata_facet_column != "None":
-                p = p + facet_wrap(facets=metadata_facet_column)
+            param_candidates.append(input_params)
 
-            p.save(output_filename)
+            
 
-            output_stats_dict = {}
-            output_stats_dict["metadata_column"] = metadata_column
-            output_stats_dict["condition_first"] = condition_first
-            output_stats_dict["condition_second"] = condition_second
-            output_stats_dict["stat"] = stat
-            output_stats_dict["pvalue"] = pvalue
-            output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
-            output_stats_dict["scan"] = metabolite_id
+            
 
-            output_stats_list.append(output_stats_dict)
+            # p = (
+            #     ggplot(long_data_df)
+            #     + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
+            # )
+
+            # if metadata_facet_column is not None and metadata_facet_column != "None":
+            #     p = p + facet_wrap(facets=metadata_facet_column)
+
+            # p.save(output_filename)
+
+            # output_stats_dict = {}
+            # output_stats_dict["metadata_column"] = metadata_column
+            # output_stats_dict["condition_first"] = condition_first
+            # output_stats_dict["condition_second"] = condition_second
+            # output_stats_dict["stat"] = stat
+            # output_stats_dict["pvalue"] = pvalue
+            # output_stats_dict["boxplotimg"] = os.path.basename(output_filename)
+            # output_stats_dict["scan"] = metabolite_id
+
+            # output_stats_list.append(output_stats_dict)
+
+        output_stats_list = ming_parallel_library.run_parallel_job(plot_bar_selected, param_candidates, 10)
 
         metadata_columns_summary_df = pd.DataFrame(output_stats_list)
         metadata_columns_summary_df.to_csv(os.path.join(output_summary_folder, "chosen_columns.tsv"), sep="\t", index=False)
