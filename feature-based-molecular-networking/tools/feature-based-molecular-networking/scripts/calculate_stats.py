@@ -9,12 +9,14 @@ from scipy.stats import mannwhitneyu
 import metadata_permanova_prioritizer
 import ming_parallel_library
 
+GLOBAL_DF = None
+
 # Lets refer to data as a global, bad practice, but we need speed
 def plot_box(input_params):
-
+    global GLOBAL_DF
     variable_value = int(input_params["variable_value"])
     metadata_column = input_params["metadata_column"]
-    long_form_df = input_params["long_form_df"]
+    long_form_df = GLOBAL_DF
 
     # Filtering the data
     if "metadata_conditions" in input_params:
@@ -33,7 +35,7 @@ def plot_box(input_params):
             p = p + facet_wrap(facets=input_params["metadata_facet"])
 
     output_filename = input_params["output_filename"]
-    #p.save(output_filename)
+    p.save(output_filename)
 
     return None
 
@@ -45,7 +47,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                             condition_second=None,
                             metadata_facet_column=None,
                             run_stats=True,
-                            PARALLELISM=4):
+                            PARALLELISM=8):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -68,6 +70,9 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     # Format Long version for later plotting
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
+
+    global GLOBAL_DF
+    GLOBAL_DF = long_form_df
 
     metabolite_id_list = metabolite_id_list
 
@@ -96,7 +101,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                     input_params["metadata_column"] = column_to_consider
                     input_params["output_filename"] = output_filename
                     input_params["variable_value"] = metabolite_id
-                    input_params["long_form_df"] = long_form_df
+                    #input_params["long_form_df"] = long_form_df
 
                     param_candidates.append(input_params)
 
@@ -137,7 +142,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
             input_params["variable_value"] = metabolite_id
             input_params["metadata_facet"] = metadata_facet_column
             input_params["metadata_conditions"] = condition_first + ";" + condition_second
-            input_params["long_form_df"] = long_form_df
+            #input_params["long_form_df"] = long_form_df
             
             param_candidates.append(input_params)
 
@@ -156,7 +161,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         metadata_columns_summary_df.to_csv(os.path.join(output_summary_folder, "chosen_columns.tsv"), sep="\t", index=False)
 
     print("Calculate Plots", len(param_candidates))
-    ming_parallel_library.run_parallel_job(plot_box, param_candidates, PARALLELISM, backend="threading")
+    ming_parallel_library.run_parallel_job(plot_box, param_candidates, PARALLELISM, backend="multiprocessing")
 
 
 
@@ -197,7 +202,6 @@ def main():
     except KeyboardInterrupt:
         raise
     except:
-        raise
         pass
 
 if __name__ == "__main__":
