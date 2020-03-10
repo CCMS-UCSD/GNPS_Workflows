@@ -43,7 +43,7 @@ def run_parallel_shellcommands(input_shell_commands, parallelism_level, timeout=
         return run_parallel_job(run_shell_command, input_shell_commands, parallelism_level)
 
 #Wraps the parallel job running, simplifying code
-def run_parallel_job(input_function, input_parameters_list, parallelism_level):
+def run_parallel_job(input_function, input_parameters_list, parallelism_level, backend=None):
     if parallelism_level == 1:
         output_results_list = []
         for input_param in input_parameters_list:
@@ -51,7 +51,10 @@ def run_parallel_job(input_function, input_parameters_list, parallelism_level):
             output_results_list.append(result_object)
         return output_results_list
     else:
-        results = Parallel(n_jobs = parallelism_level)(delayed(input_function)(input_object) for input_object in input_parameters_list)
+        if backend is None:
+            results = Parallel(n_jobs = parallelism_level)(delayed(input_function)(input_object) for input_object in input_parameters_list)
+        elif backend == "threading":
+            results = Parallel(n_jobs = parallelism_level, backend='threading')(delayed(input_function)(input_object) for input_object in input_parameters_list)
         return results
 
 #Wraps calling a parallel map and a subsequent reduce function
