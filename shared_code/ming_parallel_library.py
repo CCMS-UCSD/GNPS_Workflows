@@ -54,7 +54,7 @@ def run_parallel_job(input_function, input_parameters_list, parallelism_level, b
         if backend is None:
             results = Parallel(n_jobs = parallelism_level)(delayed(input_function)(input_object) for input_object in input_parameters_list)
         elif backend == "threading":
-            results = Parallel(n_jobs = parallelism_level, backend='threading')(delayed(input_function)(input_object) for input_object in input_parameters_list)
+            results = Parallel(n_jobs = parallelism_level, backend='threading', require='sharedmem')(delayed(input_function)(input_object) for input_object in input_parameters_list)
         return results
 
 #Wraps calling a parallel map and a subsequent reduce function

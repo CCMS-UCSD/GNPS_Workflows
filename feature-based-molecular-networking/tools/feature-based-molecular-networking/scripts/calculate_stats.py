@@ -9,8 +9,6 @@ from scipy.stats import mannwhitneyu
 import metadata_permanova_prioritizer
 import ming_parallel_library
 
-GLOBAL_LONG_DATA_DF = None
-
 # Lets refer to data as a global, bad practice, but we need speed
 def plot_box(input_params):
 
@@ -35,7 +33,7 @@ def plot_box(input_params):
             p = p + facet_wrap(facets=input_params["metadata_facet"])
 
     output_filename = input_params["output_filename"]
-    p.save(output_filename)
+    #p.save(output_filename)
 
     return None
 
@@ -47,7 +45,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                             condition_second=None,
                             metadata_facet_column=None,
                             run_stats=True,
-                            PARALLELISM=1):
+                            PARALLELISM=4):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -124,7 +122,13 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         param_candidates = []
 
         for metabolite_id in metabolite_id_list:
-            stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
+            try:
+                stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
+            except KeyboardInterrupt:
+                raise
+            except:
+                continue
+
             output_filename = os.path.join(output_plots_folder, "chosen_{}_{}.png".format(metadata_column, metabolite_id))
 
             input_params = {}
@@ -151,7 +155,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         metadata_columns_summary_df = pd.DataFrame(output_stats_list)
         metadata_columns_summary_df.to_csv(os.path.join(output_summary_folder, "chosen_columns.tsv"), sep="\t", index=False)
 
-    ming_parallel_library.run_parallel_job(plot_box, param_candidates, PARALLELISM)
+    print("Calculate Plots", len(param_candidates))
+    ming_parallel_library.run_parallel_job(plot_box, param_candidates, PARALLELISM, backend="threading")
 
 
 
@@ -192,6 +197,7 @@ def main():
     except KeyboardInterrupt:
         raise
     except:
+        raise
         pass
 
 if __name__ == "__main__":
