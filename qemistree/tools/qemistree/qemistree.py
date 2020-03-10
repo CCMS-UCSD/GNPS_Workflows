@@ -174,7 +174,7 @@ def main():
 
         # Feature Grouping by Metadata
         cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime feature-table group \
-        --i-table {output_feature_qza} \
+        --i-table {output_merged_feature_table_qza} \
         --m-metadata-column {args.sample_metadata_column} \
         --p-axis sample \
         --m-metadata-file {metadata_files[0]} \
