@@ -95,12 +95,12 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     if run_stats == False:
         return
 
-    # If we do not select a column, we don't calculate stats, but we do generate nice box plots
-    #if metadata_column is None or metadata_column == "None":
-    if True:
+    # If we do not select a column, we don't calculate stats or do any plots
+    if metadata_column in features_df:
         output_boxplot_list = []
 
-        columns_to_consider = metadata_permanova_prioritizer.permanova_validation(input_metadata_file)
+        columns_to_consider = metadata_permanova_prioritizer.permanova_validation(input_metadata_file) # Ignore
+        columns_to_consider = [metadata_column]
 
         # HACK TO MAKE FASTER
         if len(columns_to_consider) > 0:
@@ -121,7 +121,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
                     param_candidates.append(input_params)
         
-        output_boxplot_list = ming_parallel_library.run_parallel_job(plot_bar, param_candidates, 10)
+        output_boxplot_list = ming_parallel_library.run_parallel_job(plot_bar, param_candidates, 20)
 
         metadata_all_columns_summary_df = pd.DataFrame(output_boxplot_list)
         metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
@@ -182,7 +182,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
             # output_stats_list.append(output_stats_dict)
 
-        output_stats_list = ming_parallel_library.run_parallel_job(plot_bar_selected, param_candidates, 10)
+        output_stats_list = ming_parallel_library.run_parallel_job(plot_bar_selected, param_candidates, 20)
 
         metadata_columns_summary_df = pd.DataFrame(output_stats_list)
         metadata_columns_summary_df.to_csv(os.path.join(output_summary_folder, "chosen_columns.tsv"), sep="\t", index=False)
