@@ -425,6 +425,8 @@
             <arg option="-condition_first" valueRef="@METADATA_CONDITION_ONE"/>
             <arg option="-condition_second" valueRef="@METADATA_CONDITION_TWO"/>
             <arg option="-metadata_facet_column" valueRef="@METADATA_COLUMN_FACET"/>
+            <arg option="-run" valueRef="@RUN_STATS"/>
+            
         </execution>
     </tool>
 

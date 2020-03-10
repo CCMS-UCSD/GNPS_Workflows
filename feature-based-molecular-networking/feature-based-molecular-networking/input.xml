@@ -192,6 +192,14 @@
         </parameter>
 
         <!-- Stats Options Input -->
+        <parameter name="RUN_STATS" label="Run Stats and Plots">
+            <options>
+                <option value="No" label="No"/>
+                <option value="Yes" label="Yes"/>
+            </options>
+            <validator type="set"/>
+            <default value="No"/>
+        </parameter>
         <parameter name="METADATA_COLUMN" label="Metadata Column to Compare">
             <default value="None"/>
         </parameter>
@@ -624,6 +632,16 @@
                     <attribute name="size" value="30"/>
                 </input>
             </cell>
+
+            <cell>
+                <label>
+                    <content parameter="RUN_STATS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="RUN_STATS"></input>
+            </cell>
         </row>
 
         <row>
@@ -706,7 +724,5 @@
             </cell>
         </row>
     </block>
-
-
 
 </interface>

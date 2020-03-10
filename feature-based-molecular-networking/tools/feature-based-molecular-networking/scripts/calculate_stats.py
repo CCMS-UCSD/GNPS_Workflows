@@ -7,6 +7,30 @@ import glob
 from scipy.stats import mannwhitneyu
 
 import metadata_permanova_prioritizer
+import ming_parallel_library
+
+def plot_bar(input_params):
+    features_df = input_params["features_df"]
+    column_to_consider = input_params["column_to_consider"]
+    output_filename = input_params["output_filename"]
+    metabolite_id = input_params["metabolite_id"]
+
+    long_data_df = pd.melt(features_df, id_vars=[column_to_consider], value_vars=[metabolite_id])
+    p = (
+        ggplot(long_data_df)
+        + geom_boxplot(aes(x="factor({})".format(column_to_consider), y="value", fill=column_to_consider))
+    )
+    p.save(output_filename)
+
+    output_dict = {}
+    output_dict["metadata_column"] = column_to_consider
+    output_dict["boxplotimg"] = os.path.basename(output_filename)
+    output_dict["scan"] = metabolite_id
+
+    return output_dict
+
+def plot_bar_selected(input_params):
+    return {}
 
 def calculate_statistics(input_quant_filename, input_metadata_file, 
                             output_summary_folder, 
@@ -38,7 +62,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
 
-    metabolite_id_list = metabolite_id_list[:50] #TODO: remove this limit
+    metabolite_id_list = metabolite_id_list
 
     # If we do not select a column, we don't calculate stats, but we do generate nice box plots
     #if metadata_column is None or metadata_column == "None":
@@ -49,32 +73,29 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
         # HACK TO MAKE FASTER
         if len(columns_to_consider) > 0:
-            columns_to_consider = columns_to_consider[:1]
+            columns_to_consider = columns_to_consider[:5]
 
+        param_candidates = []
         for column_to_consider in columns_to_consider:
             # Loop through all metabolites, and create plots
             if output_plots_folder is not None:
                 for metabolite_id in metabolite_id_list:
-                    long_data_df = pd.melt(features_df, id_vars=[column_to_consider], value_vars=[metabolite_id])
                     output_filename = os.path.join(output_plots_folder, "{}_{}.png".format(column_to_consider, metabolite_id))
 
-                    p = (
-                        ggplot(long_data_df)
-                        + geom_boxplot(aes(x="factor({})".format(column_to_consider), y="value", fill=column_to_consider))
-                    )
-                    p.save(output_filename)
+                    input_params = {}
+                    input_params["features_df"] = features_df
+                    input_params["column_to_consider"] = column_to_consider
+                    input_params["output_filename"] = output_filename
+                    input_params["metabolite_id"] = metabolite_id
 
-                    output_dict = {}
-                    output_dict["metadata_column"] = column_to_consider
-                    output_dict["boxplotimg"] = os.path.basename(output_filename)
-                    output_dict["scan"] = metabolite_id
-
-                    output_boxplot_list.append(output_dict)
+                    param_candidates.append(input_params)
+        
+        output_boxplot_list = ming_parallel_library.run_parallel_job(plot_bar, param_candidates, 10)
 
         metadata_all_columns_summary_df = pd.DataFrame(output_boxplot_list)
         metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
 
-    # TODO: implement plotting on a specific column
+    # plotting on a specific column
     if metadata_column in features_df:
         output_stats_list = []
 
@@ -126,11 +147,14 @@ def main():
     parser.add_argument('--condition_first', help='condition_first', default=None)
     parser.add_argument('--condition_second', help='condition_second', default=None)
     parser.add_argument('--metadata_facet_column', help='metadata_facet_column', default=None)
+    parser.add_argument('--run', help='run', default="Yes")
     args = parser.parse_args()
 
-    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
+    # In case people don't want to run this
+    if args.run != "Yes":
+        exit(0)
 
-    print(metadata_files)
+    metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
 
     if len(metadata_files) == 1:
         calculate_statistics(args.quantification_file, 
