@@ -665,6 +665,18 @@
         </row>
     </block>
 
+    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views">
+        <blockRef id="main" type="esquisse_data_for_plotting"/>
+    </view>
+    <block id="esquisse_data_for_plotting" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:8347?task=[task]'/>
+    </block>
+
     <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views">
         <blockRef id="main" type="data_for_plotting"/>
     </view>
