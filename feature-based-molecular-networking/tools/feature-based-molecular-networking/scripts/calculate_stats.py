@@ -124,8 +124,6 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         data_first_df = features_df[features_df[metadata_column] == condition_first]
         data_second_df = features_df[features_df[metadata_column] == condition_second]
 
-        param_candidates = []
-
         for metabolite_id in metabolite_id_list:
             try:
                 stat, pvalue = mannwhitneyu(data_first_df[metabolite_id], data_second_df[metabolite_id])
@@ -202,6 +200,7 @@ def main():
     except KeyboardInterrupt:
         raise
     except:
+        raise
         pass
 
 if __name__ == "__main__":
