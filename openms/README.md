@@ -52,7 +52,8 @@ Use conda environment as specified by exported environment dependencies: [conda-
       ```bash
       $ cd ${CONDA_ROOT}/bin
       $ ln -s x86_64-conda_cos6-linux-gnu-cc cc
-      $ export PATH=${CONDA_ROOT}/bin:${PATH}     # ensure that conda binaries are pathed
+      # ensure that conda binaries are pathed
+      $ export PATH=${CONDA_ROOT}/bin:${PATH}
       ```
       
 ## Building OpenMS Contrib Libraries
