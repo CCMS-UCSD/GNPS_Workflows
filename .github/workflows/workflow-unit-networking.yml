@@ -1,4 +1,4 @@
-name: workflow-networking
+name: workflow-unit-networking
 
 on: [push]
 
