@@ -46,8 +46,8 @@ def postvalidation(modulename, inpath, outpath, logtype=LogType.MULTIPLE, output
 
   if num_logs:
     print(modulename.upper()+": Issue with executing module")
-    print("num_logs",attempted)
-    last_log = "{}/logfile-{:05d}.txt".format(outpath,attempted-1)
+    print("num_logs",num_logs)
+    last_log = "{}/logfile-{:05d}.txt".format(outpath,num_logs-1)
     with open(last_log) as f:
       print(f.read())
 

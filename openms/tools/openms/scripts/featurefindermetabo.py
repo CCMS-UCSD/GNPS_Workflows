@@ -7,14 +7,18 @@ import ming_parallel_library as mpl
 import openms_workflow as wrkflw
 
 
-def get_exec_cmd(input_file, file_count, ini_file, out_port):
-    output = out_port+'/'+out_port+'-'+file_count+'.featureXML'
-
-    command = 'FeatureFinderMetabo '
+def get_exec_cmd(input_file, file_count, ini_file, out_port):  
+    # global env
+    command = "FeatureFinderMetabo"
     if ini_file is not None:
-        command += '-ini ' + ini_file + ' '
-    command += '-in ' + input_file + ' -out ' + output + ' > ' + out_port+'/logfile-'+file_count+'.txt'
-    # command += '-in ' + input_file + ' -out ' + output + ' -log ' + out_port+'/logfile-'+file_count+'.txt'
+        command += " -ini " + ini_file
+
+    command += " -in " + input_file + " -out " + (out_port+"/"+out_port+"-"+file_count+".featureXML")    
+    command += " -algorithm:epd:enabled false"
+    command += " -log " + out_port+"/logfile-"+file_count+".txt"
+    # command += " > " + out_port+"/logfile-"+file_count+".txt"
+
+    print("COMMAND\n", command)
     return command
 
 
@@ -38,11 +42,16 @@ if __name__ == '__main__':
     # print(sys.argv[3])
 
     # set env
+    # env = "LD_LIBRARY_PATH="+sys.argv[1] + \
+    #   " PATH="+sys.argv[2] + \
+    #   " OPENMS_DATA_PATH="+sys.argv[3]
+
+    # print("env", env)
     os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
     os.environ["PATH"] = sys.argv[2]
     os.environ["OPENMS_DATA_PATH"] = sys.argv[3]
 
-    # ini file
+    # ini file (argv[5])
     ini_file = None
     if os.path.exists('iniFiles'):
         ini_dir = list(wrkflw.parsefolder('iniFiles'))
