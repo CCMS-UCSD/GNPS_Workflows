@@ -55,7 +55,7 @@ def main():
     pd.DataFrame(output_fingerprint_summary_list).to_csv(os.path.join(args.summary_folder, "summary_fingerprints.tsv"), sep="\t", index=False)
 
     #Parsing out the classified summary
-    input_csi_qza = os.path.join(args.results_folder, "classified_feature_data.qza")
+    input_csi_qza = os.path.join(args.results_folder, "classified-feature-data.qza")
     cmd = "unzip -o {}".format(input_csi_qza)
     print(cmd)
     os.system(cmd)

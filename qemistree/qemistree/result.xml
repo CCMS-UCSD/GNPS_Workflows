@@ -63,6 +63,18 @@
         <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Femperor.qzv%26block%3Dmain'/>
     </block>
 
+	<view id="view_qemistree_tree" label="View Qemistree ITOL Tree" group="Advanced Views - qiime2 Views">
+        <blockRef id="main" type="view_qemistree_tree"/>
+    </view>
+    <block id="view_qemistree_tree" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fcors-anywhere.herokuapp.com%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Fqemistree-itol.qzv%26block%3Dmain'/>
+    </block>
 
 	<view id="download_data" label="Download Qiime2 Data" group="Advanced Views - qiime2 Views">
         <blockRef id="main" type="download_data"/>
@@ -76,9 +88,5 @@
             </parsers>
         </data>
     </block>
-
-
-
-
 
 </interface>
