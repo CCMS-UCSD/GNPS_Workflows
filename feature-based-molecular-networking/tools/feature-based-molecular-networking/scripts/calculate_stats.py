@@ -13,29 +13,35 @@ GLOBAL_DF = None
 
 # Lets refer to data as a global, bad practice, but we need speed
 def plot_box(input_params):
-    global GLOBAL_DF
-    variable_value = int(input_params["variable_value"])
-    metadata_column = input_params["metadata_column"]
-    long_form_df = GLOBAL_DF
+    # Makign sure if we have plotting problems, we ignore them
+    try:
+        global GLOBAL_DF
+        variable_value = int(input_params["variable_value"])
+        metadata_column = input_params["metadata_column"]
+        long_form_df = GLOBAL_DF
 
-    # Filtering the data
-    if "metadata_conditions" in input_params:
-        if input_params["metadata_conditions"] is not None:
-            metadata_conditions = input_params["metadata_conditions"].split(";")
-            long_form_df = long_form_df[long_form_df[metadata_column].isin(metadata_conditions)]
+        # Filtering the data
+        if "metadata_conditions" in input_params:
+            if input_params["metadata_conditions"] is not None:
+                metadata_conditions = input_params["metadata_conditions"].split(";")
+                long_form_df = long_form_df[long_form_df[metadata_column].isin(metadata_conditions)]
 
-    long_form_df = long_form_df[long_form_df["variable"] == variable_value]
-    p = (
-        ggplot(long_form_df)
-        + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
-    )
+        long_form_df = long_form_df[long_form_df["variable"] == variable_value]
+        p = (
+            ggplot(long_form_df)
+            + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
+        )
 
-    if "metadata_facet" in input_params:
-        if input_params["metadata_facet"] is not None:
-            p = p + facet_wrap(facets=input_params["metadata_facet"])
+        if "metadata_facet" in input_params:
+            if input_params["metadata_facet"] is not None:
+                p = p + facet_wrap(facets=input_params["metadata_facet"])
 
-    output_filename = input_params["output_filename"]
-    p.save(output_filename)
+        output_filename = input_params["output_filename"]
+        p.save(output_filename)
+    except KeyboardInterrupt:
+        raise
+    except:
+        pass
 
     return None
 
