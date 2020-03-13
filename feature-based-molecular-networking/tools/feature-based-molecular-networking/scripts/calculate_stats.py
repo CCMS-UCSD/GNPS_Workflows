@@ -26,10 +26,10 @@ def plot_box(input_params):
                 metadata_conditions = input_params["metadata_conditions"].split(";")
                 long_form_df = long_form_df[long_form_df[metadata_column].isin(metadata_conditions)]
 
-        long_form_df = long_form_df[long_form_df["variable"] == variable_value]
+        long_form_df = long_form_df[long_form_df["feature_id"] == variable_value]
         p = (
             ggplot(long_form_df)
-            + geom_boxplot(aes(x="factor({})".format(metadata_column), y="value", fill=metadata_column))
+            + geom_boxplot(aes(x="factor({})".format(metadata_column), y="feature_area", fill=metadata_column))
         )
 
         if "metadata_facet" in input_params:
@@ -59,6 +59,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
 
     # removing peak area from columns
+    feature_information_df = features_df[["row ID", "row retention time", "row m/z"]]
     features_df.index = features_df["row ID"]
     metabolite_id_list = list(features_df["row ID"])
     headers_to_keep = [header for header in features_df.columns if "Peak area" in header]
@@ -75,6 +76,11 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # Format Long version for later plotting
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
+    long_form_df = long_form_df.rename(columns={"variable":"feature_id", "value":"feature_area"})
+    # Adding in feature information
+    feature_information_df = feature_information_df.rename(columns={"row ID":"feature_id", "row retention time":"feature_rt", "row m/z":"feature_mz"})
+    long_form_df = long_form_df.merge(feature_information_df, how="left", on="feature_id")
+
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
 
     global GLOBAL_DF
@@ -107,7 +113,6 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                     input_params["metadata_column"] = column_to_consider
                     input_params["output_filename"] = output_filename
                     input_params["variable_value"] = metabolite_id
-                    #input_params["long_form_df"] = long_form_df
 
                     param_candidates.append(input_params)
 
@@ -146,7 +151,6 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
             input_params["variable_value"] = metabolite_id
             input_params["metadata_facet"] = metadata_facet_column
             input_params["metadata_conditions"] = condition_first + ";" + condition_second
-            #input_params["long_form_df"] = long_form_df
             
             param_candidates.append(input_params)
 
