@@ -186,6 +186,7 @@
     <bind action="metabolomic_feature_statistics" tool="metabolomic_feature_statistics">
         <inputAsRequirement port="quantification_table_reformatted" requirement="quantification_table_reformatted"/>
         <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <inputAsRequirement port="librarysearch_results_file_DB" requirement="librarysearch_results_file_DB"/>
         <productionToOutput port="feature_statistics" production="feature_statistics"/>
         <productionToOutput port="feature_plots" production="feature_plots"/>
     </bind>

@@ -412,6 +412,7 @@
     <tool name="metabolomic_feature_statistics">
         <require name="quantification_table_reformatted" type="file"/>
         <require name="metadata_table" type="folder"/>
+        <require name="librarysearch_results_file_DB" type="file"/>
         <produce name="feature_statistics" type="folder"/>
         <produce name="feature_plots" type="folder"/>
 
@@ -425,6 +426,7 @@
             <arg option="-condition_first" valueRef="@METADATA_CONDITION_ONE"/>
             <arg option="-condition_second" valueRef="@METADATA_CONDITION_TWO"/>
             <arg option="-metadata_facet_column" valueRef="@METADATA_COLUMN_FACET"/>
+            <arg option="-libraryidentifications_file" valueRef="librarysearch_results_file_DB"/>
             <arg option="-run" valueRef="@RUN_STATS"/>
             
         </execution>
