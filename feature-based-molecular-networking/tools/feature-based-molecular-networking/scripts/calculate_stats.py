@@ -53,7 +53,8 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
                             condition_second=None,
                             metadata_facet_column=None,
                             run_stats=True,
-                            PARALLELISM=8):
+                            PARALLELISM=8,
+                            libraryidentifications_df=None):
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -77,9 +78,17 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     # Format Long version for later plotting
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
     long_form_df = long_form_df.rename(columns={"variable":"featureid", "value":"featurearea"})
+
     # Adding in feature information
     feature_information_df = feature_information_df.rename(columns={"row ID":"featureid", "row retention time":"featurert", "row m/z":"featuremz"})
     long_form_df = long_form_df.merge(feature_information_df, how="left", on="featureid")
+
+    # Adding Library Searhc Inforamtion
+    try:
+        long_form_df = long_form_df.merge(libraryidentifications_df, how="left", left_on="featureid", right_on="#Scan#")
+        long_form_df = long_form_df.drop(columns=["#Scan#"])
+    except:
+        pass
 
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
 
@@ -183,6 +192,7 @@ def main():
     parser.add_argument('--condition_first', help='condition_first', default=None)
     parser.add_argument('--condition_second', help='condition_second', default=None)
     parser.add_argument('--metadata_facet_column', help='metadata_facet_column', default=None)
+    parser.add_argument('--libraryidentifications_file', help='libraryidentifications_file', default=None)
     parser.add_argument('--run', help='run', default="Yes")
     args = parser.parse_args()
 
@@ -196,6 +206,15 @@ def main():
     else:
         run_stats = False
 
+    libraryidentifications_df = None
+    try:
+        if libraryidentifications_file is not None and libraryidentifications_file != "None":
+            if os.path.exists(libraryidentifications_file):
+                libraryidentifications_df = pd.read_csv(libraryidentifications_file, sep="\t", error_bad_lines=False)
+                libraryidentifications_df = libraryidentifications_df[["#Scan#", "Compound_Name", "Smiles", "INCHI"]]
+    except:
+        pass
+
     try:
         calculate_statistics(args.quantification_file, 
             metadata_files[0], 
@@ -206,6 +225,7 @@ def main():
             condition_second=args.condition_second,
             metadata_facet_column=args.metadata_facet_column,
             run_stats=run_stats,
+            libraryidentifications_df=libraryidentifications_df,
             PARALLELISM=20)
     except KeyboardInterrupt:
         raise

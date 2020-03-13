@@ -2,6 +2,8 @@ import sys
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
 import calculate_stats
 import os
+import pandas as pd
+
 
 def test_no_column():
     try:
@@ -17,6 +19,26 @@ def test_no_column():
                                         "reference_stats/metadata.tsv", 
                                         "output_summary", 
                                         output_plots_folder="output_plots")
+
+def test_no_column_library():
+    try:
+        os.mkdir("output_plots")
+    except:
+        pass
+    try:
+        os.mkdir("output_summary_library")
+    except:
+        pass
+
+    libraryidentifications_df = pd.read_csv("reference_stats/librarysearch.tsv", sep=None, error_bad_lines=False)
+    libraryidentifications_df = libraryidentifications_df[["#Scan#", "Compound_Name", "Smiles", "INCHI"]]
+    libraryidentifications_df = libraryidentifications_df.rename(columns={"Compound_Name":"featurecompoundname", "Smiles":"featuresmiles", "INCHI":"featureinchi"})
+
+    calculate_stats.calculate_statistics("reference_stats/feature_table.csv", 
+                                        "reference_stats/metadata.tsv", 
+                                        "output_summary_library", 
+                                        output_plots_folder="output_plots",
+                                        libraryidentifications_df=libraryidentifications_df)
 
 def test_column():
     try:
