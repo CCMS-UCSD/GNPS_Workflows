@@ -26,10 +26,10 @@ def plot_box(input_params):
                 metadata_conditions = input_params["metadata_conditions"].split(";")
                 long_form_df = long_form_df[long_form_df[metadata_column].isin(metadata_conditions)]
 
-        long_form_df = long_form_df[long_form_df["feature_id"] == variable_value]
+        long_form_df = long_form_df[long_form_df["featureid"] == variable_value]
         p = (
             ggplot(long_form_df)
-            + geom_boxplot(aes(x="factor({})".format(metadata_column), y="feature_area", fill=metadata_column))
+            + geom_boxplot(aes(x="factor({})".format(metadata_column), y="featurearea", fill=metadata_column))
         )
 
         if "metadata_facet" in input_params:
@@ -76,10 +76,10 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # Format Long version for later plotting
     long_form_df = pd.melt(features_df, id_vars=metadata_df.columns, value_vars=metabolite_id_list)
-    long_form_df = long_form_df.rename(columns={"variable":"feature_id", "value":"feature_area"})
+    long_form_df = long_form_df.rename(columns={"variable":"featureid", "value":"featurearea"})
     # Adding in feature information
-    feature_information_df = feature_information_df.rename(columns={"row ID":"feature_id", "row retention time":"feature_rt", "row m/z":"feature_mz"})
-    long_form_df = long_form_df.merge(feature_information_df, how="left", on="feature_id")
+    feature_information_df = feature_information_df.rename(columns={"row ID":"featureid", "row retention time":"featurert", "row m/z":"featuremz"})
+    long_form_df = long_form_df.merge(feature_information_df, how="left", on="featureid")
 
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
 
