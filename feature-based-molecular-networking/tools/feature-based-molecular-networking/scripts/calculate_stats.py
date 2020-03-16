@@ -13,7 +13,7 @@ GLOBAL_DF = None
 
 # Lets refer to data as a global, bad practice, but we need speed
 def plot_box(input_params):
-    # Makign sure if we have plotting problems, we ignore them
+    # Making sure if we have plotting problems, we ignore them
     try:
         global GLOBAL_DF
         variable_value = int(input_params["variable_value"])
@@ -33,7 +33,7 @@ def plot_box(input_params):
         )
 
         if "metadata_facet" in input_params:
-            if input_params["metadata_facet"] is not None:
+            if input_params["metadata_facet"] is not None and input_params["metadata_facet"] != "None":
                 p = p + facet_wrap(facets=input_params["metadata_facet"])
 
         output_filename = input_params["output_filename"]
@@ -137,6 +137,12 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     # plotting on a specific column
     if metadata_column in features_df:
+        if condition_first is None or condition_second is None:
+            continue
+
+        if condition_first == "None" or condition_second == "None":
+            continue
+
         output_stats_list = []
 
         features_df = features_df[features_df[metadata_column].isin([condition_first, condition_second])]
