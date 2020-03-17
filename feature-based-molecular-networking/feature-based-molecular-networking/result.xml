@@ -600,7 +600,7 @@
     </block>
 
 
-    <view id="network_stats_all_columns" label="View All Column Plots" group="Advanced Views - Stats Views">
+    <view id="network_stats_all_columns" label="View All Column Plots" group="Advanced Views - Stats Views (Experimental)">
         <blockRef id="main" type="network_stats_all_columns"/>
     </view>
 
@@ -641,7 +641,7 @@
         </row>
     </block>
 
-    <view id="network_stats_selected_columns" label="View Select Column Plots" group="Advanced Views - Stats Views">
+    <view id="network_stats_selected_columns" label="View Select Column Plots" group="Advanced Views - Stats Views (Experimental)">
         <blockRef id="main" type="network_stats_selected_columns"/>
     </view>
 
@@ -677,7 +677,7 @@
         </row>
     </block>
 
-    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views">
+    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views (Experimental)">
         <blockRef id="main" type="esquisse_data_for_plotting"/>
     </view>
     <block id="esquisse_data_for_plotting" type="dummylinkout">
@@ -689,7 +689,7 @@
         <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:8347?task=[task]'/>
     </block>
 
-    <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views">
+    <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
         <blockRef id="main" type="data_for_plotting"/>
     </view>
     <block id="data_for_plotting" type="dummylinkout">
