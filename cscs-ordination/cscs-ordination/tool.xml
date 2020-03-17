@@ -1,0 +1,22 @@
+<toolset>
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="cscs" path="python3.5"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="cscs.script" path="run_cscs.py" />
+    </pathSet>
+
+    <tool name="cscs">
+        <require name="workflowParameters"       type="file"/>
+        <produce name="merged_network"        type="file" naming="explicit"  extension="graphml"/>
+        <produce name="summary_table"        type="file" naming="explicit"  extension="tsv"/>
+        <produce name="summary"        type="file" naming="explicit"  extension="txt"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="cscs.script"/>
+                <arg option="-output-graphml" valueRef="merged_network"/>
+                <arg option="-output-summary-table" valueRef="summary_table"/>
+                <arg option="-output-summary" valueRef="summary"/>
+        </execution>
+    </tool>
+</toolset>
