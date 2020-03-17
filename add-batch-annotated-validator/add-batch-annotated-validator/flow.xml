@@ -11,13 +11,37 @@
     </action>
 
     <collection name="validation_information"/>
+    <collection     name="control_flow_dependency"/>
+
     <action name="validate_batch">
         <input port="flowParams" object="workflowParameters"/>
         <input port="annotation_table" object="annotation_table"/>
         <output port="validation_information" collection="validation_information"/>
+        <output port="control_flow_dependency"       object="control_flow_dependency"/>
+    </action>
+
+    <collection name="spectrapklbin"/>
+    <action name="convertpklbin">
+        <input  port="control_flow_dependency"             object="control_flow_dependency"/>
+        <input port="spectra" collection="spectra"/>
+        <output port="convertedspectra" collection="spectrapklbin"/>
+    </action>
+
+    <object name="result"/>
+    <object name="newspectraResult"/>
+    <object name="new_spectra_mgf"/>
+    <action name="createlib">
+        <input port="flowParams" object="workflowParameters"/>
+        <input port="spec" collection="spectrapklbin"/>
+        <input port="annotation_table_with_id" object="annotation_table_with_id"/>
+        <input port="lib" collection="library"/>
+        <output port="result" object="result"/>
+        <output port="newspectraResult" object="newspectraResult"/>
+        <output port="new_spectra_mgf" object="new_spectra_mgf"/>
     </action>
 
     <action name="end">
+        <input port="newspectraResult" object="newspectraResult"/>
         <input port="validation_information" collection="validation_information"/>
     </action>
 </flow>

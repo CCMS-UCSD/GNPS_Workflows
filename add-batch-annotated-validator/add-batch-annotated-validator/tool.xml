@@ -18,5 +18,49 @@
         </execution>
     </tool>
 
+    <pathSet base="$base">
+        <toolPath tool="AddBatchAnnotated_createlib" path="main_execmodule"/>
+        <pathVar name="convertexe.file" path="convert"/>
+        <toolPath tool="convertpklbin" path="convert_wrapper.py"/>
+    </pathSet>
+
+    <!-- Spectral library manipulation tool specifications -->
+    <tool name="convertpklbin">
+        <require name="spectra" type="folder"/>
+        <produce name="convertedspectra" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg valueRef="spectra"/>
+            <arg valueRef="convertedspectra"/>
+            <arg pathRef="convertexe.file"/>
+        </execution>
+    </tool>
+
+    <!-- Spectral library manipulation tool specifications -->
+    <tool name="AddBatchAnnotated_createlib">
+        <require name="spec" type="folder"/>
+        <require name="flowParams" type="file"/>
+        <require name="library" type="folder"/>
+        <require name="annotation_table_with_id" type="file"/>
+        <produce name="result" type="file" naming="explicit" extension="out"/>
+        <produce name="newspectraResult" type="file" naming="explicit" extension="out"/>
+        <produce name="new_spectra_mgf" type="file" naming="explicit" extension="mgf"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg value="ExecSpectraExtractionTable"/>
+            <arg valueRef="flowParams"/>
+            <arg option="ccms_input_spectradir" valueRef="spec"/>
+            <arg option="ccms_input_library" valueRef="library"/>
+            <arg option="ccms_results_dir" valueRef="result" ifEmpty="skip"/>
+            <arg option="ccms_newresults_dir" valueRef="newspectraResult" ifEmpty="skip"/>
+            <arg option="ccms" value="1"/>
+            <arg option="ccms_lib_grid_root" value="/data/ccms-data/uploads/"/>
+            <arg option="ccms_lib_user_root" value="/data/ccms-data/uploads/"/>
+            <arg option="ccms_lib_user" value="speclibs"/>
+            <arg option="ccms_table_input" valueRef="annotation_table_with_id"/>
+            <arg option="ccms_newoutputlibrary" valueRef="new_spectra_mgf"/>
+            <arg option="ll" value="9"/>
+        </execution>
+    </tool>
 
 </toolset>
