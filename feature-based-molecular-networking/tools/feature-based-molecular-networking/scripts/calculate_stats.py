@@ -136,13 +136,13 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         metadata_all_columns_summary_df.to_csv(os.path.join(output_summary_folder, "all_columns.tsv"), sep="\t", index=False)
 
     # plotting on a specific column
-    if metadata_column in features_df:
-        if condition_first is None or condition_second is None:
-            continue
-
-        if condition_first == "None" or condition_second == "None":
-            continue
-
+    if not metadata_column in features_df:
+        pass
+    elif condition_first is None or condition_second is None:
+        pass
+    elif condition_first == "None" or condition_second == "None":
+        pass
+    else:
         output_stats_list = []
 
         features_df = features_df[features_df[metadata_column].isin([condition_first, condition_second])]
