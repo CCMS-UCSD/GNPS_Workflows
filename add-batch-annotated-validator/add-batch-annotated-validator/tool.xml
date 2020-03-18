@@ -40,7 +40,7 @@
         <toolPath tool="AddBatchAnnotated_createlib" path="python3.5"/>
     </pathSet>
     <pathSet base="$base">
-        <toolPath tool="AddBatchAnnotated_createlib.exe" path="main_execmodule"/>
+        <pathVar name="AddBatchAnnotated_createlib.exe" path="main_execmodule"/>
         <pathVar name="AddBatchAnnotated_createlib.script" path="create_lib_wrapper.py"/>
     </pathSet>
 
@@ -56,9 +56,9 @@
             <arg pathRef="AddBatchAnnotated_createlib.script"/>
             <arg valueRef="flowParams"/>
             <arg valueRef="spec"/>
+            <arg valueRef="annotation_table_with_id"/>
             <arg valueRef="result"/>
             <arg valueRef="newspectraResult"/>
-            <arg valueRef="annotation_table_with_id"/>
             <arg valueRef="new_spectra_mgf"/>
             <arg pathRef="AddBatchAnnotated_createlib.exe"/>
         </execution>
