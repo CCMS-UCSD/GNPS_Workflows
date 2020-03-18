@@ -20,8 +20,10 @@
 		</data>
 		<row>
 			<column type="text" field="#featureID" label="FeatureID" width="12"/>
-			<column type="text" field="ms2_compound" label="MS2 Match Compound Name" width="12"/>
-			<column type="text" field="annotation_type" label="Structure Source" width="12"/>
+      <column type="text" field="parent_mass" label="Parent mass" width="12"/>
+      <column type="text" field="retention_time" label="Retention time" width="12"/>
+			<column type="text" field="ms2_library_match" label="MS2 LibraryID" width="12"/>
+			<column type="text" field="structure_source" label="Structure Source" width="12"/>
 			<column type="text" field="class" label="class" width="12"/>
 			<column type="text" field="subclass" label="subclass" width="12"/>
 			<column type="text" field="direct_parent" label="direct_parent" width="12"/>
