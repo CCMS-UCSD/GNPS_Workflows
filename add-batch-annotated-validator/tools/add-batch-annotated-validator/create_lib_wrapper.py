@@ -25,7 +25,10 @@ cmd = "{} ExecSpectraExtractionTable {} -ccms_input_spectradir {} -ccms_table_in
 
 print(cmd)
 
-os.system(cmd)
+exit_status = os.system(cmd)
+
+if exit_status != 0:
+    exit(1)
 
 # /data/beta-proteomics2/tools/add-batch-annotated-validator/release_20+validator-update/main_execmodule 
 # ExecSpectraExtractionTable 
