@@ -32,7 +32,6 @@
     <bind action="createlib" tool="AddBatchAnnotated_createlib">
         <inputAsRequirement port="spec" requirement="spec"/>
         <inputAsRequirement port="flowParams" requirement="flowParams"/>
-        <inputAsRequirement port="lib" requirement="library"/>
         <inputAsRequirement port="annotation_table_with_id" requirement="annotation_table_with_id"/>
         <productionToOutput port="result" production="result"/>
         <productionToOutput port="newspectraResult" production="newspectraResult"/>
