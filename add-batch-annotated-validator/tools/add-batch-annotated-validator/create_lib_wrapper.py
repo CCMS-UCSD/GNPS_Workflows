@@ -29,13 +29,3 @@ exit_status = os.system(cmd)
 
 if exit_status != 0:
     exit(1)
-
-# /data/beta-proteomics2/tools/add-batch-annotated-validator/release_20+validator-update/main_execmodule 
-# ExecSpectraExtractionTable 
-# workflowParameters/params.xml 
-# -ccms_input_spectradir spectrapklbin 
-# -ccms_results_dir result/52af698dbaf7468f98df89dae45091ad.out 
-# -ccms_newresults_dir newspectraResult/06464ac4b44344c5b6a81fa9dcb9bd9d.out 
-# -ccms 1 
-# -ccms_table_input annotation_table/annotation_table-00000.tsv 
-# -ccms_newoutputlibrary new_spectra_mgf/3ec48b86b8b3439aa029463f79b918ce.mgf -ll 9
