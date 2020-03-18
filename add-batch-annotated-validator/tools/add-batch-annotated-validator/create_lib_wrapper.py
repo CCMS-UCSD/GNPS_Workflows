@@ -20,7 +20,7 @@ temp_annotation_filename = "annotation.tsv"
 annotation_table_df["SPECTRUMID"] = "SPECLIBTEMP"
 annotation_table_df.to_csv(temp_annotation_filename, sep="\t", index=False)
 
-cmd = "{} ExecSpectraExtractionTable {} -ccms_input_spectradir {} -ccms_table_input {} -ccms_results_dir {} -ccms_newresults_dir {} -ccms_newoutputlibrary {} -ccms 1".format(args.main_execmodule_path, 
+cmd = "{} ExecSpectraExtractionTable {} -ccms_input_spectradir {} -ccms_table_input {} -ccms_results_dir {} -ccms_newresults_dir {} -ccms_newoutputlibrary {} -ccms 1 -ll 9".format(args.main_execmodule_path, 
     args.workflowparams, args.pklbinfolder, temp_annotation_filename, args.result_output, args.new_results_output, args.output_library)
 
 print(cmd)
