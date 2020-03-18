@@ -54,9 +54,9 @@
             <arg option="ccms_results_dir" valueRef="result" ifEmpty="skip"/>
             <arg option="ccms_newresults_dir" valueRef="newspectraResult" ifEmpty="skip"/>
             <arg option="ccms" value="1"/>
-            <arg option="ccms_lib_grid_root" value="/data/ccms-data/uploads/"/>
+            <!-- <arg option="ccms_lib_grid_root" value="/data/ccms-data/uploads/"/>
             <arg option="ccms_lib_user_root" value="/data/ccms-data/uploads/"/>
-            <arg option="ccms_lib_user" value="speclibs"/>
+            <arg option="ccms_lib_user" value="speclibs"/> -->
             <arg option="ccms_table_input" valueRef="annotation_table_with_id"/>
             <arg option="ccms_newoutputlibrary" valueRef="new_spectra_mgf"/>
             <arg option="ll" value="9"/>
