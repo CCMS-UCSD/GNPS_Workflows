@@ -58,6 +58,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
+    metadata_df["filename"] = metadata_df["filename"].apply(lambda x: x.rstrip())
 
     # removing peak area from columns
     feature_information_df = features_df[["row ID", "row retention time", "row m/z"]]
@@ -65,7 +66,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     metabolite_id_list = list(features_df["row ID"])
     headers_to_keep = [header for header in features_df.columns if "Peak area" in header]
     features_df = features_df[headers_to_keep]
-    column_mapping = {headers:headers.replace(" Peak area", "") for headers in features_df.columns}
+    column_mapping = {headers:headers.replace(" Peak area", "").rstrip() for headers in features_df.columns}
     features_df = features_df.rename(columns=column_mapping)
 
     # Transpose
@@ -83,11 +84,12 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     feature_information_df = feature_information_df.rename(columns={"row ID":"featureid", "row retention time":"featurert", "row m/z":"featuremz"})
     long_form_df = long_form_df.merge(feature_information_df, how="left", on="featureid")
 
-    # Adding Library Searhc Inforamtion
+    # Adding Library Search Inforamtion
     try:
         long_form_df = long_form_df.merge(libraryidentifications_df, how="left", left_on="featureid", right_on="#Scan#")
         long_form_df = long_form_df.drop(columns=["#Scan#"])
     except:
+        raise
         pass
 
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
