@@ -199,7 +199,7 @@ def main():
     parser.add_argument('--condition_second', help='condition_second', default=None)
     parser.add_argument('--metadata_facet_column', help='metadata_facet_column', default=None)
     parser.add_argument('--libraryidentifications_file', help='libraryidentifications_file', default=None)
-    parser.add_argument('--run', help='run', default="Yes")
+    parser.add_argument('--run', help='run statistics', default="Yes")
     args = parser.parse_args()
 
     metadata_files = glob.glob(os.path.join(args.metadata_folder, "*"))
@@ -214,9 +214,9 @@ def main():
 
     libraryidentifications_df = None
     try:
-        if libraryidentifications_file is not None and libraryidentifications_file != "None":
-            if os.path.exists(libraryidentifications_file):
-                libraryidentifications_df = pd.read_csv(libraryidentifications_file, sep="\t", error_bad_lines=False)
+        if args.libraryidentifications_file is not None and args.libraryidentifications_file != "None":
+            if os.path.exists(args.libraryidentifications_file):
+                libraryidentifications_df = pd.read_csv(args.libraryidentifications_file, sep="\t", error_bad_lines=False)
                 libraryidentifications_df = libraryidentifications_df[["#Scan#", "Compound_Name", "Smiles", "INCHI"]]
     except:
         pass
@@ -236,7 +236,6 @@ def main():
     except KeyboardInterrupt:
         raise
     except:
-        raise
         pass
 
 if __name__ == "__main__":

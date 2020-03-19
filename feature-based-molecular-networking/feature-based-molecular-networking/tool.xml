@@ -428,7 +428,6 @@
             <arg option="-metadata_facet_column" valueRef="@METADATA_COLUMN_FACET"/>
             <arg option="-libraryidentifications_file" valueRef="librarysearch_results_file_DB"/>
             <arg option="-run" valueRef="@RUN_STATS"/>
-            
         </execution>
     </tool>
 
