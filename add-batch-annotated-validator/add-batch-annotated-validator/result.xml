@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="speclib_add">
+
+    <view id="add_batch_clone" label="add_batch_clone" group="For CCMS Only">
+        <blockRef id="main" type="add_batch_clone"/>
+    </view>
+    <block id="add_batch_clone" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]#{"workflow":"ADD-BATCH-ANNOTATED"}'/>
+    </block>
+
+
+    <view id="new_annotations" label="View New Library Annotations">
+        <blockRef id="main" type="new_annotations"/>
+    </view>
+
+    <block id="new_annotations" type="table">
+        <data>
+            <source type="file" name="newspectraResult/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="CompoundName" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="CompoundName" label="CompoundName" width="12"/>
+            <column type="text" field="Adduct" label="Adduct" width="5"/>
+            <column type="text" field="Protein" label="Ion_Source" width="5"/>
+            <column type="text" field="LibMetaData" label="LibMetaData" width="5"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
+                <parameter name="REQUESTPARAMETER=inchi" value="[Inchi]"/>
+            </column>
+        </row>
+        <!-- <row expander="image">
+            <column label="Image" type="jscolumnspectrumviewer_fromlibrary" colspan="5">
+                <parameter name="spectrumid" value="[SpectrumID]"/>
+            </column>
+        </row> -->
+    </block>
+
+</interface>

@@ -47,7 +47,7 @@ def main():
     parser.add_argument('params_xml', help='params_xml')
     parser.add_argument('input_clusterinfo_summary', help='Input cluster info summary')
     parser.add_argument('input_network_pairs_file', help='network_pairs_file')
-    parser.add_argument('input_library_search_file', help='network_pairs_file')
+    parser.add_argument('input_library_search_file', help='library_search_file')
     parser.add_argument('output_clusterinfo_summary', help='output file')
     parser.add_argument('output_component_summary', help='output component file')
     args = parser.parse_args()
@@ -72,10 +72,14 @@ def main():
             cluster["LibraryID"] = library_ids_dict[cluster_index]["Compound_Name"]
             cluster["MQScore"] = library_ids_dict[cluster_index]["MQScore"]
             cluster["SpectrumID"] = library_ids_dict[cluster_index]["SpectrumID"]
+            cluster["Smiles"] = library_ids_dict[cluster_index]["Smiles"]
+            cluster["INCHI"] = library_ids_dict[cluster_index]["INCHI"]
         else:
             cluster["LibraryID"] = "N/A"
             cluster["MQScore"] = "N/A"
             cluster["SpectrumID"] = "N/A"
+            cluster["Smiles"] = "N/A"
+            cluster["INCHI"] = "N/A"
 
     ming_fileio_library.write_list_dict_table_data(all_clusterinfo_list, args.output_clusterinfo_summary)
 
