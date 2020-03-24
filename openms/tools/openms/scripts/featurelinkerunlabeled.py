@@ -8,36 +8,32 @@ import openms_workflow as wrkflw
 #5 module: feature linker unlabeled kd
 '''
 def featurelinkerunlabeledkd(input_port, ini_file, out_port):
-    command = "FeatureLinkerUnlabeledKD "
+    command = "FeatureLinkerUnlabeledKD"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in "
+        command += " -ini " + ini_file
+    command += " -in"
     for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
-        command += input_file + " "
-    command += "-out " + out_port+"/"+out_port+"-00000.consensusXML "
+        command += " " + input_file
+    command += " -out " + out_port+"/"+out_port+"-00000.consensusXML"
     command += '> ' + out_port+'/logfile-00000.txt'
-    # command += '-log ' + out_port+'/logfile-00000.txt'
+    # command += ' -log ' + out_port+'/logfile-00000.txt'
 
     print("COMMAND: " + command + "\n")
     os.system(command)
-
-    # delete featureXML file
-    # if os.path.exists(out_port+"/featurelinker-tmp.consensusXML"):
-    #     os.remove(out_port+"/featurelinker-tmp.consensusXML")
 
 
 '''
 #5 module: feature linker unlabeled qt
 '''
 def featurelinkerunlabeledqt(input_port, ini_file, out_port):
-    command = "FeatureLinkerUnlabeledQT "
+    command = " FeatureLinkerUnlabeledQT"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in "
+        command += " -ini " + ini_file
+    command += " -in"
     for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
-        command += input_file + " "
-    command += "-out " + out_port+"/"+out_port+"-00000.consensusXML "
-    command += '-log ' + out_port+'/logfile-00000.txt'
+        command += " " + input_file
+    command += " -out " + out_port+"/"+out_port+"-00000.consensusXML"
+    command += " -log " + out_port+"/logfile-00000.txt"
 
     print("COMMAND: " + command + "\n")
     os.system(command)
