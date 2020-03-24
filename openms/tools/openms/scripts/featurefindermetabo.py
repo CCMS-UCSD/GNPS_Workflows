@@ -15,8 +15,8 @@ def get_exec_cmd(input_file, file_count, ini_file, out_port):
 
     command += " -in " + input_file + " -out " + (out_port+"/"+out_port+"-"+file_count+".featureXML")    
     command += " -algorithm:epd:enabled false"
-    command += " -log " + out_port+"/logfile-"+file_count+".txt"
-    # command += " > " + out_port+"/logfile-"+file_count+".txt"
+    # command += " -log " + out_port+"/logfile-"+file_count+".txt"
+    command += " > " + out_port+"/logfile-"+file_count+".txt"
 
     print("COMMAND\n", command)
     return command

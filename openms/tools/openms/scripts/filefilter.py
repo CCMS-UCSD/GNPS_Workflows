@@ -16,8 +16,8 @@ def filefilter(input_port, out_port):
 
         command = "FileFilter -id:remove_unannotated_features -in " + input_file
         command += " -out " + output
-        # command += ' > ' + out_port+'/logfile-00000.txt'
-        command += ' -log ' + out_port+'/logfile-00000.txt'
+        command += ' > ' + out_port+'/logfile-00000.txt'
+        # command += ' -log ' + out_port+'/logfile-00000.txt'
 
         print("COMMAND: " + command + "\n")
         os.system(command)
@@ -40,10 +40,10 @@ if __name__ == '__main__':
 
     filefilter(sys.argv[4], sys.argv[5])
 
-    # wrkflw.postvalidation( \
-    #   modulename="file filter", \
-    #   inpath=in_port, \
-    #   outpath=out_port, \
-    #   logtype=wrkflw.LogType.SINGLE, \
-    #   output_per_job=1
-    # )
+    wrkflw.postvalidation( \
+      modulename="file filter", \
+      inpath=in_port, \
+      outpath=out_port, \
+      logtype=wrkflw.LogType.SINGLE, \
+      output_per_job=1
+    )

@@ -19,8 +19,6 @@ def mapalignerposeclustering(input_port, ini_file, out_port):
         # command += input_file + ' '
     command += '-out '
     command += ' '.join(outputs)
-    # for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=['log']):
-        # command += out_port+"/"+out_port+"-"+file_count+".featureXML" + ' '
     command += '> ' + out_port+'/logfile-00000.txt'
     # command += '-log ' + out_port+'/logfile-00000.txt'
 
