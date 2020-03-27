@@ -425,7 +425,7 @@
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer" colspan="5">
-                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="file" file="spec/spec-00000.mgf"/>
                 <parameter name="scan" value="[cluster index]"/>
                 <parameter name="trim" value="true"/>
             </column>
@@ -433,9 +433,8 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
-\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
-                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spec/spec-00000.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/spec-00000.mgf:scan:[cluster index]"/>
             </column>
         </row>
     </block>
