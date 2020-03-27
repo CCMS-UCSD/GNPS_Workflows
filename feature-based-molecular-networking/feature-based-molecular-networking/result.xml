@@ -220,7 +220,6 @@
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
                 <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
->
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
