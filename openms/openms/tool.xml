@@ -18,8 +18,8 @@
     </pathSet>
     
     <pathSet base="$base/binaries">
-        <pathVar name="ld_library_path" path="openms/lib:/data/beta-proteomics2/tools/openms-build/conda/lib"/>
-        <pathVar name="exc_path" path="openms/bin:/data/beta-proteomics2/tools/openms-build/conda/bin:/bin:/usr/bin"/>
+        <pathVar name="ld_library_path" path="openms/lib:conda/lib"/>
+        <pathVar name="exc_path" path="openms/bin:conda/bin"/>
         <pathVar name="openms_data_path" path="openms/share"/>
     </pathSet>
 

@@ -1,4 +1,59 @@
-# Environment Variables
+# Building Runtime Environment
+1. Download the [conda-env.yaml](./conda-env.yaml) file
+    ```bash
+    curl -o conda-env.yaml <conda-env.yaml url>
+    ```
+
+2. Download the [build-env.sh](./build-env.sh) shell script
+    ```bash
+    curl -o build.env.sh <build-env.sh url>
+    ```
+
+3. Run the build script to install the library environment
+    - Conda must be installed at `<openms-release>/binaries/conda`
+    ```bash
+    $ bash ./Miniconda3.sh        
+    # Install at openms_release
+    >>> <openms_release>/binaries/conda
+    ```
+
+    ## Debugging `build-env.sh` script
+    The [build-env.sh]() shell program executes the following:
+    1. Download and install the latest version of Miniconda3
+        ```bash
+        ###
+        # Install + Build Miniconda Environment
+        ###
+        # Download Mininconda install script
+        curl -o "./Miniconda3.sh" "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+
+        # Install Miniconda
+        bash "./Miniconda3.sh"
+        ```
+
+    2. Update conda environment with OpenMS dependencies
+        ```bash
+        conda env update --file <conda-env.yaml>
+        ```
+
+    3. Ensure that `cc` library is properly symlinked <br>
+        `conda install -c conda-forge cxx-compiler`
+        - **Check**: Determine which cc is linked
+          ```bash
+          $ which cc
+          {CONDA_ROOT}/bin/cc
+          ```
+        - **Solution**: Create symlink
+          ```bash
+          $ cd <openms-release>/binaries/conda/bin
+          $ ln -s x86_64-conda_cos6-linux-gnu-cc cc
+          # ensure that conda binaries are pathed
+          $ export PATH=${CONDA_ROOT}/bin:${PATH}
+          ```          
+
+# Building OpenMS
+> :warning: Ensure that system libaries are up-to-date with OpenMS-2.4 prerequisites
+## Environment Parameters
 ```bash
 unset PATH
 unset LD_LIBRARY_PATH
@@ -36,26 +91,6 @@ export CXXFLAGS="-isystem ${OPENMS_CONTRIB_LIBS}/include"
 export PATH=${PATH}:/bin:/usr/bin
 ```
 
-# Builiding OpenMS
-## Conda Environment
-Use conda environment as specified by exported environment dependencies: [conda-env.yaml](./conda-env.yaml)
-
-### Library Dependencies Checks:
-1. Ensure that `cc` library is properly simlinked <br>
-`conda install -c conda-forge cxx-compiler`
-    - **Check**: Determine which cc is linked
-      ```bash
-      $ which cc
-      {CONDA_ROOT}/bin/cc
-      ``` 
-    - **Solution**: Create symlink
-      ```bash
-      $ cd ${CONDA_ROOT}/bin
-      $ ln -s x86_64-conda_cos6-linux-gnu-cc cc
-      # ensure that conda binaries are pathed
-      $ export PATH=${CONDA_ROOT}/bin:${PATH}
-      ```
-      
 ## Building OpenMS Contrib Libraries
 1. Install openms contrib libraries
     ```bash
