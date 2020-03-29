@@ -25,6 +25,7 @@ jobs:
         conda install -c anaconda requests
         conda install -c conda-forge nose2
         conda install -c anaconda scipy
+        pip install xmltodict
         pip install pyMolNetEnhancer
         pip install metabodisttrees
     - name: Test with nose2
