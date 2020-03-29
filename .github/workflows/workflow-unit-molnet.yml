@@ -23,12 +23,12 @@ jobs:
       shell: bash -l {0}
       run: |
         conda install -c conda-forge nose2
-        wget https://data.qiime2.org/distro/core/qiime2-2019.7-py36-linux-conda.yml
-        conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-linux-conda.yml
-        conda activate qiime2-2019.7
         pip install xmltodict
         pip install pyMolNetEnhancer
         pip install metabodisttrees
+        wget https://data.qiime2.org/distro/core/qiime2-2019.7-py36-linux-conda.yml
+        conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-linux-conda.yml
+        conda activate qiime2-2019.7
     - name: Test with nose2
       shell: bash -l {0}
       run: |
