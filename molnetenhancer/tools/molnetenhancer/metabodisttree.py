@@ -124,7 +124,7 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             raise
         except:
             print("Error")
-            exit(0)
+            raise
 
     if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
         #Workflow versions will eventually be supported
@@ -242,7 +242,7 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             raise
         except:
             print("Error")
-            exit(0)
+            raise
 
 if __name__=="__main__":
     main()
