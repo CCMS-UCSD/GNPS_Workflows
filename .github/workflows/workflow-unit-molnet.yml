@@ -28,5 +28,6 @@ jobs:
         pip install pyMolNetEnhancer
         pip install metabodisttrees
     - name: Test with nose2
+      shell: bash -l {0}
       run: |
         cd molnetenhancer/test && nose2 -v && cd ../..
