@@ -40,16 +40,16 @@ if __name__ == '__main__':
     print("===GNPS EXPORT===")
 
     # set env
-    os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
-    os.environ["PATH"] = sys.argv[2]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    os.environ["LD_LIBRARY_PATH"] = "{}:{}".format(sys.argv[1],sys.argv[2])    
+    os.environ["PATH"] = "{}:{}".format(sys.argv[3],sys.argv[4])
+    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[5])
 
-    in_port = sys.argv[4]
-    inputFiles_port = sys.argv[5]
-    out_port = sys.argv[7]
+    in_port = sys.argv[6]
+    inputFiles_port = sys.argv[7]
+    out_port = sys.argv[9]
 
 
-    # ini file
+    # ini file = sys.argv[8]
     ini_file = None
     if os.path.exists('iniFiles'):
         ini_dir = list(wrkflw.parsefolder('iniFiles'))

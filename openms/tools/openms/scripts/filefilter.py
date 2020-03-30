@@ -27,18 +27,15 @@ def filefilter(input_port, out_port):
 if __name__ == '__main__':
     print("===FILE FILTER===")
 
-    in_port = sys.argv[4]
-    out_port = sys.argv[5]
-
-    # validate previous module's output
-    # wrkflw.prevalidation("feature-linker-unlabeled", in_port, logtype="single", output_per_job=0)
+    in_port = sys.argv[6]
+    out_port = sys.argv[7]
 
     # set env
-    os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
-    os.environ["PATH"] = sys.argv[2]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    os.environ["LD_LIBRARY_PATH"] = "{}:{}".format(sys.argv[1],sys.argv[2])    
+    os.environ["PATH"] = "{}:{}".format(sys.argv[3],sys.argv[4])
+    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[5])
 
-    filefilter(sys.argv[4], sys.argv[5])
+    filefilter(in_port, out_port)
 
     wrkflw.postvalidation( \
       modulename="file filter", \
