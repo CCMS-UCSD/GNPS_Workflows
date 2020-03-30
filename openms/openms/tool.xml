@@ -18,8 +18,10 @@
     </pathSet>
     
     <pathSet base="$base/binaries">
-        <pathVar name="ld_library_path" path="openms/lib:conda/lib"/>
-        <pathVar name="exc_path" path="openms/bin:conda/bin"/>
+        <pathVar name="openms_lib" path="openms/lib"/>
+        <pathVar name="conda_lib" path="conda/lib"/>
+        <pathVar name="openms_bin" path="openms/bin"/>
+        <pathVar name="conda_bin" path="conda/bin"/>
         <pathVar name="openms_data_path" path="openms/share"/>
     </pathSet>
 
@@ -43,8 +45,10 @@
         <produce name="inFiles" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="convert-mzxml-to-mzml.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
             <arg valueRef="inputFiles"/>
             <arg valueRef="inFiles"/>
@@ -56,9 +60,13 @@
         <produce name="featurefindermetabo" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="feature-finder-metabo.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+            
             <arg valueRef="inFiles"/>
             <arg valueRef="iniFiles-featurefinder"/>
             <arg valueRef="featurefindermetabo"/>
@@ -71,9 +79,13 @@
         <produce name="idmapper" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="id-mapper.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+            
             <arg valueRef="inFiles"/>
             <arg valueRef="iniFiles-idmapper"/>
             <arg pathRef="idmapper_empty"/>
@@ -87,9 +99,13 @@
         <produce name="mapalignerposeclustering" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="map-aligner-pose-clustering.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+            
             <arg valueRef="idmapper"/>
             <arg valueRef="iniFiles-mapaligner"/>
             <arg valueRef="mapalignerposeclustering"/>
@@ -101,9 +117,13 @@
         <produce name="metaboliteadductdecharger" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="metabolite-adduct-decharger.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+
             <arg valueRef="mapalignerposeclustering"/>
             <arg valueRef="iniFiles-adductdecharger"/>
             <arg valueRef="metaboliteadductdecharger"/>
@@ -116,9 +136,13 @@
         <produce name="featurelinkerunlabeled" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="feature-linker-unlabeled.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+
             <arg valueRef="metaboliteadductdecharger"/>
             <arg valueRef="iniFiles-featurelinker"/>
             <arg valueRef="featurelinkerunlabeled"/>
@@ -130,9 +154,13 @@
         <produce name="filefilter" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="file-filter.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+
             <arg valueRef="featurelinkerunlabeled"/>
             <arg valueRef="filefilter"/>
         </execution>
@@ -144,9 +172,13 @@
         <produce name="gnpsexport" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="gnps-export.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+
             <arg valueRef="filefilter"/>
             <arg valueRef="inFiles"/>
             <arg valueRef="iniFiles-gnpsexport"/>
@@ -160,9 +192,13 @@
         <produce name="textexporter" type="folder"/>
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="text-exporter.script"/>
-            <arg pathRef="ld_library_path"/>
-            <arg pathRef="exc_path"/>
+            
+            <arg pathRef="openms_lib"/>
+            <arg pathRef="conda_lib"/>
+            <arg pathRef="openms_bin"/>
+            <arg pathRef="conda_bin"/>
             <arg pathRef="openms_data_path"/>
+            
             <arg valueRef="filefilter"/>
             <arg valueRef="iniFiles-textexporter"/>
             <arg valueRef="textexporter"/>
