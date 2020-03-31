@@ -13,8 +13,8 @@ else
 fi
 
 echo "### WARNING ###"
-echo -e "Conda must be installed at: <openms-release>/binaries/conda"
-echo "\t${CONDA_ROOT}"
+echo "Conda must be installed at: <openms-release>/binaries/conda"
+echo -e "\t${CONDA_ROOT}"
 sleep 3
 
 
