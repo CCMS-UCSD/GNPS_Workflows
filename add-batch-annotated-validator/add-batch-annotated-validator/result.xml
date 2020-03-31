@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="speclib_add">
 
-    <view id="add_batch_clone" label="add_batch_clone" group="For CCMS Only">
+    <view id="add_batch_clone" label="Add Batch Link For CCMS Team" group="For CCMS Only">
         <blockRef id="main" type="add_batch_clone"/>
     </view>
     <block id="add_batch_clone" type="dummylinkout">

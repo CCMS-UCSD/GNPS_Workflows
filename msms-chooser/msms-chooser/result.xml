@@ -53,7 +53,7 @@
         </row>
     </block>
 
-    <view id="add_batch" label="Add Batch Anotation on GNPS" group="Batch File for GNPS">
+    <view id="add_batch" label="Next Step: Batch Anotation Validator on GNPS" group="Batch File for GNPS">
         <blockRef id="main" type="add_batch"/>
     </view>
     <block id="add_batch" type="dummylinkout">
@@ -62,7 +62,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc":"Add Batch from [task]", "annotation_table_on_server":"t.[task]/output_batch"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]#{"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc":"Add Batch from [task]", "annotation_table_on_server":"t.[task]/output_batch"}'/>
     </block>
 
 
