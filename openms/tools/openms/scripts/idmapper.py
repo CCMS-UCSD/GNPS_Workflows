@@ -6,15 +6,18 @@ import ming_parallel_library as mpl
 import openms_workflow as wrkflw
 
 
-def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_port):
-    command = 'IDMapper '
+def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_port):   
+    # global env
+
+    # command = env + ' && IDMapper '
+    command = "IDMapper"
     if ini_file is not None:
-        command += '-ini ' + ini_file + ' '
-    command += '-in ' + input_file + ' -id ' + idxml_path + ' '
-    command += '-spectra:in ' + input_port+'/'+input_port+'-'+file_count+".mzML "
-    command += '-out ' + out_port+'/'+out_port+'-'+file_count+'.featureXML '
+        command += ' -ini ' + ini_file
+    command += ' -in ' + input_file + ' -id ' + idxml_path
+    command += ' -spectra:in ' + input_port+'/'+input_port+'-'+file_count+".mzML"
+    command += ' -out ' + out_port+'/'+out_port+'-'+file_count+'.featureXML'
     command += '> ' + out_port+'/logfile-'+file_count+'.txt'
-    # command += '-log ' + out_port+'/logfile-'+file_count+'.txt'
+    # command += ' -log ' + out_port+'/logfile-'+file_count+'.txt'
 
 
     print("COMMAND: " + command + '\n')
@@ -43,17 +46,13 @@ def idmapper(input_port, ini_file, idxml_path, featurefinder_port, out_port):
 if __name__ == '__main__':
     print("===ID Mapper===")
 
-    mzml_port = sys.argv[4]
-    featurefinder_port = sys.argv[7]
-    out_port = sys.argv[8]
-
     # validate previous module output
     # wrkflw.prevalidation("feature-finder-metabo", featurefinder_port)
 
     # set env
-    os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
-    os.environ["PATH"] = sys.argv[2]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    os.environ["LD_LIBRARY_PATH"] = "{}:{}".format(sys.argv[1],sys.argv[2])
+    os.environ["PATH"] = "{}:{}".format(sys.argv[3],sys.argv[4])
+    os.environ["OPENMS_DATA_PATH"] = sys.argv[5]
 
     # ini file
     ini_file = None
@@ -62,6 +61,11 @@ if __name__ == '__main__':
         if len(ini_dir) > 0:
             ini_file = ini_dir[0][0]
 
-    idmapper(mzml_port, ini_file, sys.argv[6], featurefinder_port, out_port)
+    mzml_port = sys.argv[6]
+    empty_idxml = sys.argv[8]
+    featurefinder_port = sys.argv[9]
+    out_port = sys.argv[10]
+
+    idmapper(mzml_port, ini_file, empty_idxml, featurefinder_port, out_port)
 
     wrkflw.postvalidation(modulename="id mapper", inpath=mzml_port, outpath=out_port)
