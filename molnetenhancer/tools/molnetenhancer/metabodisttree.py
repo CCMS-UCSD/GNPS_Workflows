@@ -9,16 +9,17 @@ import MetaboDistTrees
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('GNPS', help='enter your GNPS job ID')
-    parser.add_argument('molnetenhancer',help = 'enter MolNetEnhancer ID')
     parser.add_argument('output_folder', help='output_folder')
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
+    parser.add_argument('--molnetenhancer',default=None,help='enter MolNetEnhancer ID')
+    parser.add_argument('--molnetenhancerfolder',default=None,help='enter MolNetEnhancer classyfire folder')
 	
     args = parser.parse_args()
-    process(args.GNPS,args.molnetenhancer, output_folder = args.output_folder, local_classytree_folder = 'classytree/', conda_activate_bin = args.conda_activate_bin, conda_environment = args.conda_environment)
+    process(args.GNPS,molnetenhancer_id=args.molnetenhancer, molnetenhancer_classyfire_folder=args.molnetenhancerfolder,output_folder = args.output_folder, local_classytree_folder = 'classytree/', conda_activate_bin = args.conda_activate_bin, conda_environment = args.conda_environment)
 
-
-def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_folder = None, conda_activate_bin = None, conda_environment = None):
+# Processing metabodisttree, requires either an existing molnetenhancer job or the file within the workflow
+def process(task_id, molnetenhancer_id = None, molnetenhancer_classyfire_folder = None, output_folder = None,local_classytree_folder = None, conda_activate_bin = None, conda_environment = None):
     
     classyfire_result_filename = os.path.join(output_folder, "ClassyFireResults_Network.txt")
     task_information = proteosafe.get_task_information("gnps.ucsd.edu", task_id)
@@ -29,7 +30,6 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             manifest_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_manifest.tsv".format(task_id)
             metadata_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_metadata.tsv".format(task_id)
             quantification_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=cluster_buckets/".format(task_id)
-            molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
 
             manifest_filename = os.path.join(output_folder, "qiime2_manifest.tsv")
             metadata_filename = os.path.join(output_folder, "qiime2_metadata.tsv")
@@ -48,8 +48,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             with open(quantification_filename, 'wb') as f:
                 f.write(requests.get(quantification_url).content)
             
-            with open(molnetenhancer_filename, 'wb') as f:
-                f.write(requests.get(molnetenhancer_url).content)
+            if molnetenhancer_id is not None:
+                # If there is a task, or a path
+                molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
+                with open(molnetenhancer_filename, 'wb') as f:
+                    f.write(requests.get(molnetenhancer_url).content)
+            else:
+                input_filename = os.path.join(molnetenhancer_classyfire_folder, "ClassyFireResults_Network.txt")
+                shutil.copyfile(input_filename, molnetenhancer_filename)
 
             #Reformating metadata
             md  = pd.read_csv(metadata_filename, sep = '\t')
@@ -134,7 +140,6 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             manifest_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_manifest.tsv".format(task_id)
             metadata_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_metadata.tsv".format(task_id)
             quantification_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=quantification_table_reformatted/".format(task_id)
-            molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
 
             manifest_filename = os.path.join(output_folder, "qiime2_manifest.tsv")
             metadata_filename = os.path.join(output_folder, "qiime2_metadata.tsv")
@@ -153,8 +158,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             with open(quantification_filename, 'wb') as f:
                 f.write(requests.get(quantification_url).content)
 
-            with open(molnetenhancer_filename, 'wb') as f:
-                f.write(requests.get(molnetenhancer_url).content)
+            if molnetenhancer_id is not None:
+                # If there is a task, or a path
+                molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
+                with open(molnetenhancer_filename, 'wb') as f:
+                    f.write(requests.get(molnetenhancer_url).content)
+            else:
+                input_filename = os.path.join(molnetenhancer_classyfire_folder, "ClassyFireResults_Network.txt")
+                shutil.copyfile(input_filename, molnetenhancer_filename)
 
             #Rewriting the quantification file format
             bucket_table_df  = pd.read_csv(quantification_filename, sep = ',')
