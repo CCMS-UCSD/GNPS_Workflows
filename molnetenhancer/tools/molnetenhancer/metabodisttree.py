@@ -16,10 +16,22 @@ def main():
     parser.add_argument('--molnetenhancerfolder',default=None,help='enter MolNetEnhancer classyfire folder')
 	
     args = parser.parse_args()
-    process(args.GNPS,molnetenhancer_id=args.molnetenhancer, molnetenhancer_classyfire_folder=args.molnetenhancerfolder,output_folder = args.output_folder, local_classytree_folder = 'classytree/', conda_activate_bin = args.conda_activate_bin, conda_environment = args.conda_environment)
+    process(args.GNPS,
+        molnetenhancer_id = args.molnetenhancer, 
+        molnetenhancer_classyfire_folder = args.molnetenhancerfolder,
+        output_folder = args.output_folder,
+        local_classytree_folder = 'classytree/', 
+        conda_activate_bin = args.conda_activate_bin, 
+        conda_environment = args.conda_environment)
 
 # Processing metabodisttree, requires either an existing molnetenhancer job or the file within the workflow
-def process(task_id, molnetenhancer_id = None, molnetenhancer_classyfire_folder = None, output_folder = None,local_classytree_folder = None, conda_activate_bin = None, conda_environment = None):
+def process(task_id, 
+    molnetenhancer_id = None, 
+    molnetenhancer_classyfire_folder = None, 
+    output_folder = None,
+    local_classytree_folder = None, 
+    conda_activate_bin = None, 
+    conda_environment = None):
     
     classyfire_result_filename = os.path.join(output_folder, "ClassyFireResults_Network.txt")
     task_information = proteosafe.get_task_information("gnps.ucsd.edu", task_id)
@@ -124,6 +136,7 @@ def process(task_id, molnetenhancer_id = None, molnetenhancer_classyfire_folder 
                 --p-ignore-missing-samples".format(conda_activate_bin, conda_environment, local_qza_pcoa, metadata_filename, local_qzv_emperor))
 
             for cmd in all_cmd:
+                print(cmd)
                 os.system(cmd)
 
         except KeyboardInterrupt:
@@ -247,6 +260,7 @@ def process(task_id, molnetenhancer_id = None, molnetenhancer_classyfire_folder 
                 --p-ignore-missing-samples".format(conda_activate_bin, conda_environment, local_qza_pcoa, metadata_filename, local_qzv_emperor))
 
             for cmd in all_cmd:
+                print(cmd)
                 os.system(cmd)
 
         except KeyboardInterrupt:
