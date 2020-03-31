@@ -13,7 +13,6 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?task=[task]#{"workflow":"ADD-BATCH-ANNOTATED"}'/>
     </block>
 
-
     <view id="new_annotations" label="View New Library Annotations">
         <blockRef id="main" type="new_annotations"/>
     </view>
@@ -42,5 +41,4 @@
             </column>
         </row> -->
     </block>
-
 </interface>
