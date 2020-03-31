@@ -62,7 +62,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"ADD-BATCH-ANNOTATED", "desc":"Add Batch from [task]", "annotation_table_on_server":"t.[task]/output_batch"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc":"Add Batch from [task]", "annotation_table_on_server":"t.[task]/output_batch"}'/>
     </block>
 
 
