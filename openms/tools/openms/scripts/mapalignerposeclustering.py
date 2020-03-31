@@ -7,20 +7,19 @@ import openms_workflow as wrkflw
 #3 module: map aligner pose clustering
 '''
 def mapalignerposeclustering(input_port, ini_file, out_port):
-    command = "MapAlignerPoseClustering "
+    command = "MapAlignerPoseClustering"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in "
+        command += " -ini " + ini_file
 
+    command += " -in"
     outputs = []
     for input_file,file_count in wrkflw.parsefolder(input_port, blacklist=['log']):
-        command += '{} '.format(input_file)
+        command += ' {}'.format(input_file)
         outputs.append("{out}/{out}-{filec}.featureXML ".format(out=out_port,filec=file_count))
         # command += input_file + ' '
-    command += '-out '
-    command += ' '.join(outputs)
-    command += '> ' + out_port+'/logfile-00000.txt'
-    # command += '-log ' + out_port+'/logfile-00000.txt'
+    command += '-out' + ' '.join(outputs)
+    # command += '> ' + out_port+'/logfile-00000.txt'
+    command += '-log ' + out_port+'/logfile-00000.txt'
 
     print("COMMAND: " + command + "\n")
     os.system(command)

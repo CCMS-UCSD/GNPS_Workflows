@@ -15,8 +15,8 @@ def featurelinkerunlabeledkd(input_port, ini_file, out_port):
     for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
         command += " " + input_file
     command += " -out " + out_port+"/"+out_port+"-00000.consensusXML"
-    command += '> ' + out_port+'/logfile-00000.txt'
-    # command += ' -log ' + out_port+'/logfile-00000.txt'
+    # command += ' > ' + out_port+'/logfile-00000.txt'
+    command += ' -log ' + out_port+'/logfile-00000.txt'
 
     print("COMMAND: " + command + "\n")
     os.system(command)

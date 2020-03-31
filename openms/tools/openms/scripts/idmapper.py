@@ -16,8 +16,8 @@ def get_exec_cmd(input_file, file_count, ini_file, idxml_path, input_port, out_p
     command += ' -in ' + input_file + ' -id ' + idxml_path
     command += ' -spectra:in ' + input_port+'/'+input_port+'-'+file_count+".mzML"
     command += ' -out ' + out_port+'/'+out_port+'-'+file_count+'.featureXML'
-    command += '> ' + out_port+'/logfile-'+file_count+'.txt'
-    # command += ' -log ' + out_port+'/logfile-'+file_count+'.txt'
+    # command += ' > ' + out_port+'/logfile-'+file_count+'.txt'
+    command += ' -log ' + out_port+'/logfile-'+file_count+'.txt'
 
 
     print("COMMAND: " + command + '\n')
