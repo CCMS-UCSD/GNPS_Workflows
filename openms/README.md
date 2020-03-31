@@ -12,7 +12,7 @@
 3. Run the build script to install the library environment
     - Conda must be installed at `<openms-release>/binaries/conda`
     ```bash
-    $ bash ./Miniconda3.sh            
+    $ bash build-env.sh     
     # accept license agreement
     >>> yes
     # location for conda install should be in release/binaries/conda dir
