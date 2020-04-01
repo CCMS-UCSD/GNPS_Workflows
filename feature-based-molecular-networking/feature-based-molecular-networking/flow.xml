@@ -209,6 +209,17 @@
         <output  port="network_statistics" object="network_statistics"/>
     </action>
 
+    <!-- Feature Stats -->
+    <collection name="feature_statistics"/>
+    <collection name="feature_plots"/>
+    <action name="metabolomic_feature_statistics">
+        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
+        <input  port="metadata_table"       object="metadata_table"/>
+        <input  port="librarysearch_results_file_DB"       object="librarysearch_results_file_DB"/>
+        <output  port="feature_statistics" collection="feature_statistics"/>
+        <output  port="feature_plots" collection="feature_plots"/>
+    </action>
+
 
     <action name="end">
         <input port="spectra" object="spectra"/>
@@ -227,5 +238,7 @@
         <input port="validation_summary" collection="validation_summary"/>
         <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
         <input port="network_statistics" collection="network_statistics"/>
+        <input port="feature_statistics" collection="feature_statistics"/>
+        <input port="feature_plots" collection="feature_plots"/>
     </action>
 </flow>
