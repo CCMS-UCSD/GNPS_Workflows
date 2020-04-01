@@ -1,10 +1,10 @@
 # Building Runtime Environment
-1. Download the [conda-env.yaml](./conda-env.yaml) file
+1. Download the [conda-env.yaml](./tools/conda-env.yaml) file
     ```bash
     curl -o conda-env.yaml <conda-env.yaml url>
     ```
 
-2. Download the [build-env.sh](./build-env.sh) shell script
+2. Download the [build-env.sh](./tools/build-env.sh) shell script
     ```bash
     curl -o build.env.sh <build-env.sh url>
     ```
@@ -22,7 +22,7 @@
     ```
 
     ## Debugging `build-env.sh` script
-    The [build-env.sh]() shell program executes the following:
+    The [build-env.sh](./tools/build-env.sh) shell program executes the following:
     1. Download and install the latest version of Miniconda3
         ```bash
         ###
