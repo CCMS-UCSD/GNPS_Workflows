@@ -37,10 +37,10 @@
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="metabodisttree.script"/>
             <arg valueRef="@GNPS_TASK"/>
-            <arg valueRef="output_network"/>
             <arg valueRef="qiime2_output"/>
             <arg pathRef="activate.path"/>
-            <arg value="qiime2-2019.4"/>
+            <arg value="qiime2-2019.7"/>
+            <arg option="-molnetenhancerfolder" valueRef="output_network"/>
         </execution>
     </tool>
 
