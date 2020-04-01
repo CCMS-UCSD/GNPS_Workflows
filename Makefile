@@ -14,3 +14,6 @@ test-mshub:
 
 test-gc-networking:
 	act -j test-gc-networking -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
+
+test-molnet:
+	act -j test-molnet -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
