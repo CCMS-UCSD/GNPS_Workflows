@@ -60,6 +60,12 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
     metadata_df["filename"] = metadata_df["filename"].apply(lambda x: x.rstrip())
 
+    ## Determining if we can even do anything
+    print(len(features_df), len(features_df.columns), len(features_df) * len(features_df.columns))
+    if len(features_df) * len(features_df.columns) > 5000000:
+        print("Feature Table Too Big To Generate")
+        return
+
     # removing peak area from columns
     feature_information_df = features_df[["row ID", "row retention time", "row m/z"]]
     features_df.index = features_df["row ID"]
