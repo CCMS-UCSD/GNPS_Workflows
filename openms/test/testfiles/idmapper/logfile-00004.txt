@@ -1,0 +1,2 @@
+2020-02-10 20:27:31 IDMapper:1:: Warning: Parameters file version (2.4.0-HEAD-HASH-NOTFOUND-HEAD-HASH-NOTFOUND) does not match the version of this tool (2.4.0-develop-2020-02-05).
+Your current parameters are still valid, but there might be new valid values or even new parameters. Upgrading the INI might be useful.

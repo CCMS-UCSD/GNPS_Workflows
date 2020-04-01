@@ -8,36 +8,32 @@ import openms_workflow as wrkflw
 #5 module: feature linker unlabeled kd
 '''
 def featurelinkerunlabeledkd(input_port, ini_file, out_port):
-    command = "FeatureLinkerUnlabeledKD "
+    command = "FeatureLinkerUnlabeledKD"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in "
+        command += " -ini " + ini_file
+    command += " -in"
     for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
-        command += input_file + " "
-    command += "-out " + out_port+"/"+out_port+"-00000.consensusXML "
-    command += '> ' + out_port+'/logfile-00000.txt'
-    # command += '-log ' + out_port+'/logfile-00000.txt'
+        command += " " + input_file
+    command += " -out " + out_port+"/"+out_port+"-00000.consensusXML"
+    # command += ' > ' + out_port+'/logfile-00000.txt'
+    command += ' -log ' + out_port+'/logfile-00000.txt'
 
     print("COMMAND: " + command + "\n")
     os.system(command)
-
-    # delete featureXML file
-    # if os.path.exists(out_port+"/featurelinker-tmp.consensusXML"):
-    #     os.remove(out_port+"/featurelinker-tmp.consensusXML")
 
 
 '''
 #5 module: feature linker unlabeled qt
 '''
 def featurelinkerunlabeledqt(input_port, ini_file, out_port):
-    command = "FeatureLinkerUnlabeledQT "
+    command = " FeatureLinkerUnlabeledQT"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in "
+        command += " -ini " + ini_file
+    command += " -in"
     for input_file,file_count in wrkflw.parsefolder(input_port, whitelist=["featureXML"]):
-        command += input_file + " "
-    command += "-out " + out_port+"/"+out_port+"-00000.consensusXML "
-    command += '-log ' + out_port+'/logfile-00000.txt'
+        command += " " + input_file
+    command += " -out " + out_port+"/"+out_port+"-00000.consensusXML"
+    command += " -log " + out_port+"/logfile-00000.txt"
 
     print("COMMAND: " + command + "\n")
     os.system(command)
@@ -77,16 +73,14 @@ def fix_filenames(out_port, mapping_file):
 if __name__ == '__main__':
     print("\n==FEATURE LINKER UNLABELED QT==")
 
-    in_port = sys.argv[4]
-    out_port = sys.argv[6]
-
-    # validate previous module's output
-    # wrkflw.prevalidation("metabolite-adduct-decharger",in_port,output_per_job=2)
+    in_port = sys.argv[6]
+    out_port = sys.argv[8]
+    flowparams = sys.argv[9]
 
     # set env
-    os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
-    os.environ["PATH"] = sys.argv[2]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    os.environ["LD_LIBRARY_PATH"] = "{}:{}".format(sys.argv[1],sys.argv[2])    
+    os.environ["PATH"] = "{}:{}".format(sys.argv[3],sys.argv[4])
+    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[5])
 
     # ini file
     ini_file = None
@@ -97,7 +91,7 @@ if __name__ == '__main__':
 
     # tool type
     linker_tool = "Feature Linker Unlabeled QT"
-    with open(sys.argv[7], "r") as f:
+    with open(flowparams, "r") as f:
         params = xtd.parse(f.read())
         for param in params['parameters']['parameter']:
             if param['@name'] == "featurelinkerunlabeled.tool_type":
@@ -109,7 +103,7 @@ if __name__ == '__main__':
         featurelinkerunlabeledkd(in_port, ini_file, out_port)
 
 
-    fix_filenames(out_port, sys.argv[7])
+    fix_filenames(out_port, flowparams)
 
     wrkflw.postvalidation( \
       modulename=linker_tool, \

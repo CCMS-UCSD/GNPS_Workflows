@@ -7,14 +7,14 @@ import openms_workflow as wrkflw
 
 
 def get_exec_cmd(input_file, file_count, ini_file, out_port):
-    command = "MetaboliteAdductDecharger "
+    command = "MetaboliteAdductDecharger"
     if ini_file is not None:
-        command += "-ini " + ini_file + " "
-    command += "-in " + input_file + " "
-    command += "-out_fm " + out_port+'/'+out_port+'-'+file_count+'.featureXML '
-    command += "-out_cm " + out_port+'/'+out_port+'-'+file_count+'.consensusXML '
-    command += "> " + out_port+'/logfile-'+file_count+'.txt'
-    # command += "-log " + out_port+'/logfile-'+file_count+'.txt'
+        command += " -ini " + ini_file
+    command += " -in " + input_file
+    command += " -out_fm " + out_port+'/'+out_port+'-'+file_count+'.featureXML'
+    command += " -out_cm " + out_port+'/'+out_port+'-'+file_count+'.consensusXML'
+    # command += "> " + out_port+'/logfile-'+file_count+'.txt'
+    command += " -log " + out_port+'/logfile-'+file_count+'.txt'
 
 
     print("COMMAND: " + command + "\n")
@@ -31,23 +31,16 @@ def metaboliteadductdecharger(input_port, ini_file, out_port):
 
     mpl.run_parallel_shellcommands(commands,8)
 
-    # processes = [Popen(cmd, shell=True) for cmd in commands]
-    #
-    # for p in processes: p.wait()
-
 if __name__ == '__main__':
     print("===METABOLITE ADDUCT DECHARGER===")
 
-    in_port = sys.argv[4]
-    out_port = sys.argv[6]
-
-    # validate previous module's output
-    # wrkflw.prevalidation("map-aligner-pose-clustering", in_port, logtype="single")
+    in_port = sys.argv[6]
+    out_port = sys.argv[8]
 
     # set env
-    os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
-    os.environ["PATH"] = sys.argv[2]+":"+os.environ["PATH"]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    os.environ["LD_LIBRARY_PATH"] = "{}:{}".format(sys.argv[1],sys.argv[2])    
+    os.environ["PATH"] = "{}:{}".format(sys.argv[3],sys.argv[4])
+    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[5])
 
     # ini file
     ini_file = None
