@@ -5,14 +5,13 @@ import numpy as np
 
 def loadMarkers(marker):
     df = pd.read_csv(marker, sep=',')
-    # compounds name has to be in the format of "name(C#)"
-    for i in range(len(df)):
-        c_n = df['Carbon_Number'][i]
-        df.ix[i, 'Compound_Name'] = float(c_n)
-        df.ix[i, 'RT'] = float(df['RT'][i])
-    df = df.sort_values(['Compound_Name'], ascending=[True])
-    return df
 
+    # compounds name has to be in the format of "name(C#)"
+    df["Compound_Name"] = df["Carbon_Number"].astype('int32')
+    df["RT"] = df["RT"].astype('float32')
+    df = df.sort_values(['Compound_Name'], ascending=[True])
+
+    return df
 
 """Given the marker file, this function calculate the RI"""
 def kovatIndex(rt, markerDic):
@@ -30,8 +29,10 @@ def kovatIndex(rt, markerDic):
 
 def calculate_kovats(input_identifications_filename, input_marker_filename, output_identifications_filename):
     try:
+        print(input_marker_filename)
         marker_dictionary = loadMarkers(input_marker_filename)
     except:
+        raise
         raise Exception("Invalid Carbon Marker File")
 
     #Loading identifications file

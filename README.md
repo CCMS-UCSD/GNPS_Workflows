@@ -50,7 +50,8 @@ GNPS Integration Web and Workflow jobs are handled in the [CCMS-Integration-Test
 | Merge Polarity Networks  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MERGE_NETWORKS_POLARITY%22%7D) | ![](https://github.com/mwang87/MergePolarity/workflows/unit-test/badge.svg) |
 | Microbiome-Metabolomics Association - mmvec  | [Workflow - Inactive](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MMVEC%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MMVEC%22%7D) |---|
 | Sirius - Bocker Lab | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22SIRIUS%22%7D) |---|![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-beta-misc/badge.svg)
-| Qemistree | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D) |---|![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-beta-misc/badge.svg)
+| Qemistree | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D)   | [Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22QEMISTREE%22%7D) |---|![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-misc/badge.svg) | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-beta-misc/badge.svg) |
+| LC - MZMine2 | Not Released | [Beta Workflow](https://proteomics2.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22LC_MZMINE2%22%7D) |---|
 | Legacy Networking  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22METABOLOMICS-SNETS%22,%22library_on_server%22:%22d.speclibs;%22%7D)  | --- | --- | ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-legacynetworking/badge.svg) | 
 | Legacy Library Search  | [Workflow](https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params=%7B%22workflow%22:%22MOLECULAR-LIBRARYSEARCH%22,%22library_on_server%22:%22d.speclibs;%22%7D)   | --- |---| ![](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-integration-gnps-librarysearch/badge.svg) | 
 
@@ -77,7 +78,17 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 
 ### Unit Testing
 
-We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
+We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. 
+
+To run all unit tests on a consistent platform as github actions, we use [act](https://github.com/nektos/act).
+
+```make test-push-full```
+
+We also have targets for individual tests, e.g.:
+
+```make test-fbmn```
+
+Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
 
 ```nose2 -v```
 
