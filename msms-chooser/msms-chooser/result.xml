@@ -5,43 +5,40 @@
     </download>
 
     <view id="view_table" label="View Output Batch Table" group="Default Views">
-        <blockRef id="main"   type="view_output_batch"/>
+        <blockRef id="main" type="view_output_batch"/>
     </view>
     <block id="view_output_batch" type="table">
-      <data>
-        <source type="file" name="output_batch/"/>
-        <parsers>
-          <parser type="tabular"/>
-        </parsers>
-      </data>
-      <row>
-          <column type="text"        field="FILENAME" label="FILENAME"        width="12"/>
-          <column type="text"     field="COMPOUND_NAME"         label="COMPOUND_NAME"            width="12"/>
-          <column type="float"     field="MOLECULEMASS"         label="MOLECULEMASS"            precision="2"/>
-          <column type="text"     field="EXTRACTSCAN"         label="EXTRACTSCAN"            width="12"/>
-          <column type="text"     field="SMILES"         label="SMILES"         width="12"/>
-          <column type="text"     field="ADDUCT"         label="ADDUCT"         width="12"/>
-          <column type="text"     field="CHARGE"         label="CHARGE"         width="12"/>
-          <column type="text"     field="IONMODE"         label="IONMODE"         width="12"/>
-          <column type="text"     field="EXACTMASS"         label="EXACTMASS"         width="12"/>
-          <column type="genericimagedisplayer" label="Structure">
-            <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
-            <parameter name="REQUESTPARAMETER=smiles" value="[SMILES]"/>
-        </column>
-      </row>
-      <row expander="View Spectrum" expandericontype="text">
+        <data>
+            <source type="file" name="output_batch/"/>
+            <parsers>
+                <parser type="tabular"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="FILENAME" label="FILENAME" width="12"/>
+            <column type="text" field="COMPOUND_NAME" label="COMPOUND_NAME" width="12"/>
+            <column type="float" field="MOLECULEMASS" label="MOLECULEMASS" precision="2"/>
+            <column type="text" field="EXTRACTSCAN" label="EXTRACTSCAN" width="12"/>
+            <column type="text" field="SMILES" label="SMILES" width="12"/>
+            <column type="text" field="ADDUCT" label="ADDUCT" width="12"/>
+            <column type="text" field="CHARGE" label="CHARGE" width="12"/>
+            <column type="text" field="IONMODE" label="IONMODE" width="12"/>
+            <column type="text" field="EXACTMASS" label="EXACTMASS" width="12"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="REQUESTPARAMETER=smiles" value="[SMILES]"/>
+            </column>
+            <column label="USI-Spectrum" type="genericurlgenerator" width="3">
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
+                <parameter name="LABEL" value="Spectrum USI"/>
+            </column>
+        </row>
+        <row expander="View Spectrum" expandericontype="text">
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="[FILENAME]"/>
                 <parameter name="scan" value="[EXTRACTSCAN]"/>
                 <parameter name="peptide" value="*..*"/>
-            </column>
-            <column type="genericimagedisplayer" label="Structure">
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/png"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
-                <parameter name="REQUESTPARAMETER=label" value="1"/>
-                <parameter name="REQUESTPARAMETER=xmax" value="[MOLECULEMASS]"/>
-                <parameter name="REQUESTPARAMETER=rescale" value="1"/>
-                <parameter name="REQUESTPARAMETER=rotation" value="90"/>
             </column>
         </row>
         <row expander="MASST Spectrum" expandericontype="text">
@@ -67,15 +64,15 @@
 
 
     <view id="download_table" label="Download Output Batch Table" group="Batch File for GNPS">
-        <blockRef id="main"   type="download_output_batch"/>
+        <blockRef id="main" type="download_output_batch"/>
     </view>
     <block id="download_output_batch" type="dummydownload">
-      <data>
-        <source type="file" name="output_batch/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
+        <data>
+            <source type="file" name="output_batch/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
     </block>
 
 
