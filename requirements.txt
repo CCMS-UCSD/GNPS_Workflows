@@ -9,3 +9,4 @@ metabodisttrees
 joblib
 requests_cache
 lxml
+plotnine
