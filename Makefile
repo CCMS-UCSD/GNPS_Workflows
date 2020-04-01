@@ -7,10 +7,10 @@ test-push-fast:
 
 # Testing individual targets
 test-fbmn:
-	act -j test-fbmn -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b -r
+	act -j test-fbmn -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
 
 test-mshub:
-	act -j test-mshub -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b -r
+	act -j test-mshub -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
 
 test-gc-networking:
-	act -j test-gc-networking -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b -r
+	act -j test-gc-networking -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
