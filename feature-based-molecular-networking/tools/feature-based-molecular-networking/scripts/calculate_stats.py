@@ -95,7 +95,6 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         long_form_df = long_form_df.merge(libraryidentifications_df, how="left", left_on="featureid", right_on="#Scan#")
         long_form_df = long_form_df.drop(columns=["#Scan#"])
     except:
-        raise
         pass
 
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)

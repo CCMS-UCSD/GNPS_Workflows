@@ -15,9 +15,9 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        pip install pathlib
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Test with nose2
       run: |
-        pip3 install nose2
+        pip install nose2
         cd feature-based-molecular-networking/test && nose2 -v

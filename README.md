@@ -78,9 +78,16 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 
 ### Unit Testing
 
-We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
+We have a limited number of unit tests for GNPS workflows. A test folder can be found in each workflow folder. 
+
+To run all unit tests on a consistent platform as github actions, we use [act](https://github.com/nektos/act).
+
+
+Inside the test folder, we recommend use the testing tool nose2. Execute the following code to run the workflow specific tests
 
 ```nose2 -v```
+
+
 
 
 ### Integration Testing
