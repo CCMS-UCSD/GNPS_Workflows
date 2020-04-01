@@ -5,6 +5,7 @@ numpy
 pandas
 networkx==2.1
 pyMolNetEnhancer
+pathlib
 metabodisttrees
 joblib
 requests_cache
