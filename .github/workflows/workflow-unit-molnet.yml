@@ -17,11 +17,11 @@ jobs:
     - name: Setup Locales
       shell: bash -l {0}
       run: |
-        locale -a
         # This compatibility for actions local
         apt-get purge locales || :
         apt-get install locales-all || :
         export LC_ALL=en_US.utf8
+        locale -a
     - name: Install dependencies
       shell: bash -l {0}
       run: |
