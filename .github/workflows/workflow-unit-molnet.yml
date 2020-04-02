@@ -12,7 +12,8 @@ jobs:
     - uses: goanpeca/setup-miniconda@v1
       with:
         auto-update-conda: true
-        python-version: ${{ matrix.python-version }}
+        miniconda-version: 'latest'
+        python-version: 3.7
     - name: Install dependencies
       shell: bash -l {0}
       run: |
@@ -20,8 +21,9 @@ jobs:
         pip install -r requirements.txt
         wget https://data.qiime2.org/distro/core/qiime2-2019.7-py36-linux-conda.yml
         conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-linux-conda.yml
-        conda activate qiime2-2019.7
     - name: Test with nose2
       shell: bash -l {0}
       run: |
-        cd molnetenhancer/test && nose2 -v && cd ../..
+        conda init bash
+        conda env list
+        cd molnetenhancer/test && nose2 -v
