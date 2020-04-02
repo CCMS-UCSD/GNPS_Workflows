@@ -17,10 +17,13 @@ jobs:
     - name: Install dependencies
       shell: bash -l {0}
       run: |
+        apt-get purge locales
+        apt-get install locales-all
         conda install -c conda-forge nose2
         pip install -r requirements.txt
         wget https://data.qiime2.org/distro/core/qiime2-2019.7-py36-linux-conda.yml
-        conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-linux-conda.yml
+        conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-linux-conda.yml  --force
+        rm qiime2-2019.7-py36-linux-conda.yml
     - name: Test with nose2
       shell: bash -l {0}
       run: |
