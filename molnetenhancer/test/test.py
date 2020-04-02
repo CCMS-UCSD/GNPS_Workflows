@@ -31,7 +31,7 @@ def test_molnet_4():
 def test_metabodist_1():
     import os
     import metabodisttree
-    activate_path = "activate"
+    activate_path = "/usr/share/miniconda3/bin/activate"
     if os.path.exists("/github/workspace/3/bin/activate"):
         activate_path = "/github/workspace/3/bin/activate"
 
@@ -45,7 +45,7 @@ def test_metabodist_1():
 def test_metabodist_2():
     import os
     import metabodisttree
-    activate_path = "activate"
+    activate_path = "/usr/share/miniconda3/bin/activate"
     if os.path.exists("/github/workspace/3/bin/activate"):
         activate_path = "/github/workspace/3/bin/activate"
 
