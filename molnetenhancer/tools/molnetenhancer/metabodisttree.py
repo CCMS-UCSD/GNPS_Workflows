@@ -97,38 +97,38 @@ def process(task_id,
             quantification_filename = os.path.join(local_classytree_folder,'Buckettable_ChemicalClasses.tsv')
 
             all_cmd = []
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 biom convert \
                 -i {} \
                 -o {} \
                 --table-type 'OTU table' \
                 --to-hdf5".format(conda_activate_bin, conda_environment, quantification_filename, local_biom_table))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import \
                 --type 'FeatureTable[Frequency]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, local_biom_table, local_qza_table))
                 
             classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import --type 'Phylogeny[Rooted]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment,classytree_tree_filename, local_qza_tree))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity beta-phylogenetic \
                 --i-table {} \
                 --i-phylogeny {} \
                 --p-metric weighted_unifrac \
                 --o-distance-matrix {}".format(conda_activate_bin, conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity pcoa \
                 --i-distance-matrix {} \
                 --o-pcoa {}".format(conda_activate_bin, conda_environment, local_qza_distance, local_qza_pcoa))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime emperor plot \
                 --i-pcoa {} \
                 --m-metadata-file {} \
@@ -221,38 +221,38 @@ def process(task_id,
             quantification_filename = os.path.join(local_classytree_folder,'Buckettable_ChemicalClasses.tsv')
 
             all_cmd = []
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 biom convert \
                 -i {} \
                 -o {} \
                 --table-type 'OTU table' \
                 --to-hdf5".format(conda_activate_bin, conda_environment, quantification_filename, local_biom_table))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import \
                 --type 'FeatureTable[Frequency]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, local_biom_table, local_qza_table))
 
             classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import --type 'Phylogeny[Rooted]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, classytree_tree_filename, local_qza_tree))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity beta-phylogenetic \
                 --i-table {} \
                 --i-phylogeny {} \
                 --p-metric weighted_unifrac \
                 --o-distance-matrix {}".format(conda_activate_bin, conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity pcoa \
                 --i-distance-matrix {} \
                 --o-pcoa {}".format(conda_activate_bin, conda_environment, local_qza_distance, local_qza_pcoa))
 
-            all_cmd.append("LC_ALL=en_US.UTF-8 && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime emperor plot \
                 --i-pcoa {} \
                 --m-metadata-file {} \

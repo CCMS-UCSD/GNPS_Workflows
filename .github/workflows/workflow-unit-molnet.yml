@@ -18,9 +18,12 @@ jobs:
       shell: bash -l {0}
       run: |
         locale -a
-        apt-get purge locales
-        apt-get install locales-all
-        export LC_ALL=en_US.UTF-8
+        # This compatibility for actions local
+        apt-get purge locales || true
+        apt-get install locales-all || true
+        export LC_ALL=en_US.utf8
+
+        # Installing dependencies
         conda install -c conda-forge nose2
         pip install -r requirements.txt
         wget https://data.qiime2.org/distro/core/qiime2-2019.7-py36-linux-conda.yml
