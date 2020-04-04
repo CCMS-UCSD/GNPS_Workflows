@@ -62,7 +62,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
 
     ## Determining if we can even do anything
     print(len(features_df), len(features_df.columns), len(features_df) * len(features_df.columns))
-    if len(features_df) * len(features_df.columns) > 5000000:
+    if len(features_df) * len(features_df.columns) > 10000000:
         print("Feature Table Too Big To Generate")
         return
 
