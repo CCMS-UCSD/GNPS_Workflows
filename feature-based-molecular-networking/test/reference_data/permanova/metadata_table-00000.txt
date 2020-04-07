@@ -1,0 +1,59 @@
+filename	ATTRIBUTE_Donor	ATTRIBUTE_preservativewrecipient	ATTRIBUTE_recipient	ATTRIBUTE_Cage	ATTRIBUTE_engraftment_direction
+338.0_RE1_01_49634.mzXML	Female	 Unprocessed	Males 	1	F_M
+340.0_RE2_01_49633.mzXML	Female	 Unprocessed	Males 	1	F_M
+342.0_RE3_01_49680.mzXML	Female	 Unprocessed	Males 	1	F_M
+344.0_RE4_01_49694.mzXML	Female	 Unprocessed	Males 	2	F_M
+344.0_RE4_01_49703.mzXML	Female	 Unprocessed	Males 	2	F_M
+346.0_RE5_01_49642.mzXML	Female	 Unprocessed	Males 	2	F_M
+348.0_RE6_01_49672.mzXML	Female	 Unprocessed	Females	3	F_F
+348.0_RE6_01_49704.mzXML	Female	 Unprocessed	Females	3	F_F
+350.0_RE7_01_49639.mzXML	Female	 Unprocessed	Females	3	F_F
+352.0_RE8_01_49674.mzXML	Female	 Unprocessed	Females	4	F_F
+354.0_RA1_01_49650.mzXML	Female	 Unprocessed	Females	4	F_F
+356.0_RA2_01_49688.mzXML	Female	 15% Glycerol in PBS	Males 	5	F_M
+358.0_RA3_01_49637.mzXML	Female	 15% Glycerol in PBS	Males 	5	F_M
+360.0_RA4_01_49664.mzXML	Female	 15% Glycerol in PBS	Males 	6	F_M
+362.0_RA5_01_49677.mzXML	Female	 15% Glycerol in PBS	Males 	6	F_M
+364.0_RA6_01_49659.mzXML	Female	 15% Glycerol in PBS	Females	7	F_F
+366.0_RA7_01_49641.mzXML	Female	 15% Glycerol in PBS	Females	7	F_F
+368.0_RA8_01_49683.mzXML	Female	 15% Glycerol in PBS	Females	8	F_F
+370.0_RA9_01_49676.mzXML	Female	 15% Glycerol in PBS	Females	8	F_F
+372.0_RA10_01_49687.mzXML	Female	 5% DMSO in PBS	Males 	9	F_M
+374.0_RA11_01_49685.mzXML	Female	 5% DMSO in PBS	Males 	9	F_M
+376.0_RA12_01_49657.mzXML	Female	 5% DMSO in PBS	Males 	9	F_M
+378.0_RB1_01_49649.mzXML	Female	 5% DMSO in PBS	Males 	10	F_M
+380.0_RB2_01_49654.mzXML	Female	 5% DMSO in PBS	Males 	10	F_M
+382.0_RB3_01_49662.mzXML	Female	 5% DMSO in PBS	Females	11	F_F
+384.0_RB4_01_49635.mzXML	Female	 5% DMSO in PBS	Females	11	F_F
+386.0_RB5_01_49666.mzXML	Female	 5% DMSO in PBS	Females	11	F_F
+388.0_RB6_01_49669.mzXML	Female	 5% DMSO in PBS	Females	12	F_F
+390.0_RB7_01_49692.mzXML	Female	 5% DMSO in PBS	Females	12	F_F
+392.0_RB8_01_49668.mzXML	Male	 Unprocessed	Males 	13	M_M
+394.0_RB9_01_49636.mzXML	Male	 Unprocessed	Males 	13	M_M
+396.0_RB10_01_49655.mzXML	Male	 Unprocessed	Males 	13	M_M
+398.0_RB11_01_49660.mzXML	Male	 Unprocessed	Males 	14	M_M
+400.0_RB12_01_49648.mzXML	Male	 Unprocessed	Males 	14	M_M
+402.0_RC1_01_49640.mzXML	Male	 Unprocessed	Females	15	M_F
+404.0_RC2_01_49681.mzXML	Male	 Unprocessed	Females	15	M_F
+406.0_RC3_01_49670.mzXML	Male	 Unprocessed	Females	15	M_F
+408.0_RC4_01_49653.mzXML	Male	 Unprocessed	Females	16	M_F
+410.0_RC5_01_49689.mzXML	Male	 Unprocessed	Females	16	M_F
+412.0_RC6_01_49675.mzXML	Male	 15% Glycerol in PBS	Males 	17	M_M
+414.0_RC7_01_49673.mzXML	Male	 15% Glycerol in PBS	Males 	17	M_M
+416.0_RC8_01_49647.mzXML	Male	 15% Glycerol in PBS	Males 	17	M_M
+418.0_RC9_01_49682.mzXML	Male	 15% Glycerol in PBS	Males 	18	M_M
+420.0_RC10_01_49652.mzXML	Male	 15% Glycerol in PBS	Males 	18	M_M
+422.0_RC11_01_49645.mzXML	Male	 15% Glycerol in PBS	Males 	18	M_M
+424.0_RC12_01_49663.mzXML	Male	 15% Glycerol in PBS	Females	19	M_F
+426.0_RD1_01_49667.mzXML	Male	 15% Glycerol in PBS	Females	19	M_F
+428.0_RD2_01_49693.mzXML	Male	 15% Glycerol in PBS	Females	20	M_F
+430.0_RD3_01_49646.mzXML	Male	 15% Glycerol in PBS	Females	20	M_F
+432.0_RD4_01_49643.mzXML	Male	 5% DMSO in PBS	Males 	21	M_M
+434.0_RD5_01_49661.mzXML	Male	 5% DMSO in PBS	Males 	21	M_M
+436.0_RD6_01_49690.mzXML	Male	 5% DMSO in PBS	Males 	21	M_M
+438.0_RD7_01_49686.mzXML	Male	 5% DMSO in PBS	Males 	22	M_M
+440.0_RD8_01_49697.mzXML	Male	 5% DMSO in PBS	Males 	22	M_M
+442.0_RD9_01_49679.mzXML	Male	 5% DMSO in PBS	Females	23	M_F
+444.0_RD10_01_49696.mzXML	Male	 5% DMSO in PBS	Females	23	M_F
+446.0_RD11_01_49656.mzXML	Male	 5% DMSO in PBS	Females	24	M_F
+448.0_RD12_01_49695.mzXML	Male	 5% DMSO in PBS	Females	24	M_F

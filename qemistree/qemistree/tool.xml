@@ -14,7 +14,8 @@
         <require name="spectra" type="file"/>
         <require name="workflowParameters" type="file"/>
         <require name="quant_table" type="file"/>
-        <require name="metadata_table" type="file"/>
+        <require name="metadata_table" type="folder"/>
+        <require name="library_identifications" type="folder"/>
         <produce name="output_folder" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
@@ -22,10 +23,13 @@
             <arg valueRef="spectra"/>
             <arg valueRef="quant_table"/>
             <arg valueRef="metadata_table"/>
+            <arg valueRef="library_identifications"/>
             <arg valueRef="output_folder"/>
             <arg pathRef="activate.path"/>
-            <arg value="qiime2-2019.4"/>
+            <arg value="qiime2-2019.10-qemistree"/>
             <arg pathRef="sirius.path"/>
+            <arg option="-instrument" valueRef="@INSTRUMENT"/>
+            <arg option="-sample_metadata_column" valueRef="@METADATA_COLUMN"/>
         </execution>
     </tool>
 

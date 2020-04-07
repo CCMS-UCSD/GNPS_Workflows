@@ -95,7 +95,7 @@
             <arg valueRef="mgf_file"/>
             <arg valueRef="workflowParameters"/>
             <arg valueRef="networking_parameters"/>
-            <arg option="-parallelism" value="1"/>
+            <arg option="-parallelism" value="10"/>
         </execution>
     </tool>
 
@@ -356,6 +356,7 @@
             <arg valueRef="qiime2_output"/>
             <arg pathRef="activate.path"/>
             <arg value="qiime2-2019.4"/>
+            <arg option="-distance_metric" valueRef="@QIIME2_PCOA_DISTANCE"/>
         </execution>
     </tool>
 
@@ -396,6 +397,37 @@
             <arg pathRef="metabolomic_network_statistics.script"/>
             <arg valueRef="gnps_molecular_network_graphml"/>
             <arg valueRef="network_statistics"/>
+        </execution>
+    </tool>
+
+    <!-- Summarizing Statistics for Networks -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="metabolomic_feature_statistics" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/scripts">
+        <pathVar name="metabolomic_feature_statistics.script" path="calculate_stats.py"/>
+    </pathSet>
+
+    <tool name="metabolomic_feature_statistics">
+        <require name="quantification_table_reformatted" type="file"/>
+        <require name="metadata_table" type="folder"/>
+        <require name="librarysearch_results_file_DB" type="file"/>
+        <produce name="feature_statistics" type="folder"/>
+        <produce name="feature_plots" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomic_feature_statistics.script"/>
+            <arg valueRef="quantification_table_reformatted"/>
+            <arg valueRef="metadata_table"/>
+            <arg valueRef="feature_statistics"/>
+            <arg valueRef="feature_plots"/>
+            <arg option="-metadata_column" valueRef="@METADATA_COLUMN"/>
+            <arg option="-condition_first" valueRef="@METADATA_CONDITION_ONE"/>
+            <arg option="-condition_second" valueRef="@METADATA_CONDITION_TWO"/>
+            <arg option="-metadata_facet_column" valueRef="@METADATA_COLUMN_FACET"/>
+            <arg option="-libraryidentifications_file" valueRef="librarysearch_results_file_DB"/>
+            <arg option="-run" valueRef="@RUN_STATS"/>
         </execution>
     </tool>
 
