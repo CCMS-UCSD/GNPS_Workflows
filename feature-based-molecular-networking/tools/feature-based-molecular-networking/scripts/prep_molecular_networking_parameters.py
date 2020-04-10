@@ -57,6 +57,7 @@ def main():
         output_parameter_file.write("TOLERANCE_PM=%s\n" % (params_object["tolerance.PM_tolerance"][0]))
         output_parameter_file.write("PAIRS_MIN_COSINE=%s\n" % (params_object["PAIRS_MIN_COSINE"][0]))
         output_parameter_file.write("MAX_SHIFT=%s\n" % (params_object["MAX_SHIFT"][0]))
+        output_parameter_file.write("MIN_RATIO=%s\n" % ("0.4"))
         output_parameter_file.write("INPUT_SPECTRA_MS2=%s\n" % (args.mgf_filename))
 
 
