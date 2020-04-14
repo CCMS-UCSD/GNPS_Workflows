@@ -9,16 +9,29 @@ import MetaboDistTrees
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('GNPS', help='enter your GNPS job ID')
-    parser.add_argument('molnetenhancer',help = 'enter MolNetEnhancer ID')
     parser.add_argument('output_folder', help='output_folder')
     parser.add_argument("conda_activate_bin")
     parser.add_argument("conda_environment")
+    parser.add_argument('--molnetenhancer',default=None,help='enter MolNetEnhancer ID')
+    parser.add_argument('--molnetenhancerfolder',default=None,help='enter MolNetEnhancer classyfire folder')
 	
     args = parser.parse_args()
-    process(args.GNPS,args.molnetenhancer, output_folder = args.output_folder, local_classytree_folder = 'classytree/', conda_activate_bin = args.conda_activate_bin, conda_environment = args.conda_environment)
+    process(args.GNPS,
+        molnetenhancer_id = args.molnetenhancer, 
+        molnetenhancer_classyfire_folder = args.molnetenhancerfolder,
+        output_folder = args.output_folder,
+        local_classytree_folder = 'classytree/', 
+        conda_activate_bin = args.conda_activate_bin, 
+        conda_environment = args.conda_environment)
 
-
-def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_folder = None, conda_activate_bin = None, conda_environment = None):
+# Processing metabodisttree, requires either an existing molnetenhancer job or the file within the workflow
+def process(task_id, 
+    molnetenhancer_id = None, 
+    molnetenhancer_classyfire_folder = None, 
+    output_folder = None,
+    local_classytree_folder = None, 
+    conda_activate_bin = None, 
+    conda_environment = None):
     
     classyfire_result_filename = os.path.join(output_folder, "ClassyFireResults_Network.txt")
     task_information = proteosafe.get_task_information("gnps.ucsd.edu", task_id)
@@ -29,7 +42,6 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             manifest_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_manifest.tsv".format(task_id)
             metadata_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_metadata.tsv".format(task_id)
             quantification_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=cluster_buckets/".format(task_id)
-            molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
 
             manifest_filename = os.path.join(output_folder, "qiime2_manifest.tsv")
             metadata_filename = os.path.join(output_folder, "qiime2_metadata.tsv")
@@ -48,8 +60,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             with open(quantification_filename, 'wb') as f:
                 f.write(requests.get(quantification_url).content)
             
-            with open(molnetenhancer_filename, 'wb') as f:
-                f.write(requests.get(molnetenhancer_url).content)
+            if molnetenhancer_id is not None:
+                # If there is a task, or a path
+                molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
+                with open(molnetenhancer_filename, 'wb') as f:
+                    f.write(requests.get(molnetenhancer_url).content)
+            else:
+                input_filename = os.path.join(molnetenhancer_classyfire_folder, "ClassyFireResults_Network.txt")
+                shutil.copyfile(input_filename, molnetenhancer_filename)
 
             #Reformating metadata
             md  = pd.read_csv(metadata_filename, sep = '\t')
@@ -79,38 +97,38 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             quantification_filename = os.path.join(local_classytree_folder,'Buckettable_ChemicalClasses.tsv')
 
             all_cmd = []
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 biom convert \
                 -i {} \
                 -o {} \
                 --table-type 'OTU table' \
                 --to-hdf5".format(conda_activate_bin, conda_environment, quantification_filename, local_biom_table))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import \
                 --type 'FeatureTable[Frequency]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, local_biom_table, local_qza_table))
                 
             classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import --type 'Phylogeny[Rooted]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment,classytree_tree_filename, local_qza_tree))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity beta-phylogenetic \
                 --i-table {} \
                 --i-phylogeny {} \
                 --p-metric weighted_unifrac \
                 --o-distance-matrix {}".format(conda_activate_bin, conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity pcoa \
                 --i-distance-matrix {} \
                 --o-pcoa {}".format(conda_activate_bin, conda_environment, local_qza_distance, local_qza_pcoa))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime emperor plot \
                 --i-pcoa {} \
                 --m-metadata-file {} \
@@ -118,13 +136,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
                 --p-ignore-missing-samples".format(conda_activate_bin, conda_environment, local_qza_pcoa, metadata_filename, local_qzv_emperor))
 
             for cmd in all_cmd:
-                os.system(cmd)
+                print(cmd)
+                os.system('/bin/bash -c "{}"'.format(cmd))
 
         except KeyboardInterrupt:
             raise
         except:
             print("Error")
-            exit(0)
+            raise
 
     if task_information["workflow"] == "FEATURE-BASED-MOLECULAR-NETWORKING":
         #Workflow versions will eventually be supported
@@ -134,7 +153,6 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             manifest_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_manifest.tsv".format(task_id)
             metadata_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=qiime2_output/qiime2_metadata.tsv".format(task_id)
             quantification_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&file=quantification_table_reformatted/".format(task_id)
-            molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
 
             manifest_filename = os.path.join(output_folder, "qiime2_manifest.tsv")
             metadata_filename = os.path.join(output_folder, "qiime2_metadata.tsv")
@@ -153,8 +171,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             with open(quantification_filename, 'wb') as f:
                 f.write(requests.get(quantification_url).content)
 
-            with open(molnetenhancer_filename, 'wb') as f:
-                f.write(requests.get(molnetenhancer_url).content)
+            if molnetenhancer_id is not None:
+                # If there is a task, or a path
+                molnetenhancer_url = "https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&block=main&folder=output_network/ClassyFireResults_Network.txt".format(molnetenhancer_id)
+                with open(molnetenhancer_filename, 'wb') as f:
+                    f.write(requests.get(molnetenhancer_url).content)
+            else:
+                input_filename = os.path.join(molnetenhancer_classyfire_folder, "ClassyFireResults_Network.txt")
+                shutil.copyfile(input_filename, molnetenhancer_filename)
 
             #Rewriting the quantification file format
             bucket_table_df  = pd.read_csv(quantification_filename, sep = ',')
@@ -197,38 +221,38 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
             quantification_filename = os.path.join(local_classytree_folder,'Buckettable_ChemicalClasses.tsv')
 
             all_cmd = []
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 biom convert \
                 -i {} \
                 -o {} \
                 --table-type 'OTU table' \
                 --to-hdf5".format(conda_activate_bin, conda_environment, quantification_filename, local_biom_table))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import \
                 --type 'FeatureTable[Frequency]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, local_biom_table, local_qza_table))
 
             classytree_tree_filename = os.path.join(local_classytree_folder, "NewickTree_cluster.index.txt")
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime tools import --type 'Phylogeny[Rooted]' \
                 --input-path {} \
                 --output-path {}".format(conda_activate_bin, conda_environment, classytree_tree_filename, local_qza_tree))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity beta-phylogenetic \
                 --i-table {} \
                 --i-phylogeny {} \
                 --p-metric weighted_unifrac \
                 --o-distance-matrix {}".format(conda_activate_bin, conda_environment, local_qza_table, local_qza_tree, local_qza_distance))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime diversity pcoa \
                 --i-distance-matrix {} \
                 --o-pcoa {}".format(conda_activate_bin, conda_environment, local_qza_distance, local_qza_pcoa))
 
-            all_cmd.append("LC_ALL=en_US && export LC_ALL && source {} {} && \
+            all_cmd.append("LC_ALL=en_US.utf8 && export LC_ALL && source {} {} && \
                 qiime emperor plot \
                 --i-pcoa {} \
                 --m-metadata-file {} \
@@ -236,13 +260,14 @@ def process(task_id, molnetenhancer_id, output_folder = None,local_classytree_fo
                 --p-ignore-missing-samples".format(conda_activate_bin, conda_environment, local_qza_pcoa, metadata_filename, local_qzv_emperor))
 
             for cmd in all_cmd:
-                os.system(cmd)
+                print(cmd)
+                os.system('/bin/bash -c "{}"'.format(cmd))
 
         except KeyboardInterrupt:
             raise
         except:
             print("Error")
-            exit(0)
+            raise
 
 if __name__=="__main__":
     main()
