@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import argparse
 import glob
+import shlex
 
 def main():
     parser = argparse.ArgumentParser(description='Annotate spectra')
@@ -173,9 +174,11 @@ def main():
         all_cmd.append(cmd)
 
         # Feature Grouping by Metadata
+        metadata_column = args.sample_metadata_column
+        metadata_column = shlex.quote(metadata_column)
         cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime feature-table group \
         --i-table {output_merged_feature_table_qza} \
-        --m-metadata-column {args.sample_metadata_column} \
+        --m-metadata-column {metadata_column} \
         --p-axis sample \
         --m-metadata-file {metadata_files[0]} \
         --o-grouped-table {output_qemistree_grouped_table_qza} \
