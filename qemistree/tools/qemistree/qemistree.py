@@ -194,9 +194,16 @@ def main():
         all_cmd.append(cmd)
 
     #Actually running all the commands
-    for cmd in all_cmd:
-        print(cmd)
-        os.system(cmd)
+    output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
+    with open(output_command_log_filename, "w") as log_file:
+        for cmd in all_cmd:
+            print(cmd)
+            exit_code = os.system(cmd)
+            if exit_code == 0:
+                log_file.write("SUCCESS {}\n".format(cmd))
+            else:
+                log_file.write("FAILURE {}\n".format(cmd))
+
 
 if __name__ == "__main__":
     main()
