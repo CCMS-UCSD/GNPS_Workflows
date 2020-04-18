@@ -37,6 +37,16 @@
             <default value="orbitrap"/>
         </parameter>
 
+        <parameter name="IONIZATION_MODE" label="Select Ionization Mode">
+            <options>
+                <option value="positive" label="positive"/>
+                <option value="negative" label="negative"/>
+                <option value="auto" label="auto"/>
+            </options>
+            <validator type="set"/>
+            <default value="auto"/>
+        </parameter>
+
         <parameter name="METADATA_COLUMN" label="Sample Metadata Column">
             <default value="sample_name"/>
         </parameter>
@@ -115,9 +125,24 @@
         <row>
         <cell>
                 <label>
+                    <content parameter="IONIZATION_MODE"/>
+                    <tooltip id="IONIZATION_MODE_gnps_tooltip">
+            Mode of ionization used for data acquisition.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="IONIZATION_MODE">
+                </input>
+            </cell>
+        </row>
+        <row>
+        <cell>
+                <label>
                     <content parameter="METADATA_COLUMN"/>
                     <tooltip id="METADATA_COLUMN_gnps_tooltip">
-            Metadata column used to group the samples. We plot the abundance of categories in this column for each molecule on the tree. 
+            Metadata column used to group the samples. We plot the abundance of categories in this column for each molecule on the tree.
                     </tooltip>
                 </label>
             </cell>
