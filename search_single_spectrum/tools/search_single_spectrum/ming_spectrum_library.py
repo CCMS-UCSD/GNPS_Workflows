@@ -75,6 +75,9 @@ class SpectrumCollection:
                               analog_search=False, 
                               analog_constraint_masses=[], 
                               top_k=1):
+
+        int_deltas = set([int(analog_mass) for analog_mass in analog_constraint_masses])
+        
         if otherspectrum == None:
             return []
 
@@ -95,6 +98,12 @@ class SpectrumCollection:
                 # Constraining analogs if the set of analogs is not empty
                 if mz_delta > pm_tolerance and len(analog_constraint_masses) > 0:
                     acceptable_delta = False
+
+                    # Fast Hash
+                    if not int(mz_delta) in int_deltas:
+                        continue
+                    
+                    # Detailed Check
                     for constraint in analog_constraint_masses:
                         delta_mz_delta = abs(constraint - mz_delta)
                         if delta_mz_delta < 0.1:
