@@ -109,7 +109,13 @@ def find_matches_in_file(input_spectrum_collection, dataset_filepath, relative_d
     # Parameterizing Analog Search Parameters
     analog_contraint_masses = []
     if match_parameters["ANALOG_CONSTRAINT"] == "BIOTRANSFORMATIONS":
-        analog_contraint_masses.append(14) #TODO: Make this based on Louis' suggestion
+        parsed_anntation_list = "14.0:methyl".split("|")
+        for parsed_annotation in parsed_anntation_list:
+            if len(parsed_annotation) < 3:
+                continue
+
+            mass = abs(float(parsed_annotation.split(":")[0]))
+            analog_contraint_masses.append(mass)
     print(analog_contraint_masses)
 
 
