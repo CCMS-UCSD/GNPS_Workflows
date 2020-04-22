@@ -106,6 +106,12 @@ def find_matches_in_file(input_spectrum_collection, dataset_filepath, relative_d
     except:
         return dataset_match_list
 
+    # Parameterizing Analog Search Parameters
+    analog_contraint_masses = []
+    if match_parameters["ANALOG_CONSTRAINT"] == "BIOTRANSFORMATIONS":
+        analog_contraint_masses.append(14) #TODO: Make this based on Louis' suggestion
+    print(analog_contraint_masses)
+
 
     for repo_spectrum in dataset_query_spectra.spectrum_list:
         if match_parameters["FILTER_WINDOW"]:
@@ -120,7 +126,14 @@ def find_matches_in_file(input_spectrum_collection, dataset_filepath, relative_d
             myspectrum.filter_precursor_peaks()
 
         try:
-            match_list = dataset_query_spectra.search_spectrum(myspectrum, match_parameters["PM_TOLERANCE"], match_parameters["FRAGMENT_TOLERANCE"], match_parameters["MIN_MATCHED_PEAKS"], match_parameters["MIN_COSINE"], analog_search=match_parameters["ANALOG_SEARCH"], top_k=top_k)
+            match_list = dataset_query_spectra.search_spectrum(myspectrum, 
+                                                                match_parameters["PM_TOLERANCE"], 
+                                                                match_parameters["FRAGMENT_TOLERANCE"], 
+                                                                match_parameters["MIN_MATCHED_PEAKS"], 
+                                                                match_parameters["MIN_COSINE"], 
+                                                                analog_search=match_parameters["ANALOG_SEARCH"],
+                                                                analog_constraint_masses=analog_contraint_masses,
+                                                                top_k=top_k)
             for match in match_list:
                 match["filename"] = relative_dataset_filepath
             dataset_match_list += match_list
@@ -139,6 +152,7 @@ def get_parameters(params_obj):
     FILTER_PRECURSOR = True
     FILTER_WINDOW = True
     ANALOG_SEARCH = False
+    ANALOG_CONSTRAINT = "NONE"
     SEARCH_RAW = False
 
     try:
@@ -178,6 +192,10 @@ def get_parameters(params_obj):
     except:
         print("Param Not Found", "ANALOG_SEARCH")
     try:
+        ANALOG_CONSTRAINT = params_obj["ANALOG_CONSTRAINT"][0]
+    except:
+        print("Param Not Found", "ANALOG_CONSTRAINT")
+    try:
         if params_obj["SEARCH_RAW"][0] == "1":
             SEARCH_RAW = True
     except:
@@ -191,6 +209,7 @@ def get_parameters(params_obj):
     parameters["FILTER_PRECURSOR"] = FILTER_PRECURSOR
     parameters["FILTER_WINDOW"] = FILTER_WINDOW
     parameters["ANALOG_SEARCH"] = ANALOG_SEARCH
+    parameters["ANALOG_CONSTRAINT"] = ANALOG_CONSTRAINT
     parameters["SEARCH_RAW"] = SEARCH_RAW
 
     return parameters

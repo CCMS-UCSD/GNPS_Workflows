@@ -94,7 +94,7 @@
         <parameter name="ANALOG_CONSTRAINT" label="Constrained Analog Modification Sets">
             <options>
                     <option value="NONE" label="No Constraint"/>
-                    <option value="NATURALPRODUCTS" label="Natural Products Modifications"/>
+                    <option value="BIOTRANSFORMATIONS" label="Standard Biotransformations"/>
             </options>
             <validator type="set"/>
         </parameter>
