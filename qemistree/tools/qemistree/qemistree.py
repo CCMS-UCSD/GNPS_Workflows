@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import argparse
 import glob
+import shlex
 
 def main():
     parser = argparse.ArgumentParser(description='Annotate spectra')
@@ -174,9 +175,11 @@ def main():
         all_cmd.append(cmd)
 
         # Feature Grouping by Metadata
+        metadata_column = args.sample_metadata_column
+        metadata_column = shlex.quote(metadata_column)
         cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime feature-table group \
         --i-table {output_merged_feature_table_qza} \
-        --m-metadata-column {args.sample_metadata_column} \
+        --m-metadata-column {metadata_column} \
         --p-axis sample \
         --m-metadata-file {metadata_files[0]} \
         --o-grouped-table {output_qemistree_grouped_table_qza} \
@@ -195,9 +198,16 @@ def main():
         all_cmd.append(cmd)
 
     #Actually running all the commands
-    for cmd in all_cmd:
-        print(cmd)
-        os.system(cmd)
+    output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
+    with open(output_command_log_filename, "w") as log_file:
+        for cmd in all_cmd:
+            print(cmd)
+            exit_code = os.system(cmd)
+            if exit_code == 0:
+                log_file.write("SUCCESS {}\n".format(cmd))
+            else:
+                log_file.write("FAILURE {}\n".format(cmd))
+
 
 if __name__ == "__main__":
     main()
