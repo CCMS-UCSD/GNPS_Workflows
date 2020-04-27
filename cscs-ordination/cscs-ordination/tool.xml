@@ -1,0 +1,23 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/bin">
+        <pathVar name="activate.path" path="activate"/>
+        <toolPath tool="cscs" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="cscs.script" path="run_cscs.py" />
+    </pathSet>
+
+    <tool name="cscs">
+        <require name="workflowParameters"       type="file"/>
+        <produce name="output_folder"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="cscs.script"/>
+                <arg valueRef="@GNPS_TASK"/>
+                <arg valueRef="output_folder"/>
+                <arg pathRef="activate.path"/>
+                <arg value="qiime2-2020.2-cscs"/>
+        </execution>
+    </tool>
+</toolset>
