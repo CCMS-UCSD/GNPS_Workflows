@@ -1,11 +1,5 @@
 task_id,description,regressioncountviews
-4bb25813c5034c288e379828cccda765,molnetenhancer from classic networking,
-f88427eebbd5486ab9bcf535ceedd129,molnetenhancer from FBMN,
 adc3ec9194de43f7b97a61369bf2d7f6,ms2lda,
-ef1065af3fa74a05b12fa9f077a80655,gc-librarysearch,
-25dbdc1177ed4f4ab63451fa78397c95,gc-librarysearch with balance scores,
-4bfc6f86a5b340df96ee5445bb038724,gc-librarysearch with carbon marker file,
-b5667a3690cd41b5bdf0821588baa2e0,mshub-gc,
 73da384ea02a4e8ca3edd82649e540c3,msms-chooser,
 1df2ea6e406447dfaa7a8b3ea23bf9e1,batchvalidator,new_annotations
 2b7b4e189177498f8f95ea217ff351ff,lc_mzmine2,small test
