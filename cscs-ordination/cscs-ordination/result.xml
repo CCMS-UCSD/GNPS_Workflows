@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="MERGE_NETWORKS_POLARITY" version="release_9">
+    <download>
+        <source type="folder" name="output_folder/"/>
+    </download>
 
     <view id="download_data" label="Download Distance Matrix">
         <blockRef id="main"   type="download_data"/>

@@ -17,7 +17,7 @@
                 <arg valueRef="@GNPS_TASK"/>
                 <arg valueRef="output_folder"/>
                 <arg pathRef="activate.path"/>
-                <arg value="qiime2-2019.7-cscs"/>
+                <arg value="qiime2-2020.2-cscs"/>
         </execution>
     </tool>
 </toolset>
