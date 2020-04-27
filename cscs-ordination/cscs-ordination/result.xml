@@ -1,52 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="MERGE_NETWORKS_POLARITY" version="release_9">
 
-    <view id="download_data" label="Download Network">
+    <view id="download_data" label="Download Distance Matrix">
         <blockRef id="main"   type="download_data"/>
     </view>
     <block id="download_data" type="dummydownload">
       <data>
-        <source type="file" name="merged_network/"/>
+        <source type="file" name="output_folder/cscs_distance.tsv"/>
          <parsers>
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-    </block>
-
-  <view id="view_summary_table" label="Summary Table" group="Default Results Views">
-        <blockRef id="main" type="view_summary_table"/>
-    </view>
-
-    <block id="view_summary_table" type="table">
-        <data>
-            <source type="file" name="summary_table/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="tanimoto" operator="descending"/>
-            </parsers>
-        </data>
-        <row>
-            <column type="float" field="scan1" label="scan1" precision="2"/>
-            <column type="float" field="scan2" label="scan2" precision="3"/>
-            <column type="float" field="mz1" label="mz1" precision="2"/>
-            <column type="float" field="mz2" label="mz2" precision="3"/>
-            <column type="float" field="tanimoto" label="tanimoto" precision="3"/>
-            <column type="float" field="rt1" label="rt1" precision="3"/>
-            <column type="float" field="rt2" label="rt2" precision="3"/>
-            <column type="float" field="mzdelta" label="mzdelta" precision="3"/>
-            <column type="float" field="rtdelta" label="rtdelta" precision="3"/>
-        </row>
-    </block>
-
-    <view id="summary" label="Summary Text" group="Default Results Views">
-        <blockRef id="main" type="summary"/>
-    </view>
-    <block id="summary" type="stream">
-        <data>
-            <source type="file" name="summary/"/>
-            <parsers>
-                <parser type="stream" contentType="text/html"/>
-            </parsers>
-        </data>
     </block>
 
 </interface>

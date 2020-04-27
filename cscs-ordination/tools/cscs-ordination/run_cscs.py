@@ -27,8 +27,10 @@ if workflow_name == "METABOLOMICS-SNETS-V2":
     with open("network_edges.tsv", "w") as outfile:
         outfile.write(requests.get(pairs_url).text)
 
-    pyCSCS.cscs_from_files("bucket_table.tsv", "network_edges.tsv")
 
-    
+    cscs_distance_df = pyCSCS.cscs_from_files("bucket_table.tsv", "network_edges.tsv")
+
+    # Now we wil need to output it
+    cscs_distance_df.to_csv(os.path.join(args.output_folder, "cscs_distance.tsv"), sep="\t")
 
 
