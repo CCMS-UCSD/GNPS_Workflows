@@ -1,7 +1,9 @@
 <toolset>
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="cscs" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/bin">
+        <pathVar name="activate.path" path="activate"/>
+        <toolPath tool="cscs" path="python"/>
     </pathSet>
+
     <pathSet base="$base">
         <pathVar name="cscs.script" path="run_cscs.py" />
     </pathSet>
@@ -14,6 +16,8 @@
             <arg pathRef="cscs.script"/>
                 <arg valueRef="@GNPS_TASK"/>
                 <arg valueRef="output_folder"/>
+                <arg pathRef="activate.path"/>
+                <arg value="qiime2-2019.7-cscs"/>
         </execution>
     </tool>
 </toolset>
