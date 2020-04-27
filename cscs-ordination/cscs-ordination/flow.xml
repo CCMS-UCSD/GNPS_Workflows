@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<flow name="MERGE_NETWORKS_POLARITY">
+<flow name="cscs-ordination">
 	<object     name="workflowParameters"/>
 
 	<action name="begin">
 		<output port="flowParams" object="workflowParameters"/>
 	</action>
 
-    <object name="merged_network"/>
-	<object name="summary_table"/>
-	<object name="summary"/>
-	<action name="merge_polarity">
+	<collection name="output_folder"/>
+	<action name="cscs">
         <input  port="workflowParameters" object="workflowParameters"/>
-        <output  port="merged_network" object="merged_network"/>
-		<output  port="summary_table" object="summary_table"/>
-		<output  port="summary" object="summary"/>
+		<output  port="output_folder" collection="output_folder"/>
     </action>
 
 	<action name="end">
-		<input port="merged_network" object="merged_network"/>
-		<input port="summary_table" object="summary_table"/>
-		<input port="summary" object="summary"/>
+		<input port="output_folder" collection="output_folder"/>
 	</action>
 </flow>
