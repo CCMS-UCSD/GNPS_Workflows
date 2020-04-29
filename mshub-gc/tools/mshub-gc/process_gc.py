@@ -247,6 +247,9 @@ def main():
     simple_presence_of_merged_spectra_processing(output_quant_filename, args.clusterinfo, mangled_mapping)
     generate_clustersummary(output_quant_filename, args.clustersummary)
 
+    # Removing the big data
+    os.remove(hdf5_filename)
+
     # if workflow_params["CLUSTER_SPECTRA"][0] == "YES":
     #     cluster_spectra(args.clustered_mgf, args.clustersummary, float(workflow_params["RT_TOLERANCE"][0]))
 
