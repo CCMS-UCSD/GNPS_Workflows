@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import argparse
 import glob
+import shlex
 
 def main():
     parser = argparse.ArgumentParser(description='Annotate spectra')
@@ -17,6 +18,8 @@ def main():
     parser.add_argument("conda_environment")
     parser.add_argument("sirius_bin")
     parser.add_argument("--instrument", default="orbitrap")
+    parser.add_argument("--sample_metadata_column", default="sample_name")
+    parser.add_argument("--ionization_mode", default="auto")
 
     args = parser.parse_args()
 
@@ -29,17 +32,19 @@ def main():
 
     output_feature_qza = os.path.join(args.output_folder, "feature-table.qza")
     output_mgf_qza = os.path.join(args.output_folder, "sirius.mgf.qza")
-    output_fragtree_qza = os.path.join(args.output_folder, "fragmentation_trees.qza")
+    output_fragtree_qza = os.path.join(args.output_folder, "fragmentation-trees.qza")
     output_formula_qza = os.path.join(args.output_folder, "formula.qza")
     output_fingerprints_qza = os.path.join(args.output_folder, "fingerprints.qza")
     output_qemistree_qza = os.path.join(args.output_folder, "qemistree.qza")
-    output_qemistree_pruned_qza = os.path.join(args.output_folder, "qemistree-pruned.qza")
-    output_merged_feature_table_qza = os.path.join(args.output_folder, "merged_feature_table.qza")
-    output_classified_feature_data_qza = os.path.join(args.output_folder, "classified_feature_data.qza")
-    output_merged_data_qza = os.path.join(args.output_folder, "merged_feature_data.qza")
-    output_distance_matrix_qza = os.path.join(args.output_folder, "distance_matrix.qza")
+    output_qemistree_pruned_qza = os.path.join(args.output_folder, "qemistree-pruned-smiles.qza")
+    output_qemistree_grouped_table_qza = os.path.join(args.output_folder, "qemistree-grouped-table.qza")
+    output_merged_feature_table_qza = os.path.join(args.output_folder, "merged-feature-table.qza")
+    output_classified_feature_data_qza = os.path.join(args.output_folder, "classified-feature-data.qza")
+    output_merged_data_qza = os.path.join(args.output_folder, "merged-feature-data.qza")
+    output_distance_matrix_qza = os.path.join(args.output_folder, "distance-matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
     output_emperor_qza = os.path.join(args.output_folder, "emperor.qzv")
+    output_qemistree_itol_qzv = os.path.join(args.output_folder, "qemistree-itol.qzv")
 
     all_cmd = []
 
@@ -60,9 +65,9 @@ def main():
     --i-features {} \
     --p-ppm-max {} \
     --p-profile {} \
-    --p-ionization-mode positive \
+    --p-ionization-mode {} \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, ionization_mode, output_fragtree_qza)
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree rerank-molecular-formulas --p-sirius-path {} \
@@ -96,7 +101,7 @@ def main():
         cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree make-hierarchy \
         --i-csi-results {} \
         --i-feature-tables {} \
-        --i-ms2-matches {}\
+        --i-library-matches {}\
         --p-metric euclidean \
         --o-tree {} \
         --o-feature-table {} \
@@ -134,7 +139,7 @@ def main():
     # Prune Tree
     cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree prune-hierarchy \
     --i-feature-data {output_classified_feature_data_qza} \
-    --p-column class \
+    --p-column smiles \
     --i-tree {output_qemistree_qza} \
     --o-pruned-tree {output_qemistree_pruned_qza}'
     all_cmd.append(cmd)
@@ -143,7 +148,7 @@ def main():
     --i-table {} \
     --i-phylogeny {} \
     --p-metric "weighted_unifrac" \
-     --o-distance-matrix {}'.format(args.conda_activate_bin, args.conda_environment, \
+    --o-distance-matrix {}'.format(args.conda_activate_bin, args.conda_environment, \
         output_merged_feature_table_qza, \
         output_qemistree_qza, \
         output_distance_matrix_qza)
@@ -169,10 +174,40 @@ def main():
             output_emperor_qza)
         all_cmd.append(cmd)
 
+        # Feature Grouping by Metadata
+        metadata_column = args.sample_metadata_column
+        metadata_column = shlex.quote(metadata_column)
+        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime feature-table group \
+        --i-table {output_merged_feature_table_qza} \
+        --m-metadata-column {metadata_column} \
+        --p-axis sample \
+        --m-metadata-file {metadata_files[0]} \
+        --o-grouped-table {output_qemistree_grouped_table_qza} \
+        --p-mode mean-ceiling'
+        all_cmd.append(cmd)
+
+        # Plotting
+        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree plot \
+        --i-tree {output_qemistree_pruned_qza} \
+        --i-feature-metadata {output_classified_feature_data_qza} \
+        --i-grouped-table {output_qemistree_grouped_table_qza} \
+        --p-category direct_parent \
+        --p-ms2-label False \
+        --p-parent-mz True \
+        --o-visualization {output_qemistree_itol_qzv}'
+        all_cmd.append(cmd)
+
     #Actually running all the commands
-    for cmd in all_cmd:
-        print(cmd)
-        os.system(cmd)
+    output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
+    with open(output_command_log_filename, "w") as log_file:
+        for cmd in all_cmd:
+            print(cmd)
+            exit_code = os.system(cmd)
+            if exit_code == 0:
+                log_file.write("SUCCESS {}\n".format(cmd))
+            else:
+                log_file.write("FAILURE {}\n".format(cmd))
+
 
 if __name__ == "__main__":
     main()

@@ -29,6 +29,8 @@
             <arg value="qiime2-2019.10-qemistree"/>
             <arg pathRef="sirius.path"/>
             <arg option="-instrument" valueRef="@INSTRUMENT"/>
+            <arg option="-ionization_mode" valueRef="@IONIZATION_MODE"/>
+            <arg option="-sample_metadata_column" valueRef="@METADATA_COLUMN"/>
         </execution>
     </tool>
 

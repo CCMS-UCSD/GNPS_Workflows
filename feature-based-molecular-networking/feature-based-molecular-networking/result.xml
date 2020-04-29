@@ -220,7 +220,6 @@
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
                 <parameter name="spectrum1_file" file="spectra/specs_ms.mgf"/>
->
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
@@ -445,7 +444,6 @@
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[CLUSTERID1]"/>
                 <parameter name="trim" value="true"/>
-g
             </column>
             <column type="jscolumnspectrumviewer" colspan="5">
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
@@ -502,8 +500,7 @@ g
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <!-- <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of [task] with MS2LDA MotifDB", "spec_on_server":"f.[task]/spectra/specs_ms.mgf", "network_pairs":"d.[task]/networkedges_selfloop/", "mzmine_csv":"d.[task]/quantification_table/", "MGF_SOURCE":"mzmine"}'/> -->
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table_reformatted/", "MGF_SOURCE":"mzmine"}'/>
     </block>
 
     <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
@@ -517,6 +514,19 @@ g
         </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Feature-Based Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
+
+    <view id="qemistree" label="Visualize with Qemistree" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="qemistree"/>
+    </view>
+    <block id="qemistree" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Qemistree of Feature-Based Molecular Networking [task]", "quant_table":"t.[task]/qiime2_output/qiime2_table.qza", "metadata_table":"t.[task]/qiime2_output/qiime2_metadata.tsv", "library_identifications":"t.[task]/clusterinfo_summary/"}'/>
+    </block>
+
 
     <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="redu_global_pca"/>
@@ -587,7 +597,6 @@ g
         </data>
     </block>
 
-
     <view id="network_statistics" label="Networking Statistics" group="Advanced Views - Misc Views">
         <blockRef id="main" type="network_statistics"/>
     </view>
@@ -601,6 +610,140 @@ g
     </block>
 
 
+    <view id="network_stats_all_columns" label="View All Column Plots" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="network_stats_all_columns"/>
+    </view>
+
+    <block id="network_stats_all_columns" type="table">
+        <data>
+            <source type="file" name="feature_statistics/all_columns.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="scan" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="genericurlgenerator" label="View Box Plot">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="LABEL" value="View Box Plot"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="text" field="metadata_column" label="metadata_column" width="10"/>
+            <column type="text" field="scan" label="scan" width="10"/>
+            <column type="genericimagedisplayer" label="Box Plot">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="genericurlgenerator" label="Customize Plotting">
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="LABEL" value="Customize Plot"/>
+                <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[scan]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+    </block>
+
+    <view id="network_stats_selected_columns" label="View Select Column Plots" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="network_stats_selected_columns"/>
+    </view>
+
+    <block id="network_stats_selected_columns" type="table">
+        <data>
+            <source type="file" name="feature_statistics/chosen_columns.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="pvalue" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="metadata_column" label="metadata_column" width="10"/>
+            <column type="float" field="pvalue" label="pvalue" precision="5"/>
+            <column type="text" field="scan" label="scan" width="10"/>
+            <column type="genericimagedisplayer" label="Box Plot">
+                <parameter name="URLBASE" value="/ProteoSAFe/DownloadResultFile"/>
+                <parameter name="REQUESTPARAMETER=file" value="feature_plots/[boxplotimg]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+            <column type="genericurlgenerator" label="Customize Plotting">
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="LABEL" value="Customize Plot"/>
+                <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spectra/specs_ms.mgf"/>
+                <parameter name="scan" value="[scan]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+    </block>
+
+    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="esquisse_data_for_plotting"/>
+    </view>
+    <block id="esquisse_data_for_plotting" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:8347?task=[task]'/>
+    </block>
+
+    <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="data_for_plotting"/>
+    </view>
+    <block id="data_for_plotting" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=feature_statistics/data_long.csv'/>
+    </block>
+
+
+    <!-- Metadata Summaries -->
+    <view id="metadata_summary" label="View Metadata Summary" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="metadata_summary"/>
+    </view>
+
+    <block id="metadata_summary" type="table">
+        <data>
+            <source type="file" name="metadata_summary/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="Attribute" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="Attribute" label="Attribute" width="10"/>
+            <column type="text" field="Term" label="Term" width="10"/>
+        </row>
+    </block>
+
+
+    <view id="download_metadata" label="Download Metadata File" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="download_metadata"/>
+    </view>
+
+    <block id="download_metadata" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=metadata_table/&amp;block=main'/>
+    </block>
 
 
 
