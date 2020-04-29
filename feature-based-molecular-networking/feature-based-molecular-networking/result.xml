@@ -742,7 +742,7 @@
             </parsers>
         </data>
 
-        <parameter name="URLBASE" value='/ProteoSAFe%2FDownloadResultFile%3Ftask%3D%5Btask%5D%26file%3Dmetadata_table%2F%26block%3Dmain'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=metadata_table/&amp;block=main'/>
     </block>
 
 
