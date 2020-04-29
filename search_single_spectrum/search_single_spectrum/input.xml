@@ -91,6 +91,14 @@
             <validator type="set"/>
         </parameter>
 
+        <parameter name="ANALOG_CONSTRAINT" label="Constrained Analog Modification Sets">
+            <options>
+                    <option value="NONE" label="No Constraint"/>
+                    <option value="BIOTRANSFORMATIONS" label="Standard Biotransformations"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
         <parameter name="SEARCH_RAW" label="Search UnClustered Data">
             <options>
                     <option value="0" label="Don't Search"/>
@@ -297,6 +305,15 @@
 
             <cell>
                 <input type="select" parameter="SEARCH_RAW">
+                </input>
+            </cell>
+            <cell>
+                <label>
+                    <content parameter="ANALOG_CONSTRAINT"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="ANALOG_CONSTRAINT">
                 </input>
             </cell>
         </row>

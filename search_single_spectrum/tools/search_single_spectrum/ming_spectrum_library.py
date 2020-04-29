@@ -71,7 +71,13 @@ class SpectrumCollection:
             self.scandict[spectrum.scan] = spectrum
             self.scandict[file_idx + ":" + str(spectrum.scan)] = spectrum
 
-    def search_spectrum(self, otherspectrum, pm_tolerance, peak_tolerance, min_matched_peaks, min_score, analog_search=False, top_k=1):
+    def search_spectrum(self, otherspectrum, pm_tolerance, peak_tolerance, min_matched_peaks, min_score, 
+                              analog_search=False, 
+                              analog_constraint_masses=[], 
+                              top_k=1):
+
+        int_deltas = set([int(analog_mass) for analog_mass in analog_constraint_masses])
+        
         if otherspectrum == None:
             return []
 
@@ -88,6 +94,24 @@ class SpectrumCollection:
 
             mz_delta = abs(myspectrum.mz - otherspectrum.mz)
             if mz_delta < pm_tolerance or analog_search == True:
+
+                # Constraining analogs if the set of analogs is not empty
+                if mz_delta > pm_tolerance and len(analog_constraint_masses) > 0:
+                    acceptable_delta = False
+
+                    # Fast Hash
+                    if not int(mz_delta) in int_deltas:
+                        continue
+                    
+                    # Detailed Check
+                    for constraint in analog_constraint_masses:
+                        delta_mz_delta = abs(constraint - mz_delta)
+                        if delta_mz_delta < 0.1:
+                            acceptable_delta = True
+                            break
+                    if acceptable_delta is False:
+                        continue
+
                 cosine_score, matched_peaks = myspectrum.cosine_spectrum(otherspectrum, peak_tolerance)
                 #Also check for min matched peaks
                 if cosine_score > min_score and matched_peaks >= min_matched_peaks:
