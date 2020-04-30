@@ -67,7 +67,7 @@ def main():
     --p-profile {} \
     --p-ionization-mode {} \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, ionization_mode, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, args.ionization_mode, output_fragtree_qza)
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree rerank-molecular-formulas --p-sirius-path {} \
