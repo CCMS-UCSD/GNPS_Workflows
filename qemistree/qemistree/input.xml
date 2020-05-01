@@ -47,10 +47,6 @@
             <default value="auto"/>
         </parameter>
 
-        <parameter name="METADATA_COLUMN" label="Sample Metadata Column">
-            <default value="sample_name"/>
-        </parameter>
-
     </parameters>
 
     <!-- Input form layout -->
@@ -134,22 +130,6 @@
 
             <cell>
                 <input type="select" parameter="IONIZATION_MODE">
-                </input>
-            </cell>
-        </row>
-        <row>
-        <cell>
-                <label>
-                    <content parameter="METADATA_COLUMN"/>
-                    <tooltip id="METADATA_COLUMN_gnps_tooltip">
-            Metadata column used to group the samples. We plot the abundance of categories in this column for each molecule on the tree.
-                    </tooltip>
-                </label>
-            </cell>
-
-            <cell>
-                <input type="text" parameter="METADATA_COLUMN">
-                    <attribute name="size" value="30"/>
                 </input>
             </cell>
         </row>
