@@ -35,6 +35,7 @@ GNPS Integration Web and Workflow jobs are handled in the [CCMS-Integration-Test
 | GNPS Full Workflows Test | ![workflow-gnps](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-gnps/badge.svg) |
 | Beta Full Workflows Test | ![workflow-beta](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-beta/badge.svg) |
 
+Uptime Robot Monitor - [https://stats.uptimerobot.com/Am4PLUWn3](https://stats.uptimerobot.com/Am4PLUWn3)
 
 ## Specific Workflow Tests
 
