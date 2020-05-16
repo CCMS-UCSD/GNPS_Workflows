@@ -18,7 +18,6 @@ def main():
     parser.add_argument("conda_environment")
     parser.add_argument("sirius_bin")
     parser.add_argument("--instrument", default="orbitrap")
-    parser.add_argument("--sample_metadata_column", default="sample_name")
     parser.add_argument("--ionization_mode", default="auto")
 
     args = parser.parse_args()
@@ -37,7 +36,6 @@ def main():
     output_fingerprints_qza = os.path.join(args.output_folder, "fingerprints.qza")
     output_qemistree_qza = os.path.join(args.output_folder, "qemistree.qza")
     output_qemistree_pruned_qza = os.path.join(args.output_folder, "qemistree-pruned-smiles.qza")
-    output_qemistree_grouped_table_qza = os.path.join(args.output_folder, "qemistree-grouped-table.qza")
     output_merged_feature_table_qza = os.path.join(args.output_folder, "merged-feature-table.qza")
     output_classified_feature_data_qza = os.path.join(args.output_folder, "classified-feature-data.qza")
     output_merged_data_qza = os.path.join(args.output_folder, "merged-feature-data.qza")
@@ -87,9 +85,8 @@ def main():
 
     input_library_identifications_files = glob.glob(os.path.join(args.input_library_identifications_folder, "*"))
 
-    # TODO: Add in library identifications to be imported, need to write import statement
     if len(input_library_identifications_files) == 1:
-        identifications_qza = os.path.join(args.output_folder, "library_identifications.qza")
+        identifications_qza = os.path.join(args.output_folder, "library-identifications.qza")
         cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime tools import \
         --input-path {} \
         --output-path {} \
@@ -174,28 +171,15 @@ def main():
             output_emperor_qza)
         all_cmd.append(cmd)
 
-        # Feature Grouping by Metadata
-        metadata_column = args.sample_metadata_column
-        metadata_column = shlex.quote(metadata_column)
-        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime feature-table group \
-        --i-table {output_merged_feature_table_qza} \
-        --m-metadata-column {metadata_column} \
-        --p-axis sample \
-        --m-metadata-file {metadata_files[0]} \
-        --o-grouped-table {output_qemistree_grouped_table_qza} \
-        --p-mode mean-ceiling'
-        all_cmd.append(cmd)
-
-        # Plotting
-        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree plot \
-        --i-tree {output_qemistree_pruned_qza} \
-        --i-feature-metadata {output_classified_feature_data_qza} \
-        --i-grouped-table {output_qemistree_grouped_table_qza} \
-        --p-category direct_parent \
-        --p-ms2-label False \
-        --p-parent-mz True \
-        --o-visualization {output_qemistree_itol_qzv}'
-        all_cmd.append(cmd)
+    # Tree Plotting
+    cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree plot \
+    --i-tree {output_qemistree_pruned_qza} \
+    --i-feature-metadata {output_classified_feature_data_qza} \
+    --p-category direct_parent \
+    --p-ms2-label False \
+    --p-parent-mz True \
+    --o-visualization {output_qemistree_itol_qzv}'
+    all_cmd.append(cmd)
 
     #Actually running all the commands
     output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
