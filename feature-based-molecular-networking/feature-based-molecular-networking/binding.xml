@@ -190,6 +190,12 @@
         <productionToOutput port="feature_statistics" production="feature_statistics"/>
         <productionToOutput port="feature_plots" production="feature_plots"/>
     </bind>
+
+    <!-- Feature Stats -->
+    <bind action="metadata_summarize" tool="metadata_summarize">
+        <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <productionToOutput port="metadata_summary" production="metadata_summary"/>
+    </bind>
     
 
     <bind action="end" type="upload">
@@ -250,6 +256,9 @@
         </upload>
         <upload port="feature_plots" type="folder">
             <query name="resource" value="feature_plots"/>
+        </upload>
+        <upload port="metadata_summary" type="folder">
+            <query name="resource" value="metadata_summary"/>
         </upload>
     </bind>
 </binding>
