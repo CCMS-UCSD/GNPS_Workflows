@@ -14,6 +14,12 @@ def convert_to_feature_csv(input_filename, output_filename):
     index_Norm = input_format_for_raw_position.columns.get_loc('Normalised abundance')
     assumed_number_of_samples = len(input_format_for_raw_position.iloc[:,index_Norm:index_RAW].columns)
 
+    #Check requirements for the table
+    required_names = ["Raw abundance", "Normalised abundance"]
+    for require_name in required_names:
+        if not require_name in input_format:
+            raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
+
     # Now read again the table for the samples and metadata column name (skiprows=2)
     input_format = pd.read_csv(input_filename, sep=",", skiprows=2, encoding ='utf-8')
 
