@@ -13,7 +13,7 @@ Formatter script for each tool supported can be found in:
 
 Beside the specific requirements for each processing tool, it is possible to map any colum from the processing tool to the molecular networks using Cytoscape. See [https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking-cytoscape/#import-supplementary-annotations-in-cytoscape](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking-cytoscape/#import-supplementary-annotations-in-cytoscape).
 
-### MZMine
+### MZmine
 
 The feature quantification table (.CSV file, comma separated) should have three columns named:
 
@@ -54,15 +54,21 @@ All sample headers are not including the file format extension ".d" (DDA) or ".t
 
 ### Progenesis QI
 
-The feature quantification table (.CSV file, comma separated) should include 2 rows that can be ignored and headers starting in row 3 with the following the following columns:
+The feature quantification table (text file, comma separated). The row 1/2 are used to deduced the number of samples and sample name and metadata are starting in row 3 with the following columns:
 
 1. Compound
 2. m/z
 3. Retention time (min)
+4. Raw abundance
+5. Normalised abundance
 
-For ion mobility data, it must include a "CCS (angstrom^2)" column.
+For ion mobility data, it must include a "CCS (angstrom^2)" column for consistency
 
-All sample headers are not including the filename extension (such as ".raw")
+All sample headers are not including the filename extension (such as ".raw"). 
+We output only the Normalized intensities. 
+We output most metadata columns except the 'Accepted Description' column.
+
+We use the .MSP file format for the MS/MS spectral summary.
 
 ### OpenMS
 
