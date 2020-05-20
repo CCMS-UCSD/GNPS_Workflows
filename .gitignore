@@ -14,7 +14,6 @@ feature-based-molecular-networking/test/progenesis_output_IMS.mgf
 feature-based-molecular-networking/test/progenesis_MSE_output.mgf
 feature-based-molecular-networking/test/progenesis_MSE_output_catechin.csv
 feature-based-molecular-networking/test/progenesis_MSE_output_catechin.mgf
-<<<<<<< HEAD
-=======
+
 Makefile.credentials
->>>>>>> ea51ff52b8e6ae33a26b808c8900087ed7357c13
+
