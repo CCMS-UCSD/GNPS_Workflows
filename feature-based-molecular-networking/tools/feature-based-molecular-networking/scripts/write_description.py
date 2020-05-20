@@ -14,7 +14,7 @@ def write_description(param_xml_filename, output_description_filename):
 
 
     #FBMN PROCESSING
-    output_sentences.append('The mass spectrometry data were first processed with %s (cite accordingly, see below) and the results were exported to GNPS for FBMN analysis.' % (param_obj["QUANT_TABLE_SOURCE"][0]))
+    output_sentences.append('The mass spectrometry data were first processed with %s (cite accordingly, see below in the <strong>Citations</strong> section) and the results were exported to GNPS for FBMN analysis.' % (param_obj["QUANT_TABLE_SOURCE"][0]))
 
     #SPECTRAL PROCESSING
     if param_obj["FILTER_PRECURSOR_WINDOW"][0] == "1":
@@ -60,32 +60,32 @@ def write_description(param_xml_filename, output_description_filename):
     #CITATIONS
     output_sentences.append('<br><br>\n<strong>Citations</strong><br><br>\n')
     output_sentences.append('For Feature-Based Molecular Networking: Nothias LF et al. Feature-based Molecular Networking in the GNPS Analysis Environment. bioRxiv 812404 (2019). <a href="https://doi.org/10.1101/812404"> https://doi.org/10.1101/812404</a>. \n')
-    output_sentences.append('For the GNPS web-platform: Wang M et al. Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking. Nature Biotechnology 34.8 (2016): 828-837. <a href="https://doi.org/10.1038/nbt.3597">https://doi.org/10.1038/nbt.3597</a>. \n')
+    output_sentences.append('<br><br>For the GNPS web-platform: Wang M et al. Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking. Nature Biotechnology 34.8 (2016): 828-837. <a href="https://doi.org/10.1038/nbt.3597">https://doi.org/10.1038/nbt.3597</a>. \n')
 
     #PROCESSING CITATION
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
-        output_sentences.append('Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n')
+        output_sentences.append('<br><br> <strong>For MZmine2</strong>: Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n')
         output_sentences.append('Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "XCMS3":
-        output_sentences.append('For XCMS: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a> and other citations if applicable, such as the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n')
+        output_sentences.append('<br><br> <strong>For XCMS</strong>: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a> and other citations if applicable, such as the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n')
         output_sentences.append('If you used CAMERA in XCMS: Kuhl et al. CAMERA: An Integrated Strategy for Compound Spectra Extraction and Annotation of Liquid Chromatography/Mass Spectrometry Data Sets. Anal. Chem., 841283-289 (2012),<a href="https://doi.org/10.1021/ac202450g">https://doi.org/10.1021/ac202450g</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MSDIAL":
-        output_sentences.append('For MS-DIAL: Tsugawa H et al. MS-DIAL: data-independent MS/MS deconvolution for comprehensive metabolome analysis. Nature Methods 12, 523-526 (2015), <a href="https://doi.org/10.1038/nmeth.3393">https://doi.org/10.1038/nmeth.3393.</a> \n')
+        output_sentences.append('<br><br> <strong>For MS-DIAL</strong>: Tsugawa H et al. MS-DIAL: data-independent MS/MS deconvolution for comprehensive metabolome analysis. Nature Methods 12, 523-526 (2015), <a href="https://doi.org/10.1038/nmeth.3393">https://doi.org/10.1038/nmeth.3393.</a> \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "OPENMS":
-        output_sentences.append('For OpenMS: Rost HL et al. OpenMS: a flexible open-source software platform for mass spectrometry data analysis. Nature Methods 13, 741-748 (2016), <a href="https://doi.org/10.1038/nmeth.3959">https://doi.org/10.1038/nmeth.3959.</a> \n')
+        output_sentences.append('<br><br> <strong>For OpenMS</strong>: Rost HL et al. OpenMS: a flexible open-source software platform for mass spectrometry data analysis. Nature Methods 13, 741-748 (2016), <a href="https://doi.org/10.1038/nmeth.3959">https://doi.org/10.1038/nmeth.3959.</a> \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "OPTIMUS":
-        output_sentences.append('For Optimus: Protsyuk I et al. 3D molecular cartography using LC-MS facilitated by Optimus and’ili software. Nature Protocols 13, 134-154 (2018), <a href="https://doi.org/10.1038/nprot.2017.122">https://doi.org/10.1038/nprot.2017.122.</a> \n')
+        output_sentences.append('<br><br> <strong>For Optimus</strong>: Protsyuk I et al. 3D molecular cartography using LC-MS facilitated by Optimus and ili software. Nature Protocols 13, 134-154 (2018), <a href="https://doi.org/10.1038/nprot.2017.122">https://doi.org/10.1038/nprot.2017.122.</a> \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "METABOSCAPE":
-        output_sentences.append('For MetaboScape: MetaboScape, Bruker Daltonics GmbH, Bremen, Germany, version [specify the version]. Software available at <a href="https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html">https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html.</a> \n')
+        output_sentences.append('<br><br> <strong>For MetaboScape</strong>: MetaboScape, Bruker Daltonics GmbH, Bremen, Germany, version [specify the version]. Software available at <a href="https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html">https://www.bruker.com/products/mass-spectrometry-and-separations/ms-software/metaboscape.html.</a> \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "PROGENESIS":
-        output_sentences.append('For Progenesis QI: Progenesis QI, Nonlinear Dynamics, Milford, MA, version [specify the version]. Software available at <a href="https://www.nonlinear.com/progenesis/qi/">https://www.nonlinear.com/progenesis/qi/</a>. \n')
+        output_sentences.append('<br><br> <strong>For Progenesis QI</strong>: Progenesis QI, Nonlinear Dynamics, Milford, MA, version [specify the version]. Software available at <a href="https://www.nonlinear.com/progenesis/qi/">https://www.nonlinear.com/progenesis/qi/</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZTABM":
-        output_sentences.append('For mzTab-M: Hoffman et al. mzTab-M: A Data Standard for Sharing Quantitative Results in Mass Spectrometry Metabolomic. Analytical Chemistry 9153302-3310 (2019), <a href="https://doi.org/10.1021/acs.analchem.8b04310">https://doi.org/10.1021/acs.analchem.8b04310></a>. \n')
+        output_sentences.append('<br><br> <strong>For mzTab-M</strong>: Hoffman et al. mzTab-M: A Data Standard for Sharing Quantitative Results in Mass Spectrometry Metabolomic. Analytical Chemistry 9153302-3310 (2019), <a href="https://doi.org/10.1021/acs.analchem.8b04310">https://doi.org/10.1021/acs.analchem.8b04310></a>. \n')
 
     #DEREPLICATOR ifitwas used
     if param_obj["RUN_DEREPLICATOR"][0] == "1":
-        output_sentences.append('For the DEREPLICATOR: Mohimani, H. et al. Dereplication of microbial metabolites through database search of mass spectra, Nature Communications 9, 4035 (2018), <a href="https://dx.doi.org/10.1038/s41467-018-06082-8">https://dx.doi.org/10.1038/s41467-018-06082-8.</a> \n')
-        output_sentences.append('For the DEREPLICATOR VarQuest: Gurevich, A. et al. Increased diversity of peptidic natural products revealed by modification-tolerant database search of mass spectra. Nature Microbiology 3, 319-327 (2018), <a href="https://dx.doi.org/10.1038/s41564-017-0094-2">https://dx.doi.org/10.1038/s41564-017-0094-2</a>.')
+        output_sentences.append('<br><br> <strong> For the DEREPLICATOR</strong>: Mohimani, H. et al. Dereplication of microbial metabolites through database search of mass spectra, Nature Communications 9, 4035 (2018), <a href="https://dx.doi.org/10.1038/s41467-018-06082-8">https://dx.doi.org/10.1038/s41467-018-06082-8.</a> \n')
+        output_sentences.append('<br><br> <strong> For the DEREPLICATOR VarQuest</strong>: Gurevich, A. et al. Increased diversity of peptidic natural products revealed by modification-tolerant database search of mass spectra. Nature Microbiology 3, 319-327 (2018), <a href="https://dx.doi.org/10.1038/s41564-017-0094-2">https://dx.doi.org/10.1038/s41564-017-0094-2</a>.')
 
     #NETWORK VISUALIZER
     output_sentences.append('<br><br>\n<strong>Additional Citations</strong><br><br>\n')
