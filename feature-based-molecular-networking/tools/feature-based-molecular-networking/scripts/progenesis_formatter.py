@@ -17,7 +17,7 @@ def convert_to_feature_csv(input_filename, output_filename):
     #Check requirements for the table
     required_names = ["Raw abundance", "Normalised abundance"]
     for require_name in required_names:
-        if not require_name in input_format:
+        if not require_name in input_format_for_raw_position:
             raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
 
     # Now read again the table for the samples and metadata column name (skiprows=2)
