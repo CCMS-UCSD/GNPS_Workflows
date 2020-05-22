@@ -500,7 +500,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table/", "MGF_SOURCE":"mscluster"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MS2LDA_MOTIFDB", "desc":"Reanalysis of Feature-Based Molecular Networking [task] with MS2LDA MotifDB", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "network_pairs":"t.[task]/networkedges_selfloop/", "mzmine_csv":"t.[task]/quantification_table_reformatted/", "MGF_SOURCE":"mzmine"}'/>
     </block>
 
     <view id="molnetenhancer" label="Enhance with MolNetEnhancer" group="Advanced Views - Experimental Views">
@@ -596,7 +596,6 @@
             </parsers>
         </data>
     </block>
-
 
     <view id="network_statistics" label="Networking Statistics" group="Advanced Views - Misc Views">
         <blockRef id="main" type="network_statistics"/>
@@ -712,6 +711,39 @@
         <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=feature_statistics/data_long.csv'/>
     </block>
 
+
+    <!-- Metadata Summaries -->
+    <view id="metadata_summary" label="View Metadata Summary" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="metadata_summary"/>
+    </view>
+
+    <block id="metadata_summary" type="table">
+        <data>
+            <source type="file" name="metadata_summary/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="Attribute" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="text" field="Attribute" label="Attribute" width="10"/>
+            <column type="text" field="Term" label="Term" width="10"/>
+        </row>
+    </block>
+
+
+    <view id="download_metadata" label="Download Metadata File" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="download_metadata"/>
+    </view>
+
+    <block id="download_metadata" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=metadata_table/&amp;block=main'/>
+    </block>
 
 
 

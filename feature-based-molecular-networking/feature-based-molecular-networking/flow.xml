@@ -220,6 +220,13 @@
         <output  port="feature_plots" collection="feature_plots"/>
     </action>
 
+    <!-- Metadata Summary -->
+    <collection name="metadata_summary"/>
+    <action name="metadata_summarize">
+        <input  port="metadata_table"       object="metadata_table"/>
+        <output  port="metadata_summary" collection="metadata_summary"/>
+    </action>
+
 
     <action name="end">
         <input port="spectra" object="spectra"/>
@@ -240,5 +247,6 @@
         <input port="network_statistics" collection="network_statistics"/>
         <input port="feature_statistics" collection="feature_statistics"/>
         <input port="feature_plots" collection="feature_plots"/>
+        <input port="metadata_summary" collection="metadata_summary"/>
     </action>
 </flow>
