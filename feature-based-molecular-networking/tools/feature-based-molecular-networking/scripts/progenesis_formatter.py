@@ -137,6 +137,10 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
     for line in open(input_msp):
         if line.startswith("Comment:"):
             compound_name = line.rstrip().replace("Comment: ", "")
+            comment = line.rstrip().replace("Comment: ", "FILENAME=")
+            ret_time = line.rstrip().replace("Comment: ", "").replace("_", "__")
+            sep = '__'
+            ret_time = ret_time.split(sep, 1)[0]
 
             if compound_name in observed_compound_names:
                 print("skipping repeated feature")
@@ -147,16 +151,20 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             read_name = True
             scan = (compound_to_scan_mapping[compound_name])
         elif line.startswith("PrecursorMZ:"):
-            precursor_mz = (line.rstrip().replace("PrecursorMZ: ", ""))
+            precursor_mz = (line.rstrip().replace("PrecursorMZ: ", "PEPMASS="))
         elif line.startswith("Charge:"):
-            charge = (line.rstrip().replace("Charge: ", ""))
+            charge = (line.rstrip().replace("Charge: ", "CHARGE="))
         elif len(line.rstrip()) == 0 and read_name == True:
             read_name = False
 
             output_filename.write("BEGIN IONS\n")
             output_filename.write("SCANS=%s\n" % (compound_to_scan_mapping[compound_name]))
+            output_filename.write("FEATURE_ID=%s\n" % (compound_to_scan_mapping[compound_name]))
             output_filename.write("MSLEVEL=2\n")
-            output_filename.write("CHARGE=%s\n" % (line.rstrip().replace("Charge: ", "")))
+            output_filename.write(str(precursor_mz)+"\n")
+            output_filename.write(str(charge)+"\n")
+            output_filename.write(str(comment)+"\n")
+            output_filename.write("RTINMINUTES="+str(ret_time)+"\n")
             for peak in peaks:
                 output_filename.write("%f %f\n" % (peak[0], peak[1]))
             output_filename.write("END IONS\n\n")
