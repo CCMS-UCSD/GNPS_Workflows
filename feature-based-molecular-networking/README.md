@@ -56,11 +56,14 @@ All sample headers are not including the file format extension ".d" (DDA) or ".t
 
 The feature quantification table (text file, comma separated). The row 1/2 are used to deduced the number of samples and sample name and metadata are starting in row 3 with the following columns:
 
+At the second row:
+1. Raw abundance
+2. Normalised abundance
+
+At the third row:
 1. Compound
 2. m/z
 3. Retention time (min)
-4. Raw abundance
-5. Normalised abundance
 
 For ion mobility data, it must include a "CCS (angstrom^2)" column for consistency
 
@@ -68,7 +71,7 @@ All sample headers are not including the filename extension (such as ".raw").
 We output only the Normalized intensities. 
 We output most metadata columns except the 'Accepted Description' column.
 
-We use the .MSP file format for the MS/MS spectral summary.
+We use the .MSP file format for the MS/MS spectral summary and convert it to a.MGF file. Only the first MS/MS entry associated with a compound name is kept in the .MGF file (Following "Comment: "). This is an imperfect solution and we are welcoming volunteers to improve this.
 
 ### OpenMS
 
