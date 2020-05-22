@@ -54,11 +54,15 @@ class TestLoaders(unittest.TestCase):
 
         self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.mgf", shallow=False))
 
-        #More input_msp
+        #More input
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.txt", \
                     "./progenesis_IMS_output.csv")
 
         self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags_output.csv", shallow=False))
+
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.msp", "202005_IMS_w_tags.mgf", compound_to_scan_mapping)
+
+        self.assertTrue(filecmp.cmp("./202005_IMS_w_tags.mgf", "./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.msp", shallow=False))
 
     #Making sure this raises exception
 

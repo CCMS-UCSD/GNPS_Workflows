@@ -150,11 +150,18 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
 
             read_name = True
             scan = (compound_to_scan_mapping[compound_name])
-        elif line.startswith("PrecursorMZ:"):
+
+        if line.startswith("PrecursorMZ:"):
             precursor_mz = (line.rstrip().replace("PrecursorMZ: ", "PEPMASS="))
-        elif line.startswith("Charge:"):
+        if line.startswith("Charge:"):
+            charge = []
             charge = (line.rstrip().replace("Charge: ", "CHARGE="))
-        elif len(line.rstrip()) == 0 and read_name == True:
+            precursor_type = []
+        elif line.startswith("Precursor_type:"):
+            precursor_type = []
+            precursor_type = line.rstrip().replace("Precursor_type: ", "ION=")
+            charge = []
+        if len(line.rstrip()) == 0 and read_name == True:
             read_name = False
 
             output_filename.write("BEGIN IONS\n")
@@ -162,7 +169,15 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             output_filename.write("FEATURE_ID=%s\n" % (compound_to_scan_mapping[compound_name]))
             output_filename.write("MSLEVEL=2\n")
             output_filename.write(str(precursor_mz)+"\n")
-            output_filename.write(str(charge)+"\n")
+            if type(precursor_type) == str:
+                output_filename.write(str(precursor_type)+"\n")
+                if precursor_type[-2] == ']':
+                    output_filename.write("CHARGE=1"+str(precursor_type[-1])+"\n")
+                if precursor_type[-2] == '2':
+                    output_filename.write("CHARGE=2"+str(precursor_type[-1])+"\n")
+            elif type(charge) != '[]':
+                    output_filename.write(str(charge)+"\n")
+
             output_filename.write(str(comment)+"\n")
             output_filename.write("RTINMINUTES="+str(ret_time)+"\n")
             for peak in peaks:
@@ -180,7 +195,6 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
                 peaks.append([mass, intensity])
             except:
                 continue
-
     return
 
 if __name__=="__main__":
