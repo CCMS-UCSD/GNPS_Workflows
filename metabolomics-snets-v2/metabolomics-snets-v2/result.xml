@@ -400,6 +400,19 @@
 
 
 
+    <view id="view_metadata" label="View Metadata" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="view_metadata"/>
+    </view>
+
+    <block id="view_metadata" type="table">
+		<data>
+			<source name="metadata_merged/gnps_metadata.tsv" type="file"/>
+			<parsers>
+				<parser type="genericTabular"/>
+			</parsers>
+		</data>
+		<row/>
+	</block>
 
 
 
