@@ -80,7 +80,7 @@ def process(param_xml, metadata_folder, output_metadata_folder):
     else:
         merged_metadata_df = default_metadata_df
 
-    output_metadata_filename = os.path.join(output_metadata_folder, "metadata.tsv")
+    output_metadata_filename = os.path.join(output_metadata_folder, "gnps_metadata.tsv")
     merged_metadata_df.to_csv(output_metadata_filename, sep="\t", index=False)
 
 
