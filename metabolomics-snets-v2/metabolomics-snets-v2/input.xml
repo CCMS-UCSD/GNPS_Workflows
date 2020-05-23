@@ -36,7 +36,7 @@
 		</parameter>
 
         <!-- Metadata file -->
-		<parameter name="googlesheetsmetadata" label="Google Sheets Metadata URL (Must Be Share - Experimental)">
+		<parameter name="googlesheetsmetadata" label="Google Sheets Metadata URL (Experimental)">
 			<default value="None"/>
 		</parameter>
 
@@ -511,7 +511,9 @@
 							</cell>
 						</row>
 
-						
+						<row></row>
+						<row></row>
+
 						<row>
 							<cell>
 								<label>

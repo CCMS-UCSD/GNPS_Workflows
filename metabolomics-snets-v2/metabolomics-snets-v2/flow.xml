@@ -133,8 +133,15 @@
 
 
     <!-- Merging Grouping Information -->
+    <collection     name="metadata_merged"/>
     <object     name="groupmapping_converted"/>
     <object name="attributemapping_converted"/>
+
+    <action name="metabolomicmetadatamerge">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="metadatafile" collection="metadatafile"/>
+        <output port="metadata_merged"     collection="metadata_merged"/>
+    </action>
 
     <action name="metabolomicgroupmappingconvert">
         <input  port="flowParams" object="workflowParameters"/>
@@ -325,6 +332,9 @@
 
         <input port="spectra" collection="spectra"/>
 
+        <!-- Metadata -->
+        <input port="metadata_merged" collection="metadata_merged"/>
+        
         <!-- Networking -->
         <input port="networkedges" object="networkedges"/>
         <input port="networkedges_display" object="networkedges_display"/>
