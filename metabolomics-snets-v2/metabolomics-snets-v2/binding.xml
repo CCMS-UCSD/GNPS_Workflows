@@ -381,6 +381,9 @@
         <upload port="all_network_paths_histogram" type="file">
 			<query name="resource" value="all_network_paths_histogram"/>
 		</upload> -->
+		<upload port="metadata_merged" type="file">
+			<query name="resource" value="metadata_merged"/>
+		</upload>
 		<upload port="groupmapping_converted" type="file">
 			<query name="resource" value="groupmapping_converted"/>
 		</upload>
