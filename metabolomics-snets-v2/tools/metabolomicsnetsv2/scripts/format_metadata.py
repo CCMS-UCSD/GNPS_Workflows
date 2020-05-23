@@ -26,11 +26,17 @@ def process(param_xml, metadata_folder, output_metadata_folder):
     user_metadata_df = None
     if len(input_metadata_filenames) == 1:
         user_metadata_df = pd.read_csv(input_metadata_filenames[0], sep="\t")
+    
+    if len(input_metadata_filenames) > 1:
+        print("You have selected too many metadata files")
+        exit(1)
 
     default_group_list = []
     for mangled_name in mangled_mapping.keys():
         group_dict = {}
         group_dict["filename"] = os.path.basename(mangled_mapping[mangled_name])
+        if mangled_name.find("spec-") != -1:
+            group_dict["DefaultGroup"] = "G1"
         if mangled_name.find("specone-") != -1:
             group_dict["DefaultGroup"] = "G1"
         if mangled_name.find("spectwo-") != -1:
@@ -44,7 +50,8 @@ def process(param_xml, metadata_folder, output_metadata_folder):
         if mangled_name.find("specsix-") != -1:
             group_dict["DefaultGroup"] = "G6"
 
-        default_group_list.append(group_dict)
+        if len(group_dict) > 1:
+            default_group_list.append(group_dict)
 
     default_metadata_df = pd.DataFrame(default_group_list)
 
