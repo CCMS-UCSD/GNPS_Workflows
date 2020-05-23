@@ -15,4 +15,4 @@ feature-based-molecular-networking/test/progenesis_MSE_output.mgf
 feature-based-molecular-networking/test/progenesis_MSE_output_catechin.csv
 feature-based-molecular-networking/test/progenesis_MSE_output_catechin.mgf
 feature-based-molecular-networking/test/202005_IMS_w_tags_output.csv
-
+Makefile.credentials
