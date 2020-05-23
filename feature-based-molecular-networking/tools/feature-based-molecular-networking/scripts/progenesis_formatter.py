@@ -80,6 +80,8 @@ def convert_to_feature_csv(input_filename, output_filename):
         # Prepared the processed tables
 
     output_df = pd.DataFrame(output_records)
+    
+    # We are dropping the Raw abundance columns (that have a suffixe .1) keeping only the Normalized abundance column
     output_df = output_df.drop([x for x in output_df if x.endswith('.1')], 1)
 
     output_df2 = pd.DataFrame(output_records2)
@@ -151,12 +153,15 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             read_name = True
             scan = (compound_to_scan_mapping[compound_name])
 
+        # This gets the precursor ion mass
         if line.startswith("PrecursorMZ:"):
             precursor_mz = (line.rstrip().replace("PrecursorMZ: ", "PEPMASS="))
+        # This gets the charge (either positive or negative) from the Charge header
         if line.startswith("Charge:"):
             charge = []
             charge = (line.rstrip().replace("Charge: ", "CHARGE="))
             precursor_type = []
+        # When there is an adduct provided, use the adduct to deduce the charge, because there is no Charge header anymore.
         elif line.startswith("Precursor_type:"):
             precursor_type = []
             precursor_type = line.rstrip().replace("Precursor_type: ", "ION=")
