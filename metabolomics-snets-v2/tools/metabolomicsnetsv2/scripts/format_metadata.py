@@ -15,10 +15,13 @@ def main():
     parser.add_argument('output_metadata_folder', help='output_metadata_folder')
     args = parser.parse_args()
 
-    params_object = ming_proteosafe_library.parse_xml_file(open(args.param_xml))
+    process(args.param_xml, args.metadata_folder, args.output_metadata_folder)
+
+def process(param_xml, metadata_folder, output_metadata_folder):
+    params_object = ming_proteosafe_library.parse_xml_file(open(param_xml))
     mangled_mapping = ming_proteosafe_library.get_mangled_file_mapping(params_object)
 
-    input_metadata_filenames = glob.glob(os.path.join(args.metadata_folder, "*"))
+    input_metadata_filenames = glob.glob(os.path.join(metadata_folder, "*"))
 
     user_metadata_df = None
     if len(input_metadata_filenames) == 1:
@@ -50,7 +53,7 @@ def main():
     else:
         merged_metadata_df = default_metadata_df
 
-    output_metadata_filename = os.path.join(args.output_metadata_folder, "metadata.tsv")
+    output_metadata_filename = os.path.join(output_metadata_folder, "metadata.tsv")
     merged_metadata_df.to_csv(output_metadata_filename, sep="\t", index=False)
 
 
