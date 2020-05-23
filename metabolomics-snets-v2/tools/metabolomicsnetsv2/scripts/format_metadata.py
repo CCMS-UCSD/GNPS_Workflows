@@ -7,6 +7,7 @@ import xmltodict
 import ming_proteosafe_library
 import argparse
 import pandas as pd
+import requests
 
 def main():
     parser = argparse.ArgumentParser()
@@ -30,6 +31,25 @@ def process(param_xml, metadata_folder, output_metadata_folder):
     if len(input_metadata_filenames) > 1:
         print("You have selected too many metadata files")
         exit(1)
+    
+    # We didnt input metadata file, lets see what we can do with sheets
+    if len(input_metadata_filenames) == 0:
+        try:
+            from urllib.parse import urlparse
+            sheets_url = params_object["googlesheetsmetadata"][0]
+            parsed_url = urlparse(sheets_url)
+            path = parsed_url.path
+            path_splits = path.split("/")
+            sheets_id = path_splits[3]
+
+            json_url = "https://gnps-sheets-proxy.herokuapp.com/sheets.json?sheets_id={}".format(sheets_id)
+
+            r = requests.get(json_url)
+            user_metadata_df = pd.DataFrame(r.json())
+        except:
+            pass
+
+
 
     default_group_list = []
     for mangled_name in mangled_mapping.keys():
