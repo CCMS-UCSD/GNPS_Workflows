@@ -29,7 +29,7 @@ def process(param_xml, metadata_folder, output_metadata_folder):
         user_metadata_df = pd.read_csv(input_metadata_filenames[0], sep="\t")
     
     if len(input_metadata_filenames) > 1:
-        print("You have selected too many metadata files")
+        print("You have selected too many metadata files, please only select one")
         exit(1)
     
     # We didnt input metadata file, lets see what we can do with sheets
