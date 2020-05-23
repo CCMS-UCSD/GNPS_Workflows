@@ -65,7 +65,7 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         #Adding extra columns that are not sample_names
         for key in record:
-            if key in sample_names:   ###
+            if key in sample_names:
                 continue
             try:
                 output_record[key] = record[key]
@@ -80,7 +80,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         # Prepared the processed tables
 
     output_df = pd.DataFrame(output_records)
-    
+
     # We are dropping the Raw abundance columns (that have a suffixe .1) keeping only the Normalized abundance column
     output_df = output_df.drop([x for x in output_df if x.endswith('.1')], 1)
 
