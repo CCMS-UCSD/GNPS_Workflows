@@ -18,6 +18,16 @@
         <parameter name="GNPS_NEGATIVE_TASK" label="Enter GNPS Negative Network Task ID (Required)">
             <default value="GNPS_NEGATIVE_TASK"/>
         </parameter>
+
+        <parameter name="PPM_ERROR_TOLERANCE" label="Enter a PPM tolerance for aligning masses between two runs">
+            <default value="50.0"/>
+            <validator type="float" minimum="0" maximum="500"/>
+        </parameter>
+
+        <parameter name="RT_TOLERANCE" label="Enter a RT tolerance for aligning masses between two runs (seconds)">
+            <default value="10.0"/>
+            <validator type="float" minimum="0" maximum="500"/>
+        </parameter>
     </parameters>
 
     <!-- Input form layout -->
@@ -49,6 +59,30 @@
     </block>
 
     <block label="Advanced Merge Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PPM_ERROR_TOLERANCE"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="PPM_ERROR_TOLERANCE">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="RT_TOLERANCE"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="RT_TOLERANCE">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
     </block>
 
 
