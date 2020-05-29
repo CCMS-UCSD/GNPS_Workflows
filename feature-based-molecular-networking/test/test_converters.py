@@ -38,7 +38,7 @@ class TestLoaders(unittest.TestCase):
         ## CATECHIN MSE
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.txt", "./Neg_MSE_Catechin_output.csv")
 
-        self.assertTrue(filecmp.cmp("./progenesis_MSE_output_catechin.csv", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./Neg_MSE_Catechin_output.csv", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.msp", "progenesis_MSE_output_catechin.mgf", compound_to_scan_mapping)
 
@@ -50,9 +50,9 @@ class TestLoaders(unittest.TestCase):
 
         self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
 
-        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", "progenesis_output_IMS.mgf", compound_to_scan_mapping)
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", "161118_pos_IMS.mgf", compound_to_scan_mapping)
 
-        self.assertTrue(filecmp.cmp("./progenesis_output_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.mgf", shallow=False))
+        self.assertTrue(filecmp.cmp("./161118_pos_IMS.mgf", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.mgf", shallow=False))
 
         #More input
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.txt", \
