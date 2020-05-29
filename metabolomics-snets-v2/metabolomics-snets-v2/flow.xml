@@ -133,14 +133,21 @@
 
 
     <!-- Merging Grouping Information -->
+    <collection     name="metadata_merged"/>
     <object     name="groupmapping_converted"/>
     <object name="attributemapping_converted"/>
+
+    <action name="metabolomicmetadatamerge">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="metadatafile" collection="metadatafile"/>
+        <output port="metadata_merged"     collection="metadata_merged"/>
+    </action>
 
     <action name="metabolomicgroupmappingconvert">
         <input  port="flowParams" object="workflowParameters"/>
         <input  port="groupmapping" object="groupmapping"/>
         <input  port="attributemapping" object="attributemapping"/>
-        <input  port="metadatafile" object="metadatafile"/>
+        <input  port="metadatafile" collection="metadata_merged"/>
         <input port="inputspectra"     collection="inputspectra"/>
         <output port="groupmapping_converted"     object="groupmapping_converted"/>
         <output port="attributemapping_converted"     object="attributemapping_converted"/>
@@ -244,7 +251,7 @@
     <action name="run_qiime2">
         <input  port="workflowParameters"       object="workflowParameters"/>
         <input  port="cluster_buckets"       object="cluster_buckets"/>
-        <input  port="metadatafile"       collection="metadatafile"/>
+        <input  port="metadatafile"       collection="metadata_merged"/>
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
 
@@ -263,7 +270,7 @@
     <object name="view_ili"/>
     <action name="create_ili_output">
         <input  port="flowParams" object="workflowParameters"/>
-        <input  port="metadatafile" object="metadatafile"/>
+        <input  port="metadatafile" object="metadata_merged"/>
         <input  port="clusterinfosummarygroup_attributes_withIDs" object="clusterinfosummarygroup_attributes_withIDs_withcomponentID"/>
         <input  port="clusterinfo"       object="clusterinfo"/>
         <input  port="ili_stl_model"       object="ili_stl_model"/>
@@ -325,6 +332,9 @@
 
         <input port="spectra" collection="spectra"/>
 
+        <!-- Metadata -->
+        <input port="metadata_merged" collection="metadata_merged"/>
+        
         <!-- Networking -->
         <input port="networkedges" object="networkedges"/>
         <input port="networkedges_display" object="networkedges_display"/>
