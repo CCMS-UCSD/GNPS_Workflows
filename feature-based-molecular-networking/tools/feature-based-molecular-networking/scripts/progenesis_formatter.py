@@ -7,25 +7,40 @@
 import pandas as pd
 import sys
 
-
-#TODO: Ask about why there are two column headers of the same name
 def convert_to_feature_csv(input_filename, output_filename):
-    input_format = pd.read_csv(input_filename, sep=",", skiprows=2)
+    # First read the table and deduce the number of samples from the difference between Norm abundance and RAW abundance (skiprows=0)
+    input_format_for_raw_position = pd.read_csv(input_filename, sep=",", skiprows=0)
+    index_RAW = input_format_for_raw_position.columns.get_loc('Raw abundance')
+    index_Norm = input_format_for_raw_position.columns.get_loc('Normalised abundance')
+    assumed_number_of_samples = len(input_format_for_raw_position.iloc[:,index_Norm:index_RAW].columns)
 
+    #Check requirements for the table
+    required_names = ["Raw abundance", "Normalised abundance"]
+    for require_name in required_names:
+        if not require_name in input_format_for_raw_position:
+            raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
+
+    # Now read again the table for the samples and metadata column name (skiprows=2)
+    input_format = pd.read_csv(input_filename, sep=",", skiprows=2, encoding ='utf-8')
+
+    #Check requirements for the table
     required_names = ["Compound", "Retention time (min)", "m/z"]
     for require_name in required_names:
         if not require_name in input_format:
-            raise Exception("Missing Column {}".format(require_name))
+            raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
 
-    non_sample_names = ["Compound", "Neutral mass (Da)", "m/z", "Charge", "Retention time (min)", \
-        "Chromatographic peak width (min)", "Identifications", "Isotope Distribution", "Maximum Abundance", \
-        "Minimum CV%", "Accepted Compound ID", "Accepted Description", "Formula", \
-        "Score", "Fragmentation Score", "Mass Error (ppm)", "Isotope Similarity", "Retention Time Error (mins)", "Compound Link", "Max Fold Change Peak area",
-        "Highest Mean", "Lowest Mean","CCS (angstrom^2)","Anova (p)","q Value","Max Fold Change","Adducts",
-        "Max Ab > 100","High Samples","Anova p-value <= 0.05","Max fold change >= 1000","dCCS (angstrom^2)"]
+    #Get the metadata columns before samples
+    columns_left = input_format.iloc[:,:index_Norm].columns.to_list()
+    #Get the metadata columns after the samples
+    columns_right_index = index_Norm+assumed_number_of_samples
+    columns_right = input_format.iloc[:,columns_right_index:].columns.to_list()
+    non_sample_names = columns_left + columns_right
 
-    input_records = input_format.to_dict(orient="records")
+    #delimiting the samples
     sample_names = [header for header in input_format.keys() if not header in non_sample_names and not header[-2:] == ".1"]
+
+    #Making a dictionary
+    input_records = input_format.to_dict(orient="records")
 
     output_records = []
     output_records2 = []
@@ -41,26 +56,19 @@ def convert_to_feature_csv(input_filename, output_filename):
         output_record = {}
 
         output_record["row ID"] = str(running_scan)
-        output_record["row m/z"] = str(mz)
-        output_record["row retention time"] = str(rt)
+        output_record["row m/z"] = float(mz)
+        output_record["row retention time"] = float(rt)
 
         output_record2 = {}
         for sample_name in sample_names:
             output_record2[sample_name + " Peak area"] = record[sample_name]
 
-        #Adding in special columns for CCS
-        if "CCS (angstrom^2)" in record:
-            output_record["CCS"] = record["CCS (angstrom^2)"]
-        if "dCCS (angstrom^2)" in record:
-            output_record["dCCS"] = record["dCCS (angstrom^2)"]
-
         #Adding extra columns that are not sample_names
         for key in record:
-            if key in sample_name:
+            if key in sample_names:
                 continue
-
             try:
-                output_record[key] = record[key].encode("ascii", errors="replace")
+                output_record[key] = record[key]
             except:
                 continue
 
@@ -69,23 +77,27 @@ def convert_to_feature_csv(input_filename, output_filename):
 
         compound_to_scan_mapping[compound_name] = running_scan
 
-    # Prepared the processed tables
+        # Prepared the processed tables
+
     output_df = pd.DataFrame(output_records)
+
+    # We are dropping the Raw abundance columns (that have a suffixe .1) keeping only the Normalized abundance column
+    output_df = output_df.drop([x for x in output_df if x.endswith('.1')], 1)
+
     output_df2 = pd.DataFrame(output_records2)
     output_df_prepared = pd.concat([output_df, output_df2], axis=1)
-    
-    # Round value for retention time column
+
+        # Round value for retention time column
     output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].astype(float)
     output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].apply(lambda x: round(x, 3))
-    
-    # Retrieved the metadata from the initial table
-    newdf = input_format.loc[:, input_format.columns.isin(non_sample_names)]
+
+    newdf = output_df_prepared
 
     # Drop the column with weird characters and mess with the CSV format
     if 'Accepted Description' in newdf.columns:
         newdf = newdf.drop(['Accepted Description'], axis=1)
 
-    # Rename column name for consistency
+    # Rename column name for consistency with other tools supported by FBMN
     if 'Formula' in newdf.columns:
         newdf.rename(columns={'Formula':'Molecular Formula'}, inplace=True)
     if 'Neutral mass (Da)' in newdf.columns:
@@ -94,50 +106,43 @@ def convert_to_feature_csv(input_filename, output_filename):
         newdf.rename(columns={'CCS (angstrom^2)':'CCS'}, inplace=True)
     if 'dCCS (angstrom^2)' in newdf.columns:
         newdf.rename(columns={'dCCS (angstrom^2)':'dCCS'}, inplace=True)
-        
-    # Drop useless duplicated columns
+
+    ## Drop useless duplicated columns
     if 'm/z' in newdf.columns:
         newdf = newdf.drop(['m/z'], axis=1)
     if 'Retention time (min)' in newdf.columns:
         newdf = newdf.drop(['Retention time (min)'], axis=1)
-        
+
     #Round values for columns
     newdf['Neutral mass'] = newdf['Neutral mass'].apply(lambda x: round(x, 4))
     newdf['Chromatographic peak width (min)'] = newdf['Chromatographic peak width (min)'].apply(lambda x: round(x, 3))
 
-    # Create the output table
-    newdf_out = pd.concat([output_df_prepared,newdf],axis=1)
+    #Write out the table
+    newdf.to_csv(str(output_filename), sep=",", index=False)
 
-    # Remove duplicated columns
-    if 'Compound' in newdf_out.columns: 
-        newdf_out = newdf_out.drop(newdf_out.columns[0], axis=1)
-    if 'Isotope Distribution' in newdf_out.columns: 
-        newdf_out = newdf_out.drop(newdf_out.columns[0], axis=1)
-     
-    #Drop empty column   
-    newdf_out = newdf_out.dropna(how='all', axis=1)
-        
-    newdf_out.to_csv(output_filename, sep=",", index=False)
-    
     return compound_to_scan_mapping
 
 #Converts MSP to MGF
 def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
     output_filename = open(output_mgf, "w")
     read_name = False
-    
+
     scan = -1
     precursor_mz = -1
     charge = -1
     peaks = []
 
-    # This is a stop gap solution to make sure we don't have repetitions in the MGF file. 
+    # This is a stop gap solution to make sure we don't have repetitions in the MGF file.
     # We only take one MS2 arbitrarily selected and output into the MGF file
     observed_compound_names = set()
 
     for line in open(input_msp):
         if line.startswith("Comment:"):
             compound_name = line.rstrip().replace("Comment: ", "")
+            comment = line.rstrip().replace("Comment: ", "FILENAME=")
+            ret_time = line.rstrip().replace("Comment: ", "").replace("_", "__")
+            sep = '__'
+            ret_time = ret_time.split(sep, 1)[0]
 
             if compound_name in observed_compound_names:
                 print("skipping repeated feature")
@@ -147,17 +152,39 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
 
             read_name = True
             scan = (compound_to_scan_mapping[compound_name])
-        elif line.startswith("PrecursorMZ:"):
-            precursor_mz = (line.rstrip().replace("PrecursorMZ: ", ""))
-        elif line.startswith("Charge:"):
-            charge = (line.rstrip().replace("Charge: ", ""))
-        elif len(line.rstrip()) == 0 and read_name == True:
+
+        # This gets the precursor ion mass
+        if line.startswith("PrecursorMZ:"):
+            precursor_mz = (line.rstrip().replace("PrecursorMZ: ", "PEPMASS="))
+        # This gets the charge (either positive or negative) from the Charge header
+        if line.startswith("Charge:"):
+            charge = []
+            charge = (line.rstrip().replace("Charge: ", "CHARGE="))
+            precursor_type = []
+        # When there is an adduct provided, use the adduct to deduce the charge, because there is no Charge header anymore.
+        elif line.startswith("Precursor_type:"):
+            precursor_type = []
+            precursor_type = line.rstrip().replace("Precursor_type: ", "ION=")
+            charge = []
+        if len(line.rstrip()) == 0 and read_name == True:
             read_name = False
 
             output_filename.write("BEGIN IONS\n")
             output_filename.write("SCANS=%s\n" % (compound_to_scan_mapping[compound_name]))
+            output_filename.write("FEATURE_ID=%s\n" % (compound_to_scan_mapping[compound_name]))
             output_filename.write("MSLEVEL=2\n")
-            output_filename.write("CHARGE=%s\n" % (line.rstrip().replace("Charge: ", "")))
+            output_filename.write(str(precursor_mz)+"\n")
+            if type(precursor_type) == str:
+                output_filename.write(str(precursor_type)+"\n")
+                if precursor_type[-2] == ']':
+                    output_filename.write("CHARGE=1"+str(precursor_type[-1])+"\n")
+                if precursor_type[-2] == '2':
+                    output_filename.write("CHARGE=2"+str(precursor_type[-1])+"\n")
+            elif type(charge) != '[]':
+                    output_filename.write(str(charge)+"\n")
+
+            output_filename.write(str(comment)+"\n")
+            output_filename.write("RTINMINUTES="+str(ret_time)+"\n")
             for peak in peaks:
                 output_filename.write("%f %f\n" % (peak[0], peak[1]))
             output_filename.write("END IONS\n\n")
@@ -173,7 +200,6 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
                 peaks.append([mass, intensity])
             except:
                 continue
-
     return
 
 if __name__=="__main__":
