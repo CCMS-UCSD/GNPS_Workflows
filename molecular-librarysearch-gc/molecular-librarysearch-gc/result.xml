@@ -255,6 +255,12 @@
             <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
 
             <column type="float" field="Kovats_Index_calculated" label="Kovats_Index_calculated" precision="2"/>
+
+            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
+            <column type="text" field="superclass" label="superclass" width="5"/>
+            <column type="text" field="class" label="class" width="5"/>
+            <column type="text" field="subclass" label="subclass" width="5"/>
+            
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
