@@ -69,6 +69,12 @@
             <column label="Add Library Tag" type="addspectrumtag" width="12">
                 <parameter name="spectrumID" value="[SpectrumID]"/>
             </column>
+            
+            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
+            <column type="text" field="superclass" label="superclass" width="5"/>
+            <column type="text" field="class" label="class" width="5"/>
+            <column type="text" field="subclass" label="subclass" width="5"/>
+
             <column type="structuredisplayer" label="Structure">
                 <parameter name="smilesstructure" value="[Smiles]"/>
             </column>
