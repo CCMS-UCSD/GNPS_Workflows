@@ -67,7 +67,7 @@ At the third row:
 
 For ion mobility data, it must include a "CCS (angstrom^2)" column for consistency
 
-The samples headers are deduced from parsing the first row of the input feature quantification table by deducing the number of samples from the difference between the Normalized and Raw abundance columns. We output only the Normalized intensities. All sample headers are not including the filename extension (such as ".raw"). 
+The samples headers are deduced from parsing the first row of the input feature quantification table by deducing the number of samples from the difference between the Normalized and Raw abundance columns (Raw abundance column are relabelled with a .1 suffix). We output only the Normalized intensities. All sample headers are not including the filename extension (such as ".raw"). 
 We output most metadata columns except the 'Accepted Description' column. These columns are on the row 3 of the input feature quantification table.
 
 We use the .MSP file format for the MS/MS spectral summary and convert it to a.MGF file. Only the first MS/MS entry associated with a compound name is kept in the .MGF file (Following "Comment: "). This is an imperfect solution and we are welcoming volunteers to improve this.

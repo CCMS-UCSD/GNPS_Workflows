@@ -145,7 +145,7 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             ret_time = ret_time.split(sep, 1)[0]
 
             if compound_name in observed_compound_names:
-                print("skipping repeated feature")
+                #print("skipping repeated feature")
                 continue
 
             observed_compound_names.add(compound_name)
@@ -174,6 +174,8 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             output_filename.write("FEATURE_ID=%s\n" % (compound_to_scan_mapping[compound_name]))
             output_filename.write("MSLEVEL=2\n")
             output_filename.write(str(precursor_mz)+"\n")
+
+            # WARNING: THis is tricky code
             if type(precursor_type) == str:
                 output_filename.write(str(precursor_type)+"\n")
                 if precursor_type[-2] == ']':

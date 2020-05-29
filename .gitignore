@@ -2,3 +2,4 @@
 **/*.swp
 **/credentials.json
 **/*.pyc
+Makefile.credentials
