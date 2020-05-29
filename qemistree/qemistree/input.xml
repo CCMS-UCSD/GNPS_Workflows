@@ -10,19 +10,41 @@
             <validator type="email"/>
         </parameter>
         <!-- Search file parameters -->
-        <parameter name="spec_on_server" label="Spectrum Files">
+        <parameter name="spec_on_server" label="Sirius MGF Spectrum File">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
         </parameter>
 
-        <parameter name="quant_table" label="quant_table">
+        <parameter name="quant_table" label="Quantification Table (qza or biom) from GNPS">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="annotation" target="quant_table"/>
         </parameter>
 
-        <parameter name="metadata_table" label="metadata_table">
-            <validator type="required"/>
+        <parameter name="metadata_table" label="Metadata Table (Optional but recommended)">
             <fileGenerator type="upload" purpose="annotation" target="metadata_table"/>
+        </parameter>
+
+        <parameter name="library_identifications" label="Library Identifications (Optional but recommended)">
+            <fileGenerator type="upload" purpose="annotation" target="library_identifications"/>
+        </parameter>
+
+        <parameter name="INSTRUMENT" label="Select Instrument Type">
+            <options>
+                <option value="orbitrap" label="orbitrap"/>
+                <option value="qtof" label="qtof"/>
+            </options>
+            <validator type="set"/>
+            <default value="orbitrap"/>
+        </parameter>
+
+        <parameter name="IONIZATION_MODE" label="Select Ionization Mode">
+            <options>
+                <option value="positive" label="positive"/>
+                <option value="negative" label="negative"/>
+                <option value="auto" label="auto"/>
+            </options>
+            <validator type="set"/>
+            <default value="auto"/>
         </parameter>
 
     </parameters>
@@ -66,5 +88,53 @@
                 </module>
             </cell>
         </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="library_identifications"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="library_identifications" type="fileSelector">
+                    <property name="label">library_identifications</property>
+                </module>
+            </cell>
+        </row>
     </block>
+
+    <block label="Advanced Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="INSTRUMENT"/>
+                    <tooltip id="INSTRUMENT_gnps_tooltip">
+						Orbitrap sets the PPM error to 15ppm and qtof sets it to 20ppm as a side effect.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="INSTRUMENT">
+                </input>
+            </cell>
+        </row>
+        <row>
+        <cell>
+                <label>
+                    <content parameter="IONIZATION_MODE"/>
+                    <tooltip id="IONIZATION_MODE_gnps_tooltip">
+            Mode of ionization used for data acquisition.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="IONIZATION_MODE">
+                </input>
+            </cell>
+        </row>
+
+    </block>
+
+
 </interface>
