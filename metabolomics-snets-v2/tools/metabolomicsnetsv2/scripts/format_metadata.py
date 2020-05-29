@@ -37,52 +37,55 @@ def process(param_xml, metadata_folder, output_metadata_folder):
         try:
             from urllib.parse import urlparse
             sheets_url = params_object["googlesheetsmetadata"][0]
-            parsed_url = urlparse(sheets_url)
-            path = parsed_url.path
-            path_splits = path.split("/")
-            sheets_id = path_splits[3]
 
-            json_url = "https://gnps-sheets-proxy.herokuapp.com/sheets.json?sheets_id={}".format(sheets_id)
+            if len(sheets_url) > 10:
+                parsed_url = urlparse(sheets_url)
+                path = parsed_url.path
+                path_splits = path.split("/")
+                sheets_id = path_splits[3]
 
-            r = requests.get(json_url)
-            user_metadata_df = pd.DataFrame(r.json())
+                json_url = "https://gnps-sheets-proxy.herokuapp.com/sheets.json?sheets_id={}".format(sheets_id)
+
+                r = requests.get(json_url)
+                user_metadata_df = pd.DataFrame(r.json())
         except:
             pass
 
+    # Merging Default Groups in
+    # default_group_list = []
+    # for mangled_name in mangled_mapping.keys():
+    #     group_dict = {}
+    #     group_dict["filename"] = os.path.basename(mangled_mapping[mangled_name])
+    #     if mangled_name.find("spec-") != -1:
+    #         group_dict["DefaultGroup"] = "G1"
+    #     if mangled_name.find("specone-") != -1:
+    #         group_dict["DefaultGroup"] = "G1"
+    #     if mangled_name.find("spectwo-") != -1:
+    #         group_dict["DefaultGroup"] = "G2"
+    #     if mangled_name.find("specthree-") != -1:
+    #         group_dict["DefaultGroup"] = "G3"
+    #     if mangled_name.find("specfour-") != -1:
+    #         group_dict["DefaultGroup"] = "G4"
+    #     if mangled_name.find("specfive-") != -1:
+    #         group_dict["DefaultGroup"] = "G5"
+    #     if mangled_name.find("specsix-") != -1:
+    #         group_dict["DefaultGroup"] = "G6"
 
+    #     if len(group_dict) > 1:
+    #         default_group_list.append(group_dict)
 
-    default_group_list = []
-    for mangled_name in mangled_mapping.keys():
-        group_dict = {}
-        group_dict["filename"] = os.path.basename(mangled_mapping[mangled_name])
-        if mangled_name.find("spec-") != -1:
-            group_dict["DefaultGroup"] = "G1"
-        if mangled_name.find("specone-") != -1:
-            group_dict["DefaultGroup"] = "G1"
-        if mangled_name.find("spectwo-") != -1:
-            group_dict["DefaultGroup"] = "G2"
-        if mangled_name.find("specthree-") != -1:
-            group_dict["DefaultGroup"] = "G3"
-        if mangled_name.find("specfour-") != -1:
-            group_dict["DefaultGroup"] = "G4"
-        if mangled_name.find("specfive-") != -1:
-            group_dict["DefaultGroup"] = "G5"
-        if mangled_name.find("specsix-") != -1:
-            group_dict["DefaultGroup"] = "G6"
+    # default_metadata_df = pd.DataFrame(default_group_list)
 
-        if len(group_dict) > 1:
-            default_group_list.append(group_dict)
+    # if user_metadata_df is not None:
+    #     merged_metadata_df = default_metadata_df.merge(user_metadata_df, how="outer", on="filename")
+    # else:
+    #     merged_metadata_df = default_metadata_df
 
-    default_metadata_df = pd.DataFrame(default_group_list)
+    merged_metadata_df = user_metadata_df
 
-    if user_metadata_df is not None:
-        merged_metadata_df = default_metadata_df.merge(user_metadata_df, how="outer", on="filename")
-    else:
-        merged_metadata_df = default_metadata_df
-
-    output_metadata_filename = os.path.join(output_metadata_folder, "gnps_metadata.tsv")
-    merged_metadata_df.to_csv(output_metadata_filename, sep="\t", index=False)
-
+    if merged_metadata_df is not None:
+        output_metadata_filename = os.path.join(output_metadata_folder, "gnps_metadata.tsv")
+        merged_metadata_df.to_csv(output_metadata_filename, sep="\t", index=False)
 
 if __name__ == '__main__':
     main()
