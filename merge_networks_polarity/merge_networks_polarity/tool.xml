@@ -19,6 +19,8 @@
                 <arg option="-output-graphml" valueRef="merged_network"/>
                 <arg option="-output-summary-table" valueRef="summary_table"/>
                 <arg option="-output-summary" valueRef="summary"/>
+                <arg option="-PPM_ERROR_TOLERANCE" valueRef="@PPM_ERROR_TOLERANCE"/>
+                <arg option="-RT_TOLERANCE" valueRef="@RT_TOLERANCE"/>
         </execution>
     </tool>
 </toolset>
