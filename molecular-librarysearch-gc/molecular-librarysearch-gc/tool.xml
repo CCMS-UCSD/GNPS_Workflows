@@ -54,7 +54,7 @@
         </execution>
     </tool>
 
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="GetDBAnnotations_Molecular" path="python"/>
     </pathSet>
     <pathSet base="$base">
