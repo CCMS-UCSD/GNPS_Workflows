@@ -260,6 +260,25 @@
         </execution>
     </tool>
 
+    <!-- Merging Grouping Information -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="metabolomicmetadatamerge" path="python"/>
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="metabolomicmetadatamerge.script" path="format_metadata.py"/>
+    </pathSet>
+    <tool name="metabolomicmetadatamerge">
+        <require name="flowParams" type="file"/>
+        <require name="metadatafile" type="folder"/>
+        <produce name="metadata_merged" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomicmetadatamerge.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="metadatafile"/>
+            <arg valueRef="metadata_merged"/>
+        </execution>
+    </tool>
 
 
     <!-- Merging Grouping Information -->
