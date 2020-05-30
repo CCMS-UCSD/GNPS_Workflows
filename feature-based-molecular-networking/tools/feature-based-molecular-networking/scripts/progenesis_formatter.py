@@ -30,10 +30,10 @@ def convert_to_feature_csv(input_filename, output_filename):
             raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
 
     #Get the metadata columns before samples
-    columns_left = input_format.iloc[:,:index_Norm].columns.to_list()
+    columns_left = input_format.iloc[:,:index_Norm].columns.tolist()
     #Get the metadata columns after the samples
     columns_right_index = index_Norm+assumed_number_of_samples
-    columns_right = input_format.iloc[:,columns_right_index:].columns.to_list()
+    columns_right = input_format.iloc[:,columns_right_index:].columns.tolist()
     non_sample_names = columns_left + columns_right
 
     #delimiting the samples
