@@ -147,14 +147,11 @@
 
         <toolPath tool="InputFileValidator_specnets" path="spectra_validator.py"/>
         <toolPath tool="MetabolomicNetworkStatistics" path="Generate_Network_Identification_Stats.py"/>
-        <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
     </pathSet>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="NetworkTopologyCreator" path="python"/>
         <toolPath tool="MetabolomicPairsinfo" path="python"/>
         <toolPath tool="metabolomics_convert_graphml" path="python"/>
-        <toolPath tool="GetDBAnnotations_specnets" path="python"/>
     </pathSet>
 
 
