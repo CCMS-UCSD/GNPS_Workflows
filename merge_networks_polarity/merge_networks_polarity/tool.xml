@@ -1,6 +1,6 @@
 <toolset>
     <pathSet base="miniconda3_gamma/bin">
-        <toolPath tool="merge_polarity" path="python3.5"/>
+        <toolPath tool="merge_polarity" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="merge_polarity.script" path="merge_polarity.py" />

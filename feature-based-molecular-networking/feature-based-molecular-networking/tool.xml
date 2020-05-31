@@ -167,7 +167,7 @@
     </tool>
 
     <!-- Library Search -->
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="prep_molecular_librarysearch_parameters" path="python"/>
         <toolPath tool="molecular_librarysearch_get_dbannotations" path="python"/>
     </pathSet>
