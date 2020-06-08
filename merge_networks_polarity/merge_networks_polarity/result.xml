@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="MERGE_NETWORKS_POLARITY" version="release_9">
 
-    <view id="download_data" label="Download Network">
-        <blockRef id="main"   type="download_data"/>
-    </view>
-    <block id="download_data" type="dummydownload">
-      <data>
-        <source type="file" name="merged_network/"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
-    </block>
-
-  <view id="view_summary_table" label="Summary Table" group="Default Results Views">
+    <view id="view_summary_table" label="Summary Table" group="Default Results Views">
         <blockRef id="main" type="view_summary_table"/>
     </view>
 
@@ -45,6 +33,30 @@
             <source type="file" name="summary/"/>
             <parsers>
                 <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
+    </block>
+
+    <view id="download_data" label="Download Network" group="Download Data">
+        <blockRef id="main" type="download_data"/>
+    </view>
+    <block id="download_data" type="dummydownload">
+        <data>
+            <source type="file" name="merged_network/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
     </block>

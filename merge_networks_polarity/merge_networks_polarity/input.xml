@@ -24,7 +24,7 @@
             <validator type="float" minimum="0" maximum="500"/>
         </parameter>
 
-        <parameter name="RT_TOLERANCE" label="Enter a RT tolerance for aligning masses between two runs (seconds)">
+        <parameter name="RT_TOLERANCE" label="Enter a RT tolerance for aligning masses between two runs (minutes for FBMN and seconds for Classical)">
             <default value="10.0"/>
             <validator type="float" minimum="0" maximum="500"/>
         </parameter>
