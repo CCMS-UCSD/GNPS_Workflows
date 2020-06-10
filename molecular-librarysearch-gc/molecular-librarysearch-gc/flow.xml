@@ -48,7 +48,7 @@
 
     <action name="searchlibrarysearch_molecular" multiplicity="multiple" type="parallel">
         <input port="paramsgen" collection="paramsgen" transformation="unfolding"/>
-        <input port="spec" collection="spectra"/>
+        <input port="spec" collection="spectra_reformatted"/>
         <input port="lib" collection="library"/>
         <output port="intermediateresults" collection="intermediateresults"/>
     </action>
@@ -76,14 +76,14 @@
     <collection name="networking_parameters"/>
     <action name="prep_molecular_networking_parameters">
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_reformatted"/>
         <output port="networking_parameters" collection="networking_parameters"/>
     </action>
 
     <collection name="networking_pairs_results_folder"/>
     <action name="molecular_networking_parallel_step" multiplicity="multiple" type="parallel">
         <input port="networking_parameters" collection="networking_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_reformatted"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="networking_pairs_results_folder" collection="networking_pairs_results_folder"/>
     </action>
@@ -106,9 +106,9 @@
 
     <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="quantification_table" object="quantification_table"/>
+        <input port="quantification_table" object="quantification_table_reformatted"/>
         <input port="metadata_table" object="metadata_table"/>
-        <input port="spectra" object="spectra"/>
+        <input port="spectra" object="spectra_reformatted"/>
         <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
 
@@ -148,7 +148,7 @@
     <!-- Qiime2 -->
     <collection name="qiime2_output"/>
     <action name="run_qiime2">
-        <input  port="quantification_table_reformatted"       object="quantification_table"/>
+        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
         <input  port="metadata_table"       object="metadata_table"/>
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
@@ -164,5 +164,9 @@
         <input port="DB_result_kovats" object="DB_result_kovats"/>
         <input port="DB_result_kovats_balance_score" object="DB_result_kovats_balance_score"/>
         <input port="DB_result_filtered" object="DB_result_filtered"/>
+
+        <input port="spectra_reformatted" object="spectra_reformatted"/>
+        <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
+
     </action>
 </flow>

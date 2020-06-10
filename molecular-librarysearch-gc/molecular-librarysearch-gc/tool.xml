@@ -1,5 +1,35 @@
 <toolset>
 
+    <!-- Formatting Quantification -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="reformat_quantification" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/scripts">
+        <pathVar name="reformat_quantification.script" path="reformat_quantification.py"/>
+    </pathSet>
+
+    <tool name="reformat_quantification">
+        <require name="workflowParameters" type="file"/>
+        <require name="quantification_table" type="file"/>
+        <produce name="quantification_table_reformatted" type="file" naming="explicit" extension="csv"/>
+
+        <require name="inputSpectra" type="folder"/>
+        <produce name="spectra_reformatted" type="file" naming="fixed" value="spectra_reformatted.mgf"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="reformat_quantification.script"/>
+            <arg valueRef="@QUANT_TABLE_SOURCE"/>
+            <arg valueRef="quantification_table"/>
+            <arg valueRef="quantification_table_reformatted"/>
+            <arg valueRef="inputSpectra"/>
+            <arg valueRef="spectra_reformatted"/>
+            <arg valueRef="workflowParameters"/>
+        </execution>
+    </tool>
+
+    
+
     <pathSet base="$base">
         <toolPath tool="LibrarySearchParamGeneration_Molecular" path="main_execmodule"/>
 	       <toolPath tool="LibrarySearchParallel_Molecular" path="main_execmodule"/>
