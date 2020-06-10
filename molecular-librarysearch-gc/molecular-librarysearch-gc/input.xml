@@ -26,6 +26,22 @@
             <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
         </parameter>
 
+        <!-- Input Feature Type -->
+        <parameter name="QUANT_TABLE_SOURCE" label="Quantification Table Source">
+            <options>
+                <option value="MZMINE2" label="MZmine"/>
+                <option value="OPENMS" label="OpenMS"/>
+                <option value="OPTIMUS" label="Optimus"/>
+                <option value="MSDIAL" label="MS-DIAL"/>
+                <option value="METABOSCAPE" label="MetaboScape"/>
+                <option value="XCMS3" label="XCMS"/>
+                <option value="PROGENESIS" label="Progenesis QI"/>
+                <option value="MZTABM" label="MzTab-M"/>
+            </options>
+            <validator type="set"/>
+            <default value="MZMINE2"/>
+        </parameter>
+
         <parameter name="metadata_table" label="Sample Metadata Table">
             <fileGenerator type="upload" purpose="metadata_table" target="metadata_table"/>
         </parameter>
@@ -164,7 +180,7 @@
     </parameters>
 
     <!-- Input form layout -->
-    <block label="Search Options">
+    <block label="Basic Options">
         <row>
             <cell>
                 <label>
@@ -178,6 +194,23 @@
                 </module>
             </cell>
         </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="QUANT_TABLE_SOURCE"/>
+                    <tooltip id="QUANT_TABLE_SOURCE_gnps_tooltip">
+                        The feature quantification table contains the intensity values of the features detected by LC-MS feature detection (such as MZmine) across all the samples. It can either be the area or the heigh of the feature detected. 
+                        Normalization method can be applied on that table prior, but the format has to be identical.
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="QUANT_TABLE_SOURCE"></input>
+            </cell>
+        </row>
+        
         <row>
             <cell>
                 <label>
