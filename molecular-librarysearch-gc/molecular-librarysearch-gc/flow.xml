@@ -40,7 +40,7 @@
 
 
     <action name="searchlibraryparamgeneration">
-        <input port="spec" collection="spectra"/>
+        <input port="spec" collection="spectra_reformatted"/>
         <input port="params" object="workflowParameters"/>
         <input port="lib" collection="library"/>
         <output port="paramsgen" collection="paramsgen"/>
