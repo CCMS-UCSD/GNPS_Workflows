@@ -5,7 +5,7 @@
         <toolPath tool="reformat_quantification" path="python"/>
     </pathSet>
 
-    <pathSet base="$base/scripts">
+    <pathSet base="$base">
         <pathVar name="reformat_quantification.script" path="reformat_quantification.py"/>
     </pathSet>
 
