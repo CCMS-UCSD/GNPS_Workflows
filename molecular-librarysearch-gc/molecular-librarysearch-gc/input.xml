@@ -29,17 +29,12 @@
         <!-- Input Feature Type -->
         <parameter name="QUANT_TABLE_SOURCE" label="Quantification Table Source">
             <options>
+                <option value="MSHUB" label="MSHUB"/>
                 <option value="MZMINE2" label="MZmine"/>
-                <option value="OPENMS" label="OpenMS"/>
-                <option value="OPTIMUS" label="Optimus"/>
                 <option value="MSDIAL" label="MS-DIAL"/>
-                <option value="METABOSCAPE" label="MetaboScape"/>
-                <option value="XCMS3" label="XCMS"/>
-                <option value="PROGENESIS" label="Progenesis QI"/>
-                <option value="MZTABM" label="MzTab-M"/>
             </options>
             <validator type="set"/>
-            <default value="MZMINE2"/>
+            <default value="MSHUB"/>
         </parameter>
 
         <parameter name="metadata_table" label="Sample Metadata Table">

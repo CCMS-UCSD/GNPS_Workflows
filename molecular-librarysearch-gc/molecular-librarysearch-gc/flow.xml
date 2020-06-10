@@ -25,6 +25,19 @@
         <output port = "metadata_table" object="metadata_table"/>
     </action>
 
+    <!-- Reformatting Data -->
+    <object name="quantification_table_reformatted"/>
+    <object name="spectra_reformatted"/>
+    <action name="reformat_quantification">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="quantification_table" object="quantification_table"/>
+        <output port="quantification_table_reformatted" object="quantification_table_reformatted"/>
+
+        <input port="inputSpectra" collection="spectra"/>
+        <output port="spectra_reformatted" object="spectra_reformatted"/>
+    </action>
+
+
 
     <action name="searchlibraryparamgeneration">
         <input port="spec" collection="spectra"/>
