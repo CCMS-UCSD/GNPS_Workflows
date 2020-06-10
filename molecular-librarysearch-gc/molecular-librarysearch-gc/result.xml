@@ -89,7 +89,7 @@
         </row>
         <row expander="image">
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="scan" value="[#Scan#]"/>
                 <parameter name="peptide" value="[Annotation]"/>
                 <parameter name="trim" value="true"/>
@@ -201,7 +201,7 @@
         </row>
         <row expander="image">
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="scan" value="[#Scan#]"/>
                 <parameter name="peptide" value="[Annotation]"/>
                 <parameter name="trim" value="true"/>
@@ -265,15 +265,15 @@
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="spec/[internalFilename]"/>
+                <parameter name="spectrum1_file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
-                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="scan" value="[#Scan#]"/>
-                <parameter name="compoundname" value="*..*"/>
+                <parameter name="compoundname" value="*..*"/>/
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Library" width="550" height="350">
                 <parameter name="file" file="lib/[LibraryName]"/>
@@ -327,13 +327,13 @@
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="spec/[internalFilename]"/>
+                <parameter name="spectrum1_file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="spectrum1_scan" value="[#Scan#]"/>
                 <parameter name="spectrum2_type" value="lib"/>
                 <parameter name="spectrum2_spectrumid" value="[SpectrumID]"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
-                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="scan" value="[#Scan#]"/>
                 <parameter name="compoundname" value="*..*"/>
             </column>
@@ -398,7 +398,7 @@
         </row>
         <row expander="image">
             <column type="stream" invoke="annotatedSpectrumImageThumbnail" contentType="image/png" colspan="5">
-                <parameter name="file" file="spec/[internalFilename]"/>
+                <parameter name="file" file="spectra_reformatted/[internalFilename]"/>
                 <parameter name="scan" value="[#Scan#]"/>
                 <parameter name="peptide" value="*..*"/>
                 <parameter name="trim" value="true"/>
@@ -439,8 +439,8 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spec/spec-00000.mgf:scan:[cluster index]"/>
-                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/spec-00000.mgf:scan:[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spectra_reformatted.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spectra_reformatted.mgf:scan:[cluster index]"/>
             </column>
         </row>
     </block>

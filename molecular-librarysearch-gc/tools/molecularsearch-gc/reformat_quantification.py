@@ -8,7 +8,7 @@ import argparse
 import shutil
 import glob
 import proteosafe
-import msdial_formatter
+import msdial_formatter_gc
 
 def main():
     parser = argparse.ArgumentParser(description='Create parallel parameters')
@@ -50,8 +50,8 @@ def main():
             exit(1)
 
         input_mgf = input_filenames[0]
-        msdial_formatter.format_mgf(input_mgf, args.output_mgf)
-        msdial_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+        msdial_formatter_gc.format_mgf(input_mgf, args.output_mgf)
+        msdial_formatter_gc.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
     
 if __name__ == "__main__":
     main()
