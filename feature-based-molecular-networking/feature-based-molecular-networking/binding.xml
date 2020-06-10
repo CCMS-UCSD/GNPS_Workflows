@@ -264,8 +264,8 @@
         <upload port="feature_plots" type="folder">
             <query name="resource" value="feature_plots"/>
         </upload>
-        <upload port="metadata_summary" type="folder">
-            <query name="resource" value="metadata_summary"/>
+        <upload port="metadata_merged" type="folder">
+            <query name="resource" value="metadata_merged"/>
         </upload>
     </bind>
 </binding>
