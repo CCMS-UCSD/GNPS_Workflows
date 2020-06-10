@@ -30,6 +30,13 @@
         </downloadParams>
     </bind>
 
+    <!-- Merging Metadata Information -->
+	<bind action="metabolomicmetadatamerge" tool="metabolomicmetadatamerge">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+        <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
+        <productionToOutput port="metadata_merged"     production="metadata_merged"/>
+	</bind>
+
     <bind action="input_validation" tool="input_validation">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
