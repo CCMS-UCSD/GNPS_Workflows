@@ -15,7 +15,7 @@
         <produce name="quantification_table_reformatted" type="file" naming="explicit" extension="csv"/>
 
         <require name="inputSpectra" type="folder"/>
-        <produce name="spectra_reformatted" type="file" naming="fixed" value="spectra_reformatted.mgf"/>
+        <produce name="spectra_reformatted" type="file" naming="fixed" value="spec-00000.mgf"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="reformat_quantification.script"/>
