@@ -150,7 +150,7 @@
 		<productionToOutput port="clusterinfosummary"     production="clusterinfosummary"/>
 	</bind>
 
-	<!-- Merging Grouping Information -->
+	<!-- Merging Metadata Information -->
 	<bind action="metabolomicmetadatamerge" tool="metabolomicmetadatamerge">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
         <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
