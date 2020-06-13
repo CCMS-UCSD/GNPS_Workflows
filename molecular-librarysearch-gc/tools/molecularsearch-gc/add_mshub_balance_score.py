@@ -2,6 +2,7 @@ import pandas as pd
 import argparse
 import glob
 import os
+import shutil
 
 def propogate_balance_score(input_file, output_file, quant_table_df):
     original_file_df = pd.read_csv(input_file,sep='\t')   
@@ -47,7 +48,10 @@ def main():
     if len(quant_files_list) == 1:
         quant_table_df = pd.read_csv(quant_files_list[0], skiprows=[0, 2, 3])
 
-    propogate_balance_score(args.library_identifications, args.library_identifications_with_balance, quant_table_df)
+    try:
+        propogate_balance_score(args.library_identifications, args.library_identifications_with_balance, quant_table_df)
+    except:
+        shutil.copyfile(args.library_identifications, args.library_identifications_with_balance)
 
 if __name__ == "__main__":
     main()
