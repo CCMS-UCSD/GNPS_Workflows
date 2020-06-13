@@ -16,12 +16,21 @@
         <output port="additional_pairs" collection="additional_pairs"/>
     </action>
 
+    <!-- Merging Metadata from Potentially Google Sheets -->
+    <collection     name="metadata_merged"/>
+    <action name="metabolomicmetadatamerge">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="metadatafile" collection="metadata_table"/>
+        <output port="metadata_merged"     collection="metadata_merged"/>
+    </action>
+
+    <!-- Validation of Input -->
     <collection name="validation_summary"/>
     <action name="input_validation">
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
         <input port="inputSpectra" collection="inputSpectra"/>
-        <input port="metadata_table" object="metadata_table"/>
+        <input port="metadata_table" object="metadata_merged"/>
         <output port="validation_summary" collection="validation_summary"/>
     </action>
 
@@ -154,7 +163,7 @@
     <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table_reformatted"/>
-        <input port="metadata_table" object="metadata_table"/>
+        <input port="metadata_table" object="metadata_merged"/>
         <input port="spectra" object="spectra"/>
         <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
@@ -197,7 +206,7 @@
     <collection name="qiime2_output"/>
     <action name="run_qiime2">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
-        <input  port="metadata_table"       object="metadata_table"/>
+        <input  port="metadata_table"       object="metadata_merged"/>
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
 
@@ -214,19 +223,11 @@
     <collection name="feature_plots"/>
     <action name="metabolomic_feature_statistics">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
-        <input  port="metadata_table"       object="metadata_table"/>
+        <input  port="metadata_table"       object="metadata_merged"/>
         <input  port="librarysearch_results_file_DB"       object="librarysearch_results_file_DB"/>
         <output  port="feature_statistics" collection="feature_statistics"/>
         <output  port="feature_plots" collection="feature_plots"/>
     </action>
-
-    <!-- Metadata Summary -->
-    <collection name="metadata_summary"/>
-    <action name="metadata_summarize">
-        <input  port="metadata_table"       object="metadata_table"/>
-        <output  port="metadata_summary" collection="metadata_summary"/>
-    </action>
-
 
     <action name="end">
         <input port="spectra" object="spectra"/>
@@ -247,6 +248,8 @@
         <input port="network_statistics" collection="network_statistics"/>
         <input port="feature_statistics" collection="feature_statistics"/>
         <input port="feature_plots" collection="feature_plots"/>
-        <input port="metadata_summary" collection="metadata_summary"/>
+
+        <!-- Metadata -->
+        <input port="metadata_merged" collection="metadata_merged"/>
     </action>
 </flow>

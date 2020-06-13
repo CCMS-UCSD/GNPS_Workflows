@@ -713,37 +713,19 @@
 
 
     <!-- Metadata Summaries -->
-    <view id="metadata_summary" label="View Metadata Summary" group="Advanced Views - Metadata Views">
-        <blockRef id="main" type="metadata_summary"/>
+    <view id="view_metadata" label="View Metadata" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="view_metadata"/>
     </view>
 
-    <block id="metadata_summary" type="table">
-        <data>
-            <source type="file" name="metadata_summary/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="Attribute" operator="ascending"/>
-            </parsers>
-        </data>
-        <row>
-            <column type="text" field="Attribute" label="Attribute" width="10"/>
-            <column type="text" field="Term" label="Term" width="10"/>
-        </row>
-    </block>
-
-
-    <view id="download_metadata" label="Download Metadata File" group="Advanced Views - Metadata Views">
-        <blockRef id="main" type="download_metadata"/>
-    </view>
-
-    <block id="download_metadata" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=metadata_table/&amp;block=main'/>
-    </block>
+    <block id="view_metadata" type="table">
+		<data>
+			<source name="metadata_merged/gnps_metadata.tsv" type="file"/>
+			<parsers>
+				<parser type="genericTabular"/>
+			</parsers>
+		</data>
+		<row/>
+	</block>
 
 
 
