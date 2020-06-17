@@ -59,7 +59,6 @@
     </bind>
 
     <bind action="filter_spectra" tool="filter_spectra">
-        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="spectra" requirement="spectra"/>
         <productionToOutput port="spectra_filtered" production="spectra_filtered"/>
     </bind>
@@ -219,6 +218,10 @@
 
         <upload port="spectra" type="folder">
             <query name="resource" value="spectra"/>
+        </upload>
+
+        <upload port="spectra_filtered" type="folder">
+            <query name="resource" value="spectra_filtered"/>
         </upload>
 
         <upload port="spectra_reformatted" type="folder">

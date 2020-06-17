@@ -60,7 +60,6 @@
     <!-- Filtering the spectra -->
     <object name="spectra_filtered"/>
     <action name="filter_spectra">
-        <input port="workflowParameters" object="workflowParameters"/>
         <input port="spectra" object="spectra"/>
         <output port="spectra_filtered" object="spectra_filtered"/>
     </action>
@@ -73,13 +72,13 @@
 
     <action name="prep_molecular_networking_parameters">
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <output port="networking_parameters" collection="networking_parameters"/>
     </action>
 
     <action name="molecular_networking_parallel_step" multiplicity="multiple" type="parallel">
         <input port="networking_parameters" collection="networking_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="networking_pairs_results_folder" collection="networking_pairs_results_folder"/>
     </action>
@@ -132,7 +131,7 @@
 
     <action name="molecular_librarysearch_parallel_step" multiplicity="multiple" type="parallel">
         <input port="librarysearch_parameters" collection="librarysearch_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="library" collection="library"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="librarysearch_results_folder" collection="librarysearch_results_folder"/>
@@ -140,7 +139,7 @@
 
     <action name="molecular_libraryanalogsearch_parallel_step" multiplicity="multiple" type="parallel">
         <input port="librarysearch_parameters" collection="libraryanalogsearch_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="library" collection="library"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="librarysearch_results_folder" collection="libraryanalogsearch_results_folder"/>
@@ -242,7 +241,9 @@
 
     <action name="end">
         <input port="spectra" object="spectra"/>
+        <input port="spectra_filtered" object="spectra_filtered"/>
         <input port="spectra_reformatted" object="spectra_reformatted"/>
+
         <input port="networking_parameters" collection="networking_parameters"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="networkedges_selfloop" object="networkedges_selfloop"/>
