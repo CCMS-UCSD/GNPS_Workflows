@@ -36,6 +36,7 @@
 
     <object name="quantification_table_reformatted"/>
     <object name="spectra_reformatted"/>
+    <object name="spectra_reformatted_unfiltered"/>
     <action name="reformat_quantification">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
@@ -46,12 +47,22 @@
         <output port="spectra_reformatted" object="spectra_reformatted"/>
     </action>
 
+
+    <!-- Renumbering the Spectra -->
     <object name="spectra"/>
     <action name="renumber_mgf">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="inputSpectra" object="spectra_reformatted"/>
         <output port="spectra" object="spectra"/>
+    </action>
+
+    <!-- Filtering the spectra -->
+    <object name="spectra_filtered"/>
+    <action name="filter_spectra">
+        <input port="workflowParameters" object="workflowParameters"/>
+        <input port="spectra" object="spectra"/>
+        <output port="spectra_filtered" object="spectra_filtered"/>
     </action>
 
     <!-- Molecular Networking -->

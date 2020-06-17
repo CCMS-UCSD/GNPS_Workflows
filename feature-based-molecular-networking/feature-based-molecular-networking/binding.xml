@@ -58,6 +58,12 @@
         <productionToOutput port="spectra" production="spectra"/>
     </bind>
 
+    <bind action="filter_spectra" tool="filter_spectra">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="spectra_filtered" production="spectra_filtered"/>
+    </bind>
+
     <!-- Molecular Networking -->
     <bind action="prep_molecular_networking_parameters" tool="prep_molecular_networking_parameters">
         <inputAsRequirement port="mgf_file" requirement="mgf_file"/>
