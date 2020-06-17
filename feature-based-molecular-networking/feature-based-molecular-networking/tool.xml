@@ -42,23 +42,6 @@
         </execution>
     </tool>
 
-    <!-- Renumbering the MGF File -->
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="renumber_mgf" path="python"/>
-    </pathSet>
-    <pathSet base="$base/scripts">
-        <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
-    </pathSet>
-    <tool name="renumber_mgf">
-        <require name="inputSpectra" type="file"/>
-        <produce name="spectra" type="file" naming="fixed" value="specs_ms.mgf"/>
-
-        <execution env="binary" argConvention="adhoc">
-            <arg pathRef="renumber_mgf.script"/>
-            <arg valueRef="inputSpectra"/>
-            <arg valueRef="spectra"/>
-        </execution>
-    </tool>
 
     <!-- Filtering the MGF -->
     <pathSet base="anaconda3/bin">
@@ -69,11 +52,14 @@
     </pathSet>
     <tool name="filter_spectra">
         <require name="spectra" type="file"/>
+        <produce name="spectra_unfiltered" type="file" naming="fixed" value="specs_ms.mgf"/>
         <produce name="spectra_filtered" type="file" naming="fixed" value="specs_ms.mgf"/>
+        
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="filter_spectra.script"/>
             <arg valueRef="spectra"/>
+            <arg valueRef="spectra_unfiltered"/>
             <arg valueRef="spectra_filtered"/>
             <arg option="-FILTER_PRECURSOR_WINDOW" valueRef="@FILTER_PRECURSOR_WINDOW"/>
             <arg option="-WINDOW_FILTER" valueRef="@WINDOW_FILTER"/>

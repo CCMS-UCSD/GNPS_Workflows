@@ -49,18 +49,20 @@
 
 
     <!-- Renumbering the Spectra -->
-    <object name="spectra"/>
+    <!-- <object name="spectra"/>
     <action name="renumber_mgf">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="inputSpectra" object="spectra_reformatted"/>
         <output port="spectra" object="spectra"/>
-    </action>
+    </action> -->
 
     <!-- Filtering the spectra -->
+    <object name="spectra"/>
     <object name="spectra_filtered"/>
     <action name="filter_spectra">
-        <input port="spectra" object="spectra"/>
+        <input port="spectra" object="spectra_reformatted"/>
+        <output port="spectra_unfiltered" object="spectra"/>
         <output port="spectra_filtered" object="spectra_filtered"/>
     </action>
 

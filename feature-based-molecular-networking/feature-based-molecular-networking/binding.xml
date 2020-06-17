@@ -53,13 +53,9 @@
         <productionToOutput port="spectra_reformatted" production="spectra_reformatted"/>
     </bind>
 
-    <bind action="renumber_mgf" tool="renumber_mgf">
-        <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
-        <productionToOutput port="spectra" production="spectra"/>
-    </bind>
-
     <bind action="filter_spectra" tool="filter_spectra">
         <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="spectra_unfiltered" production="spectra_unfiltered"/>
         <productionToOutput port="spectra_filtered" production="spectra_filtered"/>
     </bind>
 
