@@ -28,4 +28,4 @@ if args.FILTER_PRECURSOR_WINDOW == "1":
             spectrum.filter_precursor_peaks()
 
 # Saving Spectra
-spectrum_collection.save_to_mgf(open(args.output_mgf_filename, "w"))
+spectrum_collection.save_to_mgf(open(args.output_mgf_filename, "w"), renumber_scans=False)

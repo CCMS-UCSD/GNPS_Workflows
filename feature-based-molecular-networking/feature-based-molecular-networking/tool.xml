@@ -57,8 +57,6 @@
             <arg pathRef="renumber_mgf.script"/>
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra"/>
-            <arg option="-FILTER_PRECURSOR_WINDOW" valueRef="@FILTER_PRECURSOR_WINDOW"/>
-            <arg option="-WINDOW_FILTER" valueRef="@WINDOW_FILTER"/>
         </execution>
     </tool>
 
@@ -77,6 +75,8 @@
             <arg pathRef="filter_spectra.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="spectra_filtered"/>
+            <arg option="-FILTER_PRECURSOR_WINDOW" valueRef="@FILTER_PRECURSOR_WINDOW"/>
+            <arg option="-WINDOW_FILTER" valueRef="@WINDOW_FILTER"/>
         </execution>
     </tool>
 
