@@ -290,7 +290,7 @@
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/[internalFilename]:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra_reformatted/[internalFilename]:scan:[#Scan#]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
@@ -457,8 +457,8 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spectra_reformatted.mgf:scan:[cluster index]"/>
-                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spectra_reformatted.mgf:scan:[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spec-00000.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra_reformatted/spec-00000.mgf:scan:[cluster index]"/>
             </column>
         </row>
     </block>
