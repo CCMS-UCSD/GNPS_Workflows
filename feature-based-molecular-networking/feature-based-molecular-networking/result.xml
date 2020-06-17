@@ -466,7 +466,7 @@
         </data>
     </block>
 
-    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - External Visualization">
         <blockRef id="main" type="cytoscape_preview"/>
     </view>
     <block id="cytoscape_preview" type="dummylinkout">
@@ -477,6 +477,19 @@
         </data>
         <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
+
+    <view id="redu_global_pca" label="Global Comparison with ReDU PCA (Beta)" group="Advanced Views - External Visualization">
+        <blockRef id="main" type="redu_global_pca"/>
+    </view>
+    <block id="redu_global_pca" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
+    </block>
+
 
     <view id="view_dereplicator" label="View Dereplicator Results" group="Advanced Views - External Tools">
         <blockRef id="main" type="view_dereplicator"/>
@@ -528,17 +541,7 @@
     </block>
 
 
-    <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
-        <blockRef id="main" type="redu_global_pca"/>
-    </view>
-    <block id="redu_global_pca" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
-    </block>
+    
 
 
 
