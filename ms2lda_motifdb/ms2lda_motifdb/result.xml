@@ -76,7 +76,7 @@
 
     <block id="view_network_augmented" type="table">
         <data>
-            <source type="file" name="output_results/output_ms2lda_edges.tsv"/>
+            <source type="file" name="output_pairs/"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="CLUSTERID1" operator="ascending"/>
             </parsers>
@@ -84,9 +84,9 @@
         <row>
             <column type="text" field="CLUSTERID1" label="CLUSTERID1" width="10"/>
             <column type="text" field="CLUSTERID2" label="CLUSTERID2" width="10"/>
-            <column type="text" field="interact" label="interact" width="10"/>
+            <column type="text" field="interaction" label="interaction" width="10"/>
             <column type="float" field="DeltaMZ" label="DeltaMZ" precision="2"/>
-            <column type="text" field="SharedMotifs" label="SharedMotifs" width="10"/>
+            <column type="text" field="shared_motifs" label="shared_motifs" width="10"/>
         </row>
     </block>
 
