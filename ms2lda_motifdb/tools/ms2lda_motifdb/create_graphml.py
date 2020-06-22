@@ -47,7 +47,7 @@ try:
         edge_type = "Cosine"
         edge_annotation = ""
         interaction_name = MG[edge[0]][edge[1]][0]['interaction']
-        if "m2m" in interaction_name:
+        if "m2m" in interaction_name or "motif" in interaction_name:
             edge_type = "Mass2Motif"
             edge_annotation = interaction_name
         MG[edge[0]][edge[1]][0]['EdgeType'] = edge_type
