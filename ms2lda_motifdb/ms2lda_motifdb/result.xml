@@ -160,7 +160,7 @@
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-        <parameter name="URLBASE" value="http://dorresteinappshub.ucsd.edu:5051/process?task=[task]"/>
+        <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
 </interface>
