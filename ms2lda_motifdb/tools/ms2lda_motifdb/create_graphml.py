@@ -21,7 +21,7 @@ def main():
     args = parser.parse_args()
 
     motif_filename = os.path.join(args.ms2lda_results, "output_motifs_in_scans.tsv")
-    create_graphml(motif_filename, args.output_graphml, args.output_pairs, pvalue=args.input_network_pvalue, overlap=args.input_network_overlap, topx=args.input_network_topx)
+    create_graphml(motif_filename, args.input_network_edges, args.output_graphml, args.output_pairs, pvalue=args.input_network_pvalue, overlap=args.input_network_overlap, topx=args.input_network_topx)
 
 def create_graphml(input_motifs_filename, input_network_edges, output_graphml, output_pairs, pvalue=0.05, overlap=0.1, topx=5):
     try:
