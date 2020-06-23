@@ -1,4 +1,4 @@
-name: workflow-unit-networking
+name: workflow-unit-ms2lda
 
 on: [push]
 
