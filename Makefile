@@ -17,3 +17,6 @@ test-gc-networking:
 
 test-molnet:
 	act -j test-molnet -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose
+
+test-ms2lda:
+	act -j test-ms2lda -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b --verbose

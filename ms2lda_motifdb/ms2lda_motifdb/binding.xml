@@ -36,6 +36,7 @@
         <inputAsRequirement port="network_pairs" requirement="network_pairs"/>
         <inputAsRequirement port="output_results" requirement="output_results"/>
         <productionToOutput port="output_graphml" production="output_graphml"/>
+        <productionToOutput port="output_pairs" production="output_pairs"/>
     </bind>
 
     <bind action="end" type="upload">
@@ -48,6 +49,9 @@
         </upload>
         <upload port="output_graphml" type="folder">
             <query name="resource" value="output_graphml"/>
+        </upload>
+        <upload port="output_pairs" type="folder">
+            <query name="resource" value="output_pairs"/>
         </upload>
     </bind>
 </binding>

@@ -1,0 +1,229 @@
+scan	precursor.mass	retention.time	motif	probability	overlap	motifdb_url	motifdb_annotation
+299	490.23099	2594.209961	motif_232	0.0993669305262	0.105448465702		
+290	488.302	3509.560059	motif_208	0.360518432692	0.159599528679		
+277	485.34601	3630.75	motif_224	0.775939948983	0.100893981135		
+2264	907.56897	4872.350098	gnps_motif_43.m2m	0.117600676775	0.999991015305	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+2449	955.16803	1141.599976	gnps_motif_43.m2m	0.0594942696011	0.999994835941	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+101	432.237	3138.129883	StrepSalini_motif_20.m2m	0.079257037067	0.114603593424	http://ms2lda.org/motifdb/motif/171174	Salinispora arenicola subset related Mass2Motif - peptidic nature
+105	434.26401	2379.159912	motif_248	0.196915705728	0.121352333021		
+449	535.23999	3849.26001	gnps_motif_17.m2m	0.163101155968	0.382292382767	http://ms2lda.org/motifdb/motif/151009	C4H8 loss indicative for saturated C4-alkyl substructure (often tert-butyl group or loss from 8 8-Trimethyl-2-oxo-9 10-dihydro-2H 8H-pyrano[2 3-f]chromen-5-yl substructure)
+1436	736.45697	2469.379883	motif_222	0.396588099215	0.201313352292		
+1437	736.45398	2291.610107	motif_223	0.594646503653	0.14462445686		
+98	432.20599	3331.52002	StrepSalini_motif_20.m2m	0.0956977466146	0.126443721813	http://ms2lda.org/motifdb/motif/171174	Salinispora arenicola subset related Mass2Motif - peptidic nature
+96	431.20999	512.758972	motif_232	0.167293651007	0.105481517676		
+2868	1059.45898	79.001099	mb_motif_195.m2m	0.0518866971063	0.380970435227	http://ms2lda.org/motifdb/motif/151161	Loss indicative for presence of amide functional group
+1191	682.35101	785.093994	motif_221	0.228054292271	0.124366470199		
+1191	682.35101	785.093994	motif_248	0.179162575072	0.104498983159		
+1006	649.32001	2652.310059	motif_221	0.318495953632	0.101387154187		
+1289	703.578	4828.339844	motif_216	0.861518909385	0.10140682661		
+876	624.13	636.023987	gnps_motif_44.m2m	0.129105222477	0.999998222295	http://ms2lda.org/motifdb/motif/151063	[Pentose (C5-sugar)-H2O] related loss – indicative for conjugated pentose sugar - EF fits
+620	573.10901	2758.26001	gnps_motif_43.m2m	0.146369197581	0.998593303803	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+625	573.24103	51.660198	gnps_motif_43.m2m	0.0829676971968	0.999799471939	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+399	522.26801	2601.129883	motif_232	0.0763328072595	0.102009387279		
+398	522.19897	689.757019	motif_212	0.732297491927	0.147547707802		
+2304	914.45398	3486.169922	gnps_motif_13.m2m	0.161274699321	0.999998837357	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+172	454.29199	3562.610107	motif_232	0.143702161314	0.104268313375		
+658	580.25	2910.139893	StrepSalini_motif_105.m2m	0.16878111002	0.432003701687	http://ms2lda.org/motifdb/motif/171201	Streptomyces and one block of species related motif - 293 fragment
+2693	1013.315	102.403999	rhamn_motif_34.m2m	0.130845745763	0.685513615704	http://ms2lda.org/motifdb/motif/171145	Sugar (Glc) Loss
+1611	770.36798	2510.919922	motif_232	0.0682013692059	0.105487037358		
+2966	1079.89001	4695.189941	motif_253	0.75897820958	0.100143764305		
+368	512.32001	3060.120117	motif_238	0.148268646519	0.111042253684		
+365	511.47198	4535.450195	gnps_motif_16.m2m	0.366625311073	0.154411971029	http://ms2lda.org/motifdb/motif/151067	4-(4-Methoxyphenyl)-2-oxo-2H-chromen-7-yl]oxy relared substructure (or isomeric variants)
+386	519.23602	2304.27002	gnps_motif_43.m2m	0.224657444682	0.999968138413	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+256	479.29999	2515.360107	motif_222	0.615526273928	0.141628504187		
+257	480.22501	2886.969971	motif_221	0.406161517326	0.11113135845		
+255	479.28601	1927.790039	motif_248	0.0895978108719	0.173970059348		
+2209	896.46002	3055.570068	motif_232	0.414264432746	0.105482230323		
+2420	946.83002	4674.439941	gnps_motif_41.m2m	0.0929642131563	0.143557408826	http://ms2lda.org/motifdb/motif/151071	N-acetyl-4-piperidinecarboxylic acid substructure [ClassyFire; Relevant terms - Substituents: Piperidinecarboxilic acid N-acyl-piperidine - Taxa: None]
+167	452.27499	2294.149902	motif_232	0.0833702254794	0.105491444504		
+160	451.23001	2291.379883	gnps_motif_43.m2m	0.0550584829991	0.999969116986	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1819	809.40698	2106.070068	motif_256	0.692236167983	0.114776512054		
+671	584.30402	1380.349976	mb_motif_39.m2m	0.0802287941567	0.22129633404	http://ms2lda.org/motifdb/motif/151162	Fragments indicative adenine (C5H6N5) substructure
+809	612.258	736.518982	gnps_motif_43.m2m	0.0544989518406	0.999996706095	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+803	610.28998	3166.52002	rhabdus_motif_120.m2m	0.0702654898865	0.34890949973	http://ms2lda.org/motifdb/motif/177280	Water loss and water + amino group loss related Mass2Motif
+2845	1051.54004	2859.909912	motif_222	0.426317415709	0.123177498391		
+1154	676.39001	3315.590088	motif_235	0.925310713563	0.112425994309		
+1150	675.46002	909.270996	motif_224	0.705722801942	0.100187144451		
+1554	760.40002	3407.72998	motif_232	0.311205868138	0.105493922173		
+1550	760.39301	4796.879883	gnps_motif_43.m2m	0.144298537837	0.999996456469	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+52	416.31	2706.570068	motif_222	0.145817920369	0.101679571657		
+302	493.26001	1414.449951	motif_232	0.0524236365647	0.105873639158		
+851	620.40002	2546.75	rhabdus_motif_122.m2m	0.0715793049815	0.166604167365	http://ms2lda.org/motifdb/motif/177279	Interesting motif - substructure/scaffold
+2182	888.46997	2083.439941	motif_224	0.126848602574	0.104138418371		
+226	469.21899	1115.430054	motif_232	0.497718274037	0.110334423159		
+150	448.78699	2889.820068	mb_motif_16.m2m	0.0943696762128	0.736438317951	http://ms2lda.org/motifdb/motif/151174	Fragments indicative for quercetin/glycosylated quercetin substructure
+154	450.19199	403.479004	gnps_motif_13.m2m	0.0607857628664	0.946405594003	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+4517	1876.48999	159.375	mb_motif_39.m2m	0.0950469089602	0.221296762055	http://ms2lda.org/motifdb/motif/151162	Fragments indicative adenine (C5H6N5) substructure
+1368	720.48499	3559.969971	rhabdus_motif_287.m2m	0.244698628521	0.115211789674	http://ms2lda.org/motifdb/motif/177271	Xenobovid related Mass2Motif
+1940	833.48999	2205.939941	motif_210	0.510028881787	0.140785662554		
+814	613.37	2472.600098	motif_232	0.0891347235729	0.105491722098		
+1704	788.38	1655.369995	motif_232	0.162494722674	0.105492916556		
+526	553.33698	2671.080078	motif_232	0.103102166608	0.105491067699		
+521	551.31	2506.709961	motif_232	0.0584442888993	0.105491075811		
+1016	651.29999	715.812012	motif_250	0.062774453876	0.123076063323		
+1012	650.479	3931.679932	motif_253	0.787889092414	0.100442735172		
+4354	1644.65002	567.463013	mb_motif_39.m2m	0.0672141164359	0.221295868931	http://ms2lda.org/motifdb/motif/151162	Fragments indicative adenine (C5H6N5) substructure
+555	561.14502	264.485992	motif_254	0.654859492868	0.107057348289		
+554	561.14203	634.812988	gnps_motif_66.m2m	0.0531480535498	0.304054905703	http://ms2lda.org/motifdb/motif/151078	Loss of [hexose-H2O] – indication of hexose conjugation (for example glucose) [ClassyFire - Relevant terms - Substituents: Hexose monosaccharide - Taxa: None]
+4178	1536.45996	175.744003	rhamn_motif_153.m2m	0.218859965344	0.588096907873	http://ms2lda.org/motifdb/motif/171144	CO2 loss
+4178	1536.45996	175.744003	mb_motif_195.m2m	0.33160211912	0.380974918654	http://ms2lda.org/motifdb/motif/151161	Loss indicative for presence of amide functional group
+237	473.25201	1024.430054	motif_232	0.0966197996719	0.105486391247		
+2223	899.50403	2467.01001	motif_232	0.106554495523	0.105472552396		
+1	400.09399	302.505005	gnps_motif_33.m2m	0.058755744344	0.12579382013	http://ms2lda.org/motifdb/motif/151002	tetrahydroisoquinoline substructure
+140	445.29999	908.940979	motif_232	0.0575443392817	0.105482384584		
+2535	970.474	2662.800049	motif_232	0.0668439782068	0.103400002177		
+2150	883.40198	3414.889893	motif_232	0.235058002571	0.106966430878		
+933	636.36499	213.759003	gnps_motif_43.m2m	0.0956543857311	0.999986490625	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1951	837.44202	1048.050049	motif_232	0.124289275823	0.105183939005		
+3248	1158.54797	2434.75	motif_248	0.942874834646	0.101299111274		
+822	616.34998	3815.129883	motif_232	0.09030536168	0.105489755387		
+1483	746.38501	3113.22998	motif_248	0.774989225466	0.101507805752		
+1488	747.55798	4721.089844	mb_motif_150.m2m	0.0926609028993	0.63134061936	http://ms2lda.org/motifdb/motif/151186	Loss of acetyl group (C2H2O) - indicative for presence of N/O acetylation
+1719	790.37903	2923.570068	gnps_motif_70.m2m	0.0573144539331	0.267231839064	http://ms2lda.org/motifdb/motif/151069	indicative of piperazine substructure (or related N-containing ring structures for C2H5N loss only)
+2142	881.461	2711.159912	motif_222	0.962775426254	0.123742152982		
+514	549.35901	737.335999	motif_248	0.631543708792	0.119715296175		
+2885	1064.53003	1879.900024	gnps_motif_43.m2m	0.107695149904	0.999996101495	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+11	402.29999	2824.629883	StrepSalini_motif_208.m2m	0.126217862645	0.303702520887	http://ms2lda.org/motifdb/motif/171185	Tryptophan related Mass2Motif
+19	404.254	2282.189941	gnps_motif_71.m2m	0.0943607602236	0.219864962841	http://ms2lda.org/motifdb/motif/151062	4-Methyl-6-oxo-6H-benzo[c]chromen-3-yl substructure
+1924	830.36902	2626.280029	motif_222	0.898337707745	0.121504390762		
+1471	743.55603	4356.839844	motif_224	0.810212685393	0.108314447048		
+2237	901.51398	3492.040039	gnps_motif_13.m2m	0.0723383958265	0.999996789297	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+922	634.45203	3920.280029	gnps_motif_43.m2m	0.0551759171261	0.999995600744	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+496	545.16998	265.665009	motif_245	0.418519369796	0.109850931759		
+492	544.20001	2560.709961	rhamn_motif_34.m2m	0.200858533091	0.685514446688	http://ms2lda.org/motifdb/motif/171145	Sugar (Glc) Loss
+781	605.297	2640.820068	rhabdus_motif_285.m2m	0.131729260581	0.498306165646	http://ms2lda.org/motifdb/motif/177267	Peptidic loss of 113 - related to presence of Leucine or Methylvaline [in Rhabdopeptides or related peptides]
+508	548.29999	1366.569946	motif_232	0.149071358168	0.105479947113		
+505	546.48798	3886.399902	motif_232	0.347153897062	0.105493791838		
+322	498.13101	316.251007	gnps_motif_43.m2m	0.0814458078182	0.999658034154	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+2247	904.45001	2015.859985	motif_242	0.37533466532	0.111728009713		
+219	467.23001	1920.390015	gnps_motif_13.m2m	0.0849263200912	0.999998309784	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+3488	1225.54004	93.455002	motif_232	0.373209553427	0.105494113156		
+325	498.05301	656.119019	gnps_motif_43.m2m	0.0524156956033	0.999995317554	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+3007	1090.53894	2425.139893	motif_227	0.917877667783	0.126100029108		
+640	575.34998	3329.889893	mb_motif_9.m2m	0.160037796438	0.999998971422	http://ms2lda.org/motifdb/motif/151169	Loss of [hexose-H2O] – indication of hexose conjugation (for example glucose)
+1853	815.47101	1919.160034	motif_224	0.738300195062	0.110727775534		
+848	620.19897	669.374023	motif_256	0.584596315906	0.106809831633		
+1730	793.28802	381.670013	motif_232	0.120149105815	0.105491951225		
+1732	793.30701	3706.22998	gnps_motif_13.m2m	0.0815922199756	0.999997123939	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+750	597.90997	3998.820068	mb_motif_40.m2m	0.239884765181	0.112149846056	http://ms2lda.org/motifdb/motif/151164	Loss indicative of [deoxyhexose-H2O]
+757	598.35999	3596.929932	mb_motif_40.m2m	0.0736024553549	0.112147818449	http://ms2lda.org/motifdb/motif/151164	Loss indicative of [deoxyhexose-H2O]
+2955	1077.62	1463.339966	motif_253	0.84059272105	0.100202940526		
+1025	654.71698	754.518982	motif_235	0.632425085157	0.112960769719		
+1027	653.35999	2959.01001	motif_222	0.667716966064	0.159047593338		
+1202	684.40002	2934.649902	rhabdus_motif_285.m2m	0.188408539287	0.498306099075	http://ms2lda.org/motifdb/motif/177267	Peptidic loss of 113 - related to presence of Leucine or Methylvaline [in Rhabdopeptides or related peptides]
+485	541.52002	4861.470215	motif_246	0.190484725784	0.126460418684		
+656	579.50201	4361.029785	motif_232	0.197921938437	0.103796547418		
+124	440.88501	3512.929932	StrepSalini_motif_196.m2m	0.290473439147	0.339446962217	http://ms2lda.org/motifdb/motif/171204	Streptomyces related Mass2Motif
+4149	1520.60999	1464.589966	mb_motif_150.m2m	0.224681899007	0.63075963999	http://ms2lda.org/motifdb/motif/151186	Loss of acetyl group (C2H2O) - indicative for presence of N/O acetylation
+739	596.87598	448.656006	mb_motif_40.m2m	0.0835489552006	0.112147816365	http://ms2lda.org/motifdb/motif/151164	Loss indicative of [deoxyhexose-H2O]
+197	462.17999	1993.819946	gnps_motif_43.m2m	0.0588503053052	0.999997170802	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1456	740.42999	1912.47998	motif_232	0.100120387006	0.105447806944		
+2380	936.46399	3993.090088	motif_222	0.333128840679	0.118193030108		
+2765	1031.51599	2567.080078	motif_222	0.983798084452	0.120373661498		
+4399	1683.58606	368.187988	gnps_motif_22.m2m	0.0957650827522	0.217469710498	http://ms2lda.org/motifdb/motif/151016	losses indicative for 4-oxo-1 4-dihydroquinoline-3-carboxylic acid substructure in GNPS [ClassyFire - Relevant terms - Substituents: Dihydroquinolone Dihydroquinoline - Taxa: Quinoline carboxylic acids Quinolines and derivatives]
+2616	994.76801	4006.850098	gnps_motif_13.m2m	0.117323377928	0.99999806523	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+715	593.15503	1566.98999	rhabdus_motif_91.m2m	0.0614628489114	0.102084107034	http://ms2lda.org/motifdb/motif/177260	Phenylpropanoid related Mass2Motif
+4223	1573.65002	1122.469971	motif_232	0.265489550503	0.105462198751		
+3848	1349.54004	166.399994	gnps_motif_43.m2m	0.276788818499	0.999998069619	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+2598	989.51599	3139.310059	motif_210	0.309335988002	0.104313242052		
+970	644.41998	2603.209961	motif_256	0.224340202007	0.103683908379		
+596	568.453	4261.839844	StrepSalini_motif_108.m2m	0.0904222540581	0.178360141067	http://ms2lda.org/motifdb/motif/171203	Hydroxy-staurosporine related Mass2Motif
+186	459.28201	2848.429932	motif_232	0.309519459101	0.102415085173		
+184	459.298	2306.780029	motif_232	0.085726210461	0.106678701645		
+185	459.28	156.753006	gnps_motif_54.m2m	0.0640126902525	0.308588877788	http://ms2lda.org/motifdb/motif/151015	Fragments indicative for ferulic acid based substructure (MzCloud)
+188	460.20401	277.584991	motif_254	0.639388646867	0.103963049976		
+2622	996.44	2326.22998	StrepSalini_motif_108.m2m	0.0675199270768	0.178358971194	http://ms2lda.org/motifdb/motif/171203	Hydroxy-staurosporine related Mass2Motif
+2025	854.32898	3738.040039	rhabdus_motif_210.m2m	0.0731688908245	0.225655754784	http://ms2lda.org/motifdb/motif/177281	Cyclic peptide related Mass2Motif - Sarcosine-MeLeucine-Valine-MeLeucine-alpha-Aminobutyric acid - part of Cyclosporine
+77	423.289	4504.609863	motif_232	0.342069035942	0.105494443221		
+1047	656.37299	2577.969971	rhabdus_motif_295.m2m	0.0754887859305	0.170200214129	http://ms2lda.org/motifdb/motif/177288	Small peptidic substructure
+1049	657.29999	727.200012	gnps_motif_43.m2m	0.081580398807	0.999984529945	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1262	698.33002	754.017029	gnps_motif_43.m2m	0.0712941735868	0.999990105673	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1262	698.33002	754.017029	StrepSalini_motif_108.m2m	0.0618551924796	0.167065589307	http://ms2lda.org/motifdb/motif/171203	Hydroxy-staurosporine related Mass2Motif
+1915	828.45898	1079.329956	motif_232	0.0907151300907	0.105491440223		
+1310	706.414	3529.870117	gnps_motif_63.m2m	0.19246227278	0.224282430282	http://ms2lda.org/motifdb/motif/151007	8-methoxy-11b-methyl-1 3-dioxo-5 6 11 11b-tetrahydro-1H-imidazo[1' 5':1 2]pyrido[3 4-b]indol-2(3H)-yl)propanamide substructure
+862	622.31	2113.639893	motif_232	0.0820656894462	0.105470818352		
+3940	1389.50195	3182.159912	gnps_motif_13.m2m	0.993342605954	1.0	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+317	495.39401	4035.820068	motif_208	0.159003061291	0.159511335565		
+2756	1029.27905	54.564701	gnps_motif_49.m2m	0.100176916467	0.999997535832	http://ms2lda.org/motifdb/motif/151019	Loss possibly indicative of carboxylic acid group with 1-carbon attached.
+4128	1508.62	810.731018	gnps_motif_73.m2m	0.363151212988	0.130556414076	http://ms2lda.org/motifdb/motif/151044	oxy]acetyl}amino)methyl]cyclohexanecarboxylic acid related Mass2Motif (losses)
+2295	913.53998	2628.719971	motif_253	0.515531696157	0.100172850979		
+2585	987.51001	2829.959961	motif_223	0.910564820587	0.167669478083		
+1863	817.56	2419.01001	motif_215	0.986373562792	0.125635672627		
+2107	872.323	3217.949951	gnps_motif_13.m2m	0.131990415149	0.999998312637	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+2104	872.22998	620.460022	motif_254	0.80754541801	0.104961744717		
+2039	856.46997	3054.47998	motif_216	0.265197063733	0.10031996047		
+2038	856.474	3234.780029	motif_224	0.924010776335	0.104344024034		
+897	629.40997	37.626701	motif_232	0.537724661246	0.109577074867		
+898	629.35498	2672.290039	motif_221	0.432093405712	0.105251943834		
+899	629.41998	588.963989	motif_232	0.265452123541	0.105492607269		
+1247	695.33899	2521.51001	motif_222	0.105089792524	0.117075169274		
+1538	758.435	856.89502	motif_256	0.64723580829	0.108556169097		
+3042	1099.43994	1281.420044	motif_253	0.624430331583	0.100524661947		
+1073	662.48297	4709.220215	motif_232	0.0892700881014	0.105492317948		
+1678	781.19	5073.689941	rhamn_motif_164.m2m	0.0692805157655	0.227951110568	http://ms2lda.org/motifdb/motif/171170	rhamnocitrin-related
+1673	780.54199	2899.52002	motif_245	0.197421998541	0.106550191354		
+1094	664.38898	82.734497	motif_230	0.285417097902	0.145622846139		
+1329	711.276	2333.820068	motif_232	0.160980118214	0.105490843474		
+1526	756.15002	393.934998	gnps_motif_56.m2m	0.0576042149752	0.999995551724	http://ms2lda.org/motifdb/motif/151048	Double water loss i.e. 2*H20 – Generic feature for metabolites containing several free OH groups attached to a aliphatic chain like sugars.
+301	492.26999	773.940002	motif_232	0.139896914498	0.107056595227		
+985	647.24402	1717.550049	motif_254	0.716283393258	0.127351803355		
+2358	928.53003	3216.850098	motif_208	0.101685673066	0.159588933422		
+955	641.81	33.879101	motif_253	0.613518215689	0.100515306401		
+2139	881.34998	869.849976	motif_232	0.10892046939	0.105492567211		
+2340	922.57599	4514.5	motif_228	0.95045556468	0.120196810748		
+1542	760.15002	1501.150024	gnps_motif_43.m2m	0.0614784057586	0.999995954226	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1543	760.19098	1196.52002	gnps_motif_43.m2m	0.0580274436742	0.997467967164	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+3201	1141.56995	169.5	motif_232	0.0719968650499	0.103577201926		
+32	409.26999	3551.070068	gnps_motif_43.m2m	0.0883928491665	0.999999335303	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+34	410.22601	521.528015	StrepSalini_motif_108.m2m	0.245824924332	0.189853219815	http://ms2lda.org/motifdb/motif/171203	Hydroxy-staurosporine related Mass2Motif
+331	501.27301	307.147003	motif_222	0.244227413157	0.138608982346		
+4104	1491.55896	395.919006	mb_motif_195.m2m	0.11105934137	0.380973086748	http://ms2lda.org/motifdb/motif/151161	Loss indicative for presence of amide functional group
+1464	743.35699	435.673004	motif_232	0.0837157538505	0.108247687802		
+3200	1141.50098	3461.98999	motif_232	0.421385151759	0.107309070056		
+1351	716.53802	2753.399902	motif_222	0.469006333739	0.171495695442		
+2348	927.52399	4137.569824	mb_motif_4.m2m	0.0801396032896	0.701265573337	http://ms2lda.org/motifdb/motif/151183	Loss of methyl group – indicative for presence of methoxy [O-CH3] methylsulfyl [S-CH3] or methylgroup connected to aromatic ring system
+2120	877.48999	4644.279785	motif_223	0.324252391055	0.144624548785		
+944	640.26001	2361.810059	motif_212	0.934113107301	0.142488348997		
+1450	739.43597	2213.850098	motif_208	0.614460257959	0.161012619352		
+2650	1003.40997	2432.439941	motif_232	0.0948746079649	0.105470192141		
+131	443.20001	747.112	mb_motif_39.m2m	0.0837440093304	0.221296308469	http://ms2lda.org/motifdb/motif/151162	Fragments indicative adenine (C5H6N5) substructure
+2903	1066.44995	3134.110107	gnps_motif_43.m2m	0.17398588356	0.999991915506	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+702	590.27802	4334.129883	motif_250	0.269001189554	0.12308272915		
+1651	776.39099	2940.030029	motif_232	0.182026375395	0.102552409929		
+581	564.34003	2222.780029	motif_232	0.0898030014098	0.10545413062		
+318	496.17999	434.747009	gnps_motif_43.m2m	0.0652476970666	0.999996267162	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+328	499.25601	2575.370117	motif_232	0.132225168222	0.108919275993		
+1343	714.12402	665.773987	rhamn_motif_153.m2m	0.308774568589	0.593906174565	http://ms2lda.org/motifdb/motif/171144	CO2 loss
+2953	1077.53003	42.2514	motif_232	0.325237997205	0.105494021223		
+133	443.26001	960.676025	motif_222	0.325252860328	0.10162774161		
+2068	864.44	3115.76001	motif_232	0.103823061175	0.105492382176		
+130	442.328	2918.580078	motif_232	0.0521686258549	0.105489302017		
+576	564.33698	2396.290039	motif_232	0.26876562807	0.105104927316		
+576	564.33698	2396.290039	motif_246	0.0533120791091	0.109151851125		
+571	563.47198	4696.209961	gnps_motif_13.m2m	0.0919370204652	0.999997466299	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+730	595.28802	3718.22998	gnps_motif_43.m2m	0.0782699025406	0.94393897626	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+737	595.57001	4789.819824	StrepSalini_motif_224.m2m	0.0686275510626	0.109468454593	http://ms2lda.org/motifdb/motif/171206	Salinispora arenicola subset related Mass2Motif - ?
+4277	1599.59802	410.675995	rhamn_motif_109.m2m	0.096446284672	0.204329821893	http://ms2lda.org/motifdb/motif/171163	Side group (loss based)
+460	537.31897	3403.75	gnps_motif_13.m2m	0.0575179253131	0.998956064969	http://ms2lda.org/motifdb/motif/151036	Amine loss - Indicative for free NH2 group in fragmented molecule
+1515	753.39502	3586.73999	gnps_motif_22.m2m	0.148884582251	0.238856268659	http://ms2lda.org/motifdb/motif/151016	losses indicative for 4-oxo-1 4-dihydroquinoline-3-carboxylic acid substructure in GNPS [ClassyFire - Relevant terms - Substituents: Dihydroquinolone Dihydroquinoline - Taxa: Quinoline carboxylic acids Quinolines and derivatives]
+3439	1208.40295	606.11499	gnps_motif_43.m2m	0.548925295792	0.999968600677	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+582	564.89203	5015.060059	gnps_motif_38.m2m	0.0555302964155	0.999993727952	http://ms2lda.org/motifdb/motif/151045	Loss of CH2O2 - indicative for underivatized carboxilic acid group
+1792	805.27899	3837.98999	motif_253	0.742128560186	0.105136328466		
+264	480.45001	277.799988	motif_224	0.752668776061	0.100542147054		
+269	482.323	4047.52002	motif_232	0.215115641709	0.105493599603		
+268	483.147	1713.119995	gnps_motif_43.m2m	0.23514094251	0.99996803899	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1290	704.27002	3646.699951	StrepSalini_motif_144.m2m	0.0569895112322	0.455685678147	http://ms2lda.org/motifdb/motif/171178	Losses 139, 140 - subset of Streptomyces sp. and S. arenicola related
+982	647.21698	3261.100098	motif_232	0.0856595933287	0.105451719354		
+111	436.26001	1921.880005	motif_222	0.872004454334	0.171170087467		
+119	439.40799	3440.969971	rhabdus_motif_84.m2m	0.196299331657	0.31891449941	http://ms2lda.org/motifdb/motif/177302	Rhabdopeptide related Mass2Motif [MeLeu – MeVal – Val – MeVal -- 453 - 340 - 227], [also includes MeVal – MeLeu – MeVal – MeVal motif -- 468 - 354 - 241]
+1388	724.29999	2785.22998	rhamn_motif_60.m2m	0.0825438337698	0.653914931528	http://ms2lda.org/motifdb/motif/171159	CO2/H2O loss
+3508	1231.00696	4559.029785	gnps_motif_72.m2m	0.211343756793	0.402404548091	http://ms2lda.org/motifdb/motif/151035	Diethylamino /dimethylaminoethyl substructure
+1638	774.26398	3323.550049	gnps_motif_43.m2m	0.201396972216	0.999851789456	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1988	843.552	3091.070068	gnps_motif_24.m2m	0.141790555034	0.125579811677	http://ms2lda.org/motifdb/motif/151003	Fragments indicative for tyrosine related substructure (MzCloud)
+1742	794.539	2974.409912	motif_223	0.543325160693	0.109280867079		
+1166	678.41803	3452.23999	gnps_motif_43.m2m	0.0581976503876	0.999996677954	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+472	540.07001	390.345001	motif_232	0.0682899933829	0.105316621863		
+1565	763.35498	2671.419922	motif_232	0.148184071561	0.105492240985		
+1381	723.21002	441.345001	gnps_motif_43.m2m	0.0578083349465	0.999996034226	http://ms2lda.org/motifdb/motif/151021	Water loss - indicative of a free hydroxyl group – (in beer often seen in sugary structures)
+1861	816.349	538.156006	motif_248	0.853396697373	0.122609475662		
+479	541.37299	3086.820068	motif_221	0.611029289134	0.11483858569		
