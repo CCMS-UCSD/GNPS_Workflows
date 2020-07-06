@@ -1,0 +1,51 @@
+cluster_scan	dataset_id	filename	filescan	metadata
+295334	MSV000084900	f.MSV000084900/ccms_peak/Global_Foodomics_composite_data_2020/MSV000083010_core/G74022_5x_BG11_01_18395.mzML	574	 
+295334	MSV000084900	f.MSV000084900/ccms_peak/Global_Foodomics_composite_data_2020/MSV000083010_core/G74022_5x_BG11_01_18395.mzML	570	 
+300	MSV000084237	f.MSV000084237/ccms_peak/Raw/std_mix3_Fe_conc46_1_long.mzML	840	 
+300	MSV000084237	f.MSV000084237/ccms_peak/Raw/std_mix2_4.mzML	947	 
+300	MSV000084237	f.MSV000084237/ccms_peak/Raw/std_mix2_4.mzML	941	 
+300	MSV000084237	f.MSV000084237/ccms_peak/Raw/std_mix2_4.mzML	938	 
+131379	MSV000083010	f.MSV000083010/ccms_peak/Samples/G74022_5x_BG11_01_18395.mzML	574	GNPS - GFOP - Food - Beverage - Data set 1|not applicable|not applicable|reverse phase (C18)|not applicable|United States of America|not applicable|not applicable|not specified|not applicable|not applicable|sulfamethazine;sulfadimethoxine|electrospray ionization (positive)|not specified|not applicable|impact HD|MS:1002667|not specified|not specified|solid material, frozen|ethanol-water (19:1)|food|food_source_animal|G74022|not applicable|not applicable|not applicable|MSV000083010_G74022|2018
+131379	MSV000083010	f.MSV000083010/ccms_peak/Samples/G74022_5x_BG11_01_18395.mzML	570	GNPS - GFOP - Food - Beverage - Data set 1|not applicable|not applicable|reverse phase (C18)|not applicable|United States of America|not applicable|not applicable|not specified|not applicable|not applicable|sulfamethazine;sulfadimethoxine|electrospray ionization (positive)|not specified|not applicable|impact HD|MS:1002667|not specified|not specified|solid material, frozen|ethanol-water (19:1)|food|food_source_animal|G74022|not applicable|not applicable|not applicable|MSV000083010_G74022|2018
+132950	MSV000082074	f.MSV000082074/ccms_peak/Samples/G74022_5x_BG11_01_18395.mzML	574	 
+132950	MSV000082074	f.MSV000082074/ccms_peak/Samples/G74022_5x_BG11_01_18395.mzML	570	 
+18313	MSV000081936	f.MSV000081936/ccms_peak/animal/G74022_5x_BG11_01_18395.mzML	574	 
+18313	MSV000081936	f.MSV000081936/ccms_peak/animal/G74022_5x_BG11_01_18395.mzML	570	 
+5636	MSV000081657	f.MSV000081657/ccms_peak/data_mzxml/Samples/G74022_5x_BG11_01_18395.mzML	574	 
+5636	MSV000081657	f.MSV000081657/ccms_peak/data_mzxml/Samples/G74022_5x_BG11_01_18395.mzML	570	 
+3558643	MSV000080673	f.MSV000080673/ccms_peak/2017.AmericanGut3K.mzXMLfiles/Samples/000036206_RC2_01_5354.mzML	763	GNPS_AmericanGut3K_dataset|14|female|reverse phase (C18)|no disease reported|United States of America|disease NOS|disease NOS|5.8|unhealthy (NOS)|Urban|sulfamethizole;sulfachloropyridazine|electrospray ionization (positive)|40.7|-74|Adolescence (8 yrs < x <= 18 yrs)|impact HD|MS:1002667|9606|Homo sapiens|10/10/2015 13:15|swabs, dry|ethanol-water (9:1)|animal|biofluid|36206|not applicable|feces|UBERON:0001988|MSV000080673_36206|2017
+3558643	MSV000080673	f.MSV000080673/ccms_peak/2017.AmericanGut3K.mzXMLfiles/Samples/000036206_RC2_01_5354.mzML	760	GNPS_AmericanGut3K_dataset|14|female|reverse phase (C18)|no disease reported|United States of America|disease NOS|disease NOS|5.8|unhealthy (NOS)|Urban|sulfamethizole;sulfachloropyridazine|electrospray ionization (positive)|40.7|-74|Adolescence (8 yrs < x <= 18 yrs)|impact HD|MS:1002667|9606|Homo sapiens|10/10/2015 13:15|swabs, dry|ethanol-water (9:1)|animal|biofluid|36206|not applicable|feces|UBERON:0001988|MSV000080673_36206|2017
+3558643	MSV000080673	f.MSV000080673/ccms_peak/2017.AmericanGut3K.mzXMLfiles/Samples/000011075_RH2_01_6313.mzML	845	GNPS_AmericanGut3K_dataset|44|female|reverse phase (C18)|no disease reported|United States of America|disease NOS|disease NOS|17.3|unhealthy (NOS)|Urban|sulfamethizole;sulfachloropyridazine|electrospray ionization (positive)|37|-122|Early Adulthood (18 yrs < x <= 45 yrs)|impact HD|MS:1002667|9606|Homo sapiens|1/4/2016 9:00|swabs, dry|ethanol-water (9:1)|animal|biofluid|11075|not applicable|feces|UBERON:0001988|MSV000080673_11075|2017
+3558643	MSV000080673	f.MSV000080673/ccms_peak/2017.AmericanGut3K.mzXMLfiles/Samples/000011075_RH2_01_6313.mzML	840	GNPS_AmericanGut3K_dataset|44|female|reverse phase (C18)|no disease reported|United States of America|disease NOS|disease NOS|17.3|unhealthy (NOS)|Urban|sulfamethizole;sulfachloropyridazine|electrospray ionization (positive)|37|-122|Early Adulthood (18 yrs < x <= 45 yrs)|impact HD|MS:1002667|9606|Homo sapiens|1/4/2016 9:00|swabs, dry|ethanol-water (9:1)|animal|biofluid|11075|not applicable|feces|UBERON:0001988|MSV000080673_11075|2017
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn15_CL21_F11.mzXML	721	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn15_CL21_F07.mzXML	749	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn15_CL21_F07.mzXML	709	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn12_CL21_F03.mzXML	753	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn12_CL21_F03.mzXML	711	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn12_CL21_F03.mzXML	673	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn12_CL21_E11.mzXML	730	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn12_CL21_E11.mzXML	691	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn11_CL21_E07.mzXML	705	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn11_CL21_E03.mzXML	737	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn11_CL21_E03.mzXML	699	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D11.mzXML	753	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D11.mzXML	713	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D11.mzXML	675	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D08.mzXML	726	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D07.mzXML	744	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn10_Bsubt_D07.mzXML	700	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn08_Bsubt_D03.mzXML	728	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn08_Bsubt_D03.mzXML	688	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn08_Bsubt_C11.mzXML	737	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn08_Bsubt_C11.mzXML	698	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn05_control_B11.mzXML	697	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn05_control_B07.mzXML	728	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn05_control_B07.mzXML	683	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn04_control_B03.mzXML	733	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn04_control_B03.mzXML	693	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn04_control_B02.mzXML	699	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn02_control_A07.mzXML	706	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn02_control_A07.mzXML	666	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn02_control_A03.mzXML	733	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn02_control_A03.mzXML	692	 
+22273	MSV000079888	f.MSV000079888/ccms_peak/mzXML/Corn02_control_A03.mzXML	649	 
