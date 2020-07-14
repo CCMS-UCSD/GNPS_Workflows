@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="chemdir" version="release_9">
+    <workflow-id>CHEMDIR</workflow-id>
+    <workflow-label>CHEMDIR</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+
+        <parameter name="GNPS_FBMN_TASK" label="Enter GNPS Network Task ID (Required)">
+            <default value="GNPS_FBMN_TASK"/>
+        </parameter>
+
+        <parameter name="METADATA_COLUMN" label="METADATA_COLUMN">
+            <default value="METADATA_COLUMN"/>
+        </parameter>
+
+        <parameter name="TIME_SERIES" label="TIME_SERIES">
+            <default value="TIME_SERIES"/>
+        </parameter>
+
+        <parameter name="MIN_AREA_THRESHOLD" label="MIN_AREA_THRESHOLD">
+            <default value="0"/>
+        </parameter>
+
+        <parameter name="METADATA_FILTER_COLUMN" label="METADATA_FILTER_COLUMN">
+            <default value="None"/>
+        </parameter>
+
+        <parameter name="METADATA_FILTER_TERM" label="METADATA_FILTER_TERM">
+            <default value="None"/>
+        </parameter>
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Input Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="GNPS_FBMN_TASK"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="GNPS_FBMN_TASK">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_COLUMN"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="METADATA_COLUMN">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TIME_SERIES"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="TIME_SERIES">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MIN_AREA_THRESHOLD"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MIN_AREA_THRESHOLD">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_FILTER_COLUMN"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="METADATA_FILTER_COLUMN">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_FILTER_TERM"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="METADATA_FILTER_TERM">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+    </block>
+
+
+</interface>
