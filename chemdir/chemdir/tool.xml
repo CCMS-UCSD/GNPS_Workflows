@@ -1,6 +1,6 @@
 <toolset>
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="calculate_chemdir" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="calculate_chemdir" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="calculate_chemdir.script" path="calculate_chemdir.py" />

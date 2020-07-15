@@ -2,7 +2,6 @@ import argparse
 import math
 import pandas as pd
 import requests
-from tqdm import tqdm
 import os
 import networkx as nx
 
@@ -64,7 +63,7 @@ def calculate_chemdir(long_data_df, pairs_df, time_series_metadata, time_series_
 
     # Iterating through all network edges and calculating the stats
     pairs_chemdir_list = []
-    for pair in tqdm(pairs_df.to_dict(orient="records")):
+    for pair in pairs_df.to_dict(orient="records"):
         chemdir_list = calculate_ratio_series(summarized_df, int(pair["CLUSTERID1"]), int(pair["CLUSTERID2"]), time_series_metadata, time_series_list, min_area_threshold=min_area_threshold)
         chemdir_list_df = pd.DataFrame(chemdir_list)
         
