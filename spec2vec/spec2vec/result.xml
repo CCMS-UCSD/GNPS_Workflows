@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="CHEMDIR" version="release_9">
-
-    <download>
-        <source type="folder" name="output_folder/"/>
-    </download>
-
-    <view id="download_data" label="Download Data">
-        <blockRef id="main"   type="download_data"/>
-    </view>
-    <block id="download_data" type="dummydownload">
-      <data>
-        <source type="file" name="output_folder/chemdir_pairs.tsv"/>
-         <parsers>
-            <parser type="stream" contentType="text/xml"/>
-        </parsers>
-      </data>
-    </block>
+<interface id="spec2vec" version="release_9">
 
   <view id="view_pairs" label="View Raw Pairs" group="Default Results Views">
         <blockRef id="main" type="view_summary_table"/>
     </view>
 
-    <block id="view_summary_table" type="table">
+    <block id="view_summary_table" type="table_ss">
         <data>
             <source type="file" name="pairs/pairs.tsv"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="Cos_Score" operator="descending"/>
+                <parser type="SQLite"/>
             </parsers>
         </data>
         <row>
@@ -42,8 +27,8 @@
                 <parameter name="spectrum1_file" file="[filename]"/>
                 <parameter name="spectrum1_scan" value="[Node1]"/>
                 <parameter name="spectrum2_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="[filename]"/>
-                <parameter name="spectrum1_scan" value="[Node2]"/>
+                <parameter name="spectrum2_file" file="[filename]"/>
+                <parameter name="spectrum2_scan" value="[Node2]"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
                 <parameter name="file" file="[filename]"/>

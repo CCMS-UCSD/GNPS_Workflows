@@ -77,7 +77,7 @@ def main():
 
             sim = scores[i][j]
 
-            if sim < 0.7:
+            if sim < 0.8:
                 continue
 
             score_dict = {}
