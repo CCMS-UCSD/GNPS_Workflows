@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+		<url value="{livesearch.download}"/>
+		<query name="task" valueRef="@task" />
+		<query name="user" valueRef="@user"/>
+		<compression type="zip" />
+		<download port="spec" type="folder">
+            <query name="resource" value="spec"/>
+        </download>
+		<download port="flowParams" type="file">
+			<query name="resource" value="params"/>
+		</download>
+		<downloadParams>
+			<query name="resource" value="params"/>
+		</downloadParams>
+
+	</bind>
+
+	<bind action="calculate_spec2vec" tool="calculate_spec2vec">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="spectra" requirement="spectra"/>
+		<productionToOutput port="pairs" production="pairs"/>
+	</bind>
+
+
+	<bind action="end" type="upload">
+		<url value="{livesearch.upload}"/>
+		<query name="task" valueRef="@task"/>
+		<contentQuery name="content"/>
+		<compression type="zip"/>
+		<upload port="pairs" type="folder">
+			<query name="resource" value="pairs"/>
+		</upload>
+	</bind>
+</binding>

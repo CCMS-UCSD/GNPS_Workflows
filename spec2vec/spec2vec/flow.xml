@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="spec2vec">
+	<object     name="workflowParameters"/>
+	<collection name="spectra"/>
+
+	<action name="begin">
+		<output port="flowParams" object="workflowParameters"/>
+		<output port="spec" collection="spectra"/>
+	</action>
+
+	<object name="pairs"/>
+	<action name="calculate_spec2vec">
+        <input  port="workflowParameters" object="workflowParameters"/>
+		<input port="spectra" collection="spectra"/>
+		<output  port="pairs" object="pairs"/>
+    </action>
+
+	<action name="end">
+		<input port="pairs" object="pairs"/>
+	</action>
+</flow>

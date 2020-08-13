@@ -1,0 +1,20 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="calculate_spec2vec" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="calculate_spec2vec.script" path="calculate_spec2vec.py" />
+    </pathSet>
+
+    <tool name="calculate_spec2vec">
+        <require name="workflowParameters"       type="file"/>
+        <require name="spectra"       type="file"/>
+        <produce name="pairs"        type="file" naming="fixed" value="quantification" extension="csv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="calculate_spec2vec.script"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="pairs"/>
+        </execution>
+    </tool>
+</toolset>
