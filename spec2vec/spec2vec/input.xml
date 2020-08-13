@@ -11,7 +11,11 @@
         </parameter>
 
         <parameter name="spec_on_server" label="Spectrm MGF">
-            <fileGenerator type="upload" purpose="spectrum" target="spec"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spectra"/>
+        </parameter>
+
+        <parameter name="existing_graphml" label="Network Graphml">
+            <fileGenerator type="upload" purpose="existing_graphml" target="existing_graphml"/>
         </parameter>
 
     </parameters>
@@ -30,6 +34,19 @@
             <cell colspan="3">
                 <module id="spec_on_server" type="fileSelector">
                     <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="existing_graphml"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="existing_graphml" type="fileSelector">
+                    <property name="label">Network Graphml</property>
                 </module>
             </cell>
         </row>

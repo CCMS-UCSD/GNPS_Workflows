@@ -2,6 +2,7 @@ import os
 import sys
 import gensim
 import numpy as np
+import pandas as pd
 
 from matchms.filtering import normalize_intensities
 from matchms.filtering import require_minimum_number_of_peaks
@@ -10,6 +11,8 @@ from matchms.filtering import select_by_relative_intensity
 from matchms.filtering import reduce_to_number_of_peaks
 from matchms.filtering import add_losses
 from matchms.importing import load_from_mgf
+from matchms import calculate_scores_parallel
+
 
 from spec2vec import Spec2VecParallel
 from spec2vec import SpectrumDocument
@@ -45,7 +48,10 @@ def main():
     filtered_spectra = [s for s in filtered_spectra if s is not None]
 
     # Create spectrum documents
-    query_documents = [SpectrumDocument(s) for s in filtered_spectra]
+    query_documents = [SpectrumDocument(s, n_decimals=2) for s in filtered_spectra]
+
+    #DEBUG
+    #query_documents = query_documents[:100]
 
     # Loading the model
     model = gensim.models.Word2Vec.load(args.model_file)
@@ -54,17 +60,22 @@ def main():
     spec2vec = Spec2VecParallel(model=model, intensity_weighting_power=0.5,
                             allowed_missing_percentage=80.0)
 
-    scores = list(calculate_scores_parallel(query_documents, query_documents, spec2vec)).scores
+
+    print("total documents", len(query_documents))
+    scores = calculate_scores_parallel(query_documents, query_documents, spec2vec).scores
 
     number_of_spectra = len(query_documents)
 
     output_scores_list = []
     for i in range(number_of_spectra):
         for j in range(number_of_spectra):
+            if i == j:
+                continue
+
             i_spectrum = filtered_spectra[i]
             j_spectrum = filtered_spectra[j]
 
-            sim = similarity_matrix[i][j]
+            sim = scores[i][j]
 
             if sim < 0.7:
                 continue

@@ -2,10 +2,12 @@
 <flow name="spec2vec">
 	<object     name="workflowParameters"/>
 	<collection name="spectra"/>
-
+	<collection name="existing_graphml"/>
+	
 	<action name="begin">
 		<output port="flowParams" object="workflowParameters"/>
-		<output port="spec" collection="spectra"/>
+		<output port="spectra" collection="spectra"/>
+		<output port="existing_graphml" collection="existing_graphml"/>
 	</action>
 
 	<object name="pairs"/>

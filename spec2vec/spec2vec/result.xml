@@ -17,49 +17,64 @@
       </data>
     </block>
 
-  <view id="view_summary_table" label="Summary Table" group="Default Results Views">
+  <view id="view_pairs" label="View Raw Pairs" group="Default Results Views">
         <blockRef id="main" type="view_summary_table"/>
     </view>
 
     <block id="view_summary_table" type="table">
         <data>
-            <source type="file" name="output_folder/chemdir_pairs.tsv"/>
+            <source type="file" name="pairs/pairs.tsv"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="max_comparison" operator="descending"/>
+                <parser type="sortedTabular" sortBy="Cos_Score" operator="descending"/>
             </parsers>
         </data>
         <row>
-            <column type="integer" field="CLUSTERID1" label="CLUSTERID1" precision="2"/>
-            <column type="integer" field="CLUSTERID2" label="CLUSTERID1" precision="3"/>
-            <column type="float" field="max_chemdir" label="max_chemdir" precision="3"/>
-            <column type="float" field="max_comparison" label="max_comparison" precision="2"/>
-            <column type="float" field="Cosine" label="Cosine" precision="3"/>
-            <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
+            <column type="integer" field="Node1" label="Node1" precision="2"/>
+            <column type="integer" field="Node2" label="Node2" precision="3"/>
+            <column type="float" field="mz1" label="mz1" precision="3"/>
+            <column type="float" field="mz2" label="mz2" precision="2"/>
+            <column type="float" field="Cos_Score" label="Cos_Score" precision="3"/>
+            <column type="float" field="MzDiff" label="MzDiff" precision="3"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
+                <parameter name="spectrum1_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="[filename]"/>
+                <parameter name="spectrum1_scan" value="[Node1]"/>
+                <parameter name="spectrum2_type" value="flatfile"/>
+                <parameter name="spectrum1_file" file="[filename]"/>
+                <parameter name="spectrum1_scan" value="[Node2]"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
+                <parameter name="file" file="[filename]"/>
+                <parameter name="scan" value="[Node1]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+            <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
+                <parameter name="file" file="[filename]"/>
+                <parameter name="scan" value="[Node2]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+        </row>
+        <row expander="USI Links" expandericontype="text">
+            <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node1]"/>
+                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node2]"/>
+                <parameter name="LABEL" value="Mirror Match USI"/>
+            </column>
+            <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node1]"/>
+                <parameter name="LABEL" value="Query Spectrum USI"/>
+            </column>
+            <column label="USI-Library" type="genericurlgenerator" width="3"> \
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node2]"/>
+                <parameter name="LABEL" value="Query Spectrum USI"/>
+            </column>
         </row>
     </block>
 
-    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
-        <blockRef id="main" type="cytoscape_preview"/>
-    </view>
-    <block id="cytoscape_preview" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-        <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
-    </block>
-
-    <view id="chemdir_dashboard" label="Chemdir Dashboard" group="Advanced Views - Experimental Views">
-        <blockRef id="main" type="chemdir_dashboard"/>
-    </view>
-    <block id="chemdir_dashboard" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-        <parameter name="URLBASE" value="https://gnps-chemdir-dashboard.herokuapp.com/[task]"/>
-    </block>
 
 </interface>
