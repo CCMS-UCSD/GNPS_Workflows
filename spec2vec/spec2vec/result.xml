@@ -44,18 +44,18 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
-                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node1]"/>
-                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node2]"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node1]"/>
+                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node2]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node1]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node1]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}[filename]:scan:[Node2]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node2]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
         </row>
