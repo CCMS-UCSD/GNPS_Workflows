@@ -1,9 +1,10 @@
 <toolset>
-    <pathSet base="miniconda3_gamma/bin">
+    <pathSet base="miniconda3_gamma/envs/spec2vec/bin">
         <toolPath tool="calculate_spec2vec" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="calculate_spec2vec.script" path="calculate_spec2vec.py" />
+        <pathVar name="spec2vec.model" path="spec2vec_UniqueInchikeys_ratio05_filtered_iter_50.model" />
     </pathSet>
 
     <tool name="calculate_spec2vec">
@@ -15,6 +16,7 @@
             <arg pathRef="calculate_spec2vec.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="pairs"/>
+            <arg pathRef="spec2vec.model"/>
         </execution>
     </tool>
 </toolset>
