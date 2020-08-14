@@ -17,7 +17,7 @@
 		<output  port="pairs" object="pairs"/>
     </action>
 
-	<object name="output_graphml"/>
+	<collection name="gnps_molecular_network_graphml"/>
 	<action name="create_graphml">
 		<input port="pairs" object="pairs"/>
 		<input port="existing_graphml" collection="existing_graphml"/>
