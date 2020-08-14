@@ -34,7 +34,7 @@ def post_process(s):
     return s
 
 def main():
-    parser = argparse.ArgumentParser(description='Processing and feature detecting all gc files')
+    parser = argparse.ArgumentParser(description='Creating Spec2Vec Pairs')
     parser.add_argument('input_mgf', help='input_mgf')
     parser.add_argument('output_pairs', help='output_pairs')
     parser.add_argument('model_file', help='model_file')
@@ -69,7 +69,7 @@ def main():
     output_scores_list = []
     for i in range(number_of_spectra):
         for j in range(number_of_spectra):
-            if i == j:
+            if i <= j:
                 continue
 
             i_spectrum = filtered_spectra[i]
@@ -82,12 +82,14 @@ def main():
 
             score_dict = {}
             score_dict["filename"] = args.input_mgf
-            score_dict["Node1"] = i_spectrum.metadata["scans"]
-            score_dict["Node2"] = j_spectrum.metadata["scans"]
-            score_dict["Cos_Score"] = sim
+            score_dict["CLUSTERID1"] = i_spectrum.metadata["scans"]
+            score_dict["CLUSTERID2"] = j_spectrum.metadata["scans"]
+            score_dict["Cosine"] = sim
             score_dict["mz1"] = i_spectrum.metadata["pepmass"][0]
             score_dict["mz2"] = j_spectrum.metadata["pepmass"][0]
-            score_dict["MzDiff"] = score_dict["mz2"] - score_dict["mz1"]
+            score_dict["DeltaMZ"] = score_dict["mz2"] - score_dict["mz1"]
+            score_dict["EdgeAnnotation"] = "Spec2Vec"
+            
 
             output_scores_list.append(score_dict)
 

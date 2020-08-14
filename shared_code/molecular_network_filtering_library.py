@@ -7,7 +7,7 @@ import os
 import ming_fileio_library
 import networkx as nx
 
-def loading_network(filename, hasHeaders=False):
+def loading_network(filename, hasHeaders=False, edgetype="Cosine"):
     node1_list = []
     node2_list = []
 
@@ -33,7 +33,9 @@ def loading_network(filename, hasHeaders=False):
             cosine_score = table_data["Cosine"]
         if "COSINE" in table_data:
             cosine_score = table_data["COSINE"]
-        explained_intensity = table_data["OtherScore"]
+        
+        if "OtherScore" in table_data:
+            explained_intensity = table_data["OtherScore"]
 
         if len(property1)  != len(node1_list):
             property1 = node1_list
@@ -72,7 +74,7 @@ def loading_network(filename, hasHeaders=False):
         edge_object["cosine_score"] = float(cosine_score[i])
         edge_object["explained_intensity"] = float(explained_intensity[i])
         edge_object["component"] = -1
-        edge_object["EdgeType"] = "Cosine"
+        edge_object["EdgeType"] = edgetype
         edge_object["EdgeAnnotation"] = edge_annotation[i].rstrip()
         edge_object["EdgeScore"] = float(cosine_score[i])
 

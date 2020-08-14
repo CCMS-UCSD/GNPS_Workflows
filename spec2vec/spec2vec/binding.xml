@@ -26,6 +26,12 @@
 		<productionToOutput port="pairs" production="pairs"/>
 	</bind>
 
+	<bind action="create_graphml" tool="create_graphml">
+		<inputAsRequirement port="pairs" requirement="pairs"/>
+		<inputAsRequirement port="existing_graphml" requirement="existing_graphml"/>
+		<productionToOutput port="output_graphml" production="output_graphml"/>
+	</bind>
+
 
 	<bind action="end" type="upload">
 		<url value="{livesearch.upload}"/>
@@ -35,5 +41,9 @@
 		<upload port="pairs" type="folder">
 			<query name="resource" value="pairs"/>
 		</upload>
+		<upload port="output_graphml" type="folder">
+			<query name="resource" value="output_graphml"/>
+		</upload>
+		
 	</bind>
 </binding>

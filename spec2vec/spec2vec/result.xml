@@ -61,5 +61,17 @@
         </row>
     </block>
 
+    <view id="download_graphml" label="Download Graphml" group="Downloads">
+        <blockRef id="main" type="download_graphml"/>
+    </view>
+    <block id="download_graphml" type="dummydownload">
+        <data>
+            <source type="file" name="output_graphml/gnps_network.graphml"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
 
 </interface>
