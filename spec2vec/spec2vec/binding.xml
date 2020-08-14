@@ -29,7 +29,7 @@
 	<bind action="create_graphml" tool="create_graphml">
 		<inputAsRequirement port="pairs" requirement="pairs"/>
 		<inputAsRequirement port="existing_graphml" requirement="existing_graphml"/>
-		<productionToOutput port="output_graphml" production="output_graphml"/>
+		<productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
 	</bind>
 
 
@@ -41,8 +41,8 @@
 		<upload port="pairs" type="folder">
 			<query name="resource" value="pairs"/>
 		</upload>
-		<upload port="output_graphml" type="folder">
-			<query name="resource" value="output_graphml"/>
+		<upload port="gnps_molecular_network_graphml" type="folder">
+			<query name="resource" value="gnps_molecular_network_graphml"/>
 		</upload>
 		
 	</bind>

@@ -21,11 +21,11 @@
 	<action name="create_graphml">
 		<input port="pairs" object="pairs"/>
 		<input port="existing_graphml" collection="existing_graphml"/>
-		<output  port="output_graphml" collection="output_graphml"/>
+		<output  port="gnps_molecular_network_graphml" collection="gnps_molecular_network_graphml"/>
     </action>
 
 	<action name="end">
 		<input port="pairs" object="pairs"/>
-		<input port="output_graphml" collection="output_graphml"/>
+		<input port="gnps_molecular_network_graphml" collection="gnps_molecular_network_graphml"/>
 	</action>
 </flow>

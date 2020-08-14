@@ -7,6 +7,7 @@ import molecular_network_filtering_library
 import argparse
 import networkx as nx
 import glob
+import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description='Processing Graphml for Spec2Vec')
@@ -20,10 +21,20 @@ def main():
 
     # Loading Network if it exists
     try:
-        G = nx.read_graphml(glob.glob(os.path.join(args.input_graphml_folder, "*"))[0])
-        # Let's do some pruning of the edges
+        G_old = nx.read_graphml(glob.glob(os.path.join(args.input_graphml_folder, "*"))[0])
 
+        # Reading new edges
+        G_new = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
+
+        # Let's do some pruning of the edges
+        G_old.remove_edges_from(list(G_old.edges()))
+
+        G_old = nx.MultiGraph(G_old)
+        G_new = nx.MultiGraph(G_new)
+
+        G = nx.compose(G_old, G_new)
     except:
+        raise
         G = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
     
     #Returning None means that there are no edges in the output
@@ -32,7 +43,7 @@ def main():
     molecular_network_filtering_library.filter_top_k(G, top_k_val)
     molecular_network_filtering_library.filter_component(G, max_component_size)
 
-    output_graphml = os.path.join(args.output_folder, "gnps_network.graphml")
+    output_graphml = os.path.join(args.output_folder, "gnps_spec2vec.graphml")
     output_pairs = os.path.join(args.output_folder, "filtered_pairs.tsv")
     molecular_network_filtering_library.output_graph(G, output_pairs)
 

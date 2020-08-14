@@ -66,7 +66,7 @@
     </view>
     <block id="download_graphml" type="dummydownload">
         <data>
-            <source type="file" name="output_graphml/gnps_network.graphml"/>
+            <source type="file" name="gnps_molecular_network_graphml/gnps_spec2vec.graphml"/>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>

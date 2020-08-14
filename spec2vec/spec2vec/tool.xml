@@ -32,13 +32,13 @@
     <tool name="create_graphml">
         <require name="pairs"       type="file"/>
         <require name="existing_graphml"       type="folder"/>
-        <produce name="output_graphml"        type="folder"/>
+        <produce name="gnps_molecular_network_graphml"        type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="create_graphml.script"/>
             <arg valueRef="pairs"/>
             <arg valueRef="existing_graphml"/>
-            <arg valueRef="output_graphml"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
         </execution>
     </tool>
 </toolset>
