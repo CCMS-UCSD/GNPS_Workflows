@@ -4,7 +4,7 @@ import os
 import csv
 import argparse
 import json
-
+import pandas as pd
 import requests
 import redis
 
@@ -345,18 +345,23 @@ all_motifs_in_scans = get_motifs_in_scans(vd, metadata,
                                             overlap_thresh=args.input_network_overlap, p_thresh=args.input_network_pvalue,
                                             X=args.input_network_topx, motif_metadata = motifdb_metadata)
 
-with open(output_prefix + "_motifs_in_scans.tsv", 'w') as tsvfile:
-    fieldnames = ['scan', 'precursor.mass',
+
+# Outputting motif list, one by line
+fieldnames = ['scan', 'precursor.mass',
                   'retention.time',
                   "motif",
                   "probability",
                   "overlap",
                   "motifdb_url",
                   "motifdb_annotation"]
-    writer = csv.DictWriter(tsvfile, fieldnames=fieldnames, delimiter='\t',)
-    writer.writeheader()
-    for output_object in all_motifs_in_scans:
-        writer.writerow(output_object)
+output_motifs_scans_filename = output_prefix + "_motifs_in_scans.tsv"
+motif_list_df = pd.DataFrame(all_motifs_in_scans)
+motif_list_df = motif_list_df[fieldnames]
+motif_list_df.to_csv(output_motifs_scans_filename, sep="\t", index=False)
+
+# Reformatting the list of cluster summary
+# TODO
+
 
 sys.exit(0)
 

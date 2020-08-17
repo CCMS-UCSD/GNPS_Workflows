@@ -16,17 +16,27 @@
         <output port="additional_pairs" collection="additional_pairs"/>
     </action>
 
+    <!-- Merging Metadata from Potentially Google Sheets -->
+    <collection     name="metadata_merged"/>
+    <action name="metabolomicmetadatamerge">
+        <input  port="flowParams" object="workflowParameters"/>
+        <input  port="metadatafile" collection="metadata_table"/>
+        <output port="metadata_merged"     collection="metadata_merged"/>
+    </action>
+
+    <!-- Validation of Input -->
     <collection name="validation_summary"/>
     <action name="input_validation">
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table"/>
         <input port="inputSpectra" collection="inputSpectra"/>
-        <input port="metadata_table" object="metadata_table"/>
+        <input port="metadata_table" object="metadata_merged"/>
         <output port="validation_summary" collection="validation_summary"/>
     </action>
 
     <object name="quantification_table_reformatted"/>
     <object name="spectra_reformatted"/>
+    <object name="spectra_reformatted_unfiltered"/>
     <action name="reformat_quantification">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
@@ -37,12 +47,23 @@
         <output port="spectra_reformatted" object="spectra_reformatted"/>
     </action>
 
-    <object name="spectra"/>
+
+    <!-- Renumbering the Spectra -->
+    <!-- <object name="spectra"/>
     <action name="renumber_mgf">
         <input port="validation_summary" collection="validation_summary"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="inputSpectra" object="spectra_reformatted"/>
         <output port="spectra" object="spectra"/>
+    </action> -->
+
+    <!-- Filtering the spectra -->
+    <object name="spectra"/>
+    <object name="spectra_filtered"/>
+    <action name="filter_spectra">
+        <input port="spectra" object="spectra_reformatted"/>
+        <output port="spectra_unfiltered" object="spectra"/>
+        <output port="spectra_filtered" object="spectra_filtered"/>
     </action>
 
     <!-- Molecular Networking -->
@@ -53,13 +74,13 @@
 
     <action name="prep_molecular_networking_parameters">
         <input port="workflowParameters" object="workflowParameters"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <output port="networking_parameters" collection="networking_parameters"/>
     </action>
 
     <action name="molecular_networking_parallel_step" multiplicity="multiple" type="parallel">
         <input port="networking_parameters" collection="networking_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="networking_pairs_results_folder" collection="networking_pairs_results_folder"/>
     </action>
@@ -112,7 +133,7 @@
 
     <action name="molecular_librarysearch_parallel_step" multiplicity="multiple" type="parallel">
         <input port="librarysearch_parameters" collection="librarysearch_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="library" collection="library"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="librarysearch_results_folder" collection="librarysearch_results_folder"/>
@@ -120,7 +141,7 @@
 
     <action name="molecular_libraryanalogsearch_parallel_step" multiplicity="multiple" type="parallel">
         <input port="librarysearch_parameters" collection="libraryanalogsearch_parameters" transformation="unfolding"/>
-        <input port="mgf_file" object="spectra"/>
+        <input port="mgf_file" object="spectra_filtered"/>
         <input port="library" collection="library"/>
         <input port="workflowParameters" object="workflowParameters"/>
         <output port="librarysearch_results_folder" collection="libraryanalogsearch_results_folder"/>
@@ -154,7 +175,7 @@
     <action name="clusterinfosummary_creation">
         <input port="workflowParameters" object="workflowParameters"/>
         <input port="quantification_table" object="quantification_table_reformatted"/>
-        <input port="metadata_table" object="metadata_table"/>
+        <input port="metadata_table" object="metadata_merged"/>
         <input port="spectra" object="spectra"/>
         <output port="clusterinfo_summary" object="clusterinfo_summary"/>
     </action>
@@ -197,7 +218,7 @@
     <collection name="qiime2_output"/>
     <action name="run_qiime2">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
-        <input  port="metadata_table"       object="metadata_table"/>
+        <input  port="metadata_table"       object="metadata_merged"/>
         <output port="qiime2_output"     collection="qiime2_output"/>
     </action>
 
@@ -209,10 +230,22 @@
         <output  port="network_statistics" object="network_statistics"/>
     </action>
 
+    <!-- Feature Stats -->
+    <collection name="feature_statistics"/>
+    <collection name="feature_plots"/>
+    <action name="metabolomic_feature_statistics">
+        <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
+        <input  port="metadata_table"       object="metadata_merged"/>
+        <input  port="librarysearch_results_file_DB"       object="librarysearch_results_file_DB"/>
+        <output  port="feature_statistics" collection="feature_statistics"/>
+        <output  port="feature_plots" collection="feature_plots"/>
+    </action>
 
     <action name="end">
         <input port="spectra" object="spectra"/>
+        <input port="spectra_filtered" object="spectra_filtered"/>
         <input port="spectra_reformatted" object="spectra_reformatted"/>
+
         <input port="networking_parameters" collection="networking_parameters"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="networkedges_selfloop" object="networkedges_selfloop"/>
@@ -227,5 +260,10 @@
         <input port="validation_summary" collection="validation_summary"/>
         <input port="quantification_table_reformatted" collection="quantification_table_reformatted"/>
         <input port="network_statistics" collection="network_statistics"/>
+        <input port="feature_statistics" collection="feature_statistics"/>
+        <input port="feature_plots" collection="feature_plots"/>
+
+        <!-- Metadata -->
+        <input port="metadata_merged" collection="metadata_merged"/>
     </action>
 </flow>

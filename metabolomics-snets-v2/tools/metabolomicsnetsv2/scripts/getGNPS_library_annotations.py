@@ -2,52 +2,39 @@
 
 import sys
 import os
-import ming_fileio_library
 import pandas as pd
 import ming_gnps_library
 import requests
 from collections import defaultdict
+import argparse
+import urllib.parse
 
-def main():
-    input_result_filename = sys.argv[1]
-    output_result_filename = sys.argv[2]
-
+def enrich_output(input_filename, output_filename):
     spectrum_id_cache = {}
-
-
-    input_rows, input_table = ming_fileio_library.parse_table_with_headers(input_result_filename)
-
-    output_table = defaultdict(list)
-
-    output_headers = ["SpectrumID", "Compound_Name", "Ion_Source", "Instrument", "Compound_Source", "PI", "Data_Collector", "Adduct"]
-    output_headers += ["Precursor_MZ", "ExactMass", "Charge", "CAS_Number", "Pubmed_ID", "Smiles", "INCHI", "INCHI_AUX", "Library_Class"]
-    output_headers += ["IonMode", "UpdateWorkflowName", "LibraryQualityString", "#Scan#", "SpectrumFile", "MQScore", "Organism"]
-    output_headers += ["TIC_Query", "RT_Query", "MZErrorPPM", "SharedPeaks", "MassDiff", "LibMZ", "SpecMZ", "SpecCharge"]
-    output_headers += ["MoleculeExplorerDatasets", "MoleculeExplorerFiles"]
-
-    for header in output_headers:
-        output_table[header] = []
-
-    number_hits_per_query = defaultdict(lambda: 0)
-
-    for i in range(input_rows):
-        number_hits_per_query[input_table["FileScanUniqueID"][i]] += 1
-
     molecule_explorer_df = pd.DataFrame(ming_gnps_library.get_molecule_explorer_dataset_data())
 
-    for i in range(input_rows):
-        spectrum_id = input_table["LibrarySpectrumID"][i]
-        score = input_table["MQScore"][i]
-        filename = input_table["SpectrumFile"][i]
-        libfilename = input_table["LibraryName"][i]
-        scan = input_table["#Scan#"][i]
-        TIC_Query = input_table["UnstrictEvelopeScore"][i]
-        RT_Query = input_table["p-value"][i]
-        SpecCharge = input_table["Charge"][i]
-        SpecMZ = input_table["SpecMZ"][i]
-        MZErrorPPM = input_table["mzErrorPPM"][i]
-        SharedPeaks = input_table["LibSearchSharedPeaks"][i]
-        MassDiff = input_table["ParentMassDiff"][i]
+    input_results_df = pd.read_csv(input_filename, sep="\t")
+
+    # Counting number of hits per filename
+    number_hits_per_query = defaultdict(lambda: 0)
+    for result_obj in input_results_df.to_dict(orient="records"):
+        number_hits_per_query[result_obj["FileScanUniqueID"]] += 1
+
+    output_list = []
+    for result_obj in input_results_df.to_dict(orient="records"):
+        # Reading exsting data
+        spectrum_id = result_obj["LibrarySpectrumID"]
+        score = result_obj["MQScore"]
+        filename = result_obj["SpectrumFile"]
+        libfilename = result_obj["LibraryName"]
+        scan = result_obj["#Scan#"]
+        TIC_Query = result_obj["UnstrictEvelopeScore"]
+        RT_Query = result_obj["p-value"]
+        SpecCharge = result_obj["Charge"]
+        SpecMZ = result_obj["SpecMZ"]
+        MZErrorPPM = result_obj["mzErrorPPM"]
+        SharedPeaks = result_obj["LibSearchSharedPeaks"]
+        MassDiff = result_obj["ParentMassDiff"]
 
         print(spectrum_id)
         gnps_library_spectrum = None
@@ -66,85 +53,135 @@ def main():
         except:
             continue
 
-        gnps_library_spectrum["annotations"] = sorted(gnps_library_spectrum["annotations"], key=lambda annotation: annotation["create_time"], reverse=True)
+        output_result_dict = {}
 
-        output_table["SpectrumID"].append(spectrum_id)
-        output_table["Compound_Name"].append(gnps_library_spectrum["annotations"][0]["Compound_Name"].replace("\t", ""))
-        output_table["Ion_Source"].append(gnps_library_spectrum["annotations"][0]["Ion_Source"].replace("\t", ""))
-        output_table["Instrument"].append(gnps_library_spectrum["annotations"][0]["Instrument"].replace("\t", ""))
-        output_table["Compound_Source"].append(gnps_library_spectrum["annotations"][0]["Compound_Source"].replace("\t", ""))
-        output_table["PI"].append(gnps_library_spectrum["annotations"][0]["PI"].replace("\t", ""))
-        output_table["Data_Collector"].append(gnps_library_spectrum["annotations"][0]["Data_Collector"].replace("\t", ""))
-        output_table["Adduct"].append(gnps_library_spectrum["annotations"][0]["Adduct"].replace("\t", ""))
-        output_table["Precursor_MZ"].append(gnps_library_spectrum["annotations"][0]["Precursor_MZ"].replace("\t", ""))
-        output_table["ExactMass"].append(gnps_library_spectrum["annotations"][0]["ExactMass"].replace("\t", ""))
-        output_table["Charge"].append(gnps_library_spectrum["annotations"][0]["Charge"].replace("\t", ""))
-        output_table["CAS_Number"].append(gnps_library_spectrum["annotations"][0]["CAS_Number"].replace("\t", ""))
-        output_table["Pubmed_ID"].append(gnps_library_spectrum["annotations"][0]["Pubmed_ID"].replace("\t", ""))
-        output_table["Smiles"].append(gnps_library_spectrum["annotations"][0]["Smiles"].replace("\t", ""))
-        output_table["INCHI"].append(gnps_library_spectrum["annotations"][0]["INCHI"].replace("\t", ""))
-        output_table["INCHI_AUX"].append(gnps_library_spectrum["annotations"][0]["INCHI_AUX"].replace("\t", ""))
-        output_table["Library_Class"].append(gnps_library_spectrum["annotations"][0]["Library_Class"].replace("\t", ""))
-        output_table["IonMode"].append(gnps_library_spectrum["annotations"][0]["Ion_Mode"].replace("\t", ""))
+        output_result_dict["SpectrumID"] = (spectrum_id)
+        output_result_dict["Compound_Name"] = (gnps_library_spectrum["annotations"][0]["Compound_Name"].replace("\t", ""))
+        output_result_dict["Ion_Source"] = (gnps_library_spectrum["annotations"][0]["Ion_Source"].replace("\t", ""))
+        output_result_dict["Instrument"] = (gnps_library_spectrum["annotations"][0]["Instrument"].replace("\t", ""))
+        output_result_dict["Compound_Source"] = (gnps_library_spectrum["annotations"][0]["Compound_Source"].replace("\t", ""))
+        output_result_dict["PI"] = (gnps_library_spectrum["annotations"][0]["PI"].replace("\t", ""))
+        output_result_dict["Data_Collector"] = (gnps_library_spectrum["annotations"][0]["Data_Collector"].replace("\t", ""))
+        output_result_dict["Adduct"] = (gnps_library_spectrum["annotations"][0]["Adduct"].replace("\t", ""))
+        output_result_dict["Precursor_MZ"] = (gnps_library_spectrum["annotations"][0]["Precursor_MZ"].replace("\t", ""))
+        output_result_dict["ExactMass"] = (gnps_library_spectrum["annotations"][0]["ExactMass"].replace("\t", ""))
+        output_result_dict["Charge"] = (gnps_library_spectrum["annotations"][0]["Charge"].replace("\t", ""))
+        output_result_dict["CAS_Number"] = (gnps_library_spectrum["annotations"][0]["CAS_Number"].replace("\t", ""))
+        output_result_dict["Pubmed_ID"] = (gnps_library_spectrum["annotations"][0]["Pubmed_ID"].replace("\t", ""))
+        output_result_dict["Smiles"] = (gnps_library_spectrum["annotations"][0]["Smiles"].replace("\t", ""))
+        output_result_dict["INCHI"] = (gnps_library_spectrum["annotations"][0]["INCHI"].replace("\t", ""))
+        output_result_dict["INCHI_AUX"] = (gnps_library_spectrum["annotations"][0]["INCHI_AUX"].replace("\t", ""))
+        output_result_dict["Library_Class"] = (gnps_library_spectrum["annotations"][0]["Library_Class"].replace("\t", ""))
+        output_result_dict["IonMode"] = (gnps_library_spectrum["annotations"][0]["Ion_Mode"].replace("\t", ""))
 
         if gnps_library_spectrum["annotations"][0]["Library_Class"] == "1":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-GOLD")
-            output_table["LibraryQualityString"].append("Gold")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-GOLD")
+            output_result_dict["LibraryQualityString"] = ("Gold")
         elif gnps_library_spectrum["annotations"][0]["Library_Class"] == "2":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-SILVER")
-            output_table["LibraryQualityString"].append("Silver")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-SILVER")
+            output_result_dict["LibraryQualityString"] = ("Silver")
         elif gnps_library_spectrum["annotations"][0]["Library_Class"] == "3":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-BRONZE")
-            output_table["LibraryQualityString"].append("Bronze")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-BRONZE")
+            output_result_dict["LibraryQualityString"] = ("Bronze")
         elif gnps_library_spectrum["annotations"][0]["Library_Class"] == "4":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-BRONZE")
-            output_table["LibraryQualityString"].append("Insilico")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-BRONZE")
+            output_result_dict["LibraryQualityString"] = ("Insilico")
         elif gnps_library_spectrum["annotations"][0]["Library_Class"] == "5":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-BRONZE")
-            output_table["LibraryQualityString"].append("Insilico")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-BRONZE")
+            output_result_dict["LibraryQualityString"] = ("Insilico")
         elif gnps_library_spectrum["annotations"][0]["Library_Class"] == "10":
-            output_table["UpdateWorkflowName"].append("UPDATE-SINGLE-ANNOTATED-BRONZE")
-            output_table["LibraryQualityString"].append("Challenge")
+            output_result_dict["UpdateWorkflowName"] = ("UPDATE-SINGLE-ANNOTATED-BRONZE")
+            output_result_dict["LibraryQualityString"] = ("Challenge")
         else:
-            print("BULLLSHIT", gnps_library_spectrum["annotations"][0]["Library_Class"])
+            print("Invalid Library Class", gnps_library_spectrum["annotations"][0]["Library_Class"])
 
-        output_table["#Scan#"].append(scan)
-        output_table["SpectrumFile"].append(filename)
-        output_table["LibraryName"].append(libfilename)
-        output_table["MQScore"].append(score)
-        output_table["Organism"].append(gnps_library_spectrum["spectruminfo"]["library_membership"])
-        output_table["TIC_Query"].append(TIC_Query)
-        output_table["RT_Query"].append(RT_Query)
-        output_table["MZErrorPPM"].append(MZErrorPPM)
-        output_table["SharedPeaks"].append(SharedPeaks)
-        output_table["MassDiff"].append(MassDiff)
-        output_table["LibMZ"].append(gnps_library_spectrum["annotations"][0]["Precursor_MZ"])
-        output_table["SpecMZ"].append(SpecMZ)
-        output_table["SpecCharge"].append(SpecCharge)
-        output_table["FileScanUniqueID"].append(input_table["FileScanUniqueID"][i])
-        output_table["NumberHits"].append(number_hits_per_query[input_table["FileScanUniqueID"][i]])
+        output_result_dict["#Scan#"] = (scan)
+        output_result_dict["SpectrumFile"] = (filename)
+        output_result_dict["LibraryName"] = (libfilename)
+        output_result_dict["MQScore"] = (score)
+        output_result_dict["Organism"] = (gnps_library_spectrum["spectruminfo"]["library_membership"])
+        output_result_dict["TIC_Query"] = (TIC_Query)
+        output_result_dict["RT_Query"] = (RT_Query)
+        output_result_dict["MZErrorPPM"] = (MZErrorPPM)
+        output_result_dict["SharedPeaks"] = (SharedPeaks)
+        output_result_dict["MassDiff"] = (MassDiff)
+        output_result_dict["LibMZ"] = (gnps_library_spectrum["annotations"][0]["Precursor_MZ"])
+        output_result_dict["SpecMZ"] = (SpecMZ)
+        output_result_dict["SpecCharge"] = (SpecCharge)
+        output_result_dict["FileScanUniqueID"] = (result_obj["FileScanUniqueID"])
+        output_result_dict["NumberHits"] = (number_hits_per_query[result_obj["FileScanUniqueID"]])
 
+        if "full_CCMS_path" in result_obj:	
+            output_result_dict["full_CCMS_path"] = (result_obj["full_CCMS_path"])
 
         tag_list = [ (tag["tag_desc"] + "[" + tag["tag_type"] + "]") for tag in gnps_library_spectrum["spectrum_tags"]]
         tag_string = "||".join(tag_list).replace("\t", "")
 
-        output_table["tags"].append(tag_string)
+        output_result_dict["tags"] = (tag_string)
 
         #Getting molecule explorer information
         compound_name = gnps_library_spectrum["annotations"][0]["Compound_Name"].replace("\t", "")
         compound_filtered_df = molecule_explorer_df[molecule_explorer_df["compound_name"] == compound_name]
         if len(compound_filtered_df) == 1:
-            output_table["MoleculeExplorerDatasets"].append(compound_filtered_df.to_dict(orient="records")[0]["number_datasets"])
-            output_table["MoleculeExplorerFiles"].append(compound_filtered_df.to_dict(orient="records")[0]["number_files"])
+            output_result_dict["MoleculeExplorerDatasets"] = (compound_filtered_df.to_dict(orient="records")[0]["number_datasets"])
+            output_result_dict["MoleculeExplorerFiles"] = (compound_filtered_df.to_dict(orient="records")[0]["number_files"])
         else:
-            output_table["MoleculeExplorerDatasets"].append(0)
-            output_table["MoleculeExplorerFiles"].append(0)
+            output_result_dict["MoleculeExplorerDatasets"] = (0)
+            output_result_dict["MoleculeExplorerFiles"] = (0)
+
+        # Calculating inchi key
+        if len(output_result_dict["Smiles"]) < 5 and len(output_result_dict["INCHI"]) < 5:
+            output_result_dict["InChIKey"] = "N/A"
+            output_result_dict["InChIKey-Planar"] = "N/A"
+        else:
+            try:
+                inchikey_url = "https://gnps-structure.ucsd.edu/inchikey?smiles={}&inchi={}".format(urllib.parse.quote_plus(output_result_dict["Smiles"]), 
+                                    urllib.parse.quote_plus(output_result_dict["INCHI"]))
+                r = requests.get(inchikey_url)
+                r.raise_for_status()
+                output_result_dict["InChIKey"] = r.text
+                output_result_dict["InChIKey-Planar"] = r.text.split("-")[0]
+            except:
+                output_result_dict["InChIKey"] = "N/A"
+                output_result_dict["InChIKey-Planar"] = "N/A"
+
+        # Getting Classyfire
+        if len(output_result_dict["InChIKey"]) > 5:
+            try:
+                classyfire_url = "https://gnps-classyfire.ucsd.edu/entities/{}.json".format(output_result_dict["InChIKey"])
+                r = requests.get(classyfire_url)
+                r.raise_for_status()
+                classification_json = r.json()
+
+                output_result_dict["superclass"] = classification_json["superclass"]["name"]
+                output_result_dict["class"] = classification_json["class"]["name"]
+                output_result_dict["subclass"] = classification_json["subclass"]["name"]
+            except:
+                output_result_dict["superclass"] = "N/A"
+                output_result_dict["class"] = "N/A"
+                output_result_dict["subclass"] = "N/A"
+        else:
+            output_result_dict["superclass"] = "N/A"
+            output_result_dict["class"] = "N/A"
+            output_result_dict["subclass"] = "N/A"
+ 
+        output_list.append(output_result_dict)
+
+    pd.DataFrame(output_list).to_csv(output_filename, sep="\t", index=False)
 
 
-    ming_fileio_library.write_dictionary_table_data(output_table, output_result_filename)
 
+def main():
+    parser = argparse.ArgumentParser(description='Pulling down GNPS identifcations.')
+    parser.add_argument("input_filename")
+    parser.add_argument("output_filename")
 
+    args = parser.parse_args()
 
+    input_result_filename = args.input_filename
+    output_result_filename = args.output_filename
+
+    enrich_output(input_result_filename, output_result_filename)
 
 if __name__ == "__main__":
     main()

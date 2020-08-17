@@ -23,6 +23,11 @@
             <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
         </parameter>
 
+        <!-- Metadata file -->
+		<parameter name="googlesheetsmetadata" label="Google Sheets Metadata URL (Experimental)">
+			<default value="None"/>
+		</parameter>
+
         <parameter name="metadata_table" label="Sample Metadata Table">
             <fileGenerator type="upload" purpose="metadata_table" target="metadata_table"/>
         </parameter>
@@ -191,6 +196,27 @@
             <default value="cosine"/>
         </parameter>
 
+        <!-- Stats Options Input -->
+        <parameter name="RUN_STATS" label="Run Stats and Plots">
+            <options>
+                <option value="No" label="No"/>
+                <option value="Yes" label="Yes"/>
+            </options>
+            <validator type="set"/>
+            <default value="No"/>
+        </parameter>
+        <parameter name="METADATA_COLUMN" label="Metadata Column to Compare">
+            <default value="None"/>
+        </parameter>
+        <parameter name="METADATA_CONDITION_ONE" label="Metadata Field to Compare">
+            <default value="None"/>
+        </parameter>
+        <parameter name="METADATA_CONDITION_TWO" label="Metadata Field to Compare">
+            <default value="None"/>
+        </parameter>
+        <parameter name="METADATA_COLUMN_FACET" label="Metadata Column to Facet">
+            <default value="None"/>
+        </parameter>
 
     </parameters>
 
@@ -220,6 +246,23 @@
                 <module id="quantification_table" type="fileSelector">
                     <property name="label">Feature Quantification Table</property>
                 </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="googlesheetsmetadata"/>
+                    <tooltip id="googlesheetsmetadata_tooltip">
+                        URL of Google Sheets Page. This must either be shared as a url or published. This is a high experimental feature...
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="googlesheetsmetadata">
+                    <attribute name="size" value="25"/>
+                </input>
             </cell>
         </row>
 
@@ -407,8 +450,7 @@
                         <![CDATA[<span style="background-color:#D1EEEE;
 					padding:1px; border:2px inset blue"> To import libraries for search click
 					<a style="color:blue; font-weight:bold; font-size:105%;
-						background-color:#D1EEEE" target="_blank"
-						href="https://bix-lab.ucsd.edu/display/Public/GNPS+FAQ">
+						background-color:#D1EEEE" target="_blank" href="https://bix-lab.ucsd.edu/display/Public/GNPS+FAQ">
 						here
 					</a></span>]]>
                     </content>
@@ -595,7 +637,79 @@
             </cell>
         </row>
     </block>
-    
+
+    <block label="Advanced Univariate Statistics Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_COLUMN"/>
+                    <tooltip id="METADATA_COLUMN_gnps_tooltip">
+                    Metadata column used to group the samples. We plot the abundance of categories in this column for each molecule on the tree. 
+                    </tooltip>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="METADATA_COLUMN">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="RUN_STATS"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="RUN_STATS"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_CONDITION_ONE"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="METADATA_CONDITION_ONE">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="METADATA_CONDITION_TWO"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="METADATA_CONDITION_TWO">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="METADATA_COLUMN_FACET"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="METADATA_COLUMN_FACET">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+
+    </block>
+
+
+
 
     <block label="Advanced External Tools">
         <row>
@@ -632,7 +746,5 @@
             </cell>
         </row>
     </block>
-
-
 
 </interface>

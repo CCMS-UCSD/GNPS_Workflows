@@ -36,6 +36,10 @@
 		</parameter>
 
         <!-- Metadata file -->
+		<parameter name="googlesheetsmetadata" label="Google Sheets Metadata URL (Experimental)">
+			<default value="None"/>
+		</parameter>
+
         <parameter name="metadatafile" label="Metadata File">
 			<fileGenerator type="upload" purpose="parameters" target="metadatafile"/>
 		</parameter>
@@ -507,6 +511,25 @@
 							</cell>
 						</row>
 
+						<row></row>
+						<row></row>
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="googlesheetsmetadata"/>
+									<tooltip id="googlesheetsmetadata_tooltip">
+										URL of Google Sheets Page. This must either be shared as a url or published. This is a high experimental feature...
+									</tooltip>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="googlesheetsmetadata">
+									<attribute name="size" value="25"/>
+								</input>
+							</cell>
+						</row>
 
                         <row>
                             <cell>

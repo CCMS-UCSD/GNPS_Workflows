@@ -1,6 +1,6 @@
 <toolset>
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="merge_polarity" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="merge_polarity" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="merge_polarity.script" path="merge_polarity.py" />
@@ -19,6 +19,8 @@
                 <arg option="-output-graphml" valueRef="merged_network"/>
                 <arg option="-output-summary-table" valueRef="summary_table"/>
                 <arg option="-output-summary" valueRef="summary"/>
+                <arg option="-PPM_ERROR_TOLERANCE" valueRef="@PPM_ERROR_TOLERANCE"/>
+                <arg option="-RT_TOLERANCE" valueRef="@RT_TOLERANCE"/>
         </execution>
     </tool>
 </toolset>

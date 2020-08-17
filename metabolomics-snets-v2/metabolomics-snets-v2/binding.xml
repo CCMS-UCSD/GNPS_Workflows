@@ -150,6 +150,13 @@
 		<productionToOutput port="clusterinfosummary"     production="clusterinfosummary"/>
 	</bind>
 
+	<!-- Merging Metadata Information -->
+	<bind action="metabolomicmetadatamerge" tool="metabolomicmetadatamerge">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+        <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
+        <productionToOutput port="metadata_merged"     production="metadata_merged"/>
+	</bind>
+
     <!-- Merging Grouping Information -->
 	<bind action="metabolomicgroupmappingconvert" tool="MetabolomicGroupConvert">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
@@ -374,6 +381,9 @@
         <upload port="all_network_paths_histogram" type="file">
 			<query name="resource" value="all_network_paths_histogram"/>
 		</upload> -->
+		<upload port="metadata_merged" type="file">
+			<query name="resource" value="metadata_merged"/>
+		</upload>
 		<upload port="groupmapping_converted" type="file">
 			<query name="resource" value="groupmapping_converted"/>
 		</upload>
