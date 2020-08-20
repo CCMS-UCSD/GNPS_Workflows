@@ -16,6 +16,7 @@ import ming_sptxt_library
 from collections import defaultdict
 
 try:
+    os.system('pip install pyteomics')
     from pyteomics import mass
     from pyteomics import mzml as pyteomicsmzml
 except:
