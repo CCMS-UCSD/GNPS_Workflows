@@ -31,7 +31,7 @@
         <row>
             <column type="integer" field="CLUSTERID1" label="CLUSTERID1" precision="2"/>
             <column type="integer" field="CLUSTERID2" label="CLUSTERID1" precision="3"/>
-            <column type="float" field="max_chemdir" label="max_chemdir" precision="3"/>
+            <column type="float" field="max_chemdir" label="absolute_max_chemdir" precision="3"/>
             <column type="float" field="max_comparison" label="max_comparison" precision="2"/>
             <column type="float" field="Cosine" label="Cosine" precision="3"/>
             <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
