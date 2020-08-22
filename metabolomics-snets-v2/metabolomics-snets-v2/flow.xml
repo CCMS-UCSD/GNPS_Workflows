@@ -35,6 +35,14 @@
         <output port="input_file_validation_flag"           object="input_file_validation_flag"/>
     </action>
 
+    <!-- File Summary -->
+    <object name="filestatsresults"/>
+    <action name="filesummary">
+        <input port="spec" collection="inputspectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="filestatsresults" object="filestatsresults"/>
+    </action>
+
 
     <!-- Library Search -->
     <collection name="paramsgen_specnets"/>
@@ -317,6 +325,8 @@
 
 
     <action name="end">
+        <input port="filestatsresults" object="filestatsresults"/>
+
         <!-- Library Search -->
         <input port="result_specnets" object="result_specnets"/>
         <input port="result_specnets_DB" object="result_specnets_DB"/>
