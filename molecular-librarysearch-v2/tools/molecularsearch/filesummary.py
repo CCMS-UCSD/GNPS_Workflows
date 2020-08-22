@@ -86,15 +86,24 @@ def main():
 
         #print(result_list)
         #full_result_list += result_list
-
+    
+    used_files = set()
     for result_object in full_result_list:
         mangled_name = os.path.basename(result_object["Filename"])
         full_path = mangled_mapping[mangled_name]
         result_object["full_CCMS_path"] = full_path
+        used_files.add(full_path)
 
-    ming_fileio_library.write_list_dict_table_data(full_result_list, args.result_file)
+    for mangled_name in spectra_files:
+        full_path = mangled_mapping[os.path.basename(mangled_name)]
+        if full_path in used_files:
+            continue
 
+        output_dict = {}
+        output_dict["full_CCMS_path"] = full_path
+        full_result_list.append(output_dict)
 
+    pd.DataFrame(full_result_list).to_csv(args.result_file, sep="\t", index=False)
 
 
 
