@@ -14,13 +14,14 @@ import ming_psm_library
 import ming_numerical_utilities
 import ming_sptxt_library
 from collections import defaultdict
+import sys
 
 try:
-    os.system('pip install pyteomics')
     from pyteomics import mass
     from pyteomics import mzml as pyteomicsmzml
 except:
     print("no pyteomics")
+    print(sys.exc_info())
 
 """
 
