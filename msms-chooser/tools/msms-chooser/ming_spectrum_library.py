@@ -14,8 +14,9 @@ import ming_numerical_utilities
 import ming_sptxt_library
 from collections import defaultdict
 import sys
-
+import subprocess
 try:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyteomics"])    
     import pyteomics
     from pyteomics import mass
     from pyteomics import mzml as pyteomicsmzml
