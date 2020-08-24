@@ -13,19 +13,12 @@ import ming_psm_library
 import ming_numerical_utilities
 import ming_sptxt_library
 from collections import defaultdict
-import sys
-import subprocess
+
 try:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyteomics"])    
-    import pyteomics
     from pyteomics import mass
     from pyteomics import mzml as pyteomicsmzml
 except:
-    import imp
-    print(imp.find_module('pyteomics'))
     print("no pyteomics")
-    print(sys.exc_info())
-
 """
 
 Spectrum Utilities to manipulate and do things with spectra
