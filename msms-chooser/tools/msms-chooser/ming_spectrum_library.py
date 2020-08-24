@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import re
 import xmltodict
 import base64
@@ -17,9 +16,12 @@ from collections import defaultdict
 import sys
 
 try:
+    import pyteomics
     from pyteomics import mass
     from pyteomics import mzml as pyteomicsmzml
 except:
+    import imp
+    print(imp.find_module('pyteomics'))
     print("no pyteomics")
     print(sys.exc_info())
 
