@@ -262,7 +262,6 @@
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
             </column>
 
-            
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10">
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
                 <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
@@ -271,6 +270,12 @@
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
 
+            <column type="genericurlgenerator" label="Quant">
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
+                <parameter name="LABEL" value="Quant Plots"/>
+                <parameter name="REQUESTPARAMETER=feature" value="[cluster index]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
 
 
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
