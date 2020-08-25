@@ -262,7 +262,6 @@
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
             </column>
 
-            
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10">
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
                 <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
@@ -271,6 +270,12 @@
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
 
+            <column type="genericurlgenerator" label="Quant">
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
+                <parameter name="LABEL" value="Quant Plots (Beta)"/>
+                <parameter name="REQUESTPARAMETER=feature" value="[cluster index]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
 
 
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
@@ -639,7 +644,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -675,7 +680,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -690,16 +695,16 @@
         </row>
     </block>
 
-    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views (Experimental)">
-        <blockRef id="main" type="esquisse_data_for_plotting"/>
+    <view id="interactive_data_for_plotting" label="Data Exploration with Interactive Plotting" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="interactive_data_for_plotting"/>
     </view>
-    <block id="esquisse_data_for_plotting" type="dummylinkout">
+    <block id="interactive_data_for_plotting" type="dummylinkout">
         <data>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:8347?task=[task]'/>
+        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:6549?task=[task]'/>
     </block>
 
     <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
