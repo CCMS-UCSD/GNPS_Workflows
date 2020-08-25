@@ -272,7 +272,7 @@
 
             <column type="genericurlgenerator" label="Quant">
                 <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
-                <parameter name="LABEL" value="Quant Plots"/>
+                <parameter name="LABEL" value="Quant Plots (Beta)"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[cluster index]"/>
                 <parameter name="USETASK" value="True"/>
             </column>
