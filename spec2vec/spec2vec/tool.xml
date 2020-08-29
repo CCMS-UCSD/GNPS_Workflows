@@ -39,6 +39,8 @@
             <arg valueRef="pairs"/>
             <arg valueRef="existing_graphml"/>
             <arg valueRef="gnps_molecular_network_graphml"/>
+            <arg option="-topk" valueRef="@TOPK"/>
+            <arg option="-removecosine" valueRef="@REMOVE_COSINE_PAIRS"/>
         </execution>
     </tool>
 </toolset>

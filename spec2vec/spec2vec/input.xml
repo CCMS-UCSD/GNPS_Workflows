@@ -18,6 +18,24 @@
             <fileGenerator type="upload" purpose="existing_graphml" target="existing_graphml"/>
         </parameter>
 
+        <!-- Basic MS parameters -->
+		<parameter name="PAIRS_MIN_SCORE" label="Min Pairs Score">
+			<default value="0.7"/>
+			<validator type="float" minimumExclusive="0" maximum="1"/>
+		</parameter>
+
+        <parameter name="TOPK" label="Network TopK">
+			<default value="50"/>
+		</parameter>
+
+        <parameter name="REMOVE_COSINE_PAIRS" label="Remove Cosine Pairs">
+			<options>
+				<option value="yes" label="yes"/>
+				<option value="no" label="no"/>
+			</options>
+			<default value="yes"/>
+		</parameter>
+
     </parameters>
 
     <!-- Input form layout -->
@@ -48,6 +66,44 @@
                 <module id="existing_graphml" type="fileSelector">
                     <property name="label">Network Graphml</property>
                 </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOPK"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="TOPK">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PAIRS_MIN_SCORE"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="PAIRS_MIN_SCORE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="REMOVE_COSINE_PAIRS"/>
+                </label>
+                <input type="select" parameter="REMOVE_COSINE_PAIRS">
+                </input>
             </cell>
         </row>
     </block>

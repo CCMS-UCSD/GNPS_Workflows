@@ -9,7 +9,7 @@
         <data>
             <source type="file" name="pairs/pairs.tsv"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="Cos_Score" operator="descending"/>
+                <parser type="sortedTabular" sortBy="Cosine" operator="descending"/>
                 <parser type="SQLite"/>
             </parsers>
         </data>

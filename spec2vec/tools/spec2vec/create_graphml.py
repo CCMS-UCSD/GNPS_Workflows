@@ -14,10 +14,12 @@ def main():
     parser.add_argument('input_pairs_file', help='input_pairs_file')
     parser.add_argument('input_graphml_folder', help='input_graphml_folder')
     parser.add_argument('output_folder', help='output_folder')
+    parser.add_argument('--topk', default=50, type=int, help='mutual top k')
+    parser.add_argument('--removecosine', default="yes", help='remove cosine edges')
     args = parser.parse_args()
 
-    top_k_val = 10
-    max_component_size = 10
+    top_k_val = int(args.topk)
+    max_component_size = 100
 
     # Loading Network if it exists
     try:
@@ -27,7 +29,8 @@ def main():
         G_new = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
 
         # Let's do some pruning of the edges
-        G_old.remove_edges_from(list(G_old.edges()))
+        if args.removecosine == "yes":
+            G_old.remove_edges_from(list(G_old.edges()))
 
         G_old = nx.MultiGraph(G_old)
         G_new = nx.MultiGraph(G_new)
