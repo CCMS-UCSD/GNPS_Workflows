@@ -49,7 +49,11 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
         #loading file
         spectrum_list = []
         try:
-            spectrum_list = ming_spectrum_library.load_mzxml_file(path_to_spectrum_file)
+            leave, extension = os.path.splitext(path_to_spectrum_file)
+            if extension.lower() == '.mzxml':
+                spectrum_list = ming_spectrum_library.load_mzxml_file(path_to_spectrum_file)
+            if extension.upper() == '.mzml':
+                spectrum_list == ming_spectrum_library.load_mzml_file(path_to_spectrum_file)
         except KeyboardInterrupt:
             raise
         except Exception as e:
