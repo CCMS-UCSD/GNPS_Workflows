@@ -49,6 +49,13 @@
             <validator type="set"/>
         </parameter>
 
+        <parameter name="LEARNINGRATE" label="Learning Rate">
+            <options>
+                <option value="1e-5" label="1e-5"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
     </parameters>
 
     <!-- Input form layout -->
@@ -134,6 +141,18 @@
 
             <cell>
                 <input type="select" parameter="LATENTDIM"></input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="LEARNINGRATE"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="LEARNINGRATE"></input>
             </cell>
         </row>
     </block>
