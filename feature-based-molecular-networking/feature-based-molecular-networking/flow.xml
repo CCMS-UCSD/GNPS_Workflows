@@ -3,6 +3,7 @@
     <object name="workflowParameters"/>
     <collection name="inputSpectra"/>
     <object name="quantification_table"/>
+    <collection name="raw_spectra"/>
     <object name="metadata_table"/>
     <collection name="additional_pairs"/>
 
@@ -12,8 +13,17 @@
         <output port="spec" collection="inputSpectra"/>
         <output port="lib" collection="library"/>
         <output port="quantification_table" object="quantification_table"/>
+        <output port="raw_spectra" object="raw_spectra"/>
         <output port="metadata_table" object="metadata_table"/>
         <output port="additional_pairs" collection="additional_pairs"/>
+    </action>
+
+    <!-- Summarizing Input mzML Raw Data -->
+    <object name="filestatsresults"/>
+    <action name="filesummary">
+        <input port="spec" collection="raw_spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="filestatsresults" object="filestatsresults"/>
     </action>
 
     <!-- Merging Metadata from Potentially Google Sheets -->
@@ -265,5 +275,8 @@
 
         <!-- Metadata -->
         <input port="metadata_merged" collection="metadata_merged"/>
+
+        <!-- Summary -->
+        <input port="filestatsresults" collection="filestatsresults"/>
     </action>
 </flow>

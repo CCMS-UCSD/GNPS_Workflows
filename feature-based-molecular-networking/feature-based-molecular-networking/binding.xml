@@ -11,6 +11,9 @@
         <download port="quantification_table" type="folder">
             <query name="resource" value="quantification_table"/>
         </download>
+        <download port="raw_spectra" type="folder">
+            <query name="resource" value="raw_spectra"/>
+        </download>
         <download port="metadata_table" type="folder">
             <query name="resource" value="metadata_table"/>
         </download>
@@ -28,6 +31,13 @@
         <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
+    </bind>
+
+    <!-- Summarizing Input mzML Raw Data -->
+    <bind action="filesummary" tool="filesummary">
+        <inputAsRequirement port="spec" requirement="spec"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="filestatsresults" production="result"/>
     </bind>
 
     <!-- Merging Metadata Information -->
@@ -272,5 +282,8 @@
         <upload port="metadata_merged" type="folder">
             <query name="resource" value="metadata_merged"/>
         </upload>
+        <upload port="filestatsresults" type="file">
+			<query name="resource" value="filestatsresults"/>
+		</upload>
     </bind>
 </binding>
