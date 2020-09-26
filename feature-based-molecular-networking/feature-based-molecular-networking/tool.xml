@@ -462,6 +462,7 @@
     <tool name="metabolomic_feature_statistics">
         <require name="quantification_table_reformatted" type="file"/>
         <require name="metadata_table" type="folder"/>
+        <require name="filestatsresults" type="file"/>
         <require name="librarysearch_results_file_DB" type="file"/>
         <produce name="feature_statistics" type="folder"/>
         <produce name="feature_plots" type="folder"/>
@@ -470,6 +471,7 @@
             <arg pathRef="metabolomic_feature_statistics.script"/>
             <arg valueRef="quantification_table_reformatted"/>
             <arg valueRef="metadata_table"/>
+            <arg valueRef="filestatsresults"/>
             <arg valueRef="feature_statistics"/>
             <arg valueRef="feature_plots"/>
             <arg option="-metadata_column" valueRef="@METADATA_COLUMN"/>

@@ -45,7 +45,7 @@ def plot_box(input_params):
 
     return None
 
-def calculate_statistics(input_quant_filename, input_metadata_file, 
+def calculate_statistics(input_quant_filename, input_metadata_file, input_summary_file,
                             output_summary_folder, 
                             output_plots_folder=None, 
                             metadata_column=None, 
@@ -98,6 +98,19 @@ def calculate_statistics(input_quant_filename, input_metadata_file,
         pass
 
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
+    # Trying to add in summary to proteosafe output
+    try:
+        file_summary_df = pd.read_csv(input_summary_file, sep="\t")
+        file_summary_df["filename"] = file_summary_df["full_CCMS_path"].apply(lambda x: os.path.basename(x))
+        enriched_long_df = long_form_df.merge(file_summary_df, how="left", on="filename")
+        columns_to_keep = list(long_form_df.columns)
+        columns_to_keep.append("full_CCMS_path")
+        enriched_long_df = enriched_long_df[columns_to_keep]
+    except:
+        enriched_long_df = long_form_df
+
+    # Visualization in ProteoSAFe
+    enriched_long_df.to_csv(os.path.join(output_summary_folder, "data_long_visualize.tsv"), sep="\t", index=False)
 
     global GLOBAL_DF
     GLOBAL_DF = long_form_df
@@ -199,6 +212,7 @@ def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
     parser.add_argument('quantification_file', help='mzmine2 style quantification filename')
     parser.add_argument('metadata_folder', help='metadata_folder')
+    parser.add_argument('summaryfile', help='summary file for all the files')
     parser.add_argument('output_stats_folder', help='output_stats_folder')
     parser.add_argument('output_images_folder', help='output_images_folder')
     parser.add_argument('--metadata_column', help='metadata_column', default=None)
@@ -231,6 +245,7 @@ def main():
     try:
         calculate_statistics(args.quantification_file, 
             metadata_files[0], 
+            args.summaryfile,
             args.output_stats_folder, 
             output_plots_folder=args.output_images_folder,
             metadata_column=args.metadata_column,

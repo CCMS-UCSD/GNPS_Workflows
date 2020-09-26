@@ -246,6 +246,7 @@
     <action name="metabolomic_feature_statistics">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
         <input  port="metadata_table"       object="metadata_merged"/>
+        <input  port="filestatsresults"       object="filestatsresults"/>
         <input  port="librarysearch_results_file_DB"       object="librarysearch_results_file_DB"/>
         <output  port="feature_statistics" collection="feature_statistics"/>
         <output  port="feature_plots" collection="feature_plots"/>
