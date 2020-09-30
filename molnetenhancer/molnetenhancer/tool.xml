@@ -1,6 +1,6 @@
 <toolset>
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="molnetenhancer" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/envs/molnetenhancer/bin">
+        <toolPath tool="molnetenhancer" path="python"/>
     </pathSet>
 
     <pathSet base="$base">

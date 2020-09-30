@@ -45,6 +45,20 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     return
 
+def format_mgf(input_filename, output_filename):
+    with open(input_filename, 'r') as input_file, open(output_filename, 'w') as output_file:
+        # Here we look for a line with SCANS and we replace the value
+        i = 0
+        for line in input_file:
+            if 'SCANS' in line:
+                i += 1
+                line = 'SCANS='+str(i)+"\n"
+                output_file.write(line)
+            else:
+                output_file.write(line)
+
+        return
+
 if __name__=="__main__":
     # there should be obly one input file
     convert_to_feature_csv(sys.argv[1], sys.argv[2])

@@ -111,6 +111,9 @@ def enrich_output(input_filename, output_filename):
         output_result_dict["FileScanUniqueID"] = (result_obj["FileScanUniqueID"])
         output_result_dict["NumberHits"] = (number_hits_per_query[result_obj["FileScanUniqueID"]])
 
+        if "full_CCMS_path" in result_obj:	
+            output_result_dict["full_CCMS_path"] = (result_obj["full_CCMS_path"])
+
         tag_list = [ (tag["tag_desc"] + "[" + tag["tag_type"] + "]") for tag in gnps_library_spectrum["spectrum_tags"]]
         tag_string = "||".join(tag_list).replace("\t", "")
 

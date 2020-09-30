@@ -47,13 +47,15 @@
     <tool name="create_graphml">
         <require name="network_pairs" type="file"/>
         <require name="output_results" type="folder"/>
-        <produce name="output_graphml" type="folder"/>
+        <produce name="output_graphml" type="file" naming="fixed" value="ms2lda_network.graphml"/>
+        <produce name="output_pairs" type="file" naming="fixed" value="pairs.tsv"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="create_graphml.script"/>
             <arg valueRef="output_results"/>
             <arg valueRef="network_pairs"/>
             <arg valueRef="output_graphml"/>
+            <arg valueRef="output_pairs"/>
             <arg valueRef="@LDA_NETWORK_OVERLAP_THRESHOLD"/>
             <arg valueRef="@LDA_NETWORK_P_THRESHOLD"/>
             <arg valueRef="@LDA_NETWORK_TOPX"/>

@@ -1,4 +1,31 @@
 <toolset>
+
+    <!-- File Summary -->
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="filesummary" path="python" />
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="msaccess.file" path="msaccess"/>
+        <pathVar name="filesummary.script" path="filesummary.py"/>
+    </pathSet>
+
+    <tool name="filesummary">
+        <require name="spec" type="folder"/>
+        <require name="parameter" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="result" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="filesummary.script"/>
+            <arg valueRef="spec"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="result"/>
+            <arg pathRef="msaccess.file"/>
+        </execution>
+    </tool>
+
+
+
     <!-- MSClustering -->
 
     <pathSet base="$base">
@@ -136,7 +163,6 @@
     <pathSet base="$base/scripts">
         <pathVar name="MetabolomicPairsinfo.script" path="pairsinfo.py"/>
         <pathVar name="metabolomics_convert_graphml.script" path="convert_networks_to_graphml.py"/>
-        <pathVar name="GetDBAnnotations_specnets.script" path="getGNPS_library_annotations.py"/>
 
         <toolPath tool="MetabolomicMakeSelfloop" path="add_self_loop.py"/>
         <toolPath tool="MetabolomicClusterInfoGroupAddAttribute" path="AddAttributes.py"/>
@@ -148,14 +174,11 @@
 
         <toolPath tool="InputFileValidator_specnets" path="spectra_validator.py"/>
         <toolPath tool="MetabolomicNetworkStatistics" path="Generate_Network_Identification_Stats.py"/>
-        <pathVar name="NetworkTopologyCreatorScript" path="topology_proteosafe_wrapper.py"/>
     </pathSet>
 
     <pathSet base="anaconda3/bin">
-        <toolPath tool="NetworkTopologyCreator" path="python"/>
         <toolPath tool="MetabolomicPairsinfo" path="python"/>
         <toolPath tool="metabolomics_convert_graphml" path="python"/>
-        <toolPath tool="GetDBAnnotations_specnets" path="python"/>
     </pathSet>
 
 
@@ -209,6 +232,13 @@
             <arg option="ccms_num_nodes" value="1"/>
         </execution>
     </tool>
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="GetDBAnnotations_specnets" path="python"/>
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="GetDBAnnotations_specnets.script" path="getGNPS_library_annotations.py"/>
+    </pathSet>
 
     <tool name="GetDBAnnotations_specnets">
         <require name="result" type="file"/>
@@ -279,7 +309,6 @@
             <arg valueRef="metadata_merged"/>
         </execution>
     </tool>
-
 
     <!-- Merging Grouping Information -->
     <pathSet base="anaconda3/bin">

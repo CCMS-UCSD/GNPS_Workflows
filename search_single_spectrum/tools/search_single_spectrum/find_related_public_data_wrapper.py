@@ -255,7 +255,7 @@ def match_clustered(match_parameters, spectrum_collection, dataset_dict, all_dat
         output_map['specs_scan'].append(match_object["queryscan"])
         output_map['dataset_id'].append(dataset_dict[dataset]["dataset"])
         output_map['dataset_title'].append(dataset_dict[dataset]["title"])
-        output_map['dataset_description'].append(dataset_dict[dataset]["description"].replace("\n", "").replace("\t", ""))
+        output_map['dataset_description'].append(dataset_dict[dataset]["description"].replace("\n", "").replace("\t", "").replace("\r", ""))
         output_map['dataset_organisms'].append( dataset_dict[dataset]["species"].replace("<hr class='separator'\/>", "!") )
         output_map['dataset_filename'].append(match_object["filename"])
         output_map['dataset_scan'].append(match_object["scan"])
@@ -263,7 +263,6 @@ def match_clustered(match_parameters, spectrum_collection, dataset_dict, all_dat
         output_map['matchedpeaks'].append(match_object["matchedpeaks"])
         output_map['mzerror'].append(match_object["mzerror"])
         output_map['files_count'].append(dataset_files_count[dataset])
-
 
     ming_fileio_library.write_dictionary_table_data(output_map, output_matches_filename)
 

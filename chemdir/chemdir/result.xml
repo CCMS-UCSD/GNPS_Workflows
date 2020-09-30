@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="CHEMDIR" version="release_9">
+
+    <download>
+        <source type="folder" name="output_folder/"/>
+    </download>
+
+    <view id="download_data" label="Download Data">
+        <blockRef id="main"   type="download_data"/>
+    </view>
+    <block id="download_data" type="dummydownload">
+      <data>
+        <source type="file" name="output_folder/chemdir_pairs.tsv"/>
+         <parsers>
+            <parser type="stream" contentType="text/xml"/>
+        </parsers>
+      </data>
+    </block>
+
+  <view id="view_summary_table" label="Summary Table" group="Default Results Views">
+        <blockRef id="main" type="view_summary_table"/>
+    </view>
+
+    <block id="view_summary_table" type="table">
+        <data>
+            <source type="file" name="output_folder/chemdir_pairs.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="max_comparison" operator="descending"/>
+            </parsers>
+        </data>
+        <row>
+            <column type="integer" field="CLUSTERID1" label="CLUSTERID1" precision="2"/>
+            <column type="integer" field="CLUSTERID2" label="CLUSTERID1" precision="3"/>
+            <column type="float" field="max_chemdir" label="absolute_max_chemdir" precision="3"/>
+            <column type="float" field="max_comparison" label="max_comparison" precision="2"/>
+            <column type="float" field="Cosine" label="Cosine" precision="3"/>
+            <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
+        </row>
+    </block>
+
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
+    </block>
+
+    <view id="chemdir_dashboard" label="Chemdir Dashboard" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="chemdir_dashboard"/>
+    </view>
+    <block id="chemdir_dashboard" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="https://gnps-chemdir-dashboard.herokuapp.com/[task]"/>
+    </block>
+
+</interface>

@@ -91,18 +91,18 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3">
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>
-                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[#Scan#]"/>
-                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3">
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[#Scan#]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3">
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Library Spectrum USI"/>
             </column>
         </row>
@@ -262,7 +262,6 @@
                 <parameter name="VALUE_TO_CONSIDER" value="[componentindex]"/>
             </column>
 
-            
             <column label="AnnotatetoGNPS" type="genericurlgenerator" width="10">
                 <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
                 <parameter name="HASHPARAMTER=workflow" value="ADD-SINGLE-ANNOTATED-BRONZE"/>
@@ -271,6 +270,12 @@
                 <parameter name="LABEL" value="AnnotatetoGNPS"/>
             </column>
 
+            <column type="genericurlgenerator" label="Quant">
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
+                <parameter name="LABEL" value="Quant Plots (Beta)"/>
+                <parameter name="REQUESTPARAMETER=feature" value="[cluster index]"/>
+                <parameter name="USETASK" value="True"/>
+            </column>
 
 
             <column type="float" field="precursor mass" label="PrecursorMZ" precision="5"/>
@@ -302,8 +307,8 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
-                <parameter name="LABEL" value="mzspec:GNPSTASK-{task}:spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[cluster index]"/>
             </column>
         </row>
     </block>
@@ -466,7 +471,7 @@
         </data>
     </block>
 
-    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - Experimental Views">
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - External Visualization">
         <blockRef id="main" type="cytoscape_preview"/>
     </view>
     <block id="cytoscape_preview" type="dummylinkout">
@@ -477,6 +482,19 @@
         </data>
         <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
+
+    <view id="redu_global_pca" label="Global Comparison with ReDU PCA (Beta)" group="Advanced Views - External Visualization">
+        <blockRef id="main" type="redu_global_pca"/>
+    </view>
+    <block id="redu_global_pca" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
+    </block>
+
 
     <view id="view_dereplicator" label="View Dereplicator Results" group="Advanced Views - External Tools">
         <blockRef id="main" type="view_dereplicator"/>
@@ -528,17 +546,7 @@
     </block>
 
 
-    <view id="redu_global_pca" label="Global Comparison with ReDU PCA" group="Advanced Views - Experimental Views">
-        <blockRef id="main" type="redu_global_pca"/>
-    </view>
-    <block id="redu_global_pca" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-        <parameter name="URLBASE" value='https://redu.ucsd.edu/processcomparemultivariate?task=[task]'/>
-    </block>
+    
 
 
 
@@ -636,7 +644,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -672,7 +680,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:8347"/>
+                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -687,16 +695,16 @@
         </row>
     </block>
 
-    <view id="esquisse_data_for_plotting" label="Data Exploration with Esquisse/ggplot2" group="Advanced Views - Stats Views (Experimental)">
-        <blockRef id="main" type="esquisse_data_for_plotting"/>
+    <view id="interactive_data_for_plotting" label="Data Exploration with Interactive Plotting" group="Advanced Views - Stats Views (Experimental)">
+        <blockRef id="main" type="interactive_data_for_plotting"/>
     </view>
-    <block id="esquisse_data_for_plotting" type="dummylinkout">
+    <block id="interactive_data_for_plotting" type="dummylinkout">
         <data>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:8347?task=[task]'/>
+        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:6549?task=[task]'/>
     </block>
 
     <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
@@ -713,37 +721,19 @@
 
 
     <!-- Metadata Summaries -->
-    <view id="metadata_summary" label="View Metadata Summary" group="Advanced Views - Metadata Views">
-        <blockRef id="main" type="metadata_summary"/>
+    <view id="view_metadata" label="View Metadata" group="Advanced Views - Metadata Views">
+        <blockRef id="main" type="view_metadata"/>
     </view>
 
-    <block id="metadata_summary" type="table">
-        <data>
-            <source type="file" name="metadata_summary/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="Attribute" operator="ascending"/>
-            </parsers>
-        </data>
-        <row>
-            <column type="text" field="Attribute" label="Attribute" width="10"/>
-            <column type="text" field="Term" label="Term" width="10"/>
-        </row>
-    </block>
-
-
-    <view id="download_metadata" label="Download Metadata File" group="Advanced Views - Metadata Views">
-        <blockRef id="main" type="download_metadata"/>
-    </view>
-
-    <block id="download_metadata" type="dummylinkout">
-        <data>
-            <parsers>
-                <parser type="stream" contentType="text/xml"/>
-            </parsers>
-        </data>
-
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=metadata_table/&amp;block=main'/>
-    </block>
+    <block id="view_metadata" type="table">
+		<data>
+			<source name="metadata_merged/gnps_metadata.tsv" type="file"/>
+			<parsers>
+				<parser type="genericTabular"/>
+			</parsers>
+		</data>
+		<row/>
+	</block>
 
 
 

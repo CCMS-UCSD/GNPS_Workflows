@@ -30,6 +30,13 @@
         </downloadParams>
     </bind>
 
+    <!-- Merging Metadata Information -->
+	<bind action="metabolomicmetadatamerge" tool="metabolomicmetadatamerge">
+		<inputAsRequirement port="flowParams" requirement="flowParams"/>
+        <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
+        <productionToOutput port="metadata_merged"     production="metadata_merged"/>
+	</bind>
+
     <bind action="input_validation" tool="input_validation">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <inputAsRequirement port="quantification_table" requirement="quantification_table"/>
@@ -46,9 +53,10 @@
         <productionToOutput port="spectra_reformatted" production="spectra_reformatted"/>
     </bind>
 
-    <bind action="renumber_mgf" tool="renumber_mgf">
-        <inputAsRequirement port="inputSpectra" requirement="inputSpectra"/>
-        <productionToOutput port="spectra" production="spectra"/>
+    <bind action="filter_spectra" tool="filter_spectra">
+        <inputAsRequirement port="spectra" requirement="spectra"/>
+        <productionToOutput port="spectra_unfiltered" production="spectra_unfiltered"/>
+        <productionToOutput port="spectra_filtered" production="spectra_filtered"/>
     </bind>
 
     <!-- Molecular Networking -->
@@ -208,6 +216,10 @@
             <query name="resource" value="spectra"/>
         </upload>
 
+        <upload port="spectra_filtered" type="folder">
+            <query name="resource" value="spectra_filtered"/>
+        </upload>
+
         <upload port="spectra_reformatted" type="folder">
             <query name="resource" value="spectra_reformatted"/>
         </upload>
@@ -257,8 +269,8 @@
         <upload port="feature_plots" type="folder">
             <query name="resource" value="feature_plots"/>
         </upload>
-        <upload port="metadata_summary" type="folder">
-            <query name="resource" value="metadata_summary"/>
+        <upload port="metadata_merged" type="folder">
+            <query name="resource" value="metadata_merged"/>
         </upload>
     </bind>
 </binding>

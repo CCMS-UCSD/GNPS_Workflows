@@ -90,8 +90,8 @@
         </execution>
     </tool>
 
-    <pathSet base="anaconda3/bin">
-        <toolPath tool="get_dbannotations" path="python3.5"/>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="get_dbannotations" path="python"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="get_dbannotations.script" path="getGNPS_library_annotations.py"/>

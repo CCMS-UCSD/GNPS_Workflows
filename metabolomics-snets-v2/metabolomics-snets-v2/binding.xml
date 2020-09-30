@@ -47,6 +47,12 @@
 	</bind>
 
 
+	<bind action="filesummary" tool="filesummary">
+        <inputAsRequirement port="spec" requirement="spec"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="filestatsresults" production="result"/>
+    </bind>
+
 
 
 	<bind action="searchlibraryparamgeneration_specnets" tool="LibrarySearchParamGeneration_specnets">
@@ -150,7 +156,7 @@
 		<productionToOutput port="clusterinfosummary"     production="clusterinfosummary"/>
 	</bind>
 
-	<!-- Merging Grouping Information -->
+	<!-- Merging Metadata Information -->
 	<bind action="metabolomicmetadatamerge" tool="metabolomicmetadatamerge">
 		<inputAsRequirement port="flowParams" requirement="flowParams"/>
         <inputAsRequirement port="metadatafile"       requirement="metadatafile"/>
@@ -330,6 +336,12 @@
 		<query name="task" valueRef="@task"/>
 		<contentQuery name="content"/>
 		<compression type="zip"/>
+
+		
+		<upload port="filestatsresults" type="file">
+			<query name="resource" value="filestatsresults"/>
+		</upload>
+
 		<upload port="clusterinfo" type="file">
 			<query name="resource" value="clusterinfo"/>
 		</upload>

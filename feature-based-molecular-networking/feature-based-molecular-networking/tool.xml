@@ -1,5 +1,25 @@
 <toolset>
 
+    <!-- Merging Metadata Information -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="metabolomicmetadatamerge" path="python"/>
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="metabolomicmetadatamerge.script" path="format_metadata.py"/>
+    </pathSet>
+    <tool name="metabolomicmetadatamerge">
+        <require name="flowParams" type="file"/>
+        <require name="metadatafile" type="folder"/>
+        <produce name="metadata_merged" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomicmetadatamerge.script"/>
+            <arg valueRef="flowParams"/>
+            <arg valueRef="metadatafile"/>
+            <arg valueRef="metadata_merged"/>
+        </execution>
+    </tool>
+
     <!-- Renumbering the MGF File -->
     <pathSet base="anaconda3/bin">
         <toolPath tool="input_validation" path="python"/>
@@ -22,21 +42,27 @@
         </execution>
     </tool>
 
-    <!-- Renumbering the MGF File -->
+
+    <!-- Filtering the MGF -->
     <pathSet base="anaconda3/bin">
-        <toolPath tool="renumber_mgf" path="python"/>
+        <toolPath tool="filter_spectra" path="python"/>
     </pathSet>
     <pathSet base="$base/scripts">
-        <pathVar name="renumber_mgf.script" path="renumber_mgf.py"/>
+        <pathVar name="filter_spectra.script" path="filter_spectra.py"/>
     </pathSet>
-    <tool name="renumber_mgf">
-        <require name="inputSpectra" type="file"/>
-        <produce name="spectra" type="file" naming="fixed" value="specs_ms.mgf"/>
+    <tool name="filter_spectra">
+        <require name="spectra" type="file"/>
+        <produce name="spectra_unfiltered" type="file" naming="fixed" value="specs_ms.mgf"/>
+        <produce name="spectra_filtered" type="file" naming="fixed" value="specs_ms.mgf"/>
+        
 
         <execution env="binary" argConvention="adhoc">
-            <arg pathRef="renumber_mgf.script"/>
-            <arg valueRef="inputSpectra"/>
+            <arg pathRef="filter_spectra.script"/>
             <arg valueRef="spectra"/>
+            <arg valueRef="spectra_unfiltered"/>
+            <arg valueRef="spectra_filtered"/>
+            <arg option="-FILTER_PRECURSOR_WINDOW" valueRef="@FILTER_PRECURSOR_WINDOW"/>
+            <arg option="-WINDOW_FILTER" valueRef="@WINDOW_FILTER"/>
         </execution>
     </tool>
 
@@ -167,7 +193,7 @@
     </tool>
 
     <!-- Library Search -->
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="prep_molecular_librarysearch_parameters" path="python"/>
         <toolPath tool="molecular_librarysearch_get_dbannotations" path="python"/>
     </pathSet>
