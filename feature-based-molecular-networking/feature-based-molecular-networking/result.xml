@@ -738,6 +738,7 @@
                 <parameter name="REQUESTPARAMETER=xicmz" value="[featuremz]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
+            <column type="integer" field="full_CCMS_path" label="full_CCMS_path" width="10"/>
             <column type="integer" field="featureid" label="featureid" width="10"/>
             <column type="float" field="featurearea" label="featurearea" precision="2"/>
             <column type="float" field="featurert" label="featurert" precision="2"/>
@@ -776,7 +777,7 @@
         </data>
         <row>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6548"/>
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
