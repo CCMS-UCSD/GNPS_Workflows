@@ -719,7 +719,7 @@
         <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=feature_statistics/data_long.csv'/>
     </block>
 
-    <view id="view_plotting_data" label="View Quant Data - Tall" group="Advanced Views - Stats Views (Experimental)">
+    <view id="view_plotting_data" label="Feature Quant Details List" group="Default Molecular Networking Results Views">
         <blockRef id="main" type="view_plotting_data"/>
     </view>
 
@@ -744,6 +744,7 @@
             <column type="float" field="featurearea" label="featurearea" precision="2"/>
             <column type="float" field="featurert" label="featurert" precision="2"/>
             <column type="float" field="featuremz" label="featuremz" precision="2"/>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="10"/>
 		</row>
 	</block>
 
