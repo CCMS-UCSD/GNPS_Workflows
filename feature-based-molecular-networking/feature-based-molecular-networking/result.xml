@@ -736,6 +736,7 @@
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[featuremz]"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="[featurert]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
             <column type="integer" field="full_CCMS_path" label="full_CCMS_path" width="10"/>
