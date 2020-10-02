@@ -17,6 +17,7 @@ def test_no_column():
 
     calculate_stats.calculate_statistics("reference_stats/feature_table.csv", 
                                         "reference_stats/metadata.tsv", 
+                                        None,
                                         "output_summary", 
                                         output_plots_folder="output_plots")
 
@@ -36,6 +37,7 @@ def test_no_column_library():
 
     calculate_stats.calculate_statistics("reference_stats/feature_table.csv", 
                                         "reference_stats/metadata.tsv", 
+                                        None,
                                         "output_summary_library", 
                                         output_plots_folder="output_plots",
                                         libraryidentifications_df=libraryidentifications_df)
@@ -52,6 +54,7 @@ def test_column():
 
     calculate_stats.calculate_statistics("reference_stats/feature_table.csv", 
                                         "reference_stats/metadata.tsv", 
+                                        None,
                                         "output_summary", 
                                         output_plots_folder="output_plots_chosen",
                                         metadata_column="ATTRIBUTE_sample_type",
@@ -70,6 +73,7 @@ def test_facet_column():
 
     calculate_stats.calculate_statistics("reference_stats/feature_table.csv", 
                                         "reference_stats/metadata.tsv", 
+                                        None,
                                         "output_summary", 
                                         output_plots_folder="output_plots_facet",
                                         metadata_column="ATTRIBUTE_sex",
