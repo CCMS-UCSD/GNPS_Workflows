@@ -1124,7 +1124,7 @@
                 <parameter name="LABEL" value="View Global Metadata"/>
             </column>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6548"/>
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:1"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[parent mass]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
