@@ -65,18 +65,25 @@
             <columbiomn type="text" field="IonMode" label="IonMode" width="5"/>
             <column type="text" field="PI" label="PI" width="5"/>
             <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            
+            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
+            <column type="text" field="superclass" label="Superclass" width="5"/>
+            <column type="text" field="class" label="Class" width="5"/>
+            <column type="text" field="subclass" label="Subclass" width="5"/>
+
+            <column type="text" field="npclassifier_pathway" label="NP Pathway" width="5"/>
+            <column type="text" field="npclassifier_superclass" label="NP Superclass" width="5"/>
+            <column type="text" field="npclassifier_class" label="NP Class" width="5"/>
+
             <column type="text" field="tags" label="Tags" width="5"/>
             <column label="Add Library Tag" type="addspectrumtag" width="12">
                 <parameter name="spectrumID" value="[SpectrumID]"/>
             </column>
-            
-            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
-            <column type="text" field="superclass" label="superclass" width="5"/>
-            <column type="text" field="class" label="class" width="5"/>
-            <column type="text" field="subclass" label="subclass" width="5"/>
 
-            <column type="structuredisplayer" label="Structure">
-                <parameter name="smilesstructure" value="[Smiles]"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
+                <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
             </column>
         </row>
         <row expander="image">
