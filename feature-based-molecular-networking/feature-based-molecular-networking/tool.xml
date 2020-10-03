@@ -1,7 +1,7 @@
 <toolset>
 
     <!-- File Summary -->
-    <pathSet base="anaconda3/bin">
+    <pathSet base="miniconda3_gamma/bin">
         <toolPath tool="filesummary" path="python" />
     </pathSet>
     <pathSet base="$base/scripts">
