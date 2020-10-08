@@ -110,8 +110,11 @@ In order to deploy workflows, we have included the workflow deployment packages 
 
 Once you have checked out this repository, make sure to have all the submodules checked out as well. Then you will need to follow these [steps](https://github.com/CCMS-UCSD/CCMSDeployments#necessary-steps-to-get-working). 
 
-Then we can get a workflow onto proteomics2. To test it without over-writing the default version, you can use this command:
+Then we can get a workflow onto proteomics2. To test it without over-writing the default version, you can use this command for any workflow you would like to deploy:
 
-```make deploy-debug```
+```
+cd <workflow folder>
+make deploy-debug
+```
 
 as outlined [here](https://github.com/CCMS-UCSD/CCMSDeployments#to-deploy-a-single-test-workflow).
