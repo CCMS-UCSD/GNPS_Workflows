@@ -10,6 +10,7 @@
         <source type="folder" name="quantification_table_reformatted/"/>
         <source type="folder" name="metadata_table/"/>
         <source type="folder" name="DB_result/"/>
+        <source type="folder" name="DB_analogresult/"/>
         <source type="folder" name="qiime2_output/"/>
     </download>
 
