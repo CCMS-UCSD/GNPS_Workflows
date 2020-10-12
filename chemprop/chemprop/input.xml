@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<interface id="chemdir" version="release_9">
-    <workflow-id>CHEMDIR</workflow-id>
-    <workflow-label>CHEMDIR</workflow-label>
+<interface id="chemprop" version="release_9">
+    <workflow-id>CHEMPROP</workflow-id>
+    <workflow-label>CHEMPROP</workflow-label>
     <parameters>
         <parameter name="desc" label="Description">
             <validator type="length" maximum="1000"/>
