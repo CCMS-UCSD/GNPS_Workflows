@@ -31,7 +31,7 @@
         <row>
             <column type="integer" field="CLUSTERID1" label="CLUSTERID1" precision="2"/>
             <column type="integer" field="CLUSTERID2" label="CLUSTERID1" precision="3"/>
-            <column type="float" field="max_chemdir" label="absolute_max_chemdir" precision="3"/>
+            <column type="float" field="max_chemdir" label="absolute_max_chemprop" precision="3"/>
             <column type="float" field="max_comparison" label="max_comparison" precision="2"/>
             <column type="float" field="Cosine" label="Cosine" precision="3"/>
             <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
@@ -50,7 +50,7 @@
         <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
-    <view id="chemdir_dashboard" label="Chemdir Dashboard" group="Advanced Views - Experimental Views">
+    <view id="chemdir_dashboard" label="ChemProp Dashboard" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="chemdir_dashboard"/>
     </view>
     <block id="chemdir_dashboard" type="dummylinkout">

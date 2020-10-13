@@ -164,6 +164,27 @@ def enrich_output(input_filename, output_filename):
             output_result_dict["superclass"] = "N/A"
             output_result_dict["class"] = "N/A"
             output_result_dict["subclass"] = "N/A"
+
+        # Getting NP Classifier
+        if len(output_result_dict["Smiles"]) > 5:
+            try:
+                npclassifier_url = "https://npclassifier.ucsd.edu/classify?smiles={}".format(output_result_dict["Smiles"])
+                r = requests.get(npclassifier_url)
+                r.raise_for_status()
+                classification_json = r.json()
+
+                output_result_dict["npclassifier_superclass"] = "|".join(classification_json["class_results"])
+                output_result_dict["npclassifier_class"] = "|".join(classification_json["class_results"])
+                output_result_dict["npclassifier_pathway"] = "|".join(classification_json["pathway_results"])
+            except:
+                output_result_dict["npclassifier_superclass"] = "N/A"
+                output_result_dict["npclassifier_class"] = "N/A"
+                output_result_dict["npclassifier_pathway"] = "N/A"
+        else:
+            output_result_dict["npclassifier_superclass"] = "N/A"
+            output_result_dict["npclassifier_class"] = "N/A"
+            output_result_dict["npclassifier_pathway"] = "N/A"
+
  
         output_list.append(output_result_dict)
 

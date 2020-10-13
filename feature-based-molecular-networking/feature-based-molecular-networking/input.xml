@@ -16,11 +16,15 @@
         <parameter name="spec_on_server" label="MS2 File MGF/MSP(Progenesis QI)/mzML(MzTab-M)">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="spectrum" target="spec"/>
-        </parameter>
+        </parameter>        
 
         <parameter name="quantification_table" label="Feature Quantification Table">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="quantification_table" target="quantification_table"/>
+        </parameter>
+
+        <parameter name="raw_spectra" label="Original mzML Files">
+            <fileGenerator type="upload" purpose="spectrum" target="raw_spectra"/>
         </parameter>
 
         <!-- Metadata file -->
@@ -248,6 +252,21 @@
                 </module>
             </cell>
         </row>
+
+         <row>
+            <cell>
+                <label>
+                    <content parameter="raw_spectra"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="raw_spectra" type="fileSelector">
+                    <property name="label">Original mzML Files</property>
+                </module>
+            </cell>
+        </row>
+
+        
 
         <row>
             <cell>

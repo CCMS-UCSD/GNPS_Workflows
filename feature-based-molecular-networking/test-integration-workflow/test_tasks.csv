@@ -17,3 +17,4 @@ d0b5249f7d69443a8adcb9e43ebcc0a2,fbmn IIN,view_all_clusters_withID
 5aa16b927ed74d64a9d32e2c5f141939,fbmn MS-DIAL IIN,view_all_clusters_withID
 64b22841ab3548f987b3cfc18696a581,fbmn with stats and plots,view_all_clusters_withID;network_stats_selected_columns;network_stats_all_columns
 8c6b9e069b5843229e0902fd55086022,fbmn with blank molecules pre-removed,
+d513e6923920413a89f1669b16117e1d,fbmn with mzML files,file_summary

@@ -10,6 +10,7 @@
         <source type="folder" name="quantification_table_reformatted/"/>
         <source type="folder" name="metadata_table/"/>
         <source type="folder" name="DB_result/"/>
+        <source type="folder" name="DB_analogresult/"/>
         <source type="folder" name="qiime2_output/"/>
     </download>
 
@@ -719,6 +720,35 @@
         <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=feature_statistics/data_long.csv'/>
     </block>
 
+    <view id="view_plotting_data" label="Feature Quant Details List" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="view_plotting_data"/>
+    </view>
+
+    <block id="view_plotting_data" type="table_ss">
+		<data>
+			<source name="feature_statistics/data_long_visualize.tsv" type="file"/>
+			<parsers>
+				<!-- <parser type="genericTabular"/> -->
+                <parser type="SQLite" />
+			</parsers>
+		</data>
+        <row>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="[featuremz]"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="[featurert]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+            <column type="integer" field="full_CCMS_path" label="full_CCMS_path" width="10"/>
+            <column type="integer" field="featureid" label="featureid" width="10"/>
+            <column type="float" field="featurearea" label="featurearea" precision="2"/>
+            <column type="float" field="featurert" label="featurert" precision="2"/>
+            <column type="float" field="featuremz" label="featuremz" precision="2"/>
+            <column type="text" field="Compound_Name" label="Compound_Name" width="10"/>
+		</row>
+	</block>
+
 
     <!-- Metadata Summaries -->
     <view id="view_metadata" label="View Metadata" group="Advanced Views - Metadata Views">
@@ -735,6 +765,32 @@
 		<row/>
 	</block>
 
+
+    <!-- File Summary -->
+    <view id="file_summary" label="File Summaries" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="file_summary"/>
+    </view>
+
+    <block id="file_summary" type="table">
+        <data>
+            <source type="file" name="filestatsresults/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="full_CCMS_path" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+            <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
+            <column type="text" field="Vendor" label="Vendor" width="10"/>
+            <column type="text" field="Model" label="Model" width="10"/>
+            <column type="integer" field="MS1s" label="MS1 Count" width="3"/>
+            <column type="integer" field="MS2s" label="MS2 Count" width="3"/>
+        </row>
+    </block>
 
 
 
