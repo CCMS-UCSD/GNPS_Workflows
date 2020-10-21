@@ -65,6 +65,7 @@ def main():
             --input-path {} \
             --output-path {} \
             --type FeatureTable[Frequency]".format(args.conda_activate_bin, args.conda_environment, args.input_metabolomics_features, metabolite_qza))
+
     if os.path.splitext(args.import_microbial_features)[1] == ".qza":
         shutil.copyfile(args.import_microbial_features, microbiome_qza)
     elif os.path.splitext(args.import_microbial_features)[1] == ".biom":
@@ -92,6 +93,7 @@ def main():
         --p-latent-dim {} \
         --p-learning-rate {} \
         --p-epochs {} \
+        --p-batch-size 50 \
         --i-microbes {} \
         --i-metabolites {} \
         --o-conditionals {} \
@@ -105,7 +107,12 @@ def main():
         --m-sample-metadata-file {} \
         --m-feature-metadata-file {} \
         --o-visualization {} \
-        --p-ignore-missing-samples".format(args.conda_activate_bin, args.conda_environment, conditional_biplot, local_metabolite_metadata_filename, local_microbial_metadata_filename, output_emperor))
+        --p-ignore-missing-samples".format(args.conda_activate_bin,
+                                            args.conda_environment,
+                                            conditional_biplot,
+                                            local_metabolite_metadata_filename,
+                                            local_microbial_metadata_filename,
+                                            output_emperor))
 
     for cmd in all_cmd:
         print(cmd)
