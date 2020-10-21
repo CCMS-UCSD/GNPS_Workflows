@@ -52,6 +52,8 @@
         <parameter name="LEARNINGRATE" label="Learning Rate">
             <options>
                 <option value="1e-5" label="1e-5"/>
+                <option value="1e-4" label="1e-4"/>
+                <option value="1e-3" label="1e-3"/>
             </options>
             <validator type="set"/>
         </parameter>
