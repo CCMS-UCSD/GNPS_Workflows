@@ -10,7 +10,7 @@ def write_description(param_xml_filename, output_description_filename):
     output_sentences = []
     #INTRODUCTION
     output_sentences.append('<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n')
-    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://doi.org/10.1101/812404">Nothias LF et al. bioRxiv 2019</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
+    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://www.nature.com/articles/s41592-020-0933-6">Nothias L-F, Petras D, Schmid R et al. Nature Methods 17, 905–908 (2020)</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
 
 
     #FBMN PROCESSING
