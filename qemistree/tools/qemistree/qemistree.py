@@ -42,7 +42,7 @@ def main():
     output_distance_matrix_qza = os.path.join(args.output_folder, "distance-matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
     output_emperor_qza = os.path.join(args.output_folder, "emperor.qzv")
-    output_qemistree_itol_qzv = os.path.join(args.output_folder, "qemistree-itol.qzv")
+    output_qemistree_empress_qzv = os.path.join(args.output_folder, "qemistree-empress.qzv")
 
     all_cmd = []
 
@@ -177,7 +177,7 @@ def main():
     --i-tree {output_qemistree_pruned_qza} \
     --m-feature-metadata-file {output_classified_feature_data_qza} \
     --m-sample-metadata-file {} \
-    --o-visualization {output_qemistree_itol_qzv}'.format(metadata_files[0])
+    --o-visualization {output_qemistree_empress_qzv}'.format(metadata_files[0])
     all_cmd.append(cmd)
 
     #Actually running all the commands
