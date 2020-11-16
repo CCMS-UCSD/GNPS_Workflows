@@ -2,7 +2,6 @@
 <interface id="ming_test" version="1.2.3">
     <download>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
-        <source type="folder" name="qiime2_output/"/>
     </download>
 
     <!-- View definitions -->
