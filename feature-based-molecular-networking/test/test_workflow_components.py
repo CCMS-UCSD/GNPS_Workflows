@@ -39,6 +39,21 @@ def test_additional_edges():
     assert(mass_difference == 3.0051)
 
 
+def test_collapse_ion_identity_networks():
+    import convert_networks_to_graphml
+    import networkx as nx
+    import unittest
+
+    convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv",
+                                               "reference_data/IIN/cluster_summary.tsv",
+                                               "reference_data/IIN/library_matches.tsv",
+                                               "reference_data/IIN/library_matches.tsv",
+                                               "reference_data/IIN/additional_edges",
+                                               "iin.graphml", True)
+
+    G = nx.read_graphml("iin.graphml")
+    # TODO: add test values
+
 def test_clustersummary():
     import clusterinfosummary_for_featurenetworks
 
