@@ -53,6 +53,7 @@ def test_collapse_ion_identity_networks():
 
     G = nx.read_graphml("iin.graphml")
     # TODO: add test values
+    assert(len(G.nodes()) < 1140)
 
 def test_clustersummary():
     import clusterinfosummary_for_featurenetworks
