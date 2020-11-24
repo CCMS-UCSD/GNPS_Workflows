@@ -22,20 +22,17 @@ def main():
     # add "neutral molecule" nodes and collapse IIN edges
     # IIN edges = supplemental pairs (input_pairsfolder)
     parser.add_argument('--input_pairsfolder', help='input_pairsfolder')
-    parser.add_argument('collapse_additional_edges', help='collapse_additional_edges')
+    parser.add_argument('--collapse_additional_edges', default="False", help='collapse_additional_edges True or False')
     args = parser.parse_args()
-
-    # boolean
-    collapse_additional_edges = (args.collapse_additional_edges is not None)
 
     # export graphml to file
     create_graphml(args.input_pairs, args.input_clusterinfosummary, args.input_librarysearch,
                    args.input_analoglibrarysearch, args.input_pairsfolder, args.output_graphml,
-                   collapse_additional_edges)
+                   args.collapse_additional_edges)
 
     
 def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, input_analoglibrarysearch,
-                   input_pairsfolder, output_graphml, collapse_additional_edges):
+                   input_pairsfolder, output_graphml, collapse_additional_edges=False):
     # Doing other filtering
     G = molecular_network_filtering_library.loading_network(input_pairs, hasHeaders=True)
     molecular_network_filtering_library.add_clusterinfo_summary_to_graph(G, input_clusterinfosummary)
