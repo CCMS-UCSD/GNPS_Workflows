@@ -1,6 +1,7 @@
 import sys
+import logging_utils
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
-
+logger = logging_utils.get_logger(__name__)
 
 def test_written_description():
     import write_description
@@ -24,16 +25,19 @@ def test_additional_edges():
     import convert_networks_to_graphml
     import networkx as nx
     import unittest
-
+    logger.info("Exporting ion identity molecular network with ALL nodes (NO collapsing)")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv", 
     "reference_data/IIN/cluster_summary.tsv", 
     "reference_data/IIN/library_matches.tsv", 
     "reference_data/IIN/library_matches.tsv", 
     "reference_data/IIN/additional_edges", 
     "iin.graphml")
-    
-    G = nx.read_graphml("iin.graphml")   
+
+    logger.info("Reading graph")
+    G = nx.read_graphml("iin.graphml")
+
     listy = G.get_edge_data('7347','9043')
+    logger.info(listy)
     mass_difference = float(listy[0]["mass_difference"])
     mass_difference = round(mass_difference, 4)
     assert(mass_difference == 3.0051)
@@ -44,6 +48,7 @@ def test_collapse_ion_identity_networks():
     import networkx as nx
     import unittest
 
+    logger.info("Exporting ion identity molecular network with collapsed nodes")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv",
                                                "reference_data/IIN/cluster_summary.tsv",
                                                "reference_data/IIN/library_matches.tsv",
@@ -51,6 +56,7 @@ def test_collapse_ion_identity_networks():
                                                "reference_data/IIN/additional_edges",
                                                "iin.graphml", True)
 
+    logger.info("Reading graph")
     G = nx.read_graphml("iin.graphml")
     # TODO: add test values
     assert(len(G.nodes()) < 1140)
