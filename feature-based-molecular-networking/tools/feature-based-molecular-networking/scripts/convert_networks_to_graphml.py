@@ -9,6 +9,7 @@ import ion_network_utils
 import glob
 import networkx as nx
 import argparse
+import logging_utils
 
 
 def main():
@@ -33,11 +34,14 @@ def main():
     
 def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, input_analoglibrarysearch,
                    input_pairsfolder, output_graphml, collapse_additional_edges=False):
+    logger = logging_utils.get_logger(__name__)
     # Doing other filtering
+    logger.info("Creating network")
     G = molecular_network_filtering_library.loading_network(input_pairs, hasHeaders=True)
     molecular_network_filtering_library.add_clusterinfo_summary_to_graph(G, input_clusterinfosummary)
     molecular_network_filtering_library.add_library_search_results_to_graph(G, input_librarysearch)
     # mark all nodes as feature or ion identity nodes (ion_network_utils.NODE_TYPE_ATTRIBUTE)
+    logger.info("Mark all node types")
     ion_network_utils.mark_all_node_types(G)
 
     # add analogs
@@ -47,15 +51,18 @@ def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, i
     # add additional edges - e.g. ion identity edges between different ion species of the same molecule
     if input_pairsfolder is not None:
         all_pairs_files = glob.glob(os.path.join(input_pairsfolder, "*"))
+        logger.info("Adding additional edges from files: "+len(all_pairs_files))
         for additional_pairs_file in all_pairs_files:
             print("Adding Additional Edges", additional_pairs_file)
             molecular_network_filtering_library.add_additional_edges(G, additional_pairs_file)
 
         # collapse all ion identity networks, each into a single node
         if collapse_additional_edges:
+            logger.info("Collapsing additional edges")
             G = ion_network_utils.collapse_ion_networks(G)
 
     # export graphml
+    logger.info("Writing graphml: "+output_graphml)
     nx.write_graphml(G, output_graphml, infer_numeric_types=True)
 
 if __name__ == "__main__":
