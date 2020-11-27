@@ -1,5 +1,9 @@
 #!/usr/bin/python
 from networkx import nx
+import logging_utils
+
+logger = logging_utils.get_logger(__name__)
+
 
 # ion identity network utilities
 EDGE_TYPE_ATTRIBUTE = "EdgeType"
@@ -53,6 +57,7 @@ def collapse_ion_networks(G):
 
     # sort by number of nodes in ion identity network
     sorted_ion_networks = sorted(ion_networks_dict.values(), key=lambda net: len(net), reverse=True)
+    logger.info("Number of ion identity networks: "+str(len(sorted_ion_networks)))
 
     # merge all into the node with the highest abundance
     for network in sorted_ion_networks:
