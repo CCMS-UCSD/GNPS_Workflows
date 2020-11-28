@@ -61,6 +61,7 @@ MaxIntensity
 Sample Intensities
 
 All sample headers are not including the file format extension ".d" (DDA) or ".tdf" (PASEF). The columns "FEATURE_ID", "RT", "PEPMASS", "MaxIntensity" are mandatory. 
+Important: In the metadata table, the filename must NOT have the extension suffixe indicated.
 
 #### Earlier versions of MetaboScape (<5.0)
 
@@ -79,6 +80,7 @@ CAS
 Sample Intensities
 
 Sample headers are including the file format extension ".d". The columns "FEATURE_ID", "RT", "PEPMASS", "CAS" are mandatory. 
+Important: In the metadata table, the filename must be with the extension ".d" suffixe.
 
 ### Progenesis QI
 
