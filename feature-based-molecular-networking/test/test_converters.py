@@ -72,6 +72,9 @@ class TestLoaders(unittest.TestCase):
 
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/SRM1950 Lipidomics.msmsonly.csv", \
             "./metaboscape_output2.csv")
+            
+        metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/metaboscape5_hops.csv", \
+            "./metaboscape_output3.csv")
 
     def test_mzmine2(self):
         mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
