@@ -42,17 +42,11 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     # If not MetaboScape 5.0, processing the older format
     else:
-        #Drop fixed columns that aren't needed
-        columns_to_drop = ['SHARED_NAME','CCS','SIGMA_SCORE','NAME','NAME_METABOSCAPE','MOLECULAR_FORMULA','ADDUCT','KEGG', 'CAS']
-		output_format = input_format.drop(columns=[col for col in input_format if col in columns_to_drop], axis=1)
-		#Drop optional columns that aren't needed
-		output_format = output_format.drop([x for x in output_format if x.endswith('_MeanIntensity')], 1)
-        
         #Isolate the intensities
         intensities = input_format.loc[:, 'CAS':]
         intensities = intensities.drop(['CAS'],axis = 1)
         intensities = intensities.drop([x for x in intensities if x.endswith('_MeanIntensity')], 1)
-        #Isolate the metadata
+        #Isolate the needed metadata
         metadata = input_format.loc[:,:'CAS']
         metadata_filtered = metadata[['FEATURE_ID','PEPMASS','RT']]
         
