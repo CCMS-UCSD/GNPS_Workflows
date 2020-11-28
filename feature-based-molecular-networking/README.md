@@ -39,18 +39,46 @@ Additionally, it is assumed there are additional columns where the per sample qu
 
 The MGF output should contain the "SCANS" header, and it must correspond to the identifier of the "row ID". It has to be unique, and can be non sequential.
 
-### Metaboscape
+### MetaboScape
 
-The feature quantification table (.CSV file, comma separated) should include columns with the following header:
+#### For MetaboScape 5.0
 
-1. FEATURE_ID
-2. RT
-3. PEPMASS
-4. MaxIntensity
+The feature quantification table (.CSV file, comma separated) should include columns with the following column header:
 
-For ion mobility data, it must include a "CCS" column.
+SHARED_NAME
+FEATURE_ID
+RT
+PEPMASS
+CCS (optional, only tims/PASEF data)
+SIGMA_SCORE
+NAME_METABOSCAPE
+MOLECULAR_FORMULA
+ADDUCT
+KEGG
+CAS
+MaxIntensity
+{GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
+Sample Intensities
 
-All sample headers are not including the file format extension ".d" (DDA) or ".tdf" (PASEF) 
+All sample headers are not including the file format extension ".d" (DDA) or ".tdf" (PASEF). The columns "FEATURE_ID", "RT", "PEPMASS", "MaxIntensity" are mandatory. 
+
+#### Earlier versions of MetaboScape (<5.0)
+
+The feature quantification table (.CSV file, comma separated) should include columns with the following column header:
+
+SHARED_NAME
+FEATURE_ID
+RT
+PEPMASS
+NAME
+MOLECULAR_FORMULA
+ADDUCT
+KEGG
+CAS
+{GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
+Sample Intensities
+
+Sample headers are including the file format extension ".d". The columns "FEATURE_ID", "RT", "PEPMASS", "CAS" are mandatory. 
 
 ### Progenesis QI
 
