@@ -43,44 +43,44 @@ The MGF output should contain the "SCANS" header, and it must correspond to the 
 
 #### For MetaboScape 5.0
 
-The feature quantification table (.CSV file, comma separated) should include columns with the following column header:
+The feature quantification table (.CSV file, comma separated) should include columns with the following header:
 
-SHARED_NAME
-FEATURE_ID
-RT
-PEPMASS
-CCS (optional, only tims/PASEF data)
-SIGMA_SCORE
-NAME_METABOSCAPE
-MOLECULAR_FORMULA
-ADDUCT
-KEGG
-CAS
-MaxIntensity
-{GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
-Sample Intensities
+1. SHARED_NAME
+2. FEATURE_ID
+3. RT
+4. PEPMASS
+5. CCS (optional, only tims/PASEF data)
+6. SIGMA_SCORE
+7. NAME_METABOSCAPE
+8. MOLECULAR_FORMULA
+9. ADDUCT
+10. KEGG
+11. CAS
+12. MaxIntensity
+13. {GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
+14. Sample Intensities
 
 All sample headers are not including the file format extension ".d" (DDA) or ".tdf" (PASEF). The columns "FEATURE_ID", "RT", "PEPMASS", "MaxIntensity" are mandatory. 
-Important: In the metadata table, the filename must NOT have the extension suffixe indicated.
+Important: In the metadata table, the filename MUST NOT HAVE the extension suffixe indicated.
 
 #### Earlier versions of MetaboScape (<5.0)
 
-The feature quantification table (.CSV file, comma separated) should include columns with the following column header:
+The feature quantification table (.CSV file, comma separated) should include columns with the following header:
 
-SHARED_NAME
-FEATURE_ID
-RT
-PEPMASS
-NAME
-MOLECULAR_FORMULA
-ADDUCT
-KEGG
-CAS
-{GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
-Sample Intensities
+1. SHARED_NAME
+2. FEATURE_ID
+3. RT
+4. PEPMASS
+5. NAME
+6. MOLECULAR_FORMULA
+7. ADDUCT
+8. KEGG
+9. CAS
+10. {GroupName}_MeanIntensity (0-n times, dependent on the groups defined in MetaboScape)
+11. Sample Intensities
 
 Sample headers are including the file format extension ".d". The columns "FEATURE_ID", "RT", "PEPMASS", "CAS" are mandatory. 
-Important: In the metadata table, the filename must be with the extension ".d" suffixe.
+Important: In the metadata table, the filename MUST HAVE the ".d" extensionsuffixe.
 
 ### Progenesis QI
 
