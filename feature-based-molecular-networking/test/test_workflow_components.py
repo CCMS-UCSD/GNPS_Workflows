@@ -45,7 +45,7 @@ def test_additional_edges():
     logger.info("Number of nodes in IIMN graph: " + str(len(G.nodes())))
     logger.info("Number of edges in IIMN graph: " + str(len(G.edges())))
 
-    listy = G.get_edge_data('7347', '9043', key=ion_network_utils.ION_EDGE_TYPE)
+    listy = G.get_edge_data('7347', '9043')
     logger.info("edge info:" + str(listy))
     mass_difference = float(listy[0]["mass_difference"])
     mass_difference = round(mass_difference, 4)
