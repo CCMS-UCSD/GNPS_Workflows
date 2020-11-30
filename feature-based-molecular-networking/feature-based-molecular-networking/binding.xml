@@ -246,10 +246,15 @@
         <upload port="dereplicator_html" type="folder">
             <query name="resource" value="dereplicator_html"/>
         </upload>
+        
+        <upload port="networking_pairs_results_file" type="folder">
+            <query name="resource" value="networking_pairs_results_file"/>
+        </upload>
 
         <upload port="networking_pairs_results_file_filtered" type="folder">
             <query name="resource" value="networking_pairs_results_file_filtered"/>
         </upload>
+
         <upload port="networkedges_selfloop" type="folder">
             <query name="resource" value="networkedges_selfloop"/>
         </upload>
