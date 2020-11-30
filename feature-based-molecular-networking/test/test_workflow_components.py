@@ -45,11 +45,7 @@ def test_additional_edges():
     logger.info("Number of nodes in IIMN graph: " + str(len(G.nodes())))
     logger.info("Number of edges in IIMN graph: " + str(len(G.edges())))
 
-    # access cosine similarity edge from molecular networking
-    for a, b, data in G.edges(data=True):
-        if (a == '7347' or b == '7347') and (a == '9043' or b == '9043'):
-            logger.info(data)
-    listy = G.get_edge_data('7347', '9043', key=ion_network_utils.COSINE_EDGE_TYPE)
+    listy = G.get_edge_data('7347', '9043', key=ion_network_utils.ION_EDGE_TYPE)
     logger.info("edge info:" + str(listy))
     mass_difference = float(listy[0]["mass_difference"])
     mass_difference = round(mass_difference, 4)
