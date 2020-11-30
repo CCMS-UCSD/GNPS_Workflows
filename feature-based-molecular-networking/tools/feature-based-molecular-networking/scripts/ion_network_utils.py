@@ -143,7 +143,7 @@ def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.E
                     # add as new edge
                     edges_to_add.append((target_node, n2, key, data))
                     edges_to_remove.append((n1, n2, key))
-                    logger.debug("Exchange edge with key "+str(key))
+                    logger.debug("Adding edge with key "+str(key))
             # remove and add edges
             G.remove_edges_from(edges_to_remove)
             G.add_edges_from(edges_to_add)
