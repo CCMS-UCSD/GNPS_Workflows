@@ -47,9 +47,8 @@ def test_additional_edges():
 
     listy = G.get_edge_data('7347', '9043')
     logger.info("edge info:" + str(listy))
-    logger.info("edge info:" + str(listy[ion_network_utils.ION_EDGE_TYPE]))
     mass_difference = float(listy[ion_network_utils.ION_EDGE_TYPE]["mass_difference"])
-    mass_difference = round(mass_difference, 4)
+    #mass_difference = round(mass_difference, 4)
     # safely compare floating point numbers
     assert (numpy.isclose(mass_difference, 3.0051))
 
