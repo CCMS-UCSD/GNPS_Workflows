@@ -7,7 +7,7 @@ logger = logging_utils.get_logger(__name__)
 
 # ion identity network utilities
 EDGE_TYPE_ATTRIBUTE = "EdgeType"
-ION_EDGE_TYPE = "ms1 annotation"
+ION_EDGE_TYPE = "MS1 annotation"
 COSINE_EDGE_TYPE = "Cosine"
 
 # node attributes and values
@@ -160,7 +160,7 @@ def remove_all_ion_edges(G):
     edges_to_remove = []
     for n1, n2, key, data in G.edges(keys=True, data=True):
         # remove all edges with EDGE_TYPE_ATTRIBUTE = ION_EDGE_TYPE
-        if EDGE_TYPE_ATTRIBUTE in data and str(data[EDGE_TYPE_ATTRIBUTE]).lower().strip() == ION_EDGE_TYPE:
+        if EDGE_TYPE_ATTRIBUTE in data and str(data[EDGE_TYPE_ATTRIBUTE]).lower().strip() == ION_EDGE_TYPE.lower():
             edges_to_remove.append((n1, n2, key))
     G.remove_edges_from(edges_to_remove)
 
