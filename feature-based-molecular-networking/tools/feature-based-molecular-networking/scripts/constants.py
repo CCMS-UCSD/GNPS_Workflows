@@ -8,6 +8,14 @@ class EDGE:
     # list of all types
     TYPES = [ION_TYPE, COSINE_TYPE]
 
+    SCORE_ATTRIBUTE = "EdgeScore"  # score for all edge types (cosine, ion identity, ..)
+    NODE1_ATTRIBUTE = "node1"  #
+    NODE2_ATTRIBUTE = "node2"  #
+    MASS_DIFF_ATTRIBUTE = "mass_difference"  #
+    ANNOTATION_ATTRIBUTE = "EdgeAnnotation"  # edge annotation for all edge types
+    EXPLAINED_INTENSITY_ATTRIBUTE = "explained_intensity"  # explained intensity between the two MS2 spectra from MN
+    COMPONENT_ATTRIBUTE = "component"  #
+    COSINE_SCORE_ATTRIBUTE = "cosine_score"  # only for molecular networking - rather use SCORE_ATTRIBUTE
 
 class NODE:
     # the node type

@@ -6,7 +6,7 @@ import getopt
 import os
 import ming_fileio_library
 import networkx as nx
-import ion_network_utils
+import constants as CONST
 
 def loading_network(filename, hasHeaders=False):
     node1_list = []
@@ -85,7 +85,7 @@ def loading_network(filename, hasHeaders=False):
         intermediate_graph_nodes.add(edge_object["node2"])
 
         # set key to edgetype for options to remove edge later in case multiple edges are present
-        edge_key_for_dict = ion_network_utils.COSINE_EDGE_TYPE
+        edge_key_for_dict = CONST.EDGE.COSINE_TYPE
         intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_key_for_dict, edge_object))
 
     G=nx.MultiGraph()
