@@ -25,6 +25,8 @@ def test_metadata_test():
 def test_additional_edges():
     import convert_networks_to_graphml
     import networkx as nx
+    import ion_network_utils
+
     logger.debug("Exporting ion identity molecular network with ALL nodes (NO collapsing)")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv", 
     "reference_data/IIN/cluster_summary.tsv", 
@@ -38,7 +40,8 @@ def test_additional_edges():
     logger.info("Number of nodes in IIMN graph: "+str(len(G.nodes())))
     logger.info("Number of edges in IIMN graph: "+str(len(G.edges())))
 
-    listy = G.get_edge_data('7347','9043', key="COSINE")
+    # access cosine similarity edge from molecular networking
+    listy = G.get_edge_data('7347','9043', key=ion_network_utils.COSINE_EDGE_TYPE)
     logger.info("edge info:"+str(listy))
     mass_difference = float(listy[0]["mass_difference"])
     mass_difference = round(mass_difference, 4)

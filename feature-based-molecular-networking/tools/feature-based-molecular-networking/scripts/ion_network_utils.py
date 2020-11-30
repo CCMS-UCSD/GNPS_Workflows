@@ -8,6 +8,7 @@ logger = logging_utils.get_logger(__name__)
 # ion identity network utilities
 EDGE_TYPE_ATTRIBUTE = "EdgeType"
 ION_EDGE_TYPE = "ms1 annotation"
+COSINE_EDGE_TYPE = "Cosine"
 
 # node attributes and values
 NODE_ION_NETWORK_ATTRIBUTE = "Annotated Adduct Features ID"
