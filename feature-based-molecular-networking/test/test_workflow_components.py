@@ -30,7 +30,7 @@ def test_metadata_test():
 def test_additional_edges():
     import convert_networks_to_graphml
     import networkx as nx
-    import ion_network_utils
+    import constants as CONST
 
     logger.debug("Exporting ion identity molecular network with ALL nodes (NO collapsing)")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv",
@@ -47,7 +47,7 @@ def test_additional_edges():
 
     listy = G.get_edge_data('7347', '9043')
     logger.info("edge info:" + str(listy))
-    mass_difference = float(listy[ion_network_utils.ION_EDGE_TYPE]["mass_difference"])
+    mass_difference = float(listy[CONST.EDGE.ION_TYPE]["mass_difference"])
     #mass_difference = round(mass_difference, 4)
     # safely compare floating point numbers
     assert (numpy.isclose(mass_difference, 3.0051))

@@ -1,35 +1,9 @@
 #!/usr/bin/python
 from networkx import nx
 import logging_utils
+import constants as CONST
 
 logger = logging_utils.get_logger(__name__)
-
-
-# ion identity network utilities
-EDGE_TYPE_ATTRIBUTE = "EdgeType"
-ION_EDGE_TYPE = "MS1 annotation"
-COSINE_EDGE_TYPE = "Cosine"
-
-# node attributes and values
-NODE_ION_NETWORK_ATTRIBUTE = "Annotated Adduct Features ID"
-NODE_ABUNDANCE_ATTRIBUTE = "sum(precursor intensity)"
-NODE_ADDUCT_ATTRIBUTE = "Best Ion"
-# new attribute
-NODE_TYPE_ATTRIBUTE = "NODE_TYPE"
-NODE_SUM_ION_INTENSITY_ATTRIBUTE = "sum ion intensity (collapsed nodes)"
-NODE_COLLAPSED_NODES_ATTRIBUTE = "# collapsed ion nodes"
-
-# values
-COLLAPSED_NODE_TYPE = "Collapsed Ion Network Node"
-ION_NODE_TYPE = "Ion Identity Node"
-FEATURE_NODE_TYPE = "Feature Node"
-
-# add columns for each adduct_intensity that was merged into a collapsed node
-# [M+H]+_Intensity ...
-SPECIFIC_ION_ABUNDANCE = "_INTENSITY"
-
-
-
 
 
 def collapse_ion_networks(G):
@@ -45,8 +19,8 @@ def collapse_ion_networks(G):
     ion_networks_dict = {}
     for node, attributes in H.nodes(data=True):
         # has ion identity network ID? Add to list of nodes to reconstruct IIN
-        if NODE_ION_NETWORK_ATTRIBUTE in attributes:
-            ion_network_id = attributes[NODE_ION_NETWORK_ATTRIBUTE]
+        if CONST.NODE.ION_NETWORK_ATTRIBUTE in attributes:
+            ion_network_id = attributes[CONST.NODE.ION_NETWORK_ATTRIBUTE]
             if ion_network_id is not None and len(str(ion_network_id).strip()) > 0:
                 nodes = []
                 if ion_network_id in ion_networks_dict:
@@ -63,7 +37,7 @@ def collapse_ion_networks(G):
     # merge all into the node with the highest abundance
     for network in sorted_ion_networks:
         if len(network) > 1:  # only collapse ion networks with >1 nodes
-            sorted_nodes = sorted(network, key=lambda ion_node: H.nodes[ion_node][NODE_ABUNDANCE_ATTRIBUTE],
+            sorted_nodes = sorted(network, key=lambda ion_node: H.nodes[ion_node][CONST.NODE.ABUNDANCE_ATTRIBUTE],
                                   reverse=True)
             merge_nodes(H, sorted_nodes)
 
@@ -83,22 +57,22 @@ def merge_nodes(G, nodes):
     :param nodes: sorted list of nodes to be merged (first remains - all other nodes are merged into the first node)
     """
     molecule_node = nodes[0]
-    G.nodes[molecule_node][NODE_TYPE_ATTRIBUTE] = COLLAPSED_NODE_TYPE
-    G.nodes[molecule_node][NODE_COLLAPSED_NODES_ATTRIBUTE] = len(nodes)
+    G.nodes[molecule_node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.COLLAPSED_TYPE
+    G.nodes[molecule_node][CONST.NODE.COLLAPSED_NODES_ATTRIBUTE] = len(nodes)
     # combine node attributed
     # intensity for each ion adduct
     sum_intensity = 0.0
     for node in nodes:
-        if NODE_ADDUCT_ATTRIBUTE in G.nodes[node] and NODE_ABUNDANCE_ATTRIBUTE in G.nodes[node]:
-            ion = G.nodes[node][NODE_ADDUCT_ATTRIBUTE]
-            intensity = G.nodes[node][NODE_ABUNDANCE_ATTRIBUTE]
-            G.nodes[molecule_node][ion + SPECIFIC_ION_ABUNDANCE] = intensity
+        if CONST.NODE.ADDUCT_ATTRIBUTE in G.nodes[node] and CONST.NODE.ABUNDANCE_ATTRIBUTE in G.nodes[node]:
+            ion = G.nodes[node][CONST.NODE.ADDUCT_ATTRIBUTE]
+            intensity = G.nodes[node][CONST.NODE.ABUNDANCE_ATTRIBUTE]
+            G.nodes[molecule_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE] = intensity
             sum_intensity += intensity
         # TODO handle more attributes: How to add multiple library matches to this one node? Keep match with highest
         #  score?
 
     # add sum of ion intensities
-    G.nodes[molecule_node][NODE_SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
+    G.nodes[molecule_node][CONST.NODE.SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
 
     # redirect all edges to the first node and remove nodes
     redirect_edges_and_delete_nodes(G, nodes[1:], molecule_node)
@@ -157,23 +131,24 @@ def remove_all_ion_edges(G):
     Removes all edges from ion identity networking (used prior to network collapsing)
     :param G: networkx graph (MultiGraph)
     """
+    EDGE_TYPE_ATTRIBUTE = CONST.EDGE.TYPE_ATTRIBUTE
     edges_to_remove = []
     for n1, n2, key, data in G.edges(keys=True, data=True):
         # remove all edges with EDGE_TYPE_ATTRIBUTE = ION_EDGE_TYPE
-        if EDGE_TYPE_ATTRIBUTE in data and str(data[EDGE_TYPE_ATTRIBUTE]).lower().strip() == ION_EDGE_TYPE.lower():
+        if EDGE_TYPE_ATTRIBUTE in data and str(data[EDGE_TYPE_ATTRIBUTE]).lower().strip() == CONST.EDGE.ION_TYPE.lower():
             edges_to_remove.append((n1, n2, key))
     G.remove_edges_from(edges_to_remove)
 
 
 def mark_all_node_types(G):
     """
-    Marks all nodes as feature nodes or ion identity nodes (NODE_TYPE_ATTRIBUTE)
+    Marks all nodes as feature nodes or ion identity nodes (constants.NODE.TYPE_ATTRIBUTE)
     :param G: networkx graph (MultiGraph)
     """
     for node, data in G.nodes(data=True):
-        if NODE_TYPE_ATTRIBUTE not in data:
+        if CONST.NODE.TYPE_ATTRIBUTE not in data:
             # ion identity node or feature node?
-            if NODE_ION_NETWORK_ATTRIBUTE in data:
-                G.nodes[node][NODE_TYPE_ATTRIBUTE] = ION_NODE_TYPE
+            if CONST.NODE.ION_NETWORK_ID_ATTRIBUTE in data:
+                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
             else:
-                G.nodes[node][NODE_TYPE_ATTRIBUTE] = FEATURE_NODE_TYPE
+                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE
