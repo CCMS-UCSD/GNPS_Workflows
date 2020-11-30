@@ -7,15 +7,13 @@ import operator
 logger = logging_utils.get_logger(__name__)
 
 
-def collapse_ion_networks(G, is_remove_duplicate_edges=True, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
+def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
                           edge_comparator=operator.ge):
     """
     Collapse all ion identity networks. Does nothing if no ion identity networks are available.
     Does not change G, returns a copy.
     :param G: networkx graph (MultiGraph)
-    :param is_remove_duplicate_edges: After collapsing sub networks - remove duplicate edges with the same edge_type -
-    keep edges based on best_edge_att and the comparator function
-    :param best_edge_att: attribute to find best edge
+    :param best_edge_att: attribute to find best edge for edge merging
     :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
     :return: A copy of G with collapsed ion identity networks
     """
@@ -26,22 +24,20 @@ def collapse_ion_networks(G, is_remove_duplicate_edges=True, best_edge_att=CONST
 
     # collapse all nodes with the same ion network ID into the node with the highest abundance
     collapse_based_on_node_attribute(H, CONST.NODE.ION_NETWORK_ID_ATTRIBUTE, CONST.NODE.ABUNDANCE_ATTRIBUTE,
-                                     is_remove_duplicate_edges, best_edge_att, edge_comparator)
+                                     best_edge_att, edge_comparator)
 
     # return copy of network G
     return H
 
 
-def collapse_based_on_node_attribute(H, merge_att, best_node_att, is_remove_duplicate_edges=True,
-                                     best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
+def collapse_based_on_node_attribute(H, merge_att, best_node_att, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
+                                     edge_comparator=operator.ge):
     """
     Collapse all nodes with the same merge_att=value.
     :param H: networkx graph (MultiGraph)
     :param merge_att: attribute to group nodes and merge them into a single node (all nodes with the same value)
     :param best_node_att: attribute to rank the nodes and merge all into the one with the highest value for this
-    :param is_remove_duplicate_edges: After collapsing sub networks - remove duplicate edges with the same edge_type -
-    keep edges based on best_edge_att and the comparator function
-    :param best_edge_att: attribute to find best edge
+    :param best_edge_att: attribute to find best edge (for edge merging - standard=constants.EDGE.SCORE)
     :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
     """
     # store all nodes of ion identity networks as: ion_network_id -> list of nodes
@@ -72,15 +68,12 @@ def collapse_based_on_node_attribute(H, merge_att, best_node_att, is_remove_dupl
             reduced_nodes_count += len(network)
             sorted_nodes = sorted(network, key=lambda ion_node: H.nodes[ion_node][best_node_att],
                                   reverse=True)
-            merge_nodes(H, sorted_nodes, CONST.NODE.COLLAPSED_TYPE, True)
+            merge_nodes(H, sorted_nodes, CONST.NODE.COLLAPSED_TYPE, True, best_edge_att, edge_comparator)
     logger.info("Collapsed %s nodes into %s remaining nodes", reduced_nodes_count, len(sorted_sub_networks))
 
-    # remove duplicate edges. Standard based on EDGE_SCORE - keep edge with max score
-    if is_remove_duplicate_edges:
-        remove_duplicate_edges(H, best_edge_att, edge_comparator)
 
-
-def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_intensity_attributes=True):
+def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_intensity_attributes=True,
+                best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
     """
     Merges all nodes into the first element of nodes, redirects the edges to this node and removes the other nodes
     from the graph.
@@ -89,6 +82,8 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
     :param nodes: sorted list of nodes to be merged (first remains - all other nodes are merged into the first node)
     :param new_node_type: defines the node type of the collapsed main node (CONST.NODE.TYPE_ATTRIBUTE)
     :param add_ion_intensity_attributes: True or False; Adds intensity column (attribute) for each ion in this group
+    :param best_edge_att: attribute to find best edge (for edge merging - standard=constants.EDGE.SCORE)
+    :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
     of merged nodes.
     """
     main_node = nodes[0]
@@ -112,57 +107,50 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
     G.nodes[main_node][CONST.NODE.SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
 
     # redirect all edges to the first node and remove nodes
-    redirect_edges_and_delete_nodes(G, nodes[1:], main_node)
+    redirect_edges_and_delete_nodes(G, nodes[1:], main_node, best_edge_att, edge_comparator)
 
 
-def redirect_edges_and_delete_nodes(G, nodes, target_node):
+def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
     """
     Redirect all edges to target_node and delete the list of nodes
 
     :param G: networkx graph (MultiGraph)
     :param nodes: list of nodes to be merged into target_node. Edges are redirect and nodes are deleted
     :param target_node: all edges are redirected to this node
+    :param best_edge_att: attribute to find best edge
+    :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
     """
-    edges_to_add = []
-    for n1, n2, key, data in G.edges(keys=True, data=True):
-        # no need to reconnect edges from n to target_node
-        if n1 is not target_node and n2 is not target_node:
-            # For all edges related to one of the nodes to merge,
-            # make an edge going to or coming from the new node
-            try:
-                if n1 in nodes:
-                    edges_to_add.append((target_node, n2, key, data))
+    for n1 in nodes:
+        filtered_neighbors = [n for n in G.neighbors(n1) if n is not target_node]
+        for n2 in filtered_neighbors:
+            edges_to_add = []
+            edges_to_remove = []
 
-                elif n2 in nodes:
-                    edges_to_add.append((n1, target_node, key, data))
-            except:
-                logger.error("Error Adding Edge")
-                continue
-    # reconnect edges
-    G.add_edges_from(edges_to_add)
+            edges = G.get_edge_data(n1, n2)
+            target_edges = G.get_edge_data(target_node, n2)
+            for key, data in edges.items():
+                # target already contains edge with this type
+                if target_edges is not None and key in target_edges:
+                    if not (best_edge_att in data and best_edge_att in target_edges[key]):
+                        logger.warn("Edges of key=%s do not contain attribute to score and merge edges: %s", key, best_edge_att)
+                    elif edge_comparator(data[best_edge_att], target_edges[key][best_edge_att]):
+                        # exchange edge
+                        edges_to_add.append((target_node, n2, key, data))
+                        edges_to_remove.append((n1, n2, key))
+                        edges_to_remove.append((target_node, n2, key))
+                        logger.debug("Exchange edge with key "+str(key))
+                else:
+                    # add as new edge
+                    edges_to_add.append((target_node, n2, key, data))
+                    edges_to_remove.append((n1, n2, key))
+                    logger.debug("Exchange edge with key "+str(key))
+            # remove and add edges
+            G.remove_edges_from(edges_to_remove)
+            G.add_edges_from(edges_to_add)
 
     for n in nodes:  # remove the merged nodes
         if n is not target_node:
             G.remove_node(n)
-
-
-def remove_duplicate_edges(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
-    """
-    Remove duplicate edges between nodes after merging (edges of the same type)
-    Keeps the highest score.
-    :param G:
-    :param best_edge_att: attribute to find best edge
-    :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
-    """
-    #edges_to_remove = []
-    #for n1 in G.nodes(data=True):
-    #   for n2 in nx.neighbors(G, n1):
-    #     for n1, n2, key, data in G.edges(keys=True, data=True):
-    # remove all edges with EDGE_TYPE_ATTRIBUTE = ION_EDGE_TYPE
-    #   if EDGE_TYPE_ATTRIBUTE in data and str(data[EDGE_TYPE_ATTRIBUTE]).lower().strip() == ION_EDGE_TYPE:
-    #       edges_to_remove.append((n1, n2, key))
-    #G.remove_edges_from(edges_to_remove)
-
 
 def remove_all_ion_edges(G):
     """
