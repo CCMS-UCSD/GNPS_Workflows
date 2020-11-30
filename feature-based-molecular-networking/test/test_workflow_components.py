@@ -61,7 +61,7 @@ def test_collapse_ion_identity_networks():
     logger.info("Number of nodes in collapsed IIMN graph: "+str(len(G.nodes())))
     logger.info("Number of edges in collapsed IIMN graph: "+str(len(G.edges())))
     # TODO: add test values
-    assert(len(G.nodes()) < 1140)
+    assert(len(G.nodes()) > 1140)
 
 def test_clustersummary():
     import clusterinfosummary_for_featurenetworks
