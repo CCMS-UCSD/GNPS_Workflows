@@ -48,7 +48,7 @@ def main():
 
     output_graphml = os.path.join(args.output_folder, "gnps_spec2vec.graphml")
     output_pairs = os.path.join(args.output_folder, "filtered_pairs.tsv")
-    molecular_network_filtering_library.output_graph(G, output_pairs)
+    molecular_network_filtering_library.output_graph_with_headers(G, output_pairs)
 
     nx.write_graphml(G, output_graphml)
 

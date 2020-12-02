@@ -36,6 +36,14 @@
 			<default value="yes"/>
 		</parameter>
 
+        <parameter name="NETWORK_TOPOLOGY_FILTERING" label="Network Topology Filtering">
+			<options>
+				<option value="breakup" label="Break Up Components (Default)"/>
+				<option value="additive" label="Create Larger Components"/>
+			</options>
+			<default value="breakup"/>
+		</parameter>
+
     </parameters>
 
     <!-- Input form layout -->
@@ -106,6 +114,17 @@
                 </input>
             </cell>
         </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="NETWORK_TOPOLOGY_FILTERING"/>
+                </label>
+                <input type="select" parameter="NETWORK_TOPOLOGY_FILTERING">
+                </input>
+            </cell>
+        </row>
+        
     </block>
 
 
