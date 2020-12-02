@@ -90,19 +90,24 @@ def simple_presence_of_merged_spectra_processing(input_integrals_filename, outpu
 
 # Parsing the quant table
 def generate_clustersummary(input_integrals_filename, output_clustersummary_filename):
-    header_order = open(input_integrals_filename).readline().rstrip().split(",")[1:]
-    output_list = []
+    df = pd.read_csv(input_integrals_filename, nrows=20)
+    scan_numbers = list(df.columns)
+    rts_list = list(df.iloc[0])
 
-    scan_number = 0
-    for header in header_order:
-        scan_number += 1
+    output_list = []
+    for i, scan in enumerate(scan_numbers):
+        if i == 0:
+            continue
+
         output_dict = {}
-        output_dict["cluster index"] = scan_number
-        output_dict["RTMean"] = header
+        output_dict["cluster index"] = scan
+        output_dict["RTMean"] = rts_list[i].split(" ")[0]
+        output_dict["Balance Score"] = rts_list[i].split(" ")[-1].replace("(", "").replace(")", "").replace("%", "")
 
         output_list.append(output_dict)
 
-    ming_fileio_library.write_list_dict_table_data(output_list, output_clustersummary_filename)
+    output_df = pd.DataFrame(output_list)
+    output_df.to_csv(output_clustersummary_filename, sep='\t', index=False)
 
 def determine_filetype_of_import(input_folder):
     input_filenames = ming_fileio_library.list_files_in_dir(input_folder)

@@ -20,7 +20,8 @@
         </data>
         <row>
             <column type="integer" field="cluster index" label="cluster index" width="3"/>
-            <column type="text" field="RTMean" label="RTMean" width="10"/>
+            <column type="float" field="RTMean" label="RTMean" width="10"/>
+            <column type="float" field="Balance Score" label="Balance Score" width="10"/>
         </row>
 
         <row expander="image">

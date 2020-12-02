@@ -9,3 +9,6 @@ def test_mgf_conversion():
     import process_gc
     process_gc.parse_peaks_for_output("data/data_ms_peaks.txt", "data/specs_ms.mgf")
     
+def test_clustersummary():
+    import process_gc
+    process_gc.generate_clustersummary("data/data_integrals.csv", "clustersummary.tsv")
