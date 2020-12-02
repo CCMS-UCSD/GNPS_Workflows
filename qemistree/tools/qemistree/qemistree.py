@@ -42,7 +42,7 @@ def main():
     output_distance_matrix_qza = os.path.join(args.output_folder, "distance-matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
     output_emperor_qza = os.path.join(args.output_folder, "emperor.qzv")
-    output_qemistree_itol_qzv = os.path.join(args.output_folder, "qemistree-itol.qzv")
+    output_qemistree_empress_qzv = os.path.join(args.output_folder, "qemistree-empress.qzv")
 
     all_cmd = []
 
@@ -172,13 +172,12 @@ def main():
         all_cmd.append(cmd)
 
     # Tree Plotting
-    cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree plot \
+    cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime empress community-plot \
+    --i-feature-table {output_merged_feature_table_qza} \
     --i-tree {output_qemistree_pruned_qza} \
-    --i-feature-metadata {output_classified_feature_data_qza} \
-    --p-category direct_parent \
-    --p-ms2-label False \
-    --p-parent-mz True \
-    --o-visualization {output_qemistree_itol_qzv}'
+    --m-feature-metadata-file {output_classified_feature_data_qza} \
+    --m-sample-metadata-file {} \
+    --o-visualization {output_qemistree_empress_qzv}'.format(metadata_files[0])
     all_cmd.append(cmd)
 
     #Actually running all the commands
