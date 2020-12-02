@@ -38,6 +38,7 @@ def main():
     parser.add_argument('input_mgf', help='input_mgf')
     parser.add_argument('output_pairs', help='output_pairs')
     parser.add_argument('model_file', help='model_file')
+    parser.add_argument('--min_score', type=float, default=0.7, help='model_file')
     args = parser.parse_args()
 
     spectra = load_from_mgf(args.input_mgf)
@@ -77,7 +78,7 @@ def main():
 
             sim = scores[i][j]
 
-            if sim < 0.7:
+            if sim < args.min_score:
                 continue
 
             score_dict = {}
@@ -90,7 +91,6 @@ def main():
             score_dict["DeltaMZ"] = score_dict["mz2"] - score_dict["mz1"]
             score_dict["EdgeAnnotation"] = "Spec2Vec"
             
-
             output_scores_list.append(score_dict)
 
     # Saving Data Out

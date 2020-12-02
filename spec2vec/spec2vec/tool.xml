@@ -17,6 +17,7 @@
             <arg valueRef="spectra"/>
             <arg valueRef="pairs"/>
             <arg pathRef="spec2vec.model"/>
+            <arg option="-min_score" valueRef="@PAIRS_MIN_SCORE"/>
         </execution>
     </tool>
 
