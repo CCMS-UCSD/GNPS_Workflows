@@ -7,7 +7,7 @@
 
     <block id="view_raw_pairs" type="table_ss">
         <data>
-            <source type="file" name="pair/pairs.tsv"/>
+            <source type="file" name="pairs/pairs.tsv"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="Cosine" operator="descending"/>
                 <parser type="SQLite"/>
@@ -127,6 +127,18 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
+    </block>
+
+    <view id="cytoscape_preview" label="Direct Cytoscape Preview/Download" group="Advanced Views - External Visualization">
+        <blockRef id="main" type="cytoscape_preview"/>
+    </view>
+    <block id="cytoscape_preview" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
 
