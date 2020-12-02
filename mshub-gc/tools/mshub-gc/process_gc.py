@@ -235,7 +235,6 @@ def main():
     cmds.append([args.python_runtime, args.report_script, "--output_prefix", "gnps-gc", hdf5_filename, "summary_temp"])
     cmds.append(["tar", "-cvf", os.path.join(args.summary_output, "summary.tar"), os.path.join("summary_temp", "gnps-gc")])
 
-
     for cmd in cmds:
         print(" ".join(cmd))
         subprocess.call(cmd)
@@ -265,7 +264,7 @@ def main():
     rewrite_quant.close()
     scan_to_basepeak = parse_peaks_for_output(output_peak_txt_filename, args.clustered_mgf)
     simple_presence_of_merged_spectra_processing(output_quant_filename, args.clusterinfo, mangled_mapping)
-    generate_clustersummary(output_quant_filename, args.clustersummary)
+    generate_clustersummary(output_quant_filename, args.clustersummary, scan_to_basepeak=scan_to_basepeak)
 
     # Removing the big data
     os.remove(hdf5_filename)
