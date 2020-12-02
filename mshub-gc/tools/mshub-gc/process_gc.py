@@ -253,11 +253,7 @@ def main():
     for line in f:
         fname = line.split(',')[0]
         if fname.startswith("spec") and fname in mangled_mapping_filename:
-            print("before:")
-            print(line)
-            line = line.replace(fname,mangled_mapping_filename[fname])
-            print("after:")
-            print(line)
+            line = line.replace(fname, mangled_mapping_filename[fname])
         quant_in_memory.append(line)
     rewrite_quant = open(output_quant_filename,'w')
     rewrite_quant.write("".join(quant_in_memory))
@@ -268,6 +264,13 @@ def main():
 
     # Removing the big data
     os.remove(hdf5_filename)
+
+    # Writing a file summary
+    import glob
+    all_files = glob.glob(os.path.join(args.spectrum_folder, "*"))
+    filename_df = pd.DataFrame()
+    filename_df["filename"] = all_files
+    filename_df.to_csv(os.path.join(args.summary_output, "filesummary.tsv"), sep="\t", index=False)
 
     # if workflow_params["CLUSTER_SPECTRA"][0] == "YES":
     #     cluster_spectra(args.clustered_mgf, args.clustersummary, float(workflow_params["RT_TOLERANCE"][0]))

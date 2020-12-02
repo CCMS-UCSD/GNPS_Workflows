@@ -7,6 +7,28 @@
         <source type="folder" name="quantification_output/"/>
     </download>
 
+    <view id="view_files" label="View Files" group="Default Views">
+        <blockRef id="main" type="view_files"/>
+    </view>
+
+    <block id="view_files" type="table">
+        <data>
+            <source type="file" name="summary_output/filesummary.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="filename" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+            <column type="text" field="filename" label="filename" width="3"/>
+        </row>
+
+    </block>
+
     <view id="view_spectra" label="View All Deconvolved Spectra" group="Default Views">
         <blockRef id="main" type="view_spectra"/>
     </view>
