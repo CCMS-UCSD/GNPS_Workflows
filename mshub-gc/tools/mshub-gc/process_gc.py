@@ -10,8 +10,11 @@ import ming_fileio_library
 import proteosafe
 from collections import defaultdict
 
+# Parsing the output mgf
 def parse_peaks_for_output(input_filename, output_filename):
     output_file = open(output_filename, "w")
+
+    scan_to_basepeak = {}
 
     db_number = -1
     rt_seconds = -1
@@ -43,6 +46,9 @@ def parse_peaks_for_output(input_filename, output_filename):
             output_file.write("CHARGE=0\n")
             output_file.write("MSLEVEL=2\n")
 
+            # saving the basepeak information
+            sorted_peaks = sorted(all_peaks, key=lambda x: x[1], reverse=True)
+            scan_to_basepeak[str(db_number)] = sorted_peaks[0][0]
 
             for peak in all_peaks:
                 output_file.write(" ".join(peak) + "\n")
@@ -50,6 +56,8 @@ def parse_peaks_for_output(input_filename, output_filename):
             output_file.write("END IONS\n")
 
     output_file.close()
+
+    return scan_to_basepeak
 
 
 """ Presence and Abscence of features across many files
@@ -89,7 +97,7 @@ def simple_presence_of_merged_spectra_processing(input_integrals_filename, outpu
     ming_fileio_library.write_dictionary_table_data(output_dict, output_clusterinfo_filename)
 
 # Parsing the quant table
-def generate_clustersummary(input_integrals_filename, output_clustersummary_filename):
+def generate_clustersummary(input_integrals_filename, output_clustersummary_filename, scan_to_basepeak=None):
     df = pd.read_csv(input_integrals_filename, nrows=20)
     scan_numbers = list(df.columns)
     rts_list = list(df.iloc[0])
@@ -103,6 +111,12 @@ def generate_clustersummary(input_integrals_filename, output_clustersummary_file
         output_dict["cluster index"] = scan
         output_dict["RTMean"] = rts_list[i].split(" ")[0]
         output_dict["Balance Score"] = rts_list[i].split(" ")[-1].replace("(", "").replace(")", "").replace("%", "")
+
+        if scan_to_basepeak is not None:
+            output_dict["BasePeak"] = scan_to_basepeak[scan]
+        else:
+            output_dict["BasePeak"] =  "-1"
+
 
         output_list.append(output_dict)
 
@@ -249,7 +263,7 @@ def main():
     rewrite_quant = open(output_quant_filename,'w')
     rewrite_quant.write("".join(quant_in_memory))
     rewrite_quant.close()
-    parse_peaks_for_output(output_peak_txt_filename, args.clustered_mgf)
+    scan_to_basepeak = parse_peaks_for_output(output_peak_txt_filename, args.clustered_mgf)
     simple_presence_of_merged_spectra_processing(output_quant_filename, args.clusterinfo, mangled_mapping)
     generate_clustersummary(output_quant_filename, args.clustersummary)
 
