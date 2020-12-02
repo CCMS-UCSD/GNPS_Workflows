@@ -28,6 +28,11 @@
 			<default value="50"/>
 		</parameter>
 
+        <parameter name="MAXIMUM_COMPONENT_SIZE" label="Maximum Connected Component Size">
+			<default value="100"/>
+			<validator type="integer" minimumExclusive="-1" maximum="100000"/>
+		</parameter>
+
         <parameter name="REMOVE_COSINE_PAIRS" label="Remove Cosine Pairs">
 			<options>
 				<option value="yes" label="yes"/>
@@ -111,6 +116,22 @@
                     <content parameter="REMOVE_COSINE_PAIRS"/>
                 </label>
                 <input type="select" parameter="REMOVE_COSINE_PAIRS">
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MAXIMUM_COMPONENT_SIZE"/>
+                    <tooltip id="max_component_size_gnps_tooltip">
+                        Maximum size of nodes allowed in a single connected network. Nodes within a single connected molecular network will be separated by increasing cosine threshold for that specific connected molecular network. Default value is 100. Use 0 to allow an unlimited number of nodes in a single network. Note that with large datasets, or when a great number of related molecules are in the dataset, this value should be higher (or turn to 0) to retain as much information as possible. Downstream, these larger networks can be visualized using Cytoscape layout algorithms that can increase the intra-network clustering, allowing to visualize spectral groups in the network despite the number of nodes in the network.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
+                    <attribute name="size" value="3"/>
                 </input>
             </cell>
         </row>

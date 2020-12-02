@@ -61,11 +61,11 @@
         </row>
     </block>
 
-    <view id="view_pairs" label="View Filtered Pairs" group="Default Results Views">
-        <blockRef id="main" type="view_summary_table"/>
+    <view id="view_filtered_pairs" label="View Filtered Pairs" group="Default Results Views">
+        <blockRef id="main" type="view_filtered_pairs"/>
     </view>
 
-    <block id="view_summary_table" type="table_ss">
+    <block id="view_filtered_pairs" type="table_ss">
         <data>
             <source type="file" name="gnps_molecular_network_graphml/filtered_pairs.tsv"/>
             <parsers>
@@ -74,48 +74,46 @@
             </parsers>
         </data>
         <row>
-            <column type="integer" field="Node1" label="Node1" precision="2"/>
-            <column type="integer" field="Node2" label="Node2" precision="3"/>
-            <column type="float" field="mz1" label="mz1" precision="3"/>
-            <column type="float" field="mz2" label="mz2" precision="2"/>
-            <column type="float" field="Cos_Score" label="Cos_Score" precision="3"/>
-            <column type="float" field="MzDiff" label="MzDiff" precision="3"/>
+            <column type="integer" field="CLUSTERID1" label="Node1" precision="2"/>
+            <column type="integer" field="CLUSTERID2" label="Node2" precision="3"/>
+            <column type="float" field="Cosine" label="Cosine" precision="3"/>
+            <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
         </row>
         <row expander="image">
             <column type="jscolumnspectrumviewer_spectrum_comparison" colspan="5">
                 <parameter name="spectrum1_type" value="flatfile"/>
-                <parameter name="spectrum1_file" file="[filename]"/>
-                <parameter name="spectrum1_scan" value="[Node1]"/>
+                <parameter name="spectrum1_file" file="spectra/spectra-00000.mgf"/>
+                <parameter name="spectrum1_scan" value="[CLUSTERID1]"/>
                 <parameter name="spectrum2_type" value="flatfile"/>
-                <parameter name="spectrum2_file" file="[filename]"/>
-                <parameter name="spectrum2_scan" value="[Node2]"/>
+                <parameter name="spectrum2_file" file="spectra/spectra-00000.mgf"/>
+                <parameter name="spectrum2_scan" value="[CLUSTERID2]"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
-                <parameter name="file" file="[filename]"/>
-                <parameter name="scan" value="[Node1]"/>
+                <parameter name="file" file="spectra/spectra-00000.mgf"/>
+                <parameter name="scan" value="[CLUSTERID1]"/>
                 <parameter name="compoundname" value="*..*"/>
             </column>
             <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
-                <parameter name="file" file="[filename]"/>
-                <parameter name="scan" value="[Node2]"/>
+                <parameter name="file" file="spectra/spectra-00000.mgf"/>
+                <parameter name="scan" value="[CLUSTERID2]"/>
                 <parameter name="compoundname" value="*..*"/>
             </column>
         </row>
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
-                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node1]"/>
-                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node2]"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/spectra-00000.mgf:scan:[CLUSTERID1]"/>
+                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}-spectra/spectra-00000.mgf:scan:[CLUSTERID2]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node1]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/spectra-00000.mgf:scan:[CLUSTERID1]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[Node2]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/spectra-00000.mgf:scan:[CLUSTERID2]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
         </row>

@@ -16,10 +16,11 @@ def main():
     parser.add_argument('output_folder', help='output_folder')
     parser.add_argument('--topk', default=50, type=int, help='mutual top k')
     parser.add_argument('--removecosine', default="yes", help='remove cosine edges')
+    parser.add_argument('--max_component_size', default=100, type=int, help='max component size')
     args = parser.parse_args()
 
     top_k_val = int(args.topk)
-    max_component_size = 100
+    max_component_size = args.max_component_size
 
     # Loading Network if it exists
     try:
