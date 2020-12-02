@@ -88,6 +88,7 @@ def simple_presence_of_merged_spectra_processing(input_integrals_filename, outpu
 
     ming_fileio_library.write_dictionary_table_data(output_dict, output_clusterinfo_filename)
 
+# Parsing the quant table
 def generate_clustersummary(input_integrals_filename, output_clustersummary_filename):
     header_order = open(input_integrals_filename).readline().rstrip().split(",")[1:]
     output_list = []
