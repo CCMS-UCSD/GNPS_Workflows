@@ -201,6 +201,16 @@ def main():
 
     file_type_of_import = determine_filetype_of_import(args.spectrum_folder)
 
+    # Writing a file summary
+    import glob
+    all_files = glob.glob(os.path.join(args.spectrum_folder, "*"))
+    all_files = [mangled_mapping[os.path.basename(filename)] for filename in all_files]
+    filename_df = pd.DataFrame()
+    filename_df["full_CCMS_path"] = all_files
+    filename_df.to_csv(os.path.join(args.summary_output, "filesummary.tsv"), sep="\t", index=False)
+
+    print(filename_df)
+
 
     hdf5_filename = os.path.join(args.scratch_folder, "data.h5")
 
@@ -264,13 +274,6 @@ def main():
 
     # Removing the big data
     os.remove(hdf5_filename)
-
-    # Writing a file summary
-    import glob
-    all_files = glob.glob(os.path.join(args.spectrum_folder, "*"))
-    filename_df = pd.DataFrame()
-    filename_df["filename"] = all_files
-    filename_df.to_csv(os.path.join(args.summary_output, "filesummary.tsv"), sep="\t", index=False)
 
     # if workflow_params["CLUSTER_SPECTRA"][0] == "YES":
     #     cluster_spectra(args.clustered_mgf, args.clustersummary, float(workflow_params["RT_TOLERANCE"][0]))

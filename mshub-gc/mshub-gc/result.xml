@@ -15,7 +15,7 @@
         <data>
             <source type="file" name="summary_output/filesummary.tsv"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="filename" operator="ascending"/>
+                <parser type="sortedTabular" sortBy="full_CCMS_path" operator="ascending"/>
             </parsers>
         </data>
         <row>
@@ -24,7 +24,7 @@
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
-            <column type="text" field="filename" label="filename" width="3"/>
+            <column type="text" field="full_CCMS_path" label="full_CCMS_path" width="3"/>
         </row>
 
     </block>
