@@ -1453,6 +1453,18 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS", "desc":"DEREPLICATOR+ of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
     </block>
 
+    <view id="spec2vec" label="Network with Spec2vec" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="spec2vec"/>
+    </view>
+    <block id="spec2vec" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"SPEC2VEC", "desc":"Spec2vec of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "existing_graphml":"t.[task]/gnps_molecular_network_graphml/"}'/>
+    </block>
+
 
     
 
