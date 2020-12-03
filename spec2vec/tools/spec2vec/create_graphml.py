@@ -17,7 +17,7 @@ def main():
     parser.add_argument('--topk', default=50, type=int, help='mutual top k')
     parser.add_argument('--removecosine', default="yes", help='remove cosine edges')
     parser.add_argument('--max_component_size', default=100, type=int, help='max component size')
-    parser.add_argument('--component_filtering', default="breakup", type=int, help='max component size')
+    parser.add_argument('--component_filtering', default="breakup", help='max component size')
     args = parser.parse_args()
 
     top_k_val = int(args.topk)
