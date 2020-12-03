@@ -315,6 +315,27 @@ def filter_component(G, max_component_size):
                 big_components_present = True
         print("After Round of Component Pruning", len(G.edges()))
 
+# This enables filtering of network components 
+# but instead of breaking apart big components, 
+# it adds edges only if it doesnt make too large components
+def filter_component_additive(G, max_component_size):
+    if max_component_size == 0:
+        return
+
+    all_edges = list(G.edges(data=True))
+
+    new_G = nx.Graph()
+    new_G.add_nodes_from(G.nodes(data=True))
+
+    all_edges = sorted(all_edges, key=lambda x: x[2]["EdgeScore"], reverse=True)
+
+    for edge in all_edges:
+        new_G.add_edges_from([edge])
+        largest_cc = max(nx.connected_components(new_G), key=len)
+
+        if len(largest_cc) > max_component_size:
+            new_G.remove_edge(edge[0], edge[1])
+
 def get_edges_of_component(G, component):
     component_edges = {}
     for node in component:

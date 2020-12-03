@@ -38,9 +38,11 @@
 		<query name="task" valueRef="@task"/>
 		<contentQuery name="content"/>
 		<compression type="zip"/>
+
 		<upload port="pairs" type="folder">
 			<query name="resource" value="pairs"/>
 		</upload>
+
 		<upload port="gnps_molecular_network_graphml" type="folder">
 			<query name="resource" value="gnps_molecular_network_graphml"/>
 		</upload>

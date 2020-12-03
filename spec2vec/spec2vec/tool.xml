@@ -42,7 +42,7 @@
             <arg valueRef="gnps_molecular_network_graphml"/>
             <arg option="-topk" valueRef="@TOPK"/>
             <arg option="-removecosine" valueRef="@REMOVE_COSINE_PAIRS"/>
-            <arg option="-removecosine" valueRef="@REMOVE_COSINE_PAIRS"/>
+            <arg option="-component_filtering" valueRef="@NETWORK_TOPOLOGY_FILTERING"/>
         </execution>
     </tool>
 </toolset>

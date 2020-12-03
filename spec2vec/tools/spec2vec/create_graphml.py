@@ -17,6 +17,7 @@ def main():
     parser.add_argument('--topk', default=50, type=int, help='mutual top k')
     parser.add_argument('--removecosine', default="yes", help='remove cosine edges')
     parser.add_argument('--max_component_size', default=100, type=int, help='max component size')
+    parser.add_argument('--component_filtering', default="breakup", type=int, help='max component size')
     args = parser.parse_args()
 
     top_k_val = int(args.topk)
@@ -38,14 +39,16 @@ def main():
 
         G = nx.compose(G_old, G_new)
     except:
-        raise
         G = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
     
     #Returning None means that there are no edges in the output
     if G == None:
         exit(0)
     molecular_network_filtering_library.filter_top_k(G, top_k_val)
-    molecular_network_filtering_library.filter_component(G, max_component_size)
+    if args.component_filtering == "breakup":
+        molecular_network_filtering_library.filter_component(G, max_component_size)
+    elif args.component_filtering == "additive":
+        molecular_network_filtering_library.filter_component_additive(G, max_component_size)
 
     output_graphml = os.path.join(args.output_folder, "gnps_spec2vec.graphml")
     output_pairs = os.path.join(args.output_folder, "filtered_pairs.tsv")
