@@ -23,33 +23,36 @@ def main():
     top_k_val = int(args.topk)
     max_component_size = args.max_component_size
 
-    # Loading Network if it exists
-    try:
-        G_old = nx.read_graphml(glob.glob(os.path.join(args.input_graphml_folder, "*"))[0])
+    # Trying to load the new spec2vec network
+    new_G = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
 
-        # Reading new edges
-        G_new = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
+    #Returning None means that there are no edges in the output
+    if new_G == None:
+        print("No Edges")
+        exit(1)
+
+    # Filtering the spec2vec network
+    molecular_network_filtering_library.filter_top_k(new_G, top_k_val)
+    if args.component_filtering == "breakup":
+        molecular_network_filtering_library.filter_component(new_G, max_component_size)
+    elif args.component_filtering == "additive":
+        molecular_network_filtering_library.filter_component_additive(new_G, max_component_size)
+
+    # Deteriming if we should combine with cosine network
+    try:
+        old_G = nx.read_graphml(glob.glob(os.path.join(args.input_graphml_folder, "*"))[0])
 
         # Let's do some pruning of the edges
         if args.removecosine == "yes":
-            G_old.remove_edges_from(list(G_old.edges()))
+            old_G.remove_edges_from(list(old_G.edges()))
 
-        G_old = nx.MultiGraph(G_old)
-        G_new = nx.MultiGraph(G_new)
+        old_G = nx.MultiGraph(old_G)
+        new_G = nx.MultiGraph(new_G)
 
-        G = nx.compose(G_old, G_new)
+        G = nx.compose(old_G, new_G)
     except:
-        G = molecular_network_filtering_library.loading_network(args.input_pairs_file, hasHeaders=True, edgetype="Spec2Vec")
+        G = new_G
     
-    #Returning None means that there are no edges in the output
-    if G == None:
-        exit(0)
-    molecular_network_filtering_library.filter_top_k(G, top_k_val)
-    if args.component_filtering == "breakup":
-        molecular_network_filtering_library.filter_component(G, max_component_size)
-    elif args.component_filtering == "additive":
-        molecular_network_filtering_library.filter_component_additive(G, max_component_size)
-
     output_graphml = os.path.join(args.output_folder, "gnps_spec2vec.graphml")
     output_pairs = os.path.join(args.output_folder, "filtered_pairs.tsv")
     molecular_network_filtering_library.output_graph_with_headers(G, output_pairs)

@@ -323,18 +323,18 @@ def filter_component_additive(G, max_component_size):
         return
 
     all_edges = list(G.edges(data=True))
-
-    new_G = nx.Graph()
-    new_G.add_nodes_from(G.nodes(data=True))
+    G.remove_edges_from(list(G.edges))
 
     all_edges = sorted(all_edges, key=lambda x: x[2]["EdgeScore"], reverse=True)
 
     for edge in all_edges:
-        new_G.add_edges_from([edge])
-        largest_cc = max(nx.connected_components(new_G), key=len)
+        G.add_edges_from([edge])
+        largest_cc = max(nx.connected_components(G), key=len)
 
         if len(largest_cc) > max_component_size:
-            new_G.remove_edge(edge[0], edge[1])
+            G.remove_edge(edge[0], edge[1])
+    
+    
 
 def get_edges_of_component(G, component):
     component_edges = {}
