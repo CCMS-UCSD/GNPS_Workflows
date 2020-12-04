@@ -1,8 +1,9 @@
 import sys
-import logging_utils
 import numpy
 
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
+
+import logging_utils
 logger = logging_utils.get_logger(__name__)
 
 
@@ -63,7 +64,7 @@ def test_collapse_ion_identity_networks():
                                                "reference_data/IIN/library_matches.tsv",
                                                "reference_data/IIN/library_matches.tsv",
                                                "reference_data/IIN/additional_edges",
-                                               "iin.graphml", True)
+                                               "iin.graphml", collapse_ion_edges=True)
 
     logger.info("Reading graph")
     G = nx.read_graphml("iin.graphml")
