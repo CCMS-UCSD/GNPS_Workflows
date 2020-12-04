@@ -6,6 +6,7 @@ import getopt
 import os
 import ming_fileio_library
 import networkx as nx
+import constants as CONST
 
 def loading_network(filename, hasHeaders=False):
     node1_list = []
@@ -83,7 +84,9 @@ def loading_network(filename, hasHeaders=False):
         intermediate_graph_nodes.add(edge_object["node1"])
         intermediate_graph_nodes.add(edge_object["node2"])
 
-        intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_object))
+        # set key to edgetype for options to remove edge later in case multiple edges are present
+        edge_key_for_dict = CONST.EDGE.COSINE_TYPE
+        intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_key_for_dict, edge_object))
 
     G=nx.MultiGraph()
     G.add_nodes_from(intermediate_graph_nodes)
@@ -117,7 +120,10 @@ def add_additional_edges(G, path_to_supplemental_edges):
             edge_object["EdgeAnnotation"] = annotation.rstrip()
             edge_object["EdgeScore"] = float(score)
             edge_object["mass_difference"] = mass_difference
-            edges_to_add.append((node1, node2, edge_object))
+
+            #set key to edgetype for options to remove edge later
+            edge_key = edgetype
+            edges_to_add.append((node1, node2, edge_key, edge_object))
         except:
             print("Error Adding Edge")
             continue
