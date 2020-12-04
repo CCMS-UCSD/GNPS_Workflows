@@ -26,9 +26,10 @@ def main():
     args = parser.parse_args()
 
     # export graphml to file
+    collapse_ion_edges = args.collapse_ion_edges == "True" # Turning string to boolean
     create_graphml(args.input_pairs, args.input_clusterinfosummary, args.input_librarysearch,
                    args.input_analoglibrarysearch, args.input_pairsfolder, args.output_graphml,
-                   args.collapse_ion_edges)
+                   collapse_ion_edges=collapse_ion_edges)
 
     
 def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, input_analoglibrarysearch,
