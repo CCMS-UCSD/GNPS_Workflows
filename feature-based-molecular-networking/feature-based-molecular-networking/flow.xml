@@ -210,6 +210,17 @@
         <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_graphml"/>
     </action>
 
+    <!-- Creating Cytoscape Compatible graphML with IIN Collapsing if optional -->
+    <object name="gnps_molecular_network_iin_collapse_graphml"/>
+    <action name="metabolomics_convert_graphml_iin_collapse">
+        <input  port="networking_pairs_results_file_filtered"       object="networkedges_selfloop"/>
+        <input  port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
+        <input  port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
+        <input  port="libraryanalogsearch_results_file_DB" object="libraryanalogsearch_results_file_DB"/>
+        <input  port="additional_pairs" collection="additional_pairs"/>
+        <output port="gnps_molecular_network_graphml"     object="gnps_molecular_network_iin_collapse_graphml"/>
+    </action>
+
     <!-- Written Description -->
     <object name="written_description"/>
     <action name="write_description">
@@ -266,7 +277,12 @@
         <input port="dereplicator_html" object="dereplicator_html"/>
         <input port="clusterinfo_summary_enriched" object="clusterinfo_summary_enriched"/>
         <input port="components_table" object="components_table"/>
+        
+        <!-- Output GraphML -->
         <input port="gnps_molecular_network_graphml" object="gnps_molecular_network_graphml"/>
+        <input port="gnps_molecular_network_iin_collapse_graphml" object="gnps_molecular_network_iin_collapse_graphml"/>
+        
+
         <input port="qiime2_output" collection="qiime2_output"/>
         <input port="written_description" object="written_description"/>
         <input port="validation_summary" collection="validation_summary"/>
