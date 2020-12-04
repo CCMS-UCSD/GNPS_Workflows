@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from networkx import nx
 import logging_utils
-import constants as CONST
+import constants_network as CONST
 import operator
 
 logger = logging_utils.get_logger(__name__)

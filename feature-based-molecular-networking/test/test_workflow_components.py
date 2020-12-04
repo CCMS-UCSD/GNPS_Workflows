@@ -31,7 +31,7 @@ def test_metadata_test():
 def test_additional_edges():
     import convert_networks_to_graphml
     import networkx as nx
-    import constants as CONST
+    import constants_network as CONST
 
     logger.debug("Exporting ion identity molecular network with ALL nodes (NO collapsing)")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv",

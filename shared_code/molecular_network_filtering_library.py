@@ -6,7 +6,7 @@ import getopt
 import os
 import ming_fileio_library
 import networkx as nx
-import constants as CONST
+import constants_network as CONST
 
 def loading_network(filename, hasHeaders=False):
     node1_list = []

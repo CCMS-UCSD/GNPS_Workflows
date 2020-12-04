@@ -8,7 +8,7 @@ import glob
 import networkx as nx
 import argparse
 import logging_utils
-import constants as CONST
+import constants_network as CONST
 
 
 def main():
