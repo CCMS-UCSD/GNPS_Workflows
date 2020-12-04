@@ -485,6 +485,21 @@
         <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
+    <view id="cytoscape_preview_iin" label="Direct Cytoscape IIN Collapsed Preview/Download" group="Advanced Views - External Visualization">
+        <blockRef id="main" type="cytoscape_preview_iin"/>
+    </view>
+    <block id="cytoscape_preview_iin" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]%26override_path=gnps_molecular_network_iin_collapse_graphml%2F"/>
+    </block>
+
+
+    
+
     <view id="redu_global_pca" label="Global Comparison with ReDU PCA (Beta)" group="Advanced Views - External Visualization">
         <blockRef id="main" type="redu_global_pca"/>
     </view>
