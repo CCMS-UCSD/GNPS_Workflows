@@ -176,8 +176,8 @@ def main():
     --i-feature-table {output_merged_feature_table_qza} \
     --i-tree {output_qemistree_pruned_qza} \
     --m-feature-metadata-file {output_classified_feature_data_qza} \
-    --m-sample-metadata-file {} \
-    --o-visualization {output_qemistree_empress_qzv}'.format(metadata_files[0])
+    --m-sample-metadata-file {metadata_files[0]} \
+    --o-visualization {output_qemistree_empress_qzv}'
     all_cmd.append(cmd)
 
     #Actually running all the commands
