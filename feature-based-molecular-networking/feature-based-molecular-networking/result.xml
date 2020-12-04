@@ -5,6 +5,7 @@
         <source type="folder" name="networkedges_selfloop/"/>
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
+        <source type="folder" name="gnps_molecular_network_iin_collapse_graphml/"/>
         <source type="folder" name="spectra/"/>
         <source type="folder" name="quantification_table/"/>
         <source type="folder" name="quantification_table_reformatted/"/>

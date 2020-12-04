@@ -372,7 +372,7 @@
             <arg valueRef="gnps_molecular_network_graphml"/>
             <arg option="-input_pairsfolder" valueRef="additional_pairs"/>
             <arg option="-input_analoglibrarysearch" valueRef="libraryanalogsearch_results_file_DB"/>
-            <arg option="-collapse_ion_edges" valueRef="True"/>
+            <arg option="-collapse_ion_edges" value="True"/>
         </execution>
     </tool>
 
