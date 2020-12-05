@@ -782,8 +782,13 @@
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
-                <parameter name="REQUESTPARAMETER=usi_overlay" value="mzspec:GNPS:TASK-{task}-f.quantification_table_reformatted"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=usi_overlay" value="mzspec:GNPS:TASK-{task}-f.quantification_table_reformatted"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram with Feature Overlay (Beta)"/>
             </column>
             <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
             <column type="text" field="Vendor" label="Vendor" width="10"/>
