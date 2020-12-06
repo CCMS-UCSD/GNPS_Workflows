@@ -26,6 +26,8 @@ def main():
     parser.add_argument('input_spectra_folder', help='input_spectra_folder')
     parser.add_argument('output_mgf', help='output_mgf')
     parser.add_argument('workflowParameters', help='workflowParameters')
+    parser.add_argument('--QUANT_FILE_NORM', default="None", help='QUANT_FILE_NORM')
+    
     args = parser.parse_args()
 
     input_filenames = glob.glob(os.path.join(args.input_spectra_folder, "*"))
@@ -112,6 +114,18 @@ def main():
 
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
+
+    # Finally, we can renormlize the output
+    try:
+        if args.QUANT_FILE_NORM == "RowSum":
+            quant_df = pd.read_csv(args.quantification_table_reformatted, sep=",")
+            for column in quant_df:
+                if "Peak area" in column:
+                    quant_df[column] = quant_df[column] / max(quant_df[column]) * 1000000
+
+            quant_df.to_csv(args.quantification_table_reformatted, sep=",", index=False)
+    except:
+        pass
 
 if __name__ == "__main__":
     main()
