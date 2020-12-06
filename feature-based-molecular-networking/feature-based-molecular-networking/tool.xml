@@ -115,6 +115,7 @@
             <arg valueRef="inputSpectra"/>
             <arg valueRef="spectra_reformatted"/>
             <arg valueRef="workflowParameters"/>
+            <arg option="-QUANT_FILE_NORM" valueRef="@QUANT_FILE_NORM"/>
         </execution>
     </tool>
 
