@@ -118,10 +118,13 @@ def main():
     # Finally, we can renormlize the output
     try:
         if args.QUANT_FILE_NORM == "RowSum":
+            import pandas as pd
             quant_df = pd.read_csv(args.quantification_table_reformatted, sep=",")
+            quant_df = quant_df.loc[:, ~quant_df.columns.str.contains('^Unnamed')]
+
             for column in quant_df:
                 if "Peak area" in column:
-                    quant_df[column] = quant_df[column] / max(quant_df[column]) * 1000000
+                    quant_df[column] = quant_df[column] / sum(quant_df[column]) * 1000000
 
             quant_df.to_csv(args.quantification_table_reformatted, sep=",", index=False)
     except:
