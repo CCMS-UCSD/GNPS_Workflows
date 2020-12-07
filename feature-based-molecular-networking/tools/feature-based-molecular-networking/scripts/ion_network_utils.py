@@ -19,6 +19,9 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
     """
     H = G.copy()
 
+    # todo calculate ion network ID for MS-DIAL and XCMS edges
+
+
     # remove all ion edges - they are not needed for collapsing
     remove_all_ion_edges(H)
 
@@ -188,6 +191,32 @@ def remove_all_edges(G, attribute, target_value, compare_function=lambda a,b: eq
     logger.info("Removed %s edges for attribute[%s]", len(edges_to_remove), attribute)
 
 
+def get_ion_net_id(G, node):
+    """
+    The ion network id or None if not present
+    :param G: networkx graph
+    :param node: node id
+    :return:
+    """
+    try:
+        return get_ion_net_id(G, node, G.nodes[node])
+    except:
+        return None
+
+def get_ion_net_id(G, node, data):
+    """
+    The ion network id or None if not present
+    :param G: networkx graph
+    :param node: node id
+    :param data: node data dict
+    :return:
+    """
+    id = data.get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
+    if id is not None and len(str(id))<=0:
+        return None
+    else:
+        return id
+
 
 def mark_all_node_types(G):
     """
@@ -195,9 +224,11 @@ def mark_all_node_types(G):
     :param G: networkx graph (MultiGraph)
     """
     for node, data in G.nodes(data=True):
+        # only set type if not already set
         if CONST.NODE.TYPE_ATTRIBUTE not in data:
             # ion identity node or feature node?
-            if CONST.NODE.ION_NETWORK_ID_ATTRIBUTE in data:
+            ion_net_id = get_ion_net_id(G, node)
+            if ion_net_id is not None:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
             else:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE

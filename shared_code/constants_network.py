@@ -3,7 +3,8 @@
 # edges
 class EDGE:
     TYPE_ATTRIBUTE = "EdgeType"
-    ION_TYPE = "MS1 annotation"  # ion identity molecular networking IIMN
+    ION_TYPE = "MS1 annotation"  # ion identity molecular networking IIMN (MZmine and XCMS/CAMERA)
+    ION_MS_DIAL_TYPE = "Adduct annotation"  # ion identity molecular networking IIMN (MS-DIAL)
     COSINE_TYPE = "Cosine"  # molecular networking edge
     # list of all types
     TYPES = [ION_TYPE, COSINE_TYPE]
