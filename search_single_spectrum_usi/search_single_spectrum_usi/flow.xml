@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="SEARCH_SINGLE_SPECTRUM_USI">
+	<object     name="workflowParameters"/>
+	<object     name="spectra"/>
+
+	<action name="begin">
+		<output port="params" object="workflowParameters"/>
+	</action>
+
+    <!-- Written Description -->
+    <object name="masst_results"/>
+    <action name="search_usi">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="masst_results"     object="masst_results"/>
+    </action>  
+
+
+	<action name="end">
+		<input port="masst_results" object="masst_results"/>
+	</action>
+</flow>

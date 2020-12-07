@@ -1,8 +1,9 @@
 import sys
-import logging_utils
 import numpy
 
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
+
+import logging_utils
 logger = logging_utils.get_logger(__name__)
 
 
@@ -30,7 +31,7 @@ def test_metadata_test():
 def test_additional_edges():
     import convert_networks_to_graphml
     import networkx as nx
-    import constants as CONST
+    import constants_network as CONST
 
     logger.debug("Exporting ion identity molecular network with ALL nodes (NO collapsing)")
     convert_networks_to_graphml.create_graphml("reference_data/IIN/edges.tsv",
@@ -63,7 +64,7 @@ def test_collapse_ion_identity_networks():
                                                "reference_data/IIN/library_matches.tsv",
                                                "reference_data/IIN/library_matches.tsv",
                                                "reference_data/IIN/additional_edges",
-                                               "iin.graphml", True)
+                                               "iin.graphml", collapse_ion_edges=True)
 
     logger.info("Reading graph")
     G = nx.read_graphml("iin.graphml")

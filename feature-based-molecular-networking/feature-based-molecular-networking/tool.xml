@@ -348,6 +348,34 @@
         </execution>
     </tool>
 
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="metabolomics_convert_graphml_iin_collapse" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/scripts">
+        <pathVar name="metabolomics_convert_graphml_iin_collapse.script" path="convert_networks_to_graphml.py"/>
+    </pathSet>
+
+    <tool name="metabolomics_convert_graphml_iin_collapse">
+        <require name="networking_pairs_results_file_filtered" type="file"/>
+        <require name="clusterinfo_summary_enriched" type="file"/>
+        <require name="librarysearch_results_file_DB" type="file"/>
+        <require name="libraryanalogsearch_results_file_DB" type="file"/>
+        <require name="additional_pairs" type="folder"/>
+        <produce name="gnps_molecular_network_graphml" type="file" naming="explicit" extension="graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="metabolomics_convert_graphml_iin_collapse.script"/>
+            <arg valueRef="networking_pairs_results_file_filtered"/>
+            <arg valueRef="clusterinfo_summary_enriched"/>
+            <arg valueRef="librarysearch_results_file_DB"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+            <arg option="-input_pairsfolder" valueRef="additional_pairs"/>
+            <arg option="-input_analoglibrarysearch" valueRef="libraryanalogsearch_results_file_DB"/>
+            <arg option="-collapse_ion_edges" value="True"/>
+        </execution>
+    </tool>
+
     <!-- Running Dereplicator -->
     <pathSet base="anaconda3/bin">
         <toolPath tool="run_dereplicator" path="python"/>
