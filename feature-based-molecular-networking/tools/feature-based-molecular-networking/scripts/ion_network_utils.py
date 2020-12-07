@@ -6,6 +6,13 @@ import operator
 
 logger = logging_utils.get_logger(__name__)
 
+class TOOL:
+    MZMINE = 1
+    MSDIAL = 2
+    XCMS_CAMERA = 3
+
+
+
 
 def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
                           edge_comparator=operator.ge):
@@ -20,7 +27,11 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
     H = G.copy()
 
     # todo calculate ion network ID for MS-DIAL and XCMS edges
-
+    tool = check_iin_tool(H)
+    if tool == TOOL.MSDIAL:
+        calc_ion_net_id(G, CONST.EDGE.ION_MS_DIAL_TYPE)
+    elif tool == TOOL.XCMS_CAMERA:
+        calc_ion_net_id(G, CONST.EDGE.ION_TYPE)
 
     # remove all ion edges - they are not needed for collapsing
     remove_all_ion_edges(H)
@@ -31,6 +42,60 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
     # return copy of network G
     return H
+
+
+def calc_ion_net_id(G, edge_type):
+    current_id = 0
+    for node, ndata in G.nodes(data=True):
+        ion_net_id = get_ion_net_id(G, node, ndata)
+        if ion_net_id is None:
+            filtered_neighbors = G.neighbors(node)
+            for n2 in filtered_neighbors:
+                edges = G.get_edge_data(node, n2)
+                for key, edata in edges.items():
+                    if edata.get(CONST.EDGE.TYPE_ATTRIBUTE) == edge_type:
+                        set_ion_net_id(G, edge_type, [node], node, current_id)
+                        current_id += 1
+                        break
+
+def set_ion_net_id(G, edge_type, ion_net, current_node, id):
+    # set ion net id
+    G.nodes[current_node][CONST.NODE.ION_NETWORK_ID_ATTRIBUTE] = id
+    filtered_neighbors = G.neighbors(current_node)
+    for n2 in filtered_neighbors:
+        if n2 not in ion_net:
+            edges = G.get_edge_data(current_node, n2)
+            for key, edata in edges.items():
+                if edata.get(CONST.EDGE.TYPE_ATTRIBUTE) == edge_type:
+                    ion_net.append(n2)
+                    set_ion_net_id(G, edge_type, ion_net, n2, id)
+                    break
+
+
+
+def check_iin_tool(G):
+    has_ion_net_id = False
+    for node, ndata in G.nodes(data=True):
+        ion_net_id = get_ion_net_id(G, node, ndata)
+        if ion_net_id is not None:
+            has_ion_net_id = True
+
+        filtered_neighbors = G.neighbors(node)
+        for n2 in filtered_neighbors:
+            edges = G.get_edge_data(node, n2)
+            for key, edata in edges.items():
+                edge_type = edata.get(CONST.EDGE.TYPE_ATTRIBUTE)
+                # edge and node has attribute
+                if has_ion_net_id and edge_type == CONST.EDGE.ION_TYPE:
+                    return TOOL.MZMINE
+                # only edge has type
+                elif edge_type == CONST.EDGE.ION_TYPE:
+                    return TOOL.XCMS_CAMERA
+                elif edge_type == CONST.EDGE.ION_MS_DIAL_TYPE:
+                    return TOOL.MSDIAL
+    return None
+
+
 
 
 def collapse_based_on_node_attribute(H, merge_att, best_node_att, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
@@ -161,6 +226,7 @@ def remove_all_ion_edges(G):
     :param G: networkx graph (MultiGraph)
     """
     remove_all_edges_of_type(G, CONST.EDGE.ION_TYPE)
+    remove_all_edges_of_type(G, CONST.EDGE.ION_MS_DIAL_TYPE)
 
 def remove_all_edges_of_type(G, edge_type):
     """
