@@ -28,6 +28,7 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
     # todo calculate ion network ID for MS-DIAL and XCMS edges
     tool = check_iin_tool(H)
+    logger.info("Detected ion identity networking tool", tool)
     if tool == TOOL.MSDIAL:
         calc_ion_net_id(G, CONST.EDGE.ION_MS_DIAL_TYPE)
     elif tool == TOOL.XCMS_CAMERA:
@@ -45,6 +46,7 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
 
 def calc_ion_net_id(G, edge_type):
+    logger.debug("Calculating ion network ids for collapsing")
     current_id = 0
     for node, ndata in G.nodes(data=True):
         ion_net_id = get_ion_net_id(G, node, ndata)
