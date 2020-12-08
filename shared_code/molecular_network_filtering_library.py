@@ -281,6 +281,10 @@ def equal_adducts(a, b):
 
     ca = clean_adduct(a)
     cb = clean_adduct(b)
+
+    if ca is None or cb is None or len(a)<=0 or len(b)<=0:
+        return False
+
     if ca == cb:
         return True
 
