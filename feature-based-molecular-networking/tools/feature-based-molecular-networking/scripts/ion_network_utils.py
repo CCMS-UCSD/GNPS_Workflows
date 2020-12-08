@@ -50,7 +50,7 @@ def calc_ion_net_id(G, edge_type):
     logger.debug("Calculating ion network ids for collapsing")
     current_id = 0
     for node, ndata in G.nodes(data=True):
-        ion_net_id = get_ion_net_id(G, node, ndata)
+        ion_net_id = get_ion_net_id(G, node)
         if ion_net_id is None:
             filtered_neighbors = G.neighbors(node)
             for n2 in filtered_neighbors:
@@ -79,7 +79,7 @@ def set_ion_net_id(G, edge_type, ion_net, current_node, id):
 def check_iin_tool(G):
     has_ion_net_id = False
     for node, ndata in G.nodes(data=True):
-        ion_net_id = get_ion_net_id(G, node, ndata)
+        ion_net_id = get_ion_net_id(G, node)
         if ion_net_id is not None:
             has_ion_net_id = True
 
