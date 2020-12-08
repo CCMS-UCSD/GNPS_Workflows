@@ -101,7 +101,7 @@ def check_iin_tool(G):
 
 def sort_nodes_by_attributes(G, nodes, reverse, best_node_attributes):
     """
-
+    Sort nodes by multiple attributes.
     :param G: networkx graph
     :param nodes: list of nodes to sort
     :param reverse: reversed order sorting (highest first) (True or False)
@@ -110,8 +110,7 @@ def sort_nodes_by_attributes(G, nodes, reverse, best_node_attributes):
     """
     sorted_nodes = nodes
     for sort_att in reversed(best_node_attributes):
-        logger.info("Sort nodes by",str(sort_att))
-        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(sort_att), reverse=reverse)
+        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(sort_att, 0), reverse=reverse)
 
 
 def collapse_based_on_node_attribute(H, merge_att, best_node_attributes, reverse_node_sort=True,
