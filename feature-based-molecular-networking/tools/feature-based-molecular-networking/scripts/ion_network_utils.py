@@ -111,7 +111,7 @@ def sort_nodes_by_attributes(G, nodes, reverse, *best_node_attributes):
     sorted_nodes = nodes
     for att in reversed(best_node_attributes):
         logger.info("Sort nodes by",att)
-        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node][att], reverse=reverse)
+        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(att), reverse=reverse)
 
 
 def collapse_based_on_node_attribute(H, merge_att, *best_node_attributes, reverse_node_sort=True,
