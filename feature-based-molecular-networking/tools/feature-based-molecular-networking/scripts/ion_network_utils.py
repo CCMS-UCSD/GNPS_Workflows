@@ -37,8 +37,8 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
     remove_all_ion_edges(H)
 
     # collapse all nodes with the same ion network ID into the node with the highest abundance
-    collapse_based_on_node_attribute(H, CONST.NODE.ION_NETWORK_ID_ATTRIBUTE, CONST.NODE.SCORE_LIB_ATTRIBUTE,
-                                     CONST.NODE.ABUNDANCE_ATTRIBUTE,
+    sorting_attributes = (CONST.NODE.SCORE_LIB_ATTRIBUTE, CONST.NODE.ABUNDANCE_ATTRIBUTE)
+    collapse_based_on_node_attribute(H, CONST.NODE.ION_NETWORK_ID_ATTRIBUTE, sorting_attributes,
                                      reverse_node_sort=True, best_edge_att=best_edge_att,
                                      edge_comparator=edge_comparator)
 
@@ -99,7 +99,7 @@ def check_iin_tool(G):
     return None
 
 
-def sort_nodes_by_attributes(G, nodes, reverse, *best_node_attributes):
+def sort_nodes_by_attributes(G, nodes, reverse, best_node_attributes):
     """
 
     :param G: networkx graph
@@ -109,12 +109,12 @@ def sort_nodes_by_attributes(G, nodes, reverse, *best_node_attributes):
     :return:
     """
     sorted_nodes = nodes
-    for att in reversed(best_node_attributes):
-        logger.info("Sort nodes by",att)
-        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(att), reverse=reverse)
+    for sort_att in reversed(best_node_attributes):
+        logger.info("Sort nodes by",str(sort_att))
+        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(sort_att), reverse=reverse)
 
 
-def collapse_based_on_node_attribute(H, merge_att, *best_node_attributes, reverse_node_sort=True,
+def collapse_based_on_node_attribute(H, merge_att, best_node_attributes, reverse_node_sort=True,
                                      best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
                                      edge_comparator=operator.ge):
     """
