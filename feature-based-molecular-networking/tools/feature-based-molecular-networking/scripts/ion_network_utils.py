@@ -110,7 +110,17 @@ def sort_nodes_by_attributes(G, nodes, reverse, best_node_attributes):
     """
     sorted_nodes = nodes
     for sort_att in reversed(best_node_attributes):
-        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node].get(sort_att, 0), reverse=reverse)
+        sorted_nodes = sorted(sorted_nodes, key=lambda node: to_float(G.nodes[node].get(sort_att, 0), 0),
+                              reverse=reverse)
+
+def to_float(value, default):
+    try:
+        if value is None or len(str(value)) <= 0:
+            return default
+        else:
+            return float(value)
+    except (ValueError, TypeError):
+        return default
 
 
 def collapse_based_on_node_attribute(H, merge_att, best_node_attributes, reverse_node_sort=True,
@@ -287,7 +297,7 @@ def get_ion_net_id(G, node):
     """
     try:
         id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
-        if id is None or len(str(id)) > 0:
+        if id is None or len(str(id)) <= 0:
             return None
         else:
             return id
