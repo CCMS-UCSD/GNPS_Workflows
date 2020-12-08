@@ -27,7 +27,7 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
     # todo calculate ion network ID for MS-DIAL and XCMS edges
     tool = check_iin_tool(H)
-    logger.info("Detected ion identity networking tool", tool)
+    logger.info("Detected ion identity networking tool", str(tool))
     if tool == TOOL.MSDIAL:
         calc_ion_net_id(G, CONST.EDGE.ION_MS_DIAL_TYPE)
     elif tool == TOOL.XCMS_CAMERA:
@@ -112,6 +112,7 @@ def sort_nodes_by_attributes(G, nodes, reverse, best_node_attributes):
     for sort_att in reversed(best_node_attributes):
         sorted_nodes = sorted(sorted_nodes, key=lambda node: to_float(G.nodes[node].get(sort_att, 0), 0),
                               reverse=reverse)
+    return sorted_nodes
 
 def to_float(value, default):
     try:
