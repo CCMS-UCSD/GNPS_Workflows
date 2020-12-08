@@ -4,6 +4,8 @@
 import sys
 import getopt
 import os
+from operator import eq
+
 import ming_fileio_library
 import networkx as nx
 import constants_network as CONST
@@ -259,8 +261,89 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
             G.node[cluster_index][annotation_prefix + "Compound_Source"] = str(table_data["Compound_Source"][i])
             G.node[cluster_index][annotation_prefix + "SpectrumID"] = str(table_data["SpectrumID"][i])
             G.node[cluster_index][annotation_prefix + "GNPSLibraryURL"] = "http://gnps.ucsd.edu/ProteoSAFe/gnpslibraryspectrum.jsp?SpectrumID=" + table_data["SpectrumID"][i]
+            # ion identity networking specific:
+            # check best ion (ion identity) and adduct for similarity
+            adduct = G.node[cluster_index][annotation_prefix + CONST.NODE.ADDUCT_LIB_ATTRIBUTE]
+            ion_identity = G.node[cluster_index][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
+            if ion_identity is not None and len(ion_identity)>0:
+                G.node[cluster_index][annotation_prefix + CONST.NODE.IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE] = equal_adducts(adduct, ion_identity)
 
 
+def equal_adducts(a, b):
+    """
+    Checks if two adducts are equal. Uses clean_adduct to harmonize notation
+    :param a:
+    :param b:
+    :return: True or False
+    """
+    if a is None or b is None:
+        return False
+
+    ca = clean_adduct(a)
+    cb = clean_adduct(b)
+    if ca == cb:
+        return True
+
+    if ca[-1] == '-' and cb[-1] != '+':
+        ca = ca[:-1]
+        return ca == cb
+    if ca[-1] == '+' and cb[-1] != '-':
+        ca = ca[:-1]
+        return ca == cb
+    if cb[-1] == '-' and ca[-1] != '+':
+        cb = cb[:-1]
+        return ca == cb
+    if cb[-1] == '+' and ca[-1] != '-':
+        cb = cb[:-1]
+        return ca == cb
+    return False
+
+
+def clean_adduct(adduct, add_brackets=False):
+    """
+    Harmonizes adducts.
+    :param adduct:
+    :param add_brackets: add [M+H]+ brackets that are removed during clean up (True or False)
+    :return: M-all losses+all additions CHARGE
+    """
+    new_adduct = adduct
+    new_adduct = new_adduct.replace("[", "")
+    new_adduct = new_adduct.replace("]", "")
+    new_adduct = new_adduct.replace(" ", "")
+
+    charge = ""
+    charge_sign = ""
+    for i in reversed(range(len(new_adduct))):
+        if new_adduct[i] == "+" or new_adduct[i] == "-":
+            charge_sign = new_adduct[i]
+        elif new_adduct[i].isdigit():
+            charge = new_adduct[i] + charge
+        else:
+            new_adduct = new_adduct[0:i + 1]
+            break
+
+    parts = new_adduct.split("+")
+    positive_parts = []
+    negative_parts = []
+    for p in parts:
+        sp = p.split("-")
+        positive_parts.append(sp[0])
+        for n in sp[1:]:
+            negative_parts.append(n)
+    # sort
+    m_part = positive_parts[0]
+    positive_parts = positive_parts[1:]
+    positive_parts.sort()
+    negative_parts.sort()
+    new_adduct = m_part
+    if len(negative_parts) > 0:
+        new_adduct += "-" + "-".join(negative_parts)
+    if len(positive_parts) > 0:
+        new_adduct += "+" + "+".join(positive_parts)
+    if add_brackets:
+        new_adduct = "[" + new_adduct + "]"
+    new_adduct += charge + charge_sign
+    return new_adduct
 
 
 def filter_top_k(G, top_k):

@@ -76,6 +76,7 @@ class NODE:
     CORRELATION_GROUP_ID_ATTRIBUTE = "Correlated Features Group ID"  # feature correlation group
     ION_NETWORK_ID_ATTRIBUTE = "Annotated Adduct Features ID"  # ion identity network id
     IIN_ADDUCT_ATTRIBUTE = "Best Ion"  # ion identity
+    IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE = "IIN Best Ion=Library Adduct"
     IIN_NEUTRAL_MASS_ATTRIBUTE = "neutral M mass"  # ion identity
     IIN_MSMS_VERIFICATION_ATTRIBUTE = "MS2 Verification Comment"  # verification of ion identity by MS2
     # new attribute for collapsed ion identity molecular networks (IIMN)
