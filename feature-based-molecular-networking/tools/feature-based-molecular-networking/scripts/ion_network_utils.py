@@ -225,11 +225,7 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
                 # convert to integer if value is high enough
                 G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = (intensity if intensity <= 100
                 else int(round(intensity)))
-        # TODO handle more attributes: How to add multiple library matches to this one node? Keep match with highest
-        #  score?
 
-    # TODO number format to intensities
-    # TODO adduct == best ion?
     # add sum of ion intensities
     if sum_intensity > 100:
         sum_intensity = int(round(sum_intensity))
