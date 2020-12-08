@@ -167,6 +167,26 @@ def collapse_based_on_node_attribute(H, merge_att, best_node_attributes, reverse
     logger.info("Collapsed %s nodes into %s remaining nodes", reduced_nodes_count, len(sorted_sub_networks))
 
 
+def get_library_match_summary(G, node):
+    """
+    Generates summary string for library match
+    :param G:
+    :param node:
+    :return: summary string or None
+    """
+    compound_name = G.nodes[node].get(CONST.NODE.COMPOUND_NAME_LIB_ATTRIBUTE)
+    if compound_name is None or len(str(compound_name))<=0:
+        return None
+
+    summary = "{0} (as {1} with p={2:.3})".format(
+        compound_name,  #
+        G.nodes[node].get(CONST.NODE.ADDUCT_LIB_ATTRIBUTE),  #
+        to_float(G.nodes[node].get(CONST.NODE.SCORE_LIB_ATTRIBUTE), -1)
+    )
+    return summary
+
+
+
 def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_intensity_attributes=True,
                 best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
     """
@@ -187,7 +207,15 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
     # combine node attributed
     # intensity for each ion adduct
     sum_intensity = 0.0
+    library_matches = ""
     for node in nodes:
+        library_match_summary = get_library_match_summary(G, node)
+        if library_match_summary is not None:
+            if len(library_matches) == 0:
+                library_matches = library_match_summary
+            else:
+                library_matches = library_matches + "; " + library_match_summary
+
         if CONST.NODE.ABUNDANCE_ATTRIBUTE in G.nodes[node]:
             intensity = G.nodes[node][CONST.NODE.ABUNDANCE_ATTRIBUTE]
             sum_intensity += intensity
@@ -200,6 +228,9 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
 
     # add sum of ion intensities
     G.nodes[main_node][CONST.NODE.SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
+
+    # summary of lib matches
+    G.nodes[main_node][CONST.NODE.COLLAPSED_LIST_LIB_MATCH_ATTRIBUTE] = library_matches
 
     # redirect all edges to the first node and remove nodes
     redirect_edges_and_delete_nodes(G, nodes[1:], main_node, best_edge_att, edge_comparator)

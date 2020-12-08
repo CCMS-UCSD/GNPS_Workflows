@@ -80,6 +80,8 @@ class NODE:
     IIN_MSMS_VERIFICATION_ATTRIBUTE = "MS2 Verification Comment"  # verification of ion identity by MS2
     # new attribute for collapsed ion identity molecular networks (IIMN)
     SUM_ION_INTENSITY_ATTRIBUTE = "sum ion intensity (collapsed nodes)"
+    # lists all library matches
+    COLLAPSED_LIST_LIB_MATCH_ATTRIBUTE = "Library Match Summary (collapsed)"
     # number of nodes that were collapsed into this single node
     COLLAPSED_NODES_ATTRIBUTE = "# collapsed ion nodes"
 
