@@ -265,7 +265,7 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
             # check best ion (ion identity) and adduct for similarity
             adduct = G.node[cluster_index][annotation_prefix + CONST.NODE.ADDUCT_LIB_ATTRIBUTE]
             ion_identity = G.node[cluster_index][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
-            if ion_identity is not None and len(ion_identity)>0:
+            if ion_identity is not None and len(ion_identity)>0 and adduct is not None and len(adduct) > 0:
                 G.node[cluster_index][annotation_prefix + CONST.NODE.IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE] = equal_adducts(adduct, ion_identity)
 
 
@@ -276,7 +276,7 @@ def equal_adducts(a, b):
     :param b:
     :return: True or False
     """
-    if a is None or b is None:
+    if a is None or b is None or len(a)<=0 or len(b)<=0:
         return False
 
     ca = clean_adduct(a)
