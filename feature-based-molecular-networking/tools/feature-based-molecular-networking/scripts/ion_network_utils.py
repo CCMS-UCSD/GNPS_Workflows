@@ -222,11 +222,17 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
             # add columns for each
             if add_ion_intensity_attributes and CONST.NODE.IIN_ADDUCT_ATTRIBUTE in G.nodes[node]:
                 ion = G.nodes[node][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
-                G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = intensity
+                # convert to integer if value is high enough
+                G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = (intensity if intensity <= 100
+                else int(round(intensity)))
         # TODO handle more attributes: How to add multiple library matches to this one node? Keep match with highest
         #  score?
 
+    # TODO number format to intensities
+    # TODO adduct == best ion?
     # add sum of ion intensities
+    if sum_intensity > 100:
+        sum_intensity = int(round(sum_intensity))
     G.nodes[main_node][CONST.NODE.SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
 
     # summary of lib matches
