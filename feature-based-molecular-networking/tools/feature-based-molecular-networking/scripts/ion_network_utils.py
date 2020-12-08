@@ -37,8 +37,10 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
     remove_all_ion_edges(H)
 
     # collapse all nodes with the same ion network ID into the node with the highest abundance
-    collapse_based_on_node_attribute(H, CONST.NODE.ION_NETWORK_ID_ATTRIBUTE, CONST.NODE.ABUNDANCE_ATTRIBUTE,
-                                     best_edge_att, edge_comparator)
+    collapse_based_on_node_attribute(H, CONST.NODE.ION_NETWORK_ID_ATTRIBUTE, CONST.NODE.SCORE_LIB_ATTRIBUTE,
+                                     CONST.NODE.ABUNDANCE_ATTRIBUTE,
+                                     reverse_node_sort=True, best_edge_att=best_edge_att,
+                                     edge_comparator=edge_comparator)
 
     # return copy of network G
     return H
@@ -97,13 +99,28 @@ def check_iin_tool(G):
     return None
 
 
-def collapse_based_on_node_attribute(H, merge_att, best_node_att, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
+def sort_nodes_by_attributes(G, nodes, reverse, *best_node_attributes):
+    """
+
+    :param G: networkx graph
+    :param nodes: list of nodes to sort
+    :param reverse: reversed order sorting (highest first) (True or False)
+    :param best_node_attributes: list of sorting attributes. first entry has highest significance ...
+    :return:
+    """
+    for att in reversed(best_node_attributes):
+        return sorted(nodes, key=lambda node: G.nodes[node][att], reverse=reverse)
+
+
+def collapse_based_on_node_attribute(H, merge_att, *best_node_attributes, reverse_node_sort=True,
+                                     best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
                                      edge_comparator=operator.ge):
     """
     Collapse all nodes with the same merge_att=value.
     :param H: networkx graph (MultiGraph)
     :param merge_att: attribute to group nodes and merge them into a single node (all nodes with the same value)
-    :param best_node_att: attribute to rank the nodes and merge all into the one with the highest value for this
+    :param best_node_attributes: list of sorting attributes. first entry has highest significance ...
+    :param reverse_node_sort: reversed order sorting (highest first) (True or False)
     :param best_edge_att: attribute to find best edge (for edge merging - standard=constants.EDGE.SCORE)
     :param edge_comparator: function(a,b) specifies how to compare values - standard is operator.ge (a>=b)
     """
@@ -133,8 +150,7 @@ def collapse_based_on_node_attribute(H, merge_att, best_node_att, best_edge_att=
     for network in sorted_sub_networks:
         if len(network) > 1:  # only collapse networks with >1 nodes
             reduced_nodes_count += len(network)
-            sorted_nodes = sorted(network, key=lambda ion_node: H.nodes[ion_node][best_node_att],
-                                  reverse=True)
+            sorted_nodes = sort_nodes_by_attributes(H, network, reverse_node_sort, best_node_attributes)
             merge_nodes(H, sorted_nodes, CONST.NODE.COLLAPSED_TYPE, True, best_edge_att, edge_comparator)
     logger.info("Collapsed %s nodes into %s remaining nodes", reduced_nodes_count, len(sorted_sub_networks))
 
@@ -164,8 +180,8 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
             intensity = G.nodes[node][CONST.NODE.ABUNDANCE_ATTRIBUTE]
             sum_intensity += intensity
             # add columns for each
-            if add_ion_intensity_attributes and CONST.NODE.ADDUCT_ATTRIBUTE in G.nodes[node]:
-                ion = G.nodes[node][CONST.NODE.ADDUCT_ATTRIBUTE]
+            if add_ion_intensity_attributes and CONST.NODE.IIN_ADDUCT_ATTRIBUTE in G.nodes[node]:
+                ion = G.nodes[node][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
                 G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = intensity
         # TODO handle more attributes: How to add multiple library matches to this one node? Keep match with highest
         #  score?
