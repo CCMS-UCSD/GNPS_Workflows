@@ -6,12 +6,11 @@ import operator
 
 logger = logging_utils.get_logger(__name__)
 
+
 class TOOL:
     MZMINE = 1
     MSDIAL = 2
     XCMS_CAMERA = 3
-
-
 
 
 def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
@@ -60,6 +59,7 @@ def calc_ion_net_id(G, edge_type):
                         current_id += 1
                         break
 
+
 def set_ion_net_id(G, edge_type, ion_net, current_node, id):
     # set ion net id
     G.nodes[current_node][CONST.NODE.ION_NETWORK_ID_ATTRIBUTE] = id
@@ -72,7 +72,6 @@ def set_ion_net_id(G, edge_type, ion_net, current_node, id):
                     ion_net.append(n2)
                     set_ion_net_id(G, edge_type, ion_net, n2, id)
                     break
-
 
 
 def check_iin_tool(G):
@@ -96,8 +95,6 @@ def check_iin_tool(G):
                 elif edge_type == CONST.EDGE.ION_MS_DIAL_TYPE:
                     return TOOL.MSDIAL
     return None
-
-
 
 
 def collapse_based_on_node_attribute(H, merge_att, best_node_att, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
@@ -180,7 +177,8 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
     redirect_edges_and_delete_nodes(G, nodes[1:], main_node, best_edge_att, edge_comparator)
 
 
-def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE, edge_comparator=operator.ge):
+def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
+                                    edge_comparator=operator.ge):
     """
     Redirect all edges to target_node and delete the list of nodes
 
@@ -202,18 +200,19 @@ def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.E
                 # target already contains edge with this type
                 if target_edges is not None and key in target_edges:
                     if not (best_edge_att in data and best_edge_att in target_edges[key]):
-                        logger.warn("Edges of key=%s do not contain attribute to score and merge edges: %s", key, best_edge_att)
+                        logger.warn("Edges of key=%s do not contain attribute to score and merge edges: %s", key,
+                                    best_edge_att)
                     elif edge_comparator(data[best_edge_att], target_edges[key][best_edge_att]):
                         # exchange edge
                         edges_to_add.append((target_node, n2, key, data))
                         edges_to_remove.append((n1, n2, key))
                         edges_to_remove.append((target_node, n2, key))
-                        #logger.debug("Exchange edge with key "+str(key))
+                        # logger.debug("Exchange edge with key "+str(key))
                 else:
                     # add as new edge
                     edges_to_add.append((target_node, n2, key, data))
                     edges_to_remove.append((n1, n2, key))
-                    #logger.debug("Adding edge with key "+str(key))
+                    # logger.debug("Adding edge with key "+str(key))
             # remove and add edges
             G.remove_edges_from(edges_to_remove)
             G.add_edges_from(edges_to_add)
@@ -221,6 +220,7 @@ def redirect_edges_and_delete_nodes(G, nodes, target_node, best_edge_att=CONST.E
     for n in nodes:  # remove the merged nodes
         if n is not target_node:
             G.remove_node(n)
+
 
 def remove_all_ion_edges(G):
     """
@@ -230,6 +230,7 @@ def remove_all_ion_edges(G):
     remove_all_edges_of_type(G, CONST.EDGE.ION_TYPE)
     remove_all_edges_of_type(G, CONST.EDGE.ION_MS_DIAL_TYPE)
 
+
 def remove_all_edges_of_type(G, edge_type):
     """
     Removes all edges from a specific edge type (CONST.EDGE.TYPE_ATTRIBUTE)
@@ -238,7 +239,8 @@ def remove_all_edges_of_type(G, edge_type):
     """
     remove_all_edges(G, CONST.EDGE.TYPE_ATTRIBUTE, edge_type, equals_ignore_case)
 
-def remove_all_edges(G, attribute, target_value, compare_function=lambda a,b: equals_ignore_case(a,b)):
+
+def remove_all_edges(G, attribute, target_value, compare_function=lambda a, b: equals_ignore_case(a, b)):
     """
     Remove all edges based on the value of edge[attribute] and a compare_function(target,value). Standard function
     uses equals_ignore_case
@@ -249,7 +251,7 @@ def remove_all_edges(G, attribute, target_value, compare_function=lambda a,b: eq
     edge[
     attribute] == value
     """
-    logger.debug("Removing edges based on attribute[%s] and value=%s", attribute,target_value)
+    logger.debug("Removing edges based on attribute[%s] and value=%s", attribute, target_value)
     edges_to_remove = []
     for n1, n2, key, data in G.edges(keys=True, data=True):
         # remove all edges with EDGE_TYPE_ATTRIBUTE = ION_EDGE_TYPE
@@ -267,23 +269,13 @@ def get_ion_net_id(G, node):
     :return:
     """
     try:
-        return get_ion_net_id(G, node, G.nodes[node])
+        id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
+        if id is None or len(str(id)) > 0:
+            return None
+        else:
+            return id
     except:
         return None
-
-def get_ion_net_id(G, node, data):
-    """
-    The ion network id or None if not present
-    :param G: networkx graph
-    :param node: node id
-    :param data: node data dict
-    :return:
-    """
-    id = data.get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
-    if id is not None and len(str(id))<=0:
-        return None
-    else:
-        return id
 
 
 def mark_all_node_types(G):
@@ -300,6 +292,7 @@ def mark_all_node_types(G):
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
             else:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE
+
 
 def equals_ignore_case(a, b):
     return str(a).lower().strip() == str(b).lower().strip()
