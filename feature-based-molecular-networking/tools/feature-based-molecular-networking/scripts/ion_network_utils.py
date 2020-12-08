@@ -108,8 +108,10 @@ def sort_nodes_by_attributes(G, nodes, reverse, *best_node_attributes):
     :param best_node_attributes: list of sorting attributes. first entry has highest significance ...
     :return:
     """
+    sorted_nodes = nodes
     for att in reversed(best_node_attributes):
-        return sorted(nodes, key=lambda node: G.nodes[node][att], reverse=reverse)
+        logger.info("Sort nodes by",att)
+        sorted_nodes = sorted(sorted_nodes, key=lambda node: G.nodes[node][att], reverse=reverse)
 
 
 def collapse_based_on_node_attribute(H, merge_att, *best_node_attributes, reverse_node_sort=True,
