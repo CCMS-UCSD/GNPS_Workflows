@@ -8,9 +8,9 @@ logger = logging_utils.get_logger(__name__)
 
 
 class TOOL:
-    MZMINE = 1
-    MSDIAL = 2
-    XCMS_CAMERA = 3
+    MZMINE = "MZmine"
+    MSDIAL = "MSDIAL"
+    XCMS_CAMERA = "XCMS_CAMERA"
 
 
 def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
@@ -27,7 +27,7 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
     # todo calculate ion network ID for MS-DIAL and XCMS edges
     tool = check_iin_tool(H)
-    logger.info("Detected ion identity networking tool", str(tool))
+    logger.info("Detected ion identity networking tool " + str(tool))
     if tool == TOOL.MSDIAL:
         calc_ion_net_id(G, CONST.EDGE.ION_MS_DIAL_TYPE)
     elif tool == TOOL.XCMS_CAMERA:
@@ -223,12 +223,9 @@ def merge_nodes(G, nodes, new_node_type=CONST.NODE.COLLAPSED_TYPE, add_ion_inten
             if add_ion_intensity_attributes and CONST.NODE.IIN_ADDUCT_ATTRIBUTE in G.nodes[node]:
                 ion = G.nodes[node][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
                 # convert to integer if value is high enough
-                G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = (intensity if intensity <= 100
-                else int(round(intensity)))
+                G.nodes[main_node][ion + CONST.NODE.SPECIFIC_ION_ABUNDANCE_ATTRIBUTE] = intensity
 
     # add sum of ion intensities
-    if sum_intensity > 100:
-        sum_intensity = int(round(sum_intensity))
     G.nodes[main_node][CONST.NODE.SUM_ION_INTENSITY_ATTRIBUTE] = sum_intensity
 
     # summary of lib matches
@@ -330,11 +327,11 @@ def get_ion_net_id(G, node):
     :return:
     """
     try:
-        id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
-        if id is None or len(str(id)) <= 0:
+        ion_net_id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
+        if ion_net_id is None or len(str(ion_net_id).strip()) <= 0:
             return None
         else:
-            return id
+            return to_float(ion_net_id, None)
     except:
         return None
 
@@ -349,10 +346,10 @@ def mark_all_node_types(G):
         if CONST.NODE.TYPE_ATTRIBUTE not in data:
             # ion identity node or feature node?
             ion_net_id = get_ion_net_id(G, node)
-            if ion_net_id is not None:
-                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
-            else:
+            if ion_net_id is None:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE
+            else:
+                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
 
 
 def equals_ignore_case(a, b):
