@@ -328,6 +328,7 @@ def get_ion_net_id(G, node):
     """
     try:
         ion_net_id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
+        logger.info("Ion net id",ion_net_id)
         if ion_net_id is None or len(str(ion_net_id)) <= 0:
             logger.info("Ion net id == None")
             return None
