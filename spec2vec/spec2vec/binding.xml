@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+		<url value="{livesearch.download}"/>
+		<query name="task" valueRef="@task" />
+		<query name="user" valueRef="@user"/>
+		<compression type="zip" />
+		<download port="spectra" type="folder">
+            <query name="resource" value="spectra"/>
+        </download>
+		<download port="existing_graphml" type="folder">
+            <query name="resource" value="existing_graphml"/>
+        </download>
+		<download port="flowParams" type="file">
+			<query name="resource" value="params"/>
+		</download>
+		<downloadParams>
+			<query name="resource" value="params"/>
+		</downloadParams>
+
+	</bind>
+
+	<bind action="calculate_spec2vec" tool="calculate_spec2vec">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="spectra" requirement="spectra"/>
+		<productionToOutput port="pairs" production="pairs"/>
+	</bind>
+
+	<bind action="create_graphml" tool="create_graphml">
+		<inputAsRequirement port="pairs" requirement="pairs"/>
+		<inputAsRequirement port="existing_graphml" requirement="existing_graphml"/>
+		<productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
+	</bind>
+
+
+	<bind action="end" type="upload">
+		<url value="{livesearch.upload}"/>
+		<query name="task" valueRef="@task"/>
+		<contentQuery name="content"/>
+		<compression type="zip"/>
+
+		<upload port="pairs" type="folder">
+			<query name="resource" value="pairs"/>
+		</upload>
+
+		<upload port="gnps_molecular_network_graphml" type="folder">
+			<query name="resource" value="gnps_molecular_network_graphml"/>
+		</upload>
+		
+	</bind>
+</binding>

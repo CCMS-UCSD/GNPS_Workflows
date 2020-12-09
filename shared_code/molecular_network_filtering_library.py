@@ -7,7 +7,7 @@ import os
 import ming_fileio_library
 import networkx as nx
 
-def loading_network(filename, hasHeaders=False):
+def loading_network(filename, hasHeaders=False, edgetype="Cosine"):
     node1_list = []
     node2_list = []
 
@@ -33,7 +33,9 @@ def loading_network(filename, hasHeaders=False):
             cosine_score = table_data["Cosine"]
         if "COSINE" in table_data:
             cosine_score = table_data["COSINE"]
-        explained_intensity = table_data["OtherScore"]
+        
+        if "OtherScore" in table_data:
+            explained_intensity = table_data["OtherScore"]
 
         if len(property1)  != len(node1_list):
             property1 = node1_list
@@ -72,7 +74,7 @@ def loading_network(filename, hasHeaders=False):
         edge_object["cosine_score"] = float(cosine_score[i])
         edge_object["explained_intensity"] = float(explained_intensity[i])
         edge_object["component"] = -1
-        edge_object["EdgeType"] = "Cosine"
+        edge_object["EdgeType"] = edgetype
         edge_object["EdgeAnnotation"] = edge_annotation[i].rstrip()
         edge_object["EdgeScore"] = float(cosine_score[i])
 
@@ -312,6 +314,27 @@ def filter_component(G, max_component_size):
                 prune_component(G, component)
                 big_components_present = True
         print("After Round of Component Pruning", len(G.edges()))
+
+# This enables filtering of network components 
+# but instead of breaking apart big components, 
+# it adds edges only if it doesnt make too large components
+def filter_component_additive(G, max_component_size):
+    if max_component_size == 0:
+        return
+
+    all_edges = list(G.edges(data=True))
+    G.remove_edges_from(list(G.edges))
+
+    all_edges = sorted(all_edges, key=lambda x: x[2]["EdgeScore"], reverse=True)
+
+    for edge in all_edges:
+        G.add_edges_from([edge])
+        largest_cc = max(nx.connected_components(G), key=len)
+
+        if len(largest_cc) > max_component_size:
+            G.remove_edge(edge[0], edge[1])
+    
+    
 
 def get_edges_of_component(G, component):
     component_edges = {}

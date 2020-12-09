@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="spec2vec" version="release_9">
+    <workflow-id>SPEC2VEC</workflow-id>
+    <workflow-label>SPEC2VEC</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <parameter name="spec_on_server" label="Spectrm MGF">
+            <fileGenerator type="upload" purpose="spectrum" target="spectra"/>
+        </parameter>
+
+        <parameter name="existing_graphml" label="Network Graphml">
+            <fileGenerator type="upload" purpose="existing_graphml" target="existing_graphml"/>
+        </parameter>
+
+        <!-- Basic MS parameters -->
+		<parameter name="PAIRS_MIN_SCORE" label="Min Pairs Score">
+			<default value="0.7"/>
+			<validator type="float" minimumExclusive="0" maximum="1"/>
+		</parameter>
+
+        <parameter name="TOPK" label="Network TopK">
+			<default value="50"/>
+		</parameter>
+
+        <parameter name="MAXIMUM_COMPONENT_SIZE" label="Maximum Connected Component Size">
+			<default value="100"/>
+			<validator type="integer" minimumExclusive="-1" maximum="100000"/>
+		</parameter>
+
+        <parameter name="REMOVE_COSINE_PAIRS" label="Remove Cosine Pairs">
+			<options>
+				<option value="yes" label="yes"/>
+				<option value="no" label="no"/>
+			</options>
+			<default value="yes"/>
+		</parameter>
+
+        <parameter name="NETWORK_TOPOLOGY_FILTERING" label="Network Topology Filtering">
+			<options>
+				<option value="breakup" label="Break Up Components (Default)"/>
+				<option value="additive" label="Create Larger Components"/>
+			</options>
+			<default value="breakup"/>
+		</parameter>
+
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Input Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="spec_on_server_tooltip">
+                        Accepted formats: mgf.
+					</tooltip>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="existing_graphml"/>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="existing_graphml" type="fileSelector">
+                    <property name="label">Network Graphml</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TOPK"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="TOPK">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="PAIRS_MIN_SCORE"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="PAIRS_MIN_SCORE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="REMOVE_COSINE_PAIRS"/>
+                </label>
+                <input type="select" parameter="REMOVE_COSINE_PAIRS">
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="MAXIMUM_COMPONENT_SIZE"/>
+                    <tooltip id="max_component_size_gnps_tooltip">
+                        Maximum size of nodes allowed in a single connected network. Nodes within a single connected molecular network will be separated by increasing cosine threshold for that specific connected molecular network. Default value is 100. Use 0 to allow an unlimited number of nodes in a single network. Note that with large datasets, or when a great number of related molecules are in the dataset, this value should be higher (or turn to 0) to retain as much information as possible. Downstream, these larger networks can be visualized using Cytoscape layout algorithms that can increase the intra-network clustering, allowing to visualize spectral groups in the network despite the number of nodes in the network.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="MAXIMUM_COMPONENT_SIZE">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="NETWORK_TOPOLOGY_FILTERING"/>
+                </label>
+                <input type="select" parameter="NETWORK_TOPOLOGY_FILTERING">
+                </input>
+            </cell>
+        </row>
+        
+    </block>
+
+
+</interface>
