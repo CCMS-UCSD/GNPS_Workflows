@@ -60,7 +60,11 @@ def create_graphml(input_pairs, input_clusterinfosummary, input_librarysearch, i
         # collapse all ion identity networks, each into a single node
         if collapse_ion_edges:
             logger.debug("Collapsing additional edges of type: " + CONST.EDGE.ION_TYPE)
-            G = ion_network_utils.collapse_ion_networks(G)
+            try:
+                G = ion_network_utils.collapse_ion_networks(G)
+            except:
+                logger.debug("Failed collapsing")
+                pass
 
     # export graphml
     logger.info("Writing graphml: "+output_graphml)
