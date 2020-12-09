@@ -8,9 +8,9 @@ logger = logging_utils.get_logger(__name__)
 
 
 class TOOL:
-    MZMINE = 1
-    MSDIAL = 2
-    XCMS_CAMERA = 3
+    MZMINE = "MZmine"
+    MSDIAL = "MSDIAL"
+    XCMS_CAMERA = "XCMS_CAMERA"
 
 
 def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
@@ -27,7 +27,7 @@ def collapse_ion_networks(G, best_edge_att=CONST.EDGE.SCORE_ATTRIBUTE,
 
     # todo calculate ion network ID for MS-DIAL and XCMS edges
     tool = check_iin_tool(H)
-    logger.info("Detected ion identity networking tool", str(tool))
+    logger.info("Detected ion identity networking tool " + str(tool))
     if tool == TOOL.MSDIAL:
         calc_ion_net_id(G, CONST.EDGE.ION_MS_DIAL_TYPE)
     elif tool == TOOL.XCMS_CAMERA:
