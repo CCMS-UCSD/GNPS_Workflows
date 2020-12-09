@@ -91,6 +91,11 @@
                 <parameter name="REQUESTPARAMETER=filename" value="[filename]"/>
                 <parameter name="LABEL" value="View Metadata"/>
             </column>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:dataset_id:[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
             <column type="text" field="metadata" label="File Metadata" width="40"/>
         </row>
     </block>
