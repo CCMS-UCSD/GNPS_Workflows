@@ -263,12 +263,16 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
             G.node[cluster_index][annotation_prefix + "Compound_Source"] = str(table_data["Compound_Source"][i])
             G.node[cluster_index][annotation_prefix + "SpectrumID"] = str(table_data["SpectrumID"][i])
             G.node[cluster_index][annotation_prefix + "GNPSLibraryURL"] = "http://gnps.ucsd.edu/ProteoSAFe/gnpslibraryspectrum.jsp?SpectrumID=" + table_data["SpectrumID"][i]
-            # ion identity networking specific:
-            # check best ion (ion identity) and adduct for similarity
-            adduct = G.node[cluster_index][annotation_prefix + CONST.NODE.ADDUCT_LIB_ATTRIBUTE]
-            ion_identity = G.node[cluster_index][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
-            if ion_identity is not None and len(ion_identity)>0 and adduct is not None and len(adduct) > 0:
-                G.node[cluster_index][annotation_prefix + CONST.NODE.IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE] = equal_adducts(adduct, ion_identity)
+
+            try:
+                # ion identity networking specific:
+                # check best ion (ion identity) and adduct for similarity
+                adduct = G.node[cluster_index][annotation_prefix + CONST.NODE.ADDUCT_LIB_ATTRIBUTE]
+                ion_identity = G.node[cluster_index][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
+                if ion_identity is not None and len(ion_identity)>0 and adduct is not None and len(adduct) > 0:
+                    G.node[cluster_index][annotation_prefix + CONST.NODE.IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE] = equal_adducts(adduct, ion_identity)
+            except:
+                pass
 
 
 def equal_adducts(a, b):
