@@ -175,6 +175,15 @@
         <productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
     </bind>
 
+    <bind action="metabolomics_convert_graphml_iin_collapse" tool="metabolomics_convert_graphml_iin_collapse">
+        <inputAsRequirement port="networking_pairs_results_file_filtered" requirement="networking_pairs_results_file_filtered"/>
+        <inputAsRequirement port="clusterinfo_summary_enriched" requirement="clusterinfo_summary_enriched"/>
+        <inputAsRequirement port="librarysearch_results_file_DB" requirement="librarysearch_results_file_DB"/>
+        <inputAsRequirement port="libraryanalogsearch_results_file_DB" requirement="libraryanalogsearch_results_file_DB"/>
+        <inputAsRequirement port="additional_pairs" requirement="additional_pairs"/>
+        <productionToOutput port="gnps_molecular_network_graphml" production="gnps_molecular_network_graphml"/>
+    </bind>
+
     <!-- External Analysis -->
     <bind action="write_description" tool="write_description">
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
@@ -258,15 +267,23 @@
         <upload port="networkedges_selfloop" type="folder">
             <query name="resource" value="networkedges_selfloop"/>
         </upload>
+
         <upload port="clusterinfo_summary_enriched" type="folder">
             <query name="resource" value="clusterinfo_summary"/>
         </upload>
+        
         <upload port="components_table" type="folder">
             <query name="resource" value="components_table"/>
         </upload>
+
         <upload port="gnps_molecular_network_graphml" type="folder">
             <query name="resource" value="gnps_molecular_network_graphml"/>
         </upload>
+
+        <upload port="gnps_molecular_network_iin_collapse_graphml" type="folder">
+            <query name="resource" value="gnps_molecular_network_iin_collapse_graphml"/>
+        </upload>
+
         <upload port="qiime2_output" type="folder">
             <query name="resource" value="qiime2_output"/>
         </upload>
