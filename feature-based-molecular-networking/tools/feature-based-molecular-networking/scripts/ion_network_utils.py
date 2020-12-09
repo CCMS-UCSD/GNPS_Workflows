@@ -327,11 +327,11 @@ def get_ion_net_id(G, node):
     :return:
     """
     try:
-        id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
-        if id is None or len(str(id)) <= 0:
+        ion_net_id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
+        if ion_net_id is None or len(str(ion_net_id)) <= 0:
             return None
         else:
-            return id
+            return ion_net_id
     except:
         return None
 
@@ -350,6 +350,7 @@ def mark_all_node_types(G):
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
             else:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE
+                logger.info("Added feature node type")
 
 
 def equals_ignore_case(a, b):
