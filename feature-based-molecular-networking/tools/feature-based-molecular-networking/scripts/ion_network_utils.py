@@ -329,6 +329,7 @@ def get_ion_net_id(G, node):
     try:
         ion_net_id = G.nodes[node].get(CONST.NODE.ION_NETWORK_ID_ATTRIBUTE)
         if ion_net_id is None or len(str(ion_net_id)) <= 0:
+            logger.info("Ion net id == None")
             return None
         else:
             return ion_net_id
@@ -346,11 +347,12 @@ def mark_all_node_types(G):
         if CONST.NODE.TYPE_ATTRIBUTE not in data:
             # ion identity node or feature node?
             ion_net_id = get_ion_net_id(G, node)
-            if ion_net_id is not None:
-                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
-            else:
+            if ion_net_id is None:
                 G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.FEATURE_TYPE
                 logger.info("Added feature node type")
+            else:
+                G.nodes[node][CONST.NODE.TYPE_ATTRIBUTE] = CONST.NODE.ION_TYPE
+                logger.info("Added ION node type")
 
 
 def equals_ignore_case(a, b):
