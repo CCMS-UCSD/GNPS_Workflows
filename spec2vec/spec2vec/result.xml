@@ -16,7 +16,7 @@
         <row>
             <column type="integer" field="CLUSTERID1" label="Node1" precision="2"/>
             <column type="integer" field="CLUSTERID2" label="Node2" precision="3"/>
-            <column type="float" field="Cosine" label="Cosine" precision="3"/>
+            <column type="float" field="Cosine" label="Spec2Vec Similarity" precision="3"/>
             <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
         </row>
         <row expander="image">
@@ -74,7 +74,7 @@
         <row>
             <column type="integer" field="CLUSTERID1" label="Node1" precision="2"/>
             <column type="integer" field="CLUSTERID2" label="Node2" precision="3"/>
-            <column type="float" field="Cosine" label="Cosine" precision="3"/>
+            <column type="float" field="Cosine" label="Spec2Vec Similarity" precision="3"/>
             <column type="float" field="DeltaMZ" label="DeltaMZ" precision="3"/>
         </row>
         <row expander="image">
