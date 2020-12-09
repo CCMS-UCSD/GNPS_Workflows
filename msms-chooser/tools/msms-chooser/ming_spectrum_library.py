@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import re
 import xmltodict
 import base64
@@ -20,7 +19,6 @@ try:
     from pyteomics import mzml as pyteomicsmzml
 except:
     print("no pyteomics")
-
 """
 
 Spectrum Utilities to manipulate and do things with spectra

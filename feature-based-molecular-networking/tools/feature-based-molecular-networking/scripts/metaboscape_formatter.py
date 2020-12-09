@@ -16,7 +16,10 @@ def convert_to_feature_csv(input_filename, output_filename):
     # RT - > row retention time
     # PEPMASS -> row m/z
     # filename - > filename + Peak area
-    input_format = pd.read_csv(input_filename,index_col=None)
+    try:
+        input_format = pd.read_csv(input_filename,index_col=None)
+    except UnicodeDecodeError:
+        input_format = pd.read_csv(input_filename,index_col=None, encoding='latin1')
 
     # Check if PASEF data files and process accordingly
     if 'MaxIntensity' in input_format.columns:

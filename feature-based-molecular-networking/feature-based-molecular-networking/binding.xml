@@ -11,6 +11,9 @@
         <download port="quantification_table" type="folder">
             <query name="resource" value="quantification_table"/>
         </download>
+        <download port="raw_spectra" type="folder">
+            <query name="resource" value="raw_spectra"/>
+        </download>
         <download port="metadata_table" type="folder">
             <query name="resource" value="metadata_table"/>
         </download>
@@ -28,6 +31,13 @@
         <downloadParams>
             <query name="resource" value="params"/>
         </downloadParams>
+    </bind>
+
+    <!-- Summarizing Input mzML Raw Data -->
+    <bind action="filesummary" tool="filesummary">
+        <inputAsRequirement port="spec" requirement="spec"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="filestatsresults" production="result"/>
     </bind>
 
     <!-- Merging Metadata Information -->
@@ -194,6 +204,7 @@
     <bind action="metabolomic_feature_statistics" tool="metabolomic_feature_statistics">
         <inputAsRequirement port="quantification_table_reformatted" requirement="quantification_table_reformatted"/>
         <inputAsRequirement port="metadata_table" requirement="metadata_table"/>
+        <inputAsRequirement port="filestatsresults" requirement="filestatsresults"/>
         <inputAsRequirement port="librarysearch_results_file_DB" requirement="librarysearch_results_file_DB"/>
         <productionToOutput port="feature_statistics" production="feature_statistics"/>
         <productionToOutput port="feature_plots" production="feature_plots"/>
@@ -235,10 +246,15 @@
         <upload port="dereplicator_html" type="folder">
             <query name="resource" value="dereplicator_html"/>
         </upload>
+        
+        <upload port="networking_pairs_results_file" type="folder">
+            <query name="resource" value="networking_pairs_results_file"/>
+        </upload>
 
         <upload port="networking_pairs_results_file_filtered" type="folder">
             <query name="resource" value="networking_pairs_results_file_filtered"/>
         </upload>
+
         <upload port="networkedges_selfloop" type="folder">
             <query name="resource" value="networkedges_selfloop"/>
         </upload>
@@ -272,5 +288,8 @@
         <upload port="metadata_merged" type="folder">
             <query name="resource" value="metadata_merged"/>
         </upload>
+        <upload port="filestatsresults" type="file">
+			<query name="resource" value="filestatsresults"/>
+		</upload>
     </bind>
 </binding>

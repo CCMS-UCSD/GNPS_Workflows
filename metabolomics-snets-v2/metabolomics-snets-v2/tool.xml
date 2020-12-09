@@ -1,4 +1,31 @@
 <toolset>
+
+    <!-- File Summary -->
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="filesummary" path="python" />
+    </pathSet>
+    <pathSet base="$base/scripts">
+        <pathVar name="msaccess.file" path="msaccess"/>
+        <pathVar name="filesummary.script" path="filesummary.py"/>
+    </pathSet>
+
+    <tool name="filesummary">
+        <require name="spec" type="folder"/>
+        <require name="parameter" type="file"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="result" type="file" naming="explicit" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="filesummary.script"/>
+            <arg valueRef="spec"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="result"/>
+            <arg pathRef="msaccess.file"/>
+        </execution>
+    </tool>
+
+
+
     <!-- MSClustering -->
 
     <pathSet base="$base">

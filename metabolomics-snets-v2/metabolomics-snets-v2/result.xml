@@ -65,18 +65,25 @@
             <columbiomn type="text" field="IonMode" label="IonMode" width="5"/>
             <column type="text" field="PI" label="PI" width="5"/>
             <column type="text" field="Ion_Source" label="Ion Source" width="5"/>
+            
+            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
+            <column type="text" field="superclass" label="Superclass" width="5"/>
+            <column type="text" field="class" label="Class" width="5"/>
+            <column type="text" field="subclass" label="Subclass" width="5"/>
+
+            <column type="text" field="npclassifier_pathway" label="NP Pathway" width="5"/>
+            <column type="text" field="npclassifier_superclass" label="NP Superclass" width="5"/>
+            <column type="text" field="npclassifier_class" label="NP Class" width="5"/>
+
             <column type="text" field="tags" label="Tags" width="5"/>
             <column label="Add Library Tag" type="addspectrumtag" width="12">
                 <parameter name="spectrumID" value="[SpectrumID]"/>
             </column>
-            
-            <column type="text" field="InChIKey" label="InChIKey" width="5"/>
-            <column type="text" field="superclass" label="superclass" width="5"/>
-            <column type="text" field="class" label="class" width="5"/>
-            <column type="text" field="subclass" label="subclass" width="5"/>
 
-            <column type="structuredisplayer" label="Structure">
-                <parameter name="smilesstructure" value="[Smiles]"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
+                <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
             </column>
         </row>
         <row expander="image">
@@ -704,6 +711,42 @@
     </block>
 
 
+    <!-- File Summary -->
+    <view id="file_summary" label="File Summaries" group="Default Molecular Networking Results Views">
+        <blockRef id="main" type="file_summary"/>
+    </view>
+
+    <block id="file_summary" type="table">
+        <data>
+            <source type="file" name="filestatsresults/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="full_CCMS_path" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=overlay_usi" value="mzspec:GNPS:TASK-{task}-clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
+                <parameter name="REQUESTPARAMETER=overlay_size" value="number of spectra"/>
+                <parameter name="REQUESTPARAMETER=overlay_mz" value="precursor mass"/>
+                <parameter name="REQUESTPARAMETER=overlay_rt" value="RTMean_min"/>
+                <parameter name="LABEL" value="View LCMS with Overlay"/>
+            </column>
+            <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
+            <column type="text" field="Vendor" label="Vendor" width="10"/>
+            <column type="text" field="Model" label="Model" width="10"/>
+            <column type="integer" field="MS1s" label="MS1 Count" width="3"/>
+            <column type="integer" field="MS2s" label="MS2 Count" width="3"/>
+        </row>
+    </block>
+
+
 
 
 
@@ -1095,6 +1138,12 @@
                 <parameter name="URLBASE" value="https://redu.ucsd.edu/datalookup"/>
                 <parameter name="REQUESTPARAMETER=filename" value="[Original_Path]"/>
                 <parameter name="LABEL" value="View Global Metadata"/>
+            </column>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:[ScanNumber]"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="[parent mass]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
             <column type="text" field="AllFiles" label="Filename" width="10"/>
             <column type="integer" field="ScanNumber" label="Scan" width="3"/>

@@ -10,7 +10,7 @@ def write_description(param_xml_filename, output_description_filename):
     output_sentences = []
     #INTRODUCTION
     output_sentences.append('<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n')
-    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://doi.org/10.1101/812404">Nothias LF et al. bioRxiv 2019</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
+    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://www.nature.com/articles/s41592-020-0933-6">Nothias L-F, Petras D, Schmid R et al. Nature Methods 17, 905–908 (2020)</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
 
 
     #FBMN PROCESSING
@@ -64,8 +64,8 @@ def write_description(param_xml_filename, output_description_filename):
 
     #PROCESSING CITATION
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
-        output_sentences.append('<br><br> <strong>For MZmine2</strong>: Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n')
-        output_sentences.append('Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n')
+        output_sentences.append('<br><br> <strong>For MZmine2</strong>: Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n')
+        output_sentences.append('Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "XCMS3":
         output_sentences.append('<br><br> <strong>For XCMS</strong>: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a> and other citations if applicable, such as the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n')
         output_sentences.append('If you used CAMERA in XCMS: Kuhl et al. CAMERA: An Integrated Strategy for Compound Spectra Extraction and Annotation of Liquid Chromatography/Mass Spectrometry Data Sets. Anal. Chem., 841283-289 (2012),<a href="https://doi.org/10.1021/ac202450g">https://doi.org/10.1021/ac202450g</a>. \n')

@@ -32,7 +32,6 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
             fn = value.split("/")[-1]
             reversed_mapping[fn]=key
     for filename in structures_by_filename:
-        #print(filename)
         # if param exists => proteosafe workflow => demangle fileName
         path_to_spectrum_file = os.path.join(path_to_spectrum_files, filename)
         displaying_filename = filename
@@ -49,7 +48,12 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
         #loading file
         spectrum_list = []
         try:
-            spectrum_list = ming_spectrum_library.load_mzxml_file(path_to_spectrum_file)
+            leave, extension = os.path.splitext(path_to_spectrum_file)
+            if extension.lower() == '.mzxml':
+                spectrum_list = ming_spectrum_library.load_mzxml_file(path_to_spectrum_file)
+            if extension.lower() == '.mzml':
+                spectrum_list = ming_spectrum_library.load_mzml_file(path_to_spectrum_file)
+            print("LOADING", path_to_spectrum_file, len(spectrum_list))
         except KeyboardInterrupt:
             raise
         except Exception as e:
@@ -63,7 +67,7 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
             highest_intensity = -1000
             best_spectrum = None
             ppm_threshold = candidate_object["ppm_threshold"]
-            #print(structure_object)
+            print(structure_object, len(spectrum_list))
             #print("molecule mass","monoisotopic mass","ppm","filename","exact_mass","adduct")
             for spectrum in spectrum_list:
                 if spectrum.ms_level == 1:
@@ -71,7 +75,9 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
 
                 #evaluate candidate_object
                 monoisotopic_mass = structure_object["monoisotopic_mass"]
-                #print(spectrum.mz, structure_object["exact_mass"])
+                
+                #print(spectrum.mz, monoisotopic_mass)
+
                 mz_delta = abs(spectrum.mz - monoisotopic_mass)
                 ppm_delta = (mz_delta / monoisotopic_mass ) * 1000000
                 if ppm_delta > ppm_threshold:
@@ -111,8 +117,8 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
                 output_dict["PI"].append(structure_object["pi"])
                 #print(spectrum.mz, monoisotopic_mass, ppm_delta, filename, structure_object["exact_mass"],structure_object["adduct"])
                 #print("Found ", structure_object["name"],structure_object["adduct"], highest_intensity)
-            #else:
-                #print("Not Seen", structure_object["name"], structure_object["adduct"], highest_intensity)
+            else:
+                print("Not Seen", structure_object["name"], structure_object["adduct"], highest_intensity)
 
     return output_dict
 
@@ -128,8 +134,7 @@ def main():
     args = parser.parse_args()
     # c engine error
     annotations_df = pd.read_csv(args.input_annotations, sep="\t")
-    print(annotations_df.head())
-    
+        
     annotation_records = annotations_df.to_dict(orient="records")
     candidate_molecules = []
     for annotation in annotation_records:
@@ -213,6 +218,11 @@ def main():
     header_list += ["CHARGE", "IONMODE", "PUBMED", "ACQUISITION", "EXACTMASS", "DATACOLLECTOR", "ADDUCT", "INTEREST", "LIBQUALITY", "GENUS", "SPECIES", "STRAIN", "CASNUMBER", "PI"]
 
     df = pd.DataFrame(output_dict)
+
+    if len(output_dict) == 0:
+        print("No Data Found")
+        exit(1)
+    
     df.to_csv(args.output_batch, sep="\t", columns=header_list, index=False)
 
 

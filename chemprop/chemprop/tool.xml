@@ -1,0 +1,24 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="calculate_chemdir" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="calculate_chemdir.script" path="calculate_chemdir.py" />
+    </pathSet>
+
+    <tool name="calculate_chemdir">
+        <require name="workflowParameters"       type="file"/>
+        <produce name="output_folder"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="calculate_chemdir.script"/>
+            <arg valueRef="@GNPS_FBMN_TASK"/>
+            <arg valueRef="@METADATA_COLUMN"/>
+            <arg valueRef="@TIME_SERIES"/>
+            <arg valueRef="output_folder"/>
+            <arg option="-filter_metadata" valueRef="@METADATA_FILTER_COLUMN"/>
+            <arg option="-filter_metadata_term" valueRef="@METADATA_FILTER_TERM"/>
+            <arg option="-min_area_threshold" valueRef="@MIN_AREA_THRESHOLD"/>
+        </execution>
+    </tool>
+</toolset>

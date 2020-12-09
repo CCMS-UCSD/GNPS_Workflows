@@ -7,6 +7,28 @@
         <source type="folder" name="quantification_output/"/>
     </download>
 
+    <view id="view_files" label="View Files" group="Default Views">
+        <blockRef id="main" type="view_files"/>
+    </view>
+
+    <block id="view_files" type="table">
+        <data>
+            <source type="file" name="summary_output/filesummary.tsv"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="full_CCMS_path" operator="ascending"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+            <column type="text" field="full_CCMS_path" label="full_CCMS_path" width="3"/>
+        </row>
+
+    </block>
+
     <view id="view_spectra" label="View All Deconvolved Spectra" group="Default Views">
         <blockRef id="main" type="view_spectra"/>
     </view>
@@ -20,7 +42,10 @@
         </data>
         <row>
             <column type="integer" field="cluster index" label="cluster index" width="3"/>
-            <column type="text" field="RTMean" label="RTMean" width="10"/>
+            <column type="float" field="RTMean" label="RTMean" width="10"/>
+            <column type="float" field="Balance Score" label="Balance Score" width="10"/>
+            <column type="float" field="BasePeak" label="BasePeak" width="10"/>
+            
         </row>
 
         <row expander="image">

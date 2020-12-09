@@ -120,7 +120,7 @@
 
 		<parameter name="FIND_MATCHES_IN_PUBLIC_DATA" label="Find Related Datasets">
 			<options>
-				<option value="0" label="Don't"/>
+				<!-- <option value="0" label="Don't"/> -->
 				<option value="1" label="Do it"/>
 			</options>
 			<default value="1"/>

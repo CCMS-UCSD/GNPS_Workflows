@@ -3,6 +3,7 @@
     <object name="workflowParameters"/>
     <collection name="inputSpectra"/>
     <object name="quantification_table"/>
+    <collection name="raw_spectra"/>
     <object name="metadata_table"/>
     <collection name="additional_pairs"/>
 
@@ -12,8 +13,17 @@
         <output port="spec" collection="inputSpectra"/>
         <output port="lib" collection="library"/>
         <output port="quantification_table" object="quantification_table"/>
+        <output port="raw_spectra" object="raw_spectra"/>
         <output port="metadata_table" object="metadata_table"/>
         <output port="additional_pairs" collection="additional_pairs"/>
+    </action>
+
+    <!-- Summarizing Input mzML Raw Data -->
+    <object name="filestatsresults"/>
+    <action name="filesummary">
+        <input port="spec" collection="raw_spectra"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="filestatsresults" object="filestatsresults"/>
     </action>
 
     <!-- Merging Metadata from Potentially Google Sheets -->
@@ -236,6 +246,7 @@
     <action name="metabolomic_feature_statistics">
         <input  port="quantification_table_reformatted"       object="quantification_table_reformatted"/>
         <input  port="metadata_table"       object="metadata_merged"/>
+        <input  port="filestatsresults"       object="filestatsresults"/>
         <input  port="librarysearch_results_file_DB"       object="librarysearch_results_file_DB"/>
         <output  port="feature_statistics" collection="feature_statistics"/>
         <output  port="feature_plots" collection="feature_plots"/>
@@ -247,6 +258,7 @@
         <input port="spectra_reformatted" object="spectra_reformatted"/>
 
         <input port="networking_parameters" collection="networking_parameters"/>
+        <input port="networking_pairs_results_file" object="networking_pairs_results_file"/>
         <input port="networking_pairs_results_file_filtered" object="networking_pairs_results_file_filtered"/>
         <input port="networkedges_selfloop" object="networkedges_selfloop"/>
         <input port="librarysearch_results_file_DB" object="librarysearch_results_file_DB"/>
@@ -265,5 +277,8 @@
 
         <!-- Metadata -->
         <input port="metadata_merged" collection="metadata_merged"/>
+
+        <!-- Summary -->
+        <input port="filestatsresults" collection="filestatsresults"/>
     </action>
 </flow>
