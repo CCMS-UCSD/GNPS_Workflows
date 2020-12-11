@@ -102,7 +102,7 @@ def main():
 
         output_dict = {}
         output_dict["full_CCMS_path"] = full_path
-        result_object["CCMS_filename"] = os.path.basename(full_path)
+        output_dict["CCMS_filename"] = os.path.basename(full_path)
         full_result_list.append(output_dict)
 
     pd.DataFrame(full_result_list).to_csv(args.result_file, sep="\t", index=False)
