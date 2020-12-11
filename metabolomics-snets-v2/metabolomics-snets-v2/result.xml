@@ -490,9 +490,9 @@
     </block>
 
     <view id="classicalcomparison" label="Visualize with Upset Plots (Beta)" group="Advanced Views - External Visualization">
-        <blockRef id="main" type="dereplicatorplus"/>
+        <blockRef id="main" type="upsetplotlinkout"/>
     </view>
-    <block id="dereplicatorplus" type="dummylinkout">
+    <block id="upsetplotlinkout" type="dummylinkout">
         <data>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
