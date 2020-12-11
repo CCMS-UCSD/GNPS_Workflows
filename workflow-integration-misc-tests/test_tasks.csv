@@ -3,5 +3,4 @@ task_id,description,regressioncountviews,enable
 720b3c93bec54a4a9f3de4fbf6fbbd82,msms-chooser mzML,,1
 1df2ea6e406447dfaa7a8b3ea23bf9e1,batchvalidator,new_annotations,1
 2b7b4e189177498f8f95ea217ff351ff,lc_mzmine2 small test,,1
-46065026f57f469790407bb95bc37618,sirius laudosine small test,,1
 996b077684ab407e8838aac9185cfd8f,spec2vec test GNPS stenothricin,
