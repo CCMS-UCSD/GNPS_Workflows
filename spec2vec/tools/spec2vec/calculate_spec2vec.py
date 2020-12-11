@@ -11,10 +11,10 @@ from matchms.filtering import select_by_relative_intensity
 from matchms.filtering import reduce_to_number_of_peaks
 from matchms.filtering import add_losses
 from matchms.importing import load_from_mgf
-from matchms import calculate_scores_parallel
+from matchms import calculate_scores
 
 
-from spec2vec import Spec2VecParallel
+from spec2vec import Spec2Vec
 from spec2vec import SpectrumDocument
 
 import argparse
@@ -23,7 +23,10 @@ def post_process(s):
     s = normalize_intensities(s)
     s = select_by_mz(s, mz_from=0, mz_to=1000)
     s = require_minimum_number_of_peaks(s, n_required=10)
-    s = reduce_to_number_of_peaks(s, n_required=10, ratio_desired=0.5)
+    try:
+        s = reduce_to_number_of_peaks(s, n_required=10, ratio_desired=0.5)
+    except:
+        pass
     if s is None:
         return None
     s_remove_low_peaks = select_by_relative_intensity(s, intensity_from=0.001)
@@ -58,12 +61,12 @@ def main():
     model = gensim.models.Word2Vec.load(args.model_file)
 
     # Define similarity_function
-    spec2vec = Spec2VecParallel(model=model, intensity_weighting_power=0.5,
+    spec2vec = Spec2Vec(model=model, intensity_weighting_power=0.5,
                             allowed_missing_percentage=80.0)
 
 
     print("total documents", len(query_documents))
-    scores = calculate_scores_parallel(query_documents, query_documents, spec2vec).scores
+    scores = calculate_scores(query_documents, query_documents, spec2vec).scores
 
     number_of_spectra = len(query_documents)
 
