@@ -4,10 +4,13 @@
 import sys
 import getopt
 import os
+from operator import eq
+
 import ming_fileio_library
 import networkx as nx
+import constants_network as CONST
 
-def loading_network(filename, hasHeaders=False):
+def loading_network(filename, hasHeaders=False, edgetype="Cosine"):
     node1_list = []
     node2_list = []
 
@@ -33,7 +36,9 @@ def loading_network(filename, hasHeaders=False):
             cosine_score = table_data["Cosine"]
         if "COSINE" in table_data:
             cosine_score = table_data["COSINE"]
-        explained_intensity = table_data["OtherScore"]
+        
+        if "OtherScore" in table_data:
+            explained_intensity = table_data["OtherScore"]
 
         if len(property1)  != len(node1_list):
             property1 = node1_list
@@ -72,7 +77,7 @@ def loading_network(filename, hasHeaders=False):
         edge_object["cosine_score"] = float(cosine_score[i])
         edge_object["explained_intensity"] = float(explained_intensity[i])
         edge_object["component"] = -1
-        edge_object["EdgeType"] = "Cosine"
+        edge_object["EdgeType"] = edgetype
         edge_object["EdgeAnnotation"] = edge_annotation[i].rstrip()
         edge_object["EdgeScore"] = float(cosine_score[i])
 
@@ -83,7 +88,9 @@ def loading_network(filename, hasHeaders=False):
         intermediate_graph_nodes.add(edge_object["node1"])
         intermediate_graph_nodes.add(edge_object["node2"])
 
-        intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_object))
+        # set key to edgetype for options to remove edge later in case multiple edges are present
+        edge_key_for_dict = CONST.EDGE.COSINE_TYPE
+        intermediate_edges_to_add.append((edge_object["node1"], edge_object["node2"], edge_key_for_dict, edge_object))
 
     G=nx.MultiGraph()
     G.add_nodes_from(intermediate_graph_nodes)
@@ -117,7 +124,10 @@ def add_additional_edges(G, path_to_supplemental_edges):
             edge_object["EdgeAnnotation"] = annotation.rstrip()
             edge_object["EdgeScore"] = float(score)
             edge_object["mass_difference"] = mass_difference
-            edges_to_add.append((node1, node2, edge_object))
+
+            #set key to edgetype for options to remove edge later
+            edge_key = edgetype
+            edges_to_add.append((node1, node2, edge_key, edge_object))
         except:
             print("Error Adding Edge")
             continue
@@ -254,7 +264,96 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
             G.node[cluster_index][annotation_prefix + "SpectrumID"] = str(table_data["SpectrumID"][i])
             G.node[cluster_index][annotation_prefix + "GNPSLibraryURL"] = "http://gnps.ucsd.edu/ProteoSAFe/gnpslibraryspectrum.jsp?SpectrumID=" + table_data["SpectrumID"][i]
 
+            try:
+                # ion identity networking specific:
+                # check best ion (ion identity) and adduct for similarity
+                adduct = G.node[cluster_index][annotation_prefix + CONST.NODE.ADDUCT_LIB_ATTRIBUTE]
+                ion_identity = G.node[cluster_index][CONST.NODE.IIN_ADDUCT_ATTRIBUTE]
+                if ion_identity is not None and len(ion_identity)>0 and adduct is not None and len(adduct) > 0:
+                    G.node[cluster_index][annotation_prefix + CONST.NODE.IIN_ADDUCT_EQUALS_LIB_ATTRIBUTE] = equal_adducts(adduct, ion_identity)
+            except:
+                pass
 
+
+def equal_adducts(a, b):
+    """
+    Checks if two adducts are equal. Uses clean_adduct to harmonize notation
+    :param a:
+    :param b:
+    :return: True or False
+    """
+    if a is None or b is None or len(a)<=0 or len(b)<=0:
+        return False
+
+    ca = clean_adduct(a)
+    cb = clean_adduct(b)
+
+    if ca is None or cb is None or len(ca)<=0 or len(cb)<=0:
+        return False
+
+    if ca == cb:
+        return True
+
+    if ca[-1] == '-' and cb[-1] != '+':
+        ca = ca[:-1]
+        return ca == cb
+    if ca[-1] == '+' and cb[-1] != '-':
+        ca = ca[:-1]
+        return ca == cb
+    if cb[-1] == '-' and ca[-1] != '+':
+        cb = cb[:-1]
+        return ca == cb
+    if cb[-1] == '+' and ca[-1] != '-':
+        cb = cb[:-1]
+        return ca == cb
+    return False
+
+
+def clean_adduct(adduct, add_brackets=False):
+    """
+    Harmonizes adducts.
+    :param adduct:
+    :param add_brackets: add [M+H]+ brackets that are removed during clean up (True or False)
+    :return: M-all losses+all additions CHARGE
+    """
+    new_adduct = adduct
+    new_adduct = new_adduct.replace("[", "")
+    new_adduct = new_adduct.replace("]", "")
+    new_adduct = new_adduct.replace(" ", "")
+
+    charge = ""
+    charge_sign = ""
+    for i in reversed(range(len(new_adduct))):
+        if new_adduct[i] == "+" or new_adduct[i] == "-":
+            charge_sign = new_adduct[i]
+        elif new_adduct[i].isdigit():
+            charge = new_adduct[i] + charge
+        else:
+            new_adduct = new_adduct[0:i + 1]
+            break
+
+    parts = new_adduct.split("+")
+    positive_parts = []
+    negative_parts = []
+    for p in parts:
+        sp = p.split("-")
+        positive_parts.append(sp[0])
+        for n in sp[1:]:
+            negative_parts.append(n)
+    # sort
+    m_part = positive_parts[0]
+    positive_parts = positive_parts[1:]
+    positive_parts.sort()
+    negative_parts.sort()
+    new_adduct = m_part
+    if len(negative_parts) > 0:
+        new_adduct += "-" + "-".join(negative_parts)
+    if len(positive_parts) > 0:
+        new_adduct += "+" + "+".join(positive_parts)
+    if add_brackets:
+        new_adduct = "[" + new_adduct + "]"
+    new_adduct += charge + charge_sign
+    return new_adduct
 
 
 def filter_top_k(G, top_k):
@@ -312,6 +411,27 @@ def filter_component(G, max_component_size):
                 prune_component(G, component)
                 big_components_present = True
         print("After Round of Component Pruning", len(G.edges()))
+
+# This enables filtering of network components 
+# but instead of breaking apart big components, 
+# it adds edges only if it doesnt make too large components
+def filter_component_additive(G, max_component_size):
+    if max_component_size == 0:
+        return
+
+    all_edges = list(G.edges(data=True))
+    G.remove_edges_from(list(G.edges))
+
+    all_edges = sorted(all_edges, key=lambda x: x[2]["EdgeScore"], reverse=True)
+
+    for edge in all_edges:
+        G.add_edges_from([edge])
+        largest_cc = max(nx.connected_components(G), key=len)
+
+        if len(largest_cc) > max_component_size:
+            G.remove_edge(edge[0], edge[1])
+    
+    
 
 def get_edges_of_component(G, component):
     component_edges = {}

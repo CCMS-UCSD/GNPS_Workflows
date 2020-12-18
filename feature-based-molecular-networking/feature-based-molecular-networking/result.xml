@@ -5,6 +5,7 @@
         <source type="folder" name="networkedges_selfloop/"/>
         <source type="folder" name="clusterinfo_summary/"/>
         <source type="folder" name="gnps_molecular_network_graphml/"/>
+        <source type="folder" name="gnps_molecular_network_iin_collapse_graphml/"/>
         <source type="folder" name="spectra/"/>
         <source type="folder" name="quantification_table/"/>
         <source type="folder" name="quantification_table_reformatted/"/>
@@ -484,6 +485,21 @@
         <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
     </block>
 
+    <view id="cytoscape_preview_iin" label="Direct Cytoscape IIN Collapsed Preview/Download" group="Advanced Views - External Visualization">
+        <blockRef id="main" type="cytoscape_preview_iin"/>
+    </view>
+    <block id="cytoscape_preview_iin" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value="https://gnps-cytoscape.ucsd.edu/process?task=[task]%26override_path=gnps_molecular_network_iin_collapse_graphml%2F"/>
+    </block>
+
+
+    
+
     <view id="redu_global_pca" label="Global Comparison with ReDU PCA (Beta)" group="Advanced Views - External Visualization">
         <blockRef id="main" type="redu_global_pca"/>
     </view>
@@ -544,6 +560,18 @@
             </parsers>
         </data>
         <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Qemistree of Feature-Based Molecular Networking [task]", "quant_table":"t.[task]/qiime2_output/qiime2_table.qza", "metadata_table":"t.[task]/qiime2_output/qiime2_metadata.tsv", "library_identifications":"t.[task]/clusterinfo_summary/"}'/>
+    </block>
+
+    <view id="spec2vec" label="Network with Spec2vec" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="spec2vec"/>
+    </view>
+    <block id="spec2vec" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"SPEC2VEC", "desc":"Spec2vec of Feature-Based Molecular Networking [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "existing_graphml":"t.[task]/gnps_molecular_network_graphml/"}'/>
     </block>
 
 
@@ -735,7 +763,7 @@
         <row>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[featuremz]"/>
                 <parameter name="REQUESTPARAMETER=xic_rt_window" value="[featurert]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
@@ -779,10 +807,17 @@
             </parsers>
         </data>
         <row>
-            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
-                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=overlay_usi" value="mzspec:GNPS:TASK-{task}-quantification_table_reformatted/"/>
+                <parameter name="REQUESTPARAMETER=overlay_size" value="[CCMS_filename] Peak area"/>
+                <parameter name="LABEL" value="View LCMS with Overlay"/>
             </column>
             <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
             <column type="text" field="Vendor" label="Vendor" width="10"/>

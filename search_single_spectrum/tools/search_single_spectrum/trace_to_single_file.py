@@ -50,6 +50,7 @@ def trace_filename(all_datasets, dataset_accession, dataset_scan):
                 output_object["dataset_id"] = dataset_accession
                 output_object["dataset_scan"] = dataset_scan
                 output_object["filename"] = source_file
+                output_object["basefilename"] = os.path.basename(source_file)
 
                 output_list.append(output_object)
 
@@ -83,6 +84,7 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                 output_object["filename"] = raw_spectrum["Original_Path"]
                 output_object["filescan"] = raw_spectrum["ScanNumber"]
                 output_object["metadata"] = ""
+                output_object["basefilename"] = os.path.basename(raw_spectrum["Original_Path"])
 
                 if enrichmetadata:
                     try:
@@ -102,6 +104,7 @@ def trace_filename_filesystem(all_datasets, dataset_accession, dataset_scan, enr
                 output_object["cluster_scan"] = dataset_scan
                 output_object["filename"] = source_file
                 output_object["metadata"] = ""
+                output_object["basefilename"] = os.path.basename(source_file)
 
                 if enrichmetadata:
                     try:
