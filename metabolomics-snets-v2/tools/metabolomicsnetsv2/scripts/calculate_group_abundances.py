@@ -79,9 +79,11 @@ def calculate_rt_stats(cluster_summary_list, cluster_to_RT):
         try:
             cluster["RTMean"] = statistics.mean(cluster_to_RT[cluster["cluster index"]])
             cluster["RTStdErr"] = statistics.pstdev(cluster_to_RT[cluster["cluster index"]])
+            cluster["RTMean_min"] = cluster["RTMean"] / 60
         except:
             cluster["RTMean"] = 0
             cluster["RTStdErr"] = 0
+            cluster["RTMean_min"] = 0
 
 def calculate_ancillary_information(all_clusters_list, task):
     for cluster in all_clusters_list:

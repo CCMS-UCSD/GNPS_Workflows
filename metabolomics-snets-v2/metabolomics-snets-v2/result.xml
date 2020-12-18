@@ -490,9 +490,9 @@
     </block>
 
     <view id="classicalcomparison" label="Visualize with Upset Plots (Beta)" group="Advanced Views - External Visualization">
-        <blockRef id="main" type="dereplicatorplus"/>
+        <blockRef id="main" type="upsetplotlinkout"/>
     </view>
-    <block id="dereplicatorplus" type="dummylinkout">
+    <block id="upsetplotlinkout" type="dummylinkout">
         <data>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
@@ -724,10 +724,19 @@
             </parsers>
         </data>
         <row>
-            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:1"/>
-                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=overlay_usi" value="mzspec:GNPS:TASK-{task}-clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
+                <parameter name="REQUESTPARAMETER=overlay_size" value="number of spectra"/>
+                <parameter name="REQUESTPARAMETER=overlay_mz" value="precursor mass"/>
+                <parameter name="REQUESTPARAMETER=overlay_rt" value="RTMean_min"/>
+                <parameter name="LABEL" value="View LCMS with Overlay"/>
             </column>
             <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
             <column type="text" field="Vendor" label="Vendor" width="10"/>
@@ -1132,7 +1141,7 @@
             </column>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:1"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:[ScanNumber]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[parent mass]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
@@ -1491,6 +1500,18 @@
             </parsers>
         </data>
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS", "desc":"DEREPLICATOR+ of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
+    </block>
+
+    <view id="spec2vec" label="Network with Spec2vec" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="spec2vec"/>
+    </view>
+    <block id="spec2vec" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"SPEC2VEC", "desc":"Spec2vec of Classic Molecular Networking V2 [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf", "existing_graphml":"t.[task]/gnps_molecular_network_graphml/"}'/>
     </block>
 
 

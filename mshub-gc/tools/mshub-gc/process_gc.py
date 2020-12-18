@@ -10,8 +10,11 @@ import ming_fileio_library
 import proteosafe
 from collections import defaultdict
 
+# Parsing the output mgf
 def parse_peaks_for_output(input_filename, output_filename):
     output_file = open(output_filename, "w")
+
+    scan_to_basepeak = {}
 
     db_number = -1
     rt_seconds = -1
@@ -43,6 +46,9 @@ def parse_peaks_for_output(input_filename, output_filename):
             output_file.write("CHARGE=0\n")
             output_file.write("MSLEVEL=2\n")
 
+            # saving the basepeak information
+            sorted_peaks = sorted(all_peaks, key=lambda x: x[1], reverse=True)
+            scan_to_basepeak[str(db_number)] = sorted_peaks[0][0]
 
             for peak in all_peaks:
                 output_file.write(" ".join(peak) + "\n")
@@ -50,6 +56,8 @@ def parse_peaks_for_output(input_filename, output_filename):
             output_file.write("END IONS\n")
 
     output_file.close()
+
+    return scan_to_basepeak
 
 
 """ Presence and Abscence of features across many files
@@ -88,20 +96,32 @@ def simple_presence_of_merged_spectra_processing(input_integrals_filename, outpu
 
     ming_fileio_library.write_dictionary_table_data(output_dict, output_clusterinfo_filename)
 
-def generate_clustersummary(input_integrals_filename, output_clustersummary_filename):
-    header_order = open(input_integrals_filename).readline().rstrip().split(",")[1:]
-    output_list = []
+# Parsing the quant table
+def generate_clustersummary(input_integrals_filename, output_clustersummary_filename, scan_to_basepeak=None):
+    df = pd.read_csv(input_integrals_filename, nrows=20)
+    scan_numbers = list(df.columns)
+    rts_list = list(df.iloc[0])
 
-    scan_number = 0
-    for header in header_order:
-        scan_number += 1
+    output_list = []
+    for i, scan in enumerate(scan_numbers):
+        if i == 0:
+            continue
+
         output_dict = {}
-        output_dict["cluster index"] = scan_number
-        output_dict["RTMean"] = header
+        output_dict["cluster index"] = scan
+        output_dict["RTMean"] = rts_list[i].split(" ")[0]
+        output_dict["Balance Score"] = rts_list[i].split(" ")[-1].replace("(", "").replace(")", "").replace("%", "")
+
+        if scan_to_basepeak is not None:
+            output_dict["BasePeak"] = scan_to_basepeak[scan]
+        else:
+            output_dict["BasePeak"] =  "-1"
+
 
         output_list.append(output_dict)
 
-    ming_fileio_library.write_list_dict_table_data(output_list, output_clustersummary_filename)
+    output_df = pd.DataFrame(output_list)
+    output_df.to_csv(output_clustersummary_filename, sep='\t', index=False)
 
 def determine_filetype_of_import(input_folder):
     input_filenames = ming_fileio_library.list_files_in_dir(input_folder)
@@ -181,6 +201,16 @@ def main():
 
     file_type_of_import = determine_filetype_of_import(args.spectrum_folder)
 
+    # Writing a file summary
+    import glob
+    all_files = glob.glob(os.path.join(args.spectrum_folder, "*"))
+    all_files = [mangled_mapping[os.path.basename(filename)] for filename in all_files]
+    filename_df = pd.DataFrame()
+    filename_df["full_CCMS_path"] = all_files
+    filename_df.to_csv(os.path.join(args.summary_output, "filesummary.tsv"), sep="\t", index=False)
+
+    print(filename_df)
+
 
     hdf5_filename = os.path.join(args.scratch_folder, "data.h5")
 
@@ -215,7 +245,6 @@ def main():
     cmds.append([args.python_runtime, args.report_script, "--output_prefix", "gnps-gc", hdf5_filename, "summary_temp"])
     cmds.append(["tar", "-cvf", os.path.join(args.summary_output, "summary.tar"), os.path.join("summary_temp", "gnps-gc")])
 
-
     for cmd in cmds:
         print(" ".join(cmd))
         subprocess.call(cmd)
@@ -234,18 +263,14 @@ def main():
     for line in f:
         fname = line.split(',')[0]
         if fname.startswith("spec") and fname in mangled_mapping_filename:
-            print("before:")
-            print(line)
-            line = line.replace(fname,mangled_mapping_filename[fname])
-            print("after:")
-            print(line)
+            line = line.replace(fname, mangled_mapping_filename[fname])
         quant_in_memory.append(line)
     rewrite_quant = open(output_quant_filename,'w')
     rewrite_quant.write("".join(quant_in_memory))
     rewrite_quant.close()
-    parse_peaks_for_output(output_peak_txt_filename, args.clustered_mgf)
+    scan_to_basepeak = parse_peaks_for_output(output_peak_txt_filename, args.clustered_mgf)
     simple_presence_of_merged_spectra_processing(output_quant_filename, args.clusterinfo, mangled_mapping)
-    generate_clustersummary(output_quant_filename, args.clustersummary)
+    generate_clustersummary(output_quant_filename, args.clustersummary, scan_to_basepeak=scan_to_basepeak)
 
     # Removing the big data
     os.remove(hdf5_filename)

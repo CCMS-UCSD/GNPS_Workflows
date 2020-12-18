@@ -1,0 +1,48 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/envs/spec2vec/bin">
+        <toolPath tool="calculate_spec2vec" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="calculate_spec2vec.script" path="calculate_spec2vec.py" />
+        <pathVar name="spec2vec.model" path="spec2vec_UniqueInchikeys_ratio05_filtered_iter_50.model" />
+    </pathSet>
+
+    <tool name="calculate_spec2vec">
+        <require name="workflowParameters"       type="file"/>
+        <require name="spectra"       type="file"/>
+        <produce name="pairs"        type="file" naming="fixed" value="pairs" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="calculate_spec2vec.script"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="pairs"/>
+            <arg pathRef="spec2vec.model"/>
+            <arg option="-min_score" valueRef="@PAIRS_MIN_SCORE"/>
+        </execution>
+    </tool>
+
+
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="create_graphml" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="create_graphml.script" path="create_graphml.py" />
+    </pathSet>
+
+    <tool name="create_graphml">
+        <require name="pairs"       type="file"/>
+        <require name="existing_graphml"       type="folder"/>
+        <produce name="gnps_molecular_network_graphml"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_graphml.script"/>
+            <arg valueRef="pairs"/>
+            <arg valueRef="existing_graphml"/>
+            <arg valueRef="gnps_molecular_network_graphml"/>
+            <arg option="-topk" valueRef="@TOPK"/>
+            <arg option="-removecosine" valueRef="@REMOVE_COSINE_PAIRS"/>
+            <arg option="-component_filtering" valueRef="@NETWORK_TOPOLOGY_FILTERING"/>
+        </execution>
+    </tool>
+</toolset>
