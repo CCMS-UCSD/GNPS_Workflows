@@ -18,5 +18,6 @@ d0b5249f7d69443a8adcb9e43ebcc0a2,fbmn IIN,view_all_clusters_withID
 64b22841ab3548f987b3cfc18696a581,fbmn with stats and plots,view_all_clusters_withID;network_stats_selected_columns;network_stats_all_columns
 8c6b9e069b5843229e0902fd55086022,fbmn with blank molecules pre-removed,
 d513e6923920413a89f1669b16117e1d,fbmn with mzML files,file_summary
+f932ba2238c04499b48c696008c33672,fbmn with IIN collapse,
 d26097f52d3a4c97ad2fd57620c3445a,fbmn metaboscape,view_all_clusters_withID
 88c166699cb84466b96011f7c3a7103b,fbmn metaboscape with metadata,view_all_clusters_withID
