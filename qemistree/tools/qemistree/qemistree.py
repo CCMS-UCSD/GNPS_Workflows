@@ -192,7 +192,7 @@ def main():
         --m-feature-metadata-file {output_classified_feature_data_qza} \
         --o-visualization {output_qemistree_empress_qzv}'
         all_cmd.append(cmd)
-
+        
     #Actually running all the commands
     output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
     with open(output_command_log_filename, "w") as log_file:
