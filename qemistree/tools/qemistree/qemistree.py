@@ -179,7 +179,8 @@ def main():
         --i-tree {output_qemistree_pruned_qza} \
         --m-feature-metadata-file {output_classified_feature_data_qza} \
         --m-sample-metadata-file {metadata_files[0]} \
-        --o-visualization {output_qemistree_empress_qzv}'
+        --o-visualization {output_qemistree_empress_qzv} \
+        --p-filter-missing-features'
         all_cmd.append(cmd)
 
         # saving sample metadata
@@ -190,7 +191,8 @@ def main():
         cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime empress tree-plot \
         --i-tree {output_qemistree_pruned_qza} \
         --m-feature-metadata-file {output_classified_feature_data_qza} \
-        --o-visualization {output_qemistree_empress_qzv}'
+        --o-visualization {output_qemistree_empress_qzv} \
+        --p-filter-missing-features'
         all_cmd.append(cmd)
         
     #Actually running all the commands
