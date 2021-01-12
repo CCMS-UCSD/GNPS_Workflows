@@ -44,6 +44,8 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
         
         dataset_spectra_matches = spectra_matches_df[spectra_matches_df["dataset_id"] == dataset]
         clusters_matched = list(set(dataset_spectra_matches["cluster_scan"]))
+
+        # TODO: Add library identifications to network
         
         network_df["Node1"] = network_df["Node1"].astype(int)
         filtered_edges = network_df[network_df["Node1"].isin(clusters_matched)]
