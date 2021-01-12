@@ -35,7 +35,7 @@
             <arg pathRef="FindDatasetMatchesParallelPrep.script"/>
                 <arg valueRef="flowParams"/>
                 <arg valueRef="all_dataset_matches_parallel_params"/>
-                <arg value="20"/>
+                <arg value="5"/>
         </execution>
     </tool>
 
