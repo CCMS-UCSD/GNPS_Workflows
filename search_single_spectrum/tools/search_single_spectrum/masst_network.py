@@ -9,8 +9,12 @@ def main():
     parser.add_argument('output_network', help='output_network')
     args = parser.parse_args()
 
-    spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
-    create_masst_network(spectra_matches_df, args.output_network)
+    try:
+        spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
+        create_masst_network(spectra_matches_df, args.output_network)
+    except:
+        with open(args.output_network, "w") as o:
+            o.write("EMPTY")
 
 
 def create_masst_network(spectra_matches_df, output_graphml, output_image=None):

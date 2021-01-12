@@ -60,7 +60,7 @@
     <!-- Creating Network from MASST Results -->
     <collection name="masst_network"/>
     <action name="create_masst_network">
-        <input  port="all_dataset_matches"       object="all_dataset_matches"/>
+        <input  port="all_dataset_spectra_matches"       object="all_dataset_spectra_matches"/>
         <output  port="masst_network" collection="masst_network"/>
     </action>
 

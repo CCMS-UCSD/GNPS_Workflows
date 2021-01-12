@@ -59,7 +59,7 @@
 
     <!-- Creating Network from MASST Results -->
 	<bind action="create_masst_network" tool="create_masst_network">
-		<inputAsRequirement port="all_dataset_matches" requirement="all_dataset_matches"/>
+		<inputAsRequirement port="all_dataset_spectra_matches" requirement="all_dataset_spectra_matches"/>
 		<productionToOutput port="masst_network"       production="masst_network"/>
 	</bind>
 
