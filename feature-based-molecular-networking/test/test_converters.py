@@ -92,7 +92,7 @@ class TestLoaders(unittest.TestCase):
             "./xcms3_output_iin.csv")
     
     def test_sirius(self):
-       sirius_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/SIRIUS/sirius_feature_table.csv", \
+        sirius_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/SIRIUS/sirius_feature_table.csv", \
             "./sirius_output.csv")
         self.assertTrue(filecmp.cmp("./sirius_output.csv", "./reference_input_file_for_formatter/SIRIUS/sirius_feature_table_converted.csv", shallow=False))
 
