@@ -9,6 +9,7 @@ import metaboscape_formatter
 import xcms_formatter
 import mzmine2_formatter
 import openms_formatter
+import sirius_formatter
 
 class TestLoaders(unittest.TestCase):
 
