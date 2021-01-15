@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import networkx as nx
 import argparse
+import ming_gnps_library
 
 def main():
     parser = argparse.ArgumentParser(description='Create masst network')
@@ -29,6 +30,10 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
     output_dict["usi"] = "mzspec:GNPS:TASK-c6b2797224f34d819d20dd7af622bc6b-spectra/:scan:1"
     output_dict["dataset"] = "QUERY"
     output_dict["scan"] = 1
+    output_dict["Compound_Name"] = "N/A"
+    output_dict["Smiles"] = "N/A"
+    output_dict["INCHI"] = "N/A"
+    output_dict["MQScore"] = "N/A"
 
     all_node_usi_list.append(output_dict)
 
@@ -45,7 +50,13 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
         dataset_spectra_matches = spectra_matches_df[spectra_matches_df["dataset_id"] == dataset]
         clusters_matched = list(set(dataset_spectra_matches["cluster_scan"]))
 
-        # TODO: Add library identifications to network
+        # Grabbing identification information
+        try:
+            dataset_identifications = ming_gnps_library.get_dataset_current_continuous_identifications(dataset_task)
+            dataset_identifications_df = pd.DataFrame(dataset_identifications)
+            #print(dataset_identifications_df.columns)
+        except:
+            pass
         
         network_df["Node1"] = network_df["Node1"].astype(int)
         filtered_edges = network_df[network_df["Node1"].isin(clusters_matched)]
@@ -57,6 +68,21 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
             output_dict["usi"] = usi
             output_dict["dataset"] = filtered_dataset[0]["dataset"]
             output_dict["scan"] = cluster
+
+            try:
+                filtered_identifications_df = dataset_identifications_df[dataset_identifications_df["#Scan#"] == cluster]
+                identification_dict = filtered_identifications_df.to_dict(orient="records")[0]
+
+                output_dict["Compound_Name"] = identification_dict["Compound_Name"]
+                output_dict["Smiles"] = identification_dict["Smiles"]
+                output_dict["INCHI"] = identification_dict["INCHI"]
+                output_dict["MQScore"] = identification_dict["MQScore"]
+            except:
+                output_dict["Compound_Name"] = "N/A"
+                output_dict["Smiles"] = "N/A"
+                output_dict["INCHI"] = "N/A"
+                output_dict["MQScore"] = "N/A"
+
             all_node_usi_list.append(output_dict)
 
     # Now we will load up all the spectra and do stuff with it
@@ -71,8 +97,14 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
         spectrum_json = requests.get(url).json()
 
         spectrum = Spectrum("", display_information, display_information, spectrum_json["peaks"], spectrum_json["precursor_mz"], 1, 2)
+
         spectrum.dataset = usi_dict["dataset"]
         spectrum.usi = usi_dict["usi"]
+        spectrum.Compound_Name = usi_dict["Compound_Name"]
+        spectrum.Smiles = usi_dict["Smiles"]
+        spectrum.INCHI = usi_dict["INCHI"]
+        spectrum.MQScore = usi_dict["MQScore"]
+
         all_spectra_list.append(spectrum)
 
     min_score = 0.7
@@ -104,6 +136,15 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
             G.nodes[spectrum2.scan]["mz"] = spectrum2.mz
             G.nodes[spectrum1.scan]["dataset"] = spectrum1.dataset
             G.nodes[spectrum2.scan]["dataset"] = spectrum2.dataset
+            G.nodes[spectrum1.scan]["Compound_Name"] = spectrum1.Compound_Name
+            G.nodes[spectrum2.scan]["Compound_Name"] = spectrum2.Compound_Name
+            G.nodes[spectrum1.scan]["Smiles"] = spectrum1.Smiles
+            G.nodes[spectrum2.scan]["Smiles"] = spectrum2.Smiles
+            G.nodes[spectrum1.scan]["INCHI"] = spectrum1.INCHI
+            G.nodes[spectrum2.scan]["INCHI"] = spectrum2.INCHI
+            G.nodes[spectrum1.scan]["MQScore"] = spectrum1.MQScore
+            G.nodes[spectrum2.scan]["MQScore"] = spectrum2.MQScore
+
 
     import matplotlib.pyplot as plt
     import molecular_network_filtering_library
