@@ -30,10 +30,6 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
     output_dict["usi"] = "mzspec:GNPS:TASK-c6b2797224f34d819d20dd7af622bc6b-spectra/:scan:1"
     output_dict["dataset"] = "QUERY"
     output_dict["scan"] = 1
-    output_dict["Compound_Name"] = "N/A"
-    output_dict["Smiles"] = "N/A"
-    output_dict["INCHI"] = "N/A"
-    output_dict["MQScore"] = "N/A"
 
     all_node_usi_list.append(output_dict)
 
@@ -77,11 +73,9 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
                 output_dict["Smiles"] = identification_dict["Smiles"]
                 output_dict["INCHI"] = identification_dict["INCHI"]
                 output_dict["MQScore"] = identification_dict["MQScore"]
+                output_dict["SpectrumID"] = identification_dict["SpectrumID"]
             except:
-                output_dict["Compound_Name"] = "N/A"
-                output_dict["Smiles"] = "N/A"
-                output_dict["INCHI"] = "N/A"
-                output_dict["MQScore"] = "N/A"
+                pass
 
             all_node_usi_list.append(output_dict)
 
@@ -100,10 +94,11 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
 
         spectrum.dataset = usi_dict["dataset"]
         spectrum.usi = usi_dict["usi"]
-        spectrum.Compound_Name = usi_dict["Compound_Name"]
-        spectrum.Smiles = usi_dict["Smiles"]
-        spectrum.INCHI = usi_dict["INCHI"]
-        spectrum.MQScore = usi_dict["MQScore"]
+        spectrum.Compound_Name = usi_dict.get("Compound_Name", "N/A")
+        spectrum.Smiles = usi_dict.get("Smiles", "N/A")
+        spectrum.INCHI = usi_dict.get("INCHI", "N/A")
+        spectrum.MQScore = usi_dict.get("MQScore", "N/A")
+        spectrum.SpectrumID = usi_dict.get("SpectrumID", "N/A")
 
         all_spectra_list.append(spectrum)
 
