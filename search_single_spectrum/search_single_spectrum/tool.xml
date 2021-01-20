@@ -35,7 +35,7 @@
             <arg pathRef="FindDatasetMatchesParallelPrep.script"/>
                 <arg valueRef="flowParams"/>
                 <arg valueRef="all_dataset_matches_parallel_params"/>
-                <arg value="20"/>
+                <arg value="5"/>
         </execution>
     </tool>
 
@@ -185,6 +185,26 @@
             <arg pathRef="write_description.script"/>
             <arg valueRef="workflowParameters"/>
             <arg valueRef="written_description"/>
+        </execution>
+    </tool>
+
+    <!-- Creating Network from MASST Results -->                                                                                                                                                  
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="create_masst_network" path="python"/>
+    </pathSet>
+
+    <pathSet base="$base/">
+        <pathVar name="create_masst_network.script" path="masst_network.py"/>
+    </pathSet>
+
+    <tool name="create_masst_network">
+        <require name="all_dataset_spectra_matches" type="file"/>
+        <produce name="masst_network" type="file" naming="fixed" value="masst_network.graphml"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="create_masst_network.script"/>
+            <arg valueRef="all_dataset_spectra_matches"/>
+            <arg valueRef="masst_network"/>
         </execution>
     </tool>
 

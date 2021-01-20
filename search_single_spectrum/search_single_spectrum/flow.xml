@@ -57,6 +57,13 @@
         <output  port="all_dataset_matches" object="all_dataset_spectra_matches"/>
     </action>
 
+    <!-- Creating Network from MASST Results -->
+    <collection name="masst_network"/>
+    <action name="create_masst_network">
+        <input  port="all_dataset_spectra_matches"       object="all_dataset_spectra_matches"/>
+        <output  port="masst_network" collection="masst_network"/>
+    </action>
+
     <object name="linkout_file"/>
     <action name="create_linkout_file">
         <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
@@ -96,5 +103,7 @@
         <input port="linkout_file" object="linkout_file"/>
         <input port="written_description" object="written_description"/>
         <input port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+
+        <input port="masst_network" collection="masst_network"/>
 	</action>
 </flow>
