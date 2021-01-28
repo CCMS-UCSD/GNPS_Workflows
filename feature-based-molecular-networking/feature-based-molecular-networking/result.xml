@@ -525,7 +525,7 @@
         </data>
     </block>
 	
-    <view id="dereplicatorplus" label="Analyze with DEREPLICATOR PLUS" group="Advanced Views - Experimental Views">
+    <view id="dereplicatorplus" label="Annotate with DEREPLICATOR+" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="dereplicatorplus"/>
     </view>
     
@@ -538,7 +538,7 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS", "desc":"DEREPLICATOR PLUS of FBMN [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
     </block>
 	
-    <view id="cyclonovo" label="Analyze with CYCLONOVO" group="Advanced Views - Experimental Views">
+    <view id="cyclonovo" label="Annotate with CYCLONOVO" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="cyclonovo"/>
     </view>
     
