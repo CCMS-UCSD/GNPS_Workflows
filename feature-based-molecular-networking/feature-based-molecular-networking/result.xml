@@ -524,8 +524,34 @@
             </parsers>
         </data>
     </block>
-
-
+	
+    <view id="dereplicatorplus" label="Analyze with DEREPLICATOR PLUS" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="dereplicatorplus"/>
+    </view>
+    
+	<block id="dereplicatorplus" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"DEREPLICATOR_PLUS", "desc":"DEREPLICATOR PLUS of FBMN [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
+    </block>
+	
+    <view id="cyclonovo" label="Analyze with CYCLONOVO" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="cyclonovo"/>
+    </view>
+    
+	<block id="cyclonovo" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"CYCLONOVO", "desc":"CYCLONOVO of FBMN [task]", "spec_on_server":"t.[task]/spectra/specs_ms.mgf"}'/>
+    </block>
+	
+	
     <view id="reanalyze_ms2lda" label="Analyze with MS2LDA" group="Advanced Views - Experimental Views">
         <blockRef id="main" type="reanalyze_ms2lda"/>
     </view>
