@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="xicbatch">
+	<object     name="workflowParameters"/>
+	<collection name="spectra"/>
+	
+	<action name="begin">
+		<output port="flowParams" object="workflowParameters"/>
+		<output port="spectra" collection="spectra"/>
+	</action>
+
+	<object name="results"/>
+	<action name="calculate_xic">
+        <input  port="workflowParameters" object="workflowParameters"/>
+		<input port="spectra" collection="spectra"/>
+		<output  port="results" object="results"/>
+    </action>
+
+	<object name="demangled_results"/>
+	<action name="demangle_results">
+        <input  port="workflowParameters" object="workflowParameters"/>
+		<input port="results" object="results"/>
+		<output  port="demangled_results" object="demangled_results"/>
+    </action>
+
+	<action name="end">
+		<input port="results" object="results"/>
+		<input port="demangled_results" object="demangled_results"/>
+	</action>
+</flow>

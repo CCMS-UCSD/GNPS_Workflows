@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="xicbatch" version="release_9">
+
+    <view id="view_integration_results" label="View Results" group="Default Results Views">
+        <blockRef id="main" type="view_integration_results"/>
+    </view>
+
+    <block id="view_integration_results" type="table_ss">
+        <data>
+            <source type="file" name="demangled_results/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="filename" operator="descending"/>
+                <parser type="SQLite"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[full_ccms_path]"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="@XICMZ"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="@XICRT"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <column type="text" field="full_ccms_path" label="filename" precision="2"/>
+            <column type="float" field="mz" label="mz" precision="3"/>
+            <column type="float" field="rt" label="rt" precision="3"/>
+            <column type="float" field="integration_value" label="integration_value" precision="3"/>
+        </row>
+    </block>
+
+
+</interface>

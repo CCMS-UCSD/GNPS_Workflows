@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="xicbatch" version="release_9">
+    <workflow-id>xicbatch</workflow-id>
+    <workflow-label>xicbatch</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <parameter name="spec_on_server" label="Spectrm mzML">
+            <fileGenerator type="upload" purpose="spectrum" target="spectra"/>
+        </parameter>
+
+        <!-- Basic MS parameters -->
+		<parameter name="XICMZ" label="XICMZ">
+			<default value=""/>
+			<validator type="float" minimumExclusive="0" maximum="2000"/>
+		</parameter>
+
+        <parameter name="XICMZ_TOL" label="XICMZ_TOL">
+			<default value="0.5"/>
+			<validator type="float" minimumExclusive="0" maximum="2000"/>
+		</parameter>
+
+        <parameter name="XICRT" label="XICRT">
+			<default value=""/>
+			<validator type="float" minimumExclusive="0" maximum="2000"/>
+		</parameter>
+
+        <parameter name="XICRT_TOL" label="XICRT_TOL">
+			<default value="0.5"/>
+			<validator type="float" minimumExclusive="0" maximum="2000"/>
+		</parameter>
+
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Input Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="spec_on_server_tooltip">
+                        Accepted formats: mgf.
+					</tooltip>
+                </label>
+            </cell>
+            <cell colspan="3">
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="XICMZ"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="XICMZ">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="XICMZ_TOL"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="XICMZ_TOL">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="XICRT"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="XICRT">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="XICRT_TOL"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="text" parameter="XICRT_TOL">
+                    <attribute name="size" value="3"/>
+                </input>
+            </cell>
+        </row>
+
+    </block>
+
+
+</interface>
