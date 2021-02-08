@@ -22,6 +22,7 @@ def main():
         ggplot(extraction_df, aes(x='rt', y='int', color='filename'))
         + geom_line() # line plot
         + labs(x='RT', y='Intensity')
+        theme(figure_size=(30,20))
     )
 
     p.save(os.path.join(args.output_folder, "merged.png"))

@@ -16,9 +16,9 @@ def calculate_xic(filename, mz, rt, mz_tolerance, rt_min, rt_max, msaccess_path,
     mz_upper = mz + mz_tolerance
 
     command = 'export LC_ALL=C && {} {} -o {} -x "tic mz={},{} delimiter=tab" --filter "msLevel 1" --filter "scanTime ["{},{}"]"'.format(
-                    msaccess_path, filename, temp_result_folder, mz_lower, mz_upper, rt_min, rt_max)
+                    msaccess_path, filename, temp_result_folder, mz_lower, mz_upper, rt_min * 60, rt_max * 60)
 
-    print(command)
+    print(command, mz_lower, mz_upper, mz_tolerance)
     os.system(command)
 
     result_filename = glob.glob(os.path.join(temp_result_folder, "*"))[0]
@@ -46,6 +46,8 @@ def main():
     parser.add_argument('--rttol', default=None, help='rttol')
     
     args = parser.parse_args()
+
+    print(args)
 
     all_input_files = glob.glob(os.path.join(args.input_folder, "*"))
 
