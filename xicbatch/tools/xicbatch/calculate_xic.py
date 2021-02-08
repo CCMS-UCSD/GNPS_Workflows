@@ -38,6 +38,7 @@ def main():
     parser = argparse.ArgumentParser(description='Creating XIC')
     parser.add_argument('input_folder', help='input_mgf')
     parser.add_argument('output_results', help='output_results')
+    parser.add_argument('extraction_results', help='extraction_results')
     parser.add_argument('msaccess_path', help='msaccess_path')
     parser.add_argument('--mz', default=None, help='mz')
     parser.add_argument('--rt', default=None, help='rt')
@@ -49,7 +50,7 @@ def main():
     all_input_files = glob.glob(os.path.join(args.input_folder, "*"))
 
     output_list = []
-
+    output_full_xic = []
     for filename in all_input_files:
         mz = float(args.mz)
         rt = float(args.rt)
@@ -60,6 +61,9 @@ def main():
                                 float(args.rt) - float(args.rttol), 
                                 float(args.rt) + float(args.rttol), args.msaccess_path, str(args.mz))
 
+        xic_df["query"] = "{}:{}".format(mz, rt)
+        xic_df["filename"] = os.path.basename(filename)
+
         integration_value = integrate.trapz(xic_df["int"], x=xic_df["rt"])
         
         output_dict = {}
@@ -67,11 +71,15 @@ def main():
         output_dict["integration_value"] = integration_value
         output_dict["mz"] = mz
         output_dict["rt"] = rt
+        output_dict["drawing"] = "{}_{}_{}.png".format(os.path.basename(filename), mz, rt)
 
+        output_full_xic.append(xic_df)
         output_list.append(output_dict)
 
     results_df = pd.DataFrame(output_list)
     results_df.to_csv(args.output_results, sep="\t", index=False)
+
+    pd.concat(output_full_xic).to_csv(args.extraction_results, sep='\t', index=False)
 
 if __name__ == "__main__":
     main()

@@ -11,11 +11,13 @@
         <require name="workflowParameters"       type="file"/>
         <require name="spectra"       type="folder"/>
         <produce name="results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        <produce name="extraction_results"        type="file" naming="fixed" value="results" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="calculate_xic.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="results"/>
+            <arg valueRef="extraction_results"/>
             <arg pathRef="msaccess.path"/>
             <arg option="-mz" valueRef="@XICMZ"/>
             <arg option="-mztol" valueRef="@XICRT_TOL"/>
@@ -44,5 +46,27 @@
             <arg valueRef="workflowParameters"/>
         </execution>
     </tool>
+
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="draw_results" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="draw_results.script" path="draw_results.py" />
+    </pathSet>
+
+    <tool name="draw_results">
+        <require name="workflowParameters"       type="file"/>
+        <require name="extraction_results"       type="file"/>
+        <produce name="visualized_results"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="draw_results.script"/>
+            <arg valueRef="extraction_results"/>
+            <arg valueRef="visualized_results"/>
+        </execution>
+    </tool>
+
+    
 
 </toolset>

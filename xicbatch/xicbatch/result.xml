@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="xicbatch" version="release_9">
 
+    <!-- View definitions -->
+    <download>
+        <source type="folder" name="demangled_results/"/>
+        <source type="folder" name="extraction_results/"/>
+    </download>
+
     <view id="view_integration_results" label="View Results" group="Default Results Views">
         <blockRef id="main" type="view_integration_results"/>
     </view>
@@ -26,6 +32,18 @@
             <column type="float" field="rt" label="rt" precision="3"/>
             <column type="float" field="integration_value" label="integration_value" precision="3"/>
         </row>
+    </block>
+
+    <view id="merged_plot" label="Plot Merged" group="Advanced Views - Views (Experimental)">
+        <blockRef id="main" type="merged_plot"/>
+    </view>
+    <block id="merged_plot" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&#038;file=visualized_results/merged.png'/>
     </block>
 
 

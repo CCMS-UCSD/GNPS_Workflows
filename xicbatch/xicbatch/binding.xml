@@ -21,6 +21,7 @@
 		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
 		<inputAsRequirement port="spectra" requirement="spectra"/>
 		<productionToOutput port="results" production="results"/>
+		<productionToOutput port="extraction_results" production="extraction_results"/>
 	</bind>
 
 	<bind action="demangle_results" tool="demangle_results">
@@ -28,6 +29,14 @@
 		<inputAsRequirement port="results" requirement="results"/>
 		<productionToOutput port="demangled_results" production="demangled_results"/>
 	</bind>
+
+	<bind action="draw_results" tool="draw_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="extraction_results" requirement="extraction_results"/>
+		<productionToOutput port="visualized_results" production="visualized_results"/>
+	</bind>
+
+	
 
 	<bind action="end" type="upload">
 		<url value="{livesearch.upload}"/>
@@ -39,8 +48,16 @@
 			<query name="resource" value="results"/>
 		</upload>
 
+		<upload port="extraction_results" type="folder">
+			<query name="resource" value="extraction_results"/>
+		</upload>
+
 		<upload port="demangled_results" type="folder">
 			<query name="resource" value="demangled_results"/>
+		</upload>
+
+		<upload port="visualized_results" type="folder">
+			<query name="resource" value="visualized_results"/>
 		</upload>
 
 	</bind>
