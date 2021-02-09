@@ -31,6 +31,20 @@
 		<productionToOutput port="demangled_results" production="demangled_results"/>
 	</bind>
 
+	<bind action="demangle_extraction_results" tool="demangle_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="extraction_results" requirement="results"/>
+		<productionToOutput port="demangled_extraction_results" production="demangled_results"/>
+	</bind>
+
+	<bind action="demangle_ms2_extraction_results" tool="demangle_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="ms2_extraction_results" requirement="results"/>
+		<productionToOutput port="demangled_ms2_extraction_results" production="demangled_results"/>
+	</bind>
+
+
+
 	<bind action="draw_results" tool="draw_results">
 		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
 		<inputAsRequirement port="extraction_results" requirement="extraction_results"/>
@@ -59,6 +73,14 @@
 
 		<upload port="demangled_results" type="folder">
 			<query name="resource" value="demangled_results"/>
+		</upload>
+
+		<upload port="demangled_extraction_results" type="folder">
+			<query name="resource" value="demangled_extraction_results"/>
+		</upload>
+
+		<upload port="demangled_ms2_extraction_results" type="folder">
+			<query name="resource" value="demangled_ms2_extraction_results"/>
 		</upload>
 
 		<upload port="visualized_results" type="folder">

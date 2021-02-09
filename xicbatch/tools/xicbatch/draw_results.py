@@ -22,7 +22,7 @@ def main():
         ggplot(extraction_df, aes(x='rt', y='int', color='filename'))
         + geom_line() # line plot
         + labs(x='RT', y='Intensity')
-        + theme(figure_size=(30,20))
+        + theme(figure_size=(20,16))
     )
 
     p.save(os.path.join(args.output_folder, "merged.png"), limitsize=False)
@@ -34,13 +34,16 @@ def main():
         for query in all_queries:
             output_filename = "{}_{}.png".format(filename, query)
             filtered_df = extraction_df[extraction_df["filename"] == filename]
-            filtered_df = extraction_df[extraction_df["query"] == query]
+            filtered_df = filtered_df[filtered_df["query"] == query]
+
+            print(filtered_df)
+            print(len(filtered_df))
 
             p = (
                 ggplot(filtered_df, aes(x='rt', y='int'))
                 + geom_line() # line plot
                 + labs(x='RT', y='Intensity')
-                + theme(figure_size=(30,20))
+                + theme(figure_size=(15,10))
             )
 
             p.save(os.path.join(args.output_folder, output_filename), limitsize=False)
