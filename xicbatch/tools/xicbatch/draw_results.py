@@ -19,7 +19,7 @@ def main():
 
 
     p = (
-        ggplot(extraction_df, aes(x='rt', y='int', color='filename'))
+        ggplot(extraction_df, aes(x='rt', y='int', color='full_ccms_path'))
         + geom_line() # line plot
         + labs(x='RT', y='Intensity')
         + theme(figure_size=(20,16))
