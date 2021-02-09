@@ -22,6 +22,7 @@
 		<inputAsRequirement port="spectra" requirement="spectra"/>
 		<productionToOutput port="results" production="results"/>
 		<productionToOutput port="extraction_results" production="extraction_results"/>
+		<productionToOutput port="ms2_extraction_results" production="ms2_extraction_results"/>
 	</bind>
 
 	<bind action="demangle_results" tool="demangle_results">
@@ -50,6 +51,10 @@
 
 		<upload port="extraction_results" type="folder">
 			<query name="resource" value="extraction_results"/>
+		</upload>
+
+		<upload port="ms2_extraction_results" type="folder">
+			<query name="resource" value="ms2_extraction_results"/>
 		</upload>
 
 		<upload port="demangled_results" type="folder">

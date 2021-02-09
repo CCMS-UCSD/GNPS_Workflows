@@ -12,12 +12,15 @@
         <require name="spectra"       type="folder"/>
         <produce name="results"        type="file" naming="fixed" value="results" extension="tsv"/>
         <produce name="extraction_results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        <produce name="ms2_extraction_results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="calculate_xic.script"/>
             <arg valueRef="spectra"/>
             <arg valueRef="results"/>
             <arg valueRef="extraction_results"/>
+            <arg valueRef="ms2_extraction_results"/>
             <arg pathRef="msaccess.path"/>
             <arg option="-mz" valueRef="@XICMZ"/>
             <arg option="-mztol" valueRef="@XICRT_TOL"/>

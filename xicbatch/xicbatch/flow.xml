@@ -10,11 +10,13 @@
 
 	<object name="results"/>
 	<object name="extraction_results"/>
+	<object name="ms2_extraction_results"/>
 	<action name="calculate_xic">
         <input  port="workflowParameters" object="workflowParameters"/>
 		<input port="spectra" collection="spectra"/>
 		<output  port="results" object="results"/>
 		<output  port="extraction_results" object="extraction_results"/>
+		<output  port="ms2_extraction_results" object="ms2_extraction_results"/>
     </action>
 
 	<object name="demangled_results"/>
@@ -34,6 +36,7 @@
 	<action name="end">
 		<input port="results" object="results"/>
 		<input port="extraction_results" object="extraction_results"/>
+		<input port="ms2_extraction_results" object="ms2_extraction_results"/>
 		<input port="demangled_results" object="demangled_results"/>
 		<input port="visualized_results" collection="visualized_results"/>
 	</action>

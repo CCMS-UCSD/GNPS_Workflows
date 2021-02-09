@@ -22,7 +22,7 @@
         <row>
             <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[full_ccms_path]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_ccms_path]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="@XICMZ"/>
                 <parameter name="REQUESTPARAMETER=xic_rt_window" value="@XICRT"/>
                 <parameter name="LABEL" value="View LCMS"/>
@@ -31,6 +31,48 @@
             <column type="float" field="mz" label="mz" precision="3"/>
             <column type="float" field="rt" label="rt" precision="3"/>
             <column type="float" field="integration_value" label="integration_value" precision="3"/>
+        </row>
+    </block>
+
+    <view id="view_ms2_results" label="View MS2 Results" group="Default Results Views">
+        <blockRef id="main" type="view_ms2_results"/>
+    </view>
+
+    <block id="view_ms2_results" type="table_ss">
+        <data>
+            <source type="file" name="ms2_extraction_results/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="filename" operator="descending"/>
+                <parser type="SQLite"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[filename]:scan:[scan]"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="@XICMZ"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="@XICRT"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <column type="text" field="filename" label="filename" precision="2"/>
+            <column type="integer" field="scan" label="scan"/>
+            <column type="float" field="precursorMZ" label="precursorMZ" precision="3"/>
+            <column type="float" field="rt" label="rt" precision="3"/>
+            <column type="float" field="tic" label="tic" precision="3"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="4" label="Query" width="550" height="350">
+                <parameter name="file" file="spectra/[filename]"/>
+                <parameter name="scan" value="[scan]"/>
+                <parameter name="compoundname" value="*..*"/>
+            </column>
+        </row>
+        <row expander="MASST Spectrum" expandericontype="text">
+            <column type="singlespectrumcolumnhandler" colspan="5">
+                <parameter name="mz" value="[precursorMZ]"/>
+                <parameter name="file" file="spectra/[filename]"/>
+                <parameter name="scan" value="[scan]"/>
+            </column>
         </row>
     </block>
 
