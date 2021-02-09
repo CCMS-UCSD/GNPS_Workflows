@@ -63,7 +63,7 @@ def main():
                                 float(args.rt) - float(args.rttol), 
                                 float(args.rt) + float(args.rttol), args.msaccess_path, str(args.mz))
 
-        xic_df["query"] = "{}:{}".format(mz, rt)
+        xic_df["query"] = "{}_{}".format(mz, rt)
         xic_df["filename"] = os.path.basename(filename)
 
         integration_value = integrate.trapz(xic_df["int"], x=xic_df["rt"])

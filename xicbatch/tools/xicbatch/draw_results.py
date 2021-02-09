@@ -22,13 +22,31 @@ def main():
         ggplot(extraction_df, aes(x='rt', y='int', color='filename'))
         + geom_line() # line plot
         + labs(x='RT', y='Intensity')
-        theme(figure_size=(30,20))
+        + theme(figure_size=(30,20))
     )
 
-    p.save(os.path.join(args.output_folder, "merged.png"))
+    p.save(os.path.join(args.output_folder, "merged.png"), limitsize=False)
 
     # TODO: Drawing individual per file
+    all_filenames = list(set(extraction_df["filename"]))
+    all_queries = list(set(extraction_df["query"]))
+    for filename in all_filenames:
+        for query in all_queries:
+            output_filename = "{}_{}.png".format(filename, query)
+            filtered_df = extraction_df[extraction_df["filename"] == filename]
+            filtered_df = extraction_df[extraction_df["query"] == query]
 
+            p = (
+                ggplot(filtered_df, aes(x='rt', y='int'))
+                + geom_line() # line plot
+                + labs(x='RT', y='Intensity')
+                + theme(figure_size=(30,20))
+            )
+
+            p.save(os.path.join(args.output_folder, output_filename), limitsize=False)
+
+        
+        
 
 
 if __name__ == "__main__":
