@@ -14,6 +14,8 @@ def main():
         spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
         create_masst_network(spectra_matches_df, args.output_network)
     except:
+        print("Exception")
+        raise
         with open(args.output_network, "w") as o:
             o.write("EMPTY")
 
@@ -35,13 +37,16 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
 
     # Getting all the MASST data
     for dataset in dataset_matches:
-        filtered_dataset = [current_dataset for current_dataset in all_datasets if current_dataset["dataset"] == dataset]
-        dataset_task = filtered_dataset[0]["task"]
-        continuous_id = requests.get("http://gnps.ucsd.edu/ProteoSAFe/ContinuousIDServlet?task={}".format(dataset_task)).json()
-        
-        network_url = "https://gnps.ucsd.edu/ProteoSAFe/result_json.jsp?task={}&view=clusters_network_pairs".format(continuous_id["jobs"][0]["task"])
-        data = requests.get(network_url).json()['blockData']
-        network_df = pd.DataFrame(data)
+        try:
+            filtered_dataset = [current_dataset for current_dataset in all_datasets if current_dataset["dataset"] == dataset]
+            dataset_task = filtered_dataset[0]["task"]
+            continuous_id = requests.get("http://gnps.ucsd.edu/ProteoSAFe/ContinuousIDServlet?task={}".format(dataset_task)).json()
+            
+            network_url = "https://gnps.ucsd.edu/ProteoSAFe/result_json.jsp?task={}&view=clusters_network_pairs".format(continuous_id["jobs"][0]["task"])
+            data = requests.get(network_url).json()['blockData']
+            network_df = pd.DataFrame(data)
+        except:
+            continue
         
         dataset_spectra_matches = spectra_matches_df[spectra_matches_df["dataset_id"] == dataset]
         clusters_matched = list(set(dataset_spectra_matches["cluster_scan"]))
