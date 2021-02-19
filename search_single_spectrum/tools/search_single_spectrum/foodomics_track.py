@@ -5,6 +5,7 @@
 import sys
 import pandas as pd
 import os
+import argparse
 
 def calculate_enrichment(file_occurrent_df, metadata_df):
     # Removing extensions on both
@@ -52,9 +53,9 @@ def main():
     matches_df = pd.read_csv(args.matches_results, sep="\t")
     metadata_df = pd.read_csv(args.foodomics_metadata, sep="\t")
 
-    enrichment_df = foodomics_track.calculate_enrichment(matches_df, metadata_df)
+    enrichment_df = calculate_enrichment(matches_df, metadata_df)
 
-    enrichment_df.to_csv(args.output_enrichment, sep="\t")
+    enrichment_df.to_csv(args.output_enrichment, sep="\t", index=False)
 
 if __name__ == "__main__":
     main()
