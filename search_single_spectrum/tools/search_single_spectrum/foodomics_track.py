@@ -15,7 +15,7 @@ def calculate_enrichment(file_occurrent_df, metadata_df):
     # Filter to approrpaite dataset
     file_occurrent_df = file_occurrent_df[file_occurrent_df["dataset_id"] == "MSV000084900"]
     
-    columns_to_consider = ["sample_type_group5"]
+    columns_to_consider = ["sample_type_group5", "Main.food.description"]
 
     output_list = []
 
