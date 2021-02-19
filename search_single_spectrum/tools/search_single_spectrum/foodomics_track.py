@@ -41,3 +41,21 @@ def calculate_enrichment(file_occurrent_df, metadata_df):
             output_list.append(output_dict)
 
     return pd.DataFrame(output_list)
+
+def main():
+    parser = argparse.ArgumentParser(description='Create foodomics enrichment')
+    parser.add_argument('foodomics_metadata', help='foodomics_metadata')
+    parser.add_argument('matches_results', help='matches_results')
+    parser.add_argument('output_enrichment', help='output_enrichment')
+    args = parser.parse_args()
+
+    matches_df = pd.read_csv(args.matches_results, sep="\t")
+    metadata_df = pd.read_csv(args.foodomics_metadata, sep="\t")
+
+    enrichment_df = foodomics_track.calculate_enrichment(matches_df, metadata_df)
+
+    enrichment_df.to_csv(args.output_enrichment, sep="\t")
+
+if __name__ == "__main__":
+    main()
+
