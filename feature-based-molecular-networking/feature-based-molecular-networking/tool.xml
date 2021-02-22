@@ -133,7 +133,7 @@
     </pathSet>
 
     <pathSet base="$base/binaries">
-        <toolPath tool="molecular_networking_parallel_step" path="main_execmodule"/>
+        <toolPath tool="molecular_networking_parallel_step" path="main_execmodule.allcandidates"/>
     </pathSet>
 
     <tool name="prep_molecular_networking_parameters">
