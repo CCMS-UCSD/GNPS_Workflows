@@ -14,8 +14,6 @@ def main():
         spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
         create_masst_network(spectra_matches_df, args.output_network)
     except:
-        print("Exception")
-        raise
         with open(args.output_network, "w") as o:
             o.write("EMPTY")
 
