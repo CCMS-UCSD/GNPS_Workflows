@@ -30,7 +30,10 @@ def calculate_enrichment(file_occurrent_df, metadata_df):
             merged_df = file_occurrent_df.merge(group_df, how="inner", left_on="basefilename", right_on="filename")
             matched_size = len(merged_df)
 
-            occurrence_fraction = float(matched_size) / float(total_group_size)
+            if total_group_size == 0:
+                occurrence_fraction = 0
+            else:
+                occurrence_fraction = float(matched_size) / float(total_group_size)
 
             output_dict = {}
             output_dict["occurrence_fraction"] = occurrence_fraction
