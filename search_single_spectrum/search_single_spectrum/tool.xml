@@ -205,6 +205,7 @@
             <arg pathRef="create_masst_network.script"/>
             <arg valueRef="all_dataset_spectra_matches"/>
             <arg valueRef="masst_network"/>
+            <arg option="-createnetwork" valueRef="@CREATE_NETWORK"/>
         </execution>
     </tool>
 

@@ -8,14 +8,21 @@ def main():
     parser = argparse.ArgumentParser(description='Create masst network')
     parser.add_argument('input_match_results', help='input_match_results')
     parser.add_argument('output_network', help='output_network')
+    parser.add_argument('--createnetwork', default="No", help='createnetwork')
+    
     args = parser.parse_args()
 
-    try:
-        spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
-        create_masst_network(spectra_matches_df, args.output_network)
-    except:
+    if args.createnetwork == "Yes":
+        try:
+            spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
+            create_masst_network(spectra_matches_df, args.output_network)
+        except:
+            with open(args.output_network, "w") as o:
+                o.write("EMPTY")
+    else:
         with open(args.output_network, "w") as o:
             o.write("EMPTY")
+
 
 
 def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
