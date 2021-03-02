@@ -26,7 +26,7 @@
             <arg valueRef="library_identifications"/>
             <arg valueRef="output_folder"/>
             <arg pathRef="activate.path"/>
-            <arg value="qiime2-2019.10-qemistree"/>
+            <arg value="qiime2-2020.11-qemistree"/>
             <arg pathRef="sirius.path"/>
             <arg option="-instrument" valueRef="@INSTRUMENT"/>
             <arg option="-ionization_mode" valueRef="@IONIZATION_MODE"/>

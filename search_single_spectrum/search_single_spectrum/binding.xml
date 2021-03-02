@@ -57,6 +57,12 @@
 		<productionToOutput port="linkout_file"       production="linkout_file"/>
 	</bind>
 
+    <!-- Creating Network from MASST Results -->
+	<bind action="create_masst_network" tool="create_masst_network">
+		<inputAsRequirement port="all_dataset_spectra_matches" requirement="all_dataset_spectra_matches"/>
+		<productionToOutput port="masst_network"       production="masst_network"/>
+	</bind>
+
 	<!-- Foodomics -->
 	<bind action="foodomics_track" tool="foodomics_track">
 		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
@@ -109,9 +115,14 @@
 		<upload port="foodomics_tracking_file" type="file">
             <query name="resource" value="foodomics_tracking_file"/>
         </upload>
+		
 		<upload port="written_description" type="folder">
             <query name="resource" value="written_description"/>
-        </upload>  
+        </upload>
+
+		<upload port="masst_network" type="folder">
+            <query name="resource" value="masst_network"/>
+        </upload>
 
 	</bind>
 </binding>
