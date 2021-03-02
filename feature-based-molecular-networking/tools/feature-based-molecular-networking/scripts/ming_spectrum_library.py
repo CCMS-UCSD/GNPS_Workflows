@@ -161,6 +161,7 @@ class Spectrum:
         output_lines.append("PEPMASS=" + str(self.mz))
         output_lines.append("CHARGE=" + str(self.charge))
         output_lines.append("COLLISION_ENERGY=" + str(self.collision_energy))
+        output_lines.append("MSLEVEL=" + str(self.ms_level))
         output_lines.append(self.get_mgf_peak_string())
         output_lines.append("END IONS")
 

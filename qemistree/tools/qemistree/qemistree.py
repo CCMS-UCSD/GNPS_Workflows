@@ -42,7 +42,9 @@ def main():
     output_distance_matrix_qza = os.path.join(args.output_folder, "distance-matrix.qza")
     output_pcoa_qza = os.path.join(args.output_folder, "pcoa.qza")
     output_emperor_qza = os.path.join(args.output_folder, "emperor.qzv")
-    output_qemistree_itol_qzv = os.path.join(args.output_folder, "qemistree-itol.qzv")
+    output_qemistree_empress_qzv = os.path.join(args.output_folder, "qemistree-empress.qzv")
+    input_metadata_folder = args.input_metadata_folder
+    output_sample_metadata = os.path.join(args.output_folder, "qiime2_metadata.tsv")
 
     all_cmd = []
 
@@ -171,16 +173,28 @@ def main():
             output_emperor_qza)
         all_cmd.append(cmd)
 
-    # Tree Plotting
-    cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree plot \
-    --i-tree {output_qemistree_pruned_qza} \
-    --i-feature-metadata {output_classified_feature_data_qza} \
-    --p-category direct_parent \
-    --p-ms2-label False \
-    --p-parent-mz True \
-    --o-visualization {output_qemistree_itol_qzv}'
-    all_cmd.append(cmd)
+        # Tree Plotting
+        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime empress community-plot \
+        --i-feature-table {output_merged_feature_table_qza} \
+        --i-tree {output_qemistree_pruned_qza} \
+        --m-feature-metadata-file {output_classified_feature_data_qza} \
+        --m-sample-metadata-file {metadata_files[0]} \
+        --o-visualization {output_qemistree_empress_qzv} \
+        --p-filter-missing-features'
+        all_cmd.append(cmd)
 
+        # saving sample metadata
+        cmd = "cp {} {}".format(metadata_files[0], output_sample_metadata)
+        all_cmd.append(cmd)
+    else:
+        # Tree Plotting without sample metadata
+        cmd = f'source {args.conda_activate_bin} {args.conda_environment} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime empress tree-plot \
+        --i-tree {output_qemistree_pruned_qza} \
+        --m-feature-metadata-file {output_classified_feature_data_qza} \
+        --o-visualization {output_qemistree_empress_qzv} \
+        --p-filter-missing-features'
+        all_cmd.append(cmd)
+        
     #Actually running all the commands
     output_command_log_filename = os.path.join(args.output_folder, "run_log.txt")
     with open(output_command_log_filename, "w") as log_file:
