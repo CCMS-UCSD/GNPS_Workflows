@@ -17,20 +17,20 @@ class TestLoaders(unittest.TestCase):
         msdial_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MS-DIAL/MS-DIAL-GNPS_AG_test_featuretable.txt", \
             "./msdial_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./msdial_output.csv", "./reference_input_file_for_formatter/MS-DIAL/MS-DIAL-GNPS_AG_test_featuretable_reference_output_file.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./msdial_output.csv", "./reference_input_file_for_formatter/MS-DIAL/MS-DIAL-GNPS_AG_test_featuretable_reference_output_file.csv", shallow=False))
 
     def test_msdial_ims(self):
         msdial_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MS-DIAL/GnpsTable_1_20198191357_PASEF.txt", \
             "./msdial_ims_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./msdial_ims_output.csv", "./reference_input_file_for_formatter/MS-DIAL/GnpsTable_1_20198191357_PASEF_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./msdial_ims_output.csv", "./reference_input_file_for_formatter/MS-DIAL/GnpsTable_1_20198191357_PASEF_output.csv", shallow=False))
 
     def test_progenesis(self):
         ## SONAR MSE
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks.txt", \
             "./progenesis_MSE_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./progenesis_MSE_output.csv", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./progenesis_MSE_output.csv", "./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_Peaks_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/SONAR_20_Yeast_MSMS.msp", "SONAR_20_Yeast_MSMS.mgf", compound_to_scan_mapping)
 
@@ -39,7 +39,7 @@ class TestLoaders(unittest.TestCase):
         ## CATECHIN MSE
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.txt", "./Neg_MSE_Catechin_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./Neg_MSE_Catechin_output.csv", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./Neg_MSE_Catechin_output.csv", "./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/Neg_MSE_Catechin.msp", "Neg_MSE_Catechin.mgf", compound_to_scan_mapping)
 
@@ -49,7 +49,7 @@ class TestLoaders(unittest.TestCase):
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.txt", \
             "./progenesis_IMS_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/161118_pos_IMS_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/161118_pos_IMS.msp", "161118_pos_IMS.mgf", compound_to_scan_mapping)
 
@@ -59,7 +59,7 @@ class TestLoaders(unittest.TestCase):
         compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.txt", \
                     "./progenesis_IMS_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./progenesis_IMS_output.csv", "./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags_output.csv", shallow=False))
 
         progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.msp", "202005_IMS_w_tags.mgf", compound_to_scan_mapping)
 
@@ -78,7 +78,7 @@ class TestLoaders(unittest.TestCase):
         mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
             "./mzmine_output.csv")
 
-        #self.assertTrue(filecmp.cmp("./mzmine_output.csv", "./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable_output.csv", shallow=False))
+        self.assertTrue(filecmp.cmp("./mzmine_output.csv", "./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable_output.csv", shallow=False))
 
     def test_openms(self):
         openms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/openms/textexporter-00000.csv", \
