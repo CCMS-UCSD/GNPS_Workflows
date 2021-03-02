@@ -125,7 +125,7 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         sirius_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
-        
+
     # Finally, we can renormlize the output
     try:
         if args.QUANT_FILE_NORM == "RowSum":

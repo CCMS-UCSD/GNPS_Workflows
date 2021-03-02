@@ -73,6 +73,9 @@ class TestLoaders(unittest.TestCase):
 
         metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/SRM1950 Lipidomics.msmsonly.csv", \
             "./metaboscape_output2.csv")
+            
+        metaboscape_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/MetaboScape/metaboscape5_hops.csv", \
+            "./metaboscape_output3.csv")
 
     def test_mzmine2(self):
         mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
@@ -95,6 +98,7 @@ class TestLoaders(unittest.TestCase):
     def test_sirius(self):
         sirius_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/SIRIUS/sirius_feature_table.csv", \
             "./sirius_output.csv")
+        self.assertTrue(filecmp.cmp("./mzmine_output.csv", "./reference_input_file_for_formatter/Progenesis/sirius_feature_table_converted.csv", shallow=False))
 
 if __name__ == '__main__':
     unittest.main()
