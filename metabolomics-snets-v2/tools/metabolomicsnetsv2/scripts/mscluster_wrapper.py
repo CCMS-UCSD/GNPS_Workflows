@@ -3,6 +3,8 @@
 import sys
 import os
 import glob
+import ming_spectrum_library
+
 
 def usage():
     print("<input spectra> <parameters filename> <output spectra> <output aligns> <main specnets filepath>")
@@ -20,8 +22,17 @@ def main():
     if ret_code != 0:
         exit(1)
 
-    #Do clean up out output spectra folder
+    # Perform a rewrite of the mgf file
+    specs_mgf_filename = os.path.join(output_spectra_folder, "specs_ms.mgf")
+    spectrum_collection = ming_spectrum_library.SpectrumCollection(specs_mgf_filename)
+    spectrum_collection.load_from_mgf()
+
+    spectrum_collection.save_to_mgf(open(specs_mgf_filename, "w"), renumber_scans=False)
+
+    # Do clean up out output spectra folder
     all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "specs_ms_*.pklbin"))
+
+
 
     """Disabling Removing Files because they are needed in a later step"""
     #TODO: Move clusterinfo into this step so we can get rid of these files. 
