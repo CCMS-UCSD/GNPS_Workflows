@@ -157,9 +157,9 @@ class Spectrum:
     def get_mgf_string(self):
         output_lines = []
         output_lines.append("BEGIN IONS")
-        output_lines.append("SCANS=" + str(self.scan))
         output_lines.append("PEPMASS=" + str(self.mz))
         output_lines.append("CHARGE=" + str(self.charge))
+        output_lines.append("SCANS=" + str(self.scan))
         output_lines.append("COLLISION_ENERGY=" + str(self.collision_energy))
         output_lines.append("MSLEVEL=" + str(self.ms_level))
         output_lines.append(self.get_mgf_peak_string())

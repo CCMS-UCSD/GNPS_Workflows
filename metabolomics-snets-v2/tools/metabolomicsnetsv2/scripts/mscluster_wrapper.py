@@ -22,12 +22,13 @@ def main():
     if ret_code != 0:
         exit(1)
 
-    # Perform a rewrite of the mgf file
-    specs_mgf_filename = os.path.join(output_spectra_folder, "specs_ms.mgf")
-    spectrum_collection = ming_spectrum_library.SpectrumCollection(specs_mgf_filename)
-    spectrum_collection.load_from_mgf()
+    # Perform a rewrite of the mgf file, this does not need to be done, because original ordering is fine
+    # specs_mgf_filename = os.path.join(output_spectra_folder, "specs_ms.mgf")
+    # print(specs_mgf_filename)
+    # spectrum_collection = ming_spectrum_library.SpectrumCollection(specs_mgf_filename)
+    # spectrum_collection.load_from_mgf()
 
-    spectrum_collection.save_to_mgf(open(specs_mgf_filename, "w"), renumber_scans=False)
+    # spectrum_collection.save_to_mgf(open(specs_mgf_filename, "w"), renumber_scans=False)
 
     # Do clean up out output spectra folder
     all_pklbin_files = glob.glob(os.path.join(output_spectra_folder, "specs_ms_*.pklbin"))
