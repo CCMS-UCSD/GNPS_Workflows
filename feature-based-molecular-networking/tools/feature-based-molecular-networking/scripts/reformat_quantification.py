@@ -45,7 +45,7 @@ def main():
 
         # Checking that the MGF input has only the features that we included in the quantification table
         try:
-            all_features_df = pd.read_csv(args.quantification_table_reformatted, sep="\t")
+            all_features_df = pd.read_csv(args.quantification_table_reformatted, sep=",")
             all_features_list = list(all_features_df["row ID"])
 
             import ming_spectrum_library
