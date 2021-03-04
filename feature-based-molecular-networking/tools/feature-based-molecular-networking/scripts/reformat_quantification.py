@@ -42,6 +42,30 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         mzmine2_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+
+        # Checking that the MGF input has only the features that we included in the quantification table
+        try:
+            all_features_df = pd.read_csv(args.quantification_table_reformatted, sep="\t")
+            all_features_list = list(all_features_df["row ID"])
+
+            import ming_spectrum_library
+            spectrum_collection = ming_spectrum_library.SpectrumCollection()
+            spectrum_collection.load_from_file(args.output_mgf)
+
+            all_spectra = spectrum_collection.spectrum_list
+            filtered_spectra = []
+            for spectum in all_spectra:
+                if spectrum is None:
+                    continue
+                
+                if int(spectrum.scan) in all_features_list:
+                    filtered_spectra.append(spectrum)
+                
+            spectrum_collection.spectrum_list = filtered_spectra
+            spectrum_collection.save_to_mgf(args.output_mgf, renumber_scans=False)
+        except:
+            pass
+
     elif args.toolname == "OPENMS":
         print("OPENMS")
         
