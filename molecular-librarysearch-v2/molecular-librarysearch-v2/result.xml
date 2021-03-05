@@ -39,6 +39,13 @@
                 <parameter name="HASHPARAMTER=main.compound_name_input" value="[Compound_Name]||EXACT"/>
                 <parameter name="LABEL" value="ExploreMolecule"/>
             </column>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spec/[internalFilename]"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="[SpecMZ]"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="[RT_Query]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
             <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
             <column type="integer" field="#Scan#" label="Scan" width="3"/>
             <column type="text" field="SpectrumFile" label="Filename" width="12"/>
