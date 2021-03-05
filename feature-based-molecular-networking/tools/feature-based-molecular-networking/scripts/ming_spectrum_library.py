@@ -140,7 +140,7 @@ class SpectrumCollection:
 
 
 class Spectrum:
-    def __init__(self, filename, scan, index, peaks, mz, charge, ms_level, collision_energy=0.0, fragmentation_method="NO_FRAG", precursor_intensity=0.0, totIonCurrent=0.0):
+    def __init__(self, filename, scan, index, peaks, mz, charge, ms_level, retention_time=0, collision_energy=0.0, fragmentation_method="NO_FRAG", precursor_intensity=0.0, totIonCurrent=0.0):
         self.filename = filename
         self.scan = scan
         self.peaks = peaks
@@ -153,11 +153,13 @@ class Spectrum:
         self.fragmenation_method = fragmentation_method
         self.precursor_intensity = precursor_intensity
         self.totIonCurrent = totIonCurrent
+        self.rt = retention_time
 
     def get_mgf_string(self):
         output_lines = []
         output_lines.append("BEGIN IONS")
         output_lines.append("SCANS=" + str(self.scan))
+        output_lines.append("RTINSECONDS=" + str(self.rt))
         output_lines.append("PEPMASS=" + str(self.mz))
         output_lines.append("CHARGE=" + str(self.charge))
         output_lines.append("COLLISION_ENERGY=" + str(self.collision_energy))
@@ -550,6 +552,7 @@ class LibrarySpectrum:
 def load_mgf_file(filename):
     charge = 0
     mz = 0
+    rt = 0
     peaks = []
     scan = 0
     peptide = ""
@@ -570,6 +573,7 @@ def load_mgf_file(filename):
         if mgf_file_line == "BEGIN IONS":
             charge = 0
             mz = 0
+            rt = 0
             peaks = []
             scan = 0
             peptide = ""
@@ -582,7 +586,7 @@ def load_mgf_file(filename):
 
             if len(peaks) > 0:
                 non_empty_spectrum += 1
-                adding_spectrum = Spectrum(filename, scan, -1, peaks, mz, charge, 2)
+                adding_spectrum = Spectrum(filename, scan, -1, peaks, mz, charge, 2, retention_time=rt)
                 output_spectra.append(adding_spectrum)
             else:
                 output_spectra.append(None)
@@ -612,6 +616,10 @@ def load_mgf_file(filename):
 
         if mgf_file_line[:8] == "PROTEIN=":
             protein = mgf_file_line[8:]
+            continue
+
+        if mgf_file_line[:12] == "RTINSECONDS=":
+            rt = mgf_file_line[12:]
             continue
 
         if mgf_file_line.find("=") == -1:
