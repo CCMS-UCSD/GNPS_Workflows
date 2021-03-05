@@ -273,8 +273,8 @@
             </column>
 
             <column type="genericurlgenerator" label="Quant">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
-                <parameter name="LABEL" value="Quant Plots (Beta)"/>
+                <parameter name="URLBASE" value="https://gnps-plotter.ucsd.edu/"/>
+                <parameter name="LABEL" value="Quant Plots"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[cluster index]"/>
                 <parameter name="USETASK" value="True"/>
             </column>
@@ -673,7 +673,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
+                <parameter name="URLBASE" value="https://gnps-plotter.ucsd.edu/"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -709,7 +709,7 @@
                 <parameter name="USETASK" value="True"/>
             </column>
             <column type="genericurlgenerator" label="Customize Plotting">
-                <parameter name="URLBASE" value="http://dorresteintesthub.ucsd.edu:6549"/>
+                <parameter name="URLBASE" value="https://gnps-plotter.ucsd.edu"/>
                 <parameter name="LABEL" value="Customize Plot"/>
                 <parameter name="REQUESTPARAMETER=feature" value="[scan]"/>
                 <parameter name="USETASK" value="True"/>
@@ -733,7 +733,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='http://dorresteintesthub.ucsd.edu:6549?task=[task]'/>
+        <parameter name="URLBASE" value='https://gnps-plotter.ucsd.edu?task=[task]'/>
     </block>
 
     <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
