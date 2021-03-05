@@ -41,7 +41,7 @@
             </column>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spec/[internalFilename]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[SpecMZ]"/>
                 <parameter name="REQUESTPARAMETER=xic_rt_window" value="[RT_Query]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
@@ -105,7 +105,7 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
-                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPSTASK-{task}:spec/[internalFilename]:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spec/[internalFilename]:scan:[#Scan#]"/>
                 <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
