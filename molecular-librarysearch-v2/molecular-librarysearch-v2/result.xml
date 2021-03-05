@@ -39,6 +39,13 @@
                 <parameter name="HASHPARAMTER=main.compound_name_input" value="[Compound_Name]||EXACT"/>
                 <parameter name="LABEL" value="ExploreMolecule"/>
             </column>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=xicmz" value="[SpecMZ]"/>
+                <parameter name="REQUESTPARAMETER=xic_rt_window" value="[RT_Query]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
             <column type="text" field="Compound_Name" label="Compound_Name" width="12"/>
             <column type="integer" field="#Scan#" label="Scan" width="3"/>
             <column type="text" field="SpectrumFile" label="Filename" width="12"/>
@@ -98,18 +105,18 @@
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
-                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPSTASK-{task}:spec/[internalFilename]:scan:[#Scan#]"/>
-                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spec/[internalFilename]:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:spec/[internalFilename]:scan:[#Scan#]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spec/[internalFilename]:scan:[#Scan#]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
                 <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSLIBRARY:[SpectrumID]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Library Spectrum USI"/>
             </column>
         </row>
