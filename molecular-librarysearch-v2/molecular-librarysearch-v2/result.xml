@@ -41,7 +41,7 @@
             </column>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
                 <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]:scan:[#Scan#]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[SpecMZ]"/>
                 <parameter name="REQUESTPARAMETER=xic_rt_window" value="[RT_Query]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
@@ -729,6 +729,20 @@
             </parsers>
         </data>
         <row>
+            <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="LABEL" value="View LCMS"/>
+            </column>
+            <!-- <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
+                <parameter name="REQUESTPARAMETER=overlay_usi" value="mzspec:GNPS:TASK-{task}-DB_result/"/>
+                <parameter name="REQUESTPARAMETER=overlay_size" value="number of spectra"/>
+                <parameter name="REQUESTPARAMETER=overlay_mz" value="precursor mass"/>
+                <parameter name="REQUESTPARAMETER=overlay_rt" value="RTMean_min"/>
+                <parameter name="LABEL" value="View LCMS with Overlay"/>
+            </column> -->
             <column type="text" field="full_CCMS_path" label="Filename" width="10"/>
             <column type="text" field="Vendor" label="Vendor" width="10"/>
             <column type="text" field="Model" label="Model" width="10"/>
