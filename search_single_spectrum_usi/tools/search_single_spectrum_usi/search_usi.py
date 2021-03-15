@@ -62,6 +62,9 @@ def main():
         invokeParameters["MIN_PEAK_INT"] = workflow_parameters_map["MIN_PEAK_INT"][0]
         invokeParameters["WINDOW_FILTER"] = workflow_parameters_map["WINDOW_FILTER"][0]
 
+        # Post Parameters
+        invokeParameters["CREATE_NETWORK"] = "No"
+
         #Spectrum
         precursor_mz, peaks = _get_spectrum(usi)
         if precursor_mz == None:
