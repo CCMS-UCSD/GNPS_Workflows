@@ -25,3 +25,13 @@ def test_analog():
     spectra_matches_df = pd.read_csv("https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&file=all_dataset_spectra_matches/&block=main".format(MASST_TASK), sep="\t")
 
     masst_network.create_masst_network(spectra_matches_df, "test_analog.graphml")
+
+# def test2():
+#     import requests_cache
+#     requests_cache.install_cache('demo_cache')
+#     MASST_TASK = "ffe89bda05f94564be1afe22cc77c7c0"
+
+#     # Loading MASST information
+#     spectra_matches_df = pd.read_csv("https://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task={}&file=all_dataset_spectra_matches/&block=main".format(MASST_TASK), sep="\t")
+
+#     masst_network.create_masst_network(spectra_matches_df, "test2.graphml")
