@@ -670,6 +670,7 @@
                 <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node1]"/>
                 <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node2]"/>
                 <parameter name="REQUESTPARAMETER=cosine" value="shifted"/>
+                <!-- <parameter name="REQUESTPARAMETER=fragment_mz_tolerance" value="@tolerance.Ion_tolerance"/> -->
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
