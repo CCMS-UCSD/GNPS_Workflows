@@ -244,7 +244,7 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
     
     # sort in reverse match score order
     try:
-        table_data = sorted(table_data, key=lambda x: float(x["MQScore"]), reverse=True)
+        table_data = sorted(table_data, key=lambda x: float(x["MQScore"]), reverse=False)
     except:
         pass
 
