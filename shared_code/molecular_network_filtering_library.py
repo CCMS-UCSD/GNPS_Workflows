@@ -10,6 +10,8 @@ import ming_fileio_library
 import networkx as nx
 import constants_network as CONST
 
+import pandas as pd
+
 def loading_network(filename, hasHeaders=False, edgetype="Cosine"):
     node1_list = []
     node2_list = []
@@ -239,6 +241,13 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
 
 def add_library_search_results_to_graph(G, library_search_filename, annotation_prefix=""):
     row_count, table_data = ming_fileio_library.parse_table_with_headers(library_search_filename)
+    
+    # sort in reverse match score order
+    try:
+        table_data = sorted(table_data, key=lambda x: float(x["MQScore"]), reverse=True)
+    except:
+        pass
+
 
     for i in range(row_count):
         cluster_index = table_data["#Scan#"][i]
