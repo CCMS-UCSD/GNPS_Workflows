@@ -1,5 +1,9 @@
 To install environment, make qiime2-2020.11-qemistree using yml for conda. Then
 
+```
+/data/ccms-gnps/tools/miniconda3_gamma/bin/conda env create -n qiime2-2020.11-qemistree --file qiime2-2020.11-py36-linux-conda.yml
+```
+
 ### Updating q2-qemistree
 1. pip uninstall q2-qemistree
 1. pip install https://github.com/biocore/q2-qemistree/archive/2020.1.4.tar.gz
