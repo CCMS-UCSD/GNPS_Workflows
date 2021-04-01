@@ -173,7 +173,7 @@ def enrich_output(input_filename, output_filename):
                 r.raise_for_status()
                 classification_json = r.json()
 
-                output_result_dict["npclassifier_superclass"] = "|".join(classification_json["class_results"])
+                output_result_dict["npclassifier_superclass"] = "|".join(classification_json["superclass_results"])
                 output_result_dict["npclassifier_class"] = "|".join(classification_json["class_results"])
                 output_result_dict["npclassifier_pathway"] = "|".join(classification_json["pathway_results"])
             except:

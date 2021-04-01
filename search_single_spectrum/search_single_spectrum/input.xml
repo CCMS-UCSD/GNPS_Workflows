@@ -138,6 +138,15 @@
 			<default value="ALL"/>
 		</parameter>
 
+        <parameter name="CREATE_NETWORK" label="Create Network">
+            <options>
+                    <option value="Yes" label="Yes"/>
+                    <option value="No" label="No"/>
+            </options>
+            <validator type="set"/>
+            <default value="No"/>
+        </parameter>
+
       </parameters>
 
 
@@ -297,6 +306,17 @@
 
             <cell>
                 <input type="select" parameter="SEARCH_RAW">
+                </input>
+            </cell>
+
+            <cell>
+                <label>
+                    <content parameter="CREATE_NETWORK"/>
+                </label>
+            </cell>
+
+            <cell>
+                <input type="select" parameter="CREATE_NETWORK">
                 </input>
             </cell>
         </row>

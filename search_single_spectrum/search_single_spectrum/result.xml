@@ -286,14 +286,15 @@
         <data>
             <source type="file" name="foodomics_tracking_file/"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="depth" operator="ascending"/>
+                <parser type="sortedTabular" sortBy="occurrence_fraction" operator="descending"/>
             </parsers>
         </data>
         <row>
-            <column type="integer" field="depth" label="depth"/>
-            <column type="text" field="marker_type" label="marker_type" width="5"/>
-            <column type="integer" field="number_of_hits" label="number_of_hits" width="3"/>
-            <column type="float" field="product_score" label="product_score" precision="2"/>
+            <column type="text" field="metadata_column" label="metadata_column" width="5"/>
+            <column type="text" field="group_value" label="group_value" width="5"/>
+            <column type="integer" field="matched_size" label="matched_size" width="3"/>
+            <column type="float" field="occurrence_fraction" label="occurrence_fraction" precision="2"/>
+            <column type="integer" field="group_size" label="group_size" width="3"/>
         </row>
     </block>
 
