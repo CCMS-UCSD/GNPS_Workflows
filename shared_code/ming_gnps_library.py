@@ -25,12 +25,18 @@ def pulldown_all_continuous_libraries():
 
 #returns specturm
 def get_library_spectrum(spectrum_id):
-    SERVER_URL = "http://gnps.ucsd.edu/ProteoSAFe/SpectrumCommentServlet?SpectrumID="
-    url = SERVER_URL + spectrum_id
-    r = requests.get(url)
-    spectrum_object = json.loads(r.text)
-
-    return spectrum_object
+    try:
+        # First try the cache
+        SERVER_URL = "https://gnps-external.ucsd.edu/gnpsspectrum?SpectrumID="
+        url = SERVER_URL + spectrum_id
+        r = requests.get(url)
+        r.raise_for_status()
+        return r.json()
+    except:
+        SERVER_URL = "http://gnps.ucsd.edu/ProteoSAFe/SpectrumCommentServlet?SpectrumID="
+        url = SERVER_URL + spectrum_id
+        r = requests.get(url)
+        return r.json()
 
 
 #Returns all datasets as a list of dataset objects
