@@ -53,12 +53,14 @@ def main():
     parser.add_argument('output_enrichment', help='output_enrichment')
     args = parser.parse_args()
 
-    matches_df = pd.read_csv(args.matches_results, sep="\t")
-    metadata_df = pd.read_csv(args.foodomics_metadata, sep="\t")
-
-    enrichment_df = calculate_enrichment(matches_df, metadata_df)
-
-    enrichment_df.to_csv(args.output_enrichment, sep="\t", index=False)
+    try:
+        matches_df = pd.read_csv(args.matches_results, sep="\t")
+        metadata_df = pd.read_csv(args.foodomics_metadata, sep="\t")
+        enrichment_df = calculate_enrichment(matches_df, metadata_df)
+        enrichment_df.to_csv(args.output_enrichment, sep="\t", index=False)
+    except:
+        with open(args.output_enrichment, "w") as o:
+            o.write("EMPTY")
 
 if __name__ == "__main__":
     main()
