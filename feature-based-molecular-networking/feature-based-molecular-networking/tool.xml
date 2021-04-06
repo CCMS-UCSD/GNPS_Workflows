@@ -272,6 +272,7 @@
             <arg pathRef="molecular_librarysearch_get_dbannotations.script"/>
             <arg valueRef="librarysearch_results_file"/>
             <arg valueRef="librarysearch_results_file_DB"/>
+            <arg option="-topk" valueRef="@TOPK"/>
         </execution>
     </tool>
 
