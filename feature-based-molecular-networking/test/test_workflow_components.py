@@ -1,5 +1,6 @@
 import sys
 import numpy
+import glob
 
 sys.path.insert(0, "../tools/feature-based-molecular-networking/scripts/")
 
@@ -10,7 +11,10 @@ logger = logging_utils.get_logger(__name__)
 def test_written_description():
     import write_description
     input_filename = "reference_data/params.xml"
-    write_description.write_description(input_filename, "/dev/null")
+    write_description.write_description(input_filename, "output_description.txt")
+
+    for input_filename in glob.glob("reference_data/parameters_xml/*"):
+        write_description.write_description(input_filename, "output_description.txt")
 
 
 def test_network_stats():
