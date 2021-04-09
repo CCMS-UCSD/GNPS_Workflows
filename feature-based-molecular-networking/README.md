@@ -121,3 +121,13 @@ The feature quantification table (.TXT format, tab-separated) should include a h
 Following these headers are the samples. 
 
 The MGF output should contain the "SCANS" header, and it must correspond to the identifier of the "row ID". It has to be unique, and can be non sequential.
+
+### SIRIUS
+
+The feature quantification table (.CSV file, comma separated) should have three columns named:
+
+1. row ID
+2. row m/z
+3. row retention time
+
+The native sample headers from SIRIUS don't include the "Peak area" suffix, so the converter add that suffix for internal processing.
