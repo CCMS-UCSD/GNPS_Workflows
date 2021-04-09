@@ -81,6 +81,9 @@ def write_description(param_xml_filename, output_description_filename):
         output_sentences.append('<br><br> <strong>For Progenesis QI</strong>: Progenesis QI, Nonlinear Dynamics, Milford, MA, version [specify the version]. Software available at <a href="https://www.nonlinear.com/progenesis/qi/">https://www.nonlinear.com/progenesis/qi/</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZTABM":
         output_sentences.append('<br><br> <strong>For mzTab-M</strong>: Hoffman et al. mzTab-M: A Data Standard for Sharing Quantitative Results in Mass Spectrometry Metabolomic. Analytical Chemistry 9153302-3310 (2019), <a href="https://doi.org/10.1021/acs.analchem.8b04310">https://doi.org/10.1021/acs.analchem.8b04310></a>. \n')
+    if param_obj["QUANT_TABLE_SOURCE"][0] == "SIRIUS":
+        output_sentences.append('<br><br> <strong>For SIRIUS</strong>: the processing was introduced in that preprint: Hoffman et al, Assigning confidence to structural annotations from mass spectra with COSMIC, BioRxiv 2021. <a href="https://www.biorxiv.org/content/10.1101/2021.03.18.435634v1">https://www.biorxiv.org/content/10.1101/2021.03.18.435634v1</a>. For other SIRIUS related citations, see <a href="https://boecker-lab.github.io/docs.sirius.github.io/#literature">https://boecker-lab.github.io/docs.sirius.github.io/#literature</a>.\n')
+
 
     #DEREPLICATOR ifitwas used
     if param_obj["RUN_DEREPLICATOR"][0] == "1":
