@@ -59,8 +59,9 @@ def write_description(param_xml_filename, output_description_filename):
 
     #CITATIONS
     output_sentences.append('<br><br>\n<strong>Citations</strong><br><br>\n')
-    output_sentences.append('<strong>For Feature-Based Molecular Networking</strong>: Nothias LF et al. Feature-based Molecular Networking in the GNPS Analysis Environment. bioRxiv 812404 (2019). <a href="https://doi.org/10.1101/812404"> https://doi.org/10.1101/812404</a>. \n')
+    output_sentences.append('<strong>For Feature-Based Molecular Networking</strong>: Nothias LF, Petras D, Schmid R et al. Feature-based Molecular Networking in the GNPS Analysis Environment. bioRxiv 812404 (2019). <a href="https://doi.org/10.1101/812404"> https://doi.org/10.1101/812404</a>. \n')
     output_sentences.append('<br><br><strong>For the GNPS web-platform</strong>: Wang M et al. Sharing and community curation of mass spectrometry data with Global Natural Products Social Molecular Networking. Nature Biotechnology 34.8 (2016): 828-837. <a href="https://doi.org/10.1038/nbt.3597">https://doi.org/10.1038/nbt.3597</a>. \n')
+    output_sentences.append('<br><br><strong>If Ion-Identity Molecular Networking was performed: Schmid R, Petras D, Nothias LF, et al. Ion Identity Molecular Networking in the GNPS Environment, BioRxiv (2020),  <a href="https://doi.org/10.1101/2020.05.11.08894">https://doi.org/10.1101/2020.05.11.088948</a>. \n')
 
     #PROCESSING CITATION
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
