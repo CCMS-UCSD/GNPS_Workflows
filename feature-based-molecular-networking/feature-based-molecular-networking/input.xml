@@ -165,12 +165,13 @@
             <options>
                 <option value="MZMINE2" label="MZmine"/>
                 <option value="OPENMS" label="OpenMS"/>
-                <option value="OPTIMUS" label="Optimus"/>
+                <option value="OPTIMUS" label="Optimus (Legacy)"/>
                 <option value="MSDIAL" label="MS-DIAL"/>
                 <option value="METABOSCAPE" label="MetaboScape"/>
                 <option value="XCMS3" label="XCMS"/>
                 <option value="PROGENESIS" label="Progenesis QI"/>
                 <option value="MZTABM" label="MzTab-M"/>
+                <option value="SIRIUS" label="SIRIUS (Experimental)"/>
             </options>
             <validator type="set"/>
             <default value="MZMINE2"/>

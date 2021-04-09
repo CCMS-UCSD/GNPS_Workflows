@@ -116,6 +116,17 @@ def main():
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
 
+    elif args.toolname == "SIRIUS":
+        print("SIRIUS")
+
+        if len(input_filenames) != 1:
+            print("Must input exactly 1 spectrum mgf file")
+            exit(1)
+
+        input_mgf = input_filenames[0]
+        shutil.copyfile(input_mgf, args.output_mgf)
+        sirius_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+
     # Finally, we can renormlize the output
     try:
         if args.QUANT_FILE_NORM == "RowSum":
