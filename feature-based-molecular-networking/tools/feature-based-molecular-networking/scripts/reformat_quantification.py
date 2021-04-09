@@ -15,6 +15,7 @@ import xcms_formatter
 import mzmine2_formatter
 import progenesis_formatter
 import mztabm_formatter
+import sirius_formatter
 import proteosafe
 
 
