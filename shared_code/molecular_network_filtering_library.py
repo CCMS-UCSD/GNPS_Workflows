@@ -240,17 +240,19 @@ def add_clusterinfo_summary_to_graph(G, cluster_info_summary_filename):
 
 
 def add_library_search_results_to_graph(G, library_search_filename, annotation_prefix=""):
-    #row_count, table_data = ming_fileio_library.parse_table_with_headers(library_search_filename)
-    table_data_df = pd.read_csv(library_search_filename, sep='\t', dtype=str)
+    table_data_df = pd.DataFrame()
     
     # sort in reverse match score order
     try:
+        table_data_df = pd.read_csv(library_search_filename, sep='\t', dtype=str)
         table_data_df["MQScore"] = table_data_df["MQScore"].astype(float)
         table_data_df = table_data_df.sort_values("MQScore", ascending=True)
     except:
         pass
 
     row_count = len(table_data_df)
+    if row_count == 0:
+        return
     table_data = table_data_df.to_dict(orient="records")
 
     for record in table_data:
