@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="LIBRARY_CONVERSION">
+
+    <object name="workflowParameters"/>
+    <action name="begin">
+        <output port="flowParams" object="workflowParameters"/>
+    </action>
+
+    <object name="output_converted_folder"/>
+    <action name="library_conversion">
+        <input port="flowParams" object="workflowParameters"/>
+        <output port="output_converted_folder" object="output_converted_folder"/>
+    </action>
+
+    <action name="end">
+        <input port="output_converted_folder" object="output_converted_folder"/>
+    </action>
+</flow>

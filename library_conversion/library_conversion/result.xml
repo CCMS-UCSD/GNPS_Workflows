@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="LIBRARY_CONVERSION" version="release_1">
+    <download>
+        <source type="folder" name="output_converted_folder/"/>
+    </download>
+
+    <view id="download_results" label="Download converted library">
+        <blockRef id="main" type="download_results"/>
+    </view>
+
+    <block id="download_results" type="dummydownload">
+        <data>
+            <source type="file" name="output_converted_folder/"/>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+    </block>
+
+
+</interface>

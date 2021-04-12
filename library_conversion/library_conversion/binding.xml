@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task"/>
+        <query name="user" valueRef="@user"/>
+        <compression type="zip"/>
+
+        <download port="flowParams" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <download port="input_library" type="folder">
+            <query name="resource" value="input_library"/>
+        </download>
+    </bind>
+
+    <bind action="library_conversion" tool="library_conversion">
+        <inputAsRequirement port="input_library"
+                            requirement="input_library"/>
+        <productionToOutput port="output_converted_folder" production="output_converted_folder"/>
+    </bind>
+
+
+    <bind action="end" type="upload">
+        <url value="{livesearch.upload}"/>
+        <query name="task" valueRef="@task"/>
+        <contentQuery name="content"/>
+        <compression type="zip"/>
+
+        <upload port="output_converted_folder" type="folder">
+            <query name="resource" value="output_converted_folder"/>
+        </upload>
+    </bind>
+</binding>
