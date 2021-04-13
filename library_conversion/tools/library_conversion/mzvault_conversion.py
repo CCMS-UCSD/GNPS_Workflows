@@ -13,7 +13,7 @@ requests_cache.install_cache('demo_cache', allowable_codes=(200, 404))
 
 def usage():
     print("<input txt> <output mgf> <output batch file>")
-    print("Takes NIST MSP file to convert to MGF and batch file")
+    print("Takes MZVault TXT file to convert to MGF and batch file")
 
 def inchikey_to_inchi_smiles_pubchem(inchikey):
     url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/%s/JSON" % (inchikey)
@@ -68,11 +68,13 @@ def inchi_to_smiles_chemspider(inchi):
 
 def main():
     usage()
+    # input file, mgf output, batch file
+    convert(sys.argv[1], sys.argv[2], sys.argv[3])
 
-    txt_file = open(sys.argv[1], "r")
-    mgf_filename = sys.argv[2]
-    mgf_file = open(sys.argv[2], "w")
-    batch_file = open(sys.argv[3], "w")
+def convert(input_filename, mgf_filename, batch_filename):
+    txt_file = open(input_filename, "r")
+    mgf_file = open(mgf_filename, "w")
+    batch_file = open(batch_filename, "w")
 
     json_mapping_cache_filename = "mapping_cache.json"
     inchikey_to_structure_map = {}
@@ -87,18 +89,22 @@ def main():
     inchi = "N/A"
     pepmass = ""
     title = ""
-    instrument = ""
+    instrument = "Orbitrap"
     compound_name = ""
     peaks = []
     retentiontime = ""
     ion_mode = ""
-    peaks_start = 0;
+    peaks_start = 0
     exactmass = "0"
     cas_number = "N/A"
     adduct = "M+H"
     spectrum_level = 0
     ionization_mode = ""
-    nist_no = " "
+    collision_energy = ""
+
+    pi = "Madeleine Ernst"
+    data_collector = "Anna Abrahamsson"
+    library_level = "1"
 
     read_peaks = False
 
@@ -110,57 +116,34 @@ def main():
     batch_file.write("ADDUCT\tINTEREST\tLIBQUALITY\tGENUS\tSPECIES\tSTRAIN\tCASNUMBER\tPI\n")
 
     for line in txt_file:
-        if line.find("Name:") != -1:
-            compound_name = line.strip()[len("Name: "):]
-            #print line.rstrip()
+        if "MS:1009003|Name" in line:
+            compound_name = line.split(" = ")[-1].strip()
 
-        if line.find("Synon: $:06") != -1:
-            instrument = line[len("Synon: $:06"):].rstrip()
+        if "Positive scan" in line:
+            ion_mode = "Positive"
 
-        if line.find("Instrument_type") != -1:
-            instrument = line[len("Instrument_type: "):].rstrip()
+        if "Negative scan" in line:
+            ion_mode = "Negative"
 
-        if line.find("Synon: $:00") != -1:
-            ms_level = line[len("Synon: $:00"):].rstrip()
+        if "MS:1000073|Electrosprary ionization" in line:
+            ionization_mode = "ESI"
 
-        if line.find("Synon: $:10") != -1:
-            ionization_mode = line[len("Synon: $:10"):].rstrip()
+        if "Smiles" in line:
+            smiles = line.split(" = ")[-1].rstrip()
 
-        if line.find("Ionization: ") != -1:
-            ionization_mode = line[len("Ionization: "):].rstrip()
+        if "MS:1000744|Selected Ion m/z" in line:
+            pepmass = line.split(" = ")[-1].rstrip()
 
-        if "Synon: $:03" in line or "Precursor_type" in line:
-            adduct = line.replace("Synon: $:03", "").replace("Precursor_type: ", "").rstrip()
-            if adduct[-1] == "+":
-                ion_mode = "Positive"
-            if adduct[-1] == "-":
-                ion_mode = "Negative"
-            adduct = adduct[:-1]
+        if "MS:1009100|CASNo" in line:
+            cas_number = line.split(" = ")[-1].rstrip()
 
-        if line.find("Synon: $:28") != -1:
-            inchi_key = line[len("Synon: $:28"):].rstrip()
-            if not inchi_key in inchikey_to_structure_map:
-                inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
-                if inchi == "N/A":
-                    inchi = inchikey_to_inchi_chemspider(inchi_key)
-                if smiles == "N/A":
-                    smiles = inchi_to_smiles_chemspider(inchi)
-                inchikey_to_structure_map[inchi_key] = (inchi, smiles)
-            else:
-                inchi, smiles = inchikey_to_structure_map[inchi_key]
-            print(inchi_key, inchi, smiles)
+        if "MS:1000045|Collision_energy" in line:
+            collision_energy = line.split(" = ")[-1].rstrip().lstrip()
 
-        if line.find("NISTNO:") != -1:
-            nist_no = line[len("NISTNO: "):].rstrip()
+        if "Adduct" in line:
+            adduct = line.split(" = ")[-1].rstrip().lstrip()
 
-        if line.find("PrecursorMZ: ") != -1:
-            pepmass = line[len("PrecursorMZ: "):].rstrip()
-
-        if line.find("CASNO: ") != -1:
-            cas_number = line[len("CASNO: "):].rstrip()
-
-
-        if "Num peaks:" in line or "Num Peaks: " in line:
+        if "Num peaks:" in line or "Num Peaks: " in line or "number of peaks" in line:
             peaks = []
             read_peaks = True
             continue
@@ -174,8 +157,7 @@ def main():
             spectrum_string += "SMILES=" + smiles + "\n"
             spectrum_string += "INCHI=" + inchi + "\n"
             spectrum_string += "SOURCE_INSTRUMENT=" + instrument + "\n"
-            spectrum_string += "NAME=" + "NIST:" + nist_no + " " + compound_name + "\n"
-            spectrum_string += "ORGANISM=NIST\n"
+            spectrum_string += "NAME=" + compound_name + "\n"
             spectrum_string += "SCANS=" + str(scan_number) + "\n"
 
             for peak in peaks:
@@ -191,7 +173,7 @@ def main():
             #writing batch file
             batch_file.write(mgf_filename + "\t")
             batch_file.write(peptide + "\t")
-            batch_file.write(compound_name + "\t")
+            batch_file.write("{} - {} eV".format(compound_name, collision_energy) + "\t")
             batch_file.write(pepmass + "\t")
             batch_file.write(instrument + "\t")
             batch_file.write(ionization_mode + "\t")
@@ -204,16 +186,15 @@ def main():
             batch_file.write("N/A" + "\t")
             batch_file.write("Isolated" + "\t")
             batch_file.write("0" + "\t")
-            batch_file.write("NIST" + "\t")
-            batch_file.write(adduct[1:-1] + "\t")
+            batch_file.write(data_collector + "\t")
+            batch_file.write(adduct + "\t")
             batch_file.write("N/A" + "\t")
-            batch_file.write("3" + "\t")
+            batch_file.write(library_level + "\t")
             batch_file.write("N/A" + "\t")
             batch_file.write("N/A" + "\t")
             batch_file.write("N/A" + "\t")
             batch_file.write(cas_number + "\t")
-            batch_file.write("NIST" + "\n")
-
+            batch_file.write(pi + "\n")
 
             scan_number += 1
 
