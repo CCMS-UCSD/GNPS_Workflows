@@ -8,12 +8,22 @@ import requests
 from collections import defaultdict
 import argparse
 import urllib.parse
+from tqdm import tqdm
 
-def enrich_output(input_filename, output_filename):
+def enrich_output(input_filename, output_filename, topk=None):
     spectrum_id_cache = {}
     molecule_explorer_df = pd.DataFrame(ming_gnps_library.get_molecule_explorer_dataset_data())
 
     input_results_df = pd.read_csv(input_filename, sep="\t")
+
+    # Here we will try to filter to topk
+    if topk is not None:
+        try:
+            input_results_df["MQScore"] = input_results_df["MQScore"].astype(float)
+            input_results_df = input_results_df.sort_values("MQScore", ascending=False)
+            input_results_df = input_results_df.groupby('FileScanUniqueID').head(topk).reset_index(drop=True) 
+        except:
+            pass
 
     # Counting number of hits per filename
     number_hits_per_query = defaultdict(lambda: 0)
@@ -21,7 +31,7 @@ def enrich_output(input_filename, output_filename):
         number_hits_per_query[result_obj["FileScanUniqueID"]] += 1
 
     output_list = []
-    for result_obj in input_results_df.to_dict(orient="records"):
+    for result_obj in tqdm(input_results_df.to_dict(orient="records")):
         # Reading exsting data
         spectrum_id = result_obj["LibrarySpectrumID"]
         score = result_obj["MQScore"]
@@ -173,7 +183,7 @@ def enrich_output(input_filename, output_filename):
                 r.raise_for_status()
                 classification_json = r.json()
 
-                output_result_dict["npclassifier_superclass"] = "|".join(classification_json["class_results"])
+                output_result_dict["npclassifier_superclass"] = "|".join(classification_json["superclass_results"])
                 output_result_dict["npclassifier_class"] = "|".join(classification_json["class_results"])
                 output_result_dict["npclassifier_pathway"] = "|".join(classification_json["pathway_results"])
             except:
@@ -196,13 +206,14 @@ def main():
     parser = argparse.ArgumentParser(description='Pulling down GNPS identifcations.')
     parser.add_argument("input_filename")
     parser.add_argument("output_filename")
+    parser.add_argument("--topk", default=None, type=int, help="Top K results per query, default no filter")
 
     args = parser.parse_args()
 
     input_result_filename = args.input_filename
     output_result_filename = args.output_filename
 
-    enrich_output(input_result_filename, output_result_filename)
+    enrich_output(input_result_filename, output_result_filename, topk=args.topk)
 
 if __name__ == "__main__":
     main()

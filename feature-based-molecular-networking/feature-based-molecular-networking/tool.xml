@@ -229,7 +229,7 @@
     </pathSet>
 
     <pathSet base="$base/binaries">
-        <toolPath tool="molecular_librarysearch_parallel_step" path="main_execmodule"/>
+        <toolPath tool="molecular_librarysearch_parallel_step" path="main_execmodule.allcandidates"/>
     </pathSet>
 
     <tool name="prep_molecular_librarysearch_parameters">
@@ -272,6 +272,7 @@
             <arg pathRef="molecular_librarysearch_get_dbannotations.script"/>
             <arg valueRef="librarysearch_results_file"/>
             <arg valueRef="librarysearch_results_file_DB"/>
+            <arg option="-topk" valueRef="@TOP_K_RESULTS"/>
         </execution>
     </tool>
 

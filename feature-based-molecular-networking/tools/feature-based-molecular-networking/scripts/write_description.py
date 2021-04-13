@@ -10,7 +10,7 @@ def write_description(param_xml_filename, output_description_filename):
     output_sentences = []
     #INTRODUCTION
     output_sentences.append('<strong>Molecular Networking and Spectral Library Search</strong><br><br>\n')
-    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://www.nature.com/articles/s41592-020-0933-6">Nothias L-F, Petras D, Schmid R et al. Nature Methods 17, 905–908 (2020)</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
+    output_sentences.append('A molecular network was created with the Feature-Based Molecular Networking (FBMN) workflow (<a href="https://www.nature.com/articles/s41592-020-0933-6">Nothias L-F, Petras D, Schmid R et al. Nature Methods 17, 905-908 (2020)</a>) on GNPS (<a href="https://gnps.ucsd.edu">https://gnps.ucsd.edu</a>, <a href="https://doi.org/10.1038/nbt.3597"> Wang M et al. Nat. Biotech. 2016</a>). \n')
 
 
     #FBMN PROCESSING
@@ -93,7 +93,7 @@ def write_description(param_xml_filename, output_description_filename):
 
     output_sentences.append('<br><br>\n<strong>Disclaimer</strong><br><br>\n')
     output_sentences.append('This description is generated to facilitate the report and the reproducibility of the analysis. It also provides the citation of the tools used. Note that if copy/pasted as is in your manuscript, it might be flagged as plagiarism by the editor. For that reason, we recommend cautiouness and using it as a guideline.')
-    open(output_filename, "w").write(" ".join(output_sentences))
+    open(output_filename, "w").write(" ".join(output_sentences).encode("ascii", "ignore").decode("ascii", "ignore"))
 
 def main():
     write_description(sys.argv[1], sys.argv[2])

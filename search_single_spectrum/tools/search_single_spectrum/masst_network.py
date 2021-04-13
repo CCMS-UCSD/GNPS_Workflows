@@ -8,14 +8,21 @@ def main():
     parser = argparse.ArgumentParser(description='Create masst network')
     parser.add_argument('input_match_results', help='input_match_results')
     parser.add_argument('output_network', help='output_network')
+    parser.add_argument('--createnetwork', default="No", help='createnetwork')
+    
     args = parser.parse_args()
 
-    try:
-        spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
-        create_masst_network(spectra_matches_df, args.output_network)
-    except:
+    if args.createnetwork == "Yes":
+        try:
+            spectra_matches_df = pd.read_csv(args.input_match_results, sep="\t")
+            create_masst_network(spectra_matches_df, args.output_network)
+        except:
+            with open(args.output_network, "w") as o:
+                o.write("EMPTY")
+    else:
         with open(args.output_network, "w") as o:
             o.write("EMPTY")
+
 
 
 def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
@@ -34,7 +41,8 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
     all_node_usi_list.append(output_dict)
 
     # Getting all the MASST data
-    for dataset in dataset_matches:
+    from tqdm import tqdm
+    for dataset in tqdm(dataset_matches):
         try:
             filtered_dataset = [current_dataset for current_dataset in all_datasets if current_dataset["dataset"] == dataset]
             dataset_task = filtered_dataset[0]["task"]
@@ -86,7 +94,7 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
     from ming_spectrum_library import Spectrum
     import spectrum_alignment
     all_spectra_list = []
-    for usi_dict in all_node_usi_list:
+    for usi_dict in tqdm(all_node_usi_list):
         usi = usi_dict["usi"]
         display_information = "{}:{}".format(usi_dict["dataset"], usi_dict["scan"])
 
@@ -110,7 +118,6 @@ def create_masst_network(spectra_matches_df, output_graphml, output_image=None):
 
     # Let's create a network now
     G = nx.Graph()
-    from tqdm import tqdm
     for i, spectrum1 in tqdm(enumerate(all_spectra_list)):
         for j, spectrum2 in enumerate(all_spectra_list):
             if i <= j:

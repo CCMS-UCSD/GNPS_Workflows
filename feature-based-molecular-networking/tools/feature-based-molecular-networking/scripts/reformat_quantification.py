@@ -42,6 +42,7 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         mzmine2_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+
     elif args.toolname == "OPENMS":
         print("OPENMS")
         

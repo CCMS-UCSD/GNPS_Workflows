@@ -36,7 +36,7 @@ def main():
 
         invokeParameters["desc"] = "Analysis subroutine from ProteoSAFe job %s" % (workflow_parameters_map["task"][0])
         invokeParameters["workflow"] = "SEARCH_SINGLE_SPECTRUM"
-        invokeParameters["workflow_version"] = "release_25"
+        invokeParameters["workflow_version"] = "release_28"
         invokeParameters["protocol"] = "None"
         invokeParameters["library_on_server"] = workflow_parameters_map["library_on_server"][0]
 
@@ -62,6 +62,9 @@ def main():
         invokeParameters["MIN_PEAK_INT"] = workflow_parameters_map["MIN_PEAK_INT"][0]
         invokeParameters["WINDOW_FILTER"] = workflow_parameters_map["WINDOW_FILTER"][0]
 
+        # Post Parameters
+        invokeParameters["CREATE_NETWORK"] = "No"
+
         #Spectrum
         precursor_mz, peaks = _get_spectrum(usi)
         if precursor_mz == None:
@@ -79,7 +82,7 @@ def main():
             continue
         all_tasks.append({"usi" : usi, "task_id" : task_id})
 
-        time.sleep(60)
+        time.sleep(120)
     
     for task in all_tasks:
         ming_proteosafe_library.wait_for_workflow_finish("gnps.ucsd.edu", task["task_id"])
