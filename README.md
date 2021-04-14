@@ -29,6 +29,7 @@ GNPS Integration Web and Workflow jobs are handled in the [CCMS-Integration-Test
 | Feature  | Server Status |
 |---|---|
 | GNPS/Beta/MassIVE API Tests | ![web-ccms-api](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-api/badge.svg) |
+| GNPS External API Tests | [![web-external-api](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/actions/workflows/web-external-api.yml/badge.svg)](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/actions/workflows/web-external-api.yml) |
 | GNPS/Beta/MassIVE Selenium Tests | ![web-ccms-selenium](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-selenium/badge.svg) |
 | GNPS Workflows Fast Test | ![workflow-proteomics3-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-gnps-fast/badge.svg) |
 | Beta Workflows Fast Test | ![workflow-proteomics3-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-proteomics3-fast/badge.svg) |
