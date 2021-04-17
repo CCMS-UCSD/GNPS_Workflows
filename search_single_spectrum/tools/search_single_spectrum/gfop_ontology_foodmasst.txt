@@ -4295,6 +4295,7 @@ G83206_5x_rerun_RE8_01_21495.mzXML	grain/grass
 G83206_5x_rerun_RE8_01_21495.mzXML	fruit
 G83206_5x_rerun_RE8_01_21495.mzXML	plant
 G87406_RC6_01_26101.mzXML	pachino cherry tomato
+G87406_RC6_01_26101.mzXML	cherry tomato
 G87406_RC6_01_26101.mzXML	tomato
 G87406_RC6_01_26101.mzXML	berry
 G87406_RC6_01_26101.mzXML	fleshy fruit
