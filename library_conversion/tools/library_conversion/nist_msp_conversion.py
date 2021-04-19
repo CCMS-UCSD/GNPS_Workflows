@@ -4,11 +4,14 @@
 import sys
 import getopt
 import requests
-import requests_cache
 import json
 import os
 
-requests_cache.install_cache('demo_cache', allowable_codes=(200, 404))
+try:
+    import requests_cache
+    requests_cache.install_cache('demo_cache', allowable_codes=(200, 404))
+except:
+    pass
 
 
 def usage():

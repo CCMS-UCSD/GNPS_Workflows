@@ -4,67 +4,12 @@
 import sys
 import getopt
 import requests
-import requests_cache
 import json
 import os
-
-requests_cache.install_cache('demo_cache', allowable_codes=(200, 404))
-
 
 def usage():
     print("<input txt> <output mgf> <output batch file>")
     print("Takes MZVault TXT file to convert to MGF and batch file")
-
-def inchikey_to_inchi_smiles_pubchem(inchikey):
-    url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/%s/JSON" % (inchikey)
-    #print(url)
-    inchi = "N/A"
-    smiles = "N/A"
-
-    try:
-        r = requests.get(url)
-        if r.status_code == 200:
-            json_obj = json.loads(r.text)
-            for compound_property in json_obj["PC_Compounds"][0]["props"]:
-                if compound_property["urn"]["label"] == "InChI":
-                    inchi = compound_property["value"]["sval"]
-                if compound_property["urn"]["label"] == "SMILES" and compound_property["urn"]["name"] == "Canonical":
-                    smiles = compound_property["value"]["sval"]
-
-    except KeyboardInterrupt:
-        raise
-    except:
-        raise
-        return inchi, smiles
-    return inchi, smiles
-
-def inchikey_to_inchi_chemspider(inchikey):
-    url = "http://www.chemspider.com/InChI.asmx/InChIKeyToInChI"
-    payload = {'inchi_key': inchikey}
-    inchi = "N/A"
-    try:
-        r = requests.get(url, params=payload)
-        if r.status_code == 200:
-            inchi = xmltodict.parse(r.text)["string"]["#text"]
-    except KeyboardInterrupt:
-        raise
-    except:
-        return inchi
-    return inchi
-
-def inchi_to_smiles_chemspider(inchi):
-    url = "http://www.chemspider.com/InChI.asmx/InChIToSMILES"
-    payload = {'inchi': inchi}
-    smiles = "N/A"
-    try:
-        r = requests.get(url, params=payload)
-        if r.status_code == 200:
-            smiles = xmltodict.parse(r.text)["string"]["#text"]
-    except KeyboardInterrupt:
-        raise
-    except:
-        return smiles
-    return smiles
 
 def main():
     usage()
@@ -162,7 +107,6 @@ def convert(input_filename, mgf_filename, batch_filename):
 
             for peak in peaks:
                 spectrum_string += peak + "\n"
-
 
             peaks = []
             spectrum_string += "END IONS\n"
