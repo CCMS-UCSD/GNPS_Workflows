@@ -31,7 +31,7 @@ def main():
         # strip extension and path to get filename
         base_filename = os.path.splitext(os.path.basename(input_filename))[0]
         mgf_filename = os.path.join(args.outfolder, "{}.mgf".format(base_filename))
-        batch_filename = os.path.join(args.outfolder, "{}.csv".format(base_filename))
+        batch_filename = os.path.join(args.outfolder, "{}.tsv".format(base_filename))
 
     elif has_outfile_args:
         mgf_filename = args.mgf_filename
