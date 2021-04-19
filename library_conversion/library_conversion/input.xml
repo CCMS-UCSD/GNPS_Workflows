@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="library_conversion" version="1.2.8">
+    <workflow-id>LIBRARY_CONVERSION</workflow-id>
+    <workflow-label>Library conversion</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <parameter name="input_library" label="Input library file">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="input_library" target="input_library"/>
+        </parameter>
+    </parameters>
+
+</interface>
