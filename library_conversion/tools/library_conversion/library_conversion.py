@@ -43,10 +43,10 @@ def main():
         sys.exit(1)
 
     # convert nist msp or MZVault file
-    if input_filename.lower().endswith(".msp"):
-        msp_convert.convert(input_filename, mgf_filename, batch_filename)
-    else :
-        mzvault_convert.convert(input_filename, mgf_filename, batch_filename)
+    # if input_filename.lower().endswith(".msp"):
+    #     msp_convert.convert(input_filename, mgf_filename, batch_filename)
+    # else :
+    mzvault_convert.convert(input_filename, mgf_filename, batch_filename)
 
     # success
     sys.exit(0)

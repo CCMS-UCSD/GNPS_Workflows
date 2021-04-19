@@ -19,4 +19,21 @@
         </parameter>
     </parameters>
 
+    <!-- Input form layout -->
+    <block label="File Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="input_library"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="input_library" type="fileSelector">
+                    <property name="label">Input Library MSP File</property>
+                </module>
+            </cell>
+        </row>
+    </block>
+
 </interface>

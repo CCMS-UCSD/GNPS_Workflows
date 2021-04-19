@@ -12,6 +12,9 @@
         <download port="input_library" type="folder">
             <query name="resource" value="input_library"/>
         </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
     </bind>
 
     <bind action="library_conversion" tool="library_conversion">

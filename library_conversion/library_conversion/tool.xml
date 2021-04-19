@@ -8,12 +8,12 @@
     </pathSet>
 
     <tool name="library_conversion">
-        <require name="workflowParameters" type="file"/>
+        <require name="input_library" type="file"/>
         <produce name="output_converted_folder" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="library_conversion.script"/>
-            <arg option="input-library" valueRef="@input_library"/>
+            <arg option="input-library" valueRef="input_library"/>
             <arg option="-output-folder" valueRef="output_converted_folder"/>
         </execution>
     </tool>
