@@ -17,5 +17,17 @@
         </data>
     </block>
 
+    <view id="add_batch_validate" label="Add Batch Validate">
+        <blockRef id="main" type="add_batch_validate"/>
+    </view>
+    <block id="add_batch_validate" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?#{"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc" : "MZVault Conversion in GNPS from [task]", "spec_on_server":"t.[task]/output_converted_folder/input_library-00000.mgf", "annotation_table_on_server":"t.[task]/output_converted_folder/input_library-00000.tsv"}'/>
+    </block>
+
 
 </interface>
