@@ -3,7 +3,7 @@ name: workflow-unit-libraryconversion
 on: [push]
 
 jobs:
-  test-molnet:
+  test-libraryconversion:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
