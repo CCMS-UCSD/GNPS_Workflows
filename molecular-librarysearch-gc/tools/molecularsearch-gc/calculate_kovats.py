@@ -8,7 +8,7 @@ def loadMarkers(marker):
 
     # compounds name has to be in the format of "name(C#)"
     df["Compound_Name"] = df["Carbon_Number"].astype('int32')
-    df["RT"] = df["RT"].astype('float32')
+    df["RT"] = df["RT"].astype('float32')/60
     df = df.sort_values(['Compound_Name'], ascending=[True])
 
     return df
