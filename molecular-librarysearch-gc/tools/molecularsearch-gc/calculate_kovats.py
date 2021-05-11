@@ -1,6 +1,7 @@
 import pandas as pd
 import argparse
 import shutil
+import math
 import numpy as np
 
 def loadMarkers(marker):
@@ -22,7 +23,7 @@ def kovatIndex(rt, markerDic):
              or (rt == markerDic.RT[i] or rt ==  markerDic.RT[i+1]):
             N,n,tr_N,tr_n = markerDic['Compound_Name'][i+1],markerDic['Compound_Name'][i], \
                            markerDic.RT[i+1],markerDic.RT[i]
-            Original_Annotation_KI_calculated = 100.0*(n+(N-n)*(rt-tr_n)/(tr_N - tr_n))
+            Original_Annotation_KI_calculated = 100.0*(n+(N-n)*((math.log(rt)-math.log(tr_n))/(math.log(tr_N) - math.log(tr_n))))
             return Original_Annotation_KI_calculated
     return 0.0
 
