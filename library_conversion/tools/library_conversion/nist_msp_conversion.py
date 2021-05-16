@@ -1,26 +1,24 @@
 #!/usr/bin/python
 
-
 import sys
 import getopt
 import requests
 import json
 import os
 
+import xmltodict
+
 try:
     import requests_cache
+
     requests_cache.install_cache('demo_cache', allowable_codes=(200, 404))
 except:
     pass
 
 
-def usage():
-    print("<input txt> <output mgf> <output batch file>")
-    print("Takes NIST MSP file to convert to MGF and batch file")
-
 def inchikey_to_inchi_smiles_pubchem(inchikey):
     url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/%s/JSON" % (inchikey)
-    #print(url)
+    # print(url)
     inchi = "N/A"
     smiles = "N/A"
 
@@ -41,6 +39,7 @@ def inchikey_to_inchi_smiles_pubchem(inchikey):
         return inchi, smiles
     return inchi, smiles
 
+
 def inchikey_to_inchi_chemspider(inchikey):
     url = "http://www.chemspider.com/InChI.asmx/InChIKeyToInChI"
     payload = {'inchi_key': inchikey}
@@ -54,6 +53,7 @@ def inchikey_to_inchi_chemspider(inchikey):
     except:
         return inchi
     return inchi
+
 
 def inchi_to_smiles_chemspider(inchi):
     url = "http://www.chemspider.com/InChI.asmx/InChIToSMILES"
@@ -70,12 +70,7 @@ def inchi_to_smiles_chemspider(inchi):
     return smiles
 
 
-def main():
-    usage()
-    # input file, mgf output, batch file
-    convert(sys.argv[1], sys.argv[2], sys.argv[3])
-
-def convert(input_filename, mgf_filename, batch_filename):
+def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name):
     txt_file = open(input_filename, "r")
     mgf_file = open(mgf_filename, "w")
     batch_file = open(batch_filename, "w")
@@ -86,7 +81,9 @@ def convert(input_filename, mgf_filename, batch_filename):
         inchikey_to_structure_map = json.loads(open(json_mapping_cache_filename).read())
 
     acceptable_ionization = set(["ESI", "APCI"])
-    acceptable_instruments = set(["ESI-IT-MS/MS", "ESI-QqIT-MS/MS", "ESI-QqQ-MS/MS", "ESI-QqTOF-MS/MS", "FAB-EBEB", "LC-APPI-QQ", "LC-ESI-IT", "LC-ESI-ITFT", "LC-ESI-ITTOF", "LC-ESI-QIT", "LC-ESI-QQ", "LC-ESI-QTOF"  ])
+    acceptable_instruments = set(
+        ["ESI-IT-MS/MS", "ESI-QqIT-MS/MS", "ESI-QqQ-MS/MS", "ESI-QqTOF-MS/MS", "FAB-EBEB", "LC-APPI-QQ", "LC-ESI-IT",
+         "LC-ESI-ITFT", "LC-ESI-ITTOF", "LC-ESI-QIT", "LC-ESI-QQ", "LC-ESI-QTOF"])
 
     peptide = "*..*"
     smiles = "N/A"
@@ -101,16 +98,18 @@ def convert(input_filename, mgf_filename, batch_filename):
     peaks_start = 0;
     exactmass = "0"
     cas_number = "N/A"
-    adduct = "M+H"
+    adduct = ""
     spectrum_level = 0
     ionization_mode = ""
     nist_no = " "
 
     read_peaks = False
 
+    pi = (pi_name if pi_name is not None else "")
+    data_collector = (collector_name if collector_name is not None else "")
     scan_number = 1
 
-    #Writing Batch Headers
+    # Writing Batch Headers
     batch_file.write("FILENAME\tSEQ\tCOMPOUND_NAME\tMOLECULEMASS\tINSTRUMENT\tIONSOURCE\tEXTRACTSCAN\t")
     batch_file.write("SMILES\tINCHI\tINCHIAUX\tCHARGE\tIONMODE\tPUBMED\tACQUISITION\tEXACTMASS\tDATACOLLECTOR\t")
     batch_file.write("ADDUCT\tINTEREST\tLIBQUALITY\tGENUS\tSPECIES\tSTRAIN\tCASNUMBER\tPI\n")
@@ -118,7 +117,7 @@ def convert(input_filename, mgf_filename, batch_filename):
     for line in txt_file:
         if line.find("Name:") != -1:
             compound_name = line.strip()[len("Name: "):]
-            #print line.rstrip()
+            # print line.rstrip()
 
         if line.find("Synon: $:06") != -1:
             instrument = line[len("Synon: $:06"):].rstrip()
@@ -165,14 +164,13 @@ def convert(input_filename, mgf_filename, batch_filename):
         if line.find("CASNO: ") != -1:
             cas_number = line[len("CASNO: "):].rstrip()
 
-
         if "Num peaks:" in line or "Num Peaks: " in line:
             peaks = []
             read_peaks = True
             continue
 
         if len(line.strip()) < 1:
-            #End of spectrum, writing spectrum
+            # End of spectrum, writing spectrum
             spectrum_string = ""
             spectrum_string += "BEGIN IONS\n"
             spectrum_string += "SEQ=" + peptide + "\n"
@@ -187,14 +185,13 @@ def convert(input_filename, mgf_filename, batch_filename):
             for peak in peaks:
                 spectrum_string += peak + "\n"
 
-
             peaks = []
             spectrum_string += "END IONS\n"
-            #print spectrum_string
+            # print spectrum_string
             mgf_file.write(spectrum_string)
             read_peaks = False
 
-            #writing batch file
+            # writing batch file
             batch_file.write(mgf_filename + "\t")
             batch_file.write(peptide + "\t")
             batch_file.write(compound_name + "\t")
@@ -210,7 +207,7 @@ def convert(input_filename, mgf_filename, batch_filename):
             batch_file.write("N/A" + "\t")
             batch_file.write("Isolated" + "\t")
             batch_file.write("0" + "\t")
-            batch_file.write("NIST" + "\t")
+            batch_file.write(data_collector + "\t")
             batch_file.write(adduct[1:-1] + "\t")
             batch_file.write("N/A" + "\t")
             batch_file.write("3" + "\t")
@@ -218,8 +215,7 @@ def convert(input_filename, mgf_filename, batch_filename):
             batch_file.write("N/A" + "\t")
             batch_file.write("N/A" + "\t")
             batch_file.write(cas_number + "\t")
-            batch_file.write("NIST" + "\n")
-
+            batch_file.write(pi + "\n")
 
             scan_number += 1
 
@@ -227,7 +223,7 @@ def convert(input_filename, mgf_filename, batch_filename):
             smiles = "N/A"
             inchi = "N/A"
 
-            #Saving out cache
+            # Saving out cache
             if scan_number % 1000 == 0:
                 open(json_mapping_cache_filename, "w").write(json.dumps(inchikey_to_structure_map))
 
@@ -240,7 +236,7 @@ def convert(input_filename, mgf_filename, batch_filename):
     return 0
 
 
-
-
 if __name__ == "__main__":
-    main()
+    import library_conversion
+
+    library_conversion.main()

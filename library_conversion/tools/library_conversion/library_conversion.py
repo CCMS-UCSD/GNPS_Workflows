@@ -3,15 +3,29 @@
 import os
 import sys
 import argparse
-import nist_msp_conversion as msp_convert
-import mzvault_conversion as mzvault_convert
+from enum import Enum
+
+
+# Specifies the input formats
+class InputFormat(Enum):
+    mzvault, nist_msp, bmdms = range(3)
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-input-library", dest="input_filename")
-    parser.add_argument("--output-folder", dest="outfolder", default=None)
-    parser.add_argument("--mgf-file", dest="mgf_filename", default=None)
+    parser.add_argument("--output-folder", dest="outfolder", default=None,
+                        help="Define the output folder to create files with the input file name. Do not combine with "
+                             "mgf-file and csv-file arguments.")
+    parser.add_argument("--mgf-file", dest="mgf_filename", default=None,
+                        help="Combine mgf-file with csv-file to define the output. Do not combine with output-folder")
     parser.add_argument("--csv-file", dest="csv_filename", default=None)
+    parser.add_argument('--pi', dest="pi_name", default=None)
+    parser.add_argument('--collector', dest="collector_name", default=None)
+    parser.add_argument("--libformat", dest="libformat",
+                        default=InputFormat.mzvault,
+                        help="Specify input format as one of: {}".format(
+                            ", ".join(str(e.name) for e in list(InputFormat))))
 
     args = parser.parse_args()
 
@@ -20,7 +34,6 @@ def main():
               "mgf output file, csv table output file)")
         parser.print_help(sys.stderr)
         sys.exit(1)
-
 
     input_filename = args.input_filename
 
@@ -42,14 +55,23 @@ def main():
         parser.print_help(sys.stderr)
         sys.exit(1)
 
-    # convert nist msp or MZVault file
-    # if input_filename.lower().endswith(".msp"):
-    #     msp_convert.convert(input_filename, mgf_filename, batch_filename)
-    # else :
-    mzvault_convert.convert(input_filename, mgf_filename, batch_filename)
-
+    # convert based on input format
+    libformat = str(args.libformat).lower()
+    try:
+        if libformat == InputFormat.mzvault.name:
+            import mzvault_conversion
+            mzvault_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
+        elif libformat == InputFormat.nist_msp.name:
+            import nist_msp_conversion
+            nist_msp_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
+        elif libformat == InputFormat.bmdms.name:
+            import bmdms_conversion
+            bmdms_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
+    except:
+        sys.exit(1)  # exit with error
     # success
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
