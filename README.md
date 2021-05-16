@@ -78,7 +78,6 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 | [gnps-cytoscape.ucsd.edu](https://gnps-cytoscape.ucsd.edu/) | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
 | [masst.ucsd.edu](https://masst.ucsd.edu/) | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
 | [metabolomics-usi.ucsd.edu](https://metabolomics-usi.ucsd.edu/) | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
-| [qemistree.ucsd.edu](https://qemistree.ucsd.edu/) | Qemistree Dashboard Server | --- |
 
 
 ## Testing

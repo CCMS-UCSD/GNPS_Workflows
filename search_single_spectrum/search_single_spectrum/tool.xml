@@ -152,7 +152,7 @@
     </pathSet>
     <pathSet base="$base">
         <pathVar name="foodomics_track.script" path="foodomics_track.py" />
-        <pathVar name="foodomics_metadata.file" path="11442_foodomics_multiproject_metadata_20200630_submission.txt" />
+        <pathVar name="foodomics_metadata.file" path="gfop_ontology_foodmasst.txt" />
     </pathSet>
     <tool name="foodomics_track">
         <require name="all_dataset_file_matches" type="file"/>
