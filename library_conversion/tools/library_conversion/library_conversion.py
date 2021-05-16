@@ -10,6 +10,18 @@ from enum import Enum
 class InputFormat(Enum):
     mzvault, nist_msp, bmdms = range(3)
 
+# handle formats and convert
+def convert(libformat, input_filename, mgf_filename, batch_filename, pi_name, collector_name):
+        if libformat == InputFormat.mzvault.name:
+            import mzvault_conversion
+            mzvault_conversion.convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name)
+        elif libformat == InputFormat.nist_msp.name:
+            import nist_msp_conversion
+            nist_msp_conversion.convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name)
+        elif libformat == InputFormat.bmdms.name:
+            import bmdms_conversion
+            bmdms_conversion.convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -58,15 +70,7 @@ def main():
     # convert based on input format
     libformat = str(args.libformat).lower()
     try:
-        if libformat == InputFormat.mzvault.name:
-            import mzvault_conversion
-            mzvault_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
-        elif libformat == InputFormat.nist_msp.name:
-            import nist_msp_conversion
-            nist_msp_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
-        elif libformat == InputFormat.bmdms.name:
-            import bmdms_conversion
-            bmdms_conversion.convert(input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
+        convert(libformat, input_filename, mgf_filename, batch_filename, args.pi_name, args.collector_name)
     except:
         sys.exit(1)  # exit with error
     # success
