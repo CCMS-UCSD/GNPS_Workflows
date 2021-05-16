@@ -4,6 +4,7 @@ import json
 import os
 import pandas as pd
 import requests
+from urllib.parse import quote
 
 # download and open new files
 msp_file = open(sys.argv[1], "r")
@@ -32,12 +33,6 @@ for line in msp_file:
     if "FORMULA:" in line:
         formula = line.split(" = ")[-1].strip()
 
-    if "INCHIKEY:" in line:
-        inchi = line.split(" = ")[-1].strip()
-
-    if "SMILES:" in line:
-        smiles = line.split(" = ")[-1].strip()
-
     if "RETENTIONTIME:" in line:
         retentiontime = line.split(" = ")[-1].strip()
 
@@ -59,6 +54,16 @@ for line in msp_file:
     if "Comment:" in line:
         comment = "N/A"
 
+    if "SMILES:" in line:
+        smiles = line.split(" = ")[-1].strip()
+        smiles_str = smiles.replace('SMILES: ', '')
+        # calculate inchi here
+        inchi_convert_results = requests.get(f'https://gnps-structure.ucsd.edu/inchi?smiles={quote(smiles_str)}')
+        inchi_convert_str = str(inchi_convert_results.text).replace('InChI=', "")
+        #calculate exact mass here
+        exact_mass_results = requests.get(f'https://gnps-structure.ucsd.edu/structuremass?smiles={quote(smiles_str)}')
+        exact_mass_str = str(exact_mass_results.text)
+
     if "Num peaks:" in line or "Num Peaks: " in line or "number of peaks" in line:
         peaks = []
         read_peaks = True
@@ -69,9 +74,10 @@ for line in msp_file:
         spectrum_string = ""
         spectrum_string += "BEGIN IONS\n"
         spectrum_string += "PEPMASS=" + pepmass.replace('PRECURSORMZ: ', "") + "\n"
-        spectrum_string += "SMILES=" + smiles.replace('SMILES: ', '') + "\n"
-        spectrum_string += "INCHI=" + inchi.replace('INCHIKEY: ', '') + "\n"
-        spectrum_string += "SOURCE_INSTRUMENT=" + "N/A" + "\n"
+        spectrum_string += "SMILES=" + smiles_str + "\n"
+        # spectrum_string += "SMILES=" + smiles.replace('SMILES: ','') + "\n"
+        spectrum_string += "INCHI=" + inchi_convert_str + "\n"
+        # spectrum_string += "SOURCE_INSTRUMENT=" + instrument + "\n"
         spectrum_string += "NAME=" + compound_name.replace('NAME: ', '') + "\n"
         spectrum_string += "SCANS=" + str(scan_number) + "\n"
 
@@ -92,14 +98,14 @@ for line in msp_file:
         batch_file.write("Orbitrap" + "\t")
         batch_file.write(insttype + "\t")
         batch_file.write(str(scan_number) + "\t")
-        batch_file.write(smiles.replace('SMILES: ', '') + "\t")
-        batch_file.write(inchi.replace('INCHIKEY: ', '') + "\t")
+        batch_file.write(smiles_str + "\t")
+        batch_file.write(inchi_convert_str + "\t")
         batch_file.write("N/A" + "\t")
         batch_file.write("1" + "\t")
         batch_file.write(ionmode + "\t")
         batch_file.write("N/A" + "\t")
         batch_file.write("Commercial standard" + "\t")
-        batch_file.write("0" + "\t")
+        batch_file.write(exact_mass_str + "\t")
         batch_file.write("BMDMS-NP" + "\t")
         batch_file.write(precursortype.replace('PRECURSORTYPE: ', '') + "\t")
         batch_file.write("N/A" + "\t")
