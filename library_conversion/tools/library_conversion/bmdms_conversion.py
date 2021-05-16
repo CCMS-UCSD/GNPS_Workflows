@@ -1,10 +1,15 @@
 import sys
+import logging_utils
 import getopt
 import json
 import os
 import pandas as pd
 import requests
+from requests import HTTPError
 from urllib.parse import quote
+
+# get logger
+logger = logging_utils.get_logger(__name__)
 
 # download and open new files
 msp_file = open(sys.argv[1], "r")
@@ -57,12 +62,32 @@ for line in msp_file:
     if "SMILES:" in line:
         smiles = line.split(" = ")[-1].strip()
         smiles_str = smiles.replace('SMILES: ', '')
-        # calculate inchi here
-        inchi_convert_results = requests.get(f'https://gnps-structure.ucsd.edu/inchi?smiles={quote(smiles_str)}')
-        inchi_convert_str = str(inchi_convert_results.text).replace('InChI=', "")
-        #calculate exact mass here
-        exact_mass_results = requests.get(f'https://gnps-structure.ucsd.edu/structuremass?smiles={quote(smiles_str)}')
-        exact_mass_str = str(exact_mass_results.text)
+
+        # initialize values in case of error
+        exact_mass_str = "N/A"
+        inchi_convert_str = "N/A"
+
+        if smiles_str is not None:
+            try:
+                inchi_convert_results = requests.get(f'https://gnps-structure.ucsd.edu/inchi?smiles={quote(smiles_str)}')
+                # if error code - raise exception for logging also see request.ok
+                inchi_convert_results.raise_for_status()
+                # set value
+                inchi_convert_str = str(inchi_convert_results.text).replace('InChI=', "")
+            except HTTPError as error:
+                inchi_convert_str = "N/A"
+                logger.warning("Failed to get InChI from SMILES at: %s",inchi_convert_results.request.url)
+                logger.exception(error)
+
+            # calculate exact mass here
+            try:
+                exact_mass_results = requests.get(f'https://gnps-structure.ucsd.edu/structuremass?smiles={quote(smiles_str)}')
+                exact_mass_results.raise_for_status()
+                exact_mass_str = str(exact_mass_results.text)
+            except HTTPError as error:
+                exact_mass_str = "N/A"
+                logger.warning("Failed to get exact mass from SMILES at: %s",exact_mass_results.request.url)
+                logger.exception(error)
 
     if "Num peaks:" in line or "Num Peaks: " in line or "number of peaks" in line:
         peaks = []
