@@ -15,6 +15,7 @@ def main():
     input_filename = sys.argv[1]
     output_tsv = sys.argv[2]
 
+    # Loading annotations
     results_list = ming_fileio_library.parse_table_with_headers_object_list(input_filename)
     results_by_compound_name = defaultdict(list)
     for result in results_list:
@@ -26,9 +27,15 @@ def main():
     for compound_name in results_by_compound_name:
         best_result = sorted(results_by_compound_name[compound_name], key=lambda result: float(result["MQScore"]), reverse=True)[0]
 
-        all_RTs = [float(result["RT_Query"]) for result in results_by_compound_name[compound_name]]
-        all_MZs = [float(result["SpecMZ"]) for result in results_by_compound_name[compound_name]]
-        all_MZ_ppmerror = [float(result["MZErrorPPM"]) for result in results_by_compound_name[compound_name]]
+        # Calculating errors, handling errors
+        try:
+            all_RTs = [float(result["RT_Query"]) for result in results_by_compound_name[compound_name]]
+            all_MZs = [float(result["SpecMZ"]) for result in results_by_compound_name[compound_name]]
+            all_MZ_ppmerror = [float(result["MZErrorPPM"]) for result in results_by_compound_name[compound_name]]
+        except:
+            all_RTs = [-1]
+            all_MZs = [-1]
+            all_MZ_ppmerror = [-1]
 
         rt_mean = statistics.mean(all_RTs)
         rt_median = statistics.median(all_RTs)
