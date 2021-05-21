@@ -79,6 +79,11 @@
 			<validator type="integer" minimumExclusive="0" maximum="500"/>
 		</parameter>
 
+		<parameter name="MIN_RATIO" label="Minimum Explained Aligned Intensity Ratio">
+			<default value="0.4"/>
+			<validator type="float" minimumExclusive="0" maximum="1"/>
+		</parameter>
+
 
 		<parameter name="TOPK" label="Network TopK">
 			<default value="10"/>
@@ -421,6 +426,7 @@
 							</cell>
 						</row>
 					</block>
+
 					<block label="Advanced Network Options">
 						<row>
 							<cell>
@@ -447,6 +453,22 @@
 							</cell>
 							<cell>
 								<input type="text" parameter="MIN_MATCHED_PEAKS">
+									<attribute name="size" value="3"/>
+								</input>
+							</cell>
+						</row>
+
+						<row>
+							<cell>
+								<label>
+									<content parameter="MIN_RATIO"/>
+									<tooltip id="min_pair_cosine_tooltip">
+										Minimum cosine score that must occur between a pair of consensus MS/MS spectra in order for an edge to be formed in the molecular network. Default value is 0.7. Lower value will increase the size of the clusters by inducing the clustering of less related MS/MS spectra, higher value will limit do the opposite.
+									</tooltip>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="MIN_RATIO">
 									<attribute name="size" value="3"/>
 								</input>
 							</cell>
