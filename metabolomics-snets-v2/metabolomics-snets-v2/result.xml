@@ -252,11 +252,24 @@
                 <parameter name="spectraid" value="[cluster index]"/>
             </column>
         </row>
-        <row expander="MASST Spectrum" expandericontype="text">
+        <row expander="Classic MASST" expandericontype="text">
             <column type="singlespectrumcolumnhandler" colspan="5">
                 <parameter name="mz" value="[precursor mass]"/>
                 <parameter name="file" file="spectra/specs_ms.mgf"/>
                 <parameter name="scan" value="[cluster index]"/>
+            </column>
+        </row>
+        <row expander="Advanced MASST" expandericontype="text">
+            <column label="MASST+" type="genericurlgenerator" width="3" field="cluster index">
+                <parameter name="URLBASE" value="https://masst.ucsd.edu/masstplus"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="LABEL" value="MASST+ Search"/>
+            </column>
+            <column label="MASST+" type="genericurlgenerator" width="3" field="cluster index">
+                <parameter name="URLBASE" value="https://masst.ucsd.edu/masstplus"/>
+                <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[cluster index]"/>
+                <parameter name="REQUESTPARAMETER=analog" value="Yes"/>
+                <parameter name="LABEL" value="MASST+ Analog Search"/>
             </column>
         </row>
         <row expander="USI Links" expandericontype="text">
