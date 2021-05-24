@@ -109,7 +109,7 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                 read_peaks = True
                 continue
 
-            if len(line.strip()) < 1:
+            if read_peaks == True and len(line.strip()) < 1:
                 # End of spectrum
                 if adduct == "":
                     try:

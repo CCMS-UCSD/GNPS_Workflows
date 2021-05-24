@@ -197,7 +197,7 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                 continue
 
             # check for empty line or EOF (line without break)
-            if len(line.strip()) < 1 or line.find("\n") == -1:
+            if read_peaks == True and (len(line.strip()) < 1 or line.find("\n") == -1):
                 # End of spectrum, writing spectrum
                 spectrum_string = ""
                 spectrum_string += "BEGIN IONS\n"
@@ -257,9 +257,20 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
 
                 scan_number += 1
 
-                cas_number = "N/A"
+                # reset all values
+                peptide = "*..*"
                 smiles = "N/A"
                 inchi = "N/A"
+                pepmass = ""
+                instrument = ""
+                instrument_type = ""
+                compound_name = ""
+                peaks = []
+                ion_mode = ""
+                cas_number = "N/A"
+                adduct = ""
+                ionization_mode = ""
+                nist_no = " "
 
                 # Saving out cache
                 if scan_number % 1000 == 0:
