@@ -77,11 +77,19 @@ def main():
         parser.print_help(sys.stderr)
         sys.exit(1)
 
+    pi_name = args.pi_name
+    collector_name = args.collector_name
+    # standard values are None
+    if collector_name == "None":
+        collector_name = ""
+    if pi_name == "None":
+        pi_name = ""
+
     # convert based on input format
     libformat = str(args.libformat).lower()
     try:
-        num_library_entries = convert(libformat, input_filename, mgf_filename, batch_filename, args.pi_name,
-                                      args.collector_name)
+        num_library_entries = convert(libformat, input_filename, mgf_filename, batch_filename, pi_name,
+                                      collector_name)
 
         if num_library_entries == 0:
             sys.exit(1)  # exit with error
