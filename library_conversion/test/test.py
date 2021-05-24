@@ -15,6 +15,10 @@ class TestLibraryConversion(unittest.TestCase):
         library_conversion.convert(InputFormat.nist_msp.name, "data/MoNA_mzmine_format.msp", "mona_mzmine.mgf",
                                    "mona_mzmine.tsv", "Robin Test PI", "Robin Test Collector")
 
+    def test_mzmine_json(self):
+        library_conversion.convert(InputFormat.mzmine_json.name, "data/mzmine.json", "mzmine_json.mgf",
+                                   "mzmine_json.tsv", "Robin Test PI", "Robin Test Collector")
+
 
 if __name__ == '__main__':
     unittest.main()

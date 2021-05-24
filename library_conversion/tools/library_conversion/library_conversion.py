@@ -8,7 +8,7 @@ from enum import Enum
 
 # Specifies the input formats
 class InputFormat(Enum):
-    mzvault, nist_msp, bmdms = range(3)
+    mzvault, nist_msp, mzmine_json, bmdms = range(4)
 
 # handle formats and convert
 def convert(libformat, input_filename, mgf_filename, batch_filename, pi_name, collector_name):
@@ -21,6 +21,9 @@ def convert(libformat, input_filename, mgf_filename, batch_filename, pi_name, co
         elif libformat == InputFormat.bmdms.name:
             import bmdms_conversion
             bmdms_conversion.convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name)
+        elif libformat == InputFormat.mzmine_json.name:
+            import mzmine_json_conversion
+            mzmine_json_conversion.convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name)
 
 
 def main():
