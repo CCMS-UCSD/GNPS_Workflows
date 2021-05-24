@@ -164,19 +164,11 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                         ion_mode = "Negative"
                     adduct = adduct[:-1]
 
-            if "synon: $:28" in line_lower or "inchikey" in line_lower:
-                inchi_key = line.replace("Synon: $:28", "").replace("inchikey: ", "").rstrip()
-                # cache inchi and smiles for inchi_key
-                if not inchi_key in inchikey_to_structure_map:
-                    inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
-                    if inchi == "N/A":
-                        inchi = inchikey_to_inchi_chemspider(inchi_key)
-                    if smiles == "N/A":
-                        smiles = inchi_to_smiles_chemspider(inchi)
-                    inchikey_to_structure_map[inchi_key] = (inchi, smiles)
-                else:
-                    inchi, smiles = inchikey_to_structure_map[inchi_key]
-                print(inchi_key, inchi, smiles)
+            if "synon: $:28" in line_lower:
+                inchi_key = line[len("synon: $:28"):].rstrip()
+
+            if "inchikey" in line_lower:
+                inchi_key = line[len("inchikey: "):].rstrip()
 
             if line_lower.find("nistno:") != -1:
                 nist_no = line[len("NISTNO: "):].rstrip()
@@ -198,6 +190,10 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
 
             # check for empty line or EOF (line without break)
             if read_peaks == True and (len(line.strip()) < 1 or line.find("\n") == -1):
+                # resolve inchikey
+                if len(inchi_key) > 0:
+                    inchi, smiles = resolve_inchikey(inchi_key, inchikey_to_structure_map)
+
                 # End of spectrum, writing spectrum
                 spectrum_string = ""
                 spectrum_string += "BEGIN IONS\n"
@@ -283,6 +279,21 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                     pass
 
         return 0
+
+
+def resolve_inchikey(inchi_key, inchikey_to_structure_map):
+    # cache inchi and smiles for inchi_key
+    if not inchi_key in inchikey_to_structure_map:
+        inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
+        if inchi == "N/A":
+            inchi = inchikey_to_inchi_chemspider(inchi_key)
+        if smiles == "N/A":
+            smiles = inchi_to_smiles_chemspider(inchi)
+        inchikey_to_structure_map[inchi_key] = (inchi, smiles)
+    else:
+        inchi, smiles = inchikey_to_structure_map[inchi_key]
+    print(inchi_key, inchi, smiles)
+    return inchi, smiles
 
 
 if __name__ == "__main__":
