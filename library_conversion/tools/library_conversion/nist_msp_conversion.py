@@ -71,169 +71,170 @@ def inchi_to_smiles_chemspider(inchi):
 
 
 def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_name):
-    txt_file = open(input_filename, "r")
-    mgf_file = open(mgf_filename, "w")
-    batch_file = open(batch_filename, "w")
+    # open input and output files
+    with open(input_filename, "r") as txt_file, \
+            open(mgf_filename, "w") as mgf_file, \
+            open(batch_filename, "w") as batch_file:
 
-    json_mapping_cache_filename = "mapping_cache.json"
-    inchikey_to_structure_map = {}
-    if os.path.isfile(json_mapping_cache_filename):
-        inchikey_to_structure_map = json.loads(open(json_mapping_cache_filename).read())
+        json_mapping_cache_filename = "mapping_cache.json"
+        inchikey_to_structure_map = {}
+        if os.path.isfile(json_mapping_cache_filename):
+            inchikey_to_structure_map = json.loads(open(json_mapping_cache_filename).read())
 
-    acceptable_ionization = set(["ESI", "APCI"])
-    acceptable_instruments = set(
-        ["ESI-IT-MS/MS", "ESI-QqIT-MS/MS", "ESI-QqQ-MS/MS", "ESI-QqTOF-MS/MS", "FAB-EBEB", "LC-APPI-QQ", "LC-ESI-IT",
-         "LC-ESI-ITFT", "LC-ESI-ITTOF", "LC-ESI-QIT", "LC-ESI-QQ", "LC-ESI-QTOF"])
+        acceptable_ionization = set(["ESI", "APCI"])
+        acceptable_instruments = set(
+            ["ESI-IT-MS/MS", "ESI-QqIT-MS/MS", "ESI-QqQ-MS/MS", "ESI-QqTOF-MS/MS", "FAB-EBEB", "LC-APPI-QQ",
+             "LC-ESI-IT", "LC-ESI-ITFT", "LC-ESI-ITTOF", "LC-ESI-QIT", "LC-ESI-QQ", "LC-ESI-QTOF"])
 
-    peptide = "*..*"
-    smiles = "N/A"
-    inchi = "N/A"
-    pepmass = ""
-    title = ""
-    instrument = ""
-    compound_name = ""
-    peaks = []
-    retentiontime = ""
-    ion_mode = ""
-    peaks_start = 0;
-    exactmass = "0"
-    cas_number = "N/A"
-    adduct = ""
-    spectrum_level = 0
-    ionization_mode = ""
-    nist_no = " "
+        peptide = "*..*"
+        smiles = "N/A"
+        inchi = "N/A"
+        pepmass = ""
+        title = ""
+        instrument = ""
+        compound_name = ""
+        peaks = []
+        retentiontime = ""
+        ion_mode = ""
+        peaks_start = 0;
+        exactmass = "0"
+        cas_number = "N/A"
+        adduct = ""
+        spectrum_level = 0
+        ionization_mode = ""
+        nist_no = " "
 
-    read_peaks = False
+        read_peaks = False
 
-    pi = (pi_name if pi_name is not None else "")
-    data_collector = (collector_name if collector_name is not None else "")
-    scan_number = 1
+        pi = (pi_name if pi_name is not None else "")
+        data_collector = (collector_name if collector_name is not None else "")
+        scan_number = 1
 
-    # Writing Batch Headers
-    batch_file.write("FILENAME\tSEQ\tCOMPOUND_NAME\tMOLECULEMASS\tINSTRUMENT\tIONSOURCE\tEXTRACTSCAN\t")
-    batch_file.write("SMILES\tINCHI\tINCHIAUX\tCHARGE\tIONMODE\tPUBMED\tACQUISITION\tEXACTMASS\tDATACOLLECTOR\t")
-    batch_file.write("ADDUCT\tINTEREST\tLIBQUALITY\tGENUS\tSPECIES\tSTRAIN\tCASNUMBER\tPI\n")
+        # Writing Batch Headers
+        batch_file.write("FILENAME\tSEQ\tCOMPOUND_NAME\tMOLECULEMASS\tINSTRUMENT\tIONSOURCE\tEXTRACTSCAN\t")
+        batch_file.write("SMILES\tINCHI\tINCHIAUX\tCHARGE\tIONMODE\tPUBMED\tACQUISITION\tEXACTMASS\tDATACOLLECTOR\t")
+        batch_file.write("ADDUCT\tINTEREST\tLIBQUALITY\tGENUS\tSPECIES\tSTRAIN\tCASNUMBER\tPI\n")
 
-    for line in txt_file:
-        if line.find("Name:") != -1:
-            compound_name = line.strip()[len("Name: "):]
-            # print line.rstrip()
+        for line in txt_file:
+            if line.find("Name:") != -1:
+                compound_name = line.strip()[len("Name: "):]
+                # print line.rstrip()
 
-        if line.find("Synon: $:06") != -1:
-            instrument = line[len("Synon: $:06"):].rstrip()
+            if line.find("Synon: $:06") != -1:
+                instrument = line[len("Synon: $:06"):].rstrip()
 
-        if line.find("Instrument_type") != -1:
-            instrument = line[len("Instrument_type: "):].rstrip()
+            if line.find("Instrument_type") != -1:
+                instrument = line[len("Instrument_type: "):].rstrip()
 
-        if line.find("Synon: $:00") != -1:
-            ms_level = line[len("Synon: $:00"):].rstrip()
+            if line.find("Synon: $:00") != -1:
+                ms_level = line[len("Synon: $:00"):].rstrip()
 
-        if line.find("Synon: $:10") != -1:
-            ionization_mode = line[len("Synon: $:10"):].rstrip()
+            if line.find("Synon: $:10") != -1:
+                ionization_mode = line[len("Synon: $:10"):].rstrip()
 
-        if line.find("Ionization: ") != -1:
-            ionization_mode = line[len("Ionization: "):].rstrip()
+            if line.find("Ionization: ") != -1:
+                ionization_mode = line[len("Ionization: "):].rstrip()
 
-        if "Synon: $:03" in line or "Precursor_type" in line:
-            adduct = line.replace("Synon: $:03", "").replace("Precursor_type: ", "").rstrip()
-            if adduct[-1] == "+":
-                ion_mode = "Positive"
-            if adduct[-1] == "-":
-                ion_mode = "Negative"
-            adduct = adduct[:-1]
+            if "Synon: $:03" in line or "Precursor_type" in line:
+                adduct = line.replace("Synon: $:03", "").replace("Precursor_type: ", "").rstrip()
+                if adduct[-1] == "+":
+                    ion_mode = "Positive"
+                if adduct[-1] == "-":
+                    ion_mode = "Negative"
+                adduct = adduct[:-1]
 
-        if line.find("Synon: $:28") != -1:
-            inchi_key = line[len("Synon: $:28"):].rstrip()
-            if not inchi_key in inchikey_to_structure_map:
-                inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
-                if inchi == "N/A":
-                    inchi = inchikey_to_inchi_chemspider(inchi_key)
-                if smiles == "N/A":
-                    smiles = inchi_to_smiles_chemspider(inchi)
-                inchikey_to_structure_map[inchi_key] = (inchi, smiles)
-            else:
-                inchi, smiles = inchikey_to_structure_map[inchi_key]
-            print(inchi_key, inchi, smiles)
+            if line.find("Synon: $:28") != -1:
+                inchi_key = line[len("Synon: $:28"):].rstrip()
+                if not inchi_key in inchikey_to_structure_map:
+                    inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
+                    if inchi == "N/A":
+                        inchi = inchikey_to_inchi_chemspider(inchi_key)
+                    if smiles == "N/A":
+                        smiles = inchi_to_smiles_chemspider(inchi)
+                    inchikey_to_structure_map[inchi_key] = (inchi, smiles)
+                else:
+                    inchi, smiles = inchikey_to_structure_map[inchi_key]
+                print(inchi_key, inchi, smiles)
 
-        if line.find("NISTNO:") != -1:
-            nist_no = line[len("NISTNO: "):].rstrip()
+            if line.find("NISTNO:") != -1:
+                nist_no = line[len("NISTNO: "):].rstrip()
 
-        if line.find("PrecursorMZ: ") != -1:
-            pepmass = line[len("PrecursorMZ: "):].rstrip()
+            if line.find("PrecursorMZ: ") != -1:
+                pepmass = line[len("PrecursorMZ: "):].rstrip()
 
-        if line.find("CASNO: ") != -1:
-            cas_number = line[len("CASNO: "):].rstrip()
+            if line.find("CASNO: ") != -1:
+                cas_number = line[len("CASNO: "):].rstrip()
 
-        if "Num peaks:" in line or "Num Peaks: " in line:
-            peaks = []
-            read_peaks = True
-            continue
+            if "Num peaks:" in line or "Num Peaks: " in line:
+                peaks = []
+                read_peaks = True
+                continue
 
-        if len(line.strip()) < 1:
-            # End of spectrum, writing spectrum
-            spectrum_string = ""
-            spectrum_string += "BEGIN IONS\n"
-            spectrum_string += "SEQ=" + peptide + "\n"
-            spectrum_string += "PEPMASS=" + pepmass + "\n"
-            spectrum_string += "SMILES=" + smiles + "\n"
-            spectrum_string += "INCHI=" + inchi + "\n"
-            spectrum_string += "SOURCE_INSTRUMENT=" + instrument + "\n"
-            spectrum_string += "NAME=" + "NIST:" + nist_no + " " + compound_name + "\n"
-            spectrum_string += "ORGANISM=NIST\n"
-            spectrum_string += "SCANS=" + str(scan_number) + "\n"
+            if len(line.strip()) < 1:
+                # End of spectrum, writing spectrum
+                spectrum_string = ""
+                spectrum_string += "BEGIN IONS\n"
+                spectrum_string += "SEQ=" + peptide + "\n"
+                spectrum_string += "PEPMASS=" + pepmass + "\n"
+                spectrum_string += "SMILES=" + smiles + "\n"
+                spectrum_string += "INCHI=" + inchi + "\n"
+                spectrum_string += "SOURCE_INSTRUMENT=" + instrument + "\n"
+                spectrum_string += "NAME=" + "NIST:" + nist_no + " " + compound_name + "\n"
+                spectrum_string += "ORGANISM=NIST\n"
+                spectrum_string += "SCANS=" + str(scan_number) + "\n"
 
-            for peak in peaks:
-                spectrum_string += peak + "\n"
+                for peak in peaks:
+                    spectrum_string += peak + "\n"
 
-            peaks = []
-            spectrum_string += "END IONS\n"
-            # print spectrum_string
-            mgf_file.write(spectrum_string)
-            read_peaks = False
+                peaks = []
+                spectrum_string += "END IONS\n"
+                # print spectrum_string
+                mgf_file.write(spectrum_string)
+                read_peaks = False
 
-            # writing batch file
-            batch_file.write(mgf_filename + "\t")
-            batch_file.write(peptide + "\t")
-            batch_file.write(compound_name + "\t")
-            batch_file.write(pepmass + "\t")
-            batch_file.write(instrument + "\t")
-            batch_file.write(ionization_mode + "\t")
-            batch_file.write(str(scan_number) + "\t")
-            batch_file.write(smiles + "\t")
-            batch_file.write(inchi + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write("1" + "\t")
-            batch_file.write(ion_mode + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write("Isolated" + "\t")
-            batch_file.write("0" + "\t")
-            batch_file.write(data_collector + "\t")
-            batch_file.write(adduct[1:-1] + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write("3" + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write("N/A" + "\t")
-            batch_file.write(cas_number + "\t")
-            batch_file.write(pi + "\n")
+                # writing batch file
+                batch_file.write(mgf_filename + "\t")
+                batch_file.write(peptide + "\t")
+                batch_file.write(compound_name + "\t")
+                batch_file.write(pepmass + "\t")
+                batch_file.write(instrument + "\t")
+                batch_file.write(ionization_mode + "\t")
+                batch_file.write(str(scan_number) + "\t")
+                batch_file.write(smiles + "\t")
+                batch_file.write(inchi + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write("1" + "\t")
+                batch_file.write(ion_mode + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write("Isolated" + "\t")
+                batch_file.write("0" + "\t")
+                batch_file.write(data_collector + "\t")
+                batch_file.write(adduct[1:-1] + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write("3" + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write("N/A" + "\t")
+                batch_file.write(cas_number + "\t")
+                batch_file.write(pi + "\n")
 
-            scan_number += 1
+                scan_number += 1
 
-            cas_number = "N/A"
-            smiles = "N/A"
-            inchi = "N/A"
+                cas_number = "N/A"
+                smiles = "N/A"
+                inchi = "N/A"
 
-            # Saving out cache
-            if scan_number % 1000 == 0:
-                open(json_mapping_cache_filename, "w").write(json.dumps(inchikey_to_structure_map))
+                # Saving out cache
+                if scan_number % 1000 == 0:
+                    open(json_mapping_cache_filename, "w").write(json.dumps(inchikey_to_structure_map))
 
-        if read_peaks == True:
-            try:
-                peaks.append(" ".join(line.rstrip().split(" ")[:2]))
-            except:
-                pass
+            if read_peaks == True:
+                try:
+                    peaks.append(" ".join(line.rstrip().split(" ")[:2]))
+                except:
+                    pass
 
-    return 0
+        return 0
 
 
 if __name__ == "__main__":
