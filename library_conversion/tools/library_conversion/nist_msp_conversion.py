@@ -92,6 +92,7 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
         pepmass = ""
         title = ""
         instrument = ""
+        instrument_type = ""
         compound_name = ""
         peaks = []
         retentiontime = ""
@@ -103,7 +104,6 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
         spectrum_level = 0
         ionization_mode = ""
         nist_no = " "
-
         read_peaks = False
 
         pi = (pi_name if pi_name is not None else "")
@@ -116,35 +116,57 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
         batch_file.write("ADDUCT\tINTEREST\tLIBQUALITY\tGENUS\tSPECIES\tSTRAIN\tCASNUMBER\tPI\n")
 
         for line in txt_file:
-            if line.find("Name:") != -1:
+            line_lower = line.lower()
+            if line_lower.find("name:") != -1:
                 compound_name = line.strip()[len("Name: "):]
                 # print line.rstrip()
 
-            if line.find("Synon: $:06") != -1:
-                instrument = line[len("Synon: $:06"):].rstrip()
+            # LC-ESI-QTOF ...
+            if line_lower.find("synon: $:06") != -1:
+                instrument_type = line[len("Synon: $:06"):].rstrip()
 
-            if line.find("Instrument_type") != -1:
-                instrument = line[len("Instrument_type: "):].rstrip()
+            # LC-ESI-QTOF ...
+            if line_lower.find("instrument_type") != -1:
+                instrument_type = line[len("Instrument_type: "):].rstrip()
 
-            if line.find("Synon: $:00") != -1:
+            # QExactive, Bruker maXis, etc
+            if line_lower.find("instrument") != -1:
+                instrument = line[len("instrument: "):].rstrip()
+
+            if line_lower.find("synon: $:00") != -1:
                 ms_level = line[len("Synon: $:00"):].rstrip()
 
-            if line.find("Synon: $:10") != -1:
+            if line_lower.find("synon: $:10") != -1:
                 ionization_mode = line[len("Synon: $:10"):].rstrip()
 
-            if line.find("Ionization: ") != -1:
+            if line_lower.find("ionization: ") != -1:
                 ionization_mode = line[len("Ionization: "):].rstrip()
 
-            if "Synon: $:03" in line or "Precursor_type" in line:
-                adduct = line.replace("Synon: $:03", "").replace("Precursor_type: ", "").rstrip()
-                if adduct[-1] == "+":
+            # P or N
+            if line_lower.find("ion_mode: ") != -1:
+                ion_mode = line_lower[len("ion_mode: "):].rstrip()
+                if ion_mode == "p" or "pos" in ion_mode:
                     ion_mode = "Positive"
-                if adduct[-1] == "-":
+                elif ion_mode == "n" or "neg" in ion_mode:
                     ion_mode = "Negative"
-                adduct = adduct[:-1]
 
-            if line.find("Synon: $:28") != -1:
-                inchi_key = line[len("Synon: $:28"):].rstrip()
+            if "synon: $:03" in line_lower or "precursor_type" in line_lower:
+                adduct = line.replace("Synon: $:03", "").replace("Precursor_type: ", "").rstrip()
+                if len(adduct) > 1:
+                    if adduct[-1] == "+":
+                        ion_mode = "Positive"
+                    elif adduct[-1] == "-":
+                        ion_mode = "Negative"
+                    # for doubly charged: [M+2H]+2
+                    elif adduct[-2] == "+":
+                        ion_mode = "Positive"
+                    elif adduct[-2] == "-":
+                        ion_mode = "Negative"
+                    adduct = adduct[:-1]
+
+            if "synon: $:28" in line_lower or "inchikey" in line_lower:
+                inchi_key = line.replace("Synon: $:28", "").replace("inchikey: ", "").rstrip()
+                # cache inchi and smiles for inchi_key
                 if not inchi_key in inchikey_to_structure_map:
                     inchi, smiles = inchikey_to_inchi_smiles_pubchem(inchi_key)
                     if inchi == "N/A":
@@ -156,21 +178,26 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                     inchi, smiles = inchikey_to_structure_map[inchi_key]
                 print(inchi_key, inchi, smiles)
 
-            if line.find("NISTNO:") != -1:
+            if line_lower.find("nistno:") != -1:
                 nist_no = line[len("NISTNO: "):].rstrip()
 
-            if line.find("PrecursorMZ: ") != -1:
+            if line_lower.find("precursormz: ") != -1:
                 pepmass = line[len("PrecursorMZ: "):].rstrip()
 
-            if line.find("CASNO: ") != -1:
+            if line_lower.find("casno: ") != -1:
                 cas_number = line[len("CASNO: "):].rstrip()
+            if line_lower.find("cas: ") != -1:
+                cas_number = line[len("cas: "):].rstrip()
+            if line_lower.find("cas#: ") != -1:
+                cas_number = line[len("cas#: "):].rstrip()
 
-            if "Num peaks:" in line or "Num Peaks: " in line:
+            if "num peaks:" in line_lower:
                 peaks = []
                 read_peaks = True
                 continue
 
-            if len(line.strip()) < 1:
+            # check for empty line or EOF (line without break)
+            if len(line.strip()) < 1 or line.find("\n") == -1:
                 # End of spectrum, writing spectrum
                 spectrum_string = ""
                 spectrum_string += "BEGIN IONS\n"
@@ -178,7 +205,7 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                 spectrum_string += "PEPMASS=" + pepmass + "\n"
                 spectrum_string += "SMILES=" + smiles + "\n"
                 spectrum_string += "INCHI=" + inchi + "\n"
-                spectrum_string += "SOURCE_INSTRUMENT=" + instrument + "\n"
+                spectrum_string += "SOURCE_INSTRUMENT=" + instrument_type + "\n"
                 spectrum_string += "NAME=" + "NIST:" + nist_no + " " + compound_name + "\n"
                 spectrum_string += "ORGANISM=NIST\n"
                 spectrum_string += "SCANS=" + str(scan_number) + "\n"
@@ -197,8 +224,18 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                 batch_file.write(peptide + "\t")
                 batch_file.write(compound_name + "\t")
                 batch_file.write(pepmass + "\t")
-                batch_file.write(instrument + "\t")
-                batch_file.write(ionization_mode + "\t")
+                # instrument names
+                if len(instrument) > 0:
+                    batch_file.write(instrument + "\t")
+                else:
+                    batch_file.write(instrument_type + "\t")
+                # LC-ESI ....
+                if len(ionization_mode) > 0:
+                    batch_file.write(ionization_mode + "\t")
+                elif len(instrument_type) > 0:
+                    batch_file.write(instrument_type + "\t")
+                else:
+                    batch_file.write("\t")
                 batch_file.write(str(scan_number) + "\t")
                 batch_file.write(smiles + "\t")
                 batch_file.write(inchi + "\t")
