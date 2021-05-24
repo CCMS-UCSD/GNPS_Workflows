@@ -15,6 +15,9 @@
             <arg pathRef="library_conversion.script"/>
             <arg option="input-library" valueRef="input_library"/>
             <arg option="-output-folder" valueRef="output_converted_folder"/>
+            <arg option="-libformat" valueRef="@input_format"/>
+            <arg option="-pi" valueRef="@principal_investigator_name"/>
+            <arg option="-collector" valueRef="@data_collector_name"/>
         </execution>
     </tool>
 

@@ -13,9 +13,28 @@
             <validator type="email"/>
         </parameter>
 
-        <parameter name="input_library" label="Input library file">
+        <parameter name="input_library" label="Input Library File">
             <validator type="required"/>
             <fileGenerator type="upload" purpose="input_library" target="input_library"/>
+        </parameter>
+
+        <!-- File format see /library_conversion/library_conversion.InputFormat -->
+        <parameter name="input_format" label="Input Format">
+            <options>
+                <option value="mzvault" label="MZvault .msp"/>
+                <option value="nist_msp" label="NIST compatible .msp"/>
+                <option value="mzmine_json" label="MZmine .json"/>
+            </options>
+            <validator type="set"/>
+            <default value="mzvault"/>
+        </parameter>
+
+        <parameter name="principal_investigator_name" label="Principal Investigator Name">
+            <default value="None"/>
+        </parameter>
+
+        <parameter name="data_collector_name" label="Data Collector Name">
+            <default value="None"/>
         </parameter>
     </parameters>
 
@@ -34,6 +53,55 @@
                 </module>
             </cell>
         </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="input_format"/>
+                    <tooltip id="input_format_gnps_tooltip">
+                        Specifies the format of the input file. Currently, different .msp formats and a .json format
+                        from MZmine are supported.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="input_format"></input>
+            </cell>
+        </row>
     </block>
 
+    <!-- Optional parameters to override values in library -->
+    <block label="Options">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="principal_investigator_name"/>
+                    <tooltip id="principal_investigator_name_tooltip">
+                        Override principal investigator (PI) name in all library entries.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="principal_investigator_name">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="data_collector_name"/>
+                    <tooltip id="data_collector_name_tooltip">
+                        Override name of the person who collected the data in all library entries.
+                    </tooltip>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="data_collector_name">
+                    <attribute name="size" value="30"/>
+                </input>
+            </cell>
+        </row>
+    </block>
 </interface>
