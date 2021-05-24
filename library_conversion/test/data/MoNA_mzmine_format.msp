@@ -1,0 +1,90 @@
+Name: Sulfaclozine
+Synon: 4-amino-N-(6-chloropyrazin-2-yl)benzenesulfonamide
+Synon: $:00in-source
+DB#: AU100601
+InChIKey: QKLPUVXBJHRFQZ-UHFFFAOYSA-N
+Precursor_type: [M+H]+
+Spectrum_type: MS2
+PrecursorMZ: 285.0208
+Instrument_type: LC-ESI-QTOF
+Instrument: Bruker maXis Impact
+Ion_mode: P
+Collision_energy: Ramp 21.1-31.6 eV
+Formula: C10H9ClN4O2S
+MW: 284
+ExactMass: 284.013474208
+Comments: "SMILES=c1cc(ccc1N)S(=O)(=O)Nc2cncc(n2)Cl" "cas=102-65-8" "pubchem cid=66890" "chemspider=60252" "InChI=InChI=1S/C10H9ClN4O2S/c11-9-5-13-6-10(14-9)15-18(16,17)8-3-1-7(12)2-4-8/h1-6H,12H2,(H,14,15)" "computed SMILES=O=S(=O)(N=C1C=NC=C(Cl)N1)C2=CC=C(N)C=C2" "accession=AU100601" "author=Nikiforos Alygizakis, Anna Bletsou, Nikolaos Thomaidis, University of Athens" "license=CC BY" "copyright=Copyright (C) 2015 Department of Chemistry, University of Athens" "exact mass=284.0135" "ionization=ESI" "fragmentation mode=CID" "resolution=35000" "column=Acclaim RSLC C18 2.2um, 2.1x100mm, Thermo" "flow gradient=99/1 at 0-1 min, 61/39 at 3 min, 0.1/99.9 at 14-16 min, 99/1 at 16.1-20 min" "flow rate=200 uL/min at 0-3 min, 400 uL/min at 14 min, 480 uL/min at 16-19 min, 200 uL/min at 19.1-20 min" "retention time=4.6 min" "solvent a=water with 0.01% formic acid and 5mM ammonium formate" "solvent b=90:10 methanol:water with 0.01% formic acid and 5mM ammonium formate" "computed mass accuracy=0.17469602228006656" "computed mass error=4.9792000027082395E-5" "SPLASH=splash10-0a4i-1900000000-d2bc1c887f6f99ed0f74" "submitter=Nikolaos Thomaidis (University of Athens)" "MoNA Rating=5.0"
+Num Peaks: 27
+53.0389 0.594951
+54.0333 0.566811
+55.0178 0.522592
+60.0552 0.542692
+65.0382 3.822962
+66.0423 0.506512
+68.049 7.963499
+78.0333 0.727609
+79.0177 1.057244
+92.0498 7.702203
+93.0532 0.731629
+96.0443 0.623091
+108.0457 12.172375
+109.0483 1.181862
+110.0609 4.904325
+120.0562 3.095353
+130.0172 5.656054
+132.0138 1.515517
+156.0118 100.000000
+157.015 8.884065
+158.008 3.891301
+174.0228 0.751729
+184.0757 0.619071
+191.9647 0.590931
+219.0438 0.723589
+285.0221 3.694324
+287.0184 0.840167
+
+
+Name: Sulfachlorpyridazine
+Synon: 4-amino-N-(6-chloropyridazin-3-yl)benzenesulfonamide
+Synon: $:00in-source
+DB#: AU100701
+InChIKey: XOXHILFPRYWFOD-UHFFFAOYSA-N
+Precursor_type: [M+H]+
+Spectrum_type: MS2
+PrecursorMZ: 285.0208
+Instrument_type: LC-ESI-QTOF
+Instrument: Bruker maXis Impact
+Ion_mode: P
+Collision_energy: Ramp 21.1-31.6 eV
+Formula: C10H9ClN4O2S
+MW: 284
+ExactMass: 284.01347420800005
+Comments: "SMILES=c1cc(ccc1N)S(=O)(=O)Nc2ccc(nn2)Cl" "cas=80-32-0" "pubchem cid=6634" "chemspider=6382" "InChI=InChI=1S/C10H9ClN4O2S/c11-9-5-6-10(14-13-9)15-18(16,17)8-3-1-7(12)2-4-8/h1-6H,12H2,(H,14,15)" "computed SMILES=O=S(=O)(NC1=NN=C(Cl)C=C1)C2=CC=C(N)C=C2" "accession=AU100701" "author=Nikiforos Alygizakis, Anna Bletsou, Nikolaos Thomaidis, University of Athens" "license=CC BY" "copyright=Copyright (C) 2015 Department of Chemistry, University of Athens" "exact mass=284.0135" "ionization=ESI" "fragmentation mode=CID" "resolution=35000" "column=Acclaim RSLC C18 2.2um, 2.1x100mm, Thermo" "flow gradient=99/1 at 0-1 min, 61/39 at 3 min, 0.1/99.9 at 14-16 min, 99/1 at 16.1-20 min" "flow rate=200 uL/min at 0-3 min, 400 uL/min at 14 min, 480 uL/min at 16-19 min, 200 uL/min at 19.1-20 min" "retention time=4.6 min" "solvent a=water with 0.01% formic acid and 5mM ammonium formate" "solvent b=90:10 methanol:water with 0.01% formic acid and 5mM ammonium formate" "computed mass accuracy=0.1746960220806305" "computed mass error=4.9791999970238976E-5" "SPLASH=splash10-0a4i-1900000000-d2bc1c887f6f99ed0f74" "submitter=Nikolaos Thomaidis (University of Athens)" "MoNA Rating=5.0"
+Num Peaks: 27
+53.0389 0.594951
+54.0333 0.566811
+55.0178 0.522592
+60.0552 0.542692
+65.0382 3.822962
+66.0423 0.506512
+68.049 7.963499
+78.0333 0.727609
+79.0177 1.057244
+92.0498 7.702203
+93.0532 0.731629
+96.0443 0.623091
+108.0457 12.172375
+109.0483 1.181862
+110.0609 4.904325
+120.0562 3.095353
+130.0172 5.656054
+132.0138 1.515517
+156.0118 100.000000
+157.015 8.884065
+158.008 3.891301
+174.0228 0.751729
+184.0757 0.619071
+191.9647 0.590931
+219.0438 0.723589
+285.0221 3.694324
+287.0184 0.840167
