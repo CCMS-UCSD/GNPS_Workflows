@@ -103,11 +103,17 @@ def main():
 
         integration_value = integrate.trapz(xic_df["int"], x=xic_df["rt"])
         
+        xic_df = xic_df.sort_values(by=['int'], ascending=False)
+        max_int_rt = xic_df["rt"].iloc[0]
+        max_int = xic_df["int"].iloc[0]
+        
         output_dict = {}
         output_dict["filename"] = os.path.basename(filename)
         output_dict["integration_value"] = integration_value
         output_dict["mz"] = mz
         output_dict["rt"] = rt
+        output_dict["max_int_rt"] = max_int_rt
+        output_dict["max_int"] = max_int
         output_dict["drawing"] = "{}_{}_{}.png".format(os.path.basename(filename), mz, rt)
 
         output_full_xic.append(xic_df)
