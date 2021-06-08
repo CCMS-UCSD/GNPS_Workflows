@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<binding>
+	<bind action="begin" type="download">
+		<url value="{livesearch.download}"/>
+		<query name="task" valueRef="@task" />
+		<query name="user" valueRef="@user"/>
+		<compression type="zip" />
+		<download port="spectra" type="folder">
+            <query name="resource" value="spectra"/>
+        </download>
+		<download port="flowParams" type="file">
+			<query name="resource" value="params"/>
+		</download>
+		<downloadParams>
+			<query name="resource" value="params"/>
+		</downloadParams>
+
+	</bind>
+
+	<bind action="calculate_xic" tool="calculate_xic">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="spectra" requirement="spectra"/>
+		<productionToOutput port="results" production="results"/>
+		<productionToOutput port="extraction_results" production="extraction_results"/>
+		<productionToOutput port="ms2_extraction_results" production="ms2_extraction_results"/>
+	</bind>
+
+	<bind action="demangle_results" tool="demangle_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="results" requirement="results"/>
+		<productionToOutput port="demangled_results" production="demangled_results"/>
+	</bind>
+
+	<bind action="demangle_extraction_results" tool="demangle_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="extraction_results" requirement="results"/>
+		<productionToOutput port="demangled_extraction_results" production="demangled_results"/>
+	</bind>
+
+	<bind action="demangle_ms2_extraction_results" tool="demangle_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="ms2_extraction_results" requirement="results"/>
+		<productionToOutput port="demangled_ms2_extraction_results" production="demangled_results"/>
+	</bind>
+
+
+
+	<bind action="draw_results" tool="draw_results">
+		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+		<inputAsRequirement port="extraction_results" requirement="extraction_results"/>
+		<productionToOutput port="visualized_results" production="visualized_results"/>
+	</bind>
+
+	
+
+	<bind action="end" type="upload">
+		<url value="{livesearch.upload}"/>
+		<query name="task" valueRef="@task"/>
+		<contentQuery name="content"/>
+		<compression type="zip"/>
+
+		<upload port="results" type="folder">
+			<query name="resource" value="results"/>
+		</upload>
+
+		<upload port="extraction_results" type="folder">
+			<query name="resource" value="extraction_results"/>
+		</upload>
+
+		<upload port="ms2_extraction_results" type="folder">
+			<query name="resource" value="ms2_extraction_results"/>
+		</upload>
+
+		<upload port="demangled_results" type="folder">
+			<query name="resource" value="demangled_results"/>
+		</upload>
+
+		<upload port="demangled_extraction_results" type="folder">
+			<query name="resource" value="demangled_extraction_results"/>
+		</upload>
+
+		<upload port="demangled_ms2_extraction_results" type="folder">
+			<query name="resource" value="demangled_ms2_extraction_results"/>
+		</upload>
+
+		<upload port="visualized_results" type="folder">
+			<query name="resource" value="visualized_results"/>
+		</upload>
+
+	</bind>
+</binding>

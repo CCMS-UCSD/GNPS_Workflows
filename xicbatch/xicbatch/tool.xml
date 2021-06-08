@@ -1,0 +1,75 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="calculate_xic" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="calculate_xic.script" path="calculate_xic.py" />
+        <pathVar name="msaccess.path" path="msaccess" />
+    </pathSet>
+
+    <tool name="calculate_xic">
+        <require name="workflowParameters"       type="file"/>
+        <require name="spectra"       type="folder"/>
+        <produce name="results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        <produce name="extraction_results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        <produce name="ms2_extraction_results"        type="file" naming="fixed" value="results" extension="tsv"/>
+        
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="calculate_xic.script"/>
+            <arg valueRef="spectra"/>
+            <arg valueRef="results"/>
+            <arg valueRef="extraction_results"/>
+            <arg valueRef="ms2_extraction_results"/>
+            <arg pathRef="msaccess.path"/>
+            <arg option="-mz" valueRef="@XICMZ"/>
+            <arg option="-mztol" valueRef="@XICRT_TOL"/>
+            <arg option="-rt" valueRef="@XICRT"/>
+            <arg option="-rttol" valueRef="@XICRT_TOL"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="demangle_results" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="demangle_results.script" path="demangle.py" />
+    </pathSet>
+
+    <tool name="demangle_results">
+        <require name="workflowParameters"       type="file"/>
+        <require name="results"       type="file"/>
+        <produce name="demangled_results"        type="file" naming="fixed" value="results" extension="tsv"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="demangle_results.script"/>
+            <arg valueRef="results"/>
+            <arg valueRef="demangled_results"/>
+            <arg valueRef="workflowParameters"/>
+        </execution>
+    </tool>
+
+
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="draw_results" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="draw_results.script" path="draw_results.py" />
+    </pathSet>
+
+    <tool name="draw_results">
+        <require name="workflowParameters"       type="file"/>
+        <require name="extraction_results"       type="file"/>
+        <produce name="visualized_results"        type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="draw_results.script"/>
+            <arg valueRef="extraction_results"/>
+            <arg valueRef="visualized_results"/>
+        </execution>
+    </tool>
+
+    
+
+</toolset>
