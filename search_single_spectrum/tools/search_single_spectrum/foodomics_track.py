@@ -46,11 +46,26 @@ def calculate_enrichment(file_occurrent_df, metadata_df):
 
     return pd.DataFrame(output_list)
 
+def metadata_file_matches(file_occurrent_df):
+    # Filter to appropriate dataset
+    file_occurrent_df = file_occurrent_df[file_occurrent_df["dataset_id"] == "MSV000084900"]
+
+    # Get foodomics full metadata
+    gfop_meta = pd.read_csv('https://raw.githubusercontent.com/ka-west/GFOPontology/master/data/foodomics_metadata_08APR21.txt', sep='\t')
+
+    # Removing extensions on both
+    file_occurrent_df["basefilename"] = file_occurrent_df["basefilename"].apply(lambda x: os.path.splitext(x)[0])
+    gfop_meta["filename"] = gfop_meta["filename"].apply(lambda x: os.path.splitext(x)[0])
+
+    # Return metadata for matching files
+    return(gfop_meta[gfop_meta.filename.isin(file_occurrent_df["basefilename"])])
+
 def main():
     parser = argparse.ArgumentParser(description='Create foodomics enrichment')
     parser.add_argument('foodomics_metadata', help='foodomics_metadata')
     parser.add_argument('matches_results', help='matches_results')
     parser.add_argument('output_enrichment', help='output_enrichment')
+    parser.add_argument('metadata_matches', help='metadata_matches')
     args = parser.parse_args()
 
     try:
@@ -58,6 +73,8 @@ def main():
         metadata_df = pd.read_csv(args.foodomics_metadata, sep="\t")
         enrichment_df = calculate_enrichment(matches_df, metadata_df)
         enrichment_df.to_csv(args.output_enrichment, sep="\t", index=False)
+        matched_metadata = metadata_file_matches(matches_df)
+        matched_metadata.to_csv(args.metadata_matches, sep="\t", index=False)
     except:
         with open(args.output_enrichment, "w") as o:
             o.write("EMPTY")
