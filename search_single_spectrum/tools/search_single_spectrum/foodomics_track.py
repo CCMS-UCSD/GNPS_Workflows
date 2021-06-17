@@ -51,7 +51,7 @@ def metadata_file_matches(file_occurrent_df):
     file_occurrent_df = file_occurrent_df[file_occurrent_df["dataset_id"] == "MSV000084900"]
 
     # Get foodomics full metadata
-    gfop_meta = pd.read_csv('https://raw.githubusercontent.com/ka-west/GFOPontology/master/data/foodomics_metadata_foodmasst.txt', sep='\t')
+    gfop_meta = pd.read_csv('https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
 
     # Removing extensions on both
     file_occurrent_df["basefilename"] = file_occurrent_df["basefilename"].apply(lambda x: os.path.splitext(x)[0])
