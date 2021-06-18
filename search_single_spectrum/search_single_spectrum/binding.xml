@@ -67,6 +67,7 @@
 	<bind action="foodomics_track" tool="foodomics_track">
 		<inputAsRequirement port="all_dataset_file_matches" requirement="all_dataset_file_matches"/>
 		<productionToOutput port="foodomics_tracking_file"       production="foodomics_tracking_file"/>
+		<productionToOutput port="filtered_food_metadata_file"       production="filtered_food_metadata_file"/>
 	</bind>
 
     <!-- Library Search -->
@@ -114,6 +115,9 @@
         </upload>
 		<upload port="foodomics_tracking_file" type="file">
             <query name="resource" value="foodomics_tracking_file"/>
+        </upload>
+		<upload port="filtered_food_metadata_file" type="file">
+            <query name="resource" value="filtered_food_metadata_file"/>
         </upload>
 		
 		<upload port="written_description" type="folder">

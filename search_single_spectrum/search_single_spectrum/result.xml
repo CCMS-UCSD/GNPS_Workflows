@@ -298,6 +298,21 @@
         </row>
     </block>
 
+    <view id="view_foodomics_matched_files" label="View matched files" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="view_foodomics_matched_files"/>
+    </view>
+
+    <block id="view_foodomics_matched_files" type="table">
+        <data>
+            <source type="file" name="filtered_food_metadata_file/"/>
+            <parsers>
+                <parser type="sortedTabular" sortBy="ontology_terminal_leaf" operator="ascending"/>
+            </parsers>
+        </data>
+        <!-- TODO do we have to define the column type for all columns? -->
+    </block>
+
+
     <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
         <blockRef id="main" type="download_cytoscape_data"/>
     </view>
