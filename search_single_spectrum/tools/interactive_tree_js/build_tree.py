@@ -9,8 +9,8 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-def create_tree_html(in_html, in_ontology, in_data, out_json_tree, format_out_json, out_html, compress_out_html,
-                     node_key, data_key):
+def create_tree_html(in_html, in_ontology, in_data, out_json_tree, format_out_json, out_html, compress_out_html = True,
+                     node_key = "name", data_key = "group_value"):
     """
     Merges extra data into an ontology and creates a single distributable html file. Compression reduces the size of
     the html file.
