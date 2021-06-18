@@ -70,6 +70,13 @@
 		<productionToOutput port="filtered_food_metadata_file"       production="filtered_food_metadata_file"/>
 	</bind>
 
+
+	<bind action="build_tree" tool="build_tree">
+		<inputAsRequirement port="foodomics_tracking_file" requirement="foodomics_tracking_file"/>
+		<productionToOutput port="food_tree_html"       production="food_tree_html"/>
+		<productionToOutput port="food_tree_json"       production="food_tree_json"/>
+	</bind>
+
     <!-- Library Search -->
     <bind action="library_search_single" tool="library_search_single">
 		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
@@ -118,6 +125,12 @@
         </upload>
 		<upload port="filtered_food_metadata_file" type="file">
             <query name="resource" value="filtered_food_metadata_file"/>
+        </upload>
+		<upload port="food_tree_html" type="file">
+            <query name="resource" value="food_tree_html"/>
+        </upload>
+		<upload port="food_tree_json" type="file">
+            <query name="resource" value="food_tree_json"/>
         </upload>
 		
 		<upload port="written_description" type="folder">

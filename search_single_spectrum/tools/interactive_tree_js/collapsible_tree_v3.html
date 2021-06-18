@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style type="text/css">
+
+    .node {
+        cursor: pointer;
+    }
+
+    .overlay {
+        background-color: white;
+    }
+
+    .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+
+    .node text {
+        font-size: 10px;
+        font-family: sans-serif;
+    }
+
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+    }
+
+    .templink {
+        fill: none;
+        stroke: #ff0000;
+        stroke-width: 3px;
+    }
+
+    .ghostCircle.show {
+        display: block;
+    }
+
+    .ghostCircle, .activeDrag .ghostCircle {
+        display: none;
+    }
+
+    div.tooltip {
+        position: absolute;
+        text-align: left;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+
+    input[type='number']{
+        width: 5em;
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<body>
+<input type="button" id="downloadSvg" value="Download" onclick="downloadSvg()"
+       title="Download the graph as an SVG file"/>
+<input type="button" value="Collapse" onclick="collapseAllAndUpdate()" title="Collapse all nodes"/>
+<input type="button" value="Expand matched" onclick="expandMatchedAndUpdate()" title="Expand all nodes with matches"/>
+<input type="button" value="Expand" onclick="expandAllAndUpdate()" title="Expand full tree"/>
+<input type="button" value="Scale" onclick="toggleScalingAndUpdate()"
+       title="Toggle scaling of nodes depending on number of matches"/>
+<input type="button" value="Only matched" onclick="toggleFilterMatched()"
+       title="Toggle filtering by match"/>
+<label for="inputFontSize">Font:</label>
+<input type="number" id="inputFontSize" name="inputFontSize" value=12 size="4" maxlength="4" title="Font size">
+<label for="inputCharWidth">Width:</label>
+<input type="number" id="inputCharWidth" name="inputCharWidth" value=6 size="4" maxlength="4"
+       title="Width between classes (per character)">
+
+<label for="inputHeight">Height:</label>
+<input type="number" id="inputHeight" name="inputHeight" value=40 size="4" maxlength="4"
+       title="Height per line">
+<!-- Style combobox - placeholder will be filled by d3 -->
+<div id="styleCombo"></div>
+<div id="tree-container"></div>
+</body>
+<script src="collapsible_tree_v3_internal_data.js"></script>
+</html>
