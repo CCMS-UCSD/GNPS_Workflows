@@ -3,6 +3,7 @@ from pathlib import Path
 import base64
 import requests
 import sys
+import os
 import argparse
 import logging
 
@@ -16,13 +17,15 @@ def replace_by_local_file(path):
     :param path: URL
     :return: a local file or the original input string
     """
+    python_path = os.path.dirname(os.path.realpath(__file__))
+
     if path == "https://d3js.org/d3.v3.min.js":
-        return "lib/d3.v3.min.js"
+        return os.path.join(python_path, "lib/d3.v3.min.js")
     if path == "https://d3js.org/d3.v6.min.js":
-        return "lib/d3.v6.min.js"
+        return os.path.join(python_path, "lib/d3.v6.min.js")
     if path == "https://code.jquery.com/jquery-3.6.0.min.js":
-        return "lib/jquery-3.6.0.min.js"
-    return path
+        return os.path.join(python_path, "lib/jquery-3.6.0.min.js")
+    return os.path.join(python_path, path)
 
 
 def replace_data_in_file(data_json_file, text):
@@ -62,6 +65,7 @@ def build_dist_html(input_html, output_html, data_json_file=None, compress=False
         if tag.has_attr('src'):
             path = tag['src']
             path = replace_by_local_file(path)
+            print("MING", path)
             if path.startswith("http"):
                 response = requests.get(path)
                 response.raise_for_status()
