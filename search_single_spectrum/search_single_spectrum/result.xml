@@ -331,7 +331,20 @@
     </view>
     <block id="download_food_tree_json" type="dummydownload">
         <data>
-            <source type="file" name="food_tree_json"/>
+            <source type="file" name="food_tree_json/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+    <!-- Download food tree data in json format -->
+    <view id="download_food_tree_html" label="Download Tree (HTML)" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="download_food_tree_html"/>
+    </view>
+    <block id="download_food_tree_html" type="dummydownload">
+        <data>
+            <source type="file" name="food_tree_html/"/>
             <parsers>
                 <parser type="stream" contentType="text/html"/>
             </parsers>
