@@ -281,7 +281,6 @@
     <view id="foodomics" label="View Foodomics Specific Molecules" group="Foodomics Specific Analysis">
         <blockRef id="main" type="foodomics"/>
     </view>
-
     <block id="foodomics" type="table">
         <data>
             <source type="file" name="foodomics_tracking_file/"/>
@@ -296,6 +295,62 @@
             <column type="float" field="occurrence_fraction" label="occurrence_fraction" precision="2"/>
             <column type="integer" field="group_size" label="group_size" width="3"/>
         </row>
+    </block>
+
+    <view id="view_foodomics_matched_files" label="View Matched Files" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="view_foodomics_matched_files"/>
+    </view>
+    <block id="view_foodomics_matched_files" type="table">
+        <data>
+            <source type="file" name="filtered_food_metadata_file/"/>
+            <parsers>
+                <parser type="genericTabular"/>
+                <!-- <parser type="sortedTabular" sortBy="ontology_terminal_leaf" operator="ascending"/> -->
+            </parsers>
+        </data>
+        
+        <row>
+        </row>
+    </block>
+
+
+    <!-- Linkout for food tree html file -->
+    <view id="view_food_tree" label="View Interactive Tree" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="view_food_tree"/>
+    </view>
+    <block id="view_food_tree" type="streamhtmlframe">
+        <data>
+            <source type="file" name="food_tree_html/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+    <!-- Download food tree data in json format -->
+    <view id="download_food_tree_json" label="Download Tree (json)" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="download_food_tree_json"/>
+    </view>
+    <block id="download_food_tree_json" type="dummydownload">
+        <data>
+            <source type="file" name="food_tree_json/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
+    </block>
+
+    <!-- Download food tree data in json format -->
+    <view id="download_food_tree_html" label="Download Tree (HTML)" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="download_food_tree_html"/>
+    </view>
+    <block id="download_food_tree_html" type="dummydownload">
+        <data>
+            <source type="file" name="food_tree_html/"/>
+            <parsers>
+                <parser type="stream" contentType="text/html"/>
+            </parsers>
+        </data>
     </block>
 
     <view id="download_cytoscape_data" label="Download Cytoscape Data" group="Export/Download Network Files">
