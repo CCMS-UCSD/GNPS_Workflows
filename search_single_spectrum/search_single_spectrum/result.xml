@@ -304,7 +304,8 @@
         <data>
             <source type="file" name="filtered_food_metadata_file/"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="ontology_terminal_leaf" operator="ascending"/>
+                <parser type="genericTabular"/>
+                <!-- <parser type="sortedTabular" sortBy="ontology_terminal_leaf" operator="ascending"/> -->
             </parsers>
         </data>
         <!-- TODO do we have to define the column type for all columns? -->
