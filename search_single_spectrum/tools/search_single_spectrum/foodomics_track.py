@@ -54,8 +54,6 @@ def metadata_file_matches(matches_df):
     :param matches_df: filtered MASST matches in GFOP files : pandas dataframe
     :return: filtered metadata
     """
-    # Filter to appropriate dataset
-    matches_df = matches_df[matches_df["dataset_id"] == "MSV000084900"]
 
     # Get foodomics full metadata
     # gfop_meta = pd.read_csv('https://raw.githubusercontent.com/ka-west/GFOPontology/master/data
