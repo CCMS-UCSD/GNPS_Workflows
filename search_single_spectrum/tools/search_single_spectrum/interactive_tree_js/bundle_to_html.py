@@ -65,7 +65,6 @@ def build_dist_html(input_html, output_html, data_json_file=None, compress=False
         if tag.has_attr('src'):
             path = tag['src']
             path = replace_by_local_file(path)
-            print("MING", path)
             if path.startswith("http"):
                 response = requests.get(path)
                 response.raise_for_status()
