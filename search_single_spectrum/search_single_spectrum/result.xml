@@ -318,13 +318,13 @@
     <view id="view_food_tree" label="View Interactive Tree" group="Foodomics Specific Analysis">
         <blockRef id="main" type="view_food_tree"/>
     </view>
-    <block id="view_food_tree" type="streamhtmlframe">
+    <block id="view_food_tree" type="dummylinkout">
         <data>
-            <source type="file" name="food_tree_html/"/>
             <parsers>
-                <parser type="stream" contentType="text/html"/>
+                <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
+        <parameter name="URLBASE" value="https://masst.ucsd.edu/foodmasst/result?task=[task]"/>
     </block>
 
     <!-- Download food tree data in json format -->
