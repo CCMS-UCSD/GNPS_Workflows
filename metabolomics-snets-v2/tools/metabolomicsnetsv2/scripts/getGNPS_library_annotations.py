@@ -139,6 +139,18 @@ def enrich_output(input_filename, output_filename, topk=None):
             output_result_dict["MoleculeExplorerDatasets"] = (0)
             output_result_dict["MoleculeExplorerFiles"] = (0)
 
+        # Calculating molecular formula
+        if len(output_result_dict["Smiles"]) > 5:
+            try:
+                formula_url = "https://npclassifier.ucsd.edu/formula?smiles={}".format(output_result_dict["Smiles"])
+                r = requests.get(formula)
+                r.raise_for_status()
+                output_result_dict["molecular_formula"] = r.text
+            except:
+                output_result_dict["molecular_formula"] = "N/A"
+        else:
+            output_result_dict["molecular_formula"] = "N/A"
+         
         # Calculating inchi key
         if len(output_result_dict["Smiles"]) < 5 and len(output_result_dict["INCHI"]) < 5:
             output_result_dict["InChIKey"] = "N/A"
