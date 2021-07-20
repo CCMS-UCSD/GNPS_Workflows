@@ -139,6 +139,18 @@ def enrich_output(input_filename, output_filename, topk=None):
             output_result_dict["MoleculeExplorerDatasets"] = (0)
             output_result_dict["MoleculeExplorerFiles"] = (0)
 
+        # (Re-)Calculating exact mass
+        if len(output_result_dict["Smiles"]) > 5:
+            try:
+                structuremass_url = "https://npclassifier.ucsd.edu/structuremass?smiles={}".format(output_result_dict["Smiles"])
+                r = requests.get(structuremass_url)
+                r.raise_for_status()
+                output_result_dict["ExactMass"] = r.text
+            except:
+                output_result_dict["ExactMass"] = "N/A"
+        else:
+            output_result_dict["ExactMass"] = "N/A"
+            
         # Calculating inchi key
         if len(output_result_dict["Smiles"]) < 5 and len(output_result_dict["INCHI"]) < 5:
             output_result_dict["InChIKey"] = "N/A"
