@@ -26,6 +26,7 @@ for annotation_obj in annotation_results_list:
     annotation_obj["proteosafe_path"] = mangled_filename
 
 new_df = pd.DataFrame(annotation_results_list)
+new_df = new_df.replace(r'^\s*$', "N/A", regex=True)
 new_df.to_csv(args.output_formatted_result, sep='\t', index=False)
 
 

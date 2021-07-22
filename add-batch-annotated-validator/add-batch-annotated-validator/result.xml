@@ -57,4 +57,38 @@
 		<row/>
 	</block>
 
+    <view id="view_annotation2" label="View Annotations2">
+        <blockRef id="main" type="view_annotation2"/>
+    </view>
+
+    <block id="view_annotation2" type="table">
+		<data>
+			<source name="formattedResult/formatted_annotation.tsv" type="file"/>
+			<parsers>
+                <parser type="sortedTabular" sortBy="ACQUISITION" operator="ascending"/>
+            </parsers>
+		</data>
+		<row>
+            <column type="text" field="FILENAME" label="FILENAME" width="12"/>
+            <column type="text" field="EXTRACTSCAN" label="EXTRACTSCAN" width="12"/>
+            <column type="text" field="COMPOUND_NAME" label="COMPOUND_NAME" width="12"/>
+            <column type="text" field="ADDUCT" label="ADDUCT" width="12"/>
+            <column type="text" field="INSTRUMENT" label="INSTRUMENT" width="12"/>
+            <column type="text" field="IONSOURCE" label="IONSOURCE" width="12"/>
+            <column type="text" field="CHARGE" label="CHARGE" width="12"/>
+            <column type="text" field="ACQUISITION" label="ACQUISITION" width="12"/>
+            <column type="text" field="LIBQUALITY" label="LIBQUALITY" width="12"/>
+            <column type="text" field="MOLECULEMASS" label="MOLECULEMASS" width="12"/>
+            <column type="text" field="DATACOLLECTOR" label="DATACOLLECTOR" width="12"/>
+            <column type="text" field="PI" label="PI" width="12"/>
+        </row>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spec/[proteosafe_path]"/>
+                <parameter name="scan" value="[EXTRACTSCAN]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+	</block>
+
 </interface>
