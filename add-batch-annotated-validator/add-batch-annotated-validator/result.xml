@@ -43,13 +43,13 @@
     </block>
 
     
-    <view id="view_annotation" label="View Input Annotation">
+    <view id="view_annotation" label="View Annotations">
         <blockRef id="main" type="view_annotation"/>
     </view>
 
     <block id="view_annotation" type="table">
 		<data>
-			<source name="annotation_table/annotation_table-00000.tsv" type="file"/>
+			<source name="formattedResult/formatted_annotation.tsv" type="file"/>
 			<parsers>
 				<parser type="genericTabular"/>
 			</parsers>

@@ -2,7 +2,7 @@ import argparse
 import pandas as pd
 import os
 import sys
-sys.path.insert(0, "./shared_code/")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "shared_code"))
 import ming_proteosafe_library
 
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -16,7 +16,7 @@ args = parser.parse_args()
 params_obj = ming_proteosafe_library.parse_xml_file(open(args.workflowParams, "r"))
 reverse_mangled_mapping = ming_proteosafe_library.get_reverse_mangled_file_mapping(params_obj)
 
-input_annotation_df = pd.read_csv(args.input_annotation, sep='\t')
+input_annotation_df = pd.read_csv(args.input_annotation, sep='\t', keep_default_na=False)
 annotation_results_list = input_annotation_df.to_dict(orient='records')
 
 for annotation_obj in annotation_results_list:

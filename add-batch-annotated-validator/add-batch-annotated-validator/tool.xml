@@ -75,7 +75,7 @@
     <tool name="formatResult">
         <require name="annotation_table" type="file"/>
         <require name="workflowParameters" type="file"/>
-        <produce name="formattedResult" type="file" naming="explicit" extension="tsv"/>
+        <produce name="formattedResult" type="file" naming="fixed" value="formatted_annotation.tsv"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="formatResult.script"/>
