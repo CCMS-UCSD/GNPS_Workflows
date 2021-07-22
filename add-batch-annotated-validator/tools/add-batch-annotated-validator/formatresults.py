@@ -2,7 +2,7 @@ import argparse
 import pandas as pd
 import os
 import sys
-sys.path.insert(0, "shared_code")
+sys.path.insert(0, "./shared_code/")
 import ming_proteosafe_library
 
 parser = argparse.ArgumentParser(description='Process some integers.')
