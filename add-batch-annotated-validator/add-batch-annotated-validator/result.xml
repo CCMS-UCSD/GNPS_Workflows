@@ -27,7 +27,6 @@
         </data>
         <row>
             <column type="text" field="CompoundName" label="CompoundName" width="12"/>
-            <column type="text" field="Adduct" label="Adduct" width="5"/>
             <column type="text" field="Protein" label="Ion_Source" width="5"/>
             <column type="text" field="LibMetaData" label="LibMetaData" width="5"/>
             <column type="genericimagedisplayer" label="Structure">
@@ -42,5 +41,20 @@
             </column>
         </row> -->
     </block>
+
+    
+    <view id="view_annotation" label="View Input Annotation">
+        <blockRef id="main" type="view_annotation"/>
+    </view>
+
+    <block id="view_annotation" type="table">
+		<data>
+			<source name="annotation_table/annotation_table-00000.tsv" type="file"/>
+			<parsers>
+				<parser type="genericTabular"/>
+			</parsers>
+		</data>
+		<row/>
+	</block>
 
 </interface>
