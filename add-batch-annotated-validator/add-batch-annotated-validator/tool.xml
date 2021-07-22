@@ -74,7 +74,7 @@
 
     <tool name="formatResult">
         <require name="annotation_table" type="file"/>
-        <require name="newspectraworkflowParametersResult" type="file"/>
+        <require name="workflowParameters" type="file"/>
         <produce name="formattedResult" type="file" naming="explicit" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
