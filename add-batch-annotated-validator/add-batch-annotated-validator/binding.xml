@@ -38,6 +38,12 @@
         <productionToOutput port="new_spectra_mgf" production="new_spectra_mgf"/>
     </bind>
 
+    <bind action="formatResult" tool="formatResult">
+        <inputAsRequirement port="annotation_table" requirement="annotation_table"/>
+        <inputAsRequirement port="newspectraResult" requirement="newspectraResult"/>
+        <productionToOutput port="formattedResult" production="formattedResult"/>
+    </bind>
+
     <bind action="end" type="upload">
         <url value="{livesearch.upload}"/>
         <query name="task" valueRef="@task"/>
@@ -47,5 +53,11 @@
         <upload port="newspectraResult" type="file">
             <query name="resource" value="newspectraResult"/>
         </upload>
+
+        <upload port="formattedResult" type="file">
+            <query name="resource" value="formattedResult"/>
+        </upload>
+
+        
     </bind>
 </binding>
