@@ -74,13 +74,13 @@
 
     <tool name="formatResult">
         <require name="annotation_table" type="file"/>
-        <require name="newspectraResult" type="file"/>
+        <require name="newspectraworkflowParametersResult" type="file"/>
         <produce name="formattedResult" type="file" naming="explicit" extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="formatResult.script"/>
             <arg valueRef="annotation_table"/>
-            <arg valueRef="newspectraResult"/>
+            <arg valueRef="workflowParameters"/>
             <arg valueRef="formattedResult"/>
         </execution>
     </tool>

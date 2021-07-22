@@ -40,7 +40,7 @@
 
     <bind action="formatResult" tool="formatResult">
         <inputAsRequirement port="annotation_table" requirement="annotation_table"/>
-        <inputAsRequirement port="newspectraResult" requirement="newspectraResult"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <productionToOutput port="formattedResult" production="formattedResult"/>
     </bind>
 

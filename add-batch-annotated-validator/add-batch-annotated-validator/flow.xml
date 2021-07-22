@@ -42,7 +42,7 @@
     <object name="formattedResult"/>
     <action name="formatResult">
         <input port="annotation_table" object="annotation_table"/>
-        <input port="newspectraResult" object="newspectraResult"/>
+        <input port="workflowParameters" object="workflowParameters"/>
         <output port="formattedResult" object="formattedResult"/>
     </action>
 
