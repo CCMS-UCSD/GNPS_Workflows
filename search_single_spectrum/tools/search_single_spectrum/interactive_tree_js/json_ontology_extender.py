@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 import pandas as pd
 import json
@@ -7,7 +8,6 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -20,6 +20,9 @@ class NpEncoder(json.JSONEncoder):
         else:
             return super(NpEncoder, self).default(obj)
 
+
+def is_non_empty_file(fpath):
+    return os.path.isfile(fpath) and os.path.getsize(fpath) > 0
 
 def add_data_to_node(node, df, node_field, data_field):
     """
@@ -70,17 +73,20 @@ def add_data_to_ontology_file(output="dist/merged_ontology_data.json", ontology_
         treeRoot = json.load(json_file)
 
         # read the additional data
-        df = pd.read_csv(in_data, sep='\t')
+        try:
+            df = pd.read_csv(in_data, sep='\t')
 
-        # print(df)
+            # print(df)
 
-        # loop over all children
-        add_data_to_node(treeRoot, df, node_key, data_key)
+            # loop over all children
+            add_data_to_node(treeRoot, df, node_key, data_key)
 
-        # calc gfop specific data for root
-        calc_root_stats(treeRoot)
-        # add data in format for pie charts
-        add_pie_data_to_node_and_children(treeRoot)
+            # calc gfop specific data for root
+            calc_root_stats(treeRoot)
+            # add data in format for pie charts
+            add_pie_data_to_node_and_children(treeRoot)
+        except pd.errors.EmptyDataError:
+            print('Note: {} was empty. Skipping.'.format(in_data))
 
         print("Writing to {}".format(output))
         with open(output, "w") as file:
