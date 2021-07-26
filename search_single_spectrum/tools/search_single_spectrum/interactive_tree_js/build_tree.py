@@ -49,6 +49,8 @@ if __name__ == '__main__':
     parser.add_argument('--data_key', type=str,
                         help='the field in the data file to be compared to the field in the ontology',
                         default="group_value")
+    parser.add_argument('--succeed', type=bool,
+                        help='Output files even on error and return code always equals ok (0)', default=False)
     args = parser.parse_args()
 
     # is a url - try to download file
@@ -60,7 +62,18 @@ if __name__ == '__main__':
     except Exception as e:
         # exit with error
         logger.exception(e)
-        sys.exit(1)
+
+        if args.succeed:
+            # output empty files
+            with open(args.out_tree, "w") as o:
+                pass
+            with open(args.out_html, "w") as o:
+                pass
+
+            # exit ok
+            sys.exit(0)
+        else:
+            sys.exit(1)
 
     # exit with OK
     sys.exit(0)

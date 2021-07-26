@@ -58,8 +58,9 @@ def metadata_file_matches(matches_df):
     # Get foodomics full metadata
     # gfop_meta = pd.read_csv('https://raw.githubusercontent.com/ka-west/GFOPontology/master/data
     # /foodomics_metadata_foodmasst.txt', sep='\t')
-    gfop_meta = pd.read_csv(
-        'https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
+    # gfop_meta = pd.read_csv(
+    #     'https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
+    gfop_meta = pd.read_csv('foodomics_metadata_foodmasst.tsv', sep='\t')
 
     # Removing extensions on both
     gfop_meta["filename"] = gfop_meta["filename"].apply(lambda x: os.path.splitext(x)[0])
@@ -98,8 +99,13 @@ def combine_food_masst(foodomics_metadata, matches_results, output_enrichment, o
 
         return enrichment_df, matched_metadata
     except:
+        # on error write all files as empty
         with open(output_enrichment, "w") as o:
-            o.write("EMPTY")
+            pass
+            # o.write("")
+        with open(output_metadata_matches, "w") as o:
+            pass
+            # o.write("")
 
 
 def main():
