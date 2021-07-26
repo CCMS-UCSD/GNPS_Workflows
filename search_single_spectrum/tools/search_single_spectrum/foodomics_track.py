@@ -58,8 +58,9 @@ def metadata_file_matches(matches_df):
     # Get foodomics full metadata
     # gfop_meta = pd.read_csv('https://raw.githubusercontent.com/ka-west/GFOPontology/master/data
     # /foodomics_metadata_foodmasst.txt', sep='\t')
-    gfop_meta = pd.read_csv(
-        'https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
+    # gfop_meta = pd.read_csv(
+    #     'https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
+    gfop_meta = pd.read_csv('foodomics_metadata_foodmasst.tsv', sep='\t')
 
     # Removing extensions on both
     gfop_meta["filename"] = gfop_meta["filename"].apply(lambda x: os.path.splitext(x)[0])
