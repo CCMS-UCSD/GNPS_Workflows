@@ -327,6 +327,18 @@
         <parameter name="URLBASE" value="https://masst.ucsd.edu/foodmasst/result?task=[task]"/>
     </block>
 
+    <view id="view_food_tree" label="View Interactive Tree" group="Foodomics Specific Analysis">
+        <blockRef id="main" type="view_food_tree"/>
+    </view>
+    <block id="view_food_tree" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=food_tree_html/&amp;block=main&amp;process_html=false'/>
+    </block>
+
     <!-- Download food tree data in json format -->
     <view id="download_food_tree_json" label="Download Tree (json)" group="Foodomics Specific Analysis">
         <blockRef id="main" type="download_food_tree_json"/>
