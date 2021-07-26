@@ -154,26 +154,26 @@ d3.select("#inputFontSize").on("input", function (d) {
     setLabelSize(this.value);
 });
 
-d3.select("#downloadSvg").on("click", function (d) {
-    downloadSvg();
-});
+// d3.select("#downloadSvg").on("click", function (d) {
+//     downloadSvg();
+// });
 
 /**
  * Does not work at the moment
  *
  */
-function downloadSvg() {
-    var html = d3.select("svg")
-        .attr("title", "svg_title")
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
-
-    d3.select("#downloadSvg")
-        .attr("href-lang", "image/svg+xml")
-        .attr("href", "data:image/svg+xml;base64,\n" + btoa(unescape(encodeURIComponent(html))))
-        .html("download", "tree.svg");
-};
+// function downloadSvg() {
+    // var html = d3.select("svg")
+    //     .attr("title", "svg_title")
+    //     .attr("version", 1.1)
+    //     .attr("xmlns", "http://www.w3.org/2000/svg")
+    //     .node().parentNode.innerHTML;
+    //
+    // d3.select("#downloadSvg")
+    //     .attr("href-lang", "image/svg+xml")
+    //     .attr("href", "data:image/svg+xml;base64,\n" + btoa(unescape(encodeURIComponent(html))))
+    //     .html("download", "tree.svg");
+// };
 
 
 // initialize drop down style menu
