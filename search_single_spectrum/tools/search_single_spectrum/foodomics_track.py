@@ -98,7 +98,10 @@ def combine_food_masst(foodomics_metadata, matches_results, output_enrichment, o
 
         return enrichment_df, matched_metadata
     except:
+        # on error write all files as empty
         with open(output_enrichment, "w") as o:
+            o.write("EMPTY")
+        with open(output_metadata_matches, "w") as o:
             o.write("EMPTY")
 
 
