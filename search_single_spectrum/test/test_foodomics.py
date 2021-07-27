@@ -15,12 +15,14 @@ class TestLoaders(unittest.TestCase):
     def test(self):
         input_filename = "data/foodomics/all_dataset_matchs.tsv"
         foodomics_metadata = "../tools/search_single_spectrum/gfop_ontology_foodmasst.txt"
+        foodomics_metadata_table = "../tools/search_single_spectrum/foodomics_metadata_foodmasst.tsv"
 
         out_foodmasst = "tmp/out_foodmasst.tsv"
         out_filtered_food_metadata = "tmp/out_filtered_food_metadata.tsv"
 
         # run
-        foodomics_track.combine_food_masst(foodomics_metadata, input_filename, out_foodmasst, out_filtered_food_metadata)
+        foodomics_track.combine_food_masst(foodomics_metadata, foodomics_metadata_table, input_filename, out_foodmasst, \
+        out_filtered_food_metadata)
 
         # ground truth test file
         test_output = pd.read_csv("data/foodomics/foodmasst_test_output.tsv", sep="\t")
