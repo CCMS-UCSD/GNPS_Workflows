@@ -10,6 +10,10 @@ import sys
 import pandas as pd
 import os
 import argparse
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def calculate_enrichment(matches_df, metadata_df):
@@ -48,10 +52,11 @@ def calculate_enrichment(matches_df, metadata_df):
     return pd.DataFrame(output_list)
 
 
-def metadata_file_matches(matches_df):
+def metadata_file_matches(matches_df, foodomics_metadata_table):
     """
     Create filtered metadata table for MASST matched files
     :param matches_df: filtered MASST matches in GFOP files : pandas dataframe
+    :param foodomics_metadata_table: filtered metadata table file
     :return: filtered metadata
     """
 
@@ -60,7 +65,8 @@ def metadata_file_matches(matches_df):
     # /foodomics_metadata_foodmasst.txt', sep='\t')
     # gfop_meta = pd.read_csv(
     #     'https://github.com/global-foodomics/GFOPontology/raw/master/data/foodomics_metadata_foodmasst.tsv', sep='\t')
-    gfop_meta = pd.read_csv('foodomics_metadata_foodmasst.tsv', sep='\t')
+    # gfop_meta = pd.read_csv('foodomics_metadata_foodmasst.tsv', sep='\t')
+    gfop_meta = pd.read_csv(foodomics_metadata_table, sep='\t')
 
     # Removing extensions on both
     gfop_meta["filename"] = gfop_meta["filename"].apply(lambda x: os.path.splitext(x)[0])
@@ -80,7 +86,8 @@ def filter_matches(matches_df):
     return matches_df[matches_df["dataset_id"] == "MSV000084900"]
 
 
-def combine_food_masst(foodomics_metadata, matches_results, output_enrichment, output_metadata_matches):
+def combine_food_masst(foodomics_metadata, foodomics_metadata_table, matches_results, output_enrichment,
+                       output_metadata_matches):
     try:
         matches_df = pd.read_csv(matches_results, sep="\t")
         # filter to global foodomics
@@ -93,30 +100,40 @@ def combine_food_masst(foodomics_metadata, matches_results, output_enrichment, o
             sorted_df = enrichment_df.sort_values(by=["group_value"])
             sorted_df.to_csv(output_enrichment, sep="\t", index=False)
 
-        matched_metadata = metadata_file_matches(matches_df)
+        # a table of matched files and their metadata (filtered columns)
+        matched_metadata = metadata_file_matches(matches_df, foodomics_metadata_table)
         if output_metadata_matches is not None:
             matched_metadata.to_csv(output_metadata_matches, sep="\t", index=False)
 
         return enrichment_df, matched_metadata
-    except:
+    except Exception as e:
+        # exit with error
+        logger.exception(e)
+        logger.exception("Error during foodMASST creation of output")
+
         # on error write all files as empty
-        with open(output_enrichment, "w") as o:
+        with open(output_enrichment, "a") as o:
             pass
             # o.write("")
-        with open(output_metadata_matches, "w") as o:
+        with open(output_metadata_matches, "a") as o:
             pass
             # o.write("")
 
 
 def main():
     parser = argparse.ArgumentParser(description='Create foodomics enrichment')
-    parser.add_argument('foodomics_metadata', help='the foodomics metadata table')
+    # foodomics_metadata maps the raw data files into all matching ontology classes
+    # foodomics_metadata_table is a filtered version with extensive metadata for each file
+    parser.add_argument('foodomics_metadata', help='the foodomics ontology table (data file and all ontology levels)')
+    parser.add_argument('foodomics_metadata_table', help='the foodomics metadata table (data file and filtered '
+                                                         'metadata)', default='foodomics_metadata_foodmasst.tsv')
     parser.add_argument('matches_results', help='MASST match results')
     parser.add_argument('output_enrichment', help='Output tsv file for enrichment results')
     parser.add_argument('metadata_matches', help='Output filtered metadata tsv file')
     args = parser.parse_args()
 
-    combine_food_masst(args.foodomics_metadata, args.matches_results, args.output_enrichment, args.metadata_matches)
+    combine_food_masst(args.foodomics_metadata, args.foodomics_metadata_table, args.matches_results,
+                       args.output_enrichment, args.metadata_matches)
 
 
 if __name__ == "__main__":
