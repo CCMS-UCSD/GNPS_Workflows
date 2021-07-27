@@ -260,7 +260,7 @@ def add_library_search_results_to_graph(G, library_search_filename, annotation_p
 
         if cluster_index in G.node:
             G.node[cluster_index][annotation_prefix + "Adduct"] = str(record["Adduct"].encode('ascii', 'ignore'))
-            G.node[cluster_index][annotation_prefix + "Compound_Name"] = str(''.join([j if ord(j) < 128 else ' ' for j in record["Compound_Name"]]).replace("\\", "\\\\"))
+            G.node[cluster_index][annotation_prefix + "Compound_Name"] = str(''.join([j if ord(j) < 128 else ' ' for j in str(record["Compound_Name"])]).replace("\\", "\\\\"))
             G.node[cluster_index][annotation_prefix + "Adduct"] = str(record["Adduct"])
             G.node[cluster_index][annotation_prefix + "INCHI"] = str(''.join([j if ord(j) < 128 else ' ' for j in str(record["INCHI"])]).replace("\\", "\\\\"))
             G.node[cluster_index][annotation_prefix + "Smiles"] = str(''.join([j if ord(j) < 128 else ' ' for j in str(record["Smiles"])]).replace("\\", "\\\\"))
