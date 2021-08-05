@@ -142,7 +142,7 @@ def enrich_output(input_filename, output_filename, topk=None):
         # (Re-)Calculating exact mass
         if len(output_result_dict["Smiles"]) > 5:
             try:
-                structuremass_url = "https://npclassifier.ucsd.edu/structuremass?smiles={}".format(output_result_dict["Smiles"])
+                structuremass_url = "https://gnps-structure.ucsd.edu/structuremass?smiles={}".format(output_result_dict["Smiles"])
                 r = requests.get(structuremass_url)
                 r.raise_for_status()
                 output_result_dict["ExactMass"] = r.text
