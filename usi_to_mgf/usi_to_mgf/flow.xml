@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="USI_TO_MGF">
+	<object     name="workflowParameters"/>
+
+	<action name="begin">
+		<output port="params" object="workflowParameters"/>
+	</action>
+
+    <!-- Written Description -->
+    <collection name="output_results"/>
+    <action name="download_usi">
+        <input  port="workflowParameters"       object="workflowParameters"/>
+        <output port="output_results"     collection="output_results"/>
+    </action>  
+
+
+	<action name="end">
+		<input port="output_results" collection="output_results"/>
+	</action>
+</flow>

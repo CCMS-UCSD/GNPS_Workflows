@@ -1,0 +1,19 @@
+<toolset>
+    <pathSet base="miniconda3_gamma/bin">
+        <toolPath tool="download_usi" path="python"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="download_usi.script" path="download_usi.py"/>
+    </pathSet>
+    <tool name="download_usi">
+        <require name="workflowParameters" type="file"/>
+        <produce name="output_results" type="fokder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="download_usi.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg valueRef="output_results"/>
+        </execution>
+    </tool>
+
+</toolset>
