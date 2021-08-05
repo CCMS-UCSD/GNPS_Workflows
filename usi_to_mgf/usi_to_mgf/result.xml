@@ -2,23 +2,16 @@
 <interface id="ming_test" version="1.2.3">
 
 
-    <view id="view_masst_results" label="MASST Results" group="Community Matches">
-        <blockRef id="main" type="view_masst_results"/>
+    <view id="analyze_masst_plus" label="Analyze with MASST" group="Downstream Analysis">
+        <blockRef id="main" type="analyze_masst_plus"/>
     </view>
-    <block id="view_masst_results" type="table">
-        <data>
-            <source type="file" name="masst_results/"/>
-            <parsers>
-                <parser type="sortedTabular" sortBy="task_id" operator="ascending"/>
-            </parsers>
-        </data>
-        <row>
-            <column label="View Task" type="genericurlgenerator" width="10" field="dataset_id">
-                <parameter name="URLBASE" value="https://gnps.ucsd.edu/ProteoSAFe/status.jsp"/>
-                <parameter name="REQUESTPARAMETER=task" value="[task_id]"/>
-                <parameter name="LABEL" value="View [usi]"/>
-            </column>
-        </row>
+    <block id="analyze_masst_plus" type="dummylinkout">
+    <data>
+        <parsers>
+        <parser type="stream" contentType="text/xml"/>
+        </parsers>
+    </data>
+    <parameter name="URLBASE" value="/ProteoSAFe/index.jsp?params=%7B%22workflow%22%3A%20%22USI_TO_MGF%22%7D"/>
     </block>
 
 
