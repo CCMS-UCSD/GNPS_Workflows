@@ -28,8 +28,6 @@ def main():
     usi_list = workflow_parameters_map["usi_string"][0].split("\n")
     usi_list = [usi for usi in usi_list if len(usi) > 5]
 
-    all_tasks = []
-
     output_mgf = open(os.path.join(args.outputresults, "specs_ms.mgf"), "w")
 
 
@@ -49,8 +47,6 @@ def main():
             output_mgf.write("\n")
         output_mgf.write("END IONS\n")
 
-    tasks_df = pd.DataFrame(all_tasks)
-    tasks_df.to_csv(args.outputresults, sep="\t", index=False)
 
 if __name__ == "__main__":
     main()
