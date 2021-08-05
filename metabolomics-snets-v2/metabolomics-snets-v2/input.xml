@@ -208,6 +208,12 @@
 			<default value="0"/>
 		</parameter>
 
+
+		<parameter name="MAXNETWORKINGPARALLELISM" label="Maxmimum Networking Parallelism">
+			<default value="50"/>
+			<validator type="integer" minimumExclusive="0" maximum="100"/>
+		</parameter>
+
 	</parameters>
 
 
@@ -851,4 +857,22 @@
                             </cell>
 						</row>
 					</block>
+
+					<block label="Advanced Compute Options">
+                        <row>
+							<cell>
+								<label>
+									<content parameter="MAXNETWORKINGPARALLELISM"/>
+								</label>
+							</cell>
+
+							<cell>
+								<input type="text" parameter="MAXNETWORKINGPARALLELISM">
+									<attribute name="size" value="10"/>
+								</input>
+							</cell>
+						</row>
+					</block>
+
+					
 				</interface>
