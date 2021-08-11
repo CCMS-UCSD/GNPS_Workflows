@@ -79,6 +79,11 @@
 			<validator type="integer" minimumExclusive="0" maximum="500"/>
 		</parameter>
 
+		<parameter name="MAX_SHIFT" label="Maximum shift">
+            <default value="500"/>
+            <validator type="integer" minimumExclusive="0" maximum="1500"/>
+        </parameter>
+
 
 		<parameter name="TOPK" label="Network TopK">
 			<default value="10"/>
@@ -449,6 +454,23 @@
 								<input type="text" parameter="MIN_MATCHED_PEAKS">
 									<attribute name="size" value="3"/>
 								</input>
+							</cell>
+
+							<cell>
+								<label>
+									<content parameter="MAX_SHIFT"/>
+									<tooltip id="MAX_SHIFT_tooltip">
+										The maximum precursor ion mass difference allowed between two MS/MS spectra to be considered as direct neighbors in a molecular network.
+									</tooltip>
+								</label>
+							</cell>
+							<cell>
+								<input type="text" parameter="MAX_SHIFT">
+									<attribute name="size" value="3"/>
+								</input>
+								<label>
+									<content>Da</content>
+								</label>
 							</cell>
 						</row>
 
