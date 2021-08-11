@@ -39,8 +39,16 @@
         <output port="new_spectra_mgf" object="new_spectra_mgf"/>
     </action>
 
+    <object name="formattedResult"/>
+    <action name="formatResult">
+        <input port="annotation_table" object="annotation_table"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="formattedResult" object="formattedResult"/>
+    </action>
+
     <action name="end">
         <input port="newspectraResult" object="newspectraResult"/>
         <input port="validation_information" collection="validation_information"/>
+        <input port="formattedResult" collection="formattedResult"/>
     </action>
 </flow>
