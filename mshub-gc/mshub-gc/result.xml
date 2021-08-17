@@ -66,8 +66,7 @@
             <parser type="stream" contentType="text/xml"/>
         </parsers>
       </data>
-      <parameter name="URLBASE" value="/ProteoSAFe/index.jsp"/>
-      <parameter name="REQUESTPARAMETER=params" value='{"workflow":"MOLECULAR-LIBRARYSEARCH-GC", 
+      <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"MOLECULAR-LIBRARYSEARCH-GC", 
       "desc":"Library Search/Networking of [task] MSHub Deconvolution", "spec_on_server":"t.[task]/clustered_mgf;",
       "mshub_balance_scores":"t.[task]/preprocessing_scratch/data_integrals.csv;",
       "quantification_table":"t.[task]/quantification_output;"}'/>
