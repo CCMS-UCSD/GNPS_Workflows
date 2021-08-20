@@ -20,7 +20,7 @@
     </bind>
 
     <bind action="demangle_spectra" tool="demangle_spectra">
-        <inputAsRequirement port="inputspectra" requirement="inputspectra"/>
+        <inputAsRequirement port="spectra" requirement="spectra"/>
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
         <productionToOutput port="demangled_spectra" production="demangled_spectra"/>
     </bind>

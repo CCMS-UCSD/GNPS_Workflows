@@ -8,15 +8,15 @@
     </pathSet>
 
     <tool name="demangle_spectra">
-        <require name="inputspectra" type="folder"/>
+        <require name="spectra" type="folder"/>
         <require name="workflowParameters" type="file"/>
         <produce name="demangled_spectra" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="demangle.script"/>
             <arg option="p" valueRef="workflowParameters"/>
-            <arg option="-input_mangled_prefix" value="inputspectra"/>
-            <arg option="i" valueRef="inputspectra"/>
+            <arg option="-input_mangled_prefix" value="spectra"/>
+            <arg option="i" valueRef="spectra"/>
             <arg option="o" valueRef="demangled_spectra"/>
         </execution>
     </tool>
