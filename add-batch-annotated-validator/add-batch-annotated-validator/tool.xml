@@ -15,7 +15,7 @@
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="demangle.script"/>
             <arg option="p" valueRef="workflowParameters"/>
-            <arg option="-input_mangled_prefix" value="spectra"/>
+            <arg option="-input_mangled_prefix" value="spec"/>
             <arg option="i" valueRef="spectra"/>
             <arg option="o" valueRef="demangled_spectra"/>
         </execution>
@@ -55,6 +55,7 @@
             <arg option="-newparameters" value="publishdir:workflow_results"/>
             <arg option="-newparameters" value="inputspectra:spectra"/>
             <arg option="-newparameters" value="annotation_table:annotation_table/*"/>
+            <arg option="-newparameters" value="workflowParameters:workflowParameters/*"/>
         </execution>
     </tool>
 
