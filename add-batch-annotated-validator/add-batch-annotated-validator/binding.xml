@@ -19,45 +19,26 @@
         </downloadParams>
     </bind>
 
-    <bind action="validate_batch" tool="validate_batch">
-        <inputAsRequirement port="annotation_table" requirement="annotation_table"/>
-        <productionToOutput port="validation_information" production="validation_information"/>
+    <bind action="demangle_spectra" tool="demangle_spectra">
+        <inputAsRequirement port="inputspectra" requirement="inputspectra"/>
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="demangled_spectra" production="demangled_spectra"/>
     </bind>
 
-    <bind action="convertpklbin" tool="convertpklbin">
-        <inputAsRequirement port="spectra" requirement="spectra"/>
-        <productionToOutput port="convertedspectra" production="convertedspectra"/>
-    </bind>
-
-    <bind action="createlib" tool="AddBatchAnnotated_createlib">
-        <inputAsRequirement port="spec" requirement="spec"/>
-        <inputAsRequirement port="flowParams" requirement="flowParams"/>
-        <inputAsRequirement port="annotation_table_with_id" requirement="annotation_table_with_id"/>
-        <productionToOutput port="result" production="result"/>
-        <productionToOutput port="newspectraResult" production="newspectraResult"/>
-        <productionToOutput port="new_spectra_mgf" production="new_spectra_mgf"/>
-    </bind>
-
-    <bind action="formatResult" tool="formatResult">
+    <bind action="nf_process" tool="nf_process">
+        <inputAsRequirement port="inputspectra" requirement="inputspectra"/>
         <inputAsRequirement port="annotation_table" requirement="annotation_table"/>
         <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
-        <productionToOutput port="formattedResult" production="formattedResult"/>
+        <productionToOutput port="workflow_results" production="workflow_results"/>
     </bind>
 
     <bind action="end" type="upload">
-        <url value="{livesearch.upload}"/>
-        <query name="task" valueRef="@task"/>
-        <contentQuery name="content"/>
-        <compression type="zip"/>
-
-        <upload port="newspectraResult" type="file">
-            <query name="resource" value="newspectraResult"/>
-        </upload>
-
-        <upload port="formattedResult" type="file">
-            <query name="resource" value="formattedResult"/>
-        </upload>
-
-        
+            <url value="{livesearch.upload}"/>
+            <query name="task" valueRef="@task"/>
+            <contentQuery name="content"/>
+            <compression type="zip"/>
+            <upload port="workflow_results" type="folder">
+                    <query name="resource" value="workflow_results"/>
+            </upload>
     </bind>
 </binding>
