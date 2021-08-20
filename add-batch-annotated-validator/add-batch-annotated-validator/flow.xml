@@ -55,7 +55,7 @@
 
     <collection name="workflow_results"/>
     <action name="nf_process">
-        <input  port="inputspectra"             collection="spectra"/>
+        <input  port="spectra"             collection="spectra"/>
         <input  port="annotation_table"              object="annotation_table"/>
         <input  port="workflowParameters"            object="workflowParameters"/>
         <output port="workflow_results"              collection="workflow_results"/>

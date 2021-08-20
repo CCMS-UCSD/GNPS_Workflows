@@ -36,10 +36,10 @@
     </pathSet>
 
     <tool name="nf_process">
-        <require name="inputspectra" type="folder"/>
+        <require name="spectra" type="folder"/>
         <require name="workflowParameters" type="file"/>
         <require name="annotation_table" type="file"/>
-        <produce name="query_results" type="folder"/>
+        <produce name="workflow_results" type="folder"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="nextflow_wrapper.script"/>
@@ -48,16 +48,13 @@
             <arg pathRef="conda_activate_path"/>
             <arg value="msql2"/>
 
-            <arg option="-metricoutput" valueRef="query_results"/>
+            <arg option="-metricoutput" valueRef="workflow_results"/>
 
             <!-- This portion is currently hardcoded to the nextflow workflow. -->
 
-            <arg option="-newparameters" value="publishdir:query_results"/>
-            <arg option="-newparameters" value="input_spectra:demangled_spectra/**/*"/>
-            <arg option="-parametermapping" value="QUERY:query"/>
-            <arg option="-parametermapping" value="PARALLELFILES:parallel_files"/>
-            <arg option="-parametermapping" value="PARALLELPERFILE:parallel_query"/>
-            <arg option="-parametermapping" value="EXTRACT:extract"/>
+            <arg option="-newparameters" value="publishdir:workflow_results"/>
+            <arg option="-newparameters" value="inputspectra:spectra"/>
+            <arg option="-newparameters" value="annotation_table:annotation_table/*"/>
         </execution>
     </tool>
 
