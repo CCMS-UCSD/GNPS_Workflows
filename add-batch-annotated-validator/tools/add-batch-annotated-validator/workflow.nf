@@ -15,13 +15,11 @@ TOOL_FOLDER = "$baseDir/bin"
 params.publishdir = "nf_output"
 
 process validateBatch {
-    publishDir "$params.publishdir", mode: 'copy'
-    
     input:
     file annotation_file from _annotation_ch3
 
     output:
-    1 into _val_ch
+    val 1 into _val_ch
 
     """
     python $TOOL_FOLDER/validate_batch.py \
@@ -32,11 +30,11 @@ process validateBatch {
 process convertPklbin {
 
     input:
-    file inputspectra from _spectra_ch2
+    file inputspectra from _spectra_ch
     val x from _val_ch
 
     output:
-    "output_pklbin" into _pklbin_ch
+    file "output_pklbin" into _pklbin_ch
 
     """
     mkdir output_pklbin
@@ -57,6 +55,8 @@ process createLib {
     file workflow_params from _params_ch1
 
     output:
+    file "new_results.tsv"
+    file "new_spectra.mgf"
 
     """
     python $TOOL_FOLDER/create_lib_wrapper.py \
@@ -78,6 +78,7 @@ process formatResult {
     file workflow_params from _params_ch2
 
     output:
+    file "formattedresult.tsv"
 
     """
     python $TOOL_FOLDER/formatresults.py \

@@ -20,7 +20,7 @@
 
     <block id="new_annotations" type="table">
         <data>
-            <source type="file" name="newspectraResult/"/>
+            <source type="file" name="workflow_results/new_results.tsv"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="CompoundName" operator="ascending"/>
             </parsers>
@@ -49,7 +49,7 @@
 
     <block id="view_annotation" type="table">
 		<data>
-			<source name="formattedResult/formatted_annotation.tsv" type="file"/>
+			<source name="workflow_results/formattedresult.tsv" type="file"/>
 			<parsers>
 				<parser type="genericTabular"/>
 			</parsers>
