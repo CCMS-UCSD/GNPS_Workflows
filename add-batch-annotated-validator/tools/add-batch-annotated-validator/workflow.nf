@@ -21,6 +21,7 @@ process validateBatch {
     file annotation_file from _annotation_ch3
 
     output:
+    1 into _val_ch
 
     """
     python $TOOL_FOLDER/validate_batch.py \
@@ -28,12 +29,31 @@ process validateBatch {
     """
 }
 
+process convertPklbin {
+
+    input:
+    file inputspectra from _spectra_ch2
+    val x from _val_ch
+
+    output:
+    "output_pklbin" into _pklbin_ch
+
+    """
+    mkdir output_pklbin
+    python $TOOL_FOLDER/convert_wrapper.py \
+        "$inputspectra" \
+        "output_pklbin" \
+        $TOOL_FOLDER/convert
+    """
+
+}
+
 process createLib {
     publishDir "$params.publishdir", mode: 'copy'
     
     input:
     file annotation_file from _annotation_ch1
-    file inputspectra from _spectra_ch
+    file inputspectra from _pklbin_ch
     file workflow_params from _params_ch1
 
     output:

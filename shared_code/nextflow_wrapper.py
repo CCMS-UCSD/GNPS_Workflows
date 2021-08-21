@@ -15,8 +15,8 @@ def main():
     parser.add_argument('nextflow_script', help='nextflow_script to actually run')
     parser.add_argument('conda_activate', help='conda_activate, this is the path to the activate command in the main conda installation')
     parser.add_argument('nextflow_conda_environment', help='nextflow_conda_environment, this likely should be wherever all your dependencies and nextflow are installed, e.g. nextflow or msql2')
-    parser.add_argument('--parametermapping', action='append', help='mapping of current workflow parameters to new parameters in the format: <old parameter>:<new parameter>')
-    parser.add_argument('--newparameters', action='append', help='parameter key: <param name>:<parameter value>')
+    parser.add_argument('--parametermapping', action='append', default=[], help='mapping of current workflow parameters to new parameters in the format: <old parameter>:<new parameter>')
+    parser.add_argument('--newparameters', action='append', default=[], help='parameter key: <param name>:<parameter value>')
 
     parser.add_argument('--metricoutput', default=None, help='output folder for metrics')
 
