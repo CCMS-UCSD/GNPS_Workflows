@@ -3,7 +3,7 @@ name: workflow-unit-npclassifier
 on: [push]
 
 jobs:
-  test-networking:
+  test-npclassifier:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
