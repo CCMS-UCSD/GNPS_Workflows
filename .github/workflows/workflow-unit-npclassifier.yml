@@ -1,0 +1,24 @@
+name: workflow-unit-npclassifier
+
+on: [push]
+
+jobs:
+  test-networking:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        wget -qO- get.nextflow.io | bash
+        sudo mv nextflow /usr/local/bin/
+    - name: Test NF Workflow
+      run: |
+        cd npclassifier/test && make test_workflow
