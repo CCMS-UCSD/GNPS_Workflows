@@ -14,12 +14,14 @@ split_tup = os.path.splitext(input_filename)
 file_name = split_tup[0]
 file_extension = split_tup[1]
 
-if file_extension == '.tsv' or file_extension == '.csv':
-    df = pd.read_csv(input_filename, sep=None)
+if file_extension == '.tsv':
+    df = pd.read_csv(input_filename, sep="\t")
+elif file_extension == '.csv':
+    df = pd.read_csv(input_filename, sep=",")
 elif file_extension == '.xlsx':
     df = pd.read_excel(input_filename)
 
-all_records = df.to_dict(orient='records')
+print(df)
 
 all_smiles = []
 
@@ -38,11 +40,12 @@ for smiles in all_smiles:
 
     if r.status_code == 200:
         results = r.json()
-        print(results)
+        results["smiles"] = smiles
         all_results.append(results)
 
 # Formatting output results
 df_results = pd.DataFrame(all_results)
+df_results = df_results[["smiles", "class_results", "superclass_results", "pathway_results", "isglycoside"]]
 df_results.to_csv(output_filename, sep='\t', index=False)
 
 

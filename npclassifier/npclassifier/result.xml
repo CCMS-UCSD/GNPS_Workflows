@@ -14,10 +14,9 @@
             </parsers>
         </data>
         <row>
-            <column label="View Chromatogram" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
-                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[_dyn_#filename]"/>
-                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            <column type="genericimagedisplayer" label="Structure">
+                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+				<parameter name="REQUESTPARAMETER=smiles" value="[_dyn_#smiles]"/>
             </column>
         </row>
     </block>
