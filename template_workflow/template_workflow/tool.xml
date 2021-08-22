@@ -1,0 +1,64 @@
+<toolset>
+    <!-- Demangling -->
+    <pathSet base="miniconda3_gamma/envs/msql2/bin">
+        <toolPath tool="demangle_spectra" path="python3"/>
+    </pathSet>
+    <pathSet base="$base">
+        <pathVar name="demangle.script" path="demangle_collection.py"/>
+    </pathSet>
+
+    <tool name="demangle_spectra">
+        <require name="spectra" type="folder"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="demangled_spectra" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="demangle.script"/>
+            <arg option="p" valueRef="workflowParameters"/>
+            <arg option="-input_mangled_prefix" value="spec"/>
+            <arg option="i" valueRef="spectra"/>
+            <arg option="o" valueRef="demangled_spectra"/>
+        </execution>
+    </tool>
+
+    <pathSet base="miniconda3_gamma/envs/msql2/bin">
+        <toolPath tool="nf_process" path="python3"/>
+        <pathVar name="python_runtime" path="python3"/>
+    </pathSet>
+
+    <pathSet base="miniconda3_gamma/bin">
+        <pathVar name="conda_activate_path" path="activate"/>
+    </pathSet>
+
+    <pathSet base="$base">
+        <pathVar name="nextflow_wrapper.script" path="nextflow_wrapper.py"/>
+        <pathVar name="nextflow.script" path="workflow.nf"/>
+    </pathSet>
+
+    <tool name="nf_process">
+        <require name="demangled_spectra" type="folder"/>
+        <require name="workflowParameters" type="file"/>
+        <produce name="workflow_results" type="folder"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="nextflow_wrapper.script"/>
+            <arg valueRef="workflowParameters"/>
+            <arg pathRef="nextflow.script"/>
+            <arg pathRef="conda_activate_path"/>
+            <arg value="msql2"/>
+
+            <arg option="-metricoutput" valueRef="workflow_results"/>
+
+            <!-- This portion is currently hardcoded to the nextflow workflow. -->
+
+            <!-- Mapping Input Files into NextFlow -->
+            <arg option="-newparameters" value="publishdir:workflow_results"/>
+            <arg option="-newparameters" value="inputspectra:demangled_spectra"/>
+            <arg option="-newparameters" value="workflowParameters:workflowParameters/*"/>
+
+            <!-- Mapping Proteosafe param to nextflow params -->
+            <arg option="-parametermapping" value="TYPE:type"/> 
+        </execution>
+    </tool>
+
+</toolset>

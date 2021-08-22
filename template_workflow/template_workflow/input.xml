@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="template_workflow" version="1.2.8">
+    <workflow-id>TEMPLATE_WORKFLOW</workflow-id>
+    <workflow-label>TEMPLATE_WORKFLOW</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Spectrum Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spectra"/>
+        </parameter>
+
+        <parameter name="TYPE" label="TYPE">
+            <options>
+                <option value="0" label="0"/>
+                <option value="1" label="1"/>
+            </options>
+            <validator type="set"/>
+        </parameter>
+
+    </parameters>
+
+    <block label="File Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Spectrum Files</property>
+                </module>
+            </cell>
+        </row>
+
+        <row>
+            <cell>
+                <label>
+                    <content parameter="TYPE"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="select" parameter="TYPE"></input>
+            </cell>
+        </row>
+    </block>
+</interface>
