@@ -4,3 +4,4 @@
 **/credentials.json
 **/*.pyc
 Makefile.credentials
+**/.nextflow*
