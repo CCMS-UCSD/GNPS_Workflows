@@ -89,7 +89,8 @@ def main():
         new_param = parameter.split(":")[1]
         old_param = parameter.split(":")[0]
 
-        cmd += ' --{} "{}"'.format(new_param, params_obj[old_param][0].replace("\n", ""))
+        if old_param in params_obj:
+            cmd += ' --{} "{}"'.format(new_param, params_obj[old_param][0].replace("\n", ""))
 
     print(cmd)
     return_val = os.system(cmd)
