@@ -20,7 +20,7 @@ process calculateResults {
     file spectra_folder from _spectra_ch
 
     output:
-    val 1 into _val_ch
+    file "result_file.tsv"
 
     """
     python $TOOL_FOLDER/template_script.py \

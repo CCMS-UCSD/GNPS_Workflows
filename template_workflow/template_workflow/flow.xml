@@ -26,5 +26,6 @@
 
     <action name="end">
         <input port="workflow_results" collection="workflow_results"/>
+        <input port="demangled_spectra" collection="demangled_spectra"/>
     </action>
 </flow>

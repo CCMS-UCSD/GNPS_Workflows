@@ -8,19 +8,16 @@
 
     <block id="view_results" type="table">
         <data>
-            <source type="file" name="workflow_results/view_results.tsv"/>
+            <source type="file" name="workflow_results/result_file.tsv"/>
             <parsers>
-                <parser type="sortedTabular" sortBy="CompoundName" operator="ascending"/>
+                <parser type="genericTabular"/>
             </parsers>
         </data>
         <row>
-            <column type="text" field="CompoundName" label="CompoundName" width="12"/>
-            <column type="text" field="Protein" label="Ion_Source" width="5"/>
-            <column type="text" field="LibMetaData" label="LibMetaData" width="5"/>
-            <column type="genericimagedisplayer" label="Structure">
-                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
-                <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
-                <parameter name="REQUESTPARAMETER=inchi" value="[Inchi]"/>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[_dyn_#filename]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
             </column>
         </row>
     </block>

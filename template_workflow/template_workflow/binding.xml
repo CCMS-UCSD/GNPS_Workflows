@@ -39,5 +39,8 @@
             <upload port="workflow_results" type="folder">
                 <query name="resource" value="workflow_results"/>
             </upload>
+            <upload port="demangled_spectra" type="folder">
+                <query name="resource" value="demangled_spectra"/>
+            </upload>
     </bind>
 </binding>
