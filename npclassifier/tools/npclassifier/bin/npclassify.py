@@ -41,6 +41,11 @@ for smiles in all_smiles:
     if r.status_code == 200:
         results = r.json()
         results["smiles"] = smiles
+
+        results["class_results"] = ",".join(results["class_results"])
+        results["superclass_results"] = ",".join(results["superclass_results"])
+        results["pathway_results"] = ",".join(results["pathway_results"])
+
         all_results.append(results)
 
 # Formatting output results
