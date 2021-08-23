@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="ming_test" version="1.2.3">
+
+
+    <view id="analyze_masst_plus" label="Analyze with MASST+" group="Downstream Analysis">
+        <blockRef id="main" type="analyze_masst_plus"/>
+    </view>
+    <block id="analyze_masst_plus" type="dummylinkout">
+    <data>
+        <parsers>
+        <parser type="stream" contentType="text/xml"/>
+        </parsers>
+    </data>
+    <parameter name="URLBASE" value="/ProteoSAFe/index.jsp?params=%7B%22workflow%22%3A%20%22MASST_PLUS_BATCH%22%2C%20%22spec_on_server%22%3A%20%22t.[task]%2Fworkflow_results%2Fspecs_ms.mgf%22%7D"/>
+    </block>
+
+
+</interface>

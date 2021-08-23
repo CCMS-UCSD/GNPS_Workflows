@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="molecular-librarysearch" version="1.2.5">
+	<workflow-id>USI_TO_MGF</workflow-id>
+	<workflow-label>USI to MGF workflow</workflow-label>
+	<parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+		<parameter name="usi_string" label="USI Spectrum Input">
+            <validator type="length" maximum="2500000"/>
+        </parameter>
+
+      </parameters>
+
+	  <block label="Spectrum Input">
+          <row>
+              <cell>
+                  <label>
+                      <content parameter="usi_string"/>
+                  </label>
+              </cell>
+              <cell>
+                  <input type="textarea" parameter="usi_string">
+					  <attribute name="rows" value="30	"/>
+					<attribute name="cols" value="80"/>
+                  </input>
+              </cell>
+          </row>
+		  <row>
+  			<cell>
+  				<label prefix="false">
+  					<content><![CDATA[<span style="background-color:#D1EEEE; padding:1px; border:2px inset black">
+  						<a style="color:black; font-weight:bold; font-size:105%;
+  							background-color:#D1EEEE" target="_blank"
+  							href='/ProteoSAFe/index.jsp?task=6b2533ea9d144533bb5bbbf111a8f2ff'>
+  							Example Search
+  						</a></span>]]>
+  					</content>
+  				</label>
+  			</cell>
+  		</row>
+    </block>
+
+</interface>
