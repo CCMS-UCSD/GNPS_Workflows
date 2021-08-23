@@ -11,7 +11,7 @@
         <parser type="stream" contentType="text/xml"/>
         </parsers>
     </data>
-    <parameter name="URLBASE" value="/ProteoSAFe/index.jsp?params=%7B%22workflow%22%3A%20%22MASST_PLUS_BATCH%22%2C%20%22spec_on_server%22%3A%20%22t.[task]%2Foutput_results%2Fspecs_ms.mgf%22%7D"/>
+    <parameter name="URLBASE" value="/ProteoSAFe/index.jsp?params=%7B%22workflow%22%3A%20%22MASST_PLUS_BATCH%22%2C%20%22spec_on_server%22%3A%20%22t.[task]%2Fworkflow_results%2Fspecs_ms.mgf%22%7D"/>
     </block>
 
 
