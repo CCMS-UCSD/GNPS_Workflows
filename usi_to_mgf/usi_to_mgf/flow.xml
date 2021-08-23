@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<flow name="USI_TO_MGF">
-	<object     name="workflowParameters"/>
+<flow name="fast_tst_workflow">
+    <object name="workflowParameters"/>
 
-	<action name="begin">
-		<output port="params" object="workflowParameters"/>
-	</action>
+    <action name="begin">
+        <output port="flowParams" object="workflowParameters"/>
+    </action>
 
-    <!-- Written Description -->
-    <collection name="output_results"/>
-    <action name="download_usi">
-        <input  port="workflowParameters"       object="workflowParameters"/>
-        <output port="output_results"     collection="output_results"/>
-    </action>  
+    <collection name="workflow_results"/>
+    <action name="nf_process">
+        <input  port="workflowParameters"            object="workflowParameters"/>
+        <output port="workflow_results"              collection="workflow_results"/>
+    </action>
 
-
-	<action name="end">
-		<input port="output_results" collection="output_results"/>
-	</action>
+    <action name="end">
+        <input port="workflow_results" collection="workflow_results"/>
+        <input port="demangled_spectra" collection="demangled_spectra"/>
+    </action>
 </flow>

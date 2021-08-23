@@ -1,7 +1,7 @@
-include ../Makefile.credentials
+-include ../Makefile.credentials
 include ../Makefile.deploytemplate
 
-WORKFLOW_NAME=usi_to_mgf
-TOOL_FOLDER_NAME=usi_to_mgf
+WORKFLOW_NAME=template_workflow
+TOOL_FOLDER_NAME=template_workflow
 WORKFLOW_VERSION=release_30
-WORKFLOW_DESCRIPTION="Convert USI to MGF file"
+WORKFLOW_DESCRIPTION="template_workflow"

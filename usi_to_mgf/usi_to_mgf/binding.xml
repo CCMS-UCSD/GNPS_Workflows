@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <binding>
-	<bind action="begin" type="download">
-	 	<url value="{livesearch.download}"/>
-	 	<query name="task" valueRef="@task" />
+    <bind action="begin" type="download">
+        <url value="{livesearch.download}"/>
+        <query name="task" valueRef="@task" />
         <query name="user" valueRef="@user"/>
-	 	<compression type="zip" />
-		<download port="params" type="file">
-			<query name="resource" value="params"/>
-		</download>
-		<downloadParams>
-			<query name="resource" value="params"/>
-		</downloadParams>
+        <compression type="zip" />
+        <download port="flowParams" type="file">
+            <query name="resource" value="params"/>
+        </download>
+        <downloadParams>
+            <query name="resource" value="params"/>
+        </downloadParams>
+    </bind>
 
-	</bind>
+    <bind action="nf_process" tool="nf_process">
+        <inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
+        <productionToOutput port="workflow_results" production="workflow_results"/>
+    </bind>
 
-	<bind action="download_usi" tool="download_usi">
-		<inputAsRequirement port="workflowParameters" requirement="workflowParameters"/>
-		<productionToOutput port="output_results"       production="output_results"/>
-	</bind>
-
-
-	<bind action="end" type="upload">
-	 	<url value="{livesearch.upload}"/>
-	 	<query name="task" valueRef="@task"/>
-	 	<contentQuery name="content"/>
-	 	<compression type="zip"/>
-		<upload port="output_results" type="folder">
-			<query name="resource" value="output_results"/>
-		</upload>
-	</bind>
+    <bind action="end" type="upload">
+            <url value="{livesearch.upload}"/>
+            <query name="task" valueRef="@task"/>
+            <contentQuery name="content"/>
+            <compression type="zip"/>
+            <upload port="workflow_results" type="folder">
+                <query name="resource" value="workflow_results"/>
+            </upload>
+    </bind>
 </binding>
