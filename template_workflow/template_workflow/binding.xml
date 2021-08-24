@@ -8,9 +8,6 @@
         <download port="spectra" type="folder">
             <query name="resource" value="spectra"/>
         </download>
-        <download port="annotation_table" type="file">
-            <query name="resource" value="annotation_table"/>
-        </download>
         <download port="flowParams" type="file">
             <query name="resource" value="params"/>
         </download>

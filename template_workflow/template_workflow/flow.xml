@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <flow name="fast_tst_workflow">
     <object name="workflowParameters"/>
-    <object name="annotation_table"/>
     <collection name="spectra"/>
 
     <action name="begin">
         <output port="spectra" collection="spectra"/>
-        <output port="annotation_table" object="annotation_table"/>
         <output port="flowParams" object="workflowParameters"/>
     </action>
 
