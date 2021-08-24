@@ -19,6 +19,22 @@
 				<parameter name="REQUESTPARAMETER=smiles" value="[_dyn_#smiles]"/>
             </column>
         </row>
+
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5" width="600" height="500">
+                <parameter name="file"      file="workflow_results/specs_ms.mgf"/>
+                <parameter name="scan"      value="[_dyn_#scan]"/>
+                <parameter name="modformat" value="inspect"/>
+                <parameter name="trim"      value="true"/>
+            </column>
+        </row>
+        <row expander="USI Links" expandericontype="text">
+            <column label="USI-Spectrum" type="genericurlgenerator" width="3">
+                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-workflow_results/specs_ms.mgf:scan:[_dyn_#scan]"/>
+                <parameter name="LABEL" value="Spectrum USI"/>
+            </column>
+        </row>
     </block>
 
     
