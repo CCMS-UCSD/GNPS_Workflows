@@ -2,6 +2,7 @@ import sys
 import os
 import glob
 import requests
+from tqdm import tqdm
 import pandas as pd
 
 input_filename = sys.argv[1]
@@ -33,20 +34,23 @@ if "SMILES" in df:
 
 
 all_results = []
-for smiles in all_smiles:
-    url = "https://npclassifier.ucsd.edu/classify"
+for smiles in tqdm(all_smiles):
+    try:
+        url = "https://npclassifier.ucsd.edu/classify"
 
-    r = requests.get(url, params={"smiles": smiles})
+        r = requests.get(url, params={"smiles": smiles})
 
-    if r.status_code == 200:
-        results = r.json()
-        results["smiles"] = smiles
+        if r.status_code == 200:
+            results = r.json()
+            results["smiles"] = smiles
 
-        results["class_results"] = ",".join(results["class_results"])
-        results["superclass_results"] = ",".join(results["superclass_results"])
-        results["pathway_results"] = ",".join(results["pathway_results"])
+            results["class_results"] = ",".join(results["class_results"])
+            results["superclass_results"] = ",".join(results["superclass_results"])
+            results["pathway_results"] = ",".join(results["pathway_results"])
 
-        all_results.append(results)
+            all_results.append(results)
+    except:
+        pass
 
 # Formatting output results
 df_results = pd.DataFrame(all_results)

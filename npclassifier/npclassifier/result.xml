@@ -45,7 +45,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=query_results/stdout.log&amp;block=main&amp;process_html=false'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/stdout.log&amp;block=main&amp;process_html=false'/>
     </block>
             
     <!-- <block id="proteosafe_workflow_trace" type="stream">
@@ -90,7 +90,7 @@
     </view>
     <block id="workflow_trace" type="table">
         <data>
-            <source type="file" name="query_results/trace.txt"/>
+            <source type="file" name="workflow_results/trace.txt"/>
             <parsers>
                 <parser type="genericTabular"/>
             </parsers>
@@ -107,7 +107,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=query_results/report.html&amp;block=main&amp;process_html=false'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/report.html&amp;block=main&amp;process_html=false'/>
     </block>
 
     <view id="workflow_timeline" label="Workflow Timeline" group="Compute Stats">
@@ -119,7 +119,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=query_results/timeline.html&amp;block=main&amp;process_html=false'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/timeline.html&amp;block=main&amp;process_html=false'/>
     </block>
 
     <view id="workflow_dag" label="Workflow Dag" group="Compute Stats">
@@ -131,7 +131,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=query_results/dag.html&amp;block=main&amp;process_html=false'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/dag.html&amp;block=main&amp;process_html=false'/>
     </block>
 
 </interface>
