@@ -44,8 +44,8 @@ output_mgf = open(args.output_mgf, "w")
 output_results_list = []
 scan_count = 1
 for smiles in all_smiles:
-    #url = "http://dorresteinappshub.ucsd.edu:3948/generate/cfmid4"
-    url = "http://mingwangbeta.ucsd.edu:3948/generate/cfmid4"
+    url = "http://dorresteinappshub.ucsd.edu:3948/generate/cfmid4"
+    #url = "http://mingwangbeta.ucsd.edu:3948/generate/cfmid4"
 
     r = requests.get(url, params={"smiles": smiles})
 
@@ -62,7 +62,7 @@ for smiles in all_smiles:
         for spectrum in results:
             output_mgf.write("BEGIN IONS\n")
             output_mgf.write("PEPMASS={}\n".format(adduct_mz))
-            output_mgf.write("CHARGE=0\n")
+            output_mgf.write("CHARGE=1\n")
             output_mgf.write("SCANS={}\n".format(scan_count))
             for peak in spectrum["peaks"]:
                 output_mgf.write("{} {}\n".format(peak[0], peak[1]))
@@ -72,6 +72,7 @@ for smiles in all_smiles:
             output_dict["filename"] = args.output_mgf
             output_dict["scan"] = scan_count
             output_dict["energy"] = spectrum["energy"]
+            output_dict["smiles"] = smiles
             
             scan_count += 1
 
