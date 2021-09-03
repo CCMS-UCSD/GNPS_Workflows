@@ -20,7 +20,7 @@
 
             <row expander="image">
                 <column type="jscolumnspectrumviewer" colspan="5" width="600" height="500">
-                    <parameter name="file"      file="f.[_dyn_#FILENAME]"/>
+                    <parameter name="file"      file="workflow_results/[_dyn_#FILENAME]"/>
                     <parameter name="scan"      value="[_dyn_#EXTRACTSCAN]"/>
                     <parameter name="modformat" value="inspect"/>
                     <parameter name="trim"      value="true"/>
