@@ -24,11 +24,10 @@ process convertLibrary {
     mkdir output_folder -p
     python $TOOL_FOLDER/library_conversion.py \
         -input-library "$library_file" \
-        --output-folder output_folder \
+        --mgf-file output_folder/converted_library.mgf \
+        --csv-file output_folder/converted_library.tsv \
         --libformat "$params.input_format" \
         --pi "$params.pi" \
         --collector "$params.collector"
-    mv output_folder/*.mgf output_folder/converted_library.mgf
-    mv output_folder/*.tsv output_folder/converted_library.tsv
     """
 }
