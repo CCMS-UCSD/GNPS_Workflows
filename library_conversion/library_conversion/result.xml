@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <interface id="LIBRARY_CONVERSION" version="release_1">
     <download>
-        <source type="folder" name="output_converted_folder/"/>
+        <source type="folder" name="workflow_results/"/>
     </download>
 
     <view id="download_results" label="Download converted library">
@@ -10,7 +10,7 @@
 
     <block id="download_results" type="dummydownload">
         <data>
-            <source type="file" name="output_converted_folder/"/>
+            <source type="file" name="workflow_results/"/>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
@@ -26,7 +26,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?#{"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc" : "MZVault Conversion in GNPS from [task]", "spec_on_server":"t.[task]/output_converted_folder/input_library-00000.mgf", "annotation_table_on_server":"t.[task]/output_converted_folder/input_library-00000.tsv"}'/>
+        <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?#{"workflow":"ADD-BATCH-ANNOTATED-VALIDATOR", "desc" : "MZVault Conversion in GNPS from [task]", "spec_on_server":"t.[task]/workflow_results/output_folder/converted_library.mgf", "annotation_table_on_server":"t.[task]/workflow_results/output_folder/converted_library.tsv"}'/>
     </block>
 
 

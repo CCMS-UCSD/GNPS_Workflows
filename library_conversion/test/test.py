@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-sys.path.insert(0, "../tools/library_conversion/")
+sys.path.insert(0, "../tools/library_conversion/bin/")
 import library_conversion
 from library_conversion import InputFormat
 

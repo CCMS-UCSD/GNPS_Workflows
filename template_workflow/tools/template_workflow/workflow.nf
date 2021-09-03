@@ -6,9 +6,6 @@ params.workflowParameters = ''
 params.type = ''
 
 _spectra_ch = Channel.fromPath( params.inputspectra )
-_params_ch = Channel.fromPath( params.workflowParameters )
-
-_params_ch.into{_params_ch1;_params_ch2}
 
 TOOL_FOLDER = "$baseDir/bin"
 params.publishdir = "nf_output"
