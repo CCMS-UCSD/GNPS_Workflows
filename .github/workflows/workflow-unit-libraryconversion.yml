@@ -20,4 +20,4 @@ jobs:
     - name: Test with Pytest
       run: |
         pip install pytest
-        cd library_conversion/test && pytest -v && cd ../..
+        cd library_conversion/test && pytest . && cd ../..

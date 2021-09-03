@@ -53,11 +53,13 @@
 
             <!-- Mapping Input Files into NextFlow -->
             <arg option="-newparameters" value="publishdir:workflow_results"/>
-            <arg option="-newparameters" value="inputspectra:demangled_spectra"/>
+            <arg option="-newparameters" value="input_library:demangled_spectra/**/*"/>
             <arg option="-newparameters" value="workflowParameters:workflowParameters/*"/>
 
             <!-- Mapping Proteosafe param to nextflow params -->
-            <!-- <arg option="-parametermapping" value="TYPE:type"/>  -->
+            <arg option="-parametermapping" value="input_format:input_format"/>
+            <arg option="-parametermapping" value="principal_investigator_name:pi"/>
+            <arg option="-parametermapping" value="data_collector_name:collector"/>
         </execution>
     </tool>
 
