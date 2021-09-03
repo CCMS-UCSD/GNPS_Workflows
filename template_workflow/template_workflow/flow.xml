@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="fast_tst_workflow">
+    <object name="workflowParameters"/>
+    <collection name="spectra"/>
+
+    <action name="begin">
+        <output port="spectra" collection="spectra"/>
+        <output port="flowParams" object="workflowParameters"/>
+    </action>
+
+    <collection name="demangled_spectra"/>
+    <action name="demangle_spectra">
+            <input  port="spectra"             collection="spectra"/>
+            <input  port="workflowParameters"             object="workflowParameters"/>
+            <output port="demangled_spectra"           collection="demangled_spectra"/>
+    </action>
+
+    <collection name="workflow_results"/>
+    <action name="nf_process">
+        <input  port="demangled_spectra"             collection="demangled_spectra"/>
+        <input  port="workflowParameters"            object="workflowParameters"/>
+        <output port="workflow_results"              collection="workflow_results"/>
+    </action>
+
+    <action name="end">
+        <input port="workflow_results" collection="workflow_results"/>
+        <input port="demangled_spectra" collection="demangled_spectra"/>
+    </action>
+</flow>

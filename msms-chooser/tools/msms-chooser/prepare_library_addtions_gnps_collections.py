@@ -53,11 +53,10 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
                 spectrum_list = ming_spectrum_library.load_mzxml_file(path_to_spectrum_file)
             if extension.lower() == '.mzml':
                 spectrum_list = ming_spectrum_library.load_mzml_file(path_to_spectrum_file)
-            print("LOADING", path_to_spectrum_file, len(spectrum_list))
+            #print("LOADING", path_to_spectrum_file, len(spectrum_list))
         except KeyboardInterrupt:
             raise
         except Exception as e:
-            print(e)
             print("Could not load", path_to_spectrum_file)
             spectrum_list = []
 
@@ -67,7 +66,7 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
             highest_intensity = -1000
             best_spectrum = None
             ppm_threshold = candidate_object["ppm_threshold"]
-            print(structure_object, len(spectrum_list))
+            #print(structure_object, len(spectrum_list))
             #print("molecule mass","monoisotopic mass","ppm","filename","exact_mass","adduct")
             for spectrum in spectrum_list:
                 if spectrum.ms_level == 1:
@@ -118,7 +117,8 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
                 #print(spectrum.mz, monoisotopic_mass, ppm_delta, filename, structure_object["exact_mass"],structure_object["adduct"])
                 #print("Found ", structure_object["name"],structure_object["adduct"], highest_intensity)
             else:
-                print("Not Seen", structure_object["name"], structure_object["adduct"], highest_intensity)
+                continue
+                #print("Not Seen", structure_object["name"], structure_object["adduct"], highest_intensity)
 
     return output_dict
 

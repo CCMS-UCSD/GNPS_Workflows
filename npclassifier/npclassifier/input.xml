@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="npclassifier" version="1.2.8">
+    <workflow-id>NPCLASSIFIER</workflow-id>
+    <workflow-label>NPCLASSIFIER</workflow-label>
+
+    <!-- Parameter declarations -->
+    <parameters>
+        <!-- Universal parameters -->
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <!-- Search file parameters -->
+        <parameter name="spec_on_server" label="Input Files">
+            <validator type="required"/>
+            <fileGenerator type="upload" purpose="spectrum" target="spectra"/>
+        </parameter>
+
+    </parameters>
+
+    <block label="File Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="spec_on_server"/>
+                    <tooltip id="hSpectrumFile"/>
+                </label>
+            </cell>
+            <cell>
+                <module id="spec_on_server" type="fileSelector">
+                    <property name="label">Input Files</property>
+                </module>
+            </cell>
+        </row>
+
+    </block>
+</interface>

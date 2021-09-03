@@ -22,11 +22,13 @@ def main():
     print(cmd)
     status_code = os.system(cmd)
 
-    if status_code != 0:
-        exit(status_code)
-
     if not os.path.exists(args.ccms_output_aligns):
         open(args.ccms_output_aligns, "w").write("CLUSTERID1\tCLUSTERID2\tDeltaMZ\tMinRatio\tCosine\tAlignScore2\tAlignScore3\n")
+
+    # if status_code != 0:
+    #     exit(status_code)
+
+    
 
 
 if __name__ == "__main__":

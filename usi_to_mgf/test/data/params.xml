@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<parameters>
+<parameter name="desc">Test USI to MGF [4]</parameter>
+<parameter name="email">miw023@ucsd.edu</parameter>
+<parameter name="task">1c5c90eb44294ddbbc68540c23f764bf</parameter>
+<parameter name="user">mwang87</parameter>
+<parameter name="usi_string">mzspec:GNPSTASK-988893c4832544c4ab216fa9c0a87d11:emgentry/BA multiplex reactions/mzMLs_2/18A.mzML:scan:1932
+mzspec:GNPSTASK-988893c4832544c4ab216fa9c0a87d11:emgentry/BA%20multiplex%20reactions/mzMLs_2/18A.mzML:scan:1521</parameter>
+<parameter name="uuid">1E37F184-78E6-0001-A414-1DE0313016AC</parameter>
+<parameter name="workflow">USI_TO_MGF</parameter>
+<parameter name="workflow_version">release_30+usi_to_mgf</parameter>
+</parameters>

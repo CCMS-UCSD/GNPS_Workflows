@@ -20,14 +20,13 @@
 
     <block id="new_annotations" type="table">
         <data>
-            <source type="file" name="newspectraResult/"/>
+            <source type="file" name="workflow_results/new_results.tsv"/>
             <parsers>
                 <parser type="sortedTabular" sortBy="CompoundName" operator="ascending"/>
             </parsers>
         </data>
         <row>
             <column type="text" field="CompoundName" label="CompoundName" width="12"/>
-            <column type="text" field="Adduct" label="Adduct" width="5"/>
             <column type="text" field="Protein" label="Ion_Source" width="5"/>
             <column type="text" field="LibMetaData" label="LibMetaData" width="5"/>
             <column type="genericimagedisplayer" label="Structure">
@@ -42,5 +41,27 @@
             </column>
         </row> -->
     </block>
+
+    
+    <view id="view_annotation" label="View Annotations">
+        <blockRef id="main" type="view_annotation"/>
+    </view>
+
+    <block id="view_annotation" type="table">
+		<data>
+			<source name="workflow_results/formattedresult.tsv" type="file"/>
+			<parsers>
+				<parser type="genericTabular"/>
+			</parsers>
+		</data>
+		<row/>
+        <row expander="image">
+            <column type="jscolumnspectrumviewer" colspan="5">
+                <parameter name="file" file="spec/[_dyn_#proteosafe_path]"/>
+                <parameter name="scan" value="[_dyn_#EXTRACTSCAN]"/>
+                <parameter name="trim" value="true"/>
+            </column>
+        </row>
+	</block>
 
 </interface>
