@@ -1,7 +1,7 @@
 import unittest
 import sys
 import filecmp
-sys.path.insert(0, "../tools/tools/molecularsearch-gc/")
+sys.path.insert(0, "../tools/molecularsearch-gc/")
 sys.path.insert(0, "tools/tools/molecularsearch-gc/")
 import msdial_formatter_gc
 import os

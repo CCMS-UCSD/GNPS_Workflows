@@ -1,6 +1,6 @@
-# this module takes in searches for one clustered scan and runs searches against the current version of the foodomics library. A tsv containing the predicted types of the clustered scan spectrum, confidence and product scores and number of hits would be returned. 
+# this module takes in searches for one clustered scan and runs searches against the current version of the foodomics library. A tsv containing the predicted types of the clustered scan spectrum, confidence and product scores and number of hits would be returned.
 
-# current version of the search maximizes sensitvity by lowering the product score threshold to 1 and the confidence to 0.3 so that it's most likely to reveal the top one to top three candidate types of the molecule at different detail level on the food tree. 
+# current version of the search maximizes sensitvity by lowering the product score threshold to 1 and the confidence to 0.3 so that it's most likely to reveal the top one to top three candidate types of the molecule at different detail level on the food tree.
 
 import sys
 import pandas as pd
@@ -14,8 +14,8 @@ def calculate_enrichment(file_occurrent_df, metadata_df):
 
     # Filter to approrpaite dataset
     file_occurrent_df = file_occurrent_df[file_occurrent_df["dataset_id"] == "MSV000084900"]
-    
-    columns_to_consider = ["sample_type_group5", "Main.food.description"]
+
+    columns_to_consider = ["ontology_term"]
 
     output_list = []
 
@@ -64,4 +64,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
