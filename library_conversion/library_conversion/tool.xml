@@ -16,7 +16,7 @@
             <arg pathRef="demangle.script"/>
             <arg option="p" valueRef="workflowParameters"/>
             <arg option="-input_mangled_prefix" value="input_library"/>
-            <arg option="i" valueRef="input_library"/>
+            <arg option="i" valueRef="spectra"/>
             <arg option="o" valueRef="demangled_spectra"/>
         </execution>
     </tool>
