@@ -84,13 +84,14 @@ def main():
         cmd += ' --{} "{}"'.format(parameter.split(":")[0], parameter.split(":")[1].replace("\n", ""))
 
     params_obj = ming_proteosafe_library.parse_xml_file(open(args.workflow_params))
-    for parameter in args.parametermapping:
-        print(parameter)
-        new_param = parameter.split(":")[1]
-        old_param = parameter.split(":")[0]
+    if args.parametermapping is not None:
+        for parameter in args.parametermapping:
+            print(parameter)
+            new_param = parameter.split(":")[1]
+            old_param = parameter.split(":")[0]
 
-        if old_param in params_obj:
-            cmd += ' --{} "{}"'.format(new_param, params_obj[old_param][0].replace("\n", ""))
+            if old_param in params_obj:
+                cmd += ' --{} "{}"'.format(new_param, params_obj[old_param][0].replace("\n", ""))
 
     print(cmd)
     return_val = os.system(cmd)
