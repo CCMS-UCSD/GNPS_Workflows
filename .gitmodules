@@ -7,3 +7,6 @@
 [submodule "merge_networks_polarity/tools/MergePolarity"]
 	path = merge_networks_polarity/tools/MergePolarity
 	url = https://github.com/mwang87/MergePolarity
+[submodule "GNPS_sharedcode"]
+	path = GNPS_sharedcode
+	url = https://github.com/mwang87/GNPS_sharedcode.git
