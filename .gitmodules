@@ -7,3 +7,6 @@
 [submodule "merge_networks_polarity/tools/MergePolarity"]
 	path = merge_networks_polarity/tools/MergePolarity
 	url = https://github.com/mwang87/MergePolarity
+[submodule "ProteoSAFe_Nextflow_Template"]
+	path = ProteoSAFe_Nextflow_Template
+	url = https://github.com/mwang87/ProteoSAFe_Nextflow_Template.git
