@@ -193,7 +193,7 @@ def enrich_output(input_filename, output_filename, topk=None):
         if len(output_result_dict["InChIKey"]) > 5:
             try:
                 classyfire_url = "https://gnps-classyfire.ucsd.edu/entities/{}.json".format(output_result_dict["InChIKey"])
-                r = requests.get(classyfire_url)
+                r = requests.get(classyfire_url, timeout=10)
                 r.raise_for_status()
                 classification_json = r.json()
 
@@ -213,7 +213,7 @@ def enrich_output(input_filename, output_filename, topk=None):
         if len(output_result_dict["Smiles"]) > 5:
             try:
                 npclassifier_url = "https://npclassifier.ucsd.edu/classify?smiles={}".format(output_result_dict["Smiles"])
-                r = requests.get(npclassifier_url)
+                r = requests.get(npclassifier_url, timeout=10)
                 r.raise_for_status()
                 classification_json = r.json()
 
