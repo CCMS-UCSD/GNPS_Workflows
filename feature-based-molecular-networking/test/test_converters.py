@@ -64,6 +64,18 @@ class TestLoaders(unittest.TestCase):
 
         self.assertTrue(filecmp.cmp("./202005_IMS_w_tags.mgf", "./reference_input_file_for_formatter/Progenesis/202005_IMS_w_tags.mgf", shallow=False))
 
+        # Files exported from European system (CSV with semi colon separator and comma decimal separator).
+        compound_to_scan_mapping = progenesis_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/Progenesis/Progenesis_csv_v0.csv", \
+                    "./Progenesis_csv_v0_output.csv")
+
+        self.assertTrue(filecmp.cmp("./Progenesis_csv_v0_output.csv", "./reference_input_file_for_formatter/Progenesis/Progenesis_csv_v0_output.csv", shallow=False))
+
+        progenesis_formatter.convert_mgf("./reference_input_file_for_formatter/Progenesis/B1B3_Metabo_DDA_v0.msp", "B1B3_Metabo_DDA_v0.mgf", compound_to_scan_mapping)
+
+        self.assertTrue(filecmp.cmp("./B1B3_Metabo_DDA_v0.mgf", "./reference_input_file_for_formatter/Progenesis/B1B3_Metabo_DDA_v0.mgf", shallow=False))
+
+        
+        
     #Making sure this raises exception
 
     def test_metaboscape(self):
