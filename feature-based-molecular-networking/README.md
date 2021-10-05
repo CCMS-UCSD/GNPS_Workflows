@@ -1,6 +1,6 @@
 ## Feature Based Molecular Networking 
 
-For more informations on FBMN, see the workflow documentation on GNPS [https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/) and our preprint: Nothias, L.F. et al [Feature-based Molecular Networking in the GNPS Analysis Environment](https://www.biorxiv.org/content/10.1101/812404v1) bioRxiv 812404 (2019).
+For more informations on FBMN, see the workflow documentation on GNPS [https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/) and our preprint: Nothias, L.F. et al [Feature-based Molecular Networking in the GNPS Analysis Environment](https://www.nature.com/articles/s41592-020-0933-6) Nature Methods volume 17, pages 905–908 (2020).
 
 Representative input files for each supported tools are available at:
 [https://github.com/CCMS-UCSD/GNPS_Workflows/tree/master/feature-based-molecular-networking/test/reference_input_file_for_formatter](https://github.com/CCMS-UCSD/GNPS_Workflows/tree/master/feature-based-molecular-networking/test/reference_input_file_for_formatter)
@@ -84,20 +84,15 @@ Important: In the metadata table, the filename MUST HAVE the ".d" extensionsuffi
 
 ### Progenesis QI
 
-The feature quantification table (text file, comma separated). The row 1/2 are used to deduced the number of samples and sample name and metadata are starting in row 3 with the following columns:
+The feature quantification table of Progenesis is a text file. We now support either comma separated text file with dot as decimal separator or the European standard with semicolon separated text file with comma as separator. Make sure you follow the export instructions as mentioned at [https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking-with-progenesisQI](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking-with-progenesisQI/). Representative input files are available at [https://github.com/CCMS-UCSD/GNPS_Workflows/tree/master/feature-based-molecular-networking/test/reference_input_file_for_formatter](https://github.com/CCMS-UCSD/GNPS_Workflows/tree/master/feature-based-molecular-networking/test/reference_input_file_for_formatter).
 
-At the second row:
-1. Raw abundance
-2. Normalised abundance
+The "Normalised abundances" columns are mandatory along with "Compound", "Retention time (min)", "m/z".
 
-At the third row:
-1. Compound
-2. m/z
-3. Retention time (min)
+The conversion script is located at [https://github.com/CCMS-UCSD/GNPS_Workflows/blob/master/feature-based-molecular-networking/tools/feature-based-molecular-networking/scripts/progenesis_formatter.py](https://github.com/CCMS-UCSD/GNPS_Workflows/blob/master/feature-based-molecular-networking/tools/feature-based-molecular-networking/scripts/progenesis_formatter.py).
 
 For ion mobility data, it must include a "CCS (angstrom^2)" column for consistency
 
-The samples headers are deduced from parsing the first row of the input feature quantification table by deducing the number of samples from the difference between the Normalized and Raw abundance columns (Raw abundance column are relabelled with a .1 suffix). We output only the Normalized intensities. All sample headers are not including the filename extension (such as ".raw"). 
+If both 'Row abundances' and 'Normalised abundances' are present, we output only 'Normalised abundances' columns. All sample headers are not including the filename extension (such as ".raw"). 
 We output most metadata columns except the 'Accepted Description' column. These columns are on the row 3 of the input feature quantification table.
 
 We use the .MSP file format for the MS/MS spectral summary and convert it to a.MGF file. Only the first MS/MS entry associated with a compound name is kept in the .MGF file (Following "Comment: "). This is an imperfect solution and we are welcoming volunteers to improve this.
