@@ -1,6 +1,6 @@
 task_id,description,regressioncountviews,enable
-73da384ea02a4e8ca3edd82649e540c3,msms-chooser mzXML,,1
-720b3c93bec54a4a9f3de4fbf6fbbd82,msms-chooser mzML,,1
+fbaf834498aa44fb996ebd20eda7d3b7,msms-chooser mzXML,view_table,1
+f10486aa1e25480c8e8df13f4037dd74,msms-chooser mzML,,1
 1df2ea6e406447dfaa7a8b3ea23bf9e1,batchvalidator,new_annotations,1
 a39ef65ed3a14ca8ac3ebb5e5b33b9b1,lc_mzmine2 small test,,1
 996b077684ab407e8838aac9185cfd8f,spec2vec test GNPS stenothricin,
