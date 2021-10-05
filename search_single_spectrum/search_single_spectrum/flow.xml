@@ -72,12 +72,21 @@
 
     <!-- Foodomics Specific -->
     <object name="foodomics_tracking_file"/>
+    <object name="filtered_food_metadata_file"/>
     <action name="foodomics_track">
         <input  port="all_dataset_file_matches" object="all_dataset_file_matches"/>
         <output  port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+        <output  port="filtered_food_metadata_file" object="filtered_food_metadata_file"/>
     </action>
 
-
+    <!-- Foodomics Tree -->
+    <object name="food_tree_html"/>
+    <object name="food_tree_json"/>
+    <action name="build_tree">
+        <input  port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+        <output  port="food_tree_html" object="food_tree_html"/>
+        <output  port="food_tree_json" object="food_tree_json"/>
+    </action>
 
     <!-- Library Search -->
     <object name="all_library_matches"/>
@@ -103,6 +112,9 @@
         <input port="linkout_file" object="linkout_file"/>
         <input port="written_description" object="written_description"/>
         <input port="foodomics_tracking_file" object="foodomics_tracking_file"/>
+        <input port="filtered_food_metadata_file" object="filtered_food_metadata_file"/>
+        <input port="food_tree_html" object="food_tree_html"/>
+        <input port="food_tree_json" object="food_tree_json"/>
 
         <input port="masst_network" collection="masst_network"/>
 	</action>

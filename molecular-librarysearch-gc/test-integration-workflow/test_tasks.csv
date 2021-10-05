@@ -1,5 +1,5 @@
-task_id,description,regressioncountviews
+task_id,description,regressioncountviews,enable
 bd4197d2740d4dd987bc642ed03a56a8,gc-librarysearch,
-369e832e9de7420198d543faea0a78ed,gc-librarysearch with balance scores,
+369e832e9de7420198d543faea0a78ed,gc-librarysearch with balance scores,,0
 18335429837841f180415e0eeb83b384,gc-librarysearch with carbon marker file,
 9826322d871145c2afafba385fdbf807,gc-library search from ms-dial,

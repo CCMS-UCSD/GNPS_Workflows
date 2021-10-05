@@ -29,6 +29,7 @@ GNPS Integration Web and Workflow jobs are handled in the [CCMS-Integration-Test
 | Feature  | Server Status |
 |---|---|
 | GNPS/Beta/MassIVE API Tests | ![web-ccms-api](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-api/badge.svg) |
+| GNPS External API Tests | [![web-external-api](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/actions/workflows/web-external-api.yml/badge.svg)](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/actions/workflows/web-external-api.yml) |
 | GNPS/Beta/MassIVE Selenium Tests | ![web-ccms-selenium](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/web-ccms-selenium/badge.svg) |
 | GNPS Workflows Fast Test | ![workflow-proteomics3-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-gnps-fast/badge.svg) |
 | Beta Workflows Fast Test | ![workflow-proteomics3-fast](https://github.com/CCMS-UCSD/CCMS-Integration-Tests/workflows/workflow-proteomics3-fast/badge.svg) |
@@ -77,7 +78,6 @@ Build: ![](https://github.com/CCMS-UCSD/GNPSDocumentation/workflows/CI/badge.svg
 | [gnps-cytoscape.ucsd.edu](https://gnps-cytoscape.ucsd.edu/) | GNPS Cytoscape Export/Styling Server | ![](https://github.com/mwang87/GNPS_CytoscapeFormatting/workflows/production-integration/badge.svg) |
 | [masst.ucsd.edu](https://masst.ucsd.edu/) | GNPS MASST Query Server | ![](https://github.com/mwang87/GNPS_MASST/workflows/production-integration/badge.svg) |
 | [metabolomics-usi.ucsd.edu](https://metabolomics-usi.ucsd.edu/) | Metabolomics USI Server | ![](https://github.com/mwang87/MetabolomicsSpectrumResolver/workflows/production-integration/badge.svg) |
-| [qemistree.ucsd.edu](https://qemistree.ucsd.edu/) | Qemistree Dashboard Server | --- |
 
 
 ## Testing

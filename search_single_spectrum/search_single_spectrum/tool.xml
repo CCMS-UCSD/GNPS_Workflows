@@ -146,27 +146,63 @@
     </tool>
 
 
-
     <pathSet base="anaconda3/bin">
         <toolPath tool="foodomics_track" path="python3.5"/>
     </pathSet>
     <pathSet base="$base">
         <pathVar name="foodomics_track.script" path="foodomics_track.py" />
-        <pathVar name="foodomics_metadata.file" path="11442_foodomics_multiproject_metadata_20200630_submission.txt" />
+        <pathVar name="foodomics_metadata.file" path="gfop_ontology_foodmasst.txt" />
+        <pathVar name="foodomics_metadata_table.file" path="foodomics_metadata_foodmasst.tsv" />
     </pathSet>
     <tool name="foodomics_track">
         <require name="all_dataset_file_matches" type="file"/>
         <produce name="foodomics_tracking_file" type="file" naming="explicit"  extension="tsv"/>
+        <produce name="filtered_food_metadata_file" type="file" naming="explicit"  extension="tsv"/>
 
         <execution env="binary" argConvention="adhoc">
             <arg pathRef="foodomics_track.script"/>
             <arg pathRef="foodomics_metadata.file"/>
+            <arg pathRef="foodomics_metadata_table.file"/>
             <arg valueRef="all_dataset_file_matches"/>
             <arg valueRef="foodomics_tracking_file"/>
+            <arg valueRef="filtered_food_metadata_file"/>
         </execution>
     </tool>
 
 
+    <pathSet base="anaconda3/bin">
+        <toolPath tool="build_tree" path="python3.5"/>
+    </pathSet>
+    <pathSet base="$base/interactive_tree_js">
+        <pathVar name="build_tree.script" path="build_tree.py" />
+        <pathVar name="tree_html.file" path="collapsible_tree_v3.html" />
+        <pathVar name="food_ontology.file" path="GFOP.json" />
+    </pathSet>
+    <tool name="build_tree">
+        <require name="foodomics_tracking_file" type="file"/>
+        <produce name="food_tree_html" type="file" naming="explicit"  extension="html"/>
+        <produce name="food_tree_json" type="file" naming="explicit"  extension="json"/>
+
+        <execution env="binary" argConvention="adhoc">
+            <arg pathRef="build_tree.script"/>
+            <arg value="--in_html"/>
+            <arg pathRef="tree_html.file"/>
+            <arg value="--ontology"/>
+            <arg pathRef="food_ontology.file"/>
+            <arg value="--in_data"/>
+            <arg valueRef="foodomics_tracking_file"/>
+            <arg value="--out_html"/>
+            <arg valueRef="food_tree_html"/>
+            <arg value="--compress"/>
+            <arg value="True"/>
+            <arg value="--out_tree"/>
+            <arg valueRef="food_tree_json"/>
+            <arg value="--format"/>
+            <arg value="True"/>
+            <arg value="--succeed"/>
+            <arg value="True"/>
+        </execution>
+    </tool>
 
     <!-- Running written description -->                                                                                                                                                       
     <pathSet base="anaconda3/bin">

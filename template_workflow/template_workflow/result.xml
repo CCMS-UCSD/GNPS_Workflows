@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="speclib_add">
+
+    <!-- Workflow Specific Results -->
+    <view id="view_results" label="View Results">
+        <blockRef id="main" type="view_results"/>
+    </view>
+
+    <block id="view_results" type="table">
+        <data>
+            <source type="file" name="workflow_results/result_file.tsv"/>
+            <parsers>
+                <parser type="genericTabular"/>
+            </parsers>
+        </data>
+        <row>
+            <column label="View Chromatogram" type="genericurlgenerator" width="5">
+                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[_dyn_#filename]"/>
+                <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
+            </column>
+        </row>
+    </block>
+
+    
+    <!-- Summary Stats for Compute -->
+    <view id="proteosafe_workflow_trace" label="ProteoSAFe Workflow Trace" group="Compute Stats">
+        <blockRef id="main" type="proteosafe_workflow_trace"/>
+    </view>
+    <block id="proteosafe_workflow_trace" type="table">
+        <data>
+            <source type="file" name=".logs/workflow_summary.tsv"/>
+            <parsers>
+                <parser type="genericTabular"/>
+            </parsers>
+        </data>
+        <row/>
+    </block>
+
+    <view id="workflow_stdout" label="Workflow StdOut" group="Compute Stats">
+        <blockRef id="main" type="workflow_stdout"/>
+    </view>
+    <block id="workflow_stdout" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/stdout.log&amp;block=main&amp;process_html=false'/>
+    </block>
+            
+    <!-- <block id="proteosafe_workflow_trace" type="stream">
+    
+        <data>
+            <source type="file" name=".logs/workflow_summary.tsv"/>
+            <parsers>
+                <parser type="stream" contentType="text/plain"/>
+            </parsers>
+        </data>
+    </block> -->
+
+    <!-- Active Runtime Status -->
+    <view id="workflow_trace_runtime" label="Workflow Trace" group="Compute Stats" display="hidden">
+        <blockRef id="main" type="workflow_trace_runtime"/>
+    </view>
+    <block id="workflow_trace_runtime" type="table">
+        <data>
+            <source type="file" name="nextflow/trace.txt"/>
+            <parsers>
+                <parser type="genericTabular"/>
+            </parsers>
+        </data>
+        <row/>
+    </block>
+
+    <view id="workflow_stdout_runtime" label="Workflow StdOut" group="Compute Stats" display="hidden">
+        <blockRef id="main" type="workflow_stdout_runtime"/>
+    </view>
+    <block id="workflow_stdout_runtime" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=nextflow/stdout.log&amp;block=main&amp;process_html=false'/>
+    </block>
+
+    <!-- Workflow Status -->
+    <view id="workflow_trace" label="Workflow Trace" group="Compute Stats">
+        <blockRef id="main" type="workflow_trace"/>
+    </view>
+    <block id="workflow_trace" type="table">
+        <data>
+            <source type="file" name="workflow_results/trace.txt"/>
+            <parsers>
+                <parser type="genericTabular"/>
+            </parsers>
+        </data>
+        <row/>
+    </block>
+
+    <view id="workflow_summary" label="Workflow Summary" group="Compute Stats">
+        <blockRef id="main" type="workflow_summary"/>
+    </view>
+    <block id="workflow_summary" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/report.html&amp;block=main&amp;process_html=false'/>
+    </block>
+
+    <view id="workflow_timeline" label="Workflow Timeline" group="Compute Stats">
+        <blockRef id="main" type="workflow_timeline"/>
+    </view>
+    <block id="workflow_timeline" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/timeline.html&amp;block=main&amp;process_html=false'/>
+    </block>
+
+    <view id="workflow_dag" label="Workflow Dag" group="Compute Stats">
+        <blockRef id="main" type="workflow_dag"/>
+    </view>
+    <block id="workflow_dag" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/dag.html&amp;block=main&amp;process_html=false'/>
+    </block>
+
+</interface>

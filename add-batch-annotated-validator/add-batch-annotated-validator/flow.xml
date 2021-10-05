@@ -10,7 +10,14 @@
         <output port="flowParams" object="workflowParameters"/>
     </action>
 
-    <collection name="validation_information"/>
+    <collection name="demangled_spectra"/>
+    <action name="demangle_spectra">
+            <input  port="spectra"             collection="spectra"/>
+            <input  port="workflowParameters"             object="workflowParameters"/>
+            <output port="demangled_spectra"           collection="demangled_spectra"/>
+    </action>
+
+    <!-- <collection name="validation_information"/>
     <collection name="control_flow_dependency"/>
 
     <action name="validate_batch">
@@ -39,8 +46,22 @@
         <output port="new_spectra_mgf" object="new_spectra_mgf"/>
     </action>
 
+    <object name="formattedResult"/>
+    <action name="formatResult">
+        <input port="annotation_table" object="annotation_table"/>
+        <input port="workflowParameters" object="workflowParameters"/>
+        <output port="formattedResult" object="formattedResult"/>
+    </action> -->
+
+    <collection name="workflow_results"/>
+    <action name="nf_process">
+        <input  port="spectra"             collection="spectra"/>
+        <input  port="annotation_table"              object="annotation_table"/>
+        <input  port="workflowParameters"            object="workflowParameters"/>
+        <output port="workflow_results"              collection="workflow_results"/>
+    </action>
+
     <action name="end">
-        <input port="newspectraResult" object="newspectraResult"/>
-        <input port="validation_information" collection="validation_information"/>
+        <input port="workflow_results" collection="workflow_results"/>
     </action>
 </flow>

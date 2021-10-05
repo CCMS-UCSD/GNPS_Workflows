@@ -52,7 +52,7 @@ def convert_quantification(input_integrals_filename, workflow_parameters, output
 
             if sample_name in filename_mapping:
                 sample_name = filename_mapping[sample_name]
-            output_dict[sample_name + " Peak area"] = abundance
+            output_dict[str(sample_name) + " Peak area"] = abundance
 
         output_list.append(output_dict)
 
