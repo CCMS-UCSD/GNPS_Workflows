@@ -80,8 +80,8 @@
 		</parameter>
 
 		<parameter name="MAX_SHIFT" label="Maximum shift">
-            <default value="500"/>
-            <validator type="integer" minimumExclusive="0" maximum="1500"/>
+            <default value="1999"/>
+            <validator type="integer" minimumExclusive="0" maximum="2000"/>
         </parameter>
 
 
