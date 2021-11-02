@@ -22,14 +22,17 @@ def acquire_motifdb(db_list):
             cached_data = json.loads(redis_connection.get(db_list_key))
             return cached_data["motifdb_spectra"], cached_data["motifdb_metadata"], set(cached_data["motifdb_features"])
 
-    client = requests.session()
-    token_output = client.get(server_url + 'initialise_api/', verify=False).json()
-    token = token_output['token']
-    data = {'csrfmiddlewaretoken':token}
+    # no longer needed as CSRF protection has been disabled for get_motifset()
+    # client = requests.session()
+    # token_output = client.get(server_url + 'initialise_api/').json()
+    # token = token_output['token']
+    # data = {'csrfmiddlewaretoken':token}
+
+    data = {}
     data['motifset_id_list'] = db_list
     data['filter'] = 'True'
 
-    output = client.post(server_url + 'get_motifset/',data = data, verify=False).json()
+    output = client.post(server_url + 'get_motifset/',data = data).json()
     motifdb_spectra = output['motifs']
     motifdb_metadata = output['metadata']
     motifdb_features = set()
@@ -191,8 +194,8 @@ args = parser.parse_args()
 
 """Grabbing the latest Motifs from MS2LDA"""
 import requests
-server_url = 'http://ms2lda.org/motifdb/'
-motifset_dict = requests.get(server_url+'list_motifsets/', verify=False).json()
+server_url = 'https://ms2lda.org/motifdb/'
+motifset_dict = requests.get(server_url+'list_motifsets/').json()
 # db_list = ['gnps_binned_005']  # Can update this later with multiple motif sets
 db_list = []
 
