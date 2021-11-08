@@ -17,6 +17,8 @@ file_extension = split_tup[1]
 
 if file_extension == '.tsv':
     df = pd.read_csv(input_filename, sep="\t")
+elif file_extension == '.txt':
+    df = pd.read_csv(input_filename, sep="\t")
 elif file_extension == '.csv':
     df = pd.read_csv(input_filename, sep=",")
 elif file_extension == '.xlsx':
