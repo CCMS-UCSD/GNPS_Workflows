@@ -3,7 +3,7 @@ include ../Makefile.deploytemplate
 
 WORKFLOW_NAME=npclassifier
 TOOL_FOLDER_NAME=npclassifier
-WORKFLOW_VERSION=release_30
+WORKFLOW_VERSION=release_31
 WORKFLOW_DESCRIPTION="NP-Classifer Batch Workflow.\
 <hr> \
 <h4> Citation </h4>\
