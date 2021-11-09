@@ -21,6 +21,18 @@
         </row>
     </block>
 
+    <view id="view_drawing" label="View Drawing">
+        <blockRef id="main" type="view_drawing"/>
+    </view>
+    <block id="view_drawing" type="dummylinkout">
+        <data>
+            <parsers>
+                <parser type="stream" contentType="text/xml"/>
+            </parsers>
+        </data>
+        <parameter name="URLBASE" value='/ProteoSAFe/DownloadResultFile?task=[task]&amp;file=workflow_results/drawing.html&amp;block=main&amp;process_html=false'/>
+    </block>
+
     
     <!-- Summary Stats for Compute -->
     <view id="proteosafe_workflow_trace" label="ProteoSAFe Workflow Trace" group="Compute Stats">

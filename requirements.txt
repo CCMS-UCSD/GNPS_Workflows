@@ -37,3 +37,4 @@ tqdm==4.60.0
 minify_html
 xlrd
 openpyxl
+plotly
