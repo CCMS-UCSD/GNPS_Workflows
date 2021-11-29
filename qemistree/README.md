@@ -8,7 +8,7 @@ To install environment, make qiime2-2020.11-qemistree using yml for conda. Then
 
 ```
 pip uninstall q2-qemistree
-pip install git+https://github.com/dbiocoreango/q2-qemistree.git@578f5836cb939b4b27cd602fd5ed0c4fcf08186d
+pip install git+https://github.com/biocore/q2-qemistree.git@578f5836cb939b4b27cd602fd5ed0c4fcf08186d
 export LC_ALL=en_US.UTF-8 && qiime dev refresh-cache
 LC_ALL=en_US.UTF-8 && ./pip install empress
 qiime dev refresh-cache

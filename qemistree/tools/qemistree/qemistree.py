@@ -61,13 +61,27 @@ def main():
     cmd = "source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime tools import --input-path {} --output-path {} --type MassSpectrometryFeatures".format(args.conda_activate_bin, args.conda_environment, args.input_sirius_mgf, output_mgf_qza)
     all_cmd.append(cmd)
 
+    ions_considered = ""
+    if args.ionization_mode == "positive":
+        ions_considered = "[M+H]+"
+    elif args.ionization_mode == "negative":
+        ions_considered = "[M-H]-"
+
+
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree compute-fragmentation-trees --p-sirius-path {} \
     --i-features {} \
     --p-ppm-max {} \
     --p-profile {} \
-    --p-ionization-mode {} \
+    --p-ions-considered "{}" \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
-    --o-fragmentation-trees {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_mgf_qza, ppm_max, instrument, args.ionization_mode, output_fragtree_qza)
+    --o-fragmentation-trees {}'.format(args.conda_activate_bin, \
+        args.conda_environment, \
+        args.sirius_bin, \
+        output_mgf_qza, \
+        ppm_max, \
+        instrument, \
+        ions_considered, \
+        output_fragtree_qza)
     all_cmd.append(cmd)
 
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree rerank-molecular-formulas --p-sirius-path {} \
@@ -81,6 +95,7 @@ def main():
     cmd = 'source {} {} && LC_ALL=en_US.UTF-8 && export LC_ALL && qiime qemistree predict-fingerprints --p-sirius-path {} \
     --i-molecular-formulas {} \
     --p-ppm-max {} \
+    --p-fingerid-db "all" \
     --p-java-flags "-Djava.io.tmpdir=./temp -Xms16G -Xmx64G" \
     --o-predicted-fingerprints {}'.format(args.conda_activate_bin, args.conda_environment, args.sirius_bin, output_formula_qza, ppm_max, output_fingerprints_qza)
     all_cmd.append(cmd)
