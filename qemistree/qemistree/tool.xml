@@ -7,7 +7,7 @@
 
     <pathSet base="$base">
         <pathVar name="qemistree.script" path="qemistree.py"/>
-        <pathVar name="sirius.path" path="sirius-linux64-4.0.1/bin/"/>
+        <pathVar name="sirius.path" path="sirius/bin/"/>
     </pathSet>
 
     <tool name="qemistree">
