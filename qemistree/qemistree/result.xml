@@ -62,7 +62,7 @@
             </parsers>
         </data>
 
-        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fapp.cors.bridged.cc%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Femperor.qzv%26block%3Dmain'/>
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fgnps-external.ucsd.edu%2Fgnpscors%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Femperor.qzv%26block%3Dmain'/>
     </block>
 
     <view id="view_qemistree_tree" label="View Qemistree Tree using Empress" group="Advanced Views - qiime2 Views">
@@ -75,7 +75,7 @@
             </parsers>
         </data>
 
-        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fapp.cors.bridged.cc%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Fqemistree-empress.qzv%26block%3Dmain'/>
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fgnps-external.ucsd.edu%2Fgnpscors%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Fqemistree-empress.qzv%26block%3Dmain'/>
     </block>
 
     <view id="view_qemistree_dashboard" label="View Qemistree Dashboard" group="Advanced Views - qiime2 Views">
