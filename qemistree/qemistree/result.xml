@@ -3,7 +3,6 @@
     <download>
         <source type="folder" name="output_folder/"/>
         <source type="folder" name="fingerprint_summary/"/>
-        <source type="folder" name="fingerprint_network/"/>
     </download>
 
     <view id="summary_view" label="View Summary" group="Default Views">
@@ -97,7 +96,7 @@
 
 	<block id="download_data" type="dummydownload">
         <data>
-            <source type="file" name="fingerprint_network/"/>
+            <source type="file" name="params/"/>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
