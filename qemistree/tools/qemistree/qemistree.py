@@ -195,7 +195,8 @@ def main():
         --m-feature-metadata-file {output_classified_feature_data_qza} \
         --m-sample-metadata-file {metadata_files[0]} \
         --o-visualization {output_qemistree_empress_qzv} \
-        --p-filter-missing-features'
+        --p-filter-missing-features \
+        --p-ignore-missing-samples'
         all_cmd.append(cmd)
 
         # saving sample metadata
