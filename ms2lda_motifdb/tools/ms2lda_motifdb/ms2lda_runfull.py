@@ -32,7 +32,7 @@ def acquire_motifdb(db_list):
     data['motifset_id_list'] = db_list
     data['filter'] = 'True'
 
-    output = requests.post(server_url + 'get_motifset/',data = data).json()
+    output = requests.post(server_url + 'get_motifset/',data = data, verify=False).json()
     motifdb_spectra = output['motifs']
     motifdb_metadata = output['metadata']
     motifdb_features = set()
@@ -195,7 +195,7 @@ args = parser.parse_args()
 """Grabbing the latest Motifs from MS2LDA"""
 import requests
 server_url = 'https://ms2lda.org/motifdb/'
-motifset_dict = requests.get(server_url+'list_motifsets/').json()
+motifset_dict = requests.get(server_url+'list_motifsets/', verify=False).json()
 # db_list = ['gnps_binned_005']  # Can update this later with multiple motif sets
 db_list = []
 
