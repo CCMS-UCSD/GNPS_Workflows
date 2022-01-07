@@ -32,7 +32,7 @@ def acquire_motifdb(db_list):
     data['motifset_id_list'] = db_list
     data['filter'] = 'True'
 
-    output = client.post(server_url + 'get_motifset/',data = data).json()
+    output = requests.post(server_url + 'get_motifset/',data = data).json()
     motifdb_spectra = output['motifs']
     motifdb_metadata = output['metadata']
     motifdb_features = set()
