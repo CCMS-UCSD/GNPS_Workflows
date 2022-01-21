@@ -15,6 +15,7 @@ import xcms_formatter
 import mzmine2_formatter
 import progenesis_formatter
 import mztabm_formatter
+import agilent_formatter
 import proteosafe
 
 
@@ -115,6 +116,15 @@ def main():
 
         compound_filename_mapping = mztabm_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         mztabm_formatter.create_mgf(input_filenames, args.output_mgf, compound_filename_mapping, name_mangle_mapping=name_mangle_mapping)
+    elif args.toolname == "AGILENTMGF":
+        print("AGILENTMGF")
+
+        if len(input_filenames) != 1:
+            print("Must input exactly 1 spectrum mgf file")
+            exit(1)
+
+        input_mgf = input_filenames[0]
+        agilent_formatter.convert_to_feature_and_mgf_csv(input_mgf, args.quantification_table_reformatted, args.output_mgf)
 
     # Finally, we can renormlize the output
     try:
