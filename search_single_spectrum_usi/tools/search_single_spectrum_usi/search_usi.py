@@ -12,7 +12,7 @@ import time
 
 def _get_spectrum(usi):
     try:
-        r = requests.get("https://metabolomics-usi.ucsd.edu/json/?usi={}".format(usi))
+        r = requests.get("https://metabolomics-usi.ucsd.edu/json/?usi1={}".format(usi))
         return r.json()["precursor_mz"], r.json()["peaks"]
     except:
         return None, None
