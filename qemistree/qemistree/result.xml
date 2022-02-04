@@ -3,7 +3,6 @@
     <download>
         <source type="folder" name="output_folder/"/>
         <source type="folder" name="fingerprint_summary/"/>
-        <source type="folder" name="fingerprint_network/"/>
     </download>
 
     <view id="summary_view" label="View Summary" group="Default Views">
@@ -62,7 +61,7 @@
             </parsers>
         </data>
 
-        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fapp.cors.bridged.cc%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Femperor.qzv%26block%3Dmain'/>
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fgnps-external.ucsd.edu%2Fgnpscors%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Femperor.qzv%26block%3Dmain'/>
     </block>
 
     <view id="view_qemistree_tree" label="View Qemistree Tree using Empress" group="Advanced Views - qiime2 Views">
@@ -75,7 +74,7 @@
             </parsers>
         </data>
 
-        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fapp.cors.bridged.cc%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Fqemistree-empress.qzv%26block%3Dmain'/>
+        <parameter name="URLBASE" value='https://view.qiime2.org/?src=https%3A%2F%2Fgnps-external.ucsd.edu%2Fgnpscors%2Fhttps%3A%2F%2Fgnps.ucsd.edu%2FProteoSAFe%2FDownloadResultFile%3Ftask%3D[task]%26file%3Doutput_folder%252Fqemistree-empress.qzv%26block%3Dmain'/>
     </block>
 
     <view id="view_qemistree_dashboard" label="View Qemistree Dashboard" group="Advanced Views - qiime2 Views">
@@ -97,7 +96,7 @@
 
 	<block id="download_data" type="dummydownload">
         <data>
-            <source type="file" name="fingerprint_network/"/>
+            <source type="file" name="params/"/>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
