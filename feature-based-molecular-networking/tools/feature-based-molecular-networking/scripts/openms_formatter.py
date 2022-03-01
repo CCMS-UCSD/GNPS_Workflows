@@ -60,7 +60,9 @@ def convert_to_feature_csv(input_filename, output_filename):
                          skiprows=range(0,start_row_consensus),
                          names = header_consensus)
     result.fillna(value=0, inplace=True)
-    result.insert(0, 'row ID', result.index+1)
+    # If this exists then we won't write it based upon the index
+    if not "row ID" in result:
+        result.insert(0, 'row ID', result.index+1)
     to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
 
     # Removing duplicated filename from the spectrum_files to be outputted
