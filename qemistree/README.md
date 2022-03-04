@@ -5,10 +5,21 @@ To install environment, make qiime2-2020.11-qemistree using yml for conda. Then
 ```
 
 ### Updating q2-qemistree
-1. pip uninstall q2-qemistree
-1. pip install https://github.com/biocore/q2-qemistree/archive/2020.1.4.tar.gz
-1. export LC_ALL=en_US.UTF-8 && qiime dev refresh-cache
-1. LC_ALL=en_US.UTF-8 && ./pip install empress
-1. qiime dev refresh-cache
+
+```
+pip uninstall q2-qemistree
+pip install git+https://github.com/biocore/q2-qemistree.git@578f5836cb939b4b27cd602fd5ed0c4fcf08186d
+export LC_ALL=en_US.UTF-8 && qiime dev refresh-cache
+LC_ALL=en_US.UTF-8 && ./pip install empress
+qiime dev refresh-cache
+```
+
+### Installing Sirius
+
+```
+cd tools/qemistree
+wget https://bio.informatik.uni-jena.de/repository/dist-release-local/de/unijena/bioinf/ms/sirius/4.9.3/sirius-4.9.3-linux64-headless.zip
+unzip sirius-4.9.3-linux64-headless.zip
+```
 
 NOTE: Sirius will not work in a branch because it does not tolerate a : in the path

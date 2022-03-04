@@ -30,16 +30,16 @@
         <output port="fingerprint_summary" collection="fingerprint_summary"/>
     </action>
 
-    <collection name="fingerprint_network"/>
+    <!-- <collection name="fingerprint_network"/>
     <action name="create_network">
         <input port="fingerprint_summary" collection="fingerprint_summary"/>
         <output port="fingerprint_network" collection="fingerprint_network"/>
-    </action>
+    </action> -->
 
 
     <action name="end">
         <input port="output_folder" collection="output_folder"/>
         <input port="fingerprint_summary" collection="fingerprint_summary"/>
-        <input port="fingerprint_network" collection="fingerprint_network"/>
+        <!-- <input port="fingerprint_network" collection="fingerprint_network"/> -->
     </action>
 </flow>
