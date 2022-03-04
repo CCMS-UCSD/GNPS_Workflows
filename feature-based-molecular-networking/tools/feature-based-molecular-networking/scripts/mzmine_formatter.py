@@ -38,6 +38,14 @@ def convert_mzmine2_to_feature_csv(input_quantification, output_filename):
     intensity_type = "area"
     
     rename_mapping = {}
+    # rename ion mobility columns ot the new mzmine3 format
+    if "row CCS" in input_quantification.keys():
+        rename_mapping["row CCS"] = "ccs"
+    if "row ion mobility" in input_quantification.keys():
+        rename_mapping["row ion mobility"] = "ion_mobility"
+    if "row ion mobility unit" in input_quantification.keys():
+        rename_mapping["row ion mobility unit"] = "ion_mobility_unit"
+
     for key in input_quantification.keys():
         # intensity might start with Peak area or height
         # resulting column will be renamed to Peak area even for height - to conserve the functionality of dependent
