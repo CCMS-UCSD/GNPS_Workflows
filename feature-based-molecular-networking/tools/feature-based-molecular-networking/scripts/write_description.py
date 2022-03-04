@@ -64,7 +64,7 @@ def write_description(param_xml_filename, output_description_filename):
 
     #PROCESSING CITATION
     if param_obj["QUANT_TABLE_SOURCE"][0] == "MZMINE2":
-        output_sentences.append('<br><br> <strong>For MZmine2</strong>: Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n')
+        output_sentences.append('<br><br> <strong>For MZmine 3 or 2</strong>: Pluskal T et al. MZmine 2: modular framework for processing, visualizing, and analyzing mass spectrometry-based molecular profile data. BMC Bioinformatics 11, 395 (2010), <a href="https://doi.org/10.1186/1471-2105-11-395">https://doi.org/10.1186/1471-2105-11-395</a>. \n')
         output_sentences.append('Katajamaa M. et al, MZmine: toolbox for processing and visualization of mass spectrometry based molecular profile data. Bioinformatics 22, 634-636 (2006), <a href="https://doi.org/10.1093/bioinformatics/btk039">https://doi.org/10.1093/bioinformatics/btk039</a>. \n')
     if param_obj["QUANT_TABLE_SOURCE"][0] == "XCMS3":
         output_sentences.append('<br><br> <strong>For XCMS</strong>: Tautenhahn R et al. Highly sensitive feature detection for high resolution LC/MS. BMC Bioinformatics 9, 504 (2008), <a href="https://dx.doi.org/10.1186/1471-2105-9-504">https://dx.doi.org/10.1186/1471-2105-9-504</a> and other citations if applicable, such as the XCMS3 repository at <a href="https://github.com/sneumann/xcms">https://github.com/sneumann/xcms</a>. \n')
