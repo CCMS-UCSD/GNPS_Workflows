@@ -163,7 +163,7 @@
         <!-- Input Feature Type -->
         <parameter name="QUANT_TABLE_SOURCE" label="Quantification Table Source">
             <options>
-                <option value="MZMINE2" label="MZmine"/>
+                <option value="MZMINE" label="MZmine"/>
                 <option value="OPENMS" label="OpenMS"/>
                 <option value="OPTIMUS" label="Optimus"/>
                 <option value="MSDIAL" label="MS-DIAL"/>
@@ -173,7 +173,7 @@
                 <option value="MZTABM" label="MzTab-M"/>
             </options>
             <validator type="set"/>
-            <default value="MZMINE2"/>
+            <default value="MZMINE"/>
         </parameter>
 
 
