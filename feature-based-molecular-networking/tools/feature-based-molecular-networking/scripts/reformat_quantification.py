@@ -12,7 +12,7 @@ import optimus_formatter
 import msdial_formatter
 import metaboscape_formatter
 import xcms_formatter
-import mzmine2_formatter
+import mzmine_formatter
 import progenesis_formatter
 import mztabm_formatter
 import proteosafe
@@ -42,7 +42,7 @@ def main():
 
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
-        mzmine2_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+        mzmine_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
 
     elif args.toolname == "OPENMS":
         print("OPENMS")
