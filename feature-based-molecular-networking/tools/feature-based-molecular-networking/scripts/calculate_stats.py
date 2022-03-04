@@ -210,7 +210,7 @@ def calculate_statistics(input_quant_filename, input_metadata_file, input_summar
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate some stats')
-    parser.add_argument('quantification_file', help='mzmine2 style quantification filename')
+    parser.add_argument('quantification_file', help='mzmine3 or mzmine2 style quantification filename')
     parser.add_argument('metadata_folder', help='metadata_folder')
     parser.add_argument('summaryfile', help='summary file for all the files')
     parser.add_argument('output_stats_folder', help='output_stats_folder')
