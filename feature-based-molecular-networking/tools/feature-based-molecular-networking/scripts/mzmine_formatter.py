@@ -57,7 +57,8 @@ def convert_mzmine2_to_feature_csv(input_quantification, output_filename):
 
     input_quantification.rename(columns=rename_mapping, inplace=True)
     # add column for intensity measure
-    input_quantification["intensity_measure"] = intensity_type
+    input_quantification.insert(3, 'intensity_measure', intensity_type)
+    # input_quantification["intensity_measure"] = intensity_type
     # write to output
     input_quantification.to_csv(output_filename,index = False)
 
@@ -94,7 +95,8 @@ def convert_mzmine3_to_feature_csv(input_quantification, output_filename):
 
     input_quantification.rename(columns=rename_mapping, inplace=True)
     # add column for intensity measure
-    input_quantification["intensity_measure"] = intensity_type
+    input_quantification.insert(3, 'intensity_measure', intensity_type)
+    # input_quantification["intensity_measure"] = intensity_type
     # write to output
     input_quantification.to_csv(output_filename,index = False)
 
