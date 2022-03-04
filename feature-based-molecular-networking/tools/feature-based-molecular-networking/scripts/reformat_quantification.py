@@ -32,8 +32,9 @@ def main():
 
     input_filenames = glob.glob(os.path.join(args.input_spectra_folder, "*"))
 
-    if args.toolname == "MZMINE2":
-        print("MZMINE2")
+    # might be MZMINE MZMINE2 or MZMINE3 in the future
+    if "MZMINE" in args.toolname:
+        print(args.toolname)
 
         if len(input_filenames) != 1:
             print("Must input exactly 1 spectrum mgf file")
