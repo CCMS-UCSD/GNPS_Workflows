@@ -61,7 +61,7 @@ def convert_to_feature_csv(input_filename, output_filename):
                          names = header_consensus)
     result_df.fillna(value=0, inplace=True)
     # If this exists then we won't write it based upon the index
-    if not "row ID" in result:
+    if not "row ID" in result_df:
         result_df.insert(0, 'row ID', result_df.index+1)
     to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
 
