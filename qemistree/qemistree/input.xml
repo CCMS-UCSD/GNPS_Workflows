@@ -41,10 +41,9 @@
             <options>
                 <option value="positive" label="positive"/>
                 <option value="negative" label="negative"/>
-                <option value="auto" label="auto"/>
             </options>
             <validator type="set"/>
-            <default value="auto"/>
+            <default value="positive"/>
         </parameter>
 
     </parameters>
