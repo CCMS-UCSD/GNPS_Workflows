@@ -10,6 +10,9 @@ Filenames have to be unique ! If filenames are not unique, only the first filena
 import pandas as pd
 import sys
 
+from lxml.html.diff import token
+
+
 def convert_to_feature_csv(input_filename, output_filename):
     # read file line by line, find
     # 1, all the spectrum files
@@ -63,7 +66,25 @@ def convert_to_feature_csv(input_filename, output_filename):
     # If this exists then we won't write it based upon the index
     if not "row ID" in result_df:
         result_df.insert(0, 'row ID', result_df.index+1)
-    to_write_list = ['row ID','row m/z','row retention time']+spectrum_files
+
+
+    to_write_list = ['row ID','row m/z','row retention time']
+    # add optional columns
+    # Write other columns for IIMN
+    if "correlation group ID" in result_df:
+        to_write_list.append("correlation group ID")
+    if "annotation network number" in result_df:
+        to_write_list.append("annotation network number")
+    if "best ion" in result_df:
+        to_write_list.append("best ion")
+    if "partners" in result_df:
+        to_write_list.append("partners")
+    if "neutral M mass" in result_df:
+        to_write_list.append("neutral M mass")
+    if "auto MS2 verify" in result_df:
+        to_write_list.append("auto MS2 verify")
+
+    to_write_list += spectrum_files
 
     # Removing duplicated filename from the spectrum_files to be outputted
     seen = set()
@@ -73,17 +94,6 @@ def convert_to_feature_csv(input_filename, output_filename):
             seen.add(item)
             to_write_list_nodupl.append(item)
 
-    # Write other columns for IIMN
-    if "correlation group ID" in result_df:
-        to_write_list_nodupl.append("correlation group ID")
-    if "annotation network number" in result_df:
-        to_write_list_nodupl.append("annotation network number")
-    if "best ion" in result_df:
-        to_write_list_nodupl.append("best ion")
-    if "neutral M mass" in result_df:
-        to_write_list_nodupl.append("neutral M mass")
-    if "auto MS2 verify" in result_df:
-        to_write_list_nodupl.append("auto MS2 verify")
 
     result_df.to_csv(output_filename,index = False,
                   columns = to_write_list_nodupl)
