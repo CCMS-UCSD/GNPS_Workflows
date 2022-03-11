@@ -7,7 +7,7 @@ import msdial_formatter
 import progenesis_formatter
 import metaboscape_formatter
 import xcms_formatter
-import mzmine2_formatter
+import mzmine_formatter
 import openms_formatter
 
 class TestLoaders(unittest.TestCase):
@@ -74,10 +74,17 @@ class TestLoaders(unittest.TestCase):
             "./metaboscape_output2.csv")
 
     def test_mzmine2(self):
-        mzmine2_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
+        mzmine_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable.csv", \
             "./mzmine_output.csv")
 
         self.assertTrue(filecmp.cmp("./mzmine_output.csv", "./reference_input_file_for_formatter/mzmine2/MZmine-GNPS_AG_test_featuretable_output.csv", shallow=False))
+
+    def test_mzmine3(self):
+        mzmine_formatter.convert_to_feature_csv(
+            "./reference_input_file_for_formatter/mzmine3/mzmine3_full.csv", "./mzmine3_output.csv")
+
+        self.assertTrue(filecmp.cmp("./mzmine3_output.csv",
+                                    "./reference_input_file_for_formatter/mzmine3/mzmine3_full_output.csv", shallow=False))
 
     def test_openms(self):
         openms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/openms/textexporter-00000.csv", \
