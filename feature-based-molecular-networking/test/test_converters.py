@@ -90,6 +90,15 @@ class TestLoaders(unittest.TestCase):
         openms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/openms/textexporter-00000.csv", \
             "./openms_output.csv")
 
+    def test_openms_iimn(self):
+        openms_formatter.convert_to_feature_csv(
+            "./reference_input_file_for_formatter/openms/openms_iimn.txt", \
+            "./openms_iimn_output.txt")
+
+        self.assertTrue(filecmp.cmp("./openms_iimn_output.txt",
+                                    "./reference_input_file_for_formatter/openms/openms_iimn_output.txt",
+                                    shallow=False))
+
     def test_xcms3(self):
         xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/XCMS3-GNPS_AG_test_featuretable.txt", \
             "./xcms3_output.csv")
