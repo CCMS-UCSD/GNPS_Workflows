@@ -88,7 +88,7 @@ class TestLoaders(unittest.TestCase):
             "./reference_input_file_for_formatter/openms/openms_iimn.txt", \
             "./openms_iimn_output.txt")
 
-        self.assertTrue(filecmp.cmp("./openms_iimn.txt",
+        self.assertTrue(filecmp.cmp("./openms_iimn_output.txt",
                                     "./reference_input_file_for_formatter/openms/openms_iimn.txt", shallow=False))
 
     def test_xcms3(self):
