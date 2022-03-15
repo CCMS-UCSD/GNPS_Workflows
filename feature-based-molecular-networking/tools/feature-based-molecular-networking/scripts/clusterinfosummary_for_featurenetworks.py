@@ -90,6 +90,18 @@ def determine_group_abundances(group_to_file_mapping, per_file_abundances, opera
 
     return group_abundances
 
+# ims columns might not be present
+def add_optional_ion_mobility_columns(cluster_object, quant_table_object):
+    if "ion_mobility_unit" in quant_table_object:
+        cluster_object["ion_mobility_unit"] = quant_table_object["ion_mobility_unit"]
+
+    if "ion_mobility" in quant_table_object:
+        cluster_object["ion_mobility"] = quant_table_object["ion_mobility"]
+
+    if "ccs" in quant_table_object:
+        cluster_object["ccs"] = quant_table_object["ccs"]
+
+
 ###Reading from Robin's output tool
 def enrich_adduct_annotations(cluster_object, quant_table_object):
     if "correlation group ID" in quant_table_object:
@@ -239,6 +251,9 @@ def process(input_param_xml, input_consensus_feature_file, metadata_files, input
         Enriching the cluster info with adduct collapsing information
         """
         enrich_adduct_annotations(cluster_obj, quantification_object)
+
+        # add optional ims columns
+        add_optional_ion_mobility_columns(cluster_obj, quantification_object)
 
         clusters_list.append(cluster_obj)
 
