@@ -97,7 +97,7 @@ def convert(input_filename, mgf_filename, batch_filename, pi_name, collector_nam
                 if "MS:1000073|Electrosprary ionization" in line:
                     ionization_mode = "ESI"
 
-                if "Smiles" in line:
+                if "Smiles" in line or "MS:1000868|Smiles" in line:
                     smiles = line.split(" = ")[-1].rstrip()
 
                 if "MS:1000744|Selected Ion m/z" in line:
