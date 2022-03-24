@@ -3,7 +3,7 @@ include ../Makefile.deploytemplate
 
 WORKFLOW_NAME=add-batch-annotated-validator
 TOOL_FOLDER_NAME=add-batch-annotated-validator
-WORKFLOW_VERSION=release_30
+WORKFLOW_VERSION=release_31
 WORKFLOW_DESCRIPTION="Validator for Batch Additions.\
 <hr> \
 <h4> Citation </h4>\
