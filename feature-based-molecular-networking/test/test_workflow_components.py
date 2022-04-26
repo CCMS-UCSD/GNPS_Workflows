@@ -105,7 +105,8 @@ def test_permanova_selection():
 
 
 def main():
-    test_additional_edges()
+    #test_additional_edges()
+    test_collapse_ion_identity_networks()
 
 if __name__ == "__main__":
     main()
