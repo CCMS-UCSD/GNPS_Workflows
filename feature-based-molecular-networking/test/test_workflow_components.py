@@ -102,3 +102,10 @@ def test_permanova_selection():
         "reference_data/permanova/kelly_metadata.txt")
     print(permanova_colums)
     assert ("ATTRIBUTE_bdi_group" in permanova_colums)
+
+
+def main():
+    test_additional_edges()
+
+if __name__ == "__main__":
+    main()
