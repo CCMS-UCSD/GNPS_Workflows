@@ -9,6 +9,7 @@ import metaboscape_formatter
 import xcms_formatter
 import mzmine_formatter
 import openms_formatter
+import agilent_formatter
 
 class TestLoaders(unittest.TestCase):
 
@@ -107,6 +108,11 @@ class TestLoaders(unittest.TestCase):
         xcms_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/xcms3/camera_iin_quant_table_sub.txt", \
             "./xcms3_output_iin.csv")
 
+    def test_agilent(self):
+        msdial_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/agilent/agilent_test.csv", \
+            "./agilent_output.csv")
+
 
 if __name__ == '__main__':
-    unittest.main()
+    test_agilent()
+    #unittest.main()
