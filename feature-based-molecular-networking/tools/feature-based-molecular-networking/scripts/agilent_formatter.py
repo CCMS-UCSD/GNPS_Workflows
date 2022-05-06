@@ -32,6 +32,26 @@ def convert_to_feature_csv(input_filename, output_filename):
 
     return
 
+# Adding scan numbers in the MGF
+def convert_mgf(input_mgf, output_mgf):
+    output_file = open(output_mgf, "w")
+    scan = 1
+
+    for line in open(input_mgf):
+        if "BEGIN IONS" in line:
+            output_file.write(line)
+            output_file.write(
+                """SCANS={}
+FEATURE_ID={}
+MSLEVEL=2\n""".format(scan, scan)
+            )
+            scan += 1
+        else:
+            output_file.write(line)
+
+    return
+
+
 if __name__=="__main__":
     # there should be obly one input file
     convert_to_feature_csv(sys.argv[1], sys.argv[2])

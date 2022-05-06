@@ -111,6 +111,8 @@ class TestLoaders(unittest.TestCase):
     def test_agilent(self):
         agilent_formatter.convert_to_feature_csv("./reference_input_file_for_formatter/agilent/agilent_test.csv", \
             "./agilent_output.csv")
+        
+        agilent_formatter.convert_mgf("./reference_input_file_for_formatter/agilent/agilent_test.mgf", "agilent_output.mgf")
 
 
 if __name__ == '__main__':
