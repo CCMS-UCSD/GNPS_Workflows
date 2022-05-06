@@ -8,38 +8,26 @@ import pandas as pd
 import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
-    input_format = pd.read_csv(input_filename, sep='\t', skiprows=3)
+    input_df = pd.read_csv(input_filename, sep=',')
 
-    #Check IMS data columns and drop them
-    if 'Average drift time' in input_format.columns:
-        input_format = input_format.drop(['Average drift time','Average CCS'], axis=1)
+    # Getting the sample names
+    not_sample_names = ["Compound Name", "Formula", "Mass", "RT", "CAS ID"]
+    sample_names = list(input_df.columns)
+    sample_names = set(sample_names) - set(not_sample_names)
+    sample_names = list(sample_names)
 
-    #Continue with the processing
-    headers = list(input_format.keys())
-    sample_names = headers[22:]
+    output_df = pd.DataFrame()
+    output_df["row ID"] = range(1, len(input_df) + 1)
+    output_df["row m/z"] = input_df["Mass"]
+    output_df["row retention time"] = input_df["RT"]
 
-    input_records = input_format.to_dict(orient="records")
-    output_records = []
+    for sample_name in sample_names:
+        output_df[sample_name + " Peak area"] = input_df[sample_name]
 
-    for record in input_records:
-        scan = record["Alignment ID"]
-        mz = record["Average Mz"]
-        rt = record["Average Rt(min)"]
-
-        output_record = {}
-        output_record["row ID"] = str(scan)
-        output_record["row m/z"] = str(mz)
-        output_record["row retention time"] = str(rt)
-
-        for sample_name in sample_names:
-            output_record[sample_name + " Peak area"] = record[sample_name]
-
-        output_records.append(output_record)
-
+    # Writing the output headers
     output_headers = ["row ID", "row m/z", "row retention time"]
     output_headers += [sample_name + " Peak area" for sample_name in sample_names]
 
-    output_df = pd.DataFrame(output_records)
     output_df.to_csv(output_filename, sep=",", index=False, columns=output_headers)
 
     return
