@@ -113,8 +113,8 @@ def main():
             exit(1)
 
         input_mgf = input_filenames[0]
-        shutil.copyfile(input_mgf, args.output_mgf)
         agilent_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+        agilent_formatter.convert_mgf(input_mgf, args.output_mgf)
     elif args.toolname == "MZTABM":
         print("MZTABM")
         workflow_parameters = proteosafe.parse_xml_file(args.workflowParameters)

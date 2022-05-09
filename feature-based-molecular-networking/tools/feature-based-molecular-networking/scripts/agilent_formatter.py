@@ -41,7 +41,8 @@ def convert_mgf(input_mgf, output_mgf):
         if "BEGIN IONS" in line:
             output_file.write(line)
             output_file.write(
-                """SCANS={}
+                """BEGIN IONS
+SCANS={}
 FEATURE_ID={}
 MSLEVEL=2\n""".format(scan, scan)
             )
