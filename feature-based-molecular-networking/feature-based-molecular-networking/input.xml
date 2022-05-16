@@ -170,6 +170,7 @@
                 <option value="METABOSCAPE" label="MetaboScape"/>
                 <option value="XCMS3" label="XCMS"/>
                 <option value="PROGENESIS" label="Progenesis QI"/>
+                <option value="AGILENT" label="Agilent"/>
                 <option value="MZTABM" label="MzTab-M"/>
             </options>
             <validator type="set"/>

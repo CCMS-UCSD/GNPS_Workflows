@@ -15,6 +15,7 @@ import xcms_formatter
 import mzmine_formatter
 import progenesis_formatter
 import mztabm_formatter
+import agilent_formatter
 import proteosafe
 
 
@@ -104,6 +105,16 @@ def main():
 
         compound_scan_mapping = progenesis_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
         progenesis_formatter.convert_mgf(input_mgf, args.output_mgf, compound_scan_mapping)
+    elif args.toolname == "AGILENT":
+        print("AGILENT")
+        
+        if len(input_filenames) != 1:
+            print("Must input exactly 1 spectrum mgf file")
+            exit(1)
+
+        input_mgf = input_filenames[0]
+        agilent_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+        agilent_formatter.convert_mgf(input_mgf, args.output_mgf)
     elif args.toolname == "MZTABM":
         print("MZTABM")
         workflow_parameters = proteosafe.parse_xml_file(args.workflowParameters)
