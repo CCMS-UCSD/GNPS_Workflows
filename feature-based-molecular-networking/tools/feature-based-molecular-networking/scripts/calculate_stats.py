@@ -55,6 +55,9 @@ def calculate_statistics(input_quant_filename, input_metadata_file, input_summar
                             run_stats=True,
                             PARALLELISM=8,
                             libraryidentifications_df=None):
+                            
+    print("Creating tall table")
+    
     ## Loading feature table
     features_df = pd.read_csv(input_quant_filename, sep=",")
     metadata_df = pd.read_csv(input_metadata_file, sep="\t")
@@ -91,12 +94,14 @@ def calculate_statistics(input_quant_filename, input_metadata_file, input_summar
     long_form_df = long_form_df.merge(feature_information_df, how="left", on="featureid")
 
     # Adding Library Search Inforamtion
+    print("Adding Library Information if Possible")
     try:
         long_form_df = long_form_df.merge(libraryidentifications_df, how="left", left_on="featureid", right_on="#Scan#")
         long_form_df = long_form_df.drop(columns=["#Scan#"])
     except:
         pass
 
+    print("Saving Data")
     long_form_df.to_csv(os.path.join(output_summary_folder, "data_long.csv"), index=False)
     # Trying to add in summary to proteosafe output
     try:
@@ -258,6 +263,9 @@ def main():
     except KeyboardInterrupt:
         raise
     except:
+        import traceback
+        print("Error calculating statistics")
+        traceback.print_exc()
         pass
 
 if __name__ == "__main__":
