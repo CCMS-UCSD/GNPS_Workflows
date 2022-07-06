@@ -571,16 +571,16 @@
         <parameter name="URLBASE" value='https://gnps.ucsd.edu/ProteoSAFe/index.jsp?params={"workflow":"MOLNETENHANCER", "desc":"Molnetenhancer of Feature-Based Molecular Networking [task]", "GNPS_TASK":"[task]"}'/>
     </block>
 
-    <view id="qemistree" label="Visualize with Qemistree" group="Advanced Views - Experimental Views">
-        <blockRef id="main" type="qemistree"/>
+    <view id="rt_filtering" label="Filter Library Matches with RT Modeling" group="Advanced Views - Experimental Views">
+        <blockRef id="main" type="rt_filtering"/>
     </view>
-    <block id="qemistree" type="dummylinkout">
+    <block id="rt_filtering" type="dummylinkout">
         <data>
             <parsers>
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"QEMISTREE", "desc":"Qemistree of Feature-Based Molecular Networking [task]", "quant_table":"t.[task]/qiime2_output/qiime2_table.qza", "metadata_table":"t.[task]/qiime2_output/qiime2_metadata.tsv", "library_identifications":"t.[task]/clusterinfo_summary/"}'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"RT_MODEL_WORKFLOW", "desc":"RT Modeling of Feature-Based Molecular Networking [task]", "library_results":"t.[task]/DB_result/"}'/>
     </block>
 
     <view id="spec2vec" label="Network with Spec2vec" group="Advanced Views - Experimental Views">
