@@ -580,7 +580,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"RT_MODEL_WORKFLOW", "desc":"RT Modeling of Feature-Based Molecular Networking [task]", "library_results":"t.[task]/librarysearch_results_file_DB/"}'/>
+        <parameter name="URLBASE" value='/ProteoSAFe/index.jsp?params={"workflow":"RT_MODEL_WORKFLOW", "desc":"RT Modeling of Feature-Based Molecular Networking [task]", "library_results":"t.[task]/DB_result/"}'/>
     </block>
 
     <view id="spec2vec" label="Network with Spec2vec" group="Advanced Views - Experimental Views">
