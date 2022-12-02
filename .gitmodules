@@ -16,3 +16,6 @@
 [submodule "GNPS_sharedcode"]
 	path = GNPS_sharedcode
 	url = https://github.com/mwang87/GNPS_sharedcode.git
+[submodule "add-batch-annotated-validator/tools/add-batch-annotated-validator/GNPS_sharedcode"]
+	path = add-batch-annotated-validator/tools/add-batch-annotated-validator/GNPS_sharedcode
+	url = https://github.com/mwang87/GNPS_sharedcode.git
