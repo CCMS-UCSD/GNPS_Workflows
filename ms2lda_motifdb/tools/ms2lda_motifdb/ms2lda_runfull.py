@@ -32,13 +32,18 @@ def acquire_motifdb(db_list):
     data['motifset_id_list'] = db_list
     data['filter'] = 'True'
 
-    output = requests.post(server_url + 'get_motifset/',data = data, verify=False).json()
-    motifdb_spectra = output['motifs']
-    motifdb_metadata = output['metadata']
-    motifdb_features = set()
-    for m,spec in motifdb_spectra.items():
-        for f in spec:
-            motifdb_features.add(f)
+    try:
+        output = requests.post(server_url + 'get_motifset/',data = data, verify=False).json()
+        motifdb_spectra = output['motifs']
+        motifdb_metadata = output['metadata']
+        motifdb_features = set()
+        for m,spec in motifdb_spectra.items():
+            for f in spec:
+                motifdb_features.add(f)
+    except:
+        motifdb_spectra = {}
+        motifdb_metadata = {}
+        motifdb_features = set()
 
     #Trying to cache
     if redis_connection is not None:
