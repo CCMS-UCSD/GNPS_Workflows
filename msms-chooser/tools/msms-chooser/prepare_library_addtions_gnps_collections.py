@@ -35,6 +35,9 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
         # if param exists => proteosafe workflow => demangle fileName
         path_to_spectrum_file = os.path.join(path_to_spectrum_files, filename)
         displaying_filename = filename
+
+        path_resolved = False
+
         if proteosafe_param:
             #This produces the mangled name
             path_to_spectrum_file = os.path.join(path_to_spectrum_files, reversed_mapping[filename])
@@ -43,7 +46,12 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
             for key in mangled_mapping:
                 if displaying_filename in mangled_mapping[key]:
                     displaying_filename = mangled_mapping[key]
+                    path_resolved = True
                     break
+
+            # if we didnt resolve the path, we should not do anything
+            if not path_resolved:
+                continue
 
         #loading file
         spectrum_list = []
@@ -182,7 +190,7 @@ def main():
         #charge = 1
         #print(ionmode)
         if ionmode == "Positive":
-            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na", "M-2H2O+H", "2M+H", "M+K", "2M+K"]
+            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na", "M-2H2O+H", "2M+H", "M+K", "2M+K", "M+NH4"]
         else:
             adduct_list = ["M-H", "2M-H","2M-2H+Na"]
 
