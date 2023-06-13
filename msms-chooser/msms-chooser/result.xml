@@ -25,11 +25,11 @@
             <column type="text" field="IONMODE" label="IONMODE" width="12"/>
             <column type="text" field="EXACTMASS" label="EXACTMASS" width="12"/>
             <column type="genericimagedisplayer" label="Structure">
-                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="URLBASE" value="https://structure.gnps2.org/structureimg"/>
                 <parameter name="REQUESTPARAMETER=smiles" value="[SMILES]"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3">
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPSTASK-{task}:[FILENAME]:scan:[EXTRACTSCAN]"/>
                 <parameter name="LABEL" value="Spectrum USI"/>
             </column>
