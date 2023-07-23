@@ -81,7 +81,7 @@
             </column>
 
             <column type="genericimagedisplayer" label="Structure">
-                <parameter name="URLBASE" value="https://gnps-structure.ucsd.edu/structureimg"/>
+                <parameter name="URLBASE" value="https://structure.gnps2.org/structureimg"/>
                 <parameter name="REQUESTPARAMETER=smiles" value="[Smiles]"/>
                 <parameter name="REQUESTPARAMETER=inchi" value="[INCHI]"/>
             </column>
@@ -109,18 +109,18 @@
         </row>
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/mirror/"/>\
                 <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[#Scan#]"/>
                 <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[#Scan#]"/>
                 <parameter name="LABEL" value="Query Spectrum USI"/>
             </column>
             <column label="USI-Library" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:GNPS-LIBRARY:accession:[SpectrumID]"/>
                 <parameter name="LABEL" value="Library Spectrum USI"/>
             </column>
@@ -261,7 +261,7 @@
         </row>
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3" field="cluster index"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[cluster index]"/>
                 <parameter name="LABEL" value="Spectrum USI"/>
             </column>
@@ -486,7 +486,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value="http://gnps-cytoscape.ucsd.edu/process?task=[task]"/>
+        <parameter name="URLBASE" value="http://cytoscape.gnps2.org/process?task=[task]"/>
     </block>
 
     <view id="classicalcomparison" label="Visualize with Upset Plots (Beta)" group="Advanced Views - External Visualization">
@@ -666,7 +666,7 @@
         </row>
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/mirror/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/mirror/"/>\
                 <parameter name="REQUESTPARAMETER=usi1" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node1]"/>
                 <parameter name="REQUESTPARAMETER=usi2" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node2]"/>
                 <parameter name="REQUESTPARAMETER=cosine" value="shifted"/>
@@ -674,12 +674,12 @@
                 <parameter name="LABEL" value="Mirror Match USI"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node1]"/>
                 <parameter name="LABEL" value="Query Spectrum USI1"/>
             </column>
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-spectra/specs_ms.mgf:scan:[Node2]"/>
                 <parameter name="LABEL" value="Query Spectrum USI2"/>
             </column>
@@ -745,12 +745,12 @@
         </data>
         <row>
             <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="URLBASE" value="https://dashboard.gnps2.org"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
                 <parameter name="LABEL" value="View LCMS"/>
             </column>
             <column label="View Chromatogram (Beta)" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="URLBASE" value="https://dashboard.gnps2.org"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-f.[full_CCMS_path]"/>
                 <parameter name="REQUESTPARAMETER=overlay_usi" value="mzspec:GNPS:TASK-{task}-clusterinfosummarygroup_attributes_withIDs_withcomponentID/"/>
                 <parameter name="REQUESTPARAMETER=overlay_size" value="number of spectra"/>
@@ -1160,7 +1160,7 @@
                 <parameter name="LABEL" value="View Global Metadata"/>
             </column>
             <column label="View Chromatogram" type="genericurlgenerator" width="5">
-                <parameter name="URLBASE" value="https://gnps-lcms.ucsd.edu"/>
+                <parameter name="URLBASE" value="https://dashboard.gnps2.org"/>
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:[ScanNumber]"/>
                 <parameter name="REQUESTPARAMETER=xicmz" value="[parent mass]"/>
                 <parameter name="LABEL" value="View LCMS Chromatogram (Beta)"/>
@@ -1193,7 +1193,7 @@
         </row>
         <row expander="USI Links" expandericontype="text">
             <column label="USI-Spectrum" type="genericurlgenerator" width="3"> \
-                <parameter name="URLBASE" value="https://metabolomics-usi.ucsd.edu/spectrum/"/>\
+                <parameter name="URLBASE" value="https://metabolomics-usi.gnps2.org/spectrum/"/>\
                 <parameter name="REQUESTPARAMETER=usi" value="mzspec:GNPS:TASK-{task}-[Original_Path]:scan:[ScanNumber]"/>
                 <parameter name="LABEL" value="Spectrum USI"/>
             </column>
