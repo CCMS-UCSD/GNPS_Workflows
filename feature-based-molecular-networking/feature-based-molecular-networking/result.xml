@@ -754,7 +754,7 @@
                 <parser type="stream" contentType="text/xml"/>
             </parsers>
         </data>
-        <parameter name="URLBASE" value='https://gnps-plotter.ucsd.edu?task=[task]'/>
+        <parameter name="URLBASE" value='https://gnps-plotter.ucsd.edu?gnps_tall_table_usi=mzdata:GNPS:TASK-[task]-feature_statistics/data_long.csv'/>
     </block>
 
     <view id="data_for_plotting" label="API Data for Plotting" group="Advanced Views - Stats Views (Experimental)">
