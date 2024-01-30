@@ -37,7 +37,6 @@ def convert_to_feature_csv(input_filename, output_filename):
     nan_columns = input_format.columns[input_format.columns.isna()]
     input_format = input_format.drop(columns=nan_columns)
 
-    print(input_format.columns)
     input_format.columns = input_format.iloc[3]  # Use the third row as header
     input_format = input_format.drop(input_format.index[:4])  # Drop the first three rows
 
