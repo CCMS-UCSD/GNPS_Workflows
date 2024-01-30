@@ -10,6 +10,7 @@ import glob
 import openms_formatter
 import optimus_formatter
 import msdial_formatter
+import msdial5_formatter
 import metaboscape_formatter
 import xcms_formatter
 import mzmine_formatter
@@ -75,6 +76,17 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         msdial_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+    elif args.toolname == "MSDIAL5":
+        print("MSDIAL5")
+        
+        if len(input_filenames) != 1:
+            print("Must input exactly 1 spectrum mgf file")
+            exit(1)
+
+        input_mgf = input_filenames[0]
+        shutil.copyfile(input_mgf, args.output_mgf)
+        msdial5_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
+        msdial5_formatter.convert_mgf(input_mgf, args.output_mgf)
     elif args.toolname == "METABOSCAPE":
         print("METABOSCAPE")
         
