@@ -1,27 +1,52 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-@author: Mingxun Wang
+@author: Mingxun Wang and Louis-Felix Nothias
 @purpose: to convert the Progensis output into a diserable format
 """
 import pandas as pd
 import sys
+import csv
+import os
+
 
 def convert_to_feature_csv(input_filename, output_filename):
-    # First read the table and deduce the number of samples from the difference between Norm abundance and RAW abundance (skiprows=0)
-    input_format_for_raw_position = pd.read_csv(input_filename, sep=",", skiprows=0)
-    index_RAW = input_format_for_raw_position.columns.get_loc('Raw abundance')
-    index_Norm = input_format_for_raw_position.columns.get_loc('Normalised abundance')
-    assumed_number_of_samples = len(input_format_for_raw_position.iloc[:,index_Norm:index_RAW].columns)
+    
+    # This works for version v2.4 and standards encoding and quotes.
+    try:
+        input_format_for_raw_position = pd.read_csv(input_filename, sep=",", skiprows=0, low_memory=False)
+        print('Reading comma separated file with dot decimal separator')
+        input_format_for_raw_position.columns = input_format_for_raw_position.columns.astype(str)
 
+    # This is for European systems of decimals and quotes.
+    except:
+        input_format_for_raw_position = pd.read_csv(input_filename, sep=";", error_bad_lines=False, low_memory=False, decimal=",", quoting=csv.QUOTE_ALL)
+        print('Reading semicolon separated input file with comma decimal separator ')
+    
     #Check requirements for the table
-    required_names = ["Raw abundance", "Normalised abundance"]
+    required_names = ["Normalised abundance"]
     for require_name in required_names:
         if not require_name in input_format_for_raw_position:
-            raise Exception("Missing Column, please verify the format on the Progenesis QI {}".format(require_name))
+            raise Exception("Please verify the format on the Progenesis QI {}".format(require_name))
+
+    # In case there are no Raw abundance, we go for Normalized abundance
+    try: 
+        index_RAW = input_format_for_raw_position.columns.get_loc('Raw abundance')
+
+    except:
+        index_RAW = -1
+        print('No Raw abundance included')
+            
+    # First read the table and deduce the number of samples from the difference between Norm abundance and RAW abundance (skiprows=0)
+    index_Norm = input_format_for_raw_position.columns.get_loc('Normalised abundance')
+    assumed_number_of_samples = len(input_format_for_raw_position.iloc[:,index_Norm-1:index_RAW].columns)
 
     # Now read again the table for the samples and metadata column name (skiprows=2)
-    input_format = pd.read_csv(input_filename, sep=",", skiprows=2, encoding ='utf-8')
+    try:
+        input_format = pd.read_csv(input_filename, sep=",", skiprows=2)
+
+    except:
+        input_format = pd.read_csv(input_filename, sep=";", skiprows=2, decimal=",", quoting=csv.QUOTE_ALL)
 
     #Check requirements for the table
     required_names = ["Compound", "Retention time (min)", "m/z"]
@@ -63,6 +88,7 @@ def convert_to_feature_csv(input_filename, output_filename):
         for sample_name in sample_names:
             output_record2[sample_name + " Peak area"] = record[sample_name]
 
+
         #Adding extra columns that are not sample_names
         for key in record:
             if key in sample_names:
@@ -87,8 +113,7 @@ def convert_to_feature_csv(input_filename, output_filename):
     output_df2 = pd.DataFrame(output_records2)
     output_df_prepared = pd.concat([output_df, output_df2], axis=1)
 
-        # Round value for retention time column
-    output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].astype(float)
+    # Round value for retention time column
     output_df_prepared['row retention time'] =  output_df_prepared['row retention time'].apply(lambda x: round(x, 3))
 
     newdf = output_df_prepared
@@ -114,8 +139,13 @@ def convert_to_feature_csv(input_filename, output_filename):
         newdf = newdf.drop(['Retention time (min)'], axis=1)
 
     #Round values for columns
-    newdf['Neutral mass'] = newdf['Neutral mass'].apply(lambda x: round(x, 4))
-    newdf['Chromatographic peak width (min)'] = newdf['Chromatographic peak width (min)'].apply(lambda x: round(x, 3))
+    try:
+        newdf['Neutral mass'] = newdf['Neutral mass'].astype(float)
+        newdf['Neutral mass'] = newdf['Neutral mass'].apply(lambda x: round(float(x), 4))
+        newdf['Chromatographic peak width (min)'] = newdf['Chromatographic peak width (min)'].astype(float)
+        newdf['Chromatographic peak width (min)'] = newdf['Chromatographic peak width (min)'].apply(lambda x: round(float(x), 3))
+    except:
+        pass  
 
     #Write out the table
     newdf.to_csv(str(output_filename), sep=",", index=False)
@@ -124,6 +154,10 @@ def convert_to_feature_csv(input_filename, output_filename):
 
 #Converts MSP to MGF
 def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
+    try:
+        os.remove(output_mgf)
+    except:
+        pass
     output_filename = open(output_mgf, "w")
     read_name = False
 
@@ -142,8 +176,8 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
             comment = line.rstrip().replace("Comment: ", "FILENAME=")
             ret_time = line.rstrip().replace("Comment: ", "").replace("_", "__")
             sep = '__'
-            ret_time = ret_time.split(sep, 1)[0]
-
+            ret_time = ret_time.split(sep, 1)[0].replace(",", ".")
+                  
             if compound_name in observed_compound_names:
                 #print("skipping repeated feature")
                 continue
@@ -186,6 +220,7 @@ def convert_mgf(input_msp, output_mgf, compound_to_scan_mapping):
                     output_filename.write(str(charge)+"\n")
 
             output_filename.write(str(comment)+"\n")
+            ret_time = ret_time.replace(",", ".")
             output_filename.write("RTINMINUTES="+str(ret_time)+"\n")
             for peak in peaks:
                 output_filename.write("%f %f\n" % (peak[0], peak[1]))
