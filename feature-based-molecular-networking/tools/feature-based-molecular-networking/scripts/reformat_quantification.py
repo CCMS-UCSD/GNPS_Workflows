@@ -86,7 +86,7 @@ def main():
         input_mgf = input_filenames[0]
         shutil.copyfile(input_mgf, args.output_mgf)
         msdial5_formatter.convert_to_feature_csv(args.quantification_table, args.quantification_table_reformatted)
-
+        msdial5_formatter.convert_mgf(input_mgf, args.output_mgf)
     elif args.toolname == "METABOSCAPE":
         print("METABOSCAPE")
         
