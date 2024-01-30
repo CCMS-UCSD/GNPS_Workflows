@@ -3,47 +3,38 @@
 """
 Created on Thu Oct  4 17:20:37 2018, and updated April 2 2019
 
-@author: zheng zhang, louis felix nothias, and mingxun wang
+@author: zheng zhang, louis felix nothias, mingxun wang & Chris Pook
 @purpose: to convert the MS-DIAL file into a diserable format
 """
 import pandas as pd
 import sys
 
 def convert_to_feature_csv(input_filename, output_filename):
-    input_format = pd.read_csv(input_filename, sep='\t', skiprows=3)
-
+    
+    # first enumerate samples in the input
+    n_df = pd.read_csv(input_filename, sep='\t', skiprows=3, nrows = 5)
+    sample_columns = list(n_df)
+    last_sample_column = sample_columns.index('Average')
+    
+    # now process the rest of the data
+    input_df = pd.read_csv(input_filename, sep='\t', skiprows=4)
+        
     #Check IMS data columns and drop them
-    if 'Average drift time' in input_format.columns:
-        input_format = input_format.drop(['Average drift time','Average CCS'], axis=1)
+    if 'Average drift time' in input_df.columns:
+        input_df = input_df.drop(['Average drift time','Average CCS'], axis=1)
 
     #Continue with the processing
-    headers = list(input_format.keys())
-    sample_names = headers[22:]
+    headers = list(input_df.keys())
+    sample_names = headers[32:last_sample_column]
 
-    input_records = input_format.to_dict(orient="records")
-    output_records = []
+    columns = ["Alignment ID", "Average Mz", "Average Rt(min)"] + sample_names
+    output_df = input_df[columns].copy()
 
-    for record in input_records:
-        scan = record["Alignment ID"]
-        mz = record["Average Mz"]
-        rt = record["Average Rt(min)"]
-
-        output_record = {}
-        output_record["row ID"] = str(scan)
-        output_record["row m/z"] = str(mz)
-        output_record["row retention time"] = str(rt)
-
-        for sample_name in sample_names:
-            output_record[sample_name + " Peak area"] = record[sample_name]
-
-        output_records.append(output_record)
-
-    output_headers = ["row ID", "row m/z", "row retention time"]
-    output_headers += [sample_name + " Peak area" for sample_name in sample_names]
-
-    output_df = pd.DataFrame(output_records)
-    output_df.to_csv(output_filename, sep=",", index=False, columns=output_headers)
-
+    output_columns = ["row ID", "row m/z", "row retention time"]
+    output_columns += [sample_name + " Peak area" for sample_name in sample_names]
+    column_name_dict = dict(zip(columns, output_columns))
+    output_df.rename(columns = column_name_dict, inplace=True)
+    output_df.to_csv(output_filename, sep=",", index=False)
     return
 
 if __name__=="__main__":
