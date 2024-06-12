@@ -9,8 +9,8 @@ import openms_workflow as wrkflw
 def get_exec_cmd(input_file, file_count, out_port):
     output = out_port+'/'+out_port+'-'+file_count+'.mzML'
 
-    command = 'FileConverter '
-    command += '-in ' + input_file + ' -out ' + output + ' > ' + out_port+'/logfile-'+file_count+'.txt'
+    command = 'FileConverter'
+    command += ' -in ' + input_file + ' -out ' + output + ' -log ' + out_port+'/logfile-'+file_count+'.txt'
 
     print("COMMAND: " + command + '\n')
     return command
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # set env
     os.environ["LD_LIBRARY_PATH"] = sys.argv[1]
     os.environ["PATH"] = sys.argv[2]
-    os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
+    # os.environ["OPENMS_DATA_PATH"] = os.path.abspath(sys.argv[3])
 
     # ini file
     ini_file = None
