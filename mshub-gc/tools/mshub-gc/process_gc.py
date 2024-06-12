@@ -174,6 +174,7 @@ def determine_filetype_of_import(input_folder):
 #     spectrum_collection.spectrum_list = output_spectrum_list
 #     spectrum_collection.save_to_mgf(open(clustered_mgf, "w"))
 #
+#     TODO: Here we need to make sure to update the quant tables when merging
 #     ming_fileio_library.write_list_dict_table_data(output_result_list, clustersummary)
 
 def main():
