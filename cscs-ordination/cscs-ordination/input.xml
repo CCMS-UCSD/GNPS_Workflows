@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<interface id="cscs-ordination" version="release_9">
+    <workflow-id>CSCS-ORDINATION</workflow-id>
+    <workflow-label>CSCS-ORDINATION</workflow-label>
+    <parameters>
+        <parameter name="desc" label="Description">
+            <validator type="length" maximum="1000"/>
+        </parameter>
+        <parameter name="email" label="Email">
+            <validator type="email"/>
+        </parameter>
+
+        <parameter name="GNPS_TASK" label="Enter GNPS Task ID (Required)">
+            <default value="GNPS_TASK"/>
+        </parameter>
+
+    </parameters>
+
+    <!-- Input form layout -->
+    <block label="Network Selection">
+        <row>
+            <cell>
+                <label>
+                    <content parameter="GNPS_TASK"/>
+                </label>
+            </cell>
+            <cell>
+                <input type="text" parameter="GNPS_TASK">
+                    <attribute name="size" value="30"/>GNPS_TASK
+                </input>
+            </cell>
+        </row>
+    </block>
+
+    <block label="Advanced Merge Options">
+    </block>
+
+
+</interface>

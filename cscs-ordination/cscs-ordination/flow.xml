@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<flow name="cscs-ordination">
+	<object     name="workflowParameters"/>
+
+	<action name="begin">
+		<output port="flowParams" object="workflowParameters"/>
+	</action>
+
+	<collection name="output_folder"/>
+	<action name="cscs">
+        <input  port="workflowParameters" object="workflowParameters"/>
+		<output  port="output_folder" collection="output_folder"/>
+    </action>
+
+	<action name="end">
+		<input port="output_folder" collection="output_folder"/>
+	</action>
+</flow>
