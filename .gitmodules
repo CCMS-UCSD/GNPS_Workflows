@@ -16,3 +16,6 @@
 [submodule "GNPS_sharedcode"]
 	path = GNPS_sharedcode
 	url = https://github.com/mwang87/GNPS_sharedcode.git
+[submodule "RT_Model_Workflow"]
+	path = RT_Model_Workflow
+	url = https://github.com/mwang87/RT_Model_Workflow
