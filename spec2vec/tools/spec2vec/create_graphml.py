@@ -57,6 +57,16 @@ def main():
     output_pairs = os.path.join(args.output_folder, "filtered_pairs.tsv")
     molecular_network_filtering_library.output_graph_with_headers(G, output_pairs)
 
+    # Reset component index based on the new network topology
+    component_index = 0
+    for component in nx.connected_components(G):
+        component_index += 1
+        for node in component:
+            if len(component) == 1:
+                G.node[node]['componentindex'] = "-1"
+            else:
+                G.node[node]['componentindex'] = str(component_index)
+    
     nx.write_graphml(G, output_graphml)
 
 if __name__ == "__main__":
